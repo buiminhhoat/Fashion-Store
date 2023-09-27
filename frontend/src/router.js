@@ -1,7 +1,8 @@
 import {ROUTERS} from "./utils/router";
 import HomePage from "./pages/users/homePage";
 import {Route, Routes} from "react-router-dom";
-import Profile from "./pages/users/profile";
+import ProfilePage from "./pages/users/profilePage";
+import MasterLayout from "./pages/users/theme/masterLayout";
 
 const renderUserCustom = () => {
     const userRouters =  [
@@ -11,18 +12,20 @@ const renderUserCustom = () => {
         },
         {
             path: ROUTERS.USER.PROFILE,
-            component: <Profile />
+            component: <ProfilePage />
         }
     ]
 
     return (
-        <Routes>
-            {
-                userRouters.map((item, key) => (
-                    <Route key={key} path={item.path} element={item.component} />
-                ))
-            }
-        </Routes>
+        <MasterLayout>
+            <Routes>
+                {
+                    userRouters.map((item, key) => (
+                        <Route key={key} path={item.path} element={item.component} />
+                    ))
+                }
+            </Routes>
+        </MasterLayout>
     )
 }
 
