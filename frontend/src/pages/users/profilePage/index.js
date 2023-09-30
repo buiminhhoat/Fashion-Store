@@ -1,8 +1,12 @@
 import {memo} from "react";
 
 const ProfilePage = () => {
+    const divStyle = {
+        margin: "100px",
+    };
+
     return (
-        <h1>profile</h1>
+        <div style={divStyle}>profile</div>
     );
 }
 

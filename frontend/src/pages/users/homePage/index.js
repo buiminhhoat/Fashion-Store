@@ -1,8 +1,12 @@
 import {memo} from "react";
 
 const HomePage = () => {
+    const divStyle = {
+        // margin: "100px",
+    };
+
     return (
-        <h1>hompage</h1>
+        <div style={divStyle}>hompage</div>
     );
 }
 
