@@ -2,7 +2,7 @@ import {memo} from "react";
 
 const HomePage = () => {
     const divStyle = {
-        // margin: "100px",
+        padding: "200px",
     };
 
     return (
