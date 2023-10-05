@@ -155,14 +155,83 @@ const ProfilePersonalInformationPage = () => {
                                 <ul>{renderMenu(menuItemsProfile)}</ul>
                             </div>
                         </div>
-                        <div className="col-8 content-children item-row">
-                            <div className="order-wrap">
-                                {renderTabList(tabItems)}
 
-                                <div className="order-list">
-                                    <div className="tab-content clearfix" id="nav-tabContent">
-                                        {renderTabContent(tabItems)}
-                                    </div>
+                        <div className="col-8 content-children item-row">
+                            <div className="information-wrap">
+                                <div className="header-wrap">
+                                    <span className="title">Chỉnh sửa thông tin cá nhân</span>
+                                </div>
+                                <div className="form-wrap">
+                                    <form method="POST" action="https://5sfashion.vn/profile/update-info" className="form" id="form-info">
+                                        <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
+                                        <div className="input-wrap">
+                                            <label className="title">Họ và tên</label>
+                                            <span className="error--message"></span>
+                                            <input type="text" placeholder="Nhập họ và tên" className="input__info input" name="name" value="Hoạt Bùi Minh" />
+                                        </div>
+                                        <div className="input-wrap">
+                                            <label className="title">Email</label>
+                                            <input className="input" type="email" placeholder="Nhập email" readOnly disabled value="official.buiminhhoat@gmail.com" />
+                                        </div>
+                                        <div className="input-wrap">
+                                            <label className="title">Số điện thoại</label>
+                                            <span className="error--message"></span>
+                                            <input readOnly disabled type="text" placeholder="Nhập số điện thoại" className="input__info input" name="phone" value="0945405238" />
+                                        </div>
+                                        <div className="input-wrap">
+                                            <label className="title">Giới tính</label>
+                                            <div className="form-radio">
+                                                <div className="radio-item">
+                                                    <input type="radio" name="gender" id="0" value="0" checked />
+                                                    <label htmlFor="0">Nam</label>
+                                                </div>
+                                                <div className="radio-item">
+                                                    <input type="radio" name="gender" id="1" value="1" />
+                                                    <label htmlFor="1">Nữ</label>
+                                                </div>
+                                                <div className="radio-item">
+                                                    <input type="radio" name="gender" id="2" value="2" />
+                                                    <label htmlFor="2">Khác</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="input-wrap">
+                                            <label className="title">Ngày sinh</label>
+                                            <div className="date-of-birth">
+                                                <div className="choose-date">
+                                                    <span className="label-date" style={{ display: 'none' }}>Ngày</span>
+                                                    <select className="select-day form-select" id="day" name="date">
+                                                        <option value="day" className="option-date" style={{ display: 'none' }}></option>
+                                                        {Array.from({ length: 31 }, (_, i) => (
+                                                            <option key={i} value={i + 1}>{i + 1}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="choose-date">
+                                                    <span className="label-month" style={{ display: 'none' }}>Tháng</span>
+                                                    <select className="select-month form-select" id="month" name="month">
+                                                        <option value="month" className="option-month" style={{ display: 'none' }}></option>
+                                                        {Array.from({ length: 12 }, (_, i) => (
+                                                            <option key={i} value={i + 1}>Tháng {i + 1}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="choose-date">
+                                                    <span className="label-year" style={{ display: 'none' }}>Năm</span>
+                                                    <select className="select-year form-select" id="year" name="year">
+                                                        <option value="year" className="option-year" style={{ display: 'none' }}></option>
+                                                        {Array.from({ length: 91 }, (_, i) => (
+                                                            <option key={i} value={1933 + i}>{1933 + i}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <span className="error--message error-date"></span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="btn-wrap">
+                                    <button type="button" className="btn btn-primary btn-save-information">Lưu thông tin</button>
                                 </div>
                             </div>
                         </div>
