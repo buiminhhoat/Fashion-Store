@@ -126,48 +126,50 @@ function renderTabContent(tabItems) {
 
 const ProfileOrdersPage = () => {
     return (
-        <main id="main">
-            <div className="container profile-wrap">
-                <div className="breadcrumb-wrap">
-                    <a href="/">Trang chủ</a> &gt; <span>Tài khoản của tôi</span>
-                </div>
-
-                <div className="row content-wrap">
-                    <div className="col-4 menu-wrap item-row">
-                        <div className="header-wrap">
-                            <div className="image-wrap">
-                                <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt="Hoạt Bùi Minh" id="action-upload"/>
-                                <input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>
-                                <input type="file" id="upload-file" className="d-none"/>
-                            </div>
-                            <div className="text-header">
-                                <p>Xin chào,</p>
-                                <p className="name">Hoạt Bùi Minh</p>
-                            </div>
-                        </div>
-
-                        <div className="menu-nav-wrap">
-                            <ul>{renderMenu(menuItemsOrder)}</ul>
-                        </div>
-
-                        <div className="menu-nav-wrap">
-                            <ul>{renderMenu(menuItemsProfile)}</ul>
-                        </div>
+        <div id="app">
+            <main id="main">
+                <div className="container profile-wrap">
+                    <div className="breadcrumb-wrap">
+                        <a href="/">Trang chủ</a> &gt; <span>Tài khoản của tôi</span>
                     </div>
-                    <div className="col-8 content-children item-row">
-                        <div className="order-wrap">
-                            {renderTabList(tabItems)}
 
-                            <div className="order-list">
-                                <div className="tab-content clearfix" id="nav-tabContent">
-                                    {renderTabContent(tabItems)}
+                    <div className="row content-wrap">
+                        <div className="col-4 menu-wrap item-row">
+                            <div className="header-wrap">
+                                <div className="image-wrap">
+                                    <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt="Hoạt Bùi Minh" id="action-upload"/>
+                                    <input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>
+                                    <input type="file" id="upload-file" className="d-none"/>
+                                </div>
+                                <div className="text-header">
+                                    <p>Xin chào,</p>
+                                    <p className="name">Hoạt Bùi Minh</p>
+                                </div>
+                            </div>
+
+                            <div className="menu-nav-wrap">
+                                <ul>{renderMenu(menuItemsOrder)}</ul>
+                            </div>
+
+                            <div className="menu-nav-wrap">
+                                <ul>{renderMenu(menuItemsProfile)}</ul>
+                            </div>
+                        </div>
+                        <div className="col-8 content-children item-row">
+                            <div className="order-wrap">
+                                {renderTabList(tabItems)}
+
+                                <div className="order-list">
+                                    <div className="tab-content clearfix" id="nav-tabContent">
+                                        {renderTabContent(tabItems)}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     );
 }
 
