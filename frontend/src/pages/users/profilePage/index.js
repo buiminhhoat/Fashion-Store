@@ -2,7 +2,6 @@ import {memo} from "react";
 
 const ProfilePage = () => {
     const divStyle = {
-        margin: "100px",
     };
 
     return (

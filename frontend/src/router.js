@@ -3,6 +3,7 @@ import HomePage from "./pages/users/homePage";
 import {Route, Routes} from "react-router-dom";
 import ProfilePage from "./pages/users/profilePage";
 import LoginPage from "./pages/users/loginPage";
+import ProfileOrdersPage from "./pages/users/profileOrdersPage";
 import MasterLayout from "./pages/users/theme/masterLayout";
 
 const renderUserCustom = () => {
@@ -18,6 +19,10 @@ const renderUserCustom = () => {
         {
             path: ROUTERS.USER.LOGIN,
             component: <LoginPage />
+        },
+        {
+            path: ROUTERS.USER.PROFILE_ORDERS,
+            component: <ProfileOrdersPage />
         }
     ]
 
