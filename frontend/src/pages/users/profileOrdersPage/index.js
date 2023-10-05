@@ -1,12 +1,12 @@
 import {memo} from "react";
 import './style.scss';
-import iconOrder from './order.svg';
-import likeProduct from './likeProduct.svg'
-import view from './view.svg'
-import edit from './edit.svg'
-import address from './address.svg'
-import unlocked from './unlocked.svg'
-import logout from './logout.svg'
+import iconOrder from './images/order.svg';
+import likeProduct from './images/likeProduct.svg'
+import view from './images/view.svg'
+import edit from './images/edit.svg'
+import address from './images/address.svg'
+import unlocked from './images/unlocked.svg'
+import logout from './images/logout.svg'
 
 const menuItemsOrder = [
     {
