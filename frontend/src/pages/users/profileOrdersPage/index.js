@@ -7,6 +7,7 @@ import edit from './images/edit.svg'
 import address from './images/address.svg'
 import unlocked from './images/unlocked.svg'
 import logout from './images/logout.svg'
+import emptyProduct from './images/empty-product.png'
 
 const menuItemsOrder = [
     {
@@ -49,6 +50,15 @@ const menuItemsProfile = [
     },
 ];
 
+const tabItems = [
+    { id: "tab-all", text: "Tất cả", isActive: true },
+    { id: "tab1", text: "Chờ thanh toán", isActive: false },
+    { id: "tab5", text: "Đã xác nhận", isActive: false },
+    { id: "tab2", text: "Đang giao hàng", isActive: false },
+    { id: "tab3", text: "Hoàn thành", isActive: false },
+    { id: "tab4", text: "Đã hủy", isActive: false }
+];
+
 function renderMenu(menuItems) {
     const menuItemsJSX = [];
     for (let i = 0; i < menuItems.length; i++) {
@@ -67,6 +77,52 @@ function renderMenu(menuItems) {
     return menuItemsJSX;
 }
 
+function renderTabList(tabItems) {
+    const renderTabList = () => {
+        return tabItems.map((tab, index) => (
+            <a
+                key={tab.id}
+                className={`nav-link ${tab.isActive ? "active" : ""}`}
+                data-bs-toggle="tab"
+                data-bs-target={`#${tab.id}`}
+                role="tab"
+                aria-selected={tab.isActive}
+                tabIndex={tab.isActive ? "0" : "-1"}
+            >
+                {tab.text}
+            </a>
+        ));
+    };
+
+    return (
+        <div className="nav nav-tabs menu-tab" id="myTab" role="tablist">
+            {renderTabList()}
+        </div>
+    );
+}
+
+function renderTabContent(tabItems) {
+    const tabContent = [];
+    for (let i = 0; i < tabItems.length; i++) {
+        const tab = tabItems[i];
+        const isActive = i === 0; // Xác định tab đầu tiên là active
+
+        tabContent.push(
+            <div
+                key={tab.id}
+                className={`tab-pane ${isActive ? '' : 'fade'} ${isActive ? 'show active' : ''}`}
+                id={tab.id}
+                role="tabpanel"
+            >
+                <div className="empty-content">
+                    <img src={emptyProduct} alt="no data" />
+                    <p>Không có đơn hàng nào</p>
+                </div>
+            </div>
+        );
+    }
+    return tabContent;
+}
 
 const ProfileOrdersPage = () => {
     return (
@@ -100,91 +156,11 @@ const ProfileOrdersPage = () => {
                     </div>
                     <div className="col-8 content-children item-row">
                         <div className="order-wrap">
-                            <div className="nav nav-tabs menu-tab" id="myTab" role="tablist">
-                                <a className="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-all" role="tab" aria-selected="true">Tất cả</a>
-                                <a className="nav-link" data-bs-toggle="tab" data-bs-target="#tab1" role="tab" aria-selected="false" tabIndex="-1">Chờ thanh toán</a>
-                                <a className="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" role="tab" aria-selected="false" tabIndex="-1">Đã xác nhận</a>
-                                <a className="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" role="tab" aria-selected="false" tabIndex="-1">Đang giao hàng</a>
-                                <a className="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" role="tab" aria-selected="false" tabIndex="-1">Hoàn thành</a>
-                                <a className="nav-link" data-bs-toggle="tab" data-bs-target="#tab4" role="tab" aria-selected="false" tabIndex="-1">Đã hủy</a>
-                            </div>
+                            {renderTabList(tabItems)}
 
                             <div className="order-list">
                                 <div className="tab-content clearfix" id="nav-tabContent">
-                                    <div className="tab-pane fade show active" id="tab-all" role="tabpanel">
-                                        <div className="empty-content">
-                                            <img src="/images/empty-product.png" alt="no data"/>
-                                            <p>Không có đơn hàng nào</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="tab-pane fade" id="tab1" role="tabpanel">
-                                        <div className="empty-content">
-                                            <img src="/images/empty-product.png" alt="no data"/>
-                                            <p>Không có đơn hàng nào</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="tab-pane fade" id="tab5" role="tabpanel">
-                                        <div className="empty-content">
-                                            <img src="/images/empty-product.png" alt="no data"/>
-                                            <p>Không có đơn hàng nào</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="tab-pane fade" id="tab2" role="tabpanel">
-                                        <div className="empty-content">
-                                            <img src="/images/empty-product.png" alt="no data"/>
-                                            <p>Không có đơn hàng nào</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="tab-pane fade" id="tab3" role="tabpanel">
-                                        <div className="empty-content">
-                                            <img src="/images/empty-product.png" alt="no data"/>
-                                            <p>Không có đơn hàng nào</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="tab-pane fade" id="tab4" role="tabpanel">
-                                        <div className="empty-content">
-                                            <img src="/images/empty-product.png" alt="no data"/>
-                                            <p>Không có đơn hàng nào</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="modal fade modal-md" id="reviewModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Đánh giá sản phẩm</h1>
-                                            <button type="button" className="btn-close btn-close-modal-review" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form action="https://5sfashion.vn/product-rating/store" id="reviewForm" method="POST" encType="multipart/form-data" className="form-review">
-                                            <div className="modal-body" id="modal-body-rating"></div>
-                                            <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Huỷ</button>
-                                                <button type="button" className="btn btn-primary btn-submit-form">Đánh giá</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="modal fade modal-md view-rating" id="viewRating" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Đánh giá sản phẩm</h1>
-                                            <button type="button" class="btn-close btn-close-modal-review" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" id="modal-view-rating"></div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Đóng</button>
-                                        </div>
-                                    </div>
+                                    {renderTabContent(tabItems)}
                                 </div>
                             </div>
                         </div>
