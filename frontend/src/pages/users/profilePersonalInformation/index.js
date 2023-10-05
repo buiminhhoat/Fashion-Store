@@ -163,11 +163,11 @@ const ProfilePersonalInformationPage = () => {
                                 </div>
                                 <div className="form-wrap">
                                     <form method="POST" action="https://5sfashion.vn/profile/update-info" className="form" id="form-info">
-                                        <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
+                                        <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt"/>
                                         <div className="input-wrap">
                                             <label className="title">Họ và tên</label>
                                             <span className="error--message"></span>
-                                            <input type="text" placeholder="Nhập họ và tên" className="input__info input" name="name" value="Hoạt Bùi Minh" />
+                                            <input type="text" placeholder="Nhập họ và tên" className="input__info input" name="name"/>
                                         </div>
                                         <div className="input-wrap">
                                             <label className="title">Email</label>
