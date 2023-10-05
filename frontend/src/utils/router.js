@@ -4,6 +4,7 @@ export const ROUTERS = {
         PROFILE: "profile",
         PROFILE_ORDERS: "profile/orders",
         PROFILE_PERSONAL_INFORMATION: "profile/personal-information",
+        PROFILE_CHANGE_PASSWORD: "profile/change-password",
         LOGIN: "login"
     }
 }
