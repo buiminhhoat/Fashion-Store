@@ -11,7 +11,7 @@ import emptyProduct from './images/empty-product.png'
 import eyeOn from './images/eye_on.svg'
 import eyeOff from './images/eye_off.svg'
 import plus from './images/plus.svg'
-import addressList from './addressList'
+import arrowLeft1 from './images/arrow_left_1.svg'
 
 const menuItemsOrder = [
     {
@@ -128,7 +128,7 @@ function renderTabContent(tabItems) {
     return tabContent;
 }
 
-const ProfileAddress = () => {
+const ProfileNewAddress = () => {
     return (
         <div id="app">
             <main id="main">
@@ -161,38 +161,100 @@ const ProfileAddress = () => {
                         </div>
 
                         <div className="col-8 content-children item-row">
-                            <div className="address-wrap">
-                                <div className="header-wrap">
-                                    <span className="title">Sổ địa chỉ</span>
-                                </div>
-                                {addressList()}
-                                <a href="https://5sfashion.vn/profile/new-address" className="btn-wrap">
-                                    <span>Thêm địa chỉ mới</span>
-                                    <img src={plus} alt="icon add address" />
-                                </a>
+                            <section className="new__address__wrap">
+                                <section className="header__wrap">
+                                    <button className="btn__back">
+                                        <a href="https://5sfashion.vn/profile/address">
+                                            <img src={arrowLeft1} alt="icon arrow left" />
+                                        </a>
+                                    </button>
+                                    <span className="title">Thêm địa chỉ mới</span>
+                                </section>
 
-                                <div className="modal fade" id="delete-address-modal" data-bs-keyboard="false">
-                                    <div className="modal-dialog modal-dialog-centered">
-                                        <div className="modal-content">
-                                            <div className="modal-header subs-header">
-                                                <span className="modal-title">Cảnh báo</span>
+                                <form id="add-new-address" action="https://5sfashion.vn/profile/store-address" method="POST">
+                                    <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
+                                    <section className="content__wrap">
+                                        <article className="information__wrap">
+                                            <div className="info__item">
+                                                <label className="form-label">Họ tên</label>
+                                                <input type="text" className="form-control" id="name" placeholder="Nhập họ tên" name="name" />
+                                                <span className="error" id="errorName" />
                                             </div>
-                                            <div className="modal-sub-title">
-                                                Bạn có chắc chắn muốn xóa địa chỉ này?
+                                            <div className="info__item">
+                                                <label className="form-label">Số điện thoại</label>
+                                                <input type="text" className="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone" />
+                                                <span className="error" id="errorPhone" />
                                             </div>
-                                            <div className="modal-delete-address-footer">
-                                                <div className="btn-cancel" id="btn-close-modal" data-bs-dismiss="modal">
-                                                    Hủy bỏ
+                                        </article>
+
+                                        <article>
+                                            <div className="info__item">
+                                                <label className="form-label">Tỉnh thành</label>
+                                                <div className="select-form" id="province-select">
+                                                    <div className="input-select-wrap">
+                                                        <input name="province" data-type-input="province" className="input" type="text" readOnly placeholder="Chọn Tỉnh/Thành" />
+                                                        <span className="text-input-select">Chọn Tỉnh/Thành</span>
+                                                        <div className="icon-wrap">
+                                                            <svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div className="select-list-wrap" data-select="[{&quot;_id&quot;:&quot;63e5eec94ea25693e9047942&quot;,&quot;code&quot;:&quot;254&quot;,&quot;name&quot;:&quot;Hà Nội&quot;,&quot;updated_at&quot;:&quot;2023-02-10T07:14:17.355000Z&quot;,&quot;created_at&quot;:&quot;2023-02-10T07:14:17.355000Z&quot;}]">
+                                                        <input type="text" className="input-search-select" placeholder="Nhập để tìm kiếm" />
+                                                        <div className="select-list">
+                                                            <div className="item-select" data-value="254" data-name="Hà Nội">Hà Nội</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="btn-submit" id="btn-delete">
-                                                    Xóa
-                                                </div>
+                                                <span className="error" id="errorProvince" />
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                            <div className="info__item">
+                                                <label className="form-label">Quận huyện</label>
+                                                <div className="select-form" id="district-select">
+                                                    <div className="input-select-wrap input-select-disable-wrap">
+                                                        <input value="" name="district" data-type-input="district" className="input" type="text" readOnly placeholder="Chọn Tỉnh/Thành" />
+                                                        <span className="text-input-select">Chọn Tỉnh/Thành</span>
+                                                        <div className="icon-wrap">
+                                                            <svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span className="error" id="errorDistrict" />
+                                            </div>
+                                            <div className="info__item">
+                                                <label className="form-label">Phường xã</label>
+                                                <div className="select-form" id="ward-select">
+                                                    <div className="input-select-wrap input-select-disable-wrap">
+                                                        <input value="" name="ward" data-type-input="ward" className="input" type="text" readOnly placeholder="Chọn Tỉnh/Thành" />
+                                                        <span className="text-input-select">Chọn Tỉnh/Thành</span>
+                                                        <div className="icon-wrap">
+                                                            <svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span className="error" id="errorWard" />
+                                            </div>
+                                            <div className="info__item">
+                                                <label className="form-label">Địa chỉ</label>
+                                                <input type="text" className="form-control" id="address" placeholder="Nhập địa chỉ" name="address" />
+                                                <span className="error" id="errorAddress" />
+                                            </div>
+                                        </article>
+                                    </section>
+
+                                    <section className="footer__wrap">
+                                        <button type="button" className="btn btn-danger" id="save">Hoàn thành</button>
+                                        <button type="button" className="btn btn-outline-danger" id="cancel">Hủy bỏ</button>
+                                    </section>
+                                </form>
+                            </section>
                         </div>
+
 
                     </div>
                 </div>
@@ -201,4 +263,4 @@ const ProfileAddress = () => {
     );
 }
 
-export default memo(ProfileAddress);
+export default memo(ProfileNewAddress);

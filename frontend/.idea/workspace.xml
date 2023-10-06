@@ -4,50 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Profile Address">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/addressList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/all.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/auth.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/main.e8c5978f.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/notification.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/owl.carousel.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/profile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/address.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/arrow-down.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/edit.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/empty-product.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/eye_off.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/eye_on.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/facebook.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/fb.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/gg.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/lazada.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/likeProduct.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logo-zalo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logoSaleNoti.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logout.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/mail.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/order.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/phone-call.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/phone.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/plus.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/search.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/shopee.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/store.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/tiki.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/unlocked.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/up.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/view.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/zalo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/style.scss" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Profile New Address">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/addressList.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/router.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +65,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696535178228</updated>
       <workItem from="1696535180361" duration="2203000" />
-      <workItem from="1696601487802" duration="4668000" />
+      <workItem from="1696601487802" duration="5238000" />
     </task>
     <task id="LOCAL-00001" summary="Update Profile Change Password">
       <option name="closed" value="true" />
@@ -154,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696608850440</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add Profile New Address">
+      <option name="closed" value="true" />
+      <created>1696611198366</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1696611198366</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +133,7 @@
     <MESSAGE value="Update Profile Change Password" />
     <MESSAGE value="Add Profile Address" />
     <MESSAGE value="Update Profile Address" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Profile Address" />
+    <MESSAGE value="Add Profile New Address" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Profile New Address" />
   </component>
 </project>
