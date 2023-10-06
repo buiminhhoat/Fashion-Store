@@ -5,8 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Profile Change Password">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/all.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/auth.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/main.e8c5978f.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/notification.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/owl.carousel.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/css/profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/address.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/arrow-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/edit.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/empty-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/eye_off.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/eye_on.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/facebook.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/fb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/gg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/lazada.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/likeProduct.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logo-zalo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logoSaleNoti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logout.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/mail.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/order.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/phone-call.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/phone.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/search.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/shopee.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/store.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/tiki.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/unlocked.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/view.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/images/zalo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/router.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +76,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/theme/menu",
+    "last_opened_file_path": "D:/IT/Web/Fashion-Store/frontend/src/pages/users/profileAddress",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -49,6 +87,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IT\Web\Fashion-Store\frontend\src\pages\users\profileAddress" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\menu" />
     </key>
   </component>
@@ -61,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696535178228</updated>
       <workItem from="1696535180361" duration="2203000" />
-      <workItem from="1696601487802" duration="499000" />
+      <workItem from="1696601487802" duration="786000" />
     </task>
     <task id="LOCAL-00001" summary="Update Profile Change Password">
       <option name="closed" value="true" />
@@ -71,7 +110,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696601850151</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update Profile Change Password">
+      <option name="closed" value="true" />
+      <created>1696602072825</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1696602072825</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
