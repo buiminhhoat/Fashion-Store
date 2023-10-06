@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Profile Change Password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileChangePassword/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/main.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,11 +61,24 @@
       <option name="presentableId" value="Default" />
       <updated>1696535178228</updated>
       <workItem from="1696535180361" duration="2203000" />
-      <workItem from="1696601487802" duration="315000" />
+      <workItem from="1696601487802" duration="499000" />
     </task>
+    <task id="LOCAL-00001" summary="Update Profile Change Password">
+      <option name="closed" value="true" />
+      <created>1696601850151</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1696601850151</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update Profile Change Password" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Profile Change Password" />
   </component>
 </project>

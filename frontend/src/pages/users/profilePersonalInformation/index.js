@@ -182,7 +182,7 @@ const ProfilePersonalInformationPage = () => {
                                             <label className="title">Giới tính</label>
                                             <div className="form-radio">
                                                 <div className="radio-item">
-                                                    <input type="radio" name="gender" id="0" value="0" checked />
+                                                    <input type="radio" name="gender" id="0" value="0" />
                                                     <label htmlFor="0">Nam</label>
                                                 </div>
                                                 <div className="radio-item">
