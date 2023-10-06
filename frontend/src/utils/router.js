@@ -6,6 +6,7 @@ export const ROUTERS = {
         PROFILE_PERSONAL_INFORMATION: "profile/personal-information",
         PROFILE_CHANGE_PASSWORD: "profile/change-password",
         PROFILE_ADDRESS: "profile/address",
+        PROFILE_NEW_ADDRESS: "profile/new-address",
         LOGIN: "login"
     }
 }

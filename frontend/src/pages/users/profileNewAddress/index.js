@@ -128,7 +128,7 @@ function renderTabContent(tabItems) {
     return tabContent;
 }
 
-const ProfileNewAddress = () => {
+const ProfileAddress = () => {
     return (
         <div id="app">
             <main id="main">
@@ -201,4 +201,4 @@ const ProfileNewAddress = () => {
     );
 }
 
-export default memo(ProfileNewAddress);
+export default memo(ProfileAddress);

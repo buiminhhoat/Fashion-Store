@@ -8,6 +8,7 @@ import ProfilePersonalInformationPage from "./pages/users/profilePersonalInforma
 import ProfileChangePassword from "./pages/users/profileChangePassword";
 import MasterLayout from "./pages/users/theme/masterLayout";
 import ProfileAddress from "./pages/users/profileAddress";
+import ProfileNewAddress from "./pages/users/profileAddress";
 
 const renderUserCustom = () => {
     const userRouters =  [
@@ -38,6 +39,10 @@ const renderUserCustom = () => {
         {
             path: ROUTERS.USER.PROFILE_ADDRESS,
             component: <ProfileAddress />
+        },
+        {
+            path: ROUTERS.USER.PROFILE_NEW_ADDRESS,
+            component: <ProfileNewAddress />
         }
     ]
 
