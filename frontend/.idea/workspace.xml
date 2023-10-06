@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Profile Address">
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Profile Address">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/addressList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileAddress/index.js" afterDir="false" />
     </list>
@@ -62,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696535178228</updated>
       <workItem from="1696535180361" duration="2203000" />
-      <workItem from="1696601487802" duration="1246000" />
+      <workItem from="1696601487802" duration="3419000" />
     </task>
     <task id="LOCAL-00001" summary="Update Profile Change Password">
       <option name="closed" value="true" />
@@ -88,7 +89,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696602342432</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Update Profile Address">
+      <option name="closed" value="true" />
+      <created>1696602803841</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1696602803841</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -97,6 +106,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update Profile Change Password" />
     <MESSAGE value="Add Profile Address" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Profile Address" />
+    <MESSAGE value="Update Profile Address" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Profile Address" />
   </component>
 </project>

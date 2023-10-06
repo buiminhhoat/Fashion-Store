@@ -11,6 +11,7 @@ import emptyProduct from './images/empty-product.png'
 import eyeOn from './images/eye_on.svg'
 import eyeOff from './images/eye_off.svg'
 import plus from './images/plus.svg'
+import addressList from './addressList'
 
 const menuItemsOrder = [
     {
@@ -164,24 +165,7 @@ const ProfileAddress = () => {
                                 <div className="header-wrap">
                                     <span className="title">Sổ địa chỉ</span>
                                 </div>
-                                <div className="box-address">
-                                    <div className="item-address-wrap" data-item-address-id="65201956a33b82cac209f638">
-                                        <div className="information">
-                                            <span className="name">Bùi Minh Hoạt</span>
-                                            <div className="break-item">|</div>
-                                            <span className="phone">0945405238</span>
-                                            <div className="default-address">Mặc định</div>
-                                        </div>
-                                        <div className="address">
-                                            <span>144 Xuân Thủy, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội</span>
-                                        </div>
-                                        <div className="box-btn-wrap">
-                                            <div className="btn-wrap-item">
-                                                <a href="https://5sfashion.vn/profile/address/65201956a33b82cac209f638" className="edit">Sửa</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {addressList()}
 
                                 <a href="https://5sfashion.vn/profile/new-address" className="btn-wrap">
                                     <span>Thêm địa chỉ mới</span>
