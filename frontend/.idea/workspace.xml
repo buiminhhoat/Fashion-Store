@@ -5,23 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/menu/bootstrap.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/main.e8c5978f.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/main.e8c5978f.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/main.e8c5978f.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/main.e8c5978f.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/main.e8c5978f.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/main.e8c5978f.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/menu/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/menu/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/css/jquery.simpleLens.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/css/jquery.smartmenus.bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/css/nouislider.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/css/sequence-theme.modern-slide-in.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/css/slick.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileChangePassword/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +21,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
   <component name="ProjectId" id="2WMGjaC3lS8m07TmIC5vihbpyj8" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -48,6 +39,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/theme/menu",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -71,6 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696535178228</updated>
       <workItem from="1696535180361" duration="2203000" />
+      <workItem from="1696601487802" duration="315000" />
     </task>
     <servers />
   </component>

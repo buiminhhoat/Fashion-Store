@@ -172,8 +172,7 @@ const ProfileChangePassword = () => {
                                                 <label className="form-label">Mật khẩu cũ</label>
                                                 <div className="input__wrap">
                                                     <span className="error--message"></span>
-
-                                                    <input type="password" name="old_password" value="" className="form-control input--password" placeholder="Nhập mật khẩu cũ" />
+                                                    <input type="password" name="old_password" className="form-control input--password" placeholder="Nhập mật khẩu cũ" />
                                                     <img src={eyeOn} alt="icon show password" className="show__password d-none" />
                                                     <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
                                                 </div>
@@ -183,7 +182,7 @@ const ProfileChangePassword = () => {
                                                 <div className="input__wrap">
                                                     <span className="error--message"></span>
 
-                                                    <input type="password" name="new_password" value="" className="form-control input--password" placeholder="Nhập mật khẩu mới" />
+                                                    <input type="password" name="new_password" className="form-control input--password" placeholder="Nhập mật khẩu mới" />
                                                     <img src={eyeOn} alt="icon show password" className="show__password d-none" />
                                                     <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
                                                 </div>
@@ -192,8 +191,7 @@ const ProfileChangePassword = () => {
                                                 <label className="form-label">Nhập lại mật khẩu mới</label>
                                                 <div className="input__wrap">
                                                     <span className="error--message"></span>
-
-                                                    <input type="password" name="confirm_password" value="" className="form-control input--password" placeholder="Nhập lại mật khẩu mới" />
+                                                    <input type="password" name="confirm_password" className="form-control input--password" placeholder="Nhập lại mật khẩu mới" />
                                                     <img src={eyeOn} alt="icon show password" className="show__password d-none" />
                                                     <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
                                                 </div>
