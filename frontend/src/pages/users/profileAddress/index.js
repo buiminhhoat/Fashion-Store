@@ -10,6 +10,7 @@ import logout from './images/logout.svg'
 import emptyProduct from './images/empty-product.png'
 import eyeOn from './images/eye_on.svg'
 import eyeOff from './images/eye_off.svg'
+import plus from './images/plus.svg'
 
 const menuItemsOrder = [
     {
@@ -159,53 +160,57 @@ const ProfileAddress = () => {
                         </div>
 
                         <div className="col-8 content-children item-row">
-                            <section className="change__password__wrap">
-                                <section className="header__wrap">
-                                    <span className="title">Đổi mật khẩu</span>
-                                </section>
+                            <div className="address-wrap">
+                                <div className="header-wrap">
+                                    <span className="title">Sổ địa chỉ</span>
+                                </div>
+                                <div className="box-address">
+                                    <div className="item-address-wrap" data-item-address-id="65201956a33b82cac209f638">
+                                        <div className="information">
+                                            <span className="name">Bùi Minh Hoạt</span>
+                                            <div className="break-item">|</div>
+                                            <span className="phone">0945405238</span>
+                                            <div className="default-address">Mặc định</div>
+                                        </div>
+                                        <div className="address">
+                                            <span>144 Xuân Thủy, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội</span>
+                                        </div>
+                                        <div className="box-btn-wrap">
+                                            <div className="btn-wrap-item">
+                                                <a href="https://5sfashion.vn/profile/address/65201956a33b82cac209f638" className="edit">Sửa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <form id="change-password-form" method="POST" action="https://5sfashion.vn/profile/update-password">
-                                    <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
-                                    <section className="content__wrap">
-                                        <article>
-                                            <div className="info__item">
-                                                <label className="form-label">Mật khẩu cũ</label>
-                                                <div className="input__wrap">
-                                                    <span className="error--message"></span>
-                                                    <input type="password" name="old_password" className="form-control input--password" placeholder="Nhập mật khẩu cũ" />
-                                                    <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                                                    <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
+                                <a href="https://5sfashion.vn/profile/new-address" className="btn-wrap">
+                                    <span>Thêm địa chỉ mới</span>
+                                    <img src={plus} alt="icon add address" />
+                                </a>
+
+                                <div className="modal fade" id="delete-address-modal" data-bs-keyboard="false">
+                                    <div className="modal-dialog modal-dialog-centered">
+                                        <div className="modal-content">
+                                            <div className="modal-header subs-header">
+                                                <span className="modal-title">Cảnh báo</span>
+                                            </div>
+                                            <div className="modal-sub-title">
+                                                Bạn có chắc chắn muốn xóa địa chỉ này?
+                                            </div>
+                                            <div className="modal-delete-address-footer">
+                                                <div className="btn-cancel" id="btn-close-modal" data-bs-dismiss="modal">
+                                                    Hủy bỏ
+                                                </div>
+                                                <div className="btn-submit" id="btn-delete">
+                                                    Xóa
                                                 </div>
                                             </div>
-                                            <div className="info__item">
-                                                <label className="form-label">Mật khẩu mới</label>
-                                                <div className="input__wrap">
-                                                    <span className="error--message"></span>
-
-                                                    <input type="password" name="new_password" className="form-control input--password" placeholder="Nhập mật khẩu mới" />
-                                                    <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                                                    <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
-                                                </div>
-                                            </div>
-                                            <div className="info__item">
-                                                <label className="form-label">Nhập lại mật khẩu mới</label>
-                                                <div className="input__wrap">
-                                                    <span className="error--message"></span>
-                                                    <input type="password" name="confirm_password" className="form-control input--password" placeholder="Nhập lại mật khẩu mới" />
-                                                    <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                                                    <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </section>
-
-                                    <section className="footer__wrap">
-                                        <button type="button" className="btn__action btn btn-danger" id="submit-form">Lưu lại</button>
-                                        <a href="https://5sfashion.vn" type="button" className="btn__action btn btn-outline-danger">Hủy bỏ</a>
-                                    </section>
-                                </form>
-                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </main>
