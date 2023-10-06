@@ -4,10 +4,28 @@ let addresses = [
     {
         id: "65201956a33b82cac209f638",
         name: "Bùi Minh Hoạt",
-        phone: "0945405238",
+        phone: "0945405xxx",
         isDefault: true,
-        address: "144 Xuân Thủy, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội",
+        address: "144 XT, Phường DVH, Quận CG, Hà Nội",
         editLink: "https://5sfashion.vn/profile/address/65201956a33b82cac209f638",
+    },
+
+    {
+        id: "65201956a33b82cac209a529",
+        name: "Nguyễn Châu Khanh",
+        phone: "0944252xxx",
+        isDefault: false,
+        address: "3 VTQ, Phường XYZ, Quận Thanh Xuân, Hà Nội",
+        editLink: "https://5sfashion.vn/profile/address/65201956a33b82cac209a529",
+    },
+
+    {
+        id: "65201956a33b82cac209sf32",
+        name: "Nguyễn Tiến Dũng",
+        phone: "0903481xxx",
+        isDefault: false,
+        address: "Trương Định, Phường MNP, Quận Hoàng Mai, Hà Nội",
+        editLink: "https://5sfashion.vn/profile/address/65201956a33b82cac209sf32",
     },
     // Thêm các địa chỉ khác vào đây nếu cần
 ];
