@@ -134,7 +134,78 @@ const Header = () => {
                       />
                   ))}
                 </div>
-                {/* Phần còn lại của header */}
+                <div className="col-3 content-right d-flex justify-content-end align-items-center ps-0 pe-0">
+                  <div className="search-box position-relative">
+                    <form action="https://5sfashion.vn/search" method="get">
+                      <input
+                          id="search-product"
+                          name="query"
+                          autoComplete="off"
+                          type="text"
+                          value=""
+                          className="input-search form-control w-100 h-100 d-flex align-items-center"
+                          placeholder="Tìm kiếm sản phẩm ..."
+                      />
+                      <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">
+                        <img src={search} className="icon-search" alt="icon search" />
+                      </button>
+                    </form>
+                    <div className="result-box position-absolute" style={{ display: "none" }}></div>
+                  </div>
+                  <div className="header-tool h-100">
+                    <div className="d-flex justify-content-end align-items-center h-100">
+                      <div className="cart-drop position-relative d-flex justify-content-end">
+                        <Link to="/cart">
+                          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16.25 0H3.75C2.375 0 1.25 1.125 1.25 2.5V19.375C1.25 19.75 1.5 20 1.875 20H18.125C18.5 20 18.75 19.75 18.75 19.375V2.5C18.75 1.125 17.625 0 16.25 0ZM10 12.5C7.25 12.5 5 10.25 5 7.5C5 7.125 5.25 6.875 5.625 6.875C6 6.875 6.25 7.125 6.25 7.5C6.25 9.5625 7.9375 11.25 10 11.25C12.0625 11.25 13.75 9.5625 13.75 7.5C13.75 7.125 14 6.875 14.375 6.875C14.75 6.875 15 7.125 15 7.5C15 10.25 12.75 12.5 10 12.5ZM16.25 3.75H3.75C3.0625 3.75 2.5 3.1875 2.5 2.5C2.5 1.8125 3.0625 1.25 3.75 1.25H16.25C16.9375 1.25 17.5 1.8125 17.5 2.5C17.5 3.1875 16.9375 3.75 16.25 3.75Z"
+                                fill="#4F525D"
+                            ></path>
+                          </svg>
+                          <span className="count_item count_item_pr hidden-count position-absolute text-center d-flex align-items-center justify-content-center">
+                0
+              </span>
+                        </Link>
+                      </div>
+                      <div className="user-drop h-100 position-relative d-flex align-items-center justify-content-end" id="user-drop">
+                        <a className="" href="https://5sfashion.vn/profile/orders">
+                          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 0C4.48625 0 0 4.48625 0 10C0 15.5137 4.48625 20 10 20C15.5137 20 20 15.5137 20 10C20 4.48625 15.5137 0 10 0ZM6.25 8.75C6.25 6.68187 7.93187 5 10 5C12.0681 5 13.75 6.68187 13.75 8.75V10C13.75 12.0681 12.0681 13.75 10 13.75C7.93187 13.75 6.25 12.0681 6.25 10V8.75ZM10 18.75C8.17937 18.75 6.4875 18.19 5.08563 17.2344C6 16.2475 7.30188 15.625 8.75 15.625H11.25C12.6981 15.625 14 16.2475 14.9144 17.2344C13.5125 18.19 11.8206 18.75 10 18.75Z"
+                                fill="#4F525D"
+                            ></path>
+                          </svg>
+                        </a>
+                        <div className="account_header position-absolute">
+                          <ul className="p-0 m-0">
+                            <li>
+                              <a href="https://5sfashion.vn/profile/personal-information">
+                                <b>Khanh Nguyễn</b>
+                              </a>
+                            </li>
+                            <li>
+                              <a href="https://5sfashion.vn/profile/orders">Đơn hàng của tôi</a>
+                            </li>
+                            <li>
+                              <a href="https://5sfashion.vn/profile/personal-information">Trang cá nhân</a>
+                            </li>
+                            <li>
+                              <a href="https://5sfashion.vn/profile/products/favorite">Sản phẩm yêu thích</a>
+                            </li>
+                            <li className="logout">
+                              <a href="https://5sfashion.vn/logout">
+                                {/*<logout src="/images/icons/logout.svg" alt="icon ">*/}
+                                {/*  Đăng xuất*/}
+                                {/*</logout>*/}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="btn-open-modal-change-password"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
