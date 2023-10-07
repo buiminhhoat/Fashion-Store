@@ -1,12 +1,7 @@
 export const ROUTERS = {
     USER: {
-        HOME: "",
-        PROFILE: "profile",
-        PROFILE_ORDERS: "profile/orders",
-        PROFILE_PERSONAL_INFORMATION: "profile/personal-information",
-        PROFILE_CHANGE_PASSWORD: "profile/change-password",
-        PROFILE_ADDRESS: "profile/address",
-        PROFILE_NEW_ADDRESS: "profile/new-address",
-        LOGIN: "login"
+        HOME: "/*",
+        PROFILE: "profile/*",
+        LOGIN: "login/*"
     }
 }

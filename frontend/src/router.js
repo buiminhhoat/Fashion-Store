@@ -1,14 +1,10 @@
 import {ROUTERS} from "./utils/router";
-import HomePage from "./pages/users/homePage";
 import {Route, Routes} from "react-router-dom";
+
+import HomePage from "./pages/users/homePage";
 import ProfilePage from "./pages/users/profilePage";
 import LoginPage from "./pages/users/loginPage";
-import ProfileOrdersPage from "./pages/users/profileOrdersPage";
-import ProfilePersonalInformationPage from "./pages/users/profilePersonalInformation";
-import ProfileChangePassword from "./pages/users/profileChangePassword";
 import MasterLayout from "./pages/users/theme/masterLayout";
-import ProfileAddress from "./pages/users/profileAddress";
-import ProfileNewAddress from "./pages/users/profileNewAddress";
 
 const renderUserCustom = () => {
     const userRouters =  [
@@ -23,26 +19,6 @@ const renderUserCustom = () => {
         {
             path: ROUTERS.USER.LOGIN,
             component: <LoginPage />
-        },
-        {
-            path: ROUTERS.USER.PROFILE_ORDERS,
-            component: <ProfileOrdersPage />
-        },
-        {
-            path: ROUTERS.USER.PROFILE_PERSONAL_INFORMATION,
-            component: <ProfilePersonalInformationPage />
-        },
-        {
-            path: ROUTERS.USER.PROFILE_CHANGE_PASSWORD,
-            component: <ProfileChangePassword />
-        },
-        {
-            path: ROUTERS.USER.PROFILE_ADDRESS,
-            component: <ProfileAddress />
-        },
-        {
-            path: ROUTERS.USER.PROFILE_NEW_ADDRESS,
-            component: <ProfileNewAddress />
         }
     ]
 

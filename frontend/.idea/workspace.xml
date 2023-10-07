@@ -5,10 +5,207 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Profile New Address">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/empty-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/logoSaleNoti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/phone-call.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePage/router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/profilePage/utils/router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/addressList.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profileNewAddress/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/addressList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/addressList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/all.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/all.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/auth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/main.e8c5978f.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/main.e8c5978f.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/notification.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/notification.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/owl.carousel.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/owl.carousel.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/address.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/address.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/arrow-down.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/arrow-down.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/edit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/empty-product.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/empty-product.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/eye_off.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/eye_off.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/eye_on.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/eye_on.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/facebook.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/facebook.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/fb.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/gg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/lazada.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/lazada.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/likeProduct.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/likeProduct.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logo-zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/logo-zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logoSaleNoti.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/logoSaleNoti.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/logout.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/logout.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/mail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/mail.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/order.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/order.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/phone-call.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/phone-call.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/phone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/phone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/plus.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/plus.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/shopee.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/shopee.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/store.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/store.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/tiki.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/tiki.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/unlocked.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/unlocked.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/up.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/up.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/view.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/view.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/images/zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/images/zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileAddress/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileAddress/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/auth.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/main.e8c5978f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/notification.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/owl.carousel.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/address.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/address.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/arrow-down.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/arrow-down.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/edit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/empty-product.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/empty-product.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/eye_off.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/eye_off.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/eye_on.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/eye_on.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/facebook.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/facebook.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/fb.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/gg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/lazada.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/lazada.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/likeProduct.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/likeProduct.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/logo-zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/logo-zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/logoSaleNoti.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/logoSaleNoti.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/logout.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/logout.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/mail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/mail.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/order.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/order.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/phone-call.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/phone-call.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/phone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/phone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/shopee.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/shopee.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/store.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/store.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/tiki.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/tiki.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/unlocked.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/unlocked.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/up.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/up.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/view.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/view.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/images/zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/images/zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileChangePassword/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileChangePassword/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/auth.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/main.e8c5978f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/notification.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/owl.carousel.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/address.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/address.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/arrow-down.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/arrow-down.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/arrow_left_1.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/arrow_left_1.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/edit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/empty-product.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/empty-product.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/eye_off.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/eye_off.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/eye_on.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/eye_on.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/facebook.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/facebook.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/fb.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/gg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/lazada.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/lazada.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/likeProduct.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/likeProduct.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logo-zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/logo-zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logoSaleNoti.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/logoSaleNoti.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/logout.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/logout.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/mail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/mail.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/order.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/order.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/phone-call.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/phone-call.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/phone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/phone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/plus.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/plus.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/shopee.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/shopee.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/store.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/store.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/tiki.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/tiki.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/unlocked.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/unlocked.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/up.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/up.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/view.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/view.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/images/zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/images/zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileNewAddress/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileNewAddress/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/auth.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/main.e8c5978f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/notification.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/owl.carousel.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/address.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/address.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/arrow-down.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/arrow-down.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/edit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/empty-product.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/empty-product.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/facebook.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/facebook.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/fb.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/gg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/lazada.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/lazada.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/likeProduct.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/likeProduct.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/logo-zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/logo-zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/logoSaleNoti.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/logoSaleNoti.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/logout.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/logout.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/mail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/mail.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/order.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/order.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/phone-call.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/phone-call.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/phone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/phone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/shopee.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/shopee.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/store.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/store.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/tiki.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/tiki.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/unlocked.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/unlocked.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/up.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/up.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/view.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/view.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/images/zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/images/zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profileOrdersPage/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profileOrdersPage/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePage/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/auth.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/main.e8c5978f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/notification.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/owl.carousel.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/address.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/address.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/arrow-down.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/arrow-down.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/edit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/empty-product.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/facebook.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/facebook.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/fb.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/gg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/lazada.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/lazada.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/likeProduct.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/likeProduct.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/logo-zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/logo-zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/logoSaleNoti.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/logout.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/logout.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/mail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/mail.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/order.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/order.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/phone-call.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/phone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/phone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/shopee.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/shopee.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/store.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/store.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/tiki.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/tiki.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/unlocked.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/unlocked.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/up.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/up.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/view.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/view.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/images/zalo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/images/zalo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePersonalInformation/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/profilePersonalInformation/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,10 +218,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2WMGjaC3lS8m07TmIC5vihbpyj8" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -40,20 +237,25 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/IT/Web/Fashion-Store/frontend/src/pages/users/profileNewAddress",
+    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/profilePage",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\profilePage" />
       <recent name="D:\IT\Web\Fashion-Store\frontend\src\pages\users\profileNewAddress" />
       <recent name="D:\IT\Web\Fashion-Store\frontend\src\pages\users\profileAddress" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\menu" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\profilePage" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
