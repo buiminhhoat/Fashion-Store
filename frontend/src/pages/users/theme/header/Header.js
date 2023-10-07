@@ -4,49 +4,7 @@ import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import './style.scss';
 
-const MenuItem = ({ to, text, subMenuItems, megaMenuVisible, handleMouseEnter, handleMouseLeave }) => (
-    <div
-        className="menu-header p-0 d-flex align-items-center position-relative h-100"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-    >
-      <Link to={to} className="menu-header-text d-flex align-items-center text-center position-relative">
-        {text}
-        {subMenuItems && (
-            <img src={arrowDown} alt="icon arrow down" className="position-absolute"/>
-        )}
-      </Link>
-      {subMenuItems && (
-          <div className={`mega-menu position-absolute ${megaMenuVisible ? "show" : ""}`} id="mega-menu-box">
-            <div className="mega-menu-content d-flex">
-              {subMenuItems.map((subMenuItem, subIndex) => (
-                  <div key={subIndex} className="menu-col">
-                    <div className="menu-parent d-flex align-items-center">
-                      <div className="menu-parent-title d-flex align-items-center">
-                        <Link to={subMenuItem.to}>{subMenuItem.text}</Link>
-                      </div>
-                      {subMenuItem.subMenuItems && (
-                          <img src={arrowDown} className="menu-icon" alt="icon arrow down"/>
-                      )}
-                    </div>
-                    {subMenuItem.subMenuItems && (
-                        <ul className="menu-children ps-0">
-                          {subMenuItem.subMenuItems.map((subSubMenu, subSubMenuIndex) => (
-                              <li key={subSubMenuIndex} className="d-flex align-items-center">
-                                <Link to={subSubMenu.to}>{subSubMenu.text}</Link>
-                              </li>
-                          ))}
-                        </ul>
-                    )}
-                  </div>
-              ))}
-            </div>
-          </div>
-      )}
-    </div>
-);
-
-const Header = () => {
+const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
 
   const handleMouseEnter = () => {
@@ -57,6 +15,50 @@ const Header = () => {
     setMegaMenuVisible(false);
   };
 
+  return (
+      <div
+          className="menu-header p-0 d-flex align-items-center position-relative h-100"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+      >
+        <Link to={to} className="menu-header-text d-flex align-items-center text-center position-relative">
+          {text}
+          {subMenuItems && (
+              <img src={arrowDown} alt="icon arrow down" className="position-absolute"/>
+          )}
+        </Link>
+        {subMenuItems && (
+            <div className={`mega-menu position-absolute ${megaMenuVisible ? "show" : ""}`} id="mega-menu-box">
+              <div className="mega-menu-content d-flex">
+                {subMenuItems.map((subMenuItem, subIndex) => (
+                    <div key={subIndex} className="menu-col">
+                      <div className="menu-parent d-flex align-items-center">
+                        <div className="menu-parent-title d-flex align-items-center">
+                          <Link to={subMenuItem.to}>{subMenuItem.text}</Link>
+                        </div>
+                        {subMenuItem.subMenuItems && (
+                            <img src={arrowDown} className="menu-icon" alt="icon arrow down"/>
+                        )}
+                      </div>
+                      {subMenuItem.subMenuItems && (
+                          <ul className="menu-children ps-0">
+                            {subMenuItem.subMenuItems.map((subSubMenu, subSubMenuIndex) => (
+                                <li key={subSubMenuIndex} className="d-flex align-items-center">
+                                  <Link to={subSubMenu.to}>{subSubMenu.text}</Link>
+                                </li>
+                            ))}
+                          </ul>
+                      )}
+                    </div>
+                ))}
+              </div>
+            </div>
+        )}
+      </div>
+  );
+};
+
+const Header = () => {
   const menuItems = [
     { to: "/danh-muc/sale", text: "SALE" },
     {
@@ -86,6 +88,29 @@ const Header = () => {
         },
       ],
     },
+    {
+      to: "/danh-muc/quan-nam",
+      text: "QUẦN NAM",
+      subMenuItems: [
+        {
+          to: "/danh-muc/ao-thun-nam",
+          text: "Áo Nam Xuân Hè",
+          subMenuItems: [
+            { to: "/danh-muc/ao-thun-nam", text: "Áo Thun Nam" },
+            { to: "/danh-muc/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+            { to: "/danh-muc/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+          ],
+        },
+        {
+          to: "/danh-muc/ao-len-nam",
+          text: "Áo Nam Thu Đông",
+          subMenuItems: [
+            { to: "/danh-muc/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+            { to: "/danh-muc/ao-len-nam", text: "Áo Len Nam" },
+          ],
+        },
+      ],
+    },
   ];
 
   return (
@@ -106,9 +131,6 @@ const Header = () => {
                           to={menuItem.to}
                           text={menuItem.text}
                           subMenuItems={menuItem.subMenuItems}
-                          megaMenuVisible={megaMenuVisible}
-                          handleMouseEnter={handleMouseEnter}
-                          handleMouseLeave={handleMouseLeave}
                       />
                   ))}
                 </div>
