@@ -1,7 +1,7 @@
 import {memo} from "react";
-import './style.scss';
-import './jquery.smartmenus.js'
-import './jquery.smartmenus.bootstrap.js'
+// import './style.scss';
+// import './jquery.smartmenus.js'
+// import './jquery.smartmenus.bootstrap.js'
 
 const Menu = () => {
   return (

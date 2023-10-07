@@ -4,25 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Directory Paths">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/all.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/auth.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/main.e8c5978f.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/notification.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/owl.carousel.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/profile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/dropdown.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/images/arrow-down.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/images/search.svg" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Header Component">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/theme/header/Header-backend.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/dropdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/masterLayout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/masterLayout/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/menu/Menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/menu/jquery.smartmenus.bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/menu/jquery.smartmenus.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +44,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/theme/header/images",
+    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/theme/header",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -66,9 +56,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header\images" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header\css" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\profilePage" />
       <recent name="D:\IT\Web\Fashion-Store\frontend\src\pages\users\profileNewAddress" />
     </key>
@@ -158,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696657140197</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update Header Component">
+      <created>1696696933751</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1696696933751</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +168,7 @@
     <MESSAGE value="Add Profile New Address" />
     <MESSAGE value="Update Router Navigation" />
     <MESSAGE value="Update Directory Paths" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Directory Paths" />
+    <MESSAGE value="Update Header Component" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Header Component" />
   </component>
 </project>
