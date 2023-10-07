@@ -7,17 +7,18 @@ import "./style.scss"
 const ProfilePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
   React.useEffect(() => {
-    if (location.pathname === '/profile') {
+    if (location.pathname === '/profile' || location.pathname === '/profile/') {
       navigate('/profile/orders');
     }
   }, [location.pathname, navigate]);
 
-    return (
-        <div>
-          <RouterCustom />
-        </div>
-    );
+  return (
+      <div>
+        <RouterCustom />
+      </div>
+  );
 }
 
 export default memo(ProfilePage);
