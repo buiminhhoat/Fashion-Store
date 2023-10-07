@@ -1,14 +1,17 @@
 import React from 'react';
 import {memo} from "react";
 import RouterCustom from "./router";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "./style.scss"
 
 const ProfilePage = () => {
-    const navigate = useNavigate();
-    React.useEffect(() => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (location.pathname === '/profile') {
       navigate('/profile/orders');
-    }, [navigate]);
+    }
+  }, [location.pathname, navigate]);
 
     return (
         <div>
