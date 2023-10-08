@@ -1,20 +1,26 @@
-import {memo} from "react";
-import {Carousel} from "react-responsive-carousel";
+import { memo } from "react";
+import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { useNavigate } from 'react-router-dom';
-import './style.scss'
+import './style.scss';
 
 const SlideBanner = () => {
   const navigate = useNavigate();
 
+  const slides = [
+    {
+      imageSrc: "https://5sfashion.vn/storage/upload/images/banners/JIgU46SGxh4D7PYVbhBAAMJY2jlMg87OvldmWs07.jpg",
+      link: '/profile/orders'
+    },
+    {
+      imageSrc: "https://5sfashion.vn/storage/upload/images/banners/7vi4rOkItOstIFAeG8zNcQyp2sO9fTzgbjBpdkYp.png",
+      link: '/profile/login'
+    },
+  ];
+
   const handleSlideClick = (index) => {
-    switch (index) {
-      case 0:
-        navigate('/profile/orders');
-        break;
-      case 1:
-        navigate('/profile/orders');
-        break;
+    if (slides[index] && slides[index].link) {
+      navigate(slides[index].link);
     }
   };
 
@@ -26,13 +32,13 @@ const SlideBanner = () => {
               infiniteLoop
               showStatus={false}
               showThumbs={false}
-              onClickItem={(index) => handleSlideClick(index)}>
-            <div className="pointer-cursor">
-                <img src="https://5sfashion.vn/storage/upload/images/banners/JIgU46SGxh4D7PYVbhBAAMJY2jlMg87OvldmWs07.jpg" alt="Banner 1" />
-            </div>
-            <div className="pointer-cursor">
-                <img src="https://5sfashion.vn/storage/upload/images/banners/7vi4rOkItOstIFAeG8zNcQyp2sO9fTzgbjBpdkYp.png" alt="Banner 2" />
-            </div>
+              onClickItem={(index) => handleSlideClick(index)}
+          >
+            {slides.map((slide, index) => (
+                <div className="pointer-cursor" key={index}>
+                  <img src={slide.imageSrc} alt={`Banner ${index + 1}`} />
+                </div>
+            ))}
           </Carousel>
         </section>
       </section>
