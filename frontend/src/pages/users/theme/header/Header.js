@@ -163,8 +163,8 @@ const Header = () => {
                             ></path>
                           </svg>
                           <span className="count_item count_item_pr hidden-count position-absolute text-center d-flex align-items-center justify-content-center">
-                0
-              </span>
+                            0
+                          </span>
                         </Link>
                       </div>
                       <div className="user-drop h-100 position-relative d-flex align-items-center justify-content-end" id="user-drop">

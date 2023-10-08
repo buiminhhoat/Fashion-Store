@@ -6,7 +6,7 @@ import Menu from "../menu/Menu";
 const MasterLayout = ({children, ...props}) => {
     return (
         <div {...props}>
-            <Header />
+            {/*<Header />*/}
             {/*<Menu />*/}
             {children}
             {/*<Footer />*/}

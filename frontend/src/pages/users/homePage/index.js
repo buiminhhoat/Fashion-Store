@@ -1,12 +1,11 @@
 import {memo} from "react";
+import SlideBanner from "./SlideBanner/SlideBanner";
 
 const HomePage = () => {
-    const divStyle = {
-        padding: "200px",
-    };
-
     return (
-        <div style={divStyle}>hompage</div>
+        <main id="main">
+          <SlideBanner />
+        </main>
     );
 }
 
