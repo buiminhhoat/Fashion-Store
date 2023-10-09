@@ -1,5 +1,6 @@
 import {memo} from "react";
 import "./style.scss"
+import {DIALOGS} from "../Util";
 
 const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   const handleSubmit = (e) => {
@@ -45,7 +46,7 @@ const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
               <div className="register-wrap">
                 <span className="title">
                   Trở lại trang
-                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog('login')}> Đăng nhập</span>
+                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> Đăng nhập</span>
                 </span>
               </div>
             </div>

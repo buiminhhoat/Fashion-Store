@@ -1,8 +1,9 @@
-import {memo} from "react";
+import {memo} from "react"
 import "./style.scss"
 
 import fb from "../images/fb.svg"
 import gg from "../images/gg.svg"
+import {DIALOGS} from "../Util";
 
 const LoginDialog = ({ onClose, onSwitch }) => {
   const handleButtonCloseClick = () => {
@@ -41,7 +42,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                   </div>
                   <span className="text-danger error-text password-error"></span>
                   <div className="tool-wrap">
-                    <span className="title btn-open-fotgot-password" onClick={() => handleSwitchToOtherDialog('forgot-password')}>Quên mật khẩu?</span>
+                    <span className="title btn-open-fotgot-password" onClick={() => handleSwitchToOtherDialog(DIALOGS.FORGOT_PASSWORD)}>Quên mật khẩu?</span>
                   </div>
                   <div className="btn-wrap">
                     <button type="submit" className="btn btn-primary btn-login">
@@ -73,7 +74,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
               <div className="register-wrap">
                 <span className="title">
                   Chưa có tài khoản?
-                  <span className="btn-register" onClick={() => handleSwitchToOtherDialog('register')} > Đăng ký tại đây</span>
+                  <span className="btn-register" onClick={() => handleSwitchToOtherDialog(DIALOGS.REGISTER)} > Đăng ký tại đây</span>
                 </span>
               </div>
             </div>

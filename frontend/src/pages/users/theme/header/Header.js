@@ -6,6 +6,7 @@ import './style.scss';
 import LoginDialog from "../../Dialog/LoginDialog/LoginDialog";
 import ForgotPasswordDialog from "../../Dialog/ForgotPasswordDialog/ForgotPasswordDialog";
 import RegisterDialog from "../../Dialog/RegisterDialog/RegisterDialog";
+import {DIALOGS} from "../../Dialog/Util";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
@@ -234,19 +235,19 @@ const Header = () => {
           </div>
         </div>
 
-        {openDialog === 'login' && (
+        {openDialog === DIALOGS.LOGIN && (
             <div className="modal-overlay">
               <LoginDialog onClose={handleDialogClose} onSwitch={handleDialogSwitch} />
             </div>
         )}
 
-        {openDialog === 'register' && (
+        {openDialog === DIALOGS.REGISTER && (
             <div className="modal-overlay">
               <RegisterDialog onClose={handleDialogClose}  onSwitch={handleDialogSwitch} />
             </div>
         )}
 
-        {openDialog === 'forgot-password' && (
+        {openDialog === DIALOGS.FORGOT_PASSWORD && (
             <div className="modal-overlay">
               <ForgotPasswordDialog onClose={handleDialogClose}  onSwitch={handleDialogSwitch} />
             </div>

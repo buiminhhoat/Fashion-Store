@@ -3,6 +3,7 @@ import "./style.scss"
 
 import fb from "../images/fb.svg"
 import gg from "../images/gg.svg"
+import {DIALOGS} from "../Util";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {
   const handleSubmit = (e) => {
@@ -82,7 +83,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
               <div className="register-wrap">
                 <span className="title">
                   Đã có tài khoản?
-                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog('login')}> Đăng nhập tại đây</span>
+                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> Đăng nhập tại đây</span>
                 </span>
               </div>
             </div>

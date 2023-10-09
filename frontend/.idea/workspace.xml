@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Login Dialog">
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Dialog">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/Util/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" afterDir="false" />
@@ -204,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696833391394</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Update Dialog">
+      <created>1696839988805</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1696839988805</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +241,7 @@
     <MESSAGE value="Update Slide Banner Component" />
     <MESSAGE value="Add Login Dialog" />
     <MESSAGE value="Update Login Dialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Login Dialog" />
+    <MESSAGE value="Update Dialog" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Dialog" />
   </component>
 </project>
