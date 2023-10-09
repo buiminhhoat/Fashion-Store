@@ -1,7 +1,7 @@
 import {memo} from "react";
 import "./style.scss"
 
-import LoginDialog from "../Dialog/LoginDialog/LoginDialog";
+import LoginDialog from "../dialog/LoginDialog/LoginDialog";
 
 const LoginPage = () => {
   return (

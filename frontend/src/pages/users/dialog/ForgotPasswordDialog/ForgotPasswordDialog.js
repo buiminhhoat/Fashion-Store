@@ -1,6 +1,6 @@
 import {memo} from "react";
 import "./style.scss"
-import {DIALOGS} from "../Util";
+import {DIALOGS} from "../util";
 
 const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   const handleSubmit = (e) => {

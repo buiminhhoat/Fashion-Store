@@ -3,7 +3,7 @@ import "./style.scss"
 
 import fb from "../images/fb.svg"
 import gg from "../images/gg.svg"
-import {DIALOGS} from "../Util";
+import {DIALOGS} from "../util";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {
   const handleSubmit = (e) => {

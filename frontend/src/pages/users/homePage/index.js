@@ -1,11 +1,12 @@
 import {memo} from "react";
 import SlideBanner from "./SlideBanner/SlideBanner";
-import LoginDialog from "../Dialog/LoginDialog/LoginDialog";
+import SubBanner from "./SubBanner/SubBanner";
 
 const HomePage = () => {
     return (
         <main id="main">
           <SlideBanner />
+          <SubBanner />
         </main>
     );
 }

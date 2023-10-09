@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import './style.scss';
-import LoginDialog from "../../Dialog/LoginDialog/LoginDialog";
-import ForgotPasswordDialog from "../../Dialog/ForgotPasswordDialog/ForgotPasswordDialog";
-import RegisterDialog from "../../Dialog/RegisterDialog/RegisterDialog";
-import {DIALOGS} from "../../Dialog/Util";
+import LoginDialog from "../../dialog/LoginDialog/LoginDialog";
+import ForgotPasswordDialog from "../../dialog/ForgotPasswordDialog/ForgotPasswordDialog";
+import RegisterDialog from "../../dialog/RegisterDialog/RegisterDialog";
+import {DIALOGS} from "../../dialog/util";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
