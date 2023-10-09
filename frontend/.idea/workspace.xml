@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Login Dialog">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/RegisterDialog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/style.scss" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Header Component">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/LoginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/css/_auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/css/_auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/css/app_optimize.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/css/app_optimize.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/images/fb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/images/gg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,33 +31,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/Dialog/RegisterDialog",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/theme/header&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\RegisterDialog" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\ForgotPasswordDialog" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\LoginDialog" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\images" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header\images" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header\css" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\profilePage" />
+      <recent name="D:\IT\Web\Fashion-Store\frontend\src\pages\users\profileNewAddress" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header\images" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\profilePage" />
     </key>
@@ -86,8 +72,7 @@
       <updated>1696535178228</updated>
       <workItem from="1696535180361" duration="2203000" />
       <workItem from="1696601487802" duration="5238000" />
-      <workItem from="1696730904439" duration="2507000" />
-      <workItem from="1696780407560" duration="17971000" />
+      <workItem from="1696832095577" duration="391000" />
     </task>
     <task id="LOCAL-00001" summary="Update Profile Change Password">
       <option name="closed" value="true" />
@@ -180,35 +165,7 @@
       <option name="project" value="LOCAL" />
       <updated>1696702046241</updated>
     </task>
-    <task id="LOCAL-00013" summary="Update Header Component">
-      <created>1696702237432</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1696702237432</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Add Slide Banner Component">
-      <created>1696789501865</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1696789501865</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Update Slide Banner Component">
-      <created>1696791589916</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1696791589916</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Add Login Dialog">
-      <created>1696823628285</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1696823628285</updated>
-    </task>
-    <option name="localTasksCounter" value="17" />
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,9 +179,10 @@
     <MESSAGE value="Update Router Navigation" />
     <MESSAGE value="Update Directory Paths" />
     <MESSAGE value="Update Header Component" />
-    <MESSAGE value="Add Slide Banner Component" />
-    <MESSAGE value="Update Slide Banner Component" />
-    <MESSAGE value="Add Login Dialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Login Dialog" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Header Component" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
