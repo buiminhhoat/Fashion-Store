@@ -4,10 +4,18 @@ import "./style.scss"
 import fb from "../images/fb.svg"
 import gg from "../images/gg.svg"
 
-const RegisterDialog = () => {
+const RegisterDialog = ({ onClose, onSwitch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Xử lý logic khi người dùng nhấn nút Đăng Ký
+  };
+
+  const handleButtonCloseClick = () => {
+    onClose();
+  };
+
+  const handleSwitchToOtherDialog = (dialogName) => {
+    onSwitch(dialogName);
   };
 
   return (
@@ -17,7 +25,7 @@ const RegisterDialog = () => {
             <div className="modal-body">
               <div className="title-header-wrap">
                 <span className="title">Đăng ký</span>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
               <div className="form-wrap">
                 <form onSubmit={handleSubmit} method="POST" action="https://5sfashion.vn/register" className="form" id="form-register">
@@ -72,7 +80,10 @@ const RegisterDialog = () => {
                 </div>
               </div>
               <div className="register-wrap">
-                <span className="title">Đã có tài khoản? <span className="btn-open-modal-login">Đăng nhập tại đây</span></span>
+                <span className="title">
+                  Đã có tài khoản?
+                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog('login')}> Đăng nhập tại đây</span>
+                </span>
               </div>
             </div>
           </div>

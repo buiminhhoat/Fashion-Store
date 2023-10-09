@@ -4,9 +4,13 @@ import "./style.scss"
 import fb from "../images/fb.svg"
 import gg from "../images/gg.svg"
 
-const LoginDialog = ({ onClose }) => {
+const LoginDialog = ({ onClose, onSwitch }) => {
   const handleButtonCloseClick = () => {
     onClose();
+  };
+
+  const handleSwitchToOtherDialog = (dialogName) => {
+    onSwitch(dialogName);
   };
 
   return (
@@ -37,7 +41,7 @@ const LoginDialog = ({ onClose }) => {
                   </div>
                   <span className="text-danger error-text password-error"></span>
                   <div className="tool-wrap">
-                    <span className="title btn-open-fotgot-password">Quên mật khẩu?</span>
+                    <span className="title btn-open-fotgot-password" onClick={() => handleSwitchToOtherDialog('forgot-password')}>Quên mật khẩu?</span>
                   </div>
                   <div className="btn-wrap">
                     <button type="submit" className="btn btn-primary btn-login">
@@ -67,7 +71,10 @@ const LoginDialog = ({ onClose }) => {
                 </div>
               </div>
               <div className="register-wrap">
-                <span className="title">Chưa có tài khoản? <span className="btn-register">Đăng ký tại đây</span></span>
+                <span className="title">
+                  Chưa có tài khoản?
+                  <span className="btn-register" onClick={() => handleSwitchToOtherDialog('register')} > Đăng ký tại đây</span>
+                </span>
               </div>
             </div>
           </div>

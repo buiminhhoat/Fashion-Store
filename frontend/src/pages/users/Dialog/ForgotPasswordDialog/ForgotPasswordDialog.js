@@ -1,10 +1,18 @@
 import {memo} from "react";
 import "./style.scss"
 
-const ForgotPasswordDialog = () => {
+const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Xử lý logic khi người dùng nhấn nút Gửi
+  };
+
+  const handleButtonCloseClick = () => {
+    onClose();
+  };
+
+  const handleSwitchToOtherDialog = (dialogName) => {
+    onSwitch(dialogName);
   };
 
   return (
@@ -14,7 +22,7 @@ const ForgotPasswordDialog = () => {
             <div className="modal-body">
               <div className="title-header-wrap">
                 <span className="title">Quên mật khẩu</span>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
               <div className="description-wrap">
                 <p>Vui lòng nhập địa chỉ email đã đăng ký của bạn.</p>
@@ -35,7 +43,10 @@ const ForgotPasswordDialog = () => {
                 </form>
               </div>
               <div className="register-wrap">
-                <span className="title">Trở lại trang <span className="btn-open-modal-login">Đăng nhập</span></span>
+                <span className="title">
+                  Trở lại trang
+                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog('login')}> Đăng nhập</span>
+                </span>
               </div>
             </div>
           </div>
