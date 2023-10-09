@@ -4,6 +4,7 @@ import SlideBanner from "./SlideBanner/SlideBanner";
 import SubBanner from "./SubBanner/SubBanner";
 import CategorySection from "./CategorySection/CategorySection";
 import ImageBanner from "./ImageBanner/ImageBanner";
+import CollectionSection from "./CollectionSection/CollectionSection";
 
 const HomePage = () => {
     return (
@@ -13,6 +14,7 @@ const HomePage = () => {
           <section className="home-content">
             <CategorySection />
             <ImageBanner />
+            <CollectionSection />
           </section>
 
         </main>

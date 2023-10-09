@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Category Section">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/ImageBanner/ImageBanner.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/ImageBanner/style.scss" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Image Banner">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/CollectionSection/CollectionSection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/CollectionSection/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +40,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/homePage/ImageBanner",
+    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/homePage/CollectionSection",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,11 +52,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\CollectionSection" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\CollectionSection " />
+      <recent name="\" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\ImageBanner" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\css" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\CategoryMenu" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\SubBanner" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\RegisterDialog" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
@@ -232,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696869828333</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Add Image Banner">
+      <created>1696870943801</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1696870943801</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +271,7 @@
     <MESSAGE value="Add Sub Banner" />
     <MESSAGE value="Add Category Section" />
     <MESSAGE value="Update Category Section" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Category Section" />
+    <MESSAGE value="Add Image Banner" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Image Banner" />
   </component>
 </project>
