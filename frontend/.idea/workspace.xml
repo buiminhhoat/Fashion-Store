@@ -4,26 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Slide Banner Component">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/LoginDialog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/loginPage/css/_auth.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/loginPage/css/app_optimize.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/loginPage/images/fb.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/loginPage/images/gg.svg" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Login Dialog">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/RegisterDialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/LoginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/css/_auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/css/_auth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/css/app_optimize.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/css/app_optimize.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/images/fb.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/images/gg.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/profilePage/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/profilePage/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/masterLayout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/masterLayout/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/menu/Menu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/menu/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/menu/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/masterLayout/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/pages/_all.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/pages/_all.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +52,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/loginPage/LoginDialog",
+    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/Dialog/RegisterDialog",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,13 +64,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\RegisterDialog" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\ForgotPasswordDialog" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\LoginDialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\images" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\css" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\masterLayout" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header\css" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\theme\header\images" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\profilePage" />
     </key>
@@ -89,7 +87,7 @@
       <workItem from="1696535180361" duration="2203000" />
       <workItem from="1696601487802" duration="5238000" />
       <workItem from="1696730904439" duration="2507000" />
-      <workItem from="1696780407560" duration="15298000" />
+      <workItem from="1696780407560" duration="17971000" />
     </task>
     <task id="LOCAL-00001" summary="Update Profile Change Password">
       <option name="closed" value="true" />
@@ -203,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696791589916</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add Login Dialog">
+      <created>1696823628285</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1696823628285</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,6 +224,7 @@
     <MESSAGE value="Update Header Component" />
     <MESSAGE value="Add Slide Banner Component" />
     <MESSAGE value="Update Slide Banner Component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Slide Banner Component" />
+    <MESSAGE value="Add Login Dialog" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Login Dialog" />
   </component>
 </project>

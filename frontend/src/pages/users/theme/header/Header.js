@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import './style.scss';
-import LoginDialog from "../../loginPage/LoginDialog/LoginDialog";
+import LoginDialog from "../../Dialog/LoginDialog/LoginDialog";
+import ForgotPasswordDialog from "../../Dialog/ForgotPasswordDialog/ForgotPasswordDialog";
+import RegisterDialog from "../../Dialog/RegisterDialog/RegisterDialog";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);

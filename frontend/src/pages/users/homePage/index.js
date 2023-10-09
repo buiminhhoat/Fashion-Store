@@ -1,6 +1,6 @@
 import {memo} from "react";
 import SlideBanner from "./SlideBanner/SlideBanner";
-import LoginDialog from "../loginPage/LoginDialog/LoginDialog";
+import LoginDialog from "../Dialog/LoginDialog/LoginDialog";
 
 const HomePage = () => {
     return (
