@@ -4,24 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Dialog">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/SubBanner/SubBanner.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/SubBanner/style.scss" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Sub Banner">
+      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/CategorySection/CategorySection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/CategorySection/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/css/_home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/css/app_optimize.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/css/owl.carousel.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/ForgotPasswordDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/LoginDialog/LoginDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/LoginDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/RegisterDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/RegisterDialog/RegisterDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/RegisterDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/Util/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/util/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/css/_auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/css/_auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/css/app_optimize.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/css/app_optimize.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/images/fb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/images/gg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/SlideBanner/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/SlideBanner/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/SubBanner/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/SubBanner/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +48,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/homePage/SubBanner",
+    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/homePage/css",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -66,11 +60,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\css" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\CategoryMenu" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\SubBanner" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\RegisterDialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\ForgotPasswordDialog" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\LoginDialog" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
@@ -224,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696839988805</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Add Sub Banner">
+      <created>1696864766691</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1696864766691</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +255,7 @@
     <MESSAGE value="Add Login Dialog" />
     <MESSAGE value="Update Login Dialog" />
     <MESSAGE value="Update Dialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Dialog" />
+    <MESSAGE value="Add Sub Banner" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Sub Banner" />
   </component>
 </project>

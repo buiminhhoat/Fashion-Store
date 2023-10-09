@@ -164,7 +164,6 @@ const Header = () => {
                           name="query"
                           autoComplete="off"
                           type="text"
-                          value=""
                           className="input-search form-control w-100 h-100 d-flex align-items-center"
                           placeholder="Tìm kiếm sản phẩm ..."
                       />
