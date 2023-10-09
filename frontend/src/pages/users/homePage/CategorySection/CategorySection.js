@@ -1,4 +1,4 @@
-import { memo } from "react";
+import {memo, useState} from "react";
 import './style.scss';
 
 const productCategories = [
@@ -69,17 +69,12 @@ const productCategories = [
     link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
   },
   {
-    name: 'Áo Polo Nam',
+    name: 'Áo Polo Nam1',
     imageUrl:
         'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
     link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
   },
-  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
-  },
+
   // Thêm các danh mục sản phẩm khác vào đây
 ];
 
@@ -109,6 +104,17 @@ const renderProductCategories = () => {
 };
 
 const CategorySection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const maxCategoriesPerPage = 11;
+
+  const handlePrevClick = () => {
+      setCurrentSlide(Math.max(0, currentSlide - maxCategoriesPerPage));
+  };
+
+  const handleNextClick = () => {
+    setCurrentSlide(Math.min(Math.max(0, productCategories.length - maxCategoriesPerPage), currentSlide + maxCategoriesPerPage));
+  };
+
   return (
       <section className="category">
         <div className="category-wrap">
@@ -117,27 +123,25 @@ const CategorySection = () => {
           </div>
           <div className="content owl-carousel owl-theme owl-loaded owl-drag" id="content-category">
             <div className="owl-stage-outer">
-              <div className="owl-stage" style={{ transform: 'translate3d(0px, 0px, 0px)', transition: 'all 0s ease 0s', width: '2721px' }}>
+              <div className="owl-stage"
+                   style={{ transform: `translate3d(-${currentSlide * 118}px, 0px, 0px)`, transition: 'all 0.3s ease 0s', width: '50000px' }}>
                 {renderProductCategories()}
               </div>
             </div>
-            <div className="owl-nav disabled">
-              <button type="button" role="presentation" className="owl-prev hide">
+            <div className="owl-nav">
+              <button
+                  type="button"
+                  role="presentation"
+                  className={`owl-prev ${currentSlide === 0 ? 'hide' : ''}`}
+                  onClick={handlePrevClick}>
                 <span aria-label="Previous">‹</span>
               </button>
-              <button type="button" role="presentation" className="owl-next show">
+              <button
+                  type="button"
+                  role="presentation"
+                  className={`owl-next ${currentSlide === productCategories.length - 1 ? 'hide' : ''}`}
+                  onClick={handleNextClick}>
                 <span aria-label="Next">›</span>
-              </button>
-            </div>
-            <div className="owl-dots">
-              <button role="button" className="owl-dot active">
-                <span></span>
-              </button>
-              <button role="button" className="owl-dot">
-                <span></span>
-              </button>
-              <button role="button" className="owl-dot">
-                <span></span>
               </button>
             </div>
           </div>
