@@ -1,8 +1,9 @@
 import {memo} from "react";
+import "./style.scss"
 import SlideBanner from "./SlideBanner/SlideBanner";
 import SubBanner from "./SubBanner/SubBanner";
 import CategorySection from "./CategorySection/CategorySection";
-import "./style.scss"
+import ImageBanner from "./ImageBanner/ImageBanner";
 
 const HomePage = () => {
     return (
@@ -11,6 +12,7 @@ const HomePage = () => {
           <SubBanner />
           <section className="home-content">
             <CategorySection />
+            <ImageBanner />
           </section>
 
         </main>
