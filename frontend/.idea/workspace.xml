@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Login Dialog">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/RegisterDialog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/Dialog/style.scss" afterDir="false" />
+    <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Add Register &amp; Forgot Password Dialog">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/LoginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/LoginDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/css/_auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/css/_auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/css/app_optimize.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/css/app_optimize.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/images/fb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/images/gg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +74,7 @@
       <workItem from="1696535180361" duration="2203000" />
       <workItem from="1696601487802" duration="5238000" />
       <workItem from="1696730904439" duration="2507000" />
-      <workItem from="1696780407560" duration="17971000" />
+      <workItem from="1696780407560" duration="19210000" />
     </task>
     <task id="LOCAL-00001" summary="Update Profile Change Password">
       <option name="closed" value="true" />
@@ -208,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696823628285</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Add Register &amp; Forgot Password Dialog">
+      <created>1696831838454</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1696831838454</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,6 +219,7 @@
     <MESSAGE value="Add Slide Banner Component" />
     <MESSAGE value="Update Slide Banner Component" />
     <MESSAGE value="Add Login Dialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Login Dialog" />
+    <MESSAGE value="Add Register &amp; Forgot Password Dialog" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Register &amp; Forgot Password Dialog" />
   </component>
 </project>

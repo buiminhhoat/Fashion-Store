@@ -126,6 +126,14 @@ const Header = () => {
     setIsModalOpen(false);
   };
 
+  const handleLoginButtonClick = () => {
+    openModal();
+  };
+
+  const handleLoginDialogClose = () => {
+    closeModal();
+  };
+
   return (
       <header id="header">
         <div className="header position-fixed">
@@ -229,7 +237,7 @@ const Header = () => {
         {/* Hiển thị màn hình tối và LoginDialog khi isModalOpen = true */}
         {isModalOpen && (
             <div className="modal-overlay">
-              <LoginDialog />
+              <LoginDialog onClose={handleLoginDialogClose} />
             </div>
         )}
 

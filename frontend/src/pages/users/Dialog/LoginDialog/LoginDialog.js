@@ -4,7 +4,12 @@ import "./style.scss"
 import fb from "../images/fb.svg"
 import gg from "../images/gg.svg"
 
-const LoginDialog = () => {
+const LoginDialog = ({ onClose }) => {
+  const handleButtonCloseClick = () => {
+    onClose();
+  };
+
+
   return (
       <div className="modal fade show" id="modal-auth" tabIndex="-1" aria-labelledby="exampleModalLabel"
            style={{ display: 'block', paddingLeft: '0px' }} aria-modal="true" role="dialog">
@@ -13,7 +18,7 @@ const LoginDialog = () => {
             <div className="modal-body">
               <div className="title-header-wrap">
                 <span className="title">Đăng nhập</span>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
               <div className="form-wrap">
                 <form method="POST" action="https://5sfashion.vn/login" className="form" id="form-login">
