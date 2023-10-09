@@ -1,13 +1,14 @@
 import {memo} from "react";
+import "./style.scss"
+
+import LoginDialog from "./LoginDialog/LoginDialog";
 
 const LoginPage = () => {
-    const divStyle = {
-        padding: "200px",
-    };
-
-    return (
-        <div style={divStyle}>Login Page</div>
-    );
+  return (
+      <div>
+        <LoginDialog />
+      </div>
+  );
 }
 
 export default memo(LoginPage);

@@ -1,14 +1,19 @@
 import {memo} from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import Menu from "../menu/Menu";
 
 const MasterLayout = ({children, ...props}) => {
+  const divStyle = {
+    marginTop: "80px",
+  };
+
     return (
         <div {...props}>
-            {/*<Header />*/}
-            {/*<Menu />*/}
-            {children}
+            <Header />
+            <div style={divStyle}>
+              {children}
+            </div>
+
             {/*<Footer />*/}
         </div>
     );

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import './style.scss';
+import LoginDialog from "../../loginPage/LoginDialog/LoginDialog";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
@@ -113,6 +114,16 @@ const Header = () => {
     },
   ];
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
       <header id="header">
         <div className="header position-fixed">
@@ -168,7 +179,8 @@ const Header = () => {
                         </Link>
                       </div>
                       <div className="user-drop h-100 position-relative d-flex align-items-center justify-content-end" id="user-drop">
-                        <a className="" href="https://5sfashion.vn/profile/orders">
+
+                        <a className="pointer-cursor" onClick={openModal}>
                           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M10 0C4.48625 0 0 4.48625 0 10C0 15.5137 4.48625 20 10 20C15.5137 20 20 15.5137 20 10C20 4.48625 15.5137 0 10 0ZM6.25 8.75C6.25 6.68187 7.93187 5 10 5C12.0681 5 13.75 6.68187 13.75 8.75V10C13.75 12.0681 12.0681 13.75 10 13.75C7.93187 13.75 6.25 12.0681 6.25 10V8.75ZM10 18.75C8.17937 18.75 6.4875 18.19 5.08563 17.2344C6 16.2475 7.30188 15.625 8.75 15.625H11.25C12.6981 15.625 14 16.2475 14.9144 17.2344C13.5125 18.19 11.8206 18.75 10 18.75Z"
@@ -176,6 +188,7 @@ const Header = () => {
                             ></path>
                           </svg>
                         </a>
+
                         <div className="account_header position-absolute">
                           <ul className="p-0 m-0">
                             <li>
@@ -210,6 +223,14 @@ const Header = () => {
             </div>
           </div>
         </div>
+
+        {/* Hiển thị màn hình tối và LoginDialog khi isModalOpen = true */}
+        {isModalOpen && (
+            <div className="modal-overlay">
+              <LoginDialog />
+            </div>
+        )}
+
       </header>
   );
 }

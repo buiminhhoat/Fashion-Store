@@ -8,3 +8,16 @@
 @import "css/profile.css";
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "css/_home.css";
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền đục */
+    z-index: 1000; /* Đảm bảo nằm trên các phần tử khác */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
