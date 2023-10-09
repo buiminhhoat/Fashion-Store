@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca96d13-ab0f-420b-8f1a-5aa648925403" name="Changes" comment="Update Dialog">
-      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/SubBanner/SubBanner.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/homePage/SubBanner/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/ForgotPasswordDialog/ForgotPasswordDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/ForgotPasswordDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/ForgotPasswordDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/LoginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/LoginDialog/LoginDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/LoginDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/LoginDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/RegisterDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/RegisterDialog/RegisterDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/RegisterDialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/RegisterDialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/Util/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/util/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/css/_auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/css/_auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/css/app_optimize.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/css/app_optimize.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/images/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/images/fb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/images/gg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/images/gg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/Dialog/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/dialog/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/homePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/homePage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/loginPage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/theme/header/Header.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,9 +19,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-    &quot;customColor&quot;: &quot;&quot;,
-    &quot;associatedIndex&quot;: 3
-    }</component>
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2WMGjaC3lS8m07TmIC5vihbpyj8" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -47,30 +30,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/homePage/SubBanner",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/TheKIDends/IT/Web/Fashion-Store/frontend/src/pages/users/Dialog/RegisterDialog&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\homePage\SubBanner" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\RegisterDialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog\ForgotPasswordDialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\LoginDialog" />
+      <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\loginPage\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\TheKIDends\IT\Web\Fashion-Store\frontend\src\pages\users\Dialog" />
