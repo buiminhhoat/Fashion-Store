@@ -9,7 +9,6 @@ const LoginDialog = ({ onClose }) => {
     onClose();
   };
 
-
   return (
       <div className="modal fade show" id="modal-auth" tabIndex="-1" aria-labelledby="exampleModalLabel"
            style={{ display: 'block', paddingLeft: '0px' }} aria-modal="true" role="dialog">
