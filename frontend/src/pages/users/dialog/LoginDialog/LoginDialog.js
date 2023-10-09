@@ -1,9 +1,8 @@
-import {memo} from "react"
-import "./style.scss"
-
-import fb from "../images/fb.svg"
-import gg from "../images/gg.svg"
-import {DIALOGS} from "../util";
+import { memo } from "react";
+import "./style.scss";
+import fb from "../images/fb.svg";
+import gg from "../images/gg.svg";
+import { DIALOGS } from "../util";
 
 const LoginDialog = ({ onClose, onSwitch }) => {
   const handleButtonCloseClick = () => {
@@ -12,6 +11,56 @@ const LoginDialog = ({ onClose, onSwitch }) => {
 
   const handleSwitchToOtherDialog = (dialogName) => {
     onSwitch(dialogName);
+  };
+
+  const apiLoginUrl = "http://localhost:9999/api/login";
+
+  const handleLoginFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // Lấy giá trị của email và mật khẩu từ form
+    const email = document.getElementById("email-login").value;
+    const password = document.getElementById("password-login").value;
+
+    console.log(email);
+    console.log(password);
+
+    // Kiểm tra xem email và mật khẩu có hợp lệ không (thực hiện kiểm tra bằng cách của bạn)
+
+    // Nếu hợp lệ, thực hiện đăng nhập (ví dụ: gửi yêu cầu đăng nhập đến máy chủ)
+    // Trong ví dụ này, chúng ta có thể hiển thị một biểu tượng hoặc thông báo đang xử lý
+    const loadingIcon = document.getElementById("loading-login");
+    loadingIcon.style.display = "inline";
+
+    // Thực hiện đăng nhập (thay thế bằng xử lý thực tế của bạn)
+    try {
+      // Gửi yêu cầu đăng nhập đến máy chủ
+      const response = await fetch(apiLoginUrl, {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Accept": "text/html,application/xhtml+xml,application/xml",
+        },
+      });
+
+      // Xử lý phản hồi từ máy chủ (thay thế bằng xử lý thực tế của bạn)
+      if (response.status === 200) {
+        // Đăng nhập thành công, bạn có thể thực hiện các hành động sau khi đăng nhập ở đây
+        // Ví dụ: chuyển hướng người dùng đến trang chính hoặc làm bất kỳ điều gì bạn muốn
+      } else {
+        // Đăng nhập không thành công, hiển thị thông báo hoặc xử lý lỗi ở đây
+        // Ví dụ: hiển thị thông báo lỗi
+        const errorText = document.querySelector(".text-danger.error-text");
+        errorText.textContent = "Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập của bạn.";
+      }
+    } catch (error) {
+      console.error("Lỗi xử lý đăng nhập:", error);
+    } finally {
+      // Ẩn biểu tượng tải sau khi xử lý
+      loadingIcon.style.display = "none";
+    }
   };
 
   return (
@@ -25,7 +74,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                 <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
               <div className="form-wrap">
-                <form method="POST" action="https://5sfashion.vn/login" className="form" id="form-login">
+                <form method="POST" action={apiLoginUrl} className="form" id="form-login" onSubmit={handleLoginFormSubmit}>
                   <input type="hidden" name="_token" value="kd38LX3442ZoaFGkcWgeVWKJ0xwLrIk5YxQOdqzJ" />
                   <div className="input-wrap">
                     <label className="title">Email/Số điện thoại</label>
@@ -36,8 +85,8 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                     <label className="title">Mật khẩu</label>
                     <input id="password-login" name="password" className="input-password" type="password" placeholder="Nhập mật khẩu" />
                     {/*<div className="icon-wrap">*/}
-                      {/*<i className="fa-regular fa-eye btn-show-password" data-input-target=".input-password" style={{ display: 'none' }}></i>*/}
-                      {/*<i className="fa-regular fa-eye-slash btn-hiden-password" data-input-target=".input-password" style={{ display: 'none' }}></i>*/}
+                    {/*<i className="fa-regular fa-eye btn-show-password" data-input-target=".input-password" style={{ display: 'none' }}></i>*/}
+                    {/*<i className="fa-regular fa-eye-slash btn-hiden-password" data-input-target=".input-password" style={{ display: 'none' }}></i>*/}
                     {/*</div>*/}
                   </div>
                   <span className="text-danger error-text password-error"></span>
@@ -46,7 +95,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                   </div>
                   <div className="btn-wrap">
                     <button type="submit" className="btn btn-primary btn-login">
-                      <i id="loading-login" className="fa-solid fa-spinner icon-loading"></i>
+                      <i id="loading-login" className="fa-solid fa-spinner icon-loading" style={{ display: 'none' }}></i>
                       Đăng nhập
                     </button>
                   </div>
@@ -72,10 +121,10 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                 </div>
               </div>
               <div className="register-wrap">
-                <span className="title">
-                  Chưa có tài khoản?
-                  <span className="btn-register" onClick={() => handleSwitchToOtherDialog(DIALOGS.REGISTER)} > Đăng ký tại đây</span>
-                </span>
+              <span className="title">
+                Chưa có tài khoản?
+                <span className="btn-register" onClick={() => handleSwitchToOtherDialog(DIALOGS.REGISTER)} > Đăng ký tại đây</span>
+              </span>
               </div>
             </div>
           </div>
