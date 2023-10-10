@@ -49,10 +49,11 @@ const LoginDialog = ({ onClose, onSwitch }) => {
       if (response.status === 200) {
         // Đăng nhập thành công, bạn có thể thực hiện các hành động sau khi đăng nhập ở đây
         // Ví dụ: chuyển hướng người dùng đến trang chính hoặc làm bất kỳ điều gì bạn muốn
+        window.location.reload();
       } else {
         // Đăng nhập không thành công, hiển thị thông báo hoặc xử lý lỗi ở đây
         // Ví dụ: hiển thị thông báo lỗi
-        const errorText = document.querySelector(".text-danger.error-text");
+        const errorText = document.querySelector(".text-danger.error-text.password-error");
         errorText.textContent = "Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập của bạn.";
       }
     } catch (error) {
