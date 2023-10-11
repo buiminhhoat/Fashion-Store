@@ -1,10 +1,12 @@
+USE fashionstore;
+
 -- Thêm dữ liệu giả cho bảng Users
-INSERT INTO Users (FullName, Email, PhoneNumber, Gender, DateBirthday, AvatarPath) VALUES
-    ('Nguyễn Văn A', 'nguyenvana@gmail.com', '0123456789', 'Nam', '1990-05-15', 'avatar1.jpg'),
-    ('Nguyễn Thị B', 'nguyenthib@gmail.com', '0987654321', 'Nữ', '1992-03-20', 'avatar2.jpg'),
-    ('Trần Văn C', 'tranvanc@gmail.com', '0369852147', 'Nam', '1985-11-08', 'avatar3.jpg'),
-    ('Lê Thị D', 'lethid@gmail.com', '0912345678', 'Nữ', '1988-07-12', 'avatar4.jpg'),
-    ('Phạm Văn E', 'phamvane@gmail.com', '0932145698', 'Nam', '1995-09-25', 'avatar5.jpg');
+INSERT INTO Users (FullName, Email, HashedPassword, PhoneNumber, Gender, DateBirthday, AvatarPath) VALUES
+    ('Nguyễn Văn A', 'nguyenvana@gmail.com', 'nguyenvana@gmail.com', '0123456789', 'Nam', '1990-05-15', 'avatar1.jpg'),
+    ('Nguyễn Thị B', 'nguyenthib@gmail.com', 'nguyenthib@gmail.com', '0987654321', 'Nữ', '1992-03-20', 'avatar2.jpg'),
+    ('Trần Văn C', 'tranvanc@gmail.com', '0369852147', 'tranvanc@gmail.com', 'Nam', '1985-11-08', 'avatar3.jpg'),
+    ('Lê Thị D', 'lethid@gmail.com', 'lethid@gmail.com', '0912345678', 'Nữ', '1988-07-12', 'avatar4.jpg'),
+    ('Phạm Văn E', 'phamvane@gmail.com', 'phamvane@gmail.com', '0932145698', 'Nam', '1995-09-25', 'avatar5.jpg');
 
 -- Thêm dữ liệu giả cho bảng Address
 INSERT INTO Address (UserID, RecipientName, RecipientPhone, RecipientCity, RecipientDistrict, RecipientWard, AddressDetails) VALUES
