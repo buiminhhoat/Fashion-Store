@@ -24,8 +24,6 @@ public class AuthController {
         // Kiểm tra email và mật khẩu, thực hiện xác thực
 
         // Ví dụ đơn giản: kiểm tra mật khẩu là "password"
-        logger.info(email);
-        logger.info(password);
 
         if ("05082003".equals(password)) {
             // Xác thực thành công
