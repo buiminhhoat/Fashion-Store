@@ -44,8 +44,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Users users) {
-        usersRepository.save(users);
-
-        return ResponseEntity.ok("Đăng ký thành công");
+        try {
+            usersRepository.save(users);
+            return ResponseEntity.ok("Đăng ký thành công");
+        }
+        catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng ký không thành công");
+        }
     }
 }
