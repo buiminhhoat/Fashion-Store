@@ -1,7 +1,10 @@
 package com.FashionStore.controllers;
 
+import com.FashionStore.models.Users;
+import com.FashionStore.repositories.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,12 @@ import java.util.Map;
 @RequestMapping("/api")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+    private final UsersRepository usersRepository;
+
+    @Autowired
+    public AuthController(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
@@ -23,7 +32,6 @@ public class AuthController {
         // Đặt mã xử lý đăng nhập ở đây
         // Kiểm tra email và mật khẩu, thực hiện xác thực
 
-        // Ví dụ đơn giản: kiểm tra mật khẩu là "password"
 
         if ("05082003".equals(password)) {
             // Xác thực thành công
@@ -32,5 +40,12 @@ public class AuthController {
             // Xác thực thất bại
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng nhập không thành công");
         }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody Users users) {
+        usersRepository.save(users);
+
+        return ResponseEntity.ok("Đăng ký thành công");
     }
 }

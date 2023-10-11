@@ -14,7 +14,7 @@ public class Users {
     private String email;
     private String hashedPassword;
 
-    private String phonenumber;
+    private String phoneNumber;
 
     private String gender;
 
@@ -26,11 +26,11 @@ public class Users {
 
     }
 
-    public Users(String fullName, String email, String hashedPassword, String phonenumber) {
+    public Users(String fullName, String email, String hashedPassword, String phoneNumber) {
         this.fullName = fullName;
         this.email = email;
         this.hashedPassword = hashedPassword;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -65,12 +65,12 @@ public class Users {
         this.fullName = fullName;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getGender() {
@@ -104,7 +104,7 @@ public class Users {
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", hashedPassword='" + hashedPassword + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dataBirthday='" + dataBirthday + '\'' +
                 ", avatarPath='" + avatarPath + '\'' +
