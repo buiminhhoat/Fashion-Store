@@ -3,6 +3,7 @@ import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
 import { DIALOGS } from "../util";
+import { Cookies } from 'react-cookie';
 
 const LoginDialog = ({ onClose, onSwitch }) => {
   const handleButtonCloseClick = () => {
@@ -37,13 +38,24 @@ const LoginDialog = ({ onClose, onSwitch }) => {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
-          "Accept": "text/html,application/xhtml+xml,application/xml",
+          "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
         },
       });
 
       // Xử lý phản hồi từ máy chủ (thay thế bằng xử lý thực tế của bạn)
       if (response.status === 200) {
         // Đăng nhập thành công, bạn có thể thực hiện các hành động sau khi đăng nhập ở đây
+
+        let jsonResponse = await response.json();
+
+        let access_token = jsonResponse.data.access_token;
+        let refresh_token = jsonResponse.data.refresh_token;
+
+        const cookies = new Cookies();
+        // Lưu access token vào session cookie
+        cookies.set('access_token', access_token, { path: '/' });
+        cookies.set('refresh_token', refresh_token, { path: '/'});
+
         window.location.reload();
       } else {
         // Đăng nhập không thành công, hiển thị thông báo hoặc xử lý lỗi ở đây
