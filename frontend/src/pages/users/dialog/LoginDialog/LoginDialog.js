@@ -25,10 +25,6 @@ const LoginDialog = ({ onClose, onSwitch }) => {
     console.log(email);
     console.log(password);
 
-    // Kiểm tra xem email và mật khẩu có hợp lệ không (thực hiện kiểm tra bằng cách của bạn)
-
-    // Nếu hợp lệ, thực hiện đăng nhập (ví dụ: gửi yêu cầu đăng nhập đến máy chủ)
-    // Trong ví dụ này, chúng ta có thể hiển thị một biểu tượng hoặc thông báo đang xử lý
     const loadingIcon = document.getElementById("loading-login");
     loadingIcon.style.display = "inline";
 
@@ -48,16 +44,23 @@ const LoginDialog = ({ onClose, onSwitch }) => {
       // Xử lý phản hồi từ máy chủ (thay thế bằng xử lý thực tế của bạn)
       if (response.status === 200) {
         // Đăng nhập thành công, bạn có thể thực hiện các hành động sau khi đăng nhập ở đây
-        // Ví dụ: chuyển hướng người dùng đến trang chính hoặc làm bất kỳ điều gì bạn muốn
         window.location.reload();
       } else {
         // Đăng nhập không thành công, hiển thị thông báo hoặc xử lý lỗi ở đây
-        // Ví dụ: hiển thị thông báo lỗi
-        const errorText = document.querySelector(".text-danger.error-text.password-error");
-        errorText.textContent = "Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập của bạn.";
+
+        response.text().then(data => {
+          // `data` chứa nội dung từ body của phản hồi
+          console.log(data);
+
+          // Hiển thị thông báo lỗi hoặc xử lý lỗi ở đây
+          const errorText = document.querySelector(".text-danger.error-text.password-error");
+          errorText.innerHTML = data;
+        });
+
       }
     } catch (error) {
-      console.error("Lỗi xử lý đăng nhập:", error);
+      const errorText = document.querySelector(".text-danger.error-text.password-error");
+      errorText.innerHTML = "Lỗi kết nối tới máy chủ, vui lòng thử lại sau!";
     } finally {
       // Ẩn biểu tượng tải sau khi xử lý
       loadingIcon.style.display = "none";

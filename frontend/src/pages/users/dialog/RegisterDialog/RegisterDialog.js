@@ -1,14 +1,66 @@
-import {memo} from "react";
-import "./style.scss"
+import { memo } from "react";
+import "./style.scss";
 
-import fb from "../images/fb.svg"
-import gg from "../images/gg.svg"
-import {DIALOGS} from "../util";
+import fb from "../images/fb.svg";
+import gg from "../images/gg.svg";
+import { DIALOGS } from "../util";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Xử lý logic khi người dùng nhấn nút Đăng Ký
+
+    // Lấy thông tin từ các trường input
+    const fullName = document.getElementById("name-register").value;
+    const email = document.getElementById("email-register").value;
+    const phoneNumber = document.getElementById("phone-register").value;
+    const hashedPassword = document.getElementById("password-register").value;
+
+    // Tạo một đối tượng chứa thông tin đăng ký
+    const registrationData = {
+      fullName,
+      email,
+      phoneNumber,
+      hashedPassword,
+    };
+
+    try {
+      // Gửi dữ liệu đăng ký đến máy chủ, ví dụ sử dụng fetch hoặc axios
+      const response = await fetch("http://localhost:9999/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Accept": "text/html,application/xhtml+xml,application/xml",
+        },
+        body: JSON.stringify(registrationData),
+      });
+
+      if (response.ok) {
+        // Đăng ký thành công, có thể điều hướng người dùng hoặc hiển thị thông báo thành công
+        console.log("Đăng ký thành công");
+
+        // Đóng dialog sau khi đăng ký thành công
+        onClose();
+      } else {
+        // Đăng ký thất bại, có thể hiển thị thông báo lỗi
+        console.error("Đăng ký thất bại");
+        response.text().then(data => {
+          // `data` chứa nội dung từ body của phản hồi
+          console.log(data);
+
+          // Hiển thị thông báo lỗi hoặc xử lý lỗi ở đây
+          const errorText = document.querySelector(".text-danger.error-text.password-register-error");
+          errorText.innerHTML = data;
+        });
+
+        // // Hiển thị thông báo lỗi cho người dùng
+        // const errorText = document.querySelector(".text-danger.error-text");
+        // errorText.innerText = "Đăng ký thất bại. Vui lòng kiểm tra lại thông tin.";
+      }
+    } catch (error) {
+      // Xử lý lỗi khi gửi yêu cầu đăng ký
+      console.error("Lỗi kết nối máy chủ: " + error.message);
+    }
   };
 
   const handleButtonCloseClick = () => {
@@ -29,7 +81,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                 <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
               <div className="form-wrap">
-                <form onSubmit={handleSubmit} method="POST" action="https://5sfashion.vn/register" className="form" id="form-register">
+                <form onSubmit={handleSubmit} method="POST" action="http://localhost:9999/api/register" className="form" id="form-register">
                   <div className="input-wrap mt-0">
                     <label className="title">Họ và tên</label>
                     <input id="name-register" name="name" type="text" placeholder="Nhập họ và tên" required />
@@ -48,10 +100,6 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                   <div className="input-wrap input-password-wrap">
                     <label className="title">Mật khẩu</label>
                     <input id="password-register" name="password" className="input-password" type="password" placeholder="Nhập mật khẩu" aria-autocomplete="list" required />
-                    {/*<div className="icon-wrap">*/}
-                    {/*  <i className="fa-regular fa-eye btn-show-password" data-input-target=".input-password" style={{ display: 'none' }}></i>*/}
-                    {/*  <i className="fa-regular fa-eye-slash btn-hiden-password" data-input-target=".input-password" style={{ display: 'block' }}></i>*/}
-                    {/*</div>*/}
                   </div>
                   <span className="text-danger error-text password-register-error"></span>
                   <div className="btn-wrap">
@@ -81,16 +129,16 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                 </div>
               </div>
               <div className="register-wrap">
-                <span className="title">
-                  Đã có tài khoản?
-                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> Đăng nhập tại đây</span>
-                </span>
+              <span className="title">
+                Đã có tài khoản?
+                <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> Đăng nhập tại đây</span>
+              </span>
               </div>
             </div>
           </div>
         </div>
       </div>
   );
-}
+};
 
 export default memo(RegisterDialog);
