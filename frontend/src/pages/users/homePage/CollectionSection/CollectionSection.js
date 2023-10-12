@@ -120,12 +120,6 @@ const collectionData = [
       // Danh sách sản phẩm cho tab-3
     ],
   },
-  {
-    tab: { id: "tab-4", title: "Áo Khoác Gió" },
-    products: [
-      // Danh sách sản phẩm cho tab-4
-    ],
-  },
 ];
 
 function ProductItem({ product }) {
@@ -208,6 +202,14 @@ const CollectionSection = () => {
             {collectionData.find((data) => data.tab.id === activeTab).products.map((product, index) => (
                 <ProductItem key={index} product={product} />
             ))}
+          </div>
+
+          <div className="load-more-wrap text-center">
+            <a href="#">
+              <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product">
+                Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
+              </button>
+            </a>
           </div>
         </div>
       </section>
