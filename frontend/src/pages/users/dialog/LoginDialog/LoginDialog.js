@@ -53,8 +53,9 @@ const LoginDialog = ({ onClose, onSwitch }) => {
 
         const cookies = new Cookies();
         // Lưu access token vào session cookie
+
         cookies.set('access_token', access_token, { path: '/' });
-        cookies.set('refresh_token', refresh_token, { path: '/'});
+        cookies.set('refresh_token', refresh_token, { path: '/' });
 
         window.location.reload();
       } else {
