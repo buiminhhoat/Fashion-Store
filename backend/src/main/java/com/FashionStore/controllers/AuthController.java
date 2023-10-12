@@ -1,7 +1,10 @@
 package com.FashionStore.controllers;
 
+import com.FashionStore.models.JwtResponse;
+import com.FashionStore.models.ResponseObject;
 import com.FashionStore.models.Users;
 import com.FashionStore.repositories.UsersRepository;
+import com.FashionStore.security.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +23,9 @@ import java.util.Map;
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final UsersRepository usersRepository;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     public AuthController(UsersRepository usersRepository) {
@@ -38,33 +45,32 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập của bạn.");
         }
 
-//        String accessToken = jwtTokenUtil.generateAccessToken(email);
-//        String refreshToken = jwtTokenUtil.generateRefreshToken(email);
-//
-//        Map<String, String> tokens = new HashMap<>();
-//        tokens.put("access_token", accessToken);
-//        tokens.put("refresh_token", refreshToken);
+        String accessToken = jwtTokenUtil.generateAccessToken(email);
+        String refreshToken = jwtTokenUtil.generateRefreshToken(email);
 
-        return ResponseEntity.status(HttpStatus.OK).body("Đăng nhập thành công");
-//        return ResponseEntity.ok(new JwtResponse(accessToken));
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("access_token", accessToken);
+        tokens.put("refresh_token", refreshToken);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), "Đăng nhập thành công", tokens));
     }
 
-//    @PostMapping("/refresh")
-//    public ResponseEntity<?> refresh(@RequestBody Map<String, String> tokenMap) {
-//        String refreshToken = tokenMap.get("refresh_token");
-//
-//        if (jwtTokenUtil.isTokenExpired(refreshToken)) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//
-//        String username = jwtTokenUtil.getSubjectFromToken(refreshToken);
-//        String newAccessToken = jwtTokenUtil.generateAccessToken(username);
-//
-//        Map<String, String> tokens = new HashMap<>();
-//        tokens.put("access_token", newAccessToken);
-//
-//        return ResponseEntity.ok(tokens);
-//    }
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestBody Map<String, String> tokenMap) {
+        String refreshToken = tokenMap.get("refresh_token");
+
+        if (jwtTokenUtil.isTokenExpired(refreshToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String username = jwtTokenUtil.getSubjectFromToken(refreshToken);
+        String newAccessToken = jwtTokenUtil.generateAccessToken(username);
+
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("access_token", newAccessToken);
+
+        return ResponseEntity.ok(tokens);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Users users) {
