@@ -1,36 +1,25 @@
 package com.FashionStore.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name="Users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userID;
-
-    private String fullName;
-
-    private String email;
-    private String hashedPassword;
-
-    private String phoneNumber;
-
-    private String gender;
-
-    private String dataBirthday;
-
-    private String avatarPath;
+    private Long id;
+    public String email;
+    public String password;
 
     public Users() {
 
     }
 
-    public Users(String fullName, String email, String hashedPassword, String phoneNumber) {
-        this.fullName = fullName;
+    public Users(String email, String password) {
         this.email = email;
-        this.hashedPassword = hashedPassword;
-        this.phoneNumber = phoneNumber;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -41,73 +30,28 @@ public class Users {
         this.email = email;
     }
 
-    public String getHashedPassword() {
-        return hashedPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getUserID() {
-        return userID;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getDataBirthday() {
-        return dataBirthday;
-    }
-
-    public void setDataBirthday(String dataBirthday) {
-        this.dataBirthday = dataBirthday;
-    }
-
-    public String getAvatarPath() {
-        return avatarPath;
-    }
-
-    public void setAvatarPath(String avatarPath) {
-        this.avatarPath = avatarPath;
+    public Long getId() {
+        return id;
     }
 
     @Override
     public String toString() {
         return "Users{" +
-                "userID=" + userID +
-                ", fullName='" + fullName + '\'' +
+                "id=" + id +
                 ", email='" + email + '\'' +
-                ", hashedPassword='" + hashedPassword + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", gender='" + gender + '\'' +
-                ", dataBirthday='" + dataBirthday + '\'' +
-                ", avatarPath='" + avatarPath + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
