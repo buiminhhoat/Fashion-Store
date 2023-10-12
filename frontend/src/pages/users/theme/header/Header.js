@@ -62,6 +62,58 @@ const MenuItem = ({ to, text, subMenuItems }) => {
   );
 };
 
+
+const ProfileMenu = ({openModal}) => {
+  const [profileMenuVisible, setProfileMenuVisible] = useState(false);
+
+  const handleMouseEnter = () => {
+    setProfileMenuVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setProfileMenuVisible(false);
+  };
+
+  return (
+      <div className="user-drop h-100 position-relative d-flex align-items-center justify-content-end" id="user-drop"
+           onMouseEnter={handleMouseEnter}
+           onMouseLeave={handleMouseLeave}
+      >
+        <a className="pointer-cursor" onClick={() => openModal('login')}>
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M10 0C4.48625 0 0 4.48625 0 10C0 15.5137 4.48625 20 10 20C15.5137 20 20 15.5137 20 10C20 4.48625 15.5137 0 10 0ZM6.25 8.75C6.25 6.68187 7.93187 5 10 5C12.0681 5 13.75 6.68187 13.75 8.75V10C13.75 12.0681 12.0681 13.75 10 13.75C7.93187 13.75 6.25 12.0681 6.25 10V8.75ZM10 18.75C8.17937 18.75 6.4875 18.19 5.08563 17.2344C6 16.2475 7.30188 15.625 8.75 15.625H11.25C12.6981 15.625 14 16.2475 14.9144 17.2344C13.5125 18.19 11.8206 18.75 10 18.75Z"
+                fill="#4F525D"
+            ></path>
+          </svg>
+        </a>
+
+        <div className={`account_header position-absolute ${profileMenuVisible ? "show" : ""}`} style={{textDecoration: "none"}}>
+          <ul className="p-0 m-0">
+            <li>
+              <a href="/profile">
+                <b>Khanh Nguyễn</b>
+              </a>
+            </li>
+            <li>
+              <a href="#">Đơn hàng của tôi</a>
+            </li>
+            <li>
+              <a href="/profile">Trang cá nhân</a>
+            </li>
+            <li>
+              <a href="#">Sản phẩm yêu thích</a>
+            </li>
+            <li className="logout">
+              <a href="#logout"> Đăng xuất </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  );
+};
+
+
 const Header = () => {
   const menuItems = [
     { to: "/danh-muc/sale", text: "SALE" },
@@ -188,43 +240,9 @@ const Header = () => {
                           </span>
                         </Link>
                       </div>
-                      <div className="user-drop h-100 position-relative d-flex align-items-center justify-content-end" id="user-drop">
 
-                        <a className="pointer-cursor" onClick={() => openModal('login')}>
-                          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 0C4.48625 0 0 4.48625 0 10C0 15.5137 4.48625 20 10 20C15.5137 20 20 15.5137 20 10C20 4.48625 15.5137 0 10 0ZM6.25 8.75C6.25 6.68187 7.93187 5 10 5C12.0681 5 13.75 6.68187 13.75 8.75V10C13.75 12.0681 12.0681 13.75 10 13.75C7.93187 13.75 6.25 12.0681 6.25 10V8.75ZM10 18.75C8.17937 18.75 6.4875 18.19 5.08563 17.2344C6 16.2475 7.30188 15.625 8.75 15.625H11.25C12.6981 15.625 14 16.2475 14.9144 17.2344C13.5125 18.19 11.8206 18.75 10 18.75Z"
-                                fill="#4F525D"
-                            ></path>
-                          </svg>
-                        </a>
+                        <ProfileMenu openModal={openModal}/>
 
-                        <div className="account_header position-absolute">
-                          <ul className="p-0 m-0">
-                            <li>
-                              <a href="https://5sfashion.vn/profile/personal-information">
-                                <b>Khanh Nguyễn</b>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="https://5sfashion.vn/profile/orders">Đơn hàng của tôi</a>
-                            </li>
-                            <li>
-                              <a href="https://5sfashion.vn/profile/personal-information">Trang cá nhân</a>
-                            </li>
-                            <li>
-                              <a href="https://5sfashion.vn/profile/products/favorite">Sản phẩm yêu thích</a>
-                            </li>
-                            <li className="logout">
-                              <a href="https://5sfashion.vn/logout">
-                                {/*<logout src="/images/icons/logout.svg" alt="icon ">*/}
-                                {/*  Đăng xuất*/}
-                                {/*</logout>*/}
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
                       <div className="btn-open-modal-change-password"></div>
                     </div>
                   </div>
