@@ -3,6 +3,7 @@ import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
 import { DIALOGS } from "../util";
+import { Cookies } from 'react-cookie';
 
 const LoginDialog = ({ onClose, onSwitch }) => {
   const handleButtonCloseClick = () => {
@@ -50,7 +51,12 @@ const LoginDialog = ({ onClose, onSwitch }) => {
         let access_token = jsonResponse.data.access_token;
         let refresh_token = jsonResponse.data.refresh_token;
 
-        // window.location.reload();
+        const cookies = new Cookies();
+        // Lưu access token vào session cookie
+        cookies.set('access_token', access_token, { path: '/' });
+        cookies.set('refresh_token', refresh_token, { path: '/'});
+
+        window.location.reload();
       } else {
         // Đăng nhập không thành công, hiển thị thông báo hoặc xử lý lỗi ở đây
 
