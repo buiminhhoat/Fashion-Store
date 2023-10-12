@@ -13,7 +13,52 @@ const collectionData = [
         link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
         price: "149.000đ",
         originPrice: "399.000đ",
-        soldCount: "Đã bán 303",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
         stars: 5,
       },
       // Thêm sản phẩm khác vào đây
@@ -22,7 +67,51 @@ const collectionData = [
   {
     tab: { id: "tab-2", title: "Áo Tshirt" },
     products: [
-      // Danh sách sản phẩm cho tab-2
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
+      {
+        title: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
+        image: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
+        link: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
+        price: "149.000đ",
+        originPrice: "399.000đ",
+        soldCount: "303",
+        stars: 5,
+      },
     ],
   },
   {
@@ -31,17 +120,11 @@ const collectionData = [
       // Danh sách sản phẩm cho tab-3
     ],
   },
-  {
-    tab: { id: "tab-4", title: "Áo Khoác Gió" },
-    products: [
-      // Danh sách sản phẩm cho tab-4
-    ],
-  },
 ];
 
 function ProductItem({ product }) {
   return (
-      <div className="col-3 product-item">
+      <div className="product-item">
         <div className="product">
           <div className="product-img">
             <a href={product.link}>
@@ -73,7 +156,7 @@ function ProductItem({ product }) {
                 <span>{product.stars}</span>
               </div>
               <div className="sold-count">
-                <span>{product.soldCount}</span>
+                <span>Đã bán {product.soldCount}</span>
               </div>
             </div>
           </div>
@@ -119,6 +202,14 @@ const CollectionSection = () => {
             {collectionData.find((data) => data.tab.id === activeTab).products.map((product, index) => (
                 <ProductItem key={index} product={product} />
             ))}
+          </div>
+
+          <div className="load-more-wrap text-center">
+            <a href="#">
+              <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product">
+                Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
+              </button>
+            </a>
           </div>
         </div>
       </section>
