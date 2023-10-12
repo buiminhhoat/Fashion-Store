@@ -125,6 +125,12 @@ const shirtCollection = [
   },
 ];
 
+
+const banner1 = {
+  url: "https://5sfashion.vn/storage/upload/images/banners/U5Xo1sDIIk0c9889d6F15cIwqK60BHZsuiJ0pno6.png",
+  link: "/profile/orders",
+};
+
 const HomePage = () => {
     return (
         <main id="main">
@@ -132,10 +138,13 @@ const HomePage = () => {
           <SubBanner />
           <section className="home-content">
             <CategorySection />
-            <ImageBanner />
+            <ImageBanner image={banner1}/>
             <CollectionSection collectionData={shirtCollection} />
-            <ImageBanner />
+            <ImageBanner image={banner1}/>
             <CollectionSection collectionData={shirtCollection} />
+            <ImageBanner image={banner1}/>
+            <CollectionSection collectionData={shirtCollection} />
+            <ImageBanner image={banner1}/>
           </section>
 
         </main>
