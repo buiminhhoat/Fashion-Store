@@ -37,14 +37,20 @@ const LoginDialog = ({ onClose, onSwitch }) => {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
-          "Accept": "text/html,application/xhtml+xml,application/xml",
+          "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
         },
       });
 
       // Xử lý phản hồi từ máy chủ (thay thế bằng xử lý thực tế của bạn)
       if (response.status === 200) {
         // Đăng nhập thành công, bạn có thể thực hiện các hành động sau khi đăng nhập ở đây
-        window.location.reload();
+
+        let jsonResponse = await response.json();
+
+        let access_token = jsonResponse.data.access_token;
+        let refresh_token = jsonResponse.data.refresh_token;
+
+        // window.location.reload();
       } else {
         // Đăng nhập không thành công, hiển thị thông báo hoặc xử lý lỗi ở đây
 
