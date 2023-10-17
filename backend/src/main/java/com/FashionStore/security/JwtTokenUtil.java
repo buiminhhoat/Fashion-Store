@@ -3,7 +3,6 @@ package com.FashionStore.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -56,11 +55,41 @@ public class JwtTokenUtil {
     }
 
     public boolean isTokenExpired(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-        Date expiration = claims.getExpiration();
-        return expiration.before(new Date());
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            Date expiration = claims.getExpiration();
+            Date now = new Date();
+
+            // Kiểm tra nếu thời gian hết hạn của token đã qua thời gian hiện tại
+            return expiration.before(now);
+        } catch (Exception e) {
+            // Xảy ra lỗi khi giải mã token (không phải là hết hạn)
+            return true;
+        }
+    }
+
+    public boolean isTokenValid(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            Date now = new Date();
+            Date expiration = claims.getExpiration();
+
+            // Kiểm tra thời gian hết hạn của token
+            if (expiration != null && !expiration.before(now)) {
+                return true;
+            }
+        } catch (Exception e) {
+            // Xảy ra lỗi khi giải mã token (token không hợp lệ)
+        }
+
+        return false;
     }
 }

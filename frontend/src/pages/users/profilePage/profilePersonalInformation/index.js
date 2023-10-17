@@ -1,4 +1,4 @@
-import {memo} from "react";
+import {memo, useEffect, useState} from "react";
 import './style.scss';
 import iconOrder from '../images/order.svg';
 import likeProduct from '../images/likeProduct.svg'
@@ -8,6 +8,7 @@ import address from '../images/address.svg'
 import unlocked from '../images/unlocked.svg'
 import logout from '../images/logout.svg'
 import emptyProduct from '../images/empty-product.png'
+import { Cookies } from 'react-cookie';
 
 const menuItemsOrder = [
     {
@@ -77,54 +78,32 @@ function renderMenu(menuItems) {
     return menuItemsJSX;
 }
 
-function renderTabList(tabItems) {
-    const renderTabList = () => {
-        return tabItems.map((tab, index) => (
-            <a
-                key={tab.id}
-                className={`nav-link ${tab.isActive ? "active" : ""}`}
-                data-bs-toggle="tab"
-                data-bs-target={`#${tab.id}`}
-                role="tab"
-                aria-selected={tab.isActive}
-                tabIndex={tab.isActive ? "0" : "-1"}
-            >
-                {tab.text}
-            </a>
-        ));
-    };
-
-    return (
-        <div className="nav nav-tabs menu-tab" id="myTab" role="tablist">
-            {renderTabList()}
-        </div>
-    );
-}
-
-function renderTabContent(tabItems) {
-    const tabContent = [];
-    for (let i = 0; i < tabItems.length; i++) {
-        const tab = tabItems[i];
-        const isActive = i === 0; // Xác định tab đầu tiên là active
-
-        tabContent.push(
-            <div
-                key={tab.id}
-                className={`tab-pane ${isActive ? '' : 'fade'} ${isActive ? 'show active' : ''}`}
-                id={tab.id}
-                role="tabpanel"
-            >
-                <div className="empty-content">
-                    <img src={emptyProduct} alt="no data" />
-                    <p>Không có đơn hàng nào</p>
-                </div>
-            </div>
-        );
-    }
-    return tabContent;
-}
-
 const ProfilePersonalInformationPage = () => {
+    const [userData, setUserData] = useState(null);
+
+    // useEffect(() => {
+    //     const fetchUserData = async () => {
+    //         try {
+    //             const refreshToken = Cookies.get('refreshToken');
+    //
+    //             if (!refreshToken) {
+    //                 throw new Error("Không có refresh token.");
+    //             }
+    //
+    //             const apiFetchUserData = "http://localhost:9999/api/login";
+    //
+    //             const response = await fetch(apiFetchUserData, {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${refreshToken}`,
+    //                     "Access-Control-Allow-Origin": "*",
+    //                     "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
+    //                 },
+    //             });
+    //         }
+    //     }
+    // }, []);
     return (
         <div id="app">
             <main id="main">
