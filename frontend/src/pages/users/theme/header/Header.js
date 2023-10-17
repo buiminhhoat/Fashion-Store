@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
+import logo_fashion_store from "./images/logo_fashion_store.png";
 import './style.scss';
 import LoginDialog from "../../dialog/LoginDialog/LoginDialog";
 import ForgotPasswordDialog from "../../dialog/ForgotPasswordDialog/ForgotPasswordDialog";
@@ -167,6 +168,52 @@ const Header = () => {
         },
       ],
     },
+    {
+      to: "/danh-muc/quan-nam",
+      text: "PHỤ KIỆN",
+      subMenuItems: [
+        {
+          to: "/danh-muc/ao-thun-nam",
+          text: "Áo Nam Xuân Hè",
+          subMenuItems: [
+            { to: "/danh-muc/ao-thun-nam", text: "Áo Thun Nam" },
+            { to: "/danh-muc/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+            { to: "/danh-muc/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+          ],
+        },
+        {
+          to: "/danh-muc/ao-len-nam",
+          text: "Áo Nam Thu Đông",
+          subMenuItems: [
+            { to: "/danh-muc/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+            { to: "/danh-muc/ao-len-nam", text: "Áo Len Nam" },
+          ],
+        },
+      ],
+    },
+    {
+      to: "/danh-muc/quan-nam",
+      text: "BỘ SƯU TẬP",
+      subMenuItems: [
+        {
+          to: "/danh-muc/ao-thun-nam",
+          text: "Áo Nam Xuân Hè",
+          subMenuItems: [
+            { to: "/danh-muc/ao-thun-nam", text: "Áo Thun Nam" },
+            { to: "/danh-muc/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+            { to: "/danh-muc/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+          ],
+        },
+        {
+          to: "/danh-muc/ao-len-nam",
+          text: "Áo Nam Thu Đông",
+          subMenuItems: [
+            { to: "/danh-muc/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+            { to: "/danh-muc/ao-len-nam", text: "Áo Len Nam" },
+          ],
+        },
+      ],
+    },
   ];
 
   const [openDialog, setOpenDialog] = useState(null);
@@ -196,7 +243,7 @@ const Header = () => {
                 <div className="col-9 content-left d-flex align-items-center ps-0 pe-0">
                   <div className="logo-box">
                     <Link to="/">
-                      <img className="logo" src="https://5sfashion.vn/storage/upload/images/logo/logo.png" alt="Logo"/>
+                      <img className="logo" src={logo_fashion_store} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
                   {menuItems.map((menuItem, index) => (

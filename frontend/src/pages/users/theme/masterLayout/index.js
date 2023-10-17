@@ -14,7 +14,7 @@ const MasterLayout = ({children, ...props}) => {
               {children}
             </div>
 
-            {/*<Footer />*/}
+            <Footer />
         </div>
     );
 }
