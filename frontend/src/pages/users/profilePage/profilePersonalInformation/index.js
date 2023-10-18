@@ -82,6 +82,10 @@ const ProfilePersonalInformationPage = () => {
     const [userData, setUserData] = useState(null);
     const [cookies] = useCookies(['refresh_token']);
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [gender, setGender] = useState("");
+    const [dateBirthday, setDateBirthday] = useState("");
     const refreshToken = cookies.refresh_token;
     console.log(refreshToken);
 
@@ -109,8 +113,13 @@ const ProfilePersonalInformationPage = () => {
                 }
 
                 const data = await response.json();
+                console.log(data);
                 setUserData(data);
                 setName(data.fullName);
+                setEmail(data.email);
+                setPhoneNumber(data.phoneNumber);
+                setGender(data.gender);
+                setDateBirthday(data.dataBirthday);
             } catch (error) {
                 console.error("Lỗi khi fetch dữ liệu:", error);
             }
@@ -167,26 +176,38 @@ const ProfilePersonalInformationPage = () => {
                                         </div>
                                         <div className="input-wrap">
                                             <label className="title">Email</label>
-                                            <input className="input" type="email" placeholder="Nhập email" readOnly disabled value="official.buiminhhoat@gmail.com" />
+                                            <input className="input" type="email" placeholder="Nhập email" readOnly disabled
+                                                   name="email" value={email}
+                                            />
                                         </div>
                                         <div className="input-wrap">
                                             <label className="title">Số điện thoại</label>
                                             <span className="error--message"></span>
-                                            <input readOnly disabled type="text" placeholder="Nhập số điện thoại" className="input__info input" name="phone" value="0945405238" />
+                                            <input readOnly disabled type="text" placeholder="Nhập số điện thoại" className="input__info input"
+                                                   name="phoneNumber" value={phoneNumber} />
                                         </div>
                                         <div className="input-wrap">
                                             <label className="title">Giới tính</label>
                                             <div className="form-radio">
                                                 <div className="radio-item">
-                                                    <input type="radio" name="gender" id="0" value="0" />
+                                                    <input type="radio" name="gender" id="0" value="0"
+                                                           checked={gender === "Nam"}
+                                                           onChange={() => setGender("Nam")}
+                                                    />
                                                     <label htmlFor="0">Nam</label>
                                                 </div>
                                                 <div className="radio-item">
-                                                    <input type="radio" name="gender" id="1" value="1" />
+                                                    <input type="radio" name="gender" id="1" value="1"
+                                                           checked={gender === "Nữ"}
+                                                           onChange={() => setGender("Nữ")}
+                                                    />
                                                     <label htmlFor="1">Nữ</label>
                                                 </div>
                                                 <div className="radio-item">
-                                                    <input type="radio" name="gender" id="2" value="2" />
+                                                    <input type="radio" name="gender" id="2" value="2"
+                                                           checked={gender === "Khác"}
+                                                           onChange={() => setGender("Khác")}
+                                                    />
                                                     <label htmlFor="2">Khác</label>
                                                 </div>
                                             </div>
