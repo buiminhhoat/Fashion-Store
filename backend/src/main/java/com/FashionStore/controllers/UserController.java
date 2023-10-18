@@ -24,7 +24,7 @@ public class UserController {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping("/user-data")
+    @PostMapping("/user-data")
     public ResponseEntity<Users> getUserData(@RequestHeader("Authorization") String refreshToken) {
         refreshToken = refreshToken.replace("Bearer ", "");
         if (jwtTokenUtil.isTokenValid(refreshToken)) {
