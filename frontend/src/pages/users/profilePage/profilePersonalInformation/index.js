@@ -8,7 +8,7 @@ import address from '../images/address.svg'
 import unlocked from '../images/unlocked.svg'
 import logout from '../images/logout.svg'
 import emptyProduct from '../images/empty-product.png'
-import { Cookies } from 'react-cookie';
+import {Cookies, useCookies} from 'react-cookie';
 
 const menuItemsOrder = [
     {
@@ -80,30 +80,44 @@ function renderMenu(menuItems) {
 
 const ProfilePersonalInformationPage = () => {
     const [userData, setUserData] = useState(null);
+    const [cookies] = useCookies(['refresh_token']);
+    const [name, setName] = useState("");
+    const refreshToken = cookies.refresh_token;
+    console.log(refreshToken);
 
-    // useEffect(() => {
-    //     const fetchUserData = async () => {
-    //         try {
-    //             const refreshToken = Cookies.get('refreshToken');
-    //
-    //             if (!refreshToken) {
-    //                 throw new Error("Không có refresh token.");
-    //             }
-    //
-    //             const apiFetchUserData = "http://localhost:9999/api/login";
-    //
-    //             const response = await fetch(apiFetchUserData, {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     Authorization: `Bearer ${refreshToken}`,
-    //                     "Access-Control-Allow-Origin": "*",
-    //                     "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
-    //                 },
-    //             });
-    //         }
-    //     }
-    // }, []);
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                if (!refreshToken) {
+                    throw new Error("Không có refresh token.");
+                }
+
+                const apiFetchUserData = "http://localhost:9999/api/user-data";
+
+                const response = await fetch(apiFetchUserData, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // "Access-Control-Allow-Origin": "*",
+                        // "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
+                        Authorization: `Bearer ${refreshToken}`
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error("Lỗi khi gửi refresh token.");
+                }
+
+                const data = await response.json();
+                setUserData(data);
+                setName(data.fullName);
+            } catch (error) {
+                console.error("Lỗi khi fetch dữ liệu:", error);
+            }
+        }
+
+        fetchUserData();
+    }, []);
     return (
         <div id="app">
             <main id="main">
@@ -146,7 +160,10 @@ const ProfilePersonalInformationPage = () => {
                                         <div className="input-wrap">
                                             <label className="title">Họ và tên</label>
                                             <span className="error--message"></span>
-                                            <input type="text" placeholder="Nhập họ và tên" className="input__info input" name="name"/>
+                                            <input type="text" placeholder="Nhập họ và tên"
+                                                   className="input__info input" name="name"
+                                                   value={name} onChange={(e) => setName(e.target.value)}
+                                            />
                                         </div>
                                         <div className="input-wrap">
                                             <label className="title">Email</label>
