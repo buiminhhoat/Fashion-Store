@@ -6,7 +6,7 @@ USE fashionstore;
 
 -- Tạo bảng Users
 CREATE TABLE IF NOT EXISTS Users (
-    UserID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID BIGINT PRIMARY KEY AUTO_INCREMENT,
     FullName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
     PhoneNumber VARCHAR(20),
@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS Users (
 
 -- Tạo bảng Address
 CREATE TABLE IF NOT EXISTS Address (
-    AddressID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
+    AddressID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    UserID BIGINT,
     RecipientName VARCHAR(255) NOT NULL,
     RecipientPhone VARCHAR(20),
     RecipientCity VARCHAR(255),
@@ -35,15 +35,16 @@ CREATE TABLE IF NOT EXISTS Orders (
     OrderDate DATE,
     TotalAmount DECIMAL(10, 2),
     OrderStatus VARCHAR(20),
-    UserID INT,
+    UserID BIGINT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 -- Tạo bảng Products
 CREATE TABLE IF NOT EXISTS Products (
-    ProductID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductID BIGINT PRIMARY KEY AUTO_INCREMENT,
     ProductName VARCHAR(255) NOT NULL,
     ProductPrice DECIMAL(10, 2),
+    ProductDiscountPrice DECIMAL(10, 2),
     Description TEXT
 );
 
@@ -51,7 +52,7 @@ CREATE TABLE IF NOT EXISTS Products (
 CREATE TABLE IF NOT EXISTS OrderDetail (
     OrderDetailID INT PRIMARY KEY AUTO_INCREMENT,
     OrderID INT,
-    ProductID INT,
+    ProductID BIGINT,
     ProductPrice DECIMAL(10, 2),
     Quantity INT,
     TotalPrice DECIMAL(10, 2),
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS OrderDetail (
 -- Tạo bảng ProductSizes
 CREATE TABLE IF NOT EXISTS ProductSizes (
     SizeID INT PRIMARY KEY AUTO_INCREMENT,
-    ProductID INT,
+    ProductID BIGINT,
     SizeName VARCHAR(20),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS ProductSizes (
 -- Tạo bảng ProductImage
 CREATE TABLE IF NOT EXISTS ProductImage (
     ImageID INT PRIMARY KEY AUTO_INCREMENT,
-    ProductID INT,
+    ProductID BIGINT,
     ImagePath VARCHAR(255),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS ProductImage (
 -- Tạo bảng ProductQuantities
 CREATE TABLE IF NOT EXISTS ProductQuantities (
     ProductQuantities INT PRIMARY KEY AUTO_INCREMENT,
-    ProductID INT,
+    ProductID BIGINT,
 	SizeID INT,
     Quantity INT,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
@@ -90,7 +91,7 @@ CREATE TABLE IF NOT EXISTS Categories (
     CategoryID INT PRIMARY KEY AUTO_INCREMENT,
     CategoryName VARCHAR(255) NOT NULL,
     ParentCategoryID INT,
-	ProductID INT,
+	ProductID BIGINT,
 	FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
     FOREIGN KEY (ParentCategoryID) REFERENCES Categories(CategoryID)
 );

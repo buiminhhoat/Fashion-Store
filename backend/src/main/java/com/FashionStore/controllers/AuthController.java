@@ -56,8 +56,8 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<?> refresh(@RequestBody Map<String, String> tokenMap) {
-        String refreshToken = tokenMap.get("refresh_token");
+    public ResponseEntity<?> refresh(@RequestHeader("Authorization") String refreshToken) {
+        refreshToken = refreshToken.replace("Bearer ", "");
 
         if (jwtTokenUtil.isTokenExpired(refreshToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
