@@ -1,9 +1,14 @@
-import {memo, useRef, useState} from "react";
+import React, {memo, useRef, useState} from "react";
 import "./style.scss"
+import {DIALOGS} from "../../../users/dialog/util";
+import LoginDialog from "../../../users/dialog/LoginDialog/LoginDialog";
+import CategoryDialog from "../CategoryDialog/CategoryDialog";
 
 const ProductDetails = () => {
   const MAX_IMAGES = 8;
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [openDialog, setOpenDialog] = useState(null);
+  const inputRef = useRef(null);
 
   const handleDeleteImage = (index) => {
     const newSelectedFiles = [...selectedFiles];
@@ -22,10 +27,20 @@ const ProductDetails = () => {
     setSelectedFiles(totalFiles);
   };
 
-  const inputRef = useRef(null);
-
   const handleInputImagesClick = () => {
     inputRef.current.click();
+  };
+
+  const openModal = () => {
+    setOpenDialog(true);
+  };
+
+  const closeModal = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDialogClose = () => {
+    closeModal();
   };
 
   return (
@@ -174,8 +189,10 @@ const ProductDetails = () => {
                             data-v-36db20dc="" className="mandatory-icon">*</span></div>
                         <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Loại sản phẩm</span>
                       </div>
-                      <div data-v-34a64d88="" data-v-54a51dd8="" className="degrade-wrap edit-row-right-full"
-                           data-v-2250a4e1="">
+
+                      <div data-v-34a64d88="" data-v-54a51dd8=""
+                           className="degrade-wrap edit-row-right-full"
+                           onClick={() => openModal()}>
                         <div data-v-55f54b9f="" data-v-54a51dd8="" className="product-category" data-v-34a64d88="">
                           <div data-v-55f54b9f="" className="product-category-box" data-education-trigger-key="category"
                                data-product-edit-field-unique-id="category">
@@ -255,6 +272,12 @@ const ProductDetails = () => {
 
           </section>
         </div>
+
+        {openDialog === true && (
+            <div className="modal-overlay">
+              <CategoryDialog onClose={handleDialogClose} />
+            </div>
+        )}
 
       </div>
   );
