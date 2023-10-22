@@ -36,7 +36,6 @@ public class ProfileController {
 
     @PostMapping("/edit-profile")
     public ResponseEntity<?> editProfile(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String refreshToken) {
-        // Lấy thông tin người dùng từ `updateUserInfoRequest`
         refreshToken = refreshToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(refreshToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -71,5 +70,27 @@ public class ProfileController {
         usersRepository.save(user);
         ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
         return ResponseEntity.ok(responseObject);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> credentials,
+                                            @RequestHeader("Authorization") String refreshToken) {
+        refreshToken = refreshToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(refreshToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(refreshToken);
+        String oldPassword = credentials.get("oldPassword");
+        String newPassword = credentials.get("newPassword");
+
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        Users user = findByEmail.get(0);
+        if (!Objects.equals(user.getHashedPassword(), oldPassword)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
+        }
+        user.setHashedPassword(newPassword);
+        usersRepository.save(user);
+        return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công!");
     }
 }

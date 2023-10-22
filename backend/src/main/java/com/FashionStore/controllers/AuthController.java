@@ -96,19 +96,4 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng ký không thành công");
         }
     }
-
-    @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> credentials) {
-        String email = credentials.get("token");
-        String phoneNumber = credentials.get("email");
-        String password = credentials.get("password");
-
-        List<Users> findByEmail = usersRepository.findUsersByEmailAndHashedPassword(email, password);
-        List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumberAndHashedPassword(phoneNumber, password);
-
-        if (!findByEmail.isEmpty() || !findByPhoneNumber.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("Đăng nhập thành công");
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập của bạn.");
-    }
 }
