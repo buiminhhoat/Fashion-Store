@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -42,6 +43,10 @@ public class ProfileController {
         }
 
         String email = credentials.get("email");
+
+        if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(refreshToken))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         String fullName = credentials.get("fullName");
         String gender = credentials.get("gender");
         Map<String, Object> jsonData = new HashMap<>();

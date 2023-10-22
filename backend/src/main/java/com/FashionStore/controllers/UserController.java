@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,6 +30,9 @@ public class UserController {
         refreshToken = refreshToken.replace("Bearer ", "");
         if (jwtTokenUtil.isTokenValid(refreshToken)) {
             String email = jwtTokenUtil.getSubjectFromToken(refreshToken);
+            if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(refreshToken))) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
             List<Users> findByEmail = usersRepository.findUsersByEmail(email);
             Users users = findByEmail.get(0);
             users.setHashedPassword(null);

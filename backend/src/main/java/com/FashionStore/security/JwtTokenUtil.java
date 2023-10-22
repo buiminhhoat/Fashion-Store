@@ -35,7 +35,7 @@ public class JwtTokenUtil {
         Date validity = new Date(now.getTime() + validityInSeconds * 1000);
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("sub", subject);
+        claims.put("email", subject);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -91,5 +91,20 @@ public class JwtTokenUtil {
         }
 
         return false;
+    }
+
+    public String getEmailFromToken(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            // Lấy giá trị của trường "email" từ JWT
+            return claims.get("email", String.class);
+        } catch (Exception e) {
+            // Xảy ra lỗi khi giải mã token (token không hợp lệ)
+            return null;
+        }
     }
 }
