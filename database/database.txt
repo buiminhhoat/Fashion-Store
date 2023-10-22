@@ -6,20 +6,20 @@ USE fashionstore;
 
 -- Tạo bảng Users
 CREATE TABLE IF NOT EXISTS Users (
-    UserID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
     FullName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
-	HashedPassword VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(20),
     Gender VARCHAR(10),
     DateBirthday DATE,
-    AvatarPath VARCHAR(255)
+    AvatarPath VARCHAR(255),
+	IsAdmin BOOLEAN
 );
 
 -- Tạo bảng Address
 CREATE TABLE IF NOT EXISTS Address (
     AddressID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID BIGINT,
+    UserID INT,
     RecipientName VARCHAR(255) NOT NULL,
     RecipientPhone VARCHAR(20),
     RecipientCity VARCHAR(255),
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS Orders (
     OrderDate DATE,
     TotalAmount DECIMAL(10, 2),
     OrderStatus VARCHAR(20),
-    UserID BIGINT,
+    UserID INT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS Products (
     ProductID INT PRIMARY KEY AUTO_INCREMENT,
     ProductName VARCHAR(255) NOT NULL,
     ProductPrice DECIMAL(10, 2),
-    UnitsSold INT,
     Description TEXT
 );
 
@@ -76,38 +75,22 @@ CREATE TABLE IF NOT EXISTS ProductImage (
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
--- Tạo bảng ProductColor
-CREATE TABLE IF NOT EXISTS ProductColor (
-    ColorID INT PRIMARY KEY AUTO_INCREMENT,
+-- Tạo bảng ProductQuantities
+CREATE TABLE IF NOT EXISTS ProductQuantities (
+    ProductQuantities INT PRIMARY KEY AUTO_INCREMENT,
     ProductID INT,
-    ColorName VARCHAR(20),
-    ImagePath VARCHAR(255),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
-
--- Tạo bảng Inventory
-CREATE TABLE IF NOT EXISTS Inventory (
-    InventoryID INT PRIMARY KEY AUTO_INCREMENT,
-    ProductID INT,
-    QuantityOnHand INT,
-    SizeID INT,
-    ColorID INT,
+	SizeID INT,
+    Quantity INT,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    FOREIGN KEY (SizeID) REFERENCES ProductSizes(SizeID),
-    FOREIGN KEY (ColorID) REFERENCES ProductColor(ColorID)
+    FOREIGN KEY (SizeID) REFERENCES ProductSizes(SizeID)
 );
 
 -- Tạo bảng Categories
 CREATE TABLE IF NOT EXISTS Categories (
     CategoryID INT PRIMARY KEY AUTO_INCREMENT,
-    CategoryName VARCHAR(255) NOT NULL
-);
-
--- Tạo bảng ProductCategories (Mối quan hệ giữa Products và Categories)
-CREATE TABLE IF NOT EXISTS ProductCategories (
-    ProductCategoryID INT PRIMARY KEY AUTO_INCREMENT,
-    ProductID INT,
-    CategoryID INT,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+    CategoryName VARCHAR(255) NOT NULL,
+    ParentCategoryID INT,
+	ProductID INT,
+	FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    FOREIGN KEY (ParentCategoryID) REFERENCES Categories(CategoryID)
 );
