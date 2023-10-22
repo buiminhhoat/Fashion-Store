@@ -83,7 +83,6 @@ const ProfileChangePassword = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Thêm Authorization Header với refresh token
                     'Authorization': `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify(updatedUserInfo),
