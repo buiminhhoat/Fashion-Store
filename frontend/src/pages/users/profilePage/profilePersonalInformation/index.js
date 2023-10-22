@@ -85,9 +85,47 @@ const ProfilePersonalInformationPage = () => {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [gender, setGender] = useState("");
-    const [dateBirthday, setDateBirthday] = useState("");
+    const [dateBirthday, setDateBirthday] = useState({ day: '', month: '', year: '' });
     const refreshToken = cookies.refresh_token;
     console.log(refreshToken);
+
+    const handleSaveInformation = () => {
+        console.log(email);
+        // Tạo một đối tượng chứa thông tin cần cập nhật
+        const updatedUserInfo = {
+            fullName: name,
+            email: email,
+            phoneNumber: phoneNumber,
+            gender: gender,
+            dateBirthday: dateBirthday,
+        };
+
+        const apiEditProfile = "http://localhost:9999/api/edit-profile";
+
+        // Tạo yêu cầu HTTP POST
+        fetch(apiEditProfile, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Thêm Authorization Header với refresh token
+                Authorization: `Bearer ${refreshToken}`,
+            },
+            body: JSON.stringify(updatedUserInfo),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Lỗi khi gửi yêu cầu cập nhật thông tin.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xử lý dữ liệu phản hồi từ máy chủ (nếu cần)
+                console.log('Dữ liệu cập nhật thành công:', data);
+            })
+            .catch(error => {
+                console.error('Lỗi khi cập nhật thông tin:', error);
+            });
+    }
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -113,13 +151,12 @@ const ProfilePersonalInformationPage = () => {
                 }
 
                 const data = await response.json();
-                console.log(data);
                 setUserData(data);
                 setName(data.fullName);
                 setEmail(data.email);
                 setPhoneNumber(data.phoneNumber);
                 setGender(data.gender);
-                setDateBirthday(data.dataBirthday);
+                setDateBirthday(data.dateBirthday);
             } catch (error) {
                 console.error("Lỗi khi fetch dữ liệu:", error);
             }
@@ -217,7 +254,11 @@ const ProfilePersonalInformationPage = () => {
                                             <div className="date-of-birth">
                                                 <div className="choose-date">
                                                     <span className="label-date" style={{ display: 'none' }}>Ngày</span>
-                                                    <select className="select-day form-select" id="day" name="date">
+                                                    <select className="select-day form-select" id="day" name="date"
+                                                            value={dateBirthday ? dateBirthday.day : ''}
+                                                            onChange={(e) => {
+                                                                setDateBirthday({ ...dateBirthday, day: e.target.value });
+                                                            }}>
                                                         <option value="day" className="option-date" style={{ display: 'none' }}></option>
                                                         {Array.from({ length: 31 }, (_, i) => (
                                                             <option key={i} value={i + 1}>{i + 1}</option>
@@ -226,7 +267,11 @@ const ProfilePersonalInformationPage = () => {
                                                 </div>
                                                 <div className="choose-date">
                                                     <span className="label-month" style={{ display: 'none' }}>Tháng</span>
-                                                    <select className="select-month form-select" id="month" name="month">
+                                                    <select className="select-month form-select" id="month" name="month"
+                                                        value={dateBirthday ? dateBirthday.month : ''}
+                                                        onChange={(e) => {
+                                                            setDateBirthday({ ...dateBirthday, month: e.target.value });
+                                                        }}>
                                                         <option value="month" className="option-month" style={{ display: 'none' }}></option>
                                                         {Array.from({ length: 12 }, (_, i) => (
                                                             <option key={i} value={i + 1}>Tháng {i + 1}</option>
@@ -235,7 +280,11 @@ const ProfilePersonalInformationPage = () => {
                                                 </div>
                                                 <div className="choose-date">
                                                     <span className="label-year" style={{ display: 'none' }}>Năm</span>
-                                                    <select className="select-year form-select" id="year" name="year">
+                                                    <select className="select-year form-select" id="year" name="year"
+                                                        value={dateBirthday ? dateBirthday.year : ''}
+                                                        onChange={(e) => {
+                                                            setDateBirthday({ ...dateBirthday, year: e.target.year });
+                                                        }}>
                                                         <option value="year" className="option-year" style={{ display: 'none' }}></option>
                                                         {Array.from({ length: 91 }, (_, i) => (
                                                             <option key={i} value={1933 + i}>{1933 + i}</option>
@@ -248,7 +297,7 @@ const ProfilePersonalInformationPage = () => {
                                     </form>
                                 </div>
                                 <div className="btn-wrap">
-                                    <button type="button" className="btn btn-primary btn-save-information">Lưu thông tin</button>
+                                    <button type="button" className="btn btn-primary btn-save-information" onClick={handleSaveInformation}>Lưu thông tin</button>
                                 </div>
                             </div>
                         </div>
