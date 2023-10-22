@@ -2,6 +2,8 @@ package com.FashionStore.models;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+
 @Entity
 @Table(name="Users")
 public class Users {
@@ -18,7 +20,7 @@ public class Users {
 
     private String gender;
 
-    private String dataBirthday;
+    private Date dateBirthday;
 
     private String avatarPath;
 
@@ -81,12 +83,12 @@ public class Users {
         this.gender = gender;
     }
 
-    public String getDataBirthday() {
-        return dataBirthday;
+    public Date getDateBirthday() {
+        return dateBirthday;
     }
 
-    public void setDataBirthday(String dataBirthday) {
-        this.dataBirthday = dataBirthday;
+    public void setDateBirthday(Date dateBirthday) {
+        this.dateBirthday = dateBirthday;
     }
 
     public String getAvatarPath() {
@@ -106,7 +108,7 @@ public class Users {
                 ", hashedPassword='" + hashedPassword + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender='" + gender + '\'' +
-                ", dataBirthday='" + dataBirthday + '\'' +
+                ", dateBirthday='" + dateBirthday + '\'' +
                 ", avatarPath='" + avatarPath + '\'' +
                 '}';
     }
