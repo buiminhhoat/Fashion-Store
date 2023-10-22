@@ -77,7 +77,6 @@ const ProfilePersonalInformationPage = () => {
     console.log(refreshToken);
 
     const handleSaveInformation = () => {
-        console.log(dateBirthday);
         // Tạo một đối tượng chứa thông tin cần cập nhật
         const updatedUserInfo = {
             fullName: name,
@@ -87,6 +86,12 @@ const ProfilePersonalInformationPage = () => {
             dateBirthday: JSON.stringify(dateBirthday),
         };
 
+        if (name === "" || email === "" || phoneNumber === "" || gender === "" || dateBirthday.day === ""
+            || dateBirthday.month === "" || dateBirthday.year === "") {
+            const errorText = document.querySelector(".error--message.error-save");
+            errorText.innerHTML = 'Vui lòng nhập đầy đủ thông tin';
+            return;
+        }
         const apiEditProfile = "http://localhost:9999/api/edit-profile";
 
         // Tạo yêu cầu HTTP POST
@@ -133,8 +138,8 @@ const ProfilePersonalInformationPage = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        // "Access-Control-Allow-Origin": "*",
-                        // "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
+                        "Access-Control-Allow-Origin": "*",
+                        "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
                         Authorization: `Bearer ${refreshToken}`
                     },
                 });
@@ -146,12 +151,20 @@ const ProfilePersonalInformationPage = () => {
                 }
 
                 const data = await response.json();
-                const dateParts = data.dateBirthday.split("-");
-                const year = dateParts[0].toString();
-                let month = dateParts[1].toString();
-                let day = dateParts[2].toString();
-                if (day[0] === "0") day = day[1];
-                if (month[0] === "0") month = month[1];
+                let dateParts = [];
+                let year = "";
+                let month = "";
+                let day = "";
+                try {
+                    dateParts = data.dateBirthday.split("-");
+                    year = dateParts[0].toString();
+                    month = dateParts[1].toString();
+                    day = dateParts[2].toString();
+                    if (day[0] === "0") day = day[1];
+                    if (month[0] === "0") month = month[1];
+                } catch (error) {
+
+                }
 
                 setUserData(data);
                 setName(data.fullName);
@@ -259,11 +272,10 @@ const ProfilePersonalInformationPage = () => {
                                                             value={dateBirthday ? dateBirthday.day : ''}
                                                             onChange={(e) => {
                                                                 setDateBirthday({ ...dateBirthday, day: e.target.value });
-                                                            }}
-                                                    >
+                                                            }}>
                                                         <option value="day" className="option-date" style={{ display: 'none' }}></option>
                                                         {Array.from({ length: 31 }, (_, i) => (
-                                                            <option key={i} value={i + 1}>{i + 1}</option>
+                                                            <option key={i} value={i + 1}>Ngày {i + 1}</option>
                                                         ))}
                                                     </select>
                                                 </div>
@@ -289,7 +301,7 @@ const ProfilePersonalInformationPage = () => {
                                                         }}>
                                                         <option value="year" className="option-year" style={{ display: 'none' }}></option>
                                                         {Array.from({ length: 91 }, (_, i) => (
-                                                            <option key={i} value={1933 + i}>{1933 + i}</option>
+                                                            <option key={i} value={1933 + i}>Năm {1933 + i}</option>
                                                         ))}
                                                     </select>
                                                 </div>
