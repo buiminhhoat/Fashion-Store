@@ -68,8 +68,6 @@ const MenuItem = ({ to, text, subMenuItems }) => {
 
 const ProfileMenu = ({openModal}) => {
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
-  const [, , removeAccessTokenCookie] = useCookies(['access_token']);
-  const [, , removeRefreshTokenCookie] = useCookies(['refresh_token']);
 
   const logout = useLogout(); // Use the useLogout custom Hook
 
