@@ -1,5 +1,6 @@
 package com.FashionStore.controllers;
 
+import com.FashionStore.models.ResponseObject;
 import com.FashionStore.models.Users;
 import com.FashionStore.repositories.UsersRepository;
 import com.FashionStore.security.JwtTokenUtil;
@@ -33,10 +34,7 @@ public class ProfileController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        String email = credentials.get("token");
-        if (email != jwtTokenUtil.getSubjectFromToken(refreshToken)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        String email = credentials.get("email");
         String fullName = credentials.get("fullName");
         String gender = credentials.get("gender");
 
@@ -44,6 +42,7 @@ public class ProfileController {
         Users user = findByEmail.get(0);
         user.setFullName(fullName);
         usersRepository.save(user);
-        return ResponseEntity.ok("Thông tin đã được cập nhật");
+        ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
+        return ResponseEntity.ok(responseObject);
     }
 }
