@@ -68,12 +68,12 @@ function renderMenu(menuItems) {
 const ProfilePersonalInformationPage = () => {
     const [userData, setUserData] = useState(null);
     const [cookies] = useCookies(['refresh_token']);
+    const refreshToken = cookies.refresh_token;
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [gender, setGender] = useState("");
     const [dateBirthday, setDateBirthday] = useState({ day: '', month: '', year: '' });
-    const refreshToken = cookies.refresh_token;
     console.log(refreshToken);
 
     const handleSaveInformation = () => {
