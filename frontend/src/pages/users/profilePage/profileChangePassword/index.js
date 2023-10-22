@@ -39,15 +39,6 @@ const menuItemsProfile = [
     },
 ];
 
-const tabItems = [
-    { id: "tab-all", text: "Tất cả", isActive: true },
-    { id: "tab1", text: "Chờ thanh toán", isActive: false },
-    { id: "tab5", text: "Đã xác nhận", isActive: false },
-    { id: "tab2", text: "Đang giao hàng", isActive: false },
-    { id: "tab3", text: "Hoàn thành", isActive: false },
-    { id: "tab4", text: "Đã hủy", isActive: false }
-];
-
 function renderMenu(menuItems) {
     const menuItemsJSX = [];
     for (let i = 0; i < menuItems.length; i++) {
@@ -64,53 +55,6 @@ function renderMenu(menuItems) {
         );
     }
     return menuItemsJSX;
-}
-
-function renderTabList(tabItems) {
-    const renderTabList = () => {
-        return tabItems.map((tab, index) => (
-            <a
-                key={tab.id}
-                className={`nav-link ${tab.isActive ? "active" : ""}`}
-                data-bs-toggle="tab"
-                data-bs-target={`#${tab.id}`}
-                role="tab"
-                aria-selected={tab.isActive}
-                tabIndex={tab.isActive ? "0" : "-1"}
-            >
-                {tab.text}
-            </a>
-        ));
-    };
-
-    return (
-        <div className="nav nav-tabs menu-tab" id="myTab" role="tablist">
-            {renderTabList()}
-        </div>
-    );
-}
-
-function renderTabContent(tabItems) {
-    const tabContent = [];
-    for (let i = 0; i < tabItems.length; i++) {
-        const tab = tabItems[i];
-        const isActive = i === 0; // Xác định tab đầu tiên là active
-
-        tabContent.push(
-            <div
-                key={tab.id}
-                className={`tab-pane ${isActive ? '' : 'fade'} ${isActive ? 'show active' : ''}`}
-                id={tab.id}
-                role="tabpanel"
-            >
-                <div className="empty-content">
-                    <img src={emptyProduct} alt="no data" />
-                    <p>Không có đơn hàng nào</p>
-                </div>
-            </div>
-        );
-    }
-    return tabContent;
 }
 
 const ProfileChangePassword = () => {
