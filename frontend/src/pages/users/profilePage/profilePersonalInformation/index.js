@@ -90,14 +90,14 @@ const ProfilePersonalInformationPage = () => {
     console.log(refreshToken);
 
     const handleSaveInformation = () => {
-        console.log(email);
+        console.log(dateBirthday);
         // Tạo một đối tượng chứa thông tin cần cập nhật
         const updatedUserInfo = {
             fullName: name,
             email: email,
             phoneNumber: phoneNumber,
             gender: gender,
-            dateBirthday: dateBirthday,
+            dateBirthday: JSON.stringify(dateBirthday),
         };
 
         const apiEditProfile = "http://localhost:9999/api/edit-profile";
@@ -114,15 +114,21 @@ const ProfilePersonalInformationPage = () => {
         })
             .then(response => {
                 if (!response.ok) {
+                    const errorText = document.querySelector(".error--message.error-save");
+                    errorText.innerHTML = 'Lỗi khi gửi yêu cầu cập nhật thông tin.';
                     throw new Error('Lỗi khi gửi yêu cầu cập nhật thông tin.');
                 }
                 return response.json();
             })
             .then(data => {
                 // Xử lý dữ liệu phản hồi từ máy chủ (nếu cần)
+                const errorText = document.querySelector(".error--message.error-save");
+                errorText.innerHTML = 'Dữ liệu cập nhật thành công';
                 console.log('Dữ liệu cập nhật thành công:', data);
             })
             .catch(error => {
+                const errorText = document.querySelector(".error--message.error-save");
+                errorText.innerHTML = 'Lỗi khi cập nhật thông tin: ' + error;
                 console.error('Lỗi khi cập nhật thông tin:', error);
             });
     }
@@ -147,17 +153,29 @@ const ProfilePersonalInformationPage = () => {
                 });
 
                 if (!response.ok) {
+                    const errorText = document.querySelector(".error--message.error-save");
+                    errorText.innerHTML = 'Lỗi khi gửi refresh token.';
                     throw new Error("Lỗi khi gửi refresh token.");
                 }
 
                 const data = await response.json();
+                const dateParts = data.dateBirthday.split("-");
+                const year = dateParts[0].toString();
+                let month = dateParts[1].toString();
+                let day = dateParts[2].toString();
+                if (day[0] === "0") day = day[1];
+                if (month[0] === "0") month = month[1];
+
                 setUserData(data);
                 setName(data.fullName);
                 setEmail(data.email);
                 setPhoneNumber(data.phoneNumber);
                 setGender(data.gender);
-                setDateBirthday(data.dateBirthday);
+                setDateBirthday({ day, month, year });
+                console.log(dateBirthday);
             } catch (error) {
+                const errorText = document.querySelector(".error--message.error-save");
+                errorText.innerHTML = 'Lỗi khi fetch dữ liệu: ' + error.toString();
                 console.error("Lỗi khi fetch dữ liệu:", error);
             }
         }
@@ -258,7 +276,8 @@ const ProfilePersonalInformationPage = () => {
                                                             value={dateBirthday ? dateBirthday.day : ''}
                                                             onChange={(e) => {
                                                                 setDateBirthday({ ...dateBirthday, day: e.target.value });
-                                                            }}>
+                                                            }}
+                                                    >
                                                         <option value="day" className="option-date" style={{ display: 'none' }}></option>
                                                         {Array.from({ length: 31 }, (_, i) => (
                                                             <option key={i} value={i + 1}>{i + 1}</option>
@@ -283,7 +302,7 @@ const ProfilePersonalInformationPage = () => {
                                                     <select className="select-year form-select" id="year" name="year"
                                                         value={dateBirthday ? dateBirthday.year : ''}
                                                         onChange={(e) => {
-                                                            setDateBirthday({ ...dateBirthday, year: e.target.year });
+                                                            setDateBirthday({ ...dateBirthday, year: e.target.value });
                                                         }}>
                                                         <option value="year" className="option-year" style={{ display: 'none' }}></option>
                                                         {Array.from({ length: 91 }, (_, i) => (
@@ -292,13 +311,13 @@ const ProfilePersonalInformationPage = () => {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <span className="error--message error-date"></span>
                                         </div>
                                     </form>
                                 </div>
                                 <div className="btn-wrap">
                                     <button type="button" className="btn btn-primary btn-save-information" onClick={handleSaveInformation}>Lưu thông tin</button>
                                 </div>
+                                <span className="error--message error-save"></span>
                             </div>
                         </div>
                     </div>
