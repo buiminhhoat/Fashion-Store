@@ -138,13 +138,13 @@ const HomePage = () => {
           <SubBanner />
           <section className="home-content">
             <CategorySection />
-            <ImageBanner image={banner1}/>
+            {/*<ImageBanner image={banner1}/>*/}
             <CollectionSection collectionData={shirtCollection} />
-            <ImageBanner image={banner1}/>
+            {/*<ImageBanner image={banner1}/>*/}
             <CollectionSection collectionData={shirtCollection} />
-            <ImageBanner image={banner1}/>
+            {/*<ImageBanner image={banner1}/>*/}
             <CollectionSection collectionData={shirtCollection} />
-            <ImageBanner image={banner1}/>
+            {/*<ImageBanner image={banner1}/>*/}
           </section>
 
         </main>

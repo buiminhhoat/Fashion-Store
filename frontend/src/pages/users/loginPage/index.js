@@ -1,12 +1,18 @@
-import {memo} from "react";
+import React, {memo} from "react";
 import "./style.scss"
 
 import LoginDialog from "../dialog/LoginDialog/LoginDialog";
 
 const LoginPage = () => {
+  const handleDialogSwitch = (dialogName) => {
+  };
+
+  const handleDialogClose = () => {
+  };
+
   return (
       <div>
-        <LoginDialog />
+        <LoginDialog onClose={handleDialogClose} onSwitch={handleDialogSwitch} />
       </div>
   );
 }
