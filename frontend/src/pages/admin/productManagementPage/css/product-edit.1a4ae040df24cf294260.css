@@ -2,11 +2,11 @@
     width: 720px;
     border-radius: 0;
 }
-.product-size-chart-modal .shopee-modal__body,
-.product-size-chart-modal .shopee-modal__container {
+.product-size-chart-modal .fashion-store-modal__body,
+.product-size-chart-modal .fashion-store-modal__container {
     padding: 0;
 }
-.product-size-chart-modal .shopee-modal__content {
+.product-size-chart-modal .fashion-store-modal__content {
     width: 720px;
 }
 .src-components-modals-productSizeChartModal---content--K6SjP {
@@ -24,22 +24,22 @@
     background: #000 50% no-repeat;
     background-size: contain;
 }
-.product-size-chart-example-modal .shopee-modal__body {
+.product-size-chart-example-modal .fashion-store-modal__body {
     padding: 0;
 }
-.product-size-chart-example-modal .shopee-modal__content {
+.product-size-chart-example-modal .fashion-store-modal__content {
     width: 902px;
     height: 442px;
 }
-.product-size-chart-example-modal--tw .shopee-modal__content {
+.product-size-chart-example-modal--tw .fashion-store-modal__content {
     width: 960px;
     height: 540px;
 }
-.product-size-chart-example-modal--id .shopee-modal__content {
+.product-size-chart-example-modal--id .fashion-store-modal__content {
     width: 900px;
     height: 583px;
 }
-.product-size-chart-example-modal--vn .shopee-modal__content {
+.product-size-chart-example-modal--vn .fashion-store-modal__content {
     width: 900px;
     height: 442px;
 }
@@ -60,28 +60,28 @@
     position: absolute;
     background: #000 50% no-repeat;
     background-size: contain;
-    background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example.6c2aa24.png);
+    background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example.6c2aa24.png);
 }
 .src-components-modals-productSizeChartExampleModal---idbox--3H7fE {
     width: 900px;
     height: 583px;
 }
 .src-components-modals-productSizeChartExampleModal---idbox--3H7fE .image {
-    background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example_id.6055df3.jpg) !important;
+    background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example_id.6055df3.jpg) !important;
 }
 .src-components-modals-productSizeChartExampleModal---twbox--1w9pL {
     width: 960px;
     height: 540px;
 }
 .src-components-modals-productSizeChartExampleModal---twbox--1w9pL .image {
-    background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example_tw.3ff2d1e.png) !important;
+    background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example_tw.3ff2d1e.png) !important;
 }
 .src-components-modals-productSizeChartExampleModal---vnbox--1ZZjP {
     width: 900px;
     height: 442px;
 }
 .src-components-modals-productSizeChartExampleModal---vnbox--1ZZjP .image {
-    background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example_vn.9ab2f87.png) !important;
+    background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/example_vn.9ab2f87.png) !important;
 }
 .wrapper[data-v-2866fb4a] {
     width: 427px;
@@ -92,7 +92,7 @@
     width: 427px;
     height: 190px;
     background-size: 427px 190px;
-    background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/new-ui-modal-banner.094ebd6.png);
+    background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/new-ui-modal-banner.094ebd6.png);
 }
 .wrapper .title[data-v-2866fb4a] {
     font-weight: 500;
@@ -128,34 +128,34 @@
     line-height: 22px;
 }
 .product-edit-form-item.error[data-v-f872a002]
-.shopee-date-picker
-.shopee-selector,
+.fashion-store-date-picker
+.fashion-store-selector,
 .product-edit-form-item.error[data-v-f872a002]
-.shopee-input
-.shopee-input__inner,
-.product-edit-form-item.error[data-v-f872a002] .shopee-selector,
+.fashion-store-input
+.fashion-store-input__inner,
+.product-edit-form-item.error[data-v-f872a002] .fashion-store-selector,
 .product-edit-form-item.error[data-v-f872a002] .textarea .textarea__edit {
     border-color: #ff4742;
 }
 .product-edit-form-item.error[data-v-f872a002]
 .listing-unit-input-unit
-.shopee-selector {
+.fashion-store-selector {
     border-color: #BD0000;
     border-left-color: #ff4742;
 }
 .product-edit-form-item.error[data-v-f872a002]
 .listing-unit-input-unit.is-show
-.shopee-selector {
+.fashion-store-selector {
     border-color: #b7b7b7;
     border-left-color: #ff4742;
 }
 .product-edit-form-item.floating-error[data-v-f872a002]
-.shopee-date-picker
-.shopee-selector,
+.fashion-store-date-picker
+.fashion-store-selector,
 .product-edit-form-item.floating-error[data-v-f872a002]
-.shopee-input
-.shopee-input__inner,
-.product-edit-form-item.floating-error[data-v-f872a002] .shopee-selector,
+.fashion-store-input
+.fashion-store-input__inner,
+.product-edit-form-item.floating-error[data-v-f872a002] .fashion-store-selector,
 .product-edit-form-item.floating-error[data-v-f872a002]
 .textarea
 .textarea__edit {
@@ -234,7 +234,7 @@
 .product-edit-input {
     position: relative;
 }
-.custom-len-calc-input[data-v-1c124603] textarea.shopee-input__inner {
+.custom-len-calc-input[data-v-1c124603] textarea.fashion-store-input__inner {
     width: 100%;
     padding: 5px 8px;
     margin: 0;
@@ -362,15 +362,15 @@
     flex: 1;
     text-align: right;
 }
-.shopee-button--xl-large[data-v-bf16c42e] {
+.fashion-store-button--xl-large[data-v-bf16c42e] {
     min-width: 140px;
     font-size: 14px;
 }
-.disabled-tips-container + .shopee-button[data-v-bf16c42e],
-.shopee-button + .shopee-button--xl-large[data-v-bf16c42e],
-.shopee-button + .shopee-popover[data-v-bf16c42e],
-.shopee-button .disabled-tips-container[data-v-bf16c42e],
-.shopee-popover + .shopee-button[data-v-bf16c42e] {
+.disabled-tips-container + .fashion-store-button[data-v-bf16c42e],
+.fashion-store-button + .fashion-store-button--xl-large[data-v-bf16c42e],
+.fashion-store-button + .fashion-store-popover[data-v-bf16c42e],
+.fashion-store-button .disabled-tips-container[data-v-bf16c42e],
+.fashion-store-popover + .fashion-store-button[data-v-bf16c42e] {
     margin-left: 13px;
 }
 .disabled-tips-container[data-v-bf16c42e] {
@@ -378,17 +378,17 @@
     margin-left: 13px;
     width: auto !important;
 }
-.product-detail-status .banned[data-v-24950094] .shopee-alert-icon,
-.product-detail-status .deboosted[data-v-24950094] .shopee-alert-icon {
+.product-detail-status .banned[data-v-24950094] .fashion-store-alert-icon,
+.product-detail-status .deboosted[data-v-24950094] .fashion-store-alert-icon {
     color: #ff4742;
 }
-.shopee-alert[data-v-24950094] {
+.fashion-store-alert[data-v-24950094] {
     margin-bottom: 15px;
 }
-.shopee-alert[data-v-24950094] .shopee-alert-desc a {
+.fashion-store-alert[data-v-24950094] .fashion-store-alert-desc a {
     margin: 0;
 }
-[data-v-24950094] .shopee-alert-content {
+[data-v-24950094] .fashion-store-alert-content {
     max-width: 95%;
 }
 .unlisted-description[data-v-24950094] {
@@ -453,7 +453,7 @@
     background: rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
-.thumburl-container .action-delete .shopee-icon[data-v-e0a966e4] {
+.thumburl-container .action-delete .fashion-store-icon[data-v-e0a966e4] {
     width: 16px;
     height: 16px;
 }
@@ -478,7 +478,7 @@
     bottom: 12px;
     right: 41px;
 }
-.product-video-manager .video-manager .btn .shopee-icon[data-v-e0a966e4] {
+.product-video-manager .video-manager .btn .fashion-store-icon[data-v-e0a966e4] {
     fill: #fff;
     height: 16px;
     width: 16px;
@@ -563,7 +563,7 @@
 .video-manager
 .video-container
 .action-tools-icon
-.shopee-icon[data-v-e0a966e4] {
+.fashion-store-icon[data-v-e0a966e4] {
     width: 16px;
     height: 16px;
 }
@@ -590,7 +590,7 @@
     -webkit-transform: translateX(-10px);
     transform: translateX(-10px);
 }
-.product-video-manager .video-manager .shopee-tooltip[data-v-e0a966e4] {
+.product-video-manager .video-manager .fashion-store-tooltip[data-v-e0a966e4] {
     width: 14px;
     height: 14px;
     position: absolute;
@@ -624,7 +624,7 @@
 .product-video-manager
 .video-manager
 .error-container
-.shopee-icon[data-v-e0a966e4] {
+.fashion-store-icon[data-v-e0a966e4] {
     display: block;
     width: 24px;
     height: 24px;
@@ -659,7 +659,7 @@
 .product-video-manager
 .video-manager
 .upload-icon
-.shopee-icon[data-v-e0a966e4] {
+.fashion-store-icon[data-v-e0a966e4] {
     width: 23px;
     height: 23px;
     color: #BD0000;
@@ -669,7 +669,7 @@
     line-height: 14px;
     font-size: 12px;
 }
-.product-video-manager .video-manager .shopee-file-upload[data-v-e0a966e4] {
+.product-video-manager .video-manager .fashion-store-file-upload[data-v-e0a966e4] {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 80px;
     flex: 0 0 80px;
@@ -685,13 +685,13 @@
 }
 .product-video-manager
 .video-manager
-.shopee-file-upload[data-v-e0a966e4]:hover {
+.fashion-store-file-upload[data-v-e0a966e4]:hover {
     border: 1px dashed #BD0000;
 }
 .product-video-manager
 .video-manager
-.shopee-file-upload[data-v-e0a966e4]
-.shopee-upload-wrapper {
+.fashion-store-file-upload[data-v-e0a966e4]
+.fashion-store-upload-wrapper {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 78px;
     flex: 0 0 78px;
@@ -706,11 +706,11 @@
 }
 .product-video-manager
 .video-manager
-.shopee-file-upload[data-v-e0a966e4]
-.shopee-upload-wrapper:hover {
+.fashion-store-file-upload[data-v-e0a966e4]
+.fashion-store-upload-wrapper:hover {
     background: rgba(238, 77, 45, 0.03);
 }
-.product-video-manager .video-manager .shopee-file-upload img[data-v-e0a966e4] {
+.product-video-manager .video-manager .fashion-store-file-upload img[data-v-e0a966e4] {
     max-width: 100%;
     max-height: 100%;
 }
@@ -778,7 +778,7 @@
 .product-video-manager
 .thumburl-container
 .action-delete
-.shopee-icon[data-v-e0a966e4] {
+.fashion-store-icon[data-v-e0a966e4] {
     width: 16px;
     height: 16px;
 }
@@ -795,7 +795,7 @@
 .product-size-chart[data-v-55d2623e] {
     position: relative;
 }
-.product-size-chart .shopee-image-manager__tools[data-v-55d2623e] {
+.product-size-chart .fashion-store-image-manager__tools[data-v-55d2623e] {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -803,7 +803,7 @@
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 0 0 4px 4px;
 }
-.product-size-chart .shopee-image-manager__icon[data-v-55d2623e] {
+.product-size-chart .fashion-store-image-manager__icon[data-v-55d2623e] {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -817,7 +817,7 @@
     color: #fff;
     cursor: pointer;
 }
-.product-size-chart .shopee-image-manager__icon .shopee-icon[data-v-55d2623e] {
+.product-size-chart .fashion-store-image-manager__icon .fashion-store-icon[data-v-55d2623e] {
     width: 16px;
     height: 16px;
 }
@@ -852,12 +852,12 @@
     -ms-flex-align: center;
     align-items: center;
 }
-.product-size-chart .size-chart-upload .shopee-icon[data-v-55d2623e] {
+.product-size-chart .size-chart-upload .fashion-store-icon[data-v-55d2623e] {
     width: 23px;
     height: 23px;
     color: #BD0000;
 }
-.product-size-chart .shopee-file-upload[data-v-55d2623e] {
+.product-size-chart .fashion-store-file-upload[data-v-55d2623e] {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 80px;
     flex: 0 0 80px;
@@ -868,12 +868,12 @@
     border: 1px dashed #d8d8d8;
     border-radius: 4px;
 }
-.product-size-chart .shopee-file-upload[data-v-55d2623e]:hover {
+.product-size-chart .fashion-store-file-upload[data-v-55d2623e]:hover {
     border-color: #BD0000;
 }
 .product-size-chart
-.shopee-file-upload[data-v-55d2623e]
-.shopee-upload-wrapper {
+.fashion-store-file-upload[data-v-55d2623e]
+.fashion-store-upload-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -892,8 +892,8 @@
     background: #fff;
 }
 .product-size-chart
-.shopee-file-upload[data-v-55d2623e]
-.shopee-upload-wrapper:hover {
+.fashion-store-file-upload[data-v-55d2623e]
+.fashion-store-upload-wrapper:hover {
     background: rgba(238, 77, 45, 0.03);
 }
 .product-size-chart .size-masker[data-v-55d2623e] {
@@ -957,7 +957,7 @@
         transform: rotate(1turn);
     }
 }
-.product-size-chart .size-masker-loading .shopee-icon[data-v-55d2623e] {
+.product-size-chart .size-masker-loading .fashion-store-icon[data-v-55d2623e] {
     -webkit-animation: loading-360-55d2623e 0.8s infinite linear;
     animation: loading-360-55d2623e 0.8s infinite linear;
     display: block;
@@ -973,16 +973,16 @@
     display: -ms-flexbox;
     display: flex;
 }
-.product-dimension-edit[data-v-6b4b209e] .shopee-input {
+.product-dimension-edit[data-v-6b4b209e] .fashion-store-input {
     z-index: 0;
 }
-.product-dimension-edit[data-v-6b4b209e] .shopee-input.focused {
+.product-dimension-edit[data-v-6b4b209e] .fashion-store-input.focused {
     z-index: 3;
 }
-.product-dimension-edit[data-v-6b4b209e] .shopee-input.invalid {
+.product-dimension-edit[data-v-6b4b209e] .fashion-store-input.invalid {
     z-index: 1;
 }
-.product-dimension-edit[data-v-6b4b209e] .shopee-input.invalid:hover {
+.product-dimension-edit[data-v-6b4b209e] .fashion-store-input.invalid:hover {
     z-index: 2;
 }
 .product-dimension-edit
@@ -1033,14 +1033,14 @@
     color: #eda500;
     max-width: 770px;
 }
-.shopee-price[data-v-791a05c2] {
+.fashion-store-price[data-v-791a05c2] {
     display: inline;
 }
-.shopee-price__before[data-v-791a05c2] {
+.fashion-store-price__before[data-v-791a05c2] {
     color: #bababa;
     margin-right: 5px;
 }
-.shopee-price__after[data-v-791a05c2] {
+.fashion-store-price__after[data-v-791a05c2] {
     color: #BD0000;
 }
 .logistics-size-select[data-v-08c5a527] {
@@ -1077,7 +1077,7 @@
 }
 .logistics-size-select__dropdown
 .scs-dropdown
-.shopee-dropdown-item.preview[data-v-08c5a527] {
+.fashion-store-dropdown-item.preview[data-v-08c5a527] {
     padding-right: 20px;
 }
 .logistics-size-select__name[data-v-08c5a527] {
@@ -1099,7 +1099,7 @@
     border: none;
     width: auto !important;
 }
-.logistics-size-select .shopee-menu[data-v-08c5a527] {
+.logistics-size-select .fashion-store-menu[data-v-08c5a527] {
     border: none;
 }
 .listing-logistic-size-select__dropdown-menu .logistics-size__name {
@@ -1115,7 +1115,7 @@
     position: absolute;
     height: 16px;
 }
-.listing-logistic-size-select__dropdown-menu .checked-icon .shopee-icon svg {
+.listing-logistic-size-select__dropdown-menu .checked-icon .fashion-store-icon svg {
     width: 14px;
     height: 14px;
     fill: #00bfa5;
@@ -1344,10 +1344,10 @@
     border: none;
     border-radius: 4px;
 }
-.alert-box[data-v-75fd7b7e] .shopee-alert-title {
+.alert-box[data-v-75fd7b7e] .fashion-store-alert-title {
     font-size: 14px;
 }
-.alert-box.shopee-alert--with-desc[data-v-75fd7b7e] .shopee-alert-title {
+.alert-box.fashion-store-alert--with-desc[data-v-75fd7b7e] .fashion-store-alert-title {
     font-weight: 500;
     font-weight: var(--font-weight);
 }
@@ -1449,7 +1449,7 @@
     display: -ms-inline-flexbox;
     display: inline-flex;
 }
-.inline-list-item[data-v-e44ff418] .shopee-icon {
+.inline-list-item[data-v-e44ff418] .fashion-store-icon {
     width: 13px;
     height: 13px;
 }
@@ -1475,7 +1475,7 @@
 .logistics-item[data-v-e44ff418] .popover-wrap {
     width: auto;
 }
-.logistics-item .shopee-icon[data-v-e44ff418] {
+.logistics-item .fashion-store-icon[data-v-e44ff418] {
     width: 16px;
     height: 16px;
 }
@@ -1498,7 +1498,7 @@
     margin-bottom: 1.33em;
     font-weight: 700;
 }
-.logistics-item .editable-field__form[data-v-e44ff418] .shopee-checkbox {
+.logistics-item .editable-field__form[data-v-e44ff418] .fashion-store-checkbox {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1508,21 +1508,21 @@
 }
 .logistics-item
 .editable-field__form[data-v-e44ff418]
-.shopee-checkbox
-.shopee-icon {
+.fashion-store-checkbox
+.fashion-store-icon {
     width: 16px;
     height: 16px;
 }
 .logistics-item
 .editable-field__form[data-v-e44ff418]
-.shopee-checkbox
+.fashion-store-checkbox
 .question {
     width: 16px;
     height: 16px;
     fill: #bababa;
     vertical-align: baseline;
 }
-.logistics-item .shopee-tooltip[data-v-e44ff418] {
+.logistics-item .fashion-store-tooltip[data-v-e44ff418] {
     display: inline-block;
     vertical-align: middle;
 }
@@ -1536,26 +1536,26 @@
 }
 .logistics-item
 .setting-panel-item-actions
-> .shopee-button[data-v-e44ff418]:first-child {
+> .fashion-store-button[data-v-e44ff418]:first-child {
     margin-right: 16px;
 }
-.logistics-item[data-v-e44ff418] .shopee-popover {
+.logistics-item[data-v-e44ff418] .fashion-store-popover {
     position: static;
     white-space: normal;
 }
-.logistics-item[data-v-e44ff418] .shopee-popover > .shopee-mask {
+.logistics-item[data-v-e44ff418] .fashion-store-popover > .fashion-store-mask {
     position: static;
 }
-.logistics-item[data-v-e44ff418] .shopee-popover > .shopee-mask__content {
+.logistics-item[data-v-e44ff418] .fashion-store-popover > .fashion-store-mask__content {
     top: 100% !important;
     right: 0;
     -webkit-transform: scale(0.01);
     transform: scale(0.01);
 }
 .logistics-item[data-v-e44ff418]
-.shopee-popover
-> .shopee-mask.open
-> .shopee-mask__content {
+.fashion-store-popover
+> .fashion-store-mask.open
+> .fashion-store-mask__content {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
@@ -1599,14 +1599,14 @@
     align-items: center;
     height: 24px;
 }
-.logistics-item-promotion .shopee-icon[data-v-e44ff418] {
+.logistics-item-promotion .fashion-store-icon[data-v-e44ff418] {
     width: 14px;
     height: 14px;
     margin-left: 8px;
     vertical-align: middle;
     fill: #00bfa5;
 }
-.logistics-item .promotion-disabled .shopee-icon[data-v-e44ff418] {
+.logistics-item .promotion-disabled .fashion-store-icon[data-v-e44ff418] {
     fill: rgba(0, 0, 0, 0.2);
 }
 .logistics-item-ref[data-v-e44ff418] {
@@ -1616,14 +1616,14 @@
     margin-left: 0.5em;
     height: 100%;
 }
-.editable-field__edit .shopee-icon[data-v-e44ff418] {
+.editable-field__edit .fashion-store-icon[data-v-e44ff418] {
     fill: #000;
     margin-top: 1px;
     width: 13px;
     height: 13px;
     cursor: pointer;
 }
-.editable-field__edit .shopee-icon[data-v-e44ff418]:hover {
+.editable-field__edit .fashion-store-icon[data-v-e44ff418]:hover {
     fill: #BD0000;
 }
 .error-message[data-v-e44ff418] {
@@ -1688,7 +1688,7 @@ svg {
 }
 .logistics-item.logistics-item-ui-t3
 .expend-button.is-hidden
-.shopee-icon[data-v-e44ff418] {
+.fashion-store-icon[data-v-e44ff418] {
     display: none;
 }
 .logistics-item-limit[data-v-e44ff418] {
@@ -1702,17 +1702,17 @@ svg {
     color: #1baf9d !important;
     background-color: #e3f5f3 !important;
 }
-[data-v-e44ff418] .shopee-form-item__label.empty {
+[data-v-e44ff418] .fashion-store-form-item__label.empty {
     display: none;
 }
 .logistics[data-v-a80781fc] {
     padding: 0;
 }
-.logistics .shopee-button[data-v-a80781fc] {
+.logistics .fashion-store-button[data-v-a80781fc] {
     float: right;
     margin-left: 8px;
 }
-.editable-field--editing .logistics__popup.shopee-popover[data-v-a80781fc] {
+.editable-field--editing .logistics__popup.fashion-store-popover[data-v-a80781fc] {
     position: static;
 }
 .logistics-section[data-v-a80781fc] {
@@ -1779,8 +1779,8 @@ svg {
     justify-content: center;
     text-align: center;
 }
-.popover-cell-content .shopee-popover[data-v-13aa2f94],
-.popover-cell-content[data-v-13aa2f94] .shopee-popover__ref {
+.popover-cell-content .fashion-store-popover[data-v-13aa2f94],
+.popover-cell-content[data-v-13aa2f94] .fashion-store-popover__ref {
     line-height: 0;
 }
 .popover-cell-content .popover-icon[data-v-13aa2f94] {
@@ -1846,7 +1846,7 @@ svg {
 }
 .variation-model-table-main
 .middle-scroll-container[data-v-6b7357f8]
-.shopee-scrollbar__bar {
+.fashion-store-scrollbar__bar {
     z-index: 4;
 }
 .variation-model-table-main[data-v-6b7357f8] .table-header {
@@ -2050,12 +2050,12 @@ svg {
     font-size: 12px;
     line-height: 14px;
 }
-.variation-model-table[data-v-68b35f81] .shopee-image-manager {
+.variation-model-table[data-v-68b35f81] .fashion-store-image-manager {
     margin-top: 8px;
 }
 .variation-model-table[data-v-68b35f81]
-.shopee-image-manager
-.shopee-image-manager__itembox {
+.fashion-store-image-manager
+.fashion-store-image-manager__itembox {
     -ms-flex-preferred-size: 56px;
     flex-basis: 56px;
     width: 56px;
@@ -2065,12 +2065,12 @@ svg {
     margin: 0;
 }
 .variation-model-table[data-v-68b35f81]
-.shopee-image-manager
-.shopee-image-manager__image {
+.fashion-store-image-manager
+.fashion-store-image-manager__image {
     width: 56px;
     height: 56px;
 }
-.stock-tooltip-content .shopee-popover__content ul[data-v-68b35f81] {
+.stock-tooltip-content .fashion-store-popover__content ul[data-v-68b35f81] {
     list-style-type: disc;
     padding-left: 16px;
 }
@@ -2151,13 +2151,13 @@ svg {
     overflow: hidden;
     overflow-y: scroll;
 }
-.multi-warehouse-stock-edit .stock-edit[data-v-1943d2f0] .shopee-tooltip {
+.multi-warehouse-stock-edit .stock-edit[data-v-1943d2f0] .fashion-store-tooltip {
     width: 100%;
 }
 .multi-warehouse-stock-edit
 .stock-edit[data-v-1943d2f0]
-.shopee-tooltip
-.shopee-popover__ref {
+.fashion-store-tooltip
+.fashion-store-popover__ref {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2165,7 +2165,7 @@ svg {
 }
 .multi-warehouse-stock-edit
 .stock-edit[data-v-1943d2f0]
-.shopee-table__body-container
+.fashion-store-table__body-container
 .first-cell {
     padding: 8px 16px;
     height: 48px;
@@ -2182,14 +2182,14 @@ svg {
 }
 .multi-warehouse-stock-edit
 .stock-edit[data-v-1943d2f0]
-.shopee-table__body-container
+.fashion-store-table__body-container
 .first-cell
 .stock-edit-name {
     overflow: hidden;
 }
 .multi-warehouse-stock-edit
 .stock-edit[data-v-1943d2f0]
-.shopee-table__body-container
+.fashion-store-table__body-container
 .last-cell {
     padding: 8px 16px;
 }
@@ -2266,10 +2266,10 @@ span[data-v-1943d2f0] {
     color: #ff4742;
     font-size: 12px;
 }
-.two-tier-multi-warehouse-stock .shopee-popover[data-v-6a1729c6],
+.two-tier-multi-warehouse-stock .fashion-store-popover[data-v-6a1729c6],
 .two-tier-multi-warehouse-stock
-.shopee-popover[data-v-6a1729c6]
-.shopee-popover__ref {
+.fashion-store-popover[data-v-6a1729c6]
+.fashion-store-popover__ref {
     line-height: 0;
 }
 .two-tier-multi-warehouse-stock .help-row[data-v-6a1729c6] {
@@ -2290,10 +2290,10 @@ span[data-v-1943d2f0] {
 .two-tier-multi-warehouse-stock .help-right[data-v-6a1729c6] {
     display: inline-block;
 }
-[data-v-6a1729c6] .shopee-modal {
+[data-v-6a1729c6] .fashion-store-modal {
     text-align: left;
 }
-[data-v-6a1729c6] .shopee-modal .shopee-modal__body {
+[data-v-6a1729c6] .fashion-store-modal .fashion-store-modal__body {
     color: #333;
     font-size: 14px;
 }
@@ -2372,7 +2372,7 @@ span[data-v-1943d2f0] {
 }
 .variation-edit-item
 .virtual-options-item[data-v-389929d8]
-.shopee-input__inner {
+.fashion-store-input__inner {
     -webkit-transition: none;
     transition: none;
 }
@@ -2390,12 +2390,12 @@ span[data-v-1943d2f0] {
     line-height: 0;
     cursor: pointer;
 }
-.variation-edit-item .options-item-btn .shopee-icon[data-v-389929d8] {
+.variation-edit-item .options-item-btn .fashion-store-icon[data-v-389929d8] {
     width: 16px;
     height: 16px;
     fill: #b7b7b7;
 }
-.variation-edit-item .options-item-btn .shopee-icon[data-v-389929d8]:hover {
+.variation-edit-item .options-item-btn .fashion-store-icon[data-v-389929d8]:hover {
     fill: #666;
 }
 .variation-edit-item .options-item-btn .disabled[data-v-389929d8] {
@@ -2404,7 +2404,7 @@ span[data-v-1943d2f0] {
 .variation-edit-item
 .options-item-btn
 .disabled
-.shopee-icon[data-v-389929d8]:hover {
+.fashion-store-icon[data-v-389929d8]:hover {
     fill: #b7b7b7;
 }
 .variation-edit-item .options-close-btn[data-v-389929d8] {
@@ -2414,12 +2414,12 @@ span[data-v-1943d2f0] {
     line-height: 0;
     cursor: pointer;
 }
-.variation-edit-item .options-close-btn .shopee-icon[data-v-389929d8] {
+.variation-edit-item .options-close-btn .fashion-store-icon[data-v-389929d8] {
     width: 16px;
     height: 16px;
     fill: #333;
 }
-.variation-edit-item .options-close-btn .shopee-icon[data-v-389929d8]:hover {
+.variation-edit-item .options-close-btn .fashion-store-icon[data-v-389929d8]:hover {
     fill: #333;
 }
 .variation-edit-item .options-close-btn .disabled[data-v-389929d8] {
@@ -2428,13 +2428,13 @@ span[data-v-1943d2f0] {
 .variation-edit-item
 .options-close-btn
 .disabled
-.shopee-icon[data-v-389929d8]:hover {
+.fashion-store-icon[data-v-389929d8]:hover {
     fill: #333;
 }
 .original-discount-price .discount-popover[data-v-ad66bfb0],
 .original-discount-price
 .discount-popover[data-v-ad66bfb0]
-.shopee-popover__ref {
+.fashion-store-popover__ref {
     line-height: 0;
 }
 .original-discount-price .discount-popover-icon[data-v-ad66bfb0] {
@@ -2523,7 +2523,7 @@ span[data-v-1943d2f0] {
     vertical-align: middle;
 }
 .basic-price .help-popover[data-v-34aa40ce],
-.basic-price .help-popover[data-v-34aa40ce] .shopee-popover__ref {
+.basic-price .help-popover[data-v-34aa40ce] .fashion-store-popover__ref {
     line-height: 0;
 }
 .basic-price .help-popover-icon[data-v-34aa40ce] {
@@ -2581,10 +2581,10 @@ span[data-v-1943d2f0] {
     align-items: center;
     min-height: 40px;
 }
-.pff-stock .pff-stock-row[data-v-cb1d9d58] .shopee-form-item__label.empty {
+.pff-stock .pff-stock-row[data-v-cb1d9d58] .fashion-store-form-item__label.empty {
     display: none;
 }
-.pff-stock .pff-stock-row[data-v-cb1d9d58] .shopee-form-item__content {
+.pff-stock .pff-stock-row[data-v-cb1d9d58] .fashion-store-form-item__content {
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
 }
@@ -2607,11 +2607,11 @@ span[data-v-1943d2f0] {
     -ms-flex-pack: end;
     justify-content: flex-end;
 }
-.shopee-icon[data-v-cb1d9d58] {
+.fashion-store-icon[data-v-cb1d9d58] {
     width: 14px;
     height: 14px;
 }
-.shopee-tooltip[data-v-cb1d9d58] {
+.fashion-store-tooltip[data-v-cb1d9d58] {
     vertical-align: text-top;
 }
 .pff-total-stock[data-v-cb1d9d58] {
@@ -2670,7 +2670,7 @@ span[data-v-1943d2f0] {
 .error .stock-reserved[data-v-bcc1db44] {
     color: #BD0000;
 }
-.multi-warehouse-stock-popover .shopee-popover__content {
+.multi-warehouse-stock-popover .fashion-store-popover__content {
     padding: 0;
 }
 .model-status-switch[data-v-331a0aac] {
@@ -2809,7 +2809,7 @@ span[data-v-1943d2f0] {
     font-size: 12px;
     line-height: 14px;
 }
-.accurate-dimension-tips .shopee-button[data-v-9aa8422c] {
+.accurate-dimension-tips .fashion-store-button[data-v-9aa8422c] {
     font-size: 12px;
     line-height: 14px;
 }
@@ -2827,7 +2827,7 @@ span[data-v-1943d2f0] {
     border: none;
     max-width: 800px;
 }
-.alert-warning-box[data-v-9aa8422c] .shopee-alert-title {
+.alert-warning-box[data-v-9aa8422c] .fashion-store-alert-title {
     margin-right: 0;
 }
 .product-shipping .container .add-shipping[data-v-3927c13e] {
@@ -2844,7 +2844,7 @@ span[data-v-1943d2f0] {
     line-height: 1.5;
     background-color: #f9f9f9;
 }
-.product-shipping .shipping-promotion-tip .shopee-icon[data-v-3927c13e] {
+.product-shipping .shipping-promotion-tip .fashion-store-icon[data-v-3927c13e] {
     width: 16px;
     height: 16px;
     vertical-align: bottom;
@@ -2881,33 +2881,33 @@ span[data-v-1943d2f0] {
     color: #1791f2;
     text-decoration: underline;
 }
-.product-shipping .dangerous-goods-row .shopee-popover[data-v-3927c13e] {
+.product-shipping .dangerous-goods-row .fashion-store-popover[data-v-3927c13e] {
     margin-left: 4px;
     line-height: 0;
 }
 .product-shipping
 .dangerous-goods-row
 .edit-label
-.shopee-icon.dangerous-goods-tips-icon[data-v-3927c13e] {
+.fashion-store-icon.dangerous-goods-tips-icon[data-v-3927c13e] {
     width: 16px;
     height: 16px;
     fill: #888;
 }
-.product-shipping .dangerous-goods-row .shopee-radio-group[data-v-3927c13e] {
+.product-shipping .dangerous-goods-row .fashion-store-radio-group[data-v-3927c13e] {
     margin-top: 12px;
 }
 .product-shipping
 .dangerous-goods-row
-.shopee-radio-group[data-v-3927c13e]
-.shopee-radio__label {
+.fashion-store-radio-group[data-v-3927c13e]
+.fashion-store-radio__label {
     max-width: 340px;
     vertical-align: top;
 }
 .product-description
 .has-pre-qc-error[data-v-339a1677]
 .custom-len-calc-input
-.shopee-input
-.shopee-input__inner,
+.fashion-store-input
+.fashion-store-input__inner,
 .product-description .has-pre-qc-error[data-v-339a1677] .rich-text-editor {
     border-color: #ff4742;
 }
@@ -2935,7 +2935,7 @@ span[data-v-1943d2f0] {
 .global-project-guide-text[data-v-240967a2] a {
     color: #2673dd;
 }
-.prohibited-category-alert .shopee-alert[data-v-26c43076] {
+.prohibited-category-alert .fashion-store-alert[data-v-26c43076] {
     width: 100%;
 }
 .prohibited-category-alert .content[data-v-26c43076] {
@@ -2946,11 +2946,11 @@ span[data-v-1943d2f0] {
     -ms-flex-align: center;
     align-items: center;
 }
-.product-category-selector-modal[data-v-59dc2242] .shopee-modal__content {
+.product-category-selector-modal[data-v-59dc2242] .fashion-store-modal__content {
     width: 960px;
 }
 .product-category-selector-modal[data-v-59dc2242]
-.shopee-modal__footer.with-assist {
+.fashion-store-modal__footer.with-assist {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -2992,7 +2992,7 @@ span[data-v-1943d2f0] {
 }
 .product-category
 .product-category-input[data-v-55f54b9f]
-.shopee-input__input {
+.fashion-store-input__input {
     cursor: pointer;
 }
 .product-category .product-category-box-inner[data-v-55f54b9f] {
@@ -3169,7 +3169,7 @@ span[data-v-1943d2f0] {
     border-radius: 4px;
     padding: 16px;
 }
-.long-image-wrap[data-v-54a51dd8] .shopee-checkbox__label {
+.long-image-wrap[data-v-54a51dd8] .fashion-store-checkbox__label {
     line-height: 20px;
 }
 .long-image-checkbox-wrap[data-v-54a51dd8] {
@@ -3192,12 +3192,12 @@ span[data-v-1943d2f0] {
     margin-top: 8px;
     color: rgba(0, 0, 0, 0.65);
 }
-.pre-order .shopee-radio-wrapper[data-v-f8d9a7c8] {
+.pre-order .fashion-store-radio-wrapper[data-v-f8d9a7c8] {
     display: inline-block;
     font-size: 0;
     cursor: not-allowed;
 }
-.pre-order .shopee-radio-wrapper[data-v-f8d9a7c8]:not(:last-child) {
+.pre-order .fashion-store-radio-wrapper[data-v-f8d9a7c8]:not(:last-child) {
     margin-right: 24px;
 }
 .pre-order .dts-input-wrapper[data-v-f8d9a7c8] {
@@ -3279,7 +3279,7 @@ span[data-v-1943d2f0] {
     margin-top: 12px;
     margin-right: 14px;
 }
-.container .shopee-select[data-v-1231e962] {
+.container .fashion-store-select[data-v-1231e962] {
     width: 100%;
 }
 .container .edit-row-tips[data-v-1231e962] {
@@ -3347,7 +3347,7 @@ span[data-v-1943d2f0] {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
-.stock-tooltip-content .shopee-popover__content ul {
+.stock-tooltip-content .fashion-store-popover__content ul {
     list-style-type: disc;
     padding-left: 16px;
 }
@@ -3357,7 +3357,7 @@ span[data-v-1943d2f0] {
 .product-tier-variation .disable-add-popover[data-v-6a83fb4c],
 .product-tier-variation
 .disable-add-popover[data-v-6a83fb4c]
-.shopee-popover__ref {
+.fashion-store-popover__ref {
     width: 100%;
 }
 .product-tier-variation .edit-row.batch-edit-row[data-v-6a83fb4c] {
@@ -3395,46 +3395,46 @@ span[data-v-1943d2f0] {
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]
-.shopee-input__inner {
+.fashion-store-input__inner {
     z-index: 0;
 }
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]
-.shopee-input__inner.focused,
+.fashion-store-input__inner.focused,
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]
-.shopee-input__inner:focus,
+.fashion-store-input__inner:focus,
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]
-.shopee-input__inner:hover {
+.fashion-store-input__inner:hover {
     z-index: 3;
 }
 .product-tier-variation
 .batch-form
-.batch-inner-item.shopee-form-item--error[data-v-6a83fb4c]
-.shopee-input__inner {
+.batch-inner-item.fashion-store-form-item--error[data-v-6a83fb4c]
+.fashion-store-input__inner {
     z-index: 4;
 }
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]
-.shopee-form-item__label.empty {
+.fashion-store-form-item__label.empty {
     display: none;
 }
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]
-.shopee-form-item__control {
+.fashion-store-form-item__control {
     width: 100%;
 }
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]
-.shopee-form-item__content
-.shopee-input {
+.fashion-store-form-item__content
+.fashion-store-input {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -3442,7 +3442,7 @@ span[data-v-1943d2f0] {
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]:first-of-type
-.shopee-input__inner {
+.fashion-store-input__inner {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -3454,13 +3454,13 @@ span[data-v-1943d2f0] {
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]:not(:first-of-type):not(:last-of-type)
-.shopee-input__inner {
+.fashion-store-input__inner {
     border-radius: 0;
 }
 .product-tier-variation
 .batch-form
 .batch-inner-item[data-v-6a83fb4c]:last-of-type
-.shopee-input__inner {
+.fashion-store-input__inner {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
@@ -3522,7 +3522,7 @@ textarea {
 .wholesale-container[data-v-6a328abc] {
     width: 100%;
 }
-.wholesale-container .shopee-icon[data-v-6a328abc] {
+.wholesale-container .fashion-store-icon[data-v-6a328abc] {
     width: 16px;
     height: 16px;
 }
@@ -3547,7 +3547,7 @@ textarea {
 }
 .wholesale-container
 .wholesale-table-header-cell
-.shopee-icon[data-v-6a328abc] {
+.fashion-store-icon[data-v-6a328abc] {
     fill: #999;
 }
 .wholesale-container
@@ -3574,7 +3574,7 @@ textarea {
 .wholesale-container .wholesale-remove-btn[data-v-6a328abc] {
     cursor: pointer;
 }
-.wholesale-container .wholesale-remove-btn .shopee-icon[data-v-6a328abc] {
+.wholesale-container .wholesale-remove-btn .fashion-store-icon[data-v-6a328abc] {
     fill: #333;
 }
 .wholesale-container .wholesale-table-cell[data-v-6a328abc] {
@@ -3637,7 +3637,7 @@ textarea {
 .wholesale-container
 .unit-price-cell
 .help-popover[data-v-6a328abc]
-.shopee-popover__ref {
+.fashion-store-popover__ref {
     line-height: 0;
 }
 .wholesale-container .unit-price-cell .help-popover-icon[data-v-6a328abc] {
@@ -3673,7 +3673,7 @@ textarea {
     display: flex;
     margin: 16px 0;
 }
-.product-new-size-chart .btn .shopee-button[data-v-356a469c] {
+.product-new-size-chart .btn .fashion-store-button[data-v-356a469c] {
     margin-left: 19px;
 }
 .product-new-size-chart .showComplete[data-v-356a469c] {
@@ -3719,8 +3719,8 @@ textarea {
     -ms-flex-direction: column;
     flex-direction: column;
 }
-.min-purchase-quantity-edit .shopee-popover[data-v-30424c04],
-.min-purchase-quantity-edit[data-v-30424c04] .shopee-popover__ref {
+.min-purchase-quantity-edit .fashion-store-popover[data-v-30424c04],
+.min-purchase-quantity-edit[data-v-30424c04] .fashion-store-popover__ref {
     width: 100%;
 }
 .min-purchase-quantity-edit .warning[data-v-30424c04] {
@@ -3738,8 +3738,8 @@ textarea {
 .maxpq-container[data-v-04c3544c] {
     position: relative;
 }
-.maxpq-container .shopee-popover[data-v-04c3544c],
-.maxpq-container .shopee-popover[data-v-04c3544c] .shopee-popover__ref {
+.maxpq-container .fashion-store-popover[data-v-04c3544c],
+.maxpq-container .fashion-store-popover[data-v-04c3544c] .fashion-store-popover__ref {
     line-height: 0;
     vertical-align: top;
 }
@@ -3847,7 +3847,7 @@ textarea {
 }
 .maxpq-container
 .maxpq-time-purchase-limit-input[data-v-04c3544c]
-.shopee-input__error-msg {
+.fashion-store-input__error-msg {
     display: none;
 }
 .maxpq-container .maxpq-for-days-input[data-v-04c3544c] {
@@ -3895,7 +3895,7 @@ textarea {
     position: relative;
     width: 200px;
 }
-.maxpq-container .maxpq-repeated-time-select[data-v-04c3544c] .shopee-selector {
+.maxpq-container .maxpq-repeated-time-select[data-v-04c3544c] .fashion-store-selector {
     padding-left: 36px;
 }
 .maxpq-container .maxpq-time-icon[data-v-04c3544c] {
@@ -3928,7 +3928,7 @@ textarea {
 }
 .product-sales-info
 .maxpq-qa-icon-popover
-.maxpq-qa-icon.shopee-icon[data-v-6f64a3d4] {
+.maxpq-qa-icon.fashion-store-icon[data-v-6f64a3d4] {
     margin-left: 4px;
     height: 16px;
     width: 16px;
@@ -3950,7 +3950,7 @@ textarea {
 }
 .product-sales-info
 .convertedSizeChartTip[data-v-6f64a3d4]
-.shopee-alert
+.fashion-store-alert
 span
 a {
     color: #2673dd;
@@ -3983,7 +3983,7 @@ a {
     color: #bababa;
     font-size: 12px;
 }
-[data-v-2f5579b0] .shopee-dropdown {
+[data-v-2f5579b0] .fashion-store-dropdown {
     width: 100%;
 }
 .item-title[data-v-2f5579b0] {
@@ -4021,22 +4021,22 @@ a {
     font-size: 12px;
     color: #999;
 }
-[data-v-2f5579b0] .shopee-form-item--error .dropdown-input__text {
+[data-v-2f5579b0] .fashion-store-form-item--error .dropdown-input__text {
     z-index: 4;
     border-color: #afa3d8;
 }
-[data-v-2f5579b0] .shopee-form-item__label.empty {
+[data-v-2f5579b0] .fashion-store-form-item__label.empty {
     display: none;
 }
-[data-v-2f5579b0] .shopee-form-item__control {
+[data-v-2f5579b0] .fashion-store-form-item__control {
     width: 100%;
 }
-[data-v-2f5579b0] .shopee-form-item__content .shopee-input {
+[data-v-2f5579b0] .fashion-store-form-item__content .fashion-store-input {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
 }
-.attribute-dropdown-error .shopee-selector[data-v-2f5579b0] {
+.attribute-dropdown-error .fashion-store-selector[data-v-2f5579b0] {
     border-color: #ff4742;
 }
 .prefill-tag[data-v-2f5579b0] {
@@ -4046,7 +4046,7 @@ a {
     margin-left: 4px;
     line-height: 0;
 }
-.edit-label .shopee-icon.attribute-tooltip-icon[data-v-2f5579b0] {
+.edit-label .fashion-store-icon.attribute-tooltip-icon[data-v-2f5579b0] {
     width: 16px !important;
     height: 16px !important;
     fill: #888;
@@ -4145,8 +4145,8 @@ a {
     line-height: 14px;
     color: #eda500;
 }
-.tax-type-select .shopee-popover[data-v-299b7f4a],
-.tax-type-select[data-v-299b7f4a] .shopee-popover__ref {
+.tax-type-select .fashion-store-popover[data-v-299b7f4a],
+.tax-type-select[data-v-299b7f4a] .fashion-store-popover__ref {
     line-height: 0;
 }
 .tax-type-select .edit-label.edit-row-left[data-v-299b7f4a] {
@@ -4158,7 +4158,7 @@ a {
 .tax-type-select .tax-type-icon[data-v-299b7f4a] {
     margin-left: 4px;
 }
-.tax-type-select .shopee-radio-group[data-v-299b7f4a] {
+.tax-type-select .fashion-store-radio-group[data-v-299b7f4a] {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4196,7 +4196,7 @@ a {
 .container .sub-title[data-v-d008fe7c] a {
     color: #2673dd;
 }
-.container .shopee-select[data-v-d008fe7c] {
+.container .fashion-store-select[data-v-d008fe7c] {
     width: 100%;
 }
 .container .warning[data-v-d008fe7c] {
@@ -4215,7 +4215,7 @@ a {
     margin-top: 24px;
     padding-left: 165px;
 }
-.container .shopee-select[data-v-662ac7e8] {
+.container .fashion-store-select[data-v-662ac7e8] {
     width: 100%;
 }
 .container .warning[data-v-662ac7e8] {
@@ -4437,7 +4437,7 @@ a {
     text-align: right;
     color: #333;
 }
-.product-edit[data-v-03749d40] .edit-label .shopee-icon {
+.product-edit[data-v-03749d40] .edit-label .fashion-store-icon {
     width: 16px;
     height: 16px;
     color: #999;
@@ -4452,23 +4452,23 @@ a {
     margin-top: 16px;
 }
 .product-edit[data-v-03749d40] .mandatory,
-.product-edit[data-v-03749d40] .primary-link-button.shopee-button--link,
+.product-edit[data-v-03749d40] .primary-link-button.fashion-store-button--link,
 .product-edit[data-v-03749d40]
-.primary-link-button.shopee-button--link:not(.disabled):hover {
+.primary-link-button.fashion-store-button--link:not(.disabled):hover {
     color: #BD0000;
 }
 .product-edit[data-v-03749d40]
-.primary-dash-button.shopee-button--primary.shopee-button--outline {
+.primary-dash-button.fashion-store-button--primary.fashion-store-button--outline {
     border-style: dashed;
     background-color: #fff;
     border-color: #b7b7b7;
 }
 .product-edit[data-v-03749d40]
-.primary-dash-button.shopee-button--primary.shopee-button--outline:hover {
+.primary-dash-button.fashion-store-button--primary.fashion-store-button--outline:hover {
     border-color: #BD0000;
 }
 .product-edit[data-v-03749d40]
-.shopee-fix-bottom-card.product-selected-fix
+.fashion-store-fix-bottom-card.product-selected-fix
 .fixed-bottom {
     left: auto;
     right: auto;
@@ -4478,7 +4478,7 @@ a {
     box-shadow: none;
 }
 .product-edit[data-v-03749d40]
-.shopee-fix-bottom-card.product-selected-fix
+.fashion-store-fix-bottom-card.product-selected-fix
 .fixed-bottom
 .product-edit__submit-error-tip {
     bottom: 37px;
@@ -4490,9 +4490,9 @@ a {
     display: none;
 }
 .product-edit .edit-product-disabled[data-v-03749d40] .ql-container,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-dropdown,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-input,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-input__inner,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-dropdown,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-input,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-input__inner,
 .product-edit .edit-product-disabled[data-v-03749d40] .textarea {
     color: #ccc;
     cursor: not-allowed;
@@ -4501,27 +4501,27 @@ a {
     border-color: #e8e8e8;
 }
 .product-edit .edit-product-disabled[data-v-03749d40] .ql-container input,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-dropdown input,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-dropdown input,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-input__inner
+.fashion-store-input__inner
 input,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-input input,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-input input,
 .product-edit .edit-product-disabled[data-v-03749d40] .textarea input {
     color: #ccc;
     cursor: not-allowed;
     background-color: #fafafa;
 }
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-switch--normal {
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-switch--normal {
     cursor: not-allowed;
     pointer-events: none;
     background-color: #e8e8e8;
 }
 .product-edit .edit-product-disabled[data-v-03749d40] .edit-radio-btns,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-category__header,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-select,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-selector,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-stepper {
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-category__header,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-select,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-selector,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-stepper {
     color: #ccc;
     cursor: not-allowed;
     pointer-events: none;
@@ -4530,57 +4530,57 @@ input,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
 .edit-radio-btns
-.shopee-stepper__buttons
+.fashion-store-stepper__buttons
 button,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-category__header
-.shopee-stepper__buttons
+.fashion-store-category__header
+.fashion-store-stepper__buttons
 button,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-select
-.shopee-stepper__buttons
+.fashion-store-select
+.fashion-store-stepper__buttons
 button,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-selector
-.shopee-stepper__buttons
+.fashion-store-selector
+.fashion-store-stepper__buttons
 button,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-stepper
-.shopee-stepper__buttons
+.fashion-store-stepper
+.fashion-store-stepper__buttons
 button {
     background: #fafafa;
 }
 .product-edit
 .edit-product-disabled[data-v-03749d40]
 .edit-radio-btns
-.shopee-category__header__title,
+.fashion-store-category__header__title,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-category__header
-.shopee-category__header__title,
+.fashion-store-category__header
+.fashion-store-category__header__title,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-select
-.shopee-category__header__title,
+.fashion-store-select
+.fashion-store-category__header__title,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-selector
-.shopee-category__header__title,
+.fashion-store-selector
+.fashion-store-category__header__title,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-stepper
-.shopee-category__header__title {
+.fashion-store-stepper
+.fashion-store-category__header__title {
     color: #ccc;
 }
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-button,
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-file-upload,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-button,
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-file-upload,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-image-manager__upload {
+.fashion-store-image-manager__upload {
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.25;
@@ -4589,18 +4589,18 @@ button {
 .product-edit .edit-product-disabled[data-v-03749d40] .enable-variation-btn,
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-image-manager__tools {
+.fashion-store-image-manager__tools {
     display: none;
 }
-.product-edit .edit-product-disabled[data-v-03749d40] .shopee-radio {
+.product-edit .edit-product-disabled[data-v-03749d40] .fashion-store-radio {
     cursor: not-allowed;
     pointer-events: none;
     color: #ccc;
 }
 .product-edit
 .edit-product-disabled[data-v-03749d40]
-.shopee-radio__input:checked
-+ .shopee-radio__indicator {
+.fashion-store-radio__input:checked
++ .fashion-store-radio__indicator {
     background-color: #dbdbdb;
     border-color: #dbdbdb;
 }

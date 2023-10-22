@@ -85,7 +85,7 @@
 }
 .table-item-container
 div.service-fee-rate[data-v-82a02470]
-.shopee-input__help-text {
+.fashion-store-input__help-text {
     white-space: normal;
 }
 .table-item-container div.table-column-text[data-v-82a02470] {
@@ -111,7 +111,7 @@ div.service-fee-rate[data-v-82a02470]
     border-bottom: 1px solid #eee;
     content: "";
 }
-.table-item-container[data-v-82a02470] .shopee-input__error-msg {
+.table-item-container[data-v-82a02470] .fashion-store-input__error-msg {
     white-space: normal;
 }
 .table-item-container .item-edit-input[data-v-82a02470] {
@@ -275,22 +275,22 @@ div.service-fee-rate[data-v-24c6fef3] {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-.shop-profit-setting-modal .shopee-modal__content {
+.shop-profit-setting-modal .fashion-store-modal__content {
     width: 960px;
     max-height: 800px;
 }
-.shop-introduction-modal .shopee-modal__body,
-.shop-profit-setting-modal .shopee-modal__body {
+.shop-introduction-modal .fashion-store-modal__body,
+.shop-profit-setting-modal .fashion-store-modal__body {
     padding: 0;
 }
-.shop-introduction-modal .shopee-modal__content {
+.shop-introduction-modal .fashion-store-modal__content {
     width: 460px;
     height: 457px;
 }
-.shop-price-setting-tips-modal .shopee-modal__content {
+.shop-price-setting-tips-modal .fashion-store-modal__content {
     width: 800px;
 }
-.shop-price-setting-tips-modal .shopee-modal__content a {
+.shop-price-setting-tips-modal .fashion-store-modal__content a {
     color: #2673dd;
 }
 .desc[data-v-1611c375] {
@@ -327,7 +327,7 @@ div.service-fee-rate[data-v-24c6fef3] {
 }
 .sprites-product-list-no-product {
     display: inline-block;
-    background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/sprite.src.pages.Index.d83309b.png);
+    background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/sprite.src.pages.Index.d83309b.png);
     background-position: 0 0;
     width: 101px;
     height: 75px;
@@ -338,7 +338,7 @@ div.service-fee-rate[data-v-24c6fef3] {
     background-repeat: no-repeat;
 }
 .sprites-ach-failed {
-    background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/sprite.src.pages.Index.d83309b.png);
+    background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/sprite.src.pages.Index.d83309b.png);
     background-position: -105px 0;
     width: 64px;
     height: 64px;
@@ -346,7 +346,7 @@ div.service-fee-rate[data-v-24c6fef3] {
 .product .primary {
     color: #BD0000 !important;
 }
-.product .shopee-button .button-span {
+.product .fashion-store-button .button-span {
     margin-right: 4px;
     vertical-align: middle;
 }
@@ -443,7 +443,7 @@ div.service-fee-rate[data-v-24c6fef3] {
     margin-right: 17px;
     border-radius: 2px;
 }
-.product .edit-radio-btns .shopee-radio-button {
+.product .edit-radio-btns .fashion-store-radio-button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -454,18 +454,18 @@ div.service-fee-rate[data-v-24c6fef3] {
     margin-right: 0;
     border-radius: 0;
 }
-.product .edit-radio-btns .shopee-radio-button.selected {
+.product .edit-radio-btns .fashion-store-radio-button.selected {
     background-color: #e8e8e8;
 }
-.product .edit-radio-btns .shopee-radio-button.selected .button {
+.product .edit-radio-btns .fashion-store-radio-button.selected .button {
     color: #4c4c4c;
 }
-.product .edit-radio-btns .shopee-radio-button .button {
+.product .edit-radio-btns .fashion-store-radio-button .button {
     height: 100%;
     line-height: 40px;
     color: #666;
 }
-.product .edit-radio-btns .shopee-radio-button + .shopee-radio-button {
+.product .edit-radio-btns .fashion-store-radio-button + .fashion-store-radio-button {
     border-left: 0;
 }
 .product .product-search {
@@ -474,43 +474,43 @@ div.service-fee-rate[data-v-24c6fef3] {
     flex: 1;
     background-color: transparent;
 }
-/*.product .product-search /deep/ .shopee-input__inner {*/
+/*.product .product-search /deep/ .fashion-store-input__inner {*/
 /*    border-radius: 20px;*/
 /*    background-color: #fff;*/
 /*}*/
-/*.product .product-search /deep/ .shopee-input__inner.focused,*/
-/*.product .product-search /deep/ .shopee-input__inner:hover {*/
+/*.product .product-search /deep/ .fashion-store-input__inner.focused,*/
+/*.product .product-search /deep/ .fashion-store-input__inner:hover {*/
 /*    border-color: #BD0000;*/
 /*}*/
 /*.product*/
 /*.product-search*/
 /*/deep/*/
-/*.shopee-input__inner.focused*/
-/*.shopee-input__prefix-icon*/
+/*.fashion-store-input__inner.focused*/
+/*.fashion-store-input__prefix-icon*/
 /*svg,*/
 /*.product*/
 /*.product-search*/
 /*/deep/*/
-/*.shopee-input__inner:hover*/
-/*.shopee-input__prefix-icon*/
+/*.fashion-store-input__inner:hover*/
+/*.fashion-store-input__prefix-icon*/
 /*svg {*/
 /*    fill: #404040;*/
 /*}*/
-/*.product .product-search /deep/ .shopee-input__inner .shopee-input__input {*/
+/*.product .product-search /deep/ .fashion-store-input__inner .fashion-store-input__input {*/
 /*    padding-left: 8px;*/
 /*}*/
-/*.product .product-search /deep/ .shopee-icon {*/
+/*.product .product-search /deep/ .fashion-store-icon {*/
 /*    width: 14px;*/
 /*    height: 14px;*/
 /*}*/
-/*.product .product-search /deep/ .shopee-icon svg {*/
+/*.product .product-search /deep/ .fashion-store-icon svg {*/
 /*    width: 14px;*/
 /*    height: 14px;*/
 /*    fill: rgba(0, 0, 0, 0.27);*/
 /*    -webkit-transition: fill 0.25s ease;*/
 /*    transition: fill 0.25s ease;*/
 /*}*/
-/*.product .product-search /deep/ .shopee-input__suffix {*/
+/*.product .product-search /deep/ .fashion-store-input__suffix {*/
 /*    width: 24px;*/
 /*}*/
 .product-unsavable-tips {
@@ -595,10 +595,10 @@ div.service-fee-rate[data-v-24c6fef3] {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.03);
 }
-.product-edit-page #shopee-mini-chat-embedded {
+.product-edit-page #fashion-store-mini-chat-embedded {
     bottom: 147px !important;
 }
-.product-edit-page #shopee-cs-chat-sc {
+.product-edit-page #fashion-store-cs-chat-sc {
     bottom: 207px !important;
 }
 .product-list-header {
@@ -639,10 +639,10 @@ div.service-fee-rate[data-v-24c6fef3] {
     -ms-flex-negative: 0;
     flex-shrink: 0;
 }
-.product-list-header .product-list-header-tips .shopee-popover__ref {
+.product-list-header .product-list-header-tips .fashion-store-popover__ref {
     line-height: 0;
 }
-.product-list-header .shopee-order-group {
+.product-list-header .fashion-store-order-group {
     line-height: inherit;
 }
 .product-list-header .product-checkbox {
@@ -676,7 +676,7 @@ div.service-fee-rate[data-v-24c6fef3] {
     align-items: center;
     height: 56px;
 }
-.product-list-item .product-checkbox .shopee-checkbox__indicator {
+.product-list-item .product-checkbox .fashion-store-checkbox__indicator {
     margin: 0;
     width: 16px;
     height: 16px;
@@ -724,7 +724,7 @@ div.service-fee-rate[data-v-24c6fef3] {
 .product-list-item .product-list-item__td {
     margin-right: 16px;
 }
-.product-list-item .shopee-order {
+.product-list-item .fashion-store-order {
     margin: 0;
     -webkit-box-align: start;
     -ms-flex-align: start;
@@ -749,38 +749,38 @@ div.service-fee-rate[data-v-24c6fef3] {
     height: 1px;
     background-color: #e5e5e5;
 }
-.mpsku-list.shopee-table,
-.mtsku-list.shopee-table {
+.mpsku-list.fashion-store-table,
+.mtsku-list.fashion-store-table {
     z-index: 1;
 }
-.mpsku-list.shopee-table.shopee-table-scrollX-left .shopee-table__fix-right,
-.mpsku-list.shopee-table.shopee-table-scrollX-middle .shopee-table__fix-right,
-.mtsku-list.shopee-table.shopee-table-scrollX-left .shopee-table__fix-right,
-.mtsku-list.shopee-table.shopee-table-scrollX-middle .shopee-table__fix-right {
+.mpsku-list.fashion-store-table.fashion-store-table-scrollX-left .fashion-store-table__fix-right,
+.mpsku-list.fashion-store-table.fashion-store-table-scrollX-middle .fashion-store-table__fix-right,
+.mtsku-list.fashion-store-table.fashion-store-table-scrollX-left .fashion-store-table__fix-right,
+.mtsku-list.fashion-store-table.fashion-store-table-scrollX-middle .fashion-store-table__fix-right {
     -webkit-box-shadow: -8px 0 8px rgba(0, 0, 0, 0.04);
     box-shadow: -8px 0 8px rgba(0, 0, 0, 0.04);
     z-index: 1;
 }
-.mpsku-list.shopee-table.shopee-table-scrollX-middle .shopee-table__fix-left,
-.mpsku-list.shopee-table.shopee-table-scrollX-right .shopee-table__fix-left,
-.mtsku-list.shopee-table.shopee-table-scrollX-middle .shopee-table__fix-left,
-.mtsku-list.shopee-table.shopee-table-scrollX-right .shopee-table__fix-left {
+.mpsku-list.fashion-store-table.fashion-store-table-scrollX-middle .fashion-store-table__fix-left,
+.mpsku-list.fashion-store-table.fashion-store-table-scrollX-right .fashion-store-table__fix-left,
+.mtsku-list.fashion-store-table.fashion-store-table-scrollX-middle .fashion-store-table__fix-left,
+.mtsku-list.fashion-store-table.fashion-store-table-scrollX-right .fashion-store-table__fix-left {
     -webkit-box-shadow: 8px 0 8px rgba(0, 0, 0, 0.04);
     box-shadow: 8px 0 8px rgba(0, 0, 0, 0.04);
     z-index: 1;
 }
-.mpsku-list.shopee-table .shopee-table__body-container,
-.mpsku-list.shopee-table .shopee-table__header-container,
-.mtsku-list.shopee-table .shopee-table__body-container,
-.mtsku-list.shopee-table .shopee-table__header-container {
+.mpsku-list.fashion-store-table .fashion-store-table__body-container,
+.mpsku-list.fashion-store-table .fashion-store-table__header-container,
+.mtsku-list.fashion-store-table .fashion-store-table__body-container,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container {
     border: 0;
 }
-.mpsku-list.shopee-table
-.shopee-table__body
-.shopee-table__row:last-of-type:after,
-.mtsku-list.shopee-table
-.shopee-table__body
-.shopee-table__row:last-of-type:after {
+.mpsku-list.fashion-store-table
+.fashion-store-table__body
+.fashion-store-table__row:last-of-type:after,
+.mtsku-list.fashion-store-table
+.fashion-store-table__body
+.fashion-store-table__row:last-of-type:after {
     position: absolute;
     bottom: 0;
     left: 16px;
@@ -789,14 +789,14 @@ div.service-fee-rate[data-v-24c6fef3] {
     background: #e5e5e5;
     content: "";
 }
-.mpsku-list.shopee-table.shopee-table--empty-data .shopee-table__main-body,
-.mtsku-list.shopee-table.shopee-table--empty-data .shopee-table__main-body {
+.mpsku-list.fashion-store-table.fashion-store-table--empty-data .fashion-store-table__main-body,
+.mtsku-list.fashion-store-table.fashion-store-table--empty-data .fashion-store-table__main-body {
     height: 355px;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-checkbox,
-.mpsku-list.shopee-table .shopee-table__row .product-checkbox,
-.mtsku-list.shopee-table .shopee-table__header-container .product-checkbox,
-.mtsku-list.shopee-table .shopee-table__row .product-checkbox {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-checkbox,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-checkbox,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-checkbox,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-checkbox {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -808,30 +808,30 @@ div.service-fee-rate[data-v-24c6fef3] {
     justify-content: flex-start;
     height: 56px;
 }
-.mpsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-checkbox
-.shopee-checkbox__indicator,
-.mpsku-list.shopee-table
-.shopee-table__row
+.fashion-store-checkbox__indicator,
+.mpsku-list.fashion-store-table
+.fashion-store-table__row
 .product-checkbox
-.shopee-checkbox__indicator,
-.mtsku-list.shopee-table
-.shopee-table__header-container
+.fashion-store-checkbox__indicator,
+.mtsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-checkbox
-.shopee-checkbox__indicator,
-.mtsku-list.shopee-table
-.shopee-table__row
+.fashion-store-checkbox__indicator,
+.mtsku-list.fashion-store-table
+.fashion-store-table__row
 .product-checkbox
-.shopee-checkbox__indicator {
+.fashion-store-checkbox__indicator {
     margin: 0;
     width: 16px;
     height: 16px;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-image,
-.mpsku-list.shopee-table .shopee-table__row .product-image,
-.mtsku-list.shopee-table .shopee-table__header-container .product-image,
-.mtsku-list.shopee-table .shopee-table__row .product-image {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-image,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-image,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-image,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-image {
     position: relative;
     z-index: 0;
     width: 56px;
@@ -839,35 +839,35 @@ div.service-fee-rate[data-v-24c6fef3] {
     height: 56px;
     overflow: hidden;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-image img,
-.mpsku-list.shopee-table .shopee-table__row .product-image img,
-.mtsku-list.shopee-table .shopee-table__header-container .product-image img,
-.mtsku-list.shopee-table .shopee-table__row .product-image img {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-image img,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-image img,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-image img,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-image img {
     width: 100%;
     height: auto;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-image-box,
-.mpsku-list.shopee-table .shopee-table__row .product-image-box,
-.mtsku-list.shopee-table .shopee-table__header-container .product-image-box,
-.mtsku-list.shopee-table .shopee-table__row .product-image-box {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-image-box,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-image-box,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-image-box,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-image-box {
     position: relative;
     border-radius: 2px;
     overflow: hidden;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-image-box img,
-.mpsku-list.shopee-table .shopee-table__row .product-image-box img,
-.mtsku-list.shopee-table .shopee-table__header-container .product-image-box img,
-.mtsku-list.shopee-table .shopee-table__row .product-image-box img {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-image-box img,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-image-box img,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-image-box img,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-image-box img {
     width: 100%;
 }
-.mpsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-item,
-.mpsku-list.shopee-table .shopee-table__row .product-list-header-item,
-.mtsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-list-header-item,
+.mtsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-item,
-.mtsku-list.shopee-table .shopee-table__row .product-list-header-item {
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-list-header-item {
     border: none !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -878,10 +878,10 @@ div.service-fee-rate[data-v-24c6fef3] {
     overflow: initial;
     text-overflow: ellipsis;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-main,
-.mpsku-list.shopee-table .shopee-table__row .product-main,
-.mtsku-list.shopee-table .shopee-table__header-container .product-main,
-.mtsku-list.shopee-table .shopee-table__row .product-main {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-main,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-main,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-main,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-main {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -890,65 +890,65 @@ div.service-fee-rate[data-v-24c6fef3] {
     justify-content: flex-start;
     cursor: pointer;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-list-item__td,
-.mpsku-list.shopee-table .shopee-table__row .product-list-item__td,
-.mtsku-list.shopee-table .shopee-table__header-container .product-list-item__td,
-.mtsku-list.shopee-table .shopee-table__row .product-list-item__td {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-list-item__td,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-list-item__td,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-list-item__td,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-list-item__td {
     margin-right: 16px;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .shopee-order,
-.mpsku-list.shopee-table .shopee-table__row .shopee-order,
-.mtsku-list.shopee-table .shopee-table__header-container .shopee-order,
-.mtsku-list.shopee-table .shopee-table__row .shopee-order {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .fashion-store-order,
+.mpsku-list.fashion-store-table .fashion-store-table__row .fashion-store-order,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .fashion-store-order,
+.mtsku-list.fashion-store-table .fashion-store-table__row .fashion-store-order {
     margin: 0;
     -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .list-header-item,
-.mpsku-list.shopee-table .shopee-table__header-container .product-list-item__td,
-.mpsku-list.shopee-table .shopee-table__row .list-header-item,
-.mpsku-list.shopee-table .shopee-table__row .product-list-item__td,
-.mtsku-list.shopee-table .shopee-table__header-container .list-header-item,
-.mtsku-list.shopee-table .shopee-table__header-container .product-list-item__td,
-.mtsku-list.shopee-table .shopee-table__row .list-header-item,
-.mtsku-list.shopee-table .shopee-table__row .product-list-item__td {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .list-header-item,
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-list-item__td,
+.mpsku-list.fashion-store-table .fashion-store-table__row .list-header-item,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-list-item__td,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .list-header-item,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-list-item__td,
+.mtsku-list.fashion-store-table .fashion-store-table__row .list-header-item,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-list-item__td {
     margin-right: 16px;
 }
-.mpsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table
+.fashion-store-table__header-container
 .list-header-item:last-child,
-.mpsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-item__td:last-child,
-.mpsku-list.shopee-table .shopee-table__row .list-header-item:last-child,
-.mpsku-list.shopee-table .shopee-table__row .product-list-item__td:last-child,
-.mtsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table .fashion-store-table__row .list-header-item:last-child,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-list-item__td:last-child,
+.mtsku-list.fashion-store-table
+.fashion-store-table__header-container
 .list-header-item:last-child,
-.mtsku-list.shopee-table
-.shopee-table__header-container
+.mtsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-item__td:last-child,
-.mtsku-list.shopee-table .shopee-table__row .list-header-item:last-child,
-.mtsku-list.shopee-table .shopee-table__row .product-list-item__td:last-child {
+.mtsku-list.fashion-store-table .fashion-store-table__row .list-header-item:last-child,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-list-item__td:last-child {
     margin-right: 0;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-action,
-.mpsku-list.shopee-table .shopee-table__row .product-action,
-.mtsku-list.shopee-table .shopee-table__header-container .product-action,
-.mtsku-list.shopee-table .shopee-table__row .product-action {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-action,
+.mpsku-list.fashion-store-table .fashion-store-table__row .product-action,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-action,
+.mtsku-list.fashion-store-table .fashion-store-table__row .product-action {
     width: auto;
     min-width: auto;
 }
-.mpsku-list.shopee-table .shopee-table__header-container,
-.mtsku-list.shopee-table .shopee-table__header-container {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container {
     line-height: 16px;
 }
-.mpsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-item-label,
-.mtsku-list.shopee-table
-.shopee-table__header-container
+.mtsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-item-label {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -957,11 +957,11 @@ div.service-fee-rate[data-v-24c6fef3] {
     -ms-flex-align: start;
     align-items: flex-start;
 }
-.mpsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-tips,
-.mtsku-list.shopee-table
-.shopee-table__header-container
+.mtsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-tips {
     line-height: 0;
     width: 16px;
@@ -970,37 +970,37 @@ div.service-fee-rate[data-v-24c6fef3] {
     -ms-flex-negative: 0;
     flex-shrink: 0;
 }
-.mpsku-list.shopee-table
-.shopee-table__header-container
+.mpsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-tips
-.shopee-popover__ref,
-.mtsku-list.shopee-table
-.shopee-table__header-container
+.fashion-store-popover__ref,
+.mtsku-list.fashion-store-table
+.fashion-store-table__header-container
 .product-list-header-tips
-.shopee-popover__ref {
+.fashion-store-popover__ref {
     line-height: 0;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .shopee-order-group,
-.mtsku-list.shopee-table .shopee-table__header-container .shopee-order-group {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .fashion-store-order-group,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .fashion-store-order-group {
     line-height: inherit;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-checkbox,
-.mtsku-list.shopee-table .shopee-table__header-container .product-checkbox {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-checkbox,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-checkbox {
     height: auto !important;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-action,
-.mtsku-list.shopee-table .shopee-table__header-container .product-action {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-action,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-action {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
 }
-.mpsku-list.shopee-table .shopee-table__header-container thead th,
-.mtsku-list.shopee-table .shopee-table__header-container thead th {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container thead th,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container thead th {
     vertical-align: top;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .shopee-table__cell,
-.mtsku-list.shopee-table .shopee-table__header-container .shopee-table__cell {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .fashion-store-table__cell,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .fashion-store-table__cell {
     color: #999;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -1010,24 +1010,24 @@ div.service-fee-rate[data-v-24c6fef3] {
     padding-top: 12px;
     padding-bottom: 12px;
 }
-.mpsku-list.shopee-table .shopee-table__header-container .product-checkbox,
-.mtsku-list.shopee-table .shopee-table__header-container .product-checkbox {
+.mpsku-list.fashion-store-table .fashion-store-table__header-container .product-checkbox,
+.mtsku-list.fashion-store-table .fashion-store-table__header-container .product-checkbox {
     margin-top: 2px;
 }
-.mpsku-list.shopee-table .shopee-table__row .shopee-table__cell,
-.mtsku-list.shopee-table .shopee-table__row .shopee-table__cell {
+.mpsku-list.fashion-store-table .fashion-store-table__row .fashion-store-table__cell,
+.mtsku-list.fashion-store-table .fashion-store-table__row .fashion-store-table__cell {
     padding-top: 24px;
     padding-bottom: 24px;
     color: #333;
 }
-.mpsku-list.shopee-table
-.shopee-table__row
+.mpsku-list.fashion-store-table
+.fashion-store-table__row
 td:nth-of-type(3)
-.shopee-table__cell,
-.mtsku-list.shopee-table
-.shopee-table__row
+.fashion-store-table__cell,
+.mtsku-list.fashion-store-table
+.fashion-store-table__row
 td:nth-of-type(3)
-.shopee-table__cell {
+.fashion-store-table__cell {
     padding-top: 12px;
     padding-bottom: 12px;
 }
@@ -1108,7 +1108,7 @@ td:nth-of-type(3)
     width: 106px;
     min-width: 106px;
 }
-.product-action .shopee-button {
+.product-action .fashion-store-button {
     font-weight: 400;
     margin-bottom: 16px;
 }
@@ -1118,11 +1118,11 @@ td:nth-of-type(3)
 .product-list-limit-tooltip__text {
     margin-top: 12px;
 }
-.product-list-limit-tooltip .shopee-toast-body {
+.product-list-limit-tooltip .fashion-store-toast-body {
     width: 800px !important;
     max-width: 800px !important;
 }
-.shopee-fix-bottom-card.product-selected-fix .fixed-bottom {
+.fashion-store-fix-bottom-card.product-selected-fix .fixed-bottom {
     left: auto;
     right: auto;
     width: auto;
@@ -1137,11 +1137,11 @@ td:nth-of-type(3)
         right: 0 !important;
     }
 }
-.filter-card-category-selector .shopee-modal__content {
+.filter-card-category-selector .fashion-store-modal__content {
     width: 998px;
 }
 .filter-card-category-selector
-.shopee-modal__content
+.fashion-store-modal__content
 .category-selector
 .selector {
     padding: 24px;
@@ -1154,7 +1154,7 @@ td:nth-of-type(3)
 (min--moz-device-pixel-ratio: 2),
 (min-device-pixel-ratio: 2) {
     .sprites-ach-failed {
-        background-image: url(https://deo.shopeemobile.com/shopee/shopee-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/sprite.@2x.src.pages.Index.a46e0dd.png);
+        background-image: url(https://deo.fashion-storemobile.com/fashion-store/fashion-store-seller-live-sg/mmf_portal_seller_root_dir/static/modules/product/image/sprite.@2x.src.pages.Index.a46e0dd.png);
         background-position: 0 0;
         background-size: 64px 64px;
         background-repeat: no-repeat;

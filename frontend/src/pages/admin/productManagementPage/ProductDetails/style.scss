@@ -4,15 +4,34 @@
 @import "../css/style.bfb4d15c787b118a2705.css";
 @import "../css/profile.css";
 
-.image-itembox {
+.fashion-store-image-manager__tools {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-box:hover .fashion-store-image-manager__tools {
+    opacity: 0.95;
+}
+
+.image-box {
     width: 80px;
-    max-width: 80px;
     height: 80px;
+    max-width: 80px;
     max-height: 80px;
     margin-right: 15px;
-    margin-bottom:15px;
-    border-radius: 4px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    position: relative;
     border: 1px solid #E5E5E5;
+}
+
+.image-itembox {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
     object-fit: contain;
 }
 
@@ -43,7 +62,7 @@
     font-weight: normal;
 }
 
-@keyframes shopee-icon-spin {
+@keyframes fashion-store-icon-spin {
     0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
@@ -53,20 +72,20 @@
         transform: rotate(1turn);
     }
 }
-.shopee-icon {
+.fashion-store-icon {
     display: inline-block;
     line-height: 0;
     fill: currentColor;
 }
-.shopee-icon svg {
+.fashion-store-icon svg {
     width: 100%;
     height: 100%;
 }
-.shopee-icon-spin {
-    -webkit-animation: shopee-icon-spin 1s 0s infinite linear;
-    animation: shopee-icon-spin 1s 0s infinite linear;
+.fashion-store-icon-spin {
+    -webkit-animation: fashion-store-icon-spin 1s 0s infinite linear;
+    animation: fashion-store-icon-spin 1s 0s infinite linear;
 }
-.shopee-spin__fix {
+.fashion-store-spin__fix {
     position: absolute;
     top: 0;
     left: 0;
@@ -75,31 +94,31 @@
     height: 100%;
     background-color: hsla(0, 0%, 100%, 0.9);
 }
-.shopee-spin-icon__normal {
+.fashion-store-spin-icon__normal {
     width: 32px;
     height: 32px;
 }
-.shopee-spin-icon__small {
+.fashion-store-spin-icon__small {
     width: 16px;
     height: 16px;
 }
-.shopee-spin-content {
+.fashion-store-spin-content {
     line-height: 0;
     color: #BD0000;
     text-align: center;
 }
 
 
-.shopee-upload-wrapper {
+.fashion-store-upload-wrapper {
     display: inline-block;
     text-align: center;
     cursor: pointer;
     outline: none;
 }
-.shopee-upload__input {
+.fashion-store-upload__input {
     display: none;
 }
-.shopee-upload-dragger {
+.fashion-store-upload-dragger {
     position: relative;
     padding: 32px;
     overflow: hidden;
@@ -109,14 +128,14 @@
     -webkit-transition: border-color 0.2s ease-in-out;
     transition: border-color 0.2s ease-in-out;
 }
-.shopee-upload-dragger.disabled {
+.fashion-store-upload-dragger.disabled {
     cursor: none;
     background-color: #f6f6f6;
 }
-.shopee-upload-dragger:hover:not(.disabled) {
+.fashion-store-upload-dragger:hover:not(.disabled) {
     border-color: #BD0000;
 }
-.shopee-upload-dragger.is-dragover {
+.fashion-store-upload-dragger.is-dragover {
     background-color: rgba(238, 77, 45, 0.04);
     border: 1px dashed #BD0000;
 }

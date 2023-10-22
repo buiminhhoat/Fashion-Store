@@ -5,6 +5,12 @@ const ProductDetails = () => {
   const MAX_IMAGES = 8;
   const [selectedFiles, setSelectedFiles] = useState([]);
 
+  const handleDeleteImage = (index) => {
+    const newSelectedFiles = [...selectedFiles];
+    newSelectedFiles.splice(index, 1);
+    setSelectedFiles(newSelectedFiles);
+  };
+
   const handleImageChange = (e) => {
     const newFiles = Array.from(e.target.files);
     let totalFiles = [...selectedFiles, ...newFiles];
@@ -51,42 +57,58 @@ const ProductDetails = () => {
                               data-v-36db20dc="" className="mandatory-icon">*</span></div>
                           <span data-v-54a51dd8="" data-v-2250a4e1="">Hình ảnh tỷ lệ 1:1</span>
                         </div>
-                        <div data-v-05032044="" data-v-54a51dd8="" className="edit-main shopee-image-manager"
+                        <div data-v-05032044="" data-v-54a51dd8="" className="edit-main fashion-store-image-manager"
                              data-education-trigger-key="images" data-v-2250a4e1=""
                              data-product-edit-field-unique-id="images">
-                          <div data-v-05032044="" className="container">
+                          <div style={{ display: 'flex' }}>
 
-                            <div>
+                            <div style={{ display: 'flex' }}>
                               {selectedFiles.map((file, index) => (
-                                  <img className="image-itembox"
-                                       key={index} src={URL.createObjectURL(file)} alt={`Image ${index}`} />
+                                  <div className="image-box">
+                                    <img className="image-itembox" key={index} src={URL.createObjectURL(file)} alt={`Image ${index}`} />
+                                    <div data-v-05032044="" data-v-1190c12e=""
+                                         className="fashion-store-image-manager__tools">
+                                      <span data-v-05032044="" data-v-1190c12e=""
+                                            className="fashion-store-image-manager__icon fashion-store-image-manager__icon--delete"
+                                            onClick={() => handleDeleteImage(index)}>
+                                          <i data-v-05032044="" className="fashion-store-icon" data-v-1190c12e="">
+                                             <svg viewBox="0 0 16 16">
+                                                <g>
+                                                   <path d="M14.516 3.016h-4v-1a.998.998 0 00-.703-.955.99.99 0 00-.297-.045h-3a.998.998 0 00-.955.703.99.99 0 00-.045.297v1h-4a.5.5 0 100 1h1v10a.998.998 0 00.703.955.99.99 0 00.297.045h9a.998.998 0 00.955-.703.99.99 0 00.045-.297v-10h1a.5.5 0 100-1zm-8-1h3v1h-3v-1zm6 12h-9v-10h9v10z"></path>
+                                                   <path d="M5.516 12.016a.5.5 0 00.5-.5v-4a.5.5 0 10-1 0v4a.5.5 0 00.5.5zM8.016 12.016a.5.5 0 00.5-.5v-5a.5.5 0 10-1 0v5a.5.5 0 00.5.5zM10.516 12.016a.5.5 0 00.5-.5v-4a.5.5 0 10-1 0v4a.5.5 0 00.5.5z"></path>
+                                                </g>
+                                             </svg>
+                                          </i>
+                                       </span>
+                                    </div>
+                                  </div>
                               ))}
                             </div>
 
-                            <div data-v-05032044="" className="shopee-image-manager__itembox"
+                            <div data-v-05032044="" className="fashion-store-image-manager__itembox"
                                  style={{width: "80px", maxWidth: "80px", height: "80px", maxHeight: "80px"}}>
 
-                              <div data-v-05032044="" className="shopee-image-manager__content" onClick={handleInputImagesClick}>
-                                <div data-v-05032044="" className="shopee-image-manager__upload">
-                                  <div data-v-4ff6c453="" data-v-05032044="" className="shopee-file-upload"
+                              <div data-v-05032044="" className="fashion-store-image-manager__content" onClick={handleInputImagesClick}>
+                                <div data-v-05032044="" className="fashion-store-image-manager__upload">
+                                  <div data-v-4ff6c453="" data-v-05032044="" className="fashion-store-file-upload"
                                        accept="image/*">
-                                    <div data-v-4ff6c453="" className="shopee-upload">
+                                    <div data-v-4ff6c453="" className="fashion-store-upload">
 
-                                      <div className="shopee-upload-wrapper shopee-upload-dragger">
+                                      <div className="fashion-store-upload-wrapper fashion-store-upload-dragger">
 
                                           <input type="file"
                                                  name="file"
                                                  ref={inputRef}
                                                  accept="image/*"
                                                  multiple="multiple"
-                                                 className="shopee-upload__input"
+                                                 className="fashion-store-upload__input"
                                                  onChange={handleImageChange}
                                           />
 
-                                          <div data-v-05032044="" className="shopee-image-manager__upload__content">
+                                          <div data-v-05032044="" className="fashion-store-image-manager__upload__content">
                                             <div data-v-05032044=""
-                                                 className="shopee-image-manager__upload__content__icon">
-                                              <i data-v-05032044="" className="shopee-icon">
+                                                 className="fashion-store-image-manager__upload__content__icon">
+                                              <i data-v-05032044="" className="fashion-store-icon">
                                                 <svg viewBox="0 0 23 21" xmlns="http://www.w3.org/2000/svg">
                                                   <path
                                                       d="M18.5 0A1.5 1.5 0 0120 1.5V12c-.49-.07-1.01-.07-1.5 0V1.5H2v12.65l3.395-3.408a.75.75 0 01.958-.087l.104.087L7.89 12.18l3.687-5.21a.75.75 0 01.96-.086l.103.087 3.391 3.405c.81.813.433 2.28-.398 3.07A5.235 5.235 0 0014.053 18H2a1.5 1.5 0 01-1.5-1.5v-15A1.5 1.5 0 012 0h16.5z"></path>
@@ -95,7 +117,7 @@ const ProductDetails = () => {
                                                 </svg>
                                               </i>
                                             </div>
-                                            <div data-v-05032044="" className="shopee-image-manager__upload__content__text">
+                                            <div data-v-05032044="" className="fashion-store-image-manager__upload__content__text">
                                               Thêm hình ảnh ({selectedFiles.length}/{MAX_IMAGES})
                                             </div>
                                           </div>
@@ -107,7 +129,7 @@ const ProductDetails = () => {
                             </div>
                           </div>
                         </div>
-                        
+
                       </div>
                     </div>
 
@@ -126,23 +148,23 @@ const ProductDetails = () => {
                                data-education-trigger-key="name" data-v-1190c12e=""
                                data-product-edit-field-unique-id="name">
                             <div data-v-f872a002="" className="product-edit-form-item-content">
-                              <div data-v-1c124603="" className="shopee-input" data-v-f872a002="">
-                                <div className="shopee-input__inner shopee-input__inner--large">
+                              <div data-v-1c124603="" className="fashion-store-input" data-v-f872a002="">
+                                <div className="fashion-store-input__inner fashion-store-input__inner--large">
                                    <input type="text" placeholder="Nhập vào" size="large" resize="none" rows="2"
                                                  minrows="2" maxLength="Infinity" restrictiontype="input" max="Infinity"
-                                                 min="-Infinity" className="shopee-input__input"/>
-                                  <div className="shopee-input__suffix">
-                                    <span className="shopee-input__suffix-split"></span>
+                                                 min="-Infinity" className="fashion-store-input__input"/>
+                                  <div className="fashion-store-input__suffix">
+                                    <span className="fashion-store-input__suffix-split"></span>
                                     0/120
                                   </div>
                                 </div>
-                                
+
                               </div>
-                              
+
                             </div>
                           </div>
                         </div>
-                        
+
                       </div>
                     </div>
                     <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-row is-last-edit-row">
@@ -164,7 +186,7 @@ const ProductDetails = () => {
                                     <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-text"><span
                                         data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn loại sản phẩm </span>
                                     </div>
-                                    <i data-v-55f54b9f="" className="product-category-icon shopee-icon"
+                                    <i data-v-55f54b9f="" className="product-category-icon fashion-store-icon"
                                        data-v-1190c12e="">
                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                         <path fillRule="evenodd"
@@ -192,11 +214,11 @@ const ProductDetails = () => {
 
                           <div data-v-79ee9b0a="" data-ls-upload-cmpt=""
                                className="product-edit-form-item-content">
-                            <div data-v-105cd290="" className="shopee-input__area" data-ls-upload-cmpt="" data-v-79ee9b0a="">
+                            <div data-v-105cd290="" className="fashion-store-input__area" data-ls-upload-cmpt="" data-v-79ee9b0a="">
                               <textarea type="textarea" resize="none" rows="2" minrows="9"
                                         maxrows="26" autosize="true" maxLength="Infinity"
                                         restrictiontype="input" max="Infinity" min="-Infinity"
-                                        className="shopee-input__inner shopee-input__inner--normal"
+                                        className="fashion-store-input__inner fashion-store-input__inner--normal"
                                         style={{resize: "none", minHeight: "209.6px", height: "209.6px"}}></textarea>
                             </div>
                             <div className="text-area-label" style={{fontSize: "14px"}}>
