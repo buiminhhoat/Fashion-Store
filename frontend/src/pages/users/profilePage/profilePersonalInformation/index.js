@@ -67,14 +67,14 @@ function renderMenu(menuItems) {
 
 const ProfilePersonalInformationPage = () => {
     const [userData, setUserData] = useState(null);
-    const [cookies] = useCookies(['refresh_token']);
-    const refreshToken = cookies.refresh_token;
+    const [cookies] = useCookies(['access_token']);
+    const accessToken = cookies.access_token;
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [gender, setGender] = useState("");
     const [dateBirthday, setDateBirthday] = useState({ day: '', month: '', year: '' });
-    console.log(refreshToken);
+    console.log(accessToken);
 
     const handleSaveInformation = () => {
         // Tạo một đối tượng chứa thông tin cần cập nhật
@@ -100,7 +100,7 @@ const ProfilePersonalInformationPage = () => {
             headers: {
                 'Content-Type': 'application/json',
                 // Thêm Authorization Header với refresh token
-                Authorization: `Bearer ${refreshToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
             body: JSON.stringify(updatedUserInfo),
         })
@@ -128,7 +128,7 @@ const ProfilePersonalInformationPage = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                if (!refreshToken) {
+                if (!accessToken) {
                     throw new Error("Không có refresh token.");
                 }
 
@@ -140,7 +140,7 @@ const ProfilePersonalInformationPage = () => {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*",
                         "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
-                        Authorization: `Bearer ${refreshToken}`
+                        Authorization: `Bearer ${accessToken}`
                     },
                 });
 

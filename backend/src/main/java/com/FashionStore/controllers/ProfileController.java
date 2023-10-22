@@ -35,15 +35,15 @@ public class ProfileController {
     }
 
     @PostMapping("/edit-profile")
-    public ResponseEntity<?> editProfile(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String refreshToken) {
-        refreshToken = refreshToken.replace("Bearer ", "");
-        if (!jwtTokenUtil.isTokenValid(refreshToken)) {
+    public ResponseEntity<?> editProfile(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String accessToken) {
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         String email = credentials.get("email");
 
-        if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(refreshToken))) {
+        if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(accessToken))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         String fullName = credentials.get("fullName");
@@ -74,13 +74,13 @@ public class ProfileController {
 
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody Map<String, String> credentials,
-                                            @RequestHeader("Authorization") String refreshToken) {
-        refreshToken = refreshToken.replace("Bearer ", "");
-        if (!jwtTokenUtil.isTokenValid(refreshToken)) {
+                                            @RequestHeader("Authorization") String accessToken) {
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        String email = jwtTokenUtil.getEmailFromToken(refreshToken);
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
         String oldPassword = credentials.get("oldPassword");
         String newPassword = credentials.get("newPassword");
 

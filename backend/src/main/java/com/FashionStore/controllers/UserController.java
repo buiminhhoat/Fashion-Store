@@ -26,11 +26,11 @@ public class UserController {
     }
 
     @PostMapping("/user-data")
-    public ResponseEntity<Users> getUserData(@RequestHeader("Authorization") String refreshToken) {
-        refreshToken = refreshToken.replace("Bearer ", "");
-        if (jwtTokenUtil.isTokenValid(refreshToken)) {
-            String email = jwtTokenUtil.getSubjectFromToken(refreshToken);
-            if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(refreshToken))) {
+    public ResponseEntity<Users> getUserData(@RequestHeader("Authorization") String accessToken) {
+        accessToken = accessToken.replace("Bearer ", "");
+        if (jwtTokenUtil.isTokenValid(accessToken)) {
+            String email = jwtTokenUtil.getSubjectFromToken(accessToken);
+            if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(accessToken))) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
             List<Users> findByEmail = usersRepository.findUsersByEmail(email);

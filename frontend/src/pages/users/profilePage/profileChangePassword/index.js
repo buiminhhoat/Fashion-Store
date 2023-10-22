@@ -59,8 +59,8 @@ function renderMenu(menuItems) {
 }
 
 const ProfileChangePassword = () => {
-    const [cookies] = useCookies(['refresh_token']);
-    const refreshToken = cookies.refresh_token;
+    const [cookies] = useCookies(['access_token']);
+    const accessToken = cookies.access_token;
 
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -84,7 +84,7 @@ const ProfileChangePassword = () => {
                 headers: {
                     'Content-Type': 'application/json',
                     // Thêm Authorization Header với refresh token
-                    'Authorization': `Bearer ${refreshToken}`,
+                    'Authorization': `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify(updatedUserInfo),
             });
@@ -94,14 +94,14 @@ const ProfileChangePassword = () => {
                     console.log(data);
                     errorText.innerHTML = 'Lỗi khi cập nhật thông tin: ' + data;
                     console.error('Lỗi khi cập nhật thông tin: ' + data);
-                    return;
                 });
             }
-
-            response.text().then(data => {
-                errorText.innerHTML = data;
-                console.log(data);
-            });
+            else {
+                response.text().then(data => {
+                    errorText.innerHTML = data;
+                    console.log(data);
+                });
+            }
         } catch (error) {
             errorText.innerHTML = 'Lỗi khi cập nhật thông tin: ' + error;
             console.log(error);
