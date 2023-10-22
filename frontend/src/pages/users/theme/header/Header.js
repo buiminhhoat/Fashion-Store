@@ -8,6 +8,8 @@ import LoginDialog from "../../dialog/LoginDialog/LoginDialog";
 import ForgotPasswordDialog from "../../dialog/ForgotPasswordDialog/ForgotPasswordDialog";
 import RegisterDialog from "../../dialog/RegisterDialog/RegisterDialog";
 import {DIALOGS} from "../../dialog/util";
+import {Cookies, useCookies} from "react-cookie";
+import {useLogout} from "../../dialog/util/logout";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
@@ -66,6 +68,14 @@ const MenuItem = ({ to, text, subMenuItems }) => {
 
 const ProfileMenu = ({openModal}) => {
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
+  const [, , removeAccessTokenCookie] = useCookies(['access_token']);
+  const [, , removeRefreshTokenCookie] = useCookies(['refresh_token']);
+
+  const logout = useLogout(); // Use the useLogout custom Hook
+
+  const handleLogout = () => {
+    logout(); // Call the logout function returned by the custom Hook
+  };
 
   const handleMouseEnter = () => {
     setProfileMenuVisible(true);
@@ -106,7 +116,7 @@ const ProfileMenu = ({openModal}) => {
               <a href="#">Sản phẩm yêu thích</a>
             </li>
             <li className="logout">
-              <a href="#logout"> Đăng xuất </a>
+              <a href="#logout" onClick={handleLogout}> Đăng xuất </a>
             </li>
           </ul>
         </div>
