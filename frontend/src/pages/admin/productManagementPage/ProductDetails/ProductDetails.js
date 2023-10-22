@@ -96,7 +96,8 @@ const ProductDetails = () => {
                                                  minrows="2" maxLength="Infinity" restrictiontype="input" max="Infinity"
                                                  min="-Infinity" className="shopee-input__input"/>
                                   <div className="shopee-input__suffix">
-                                    <span className="shopee-input__suffix-split"></span>/120
+                                    <span className="shopee-input__suffix-split"></span>
+                                    0/120
                                   </div>
                                 </div>
                                 
@@ -176,6 +177,24 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
+
+
+            <section style={{ marginTop: "20px", marginBottom:"50px" }}>
+              <div className="button-container">
+                <button type="button" className="product-details-btn">
+                  Lưu lại
+                </button>
+                <button type="button" className="product-details-btn product-details-btn-danger">
+                  Hủy thay đổi
+                </button>
+                <button type="button" className="product-details-btn product-details-btn-danger">
+                  Xóa sản phẩm
+                </button>
+              </div>
+            </section>
+
+
+
           </section>
         </div>
 

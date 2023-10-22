@@ -195,7 +195,7 @@ const ProfileChangePassword = () => {
 
                                     <section className="footer__wrap">
                                         <button type="button" className="btn__action btn btn-danger" id="submit-form" onClick={handleChangePassword}>Lưu lại</button>
-                                        <a href="https://5sfashion.vn" type="button" className="btn__action btn btn-outline-danger">Hủy bỏ</a>
+                                        <a href="#huy" type="button" className="btn__action btn btn-outline-danger">Hủy bỏ</a>
                                     </section>
                                 </form>
                             </section>

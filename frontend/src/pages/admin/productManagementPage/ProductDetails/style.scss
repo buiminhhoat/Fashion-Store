@@ -2,6 +2,34 @@
 @import "../css/12.38284012ee2ec21d5655.css";
 @import "../css/product-index.84d80870df65b79dff9f.css";
 @import "../css/style.bfb4d15c787b118a2705.css";
+@import "../css/profile.css";
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.product-details-btn {
+    cursor: pointer;
+    background: #bd0000;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 0;
+    width: 200px;
+    height: 40px;
+    border: 0;
+    color: white;
+    -webkit-appearance: button;
+    font-family: Manrope !important;
+}
+
+.product-details-btn-danger {
+    background: none;
+    color: #bd0000;
+    border: 1px solid #bd0000;
+    font-weight: normal;
+}
 
 @keyframes shopee-icon-spin {
     0% {
