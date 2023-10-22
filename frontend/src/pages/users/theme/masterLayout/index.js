@@ -13,7 +13,6 @@ const MasterLayout = ({children, ...props}) => {
             <div style={divStyle}>
               {children}
             </div>
-
             <Footer />
         </div>
     );
