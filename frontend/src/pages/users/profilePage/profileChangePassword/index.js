@@ -11,25 +11,12 @@ import emptyProduct from '../images/empty-product.png'
 import eyeOn from '../images/eye_on.svg'
 import eyeOff from '../images/eye_off.svg'
 
-const menuItemsOrder = [
+const menuItemsProfile = [
     {
         icon: iconOrder,
         text: "Đơn hàng của tôi (0)",
         link: "https://5sfashion.vn/profile/orders",
     },
-    {
-        icon: likeProduct,
-        text: "Sản phẩm yêu thích (0)",
-        link: "https://5sfashion.vn/profile/products/favorite",
-    },
-    {
-        icon: view,
-        text: "Đã xem gần đây",
-        link: "https://5sfashion.vn/profile/products/recently-viewed",
-    }
-];
-
-const menuItemsProfile = [
     {
         icon: edit,
         text: "Chỉnh sửa thông tin cá nhân",
@@ -147,10 +134,6 @@ const ProfileChangePassword = () => {
                                     <p>Xin chào,</p>
                                     <p className="name">Hoạt Bùi Minh</p>
                                 </div>
-                            </div>
-
-                            <div className="menu-nav-wrap">
-                                <ul>{renderMenu(menuItemsOrder)}</ul>
                             </div>
 
                             <div className="menu-nav-wrap">
