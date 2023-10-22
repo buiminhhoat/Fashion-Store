@@ -99,7 +99,7 @@ const Footer = () => {
                 <div className="col-3 pr-20">
                   <div className="title d-flex align-items-center">Đăng Ký Nhận Khuyến Mãi</div>
                   <div id="subscribe-email" className="overflow-hidden position-relative">
-                    <input id="email" name="email" type="email" value="" autoComplete="off" className="form-control m-0" placeholder="Nhập email của bạn" />
+                    <input id="email" name="email" type="email" autoComplete="off" className="form-control m-0" placeholder="Nhập email của bạn" />
                     <label id="email-error" className="error" htmlFor="email"></label>
                     <button type="button" id="subscribe" name="subscribe" className="btn btn-subscribe d-flex align-items-center justify-content-center position-absolute p-0">
                       Đăng ký

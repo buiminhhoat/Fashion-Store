@@ -1,7 +1,29 @@
-import {memo} from "react";
+import {memo, useRef, useState} from "react";
 import "./style.scss"
 
 const ProductDetails = () => {
+  const MAX_IMAGES = 9;
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const handleImageChange = (e) => {
+    const newFiles = Array.from(e.target.files);
+    let totalFiles = [...selectedFiles, ...newFiles];
+
+    if (totalFiles.length > MAX_IMAGES) {
+      totalFiles = totalFiles.slice(0, MAX_IMAGES);
+      alert("Chỉ được tải lên tối đa 9 ảnh.");
+    }
+
+    setSelectedFiles(totalFiles);
+
+  };
+
+  const inputRef = useRef(null);
+
+  const handleInputImagesClick = () => {
+    inputRef.current.click();
+  };
+
   return (
       <div data-v-03749d40="" className="product-edit__container">
         <div data-v-03749d40="" className="product-edit">
@@ -35,16 +57,34 @@ const ProductDetails = () => {
                              data-education-trigger-key="images" data-v-2250a4e1=""
                              data-product-edit-field-unique-id="images">
                           <div data-v-05032044="" className="container">
+
+                            <div>
+                              {selectedFiles.map((file, index) => (
+                                  <img className="image-itembox"
+                                       key={index} src={URL.createObjectURL(file)} alt={`Image ${index}`} />
+                              ))}
+                            </div>
+
                             <div data-v-05032044="" className="shopee-image-manager__itembox"
                                  style={{width: "80px", maxWidth: "80px", height: "80px", maxHeight: "80px"}}>
-                              <div data-v-05032044="" className="shopee-image-manager__content">
+
+                              <div data-v-05032044="" className="shopee-image-manager__content" onClick={handleInputImagesClick}>
                                 <div data-v-05032044="" className="shopee-image-manager__upload">
                                   <div data-v-4ff6c453="" data-v-05032044="" className="shopee-file-upload"
                                        accept="image/*">
-                                    <div data-v-4ff6c453="" className="shopee-upload" aspect="1">
+                                    <div data-v-4ff6c453="" className="shopee-upload">
+
                                       <div className="shopee-upload-wrapper shopee-upload-dragger">
-                                        <input type="file" name="file" accept="image/*" multiple="multiple" aspect="1"
-                                               className="shopee-upload__input"/>
+
+                                          <input type="file"
+                                                 name="file"
+                                                 ref={inputRef}
+                                                 accept="image/*"
+                                                 multiple="multiple"
+                                                 className="shopee-upload__input"
+                                                 onChange={handleImageChange}
+                                          />
+
                                           <div data-v-05032044="" className="shopee-image-manager__upload__content">
                                             <div data-v-05032044=""
                                                  className="shopee-image-manager__upload__content__icon">
@@ -131,7 +171,7 @@ const ProductDetails = () => {
                                     <i data-v-55f54b9f="" className="product-category-icon shopee-icon"
                                        data-v-1190c12e="">
                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
+                                        <path fillRule="evenodd"
                                               d="M13.7698326,4.53553391 L11.6485122,2.41421356 L9.52719188,4.53553391 L11.6485122,6.65685425 L13.7698326,4.53553391 Z M10.9414054,7.36396103 L8.8200851,5.24264069 L2.71213203,11.3505938 L2.5,13.6840461 L4.83345238,13.4719141 L10.9414054,7.36396103 Z M12.355619,1.70710678 L14.4769394,3.82842712 C14.8674636,4.21895142 14.8674636,4.8521164 14.4769394,5.24264069 L5.54055916,14.1790209 C5.37514107,14.344439 5.1569639,14.4466277 4.92398812,14.4678073 L2.59053575,14.6799393 C2.04051912,14.7299408 1.55410831,14.3245985 1.50410679,13.7745819 C1.49863107,13.7143489 1.49863107,13.6537434 1.50410679,13.5935104 L1.71623883,11.260058 C1.73741844,11.0270822 1.83960716,10.8089051 2.00502525,10.643487 L10.9414054,1.70710678 C11.3319297,1.31658249 11.9650947,1.31658249 12.355619,1.70710678 Z"></path>
                                       </svg>
                                     </i>
