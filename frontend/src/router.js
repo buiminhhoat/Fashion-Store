@@ -6,6 +6,8 @@ import ProfilePage from "./pages/users/profilePage";
 import LoginPage from "./pages/users/loginPage";
 import MasterLayout from "./pages/users/theme/masterLayout";
 import ProductManagementPage from "./pages/admin/productManagementPage";
+import {useEffect, useState} from "react";
+import {Cookies, useCookies} from "react-cookie";
 
 const renderUserCustom = () => {
     const userRouters =  [
