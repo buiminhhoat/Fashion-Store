@@ -2,7 +2,7 @@ import {memo, useRef, useState} from "react";
 import "./style.scss"
 
 const ProductDetails = () => {
-  const MAX_IMAGES = 9;
+  const MAX_IMAGES = 8;
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleImageChange = (e) => {
@@ -11,11 +11,9 @@ const ProductDetails = () => {
 
     if (totalFiles.length > MAX_IMAGES) {
       totalFiles = totalFiles.slice(0, MAX_IMAGES);
-      alert("Chỉ được tải lên tối đa 9 ảnh.");
+      alert("Chỉ được tải lên tối đa " + MAX_IMAGES + " ảnh.");
     }
-
     setSelectedFiles(totalFiles);
-
   };
 
   const inputRef = useRef(null);
@@ -97,10 +95,8 @@ const ProductDetails = () => {
                                                 </svg>
                                               </i>
                                             </div>
-                                            <div data-v-05032044=""
-                                                 className="shopee-image-manager__upload__content__text">
-                                              Thêm hình ảnh
-                                              (0/9)
+                                            <div data-v-05032044="" className="shopee-image-manager__upload__content__text">
+                                              Thêm hình ảnh ({selectedFiles.length}/{MAX_IMAGES})
                                             </div>
                                           </div>
                                       </div>
