@@ -23,15 +23,6 @@ public class Address {
     @Column(name = "RecipientPhone")
     private String recipientPhone;
 
-    @Column(name = "RecipientCity")
-    private String recipientCity;
-
-    @Column(name = "RecipientDistrict")
-    private String recipientDistrict;
-
-    @Column(name = "RecipientWard")
-    private String recipientWard;
-
     @Column(name = "AddressDetails")
     private String addressDetails;
 
@@ -67,30 +58,6 @@ public class Address {
         this.recipientPhone = recipientPhone;
     }
 
-    public String getRecipientCity() {
-        return recipientCity;
-    }
-
-    public void setRecipientCity(String recipientCity) {
-        this.recipientCity = recipientCity;
-    }
-
-    public String getRecipientDistrict() {
-        return recipientDistrict;
-    }
-
-    public void setRecipientDistrict(String recipientDistrict) {
-        this.recipientDistrict = recipientDistrict;
-    }
-
-    public String getRecipientWard() {
-        return recipientWard;
-    }
-
-    public void setRecipientWard(String recipientWard) {
-        this.recipientWard = recipientWard;
-    }
-
     public String getAddressDetails() {
         return addressDetails;
     }
@@ -106,9 +73,6 @@ public class Address {
                 ", users=" + users +
                 ", recipientName='" + recipientName + '\'' +
                 ", recipientPhone='" + recipientPhone + '\'' +
-                ", recipientCity='" + recipientCity + '\'' +
-                ", recipientDistrict='" + recipientDistrict + '\'' +
-                ", recipientWard='" + recipientWard + '\'' +
                 ", addressDetails='" + addressDetails + '\'' +
                 '}';
     }
