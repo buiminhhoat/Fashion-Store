@@ -5,25 +5,31 @@ const CategoryDialog = ({ onClose }) => {
     onClose();
   };
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
+  const [selectedCategoriesName, setSelectedCategoriesName] = useState(null);
 
   const categories = [
     {
       name: "Thời Trang Nữ",
       subcategories: [
         {
-          name: "Áo Nữ",
+          name: "Áo Nữ 1",
         },
         {
-          name: "Áo Nữ",
+          name: "Áo Nữ 2",
         },
         {
-          name: "Áo Nữ",
+          name: "Áo Nữ 3",
         },
       ],
     },
     {
       name: "Thời Trang Nam",
+      subcategories: [
+        {
+          name: "Áo Nam 1",
+        },
+      ],
     },
   ];
 
@@ -32,8 +38,14 @@ const CategoryDialog = ({ onClose }) => {
     return selectedCategory ? (selectedCategory.subcategories ? selectedCategory.subcategories : []) : [];
   };
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+  const handleCategoryClick = (categoryName) => {
+    setSelectedCategoryName(categoryName);
+    setSelectedCategoriesName([categoryName]);
+  };
+
+  const handleSubcategoryClick = (categoryName) => {
+    const newSelectedCategoriesName = [selectedCategoriesName[0], categoryName];
+    setSelectedCategoriesName(newSelectedCategoriesName);
   };
 
   return (
@@ -80,8 +92,8 @@ const CategoryDialog = ({ onClose }) => {
                       </ul>
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
-                        {getSubcategoriesByName(selectedCategory).map((category, index) => (
-                            <li data-v-38ab3376="" className="category-item">
+                        {getSubcategoriesByName(selectedCategoryName).map((category, index) => (
+                            <li data-v-38ab3376="" className="category-item" onClick={() => handleSubcategoryClick(category.name)}>
                               <p data-v-38ab3376="" className="text-overflow">
                                 {category.name}
                               </p>
@@ -98,9 +110,15 @@ const CategoryDialog = ({ onClose }) => {
             </div>
           </div>
           <div className="fashion-store-modal__footer with-assist">
-            <div data-v-59dc2242="" className="category-selected">
-              <span data-v-59dc2242="" className="label">Đã chọn: </span>
-              <span data-v-59dc2242="" className="no-select">Chưa chọn ngành hàng</span>
+            <div data-v-59dc2242="" className="category-selected" style={{display:"flex"}}>
+              <span data-v-59dc2242="" className="label" style={{fontSize:"14px", marginRight: "5px"}}>Đã chọn: </span>
+              {(selectedCategoriesName ? selectedCategoriesName : []).length === 0 ? <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span> : ""}
+              {(selectedCategoriesName ? selectedCategoriesName : []).map((categoryName, index) => (
+                  <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
+                    {categoryName} {index < selectedCategoriesName.length - 1 ? ", " : ""}
+                  </span>
+
+              ))}
             </div>
             <div className="fashion-store-modal__footer-buttons">
               <button type="button"
@@ -108,9 +126,18 @@ const CategoryDialog = ({ onClose }) => {
                       onClick={handleButtonCloseClick}>
                 <span>Hủy</span>
               </button>
-              <button type="button" disabled="disabled"
-                      className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
-                <span>Xác nhận</span></button>
+              {(selectedCategoriesName ? selectedCategoriesName : []).length === 2 ?
+                  <button type="button"
+                          className="fashion-store-button fashion-store-button--primary fashion-store-button--normal">
+                    <span>Xác nhận</span>
+                  </button>
+              :
+                  <button type="button" disabled="disabled"
+                        className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
+                    <span>Xác nhận</span>
+                  </button>
+              }
+
             </div>
           </div>
         </div>
