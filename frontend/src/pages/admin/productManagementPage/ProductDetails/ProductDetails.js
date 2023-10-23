@@ -3,8 +3,12 @@ import "./style.scss"
 import {DIALOGS} from "../../../users/dialog/util";
 import LoginDialog from "../../../users/dialog/LoginDialog/LoginDialog";
 import CategoryDialog from "../CategoryDialog/CategoryDialog";
+import {useCookies} from "react-cookie";
 
 const ProductDetails = () => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const MAX_IMAGES = 8;
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
@@ -49,6 +53,35 @@ const ProductDetails = () => {
   const handleDialogClose = () => {
     closeModal();
   };
+
+  async function addProduct() {
+    const formData = new FormData();
+
+    // Thêm các tệp ảnh vào FormData
+    for (const file of selectedFiles) {
+      formData.append('images', file);
+    }
+
+    console.log(selectedFiles);
+
+    let apiAddProductUrl = "http://localhost:9999/api/add-product";
+    fetch(apiAddProductUrl, {
+      method: 'POST',
+      body: formData,
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log('Upload successful:', data);
+    })
+    .catch((error) => {
+      console.error('Upload failed:', error);
+    });
+  }
 
   return (
       <div data-v-03749d40="" className="product-edit__container">
@@ -270,7 +303,7 @@ const ProductDetails = () => {
 
             <section style={{ marginTop: "20px", marginBottom:"50px" }}>
               <div className="button-container">
-                <button type="button" className="product-details-btn">
+                <button type="button" className="product-details-btn" onClick={addProduct}>
                   Lưu lại
                 </button>
                 <button type="button" className="product-details-btn product-details-btn-danger">
