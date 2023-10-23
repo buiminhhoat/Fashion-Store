@@ -1,14 +1,12 @@
 import {memo} from "react";
 import './style.scss';
 import iconOrder from '../images/order.svg';
-import likeProduct from '../images/likeProduct.svg'
-import view from '../images/view.svg'
 import edit from '../images/edit.svg'
 import address from '../images/address.svg'
 import unlocked from '../images/unlocked.svg'
 import logout from '../images/logout.svg'
-import emptyProduct from '../images/empty-product.png'
 import arrowLeft1 from '../images/arrow_left_1.svg'
+import {useCookies} from "react-cookie";
 
 const menuItemsProfile = [
     {
@@ -55,7 +53,50 @@ function renderMenu(menuItems) {
     }
     return menuItemsJSX;
 }
+
+let apiNewAddressUrl = "http://localhost:9999/api/new-address";
+
 const ProfileNewAddress = () => {
+    const [cookies] = useCookies(['access_token']);
+    const accessToken = cookies.access_token;
+    const handleSave = async () => {
+        const fullName = document.getElementById("name").value;
+        const phoneNumber = document.getElementById("phone").value;
+        const address = document.getElementById("address").value;
+        console.log(fullName);
+        console.log(phoneNumber);
+        console.log(address);
+
+        const addressInfo = {
+            recipientName: fullName,
+            recipientPhone: phoneNumber,
+            addressDetails: address
+        }
+
+        try {
+            const response = await fetch(apiNewAddressUrl, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(addressInfo)
+            })
+
+            if (response.status === 200) {
+                let jsonResponse = await response.json();
+                alert(jsonResponse.message);
+                window.location.href = "http://localhost:3000/profile/personal-information";
+            }
+            else {
+                let jsonResponse = await response.json();
+                alert(jsonResponse.message);
+                window.location.href = "http://localhost:3000/profile/personal-information";
+            }
+        } catch (error) {
+            alert("Không thể kết nối được với database");
+        }
+    }
     return (
         <div id="app">
             <main id="main">
@@ -119,14 +160,12 @@ const ProfileNewAddress = () => {
                                     </section>
 
                                     <section className="footer__wrap" style={{marginLeft: "30px"}}>
-                                        <button type="button" className="btn btn-danger" id="save">Hoàn thành</button>
+                                        <button type="button" className="btn btn-danger" id="save" onClick={handleSave}>Hoàn thành</button>
                                         <button type="button" className="btn btn-outline-danger" id="cancel">Hủy bỏ</button>
                                     </section>
                                 </form>
                             </section>
                         </div>
-
-
                     </div>
                 </div>
             </main>
