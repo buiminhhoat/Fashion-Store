@@ -8,7 +8,14 @@ const ProductDetails = () => {
   const MAX_IMAGES = 8;
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
+  const [selectedCategoriesName, setSelectedCategoriesName] = useState(null);
+
   const inputRef = useRef(null);
+
+  const handleDialogConfirm = (data) => {
+    setSelectedCategoriesName(data);
+    closeModal();
+  };
 
   const handleDeleteImage = (index) => {
     const newSelectedFiles = [...selectedFiles];
@@ -46,7 +53,6 @@ const ProductDetails = () => {
   return (
       <div data-v-03749d40="" className="product-edit__container">
         <div data-v-03749d40="" className="product-edit">
-
           <section data-v-03749d40="" className="product-edit__section">
             <div data-v-2250a4e1="" data-v-54a51dd8="" data-v-03749d40="" className="product-detail-panel product-basic-info" >
 
@@ -187,7 +193,7 @@ const ProductDetails = () => {
                            data-education-trigger-key="category">
                         <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1=""><span
                             data-v-36db20dc="" className="mandatory-icon">*</span></div>
-                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Loại sản phẩm</span>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Danh mục</span>
                       </div>
 
                       <div data-v-34a64d88="" data-v-54a51dd8=""
@@ -200,9 +206,17 @@ const ProductDetails = () => {
                               <div data-v-f872a002="" className="product-edit-form-item-content">
                                 <div data-v-1190c12e="" data-v-55f54b9f="" className="popover-wrap" data-v-f872a002="">
                                   <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-box-inner">
-                                    <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-text"><span
-                                        data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn loại sản phẩm </span>
+
+                                    <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-text">
+                                      {(selectedCategoriesName ? selectedCategoriesName : []).length === 0 ? <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span> : ""}
+                                      {(selectedCategoriesName ? selectedCategoriesName : []).map((categoryName, index) => (
+                                          <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
+                                            {categoryName} {index < selectedCategoriesName.length - 1 ? ", " : ""}
+                                          </span>
+
+                                      ))}
                                     </div>
+
                                     <i data-v-55f54b9f="" className="product-category-icon fashion-store-icon"
                                        data-v-1190c12e="">
                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -275,7 +289,7 @@ const ProductDetails = () => {
 
         {openDialog === true && (
             <div className="modal-overlay">
-              <CategoryDialog onClose={handleDialogClose} />
+              <CategoryDialog onClose={handleDialogClose} onConfirm={handleDialogConfirm} />
             </div>
         )}
 

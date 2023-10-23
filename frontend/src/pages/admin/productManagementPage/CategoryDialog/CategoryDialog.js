@@ -1,6 +1,6 @@
 import {memo, useState} from "react";
 import "./style.scss";
-const CategoryDialog = ({ onClose }) => {
+const CategoryDialog = ({ onClose, onConfirm }) => {
   const handleButtonCloseClick = () => {
     onClose();
   };
@@ -10,23 +10,29 @@ const CategoryDialog = ({ onClose }) => {
 
   const categories = [
     {
+      id: 1,
       name: "Thời Trang Nữ",
       subcategories: [
         {
+          id: 2,
           name: "Áo Nữ 1",
         },
         {
+          id: 3,
           name: "Áo Nữ 2",
         },
         {
+          id: 4,
           name: "Áo Nữ 3",
         },
       ],
     },
     {
+      id: 5,
       name: "Thời Trang Nam",
       subcategories: [
         {
+          id: 6,
           name: "Áo Nam 1",
         },
       ],
@@ -46,6 +52,10 @@ const CategoryDialog = ({ onClose }) => {
   const handleSubcategoryClick = (categoryName) => {
     const newSelectedCategoriesName = [selectedCategoriesName[0], categoryName];
     setSelectedCategoriesName(newSelectedCategoriesName);
+  };
+
+  const handleSubmitCategoryDialog = () => {
+    onConfirm(selectedCategoriesName);
   };
 
   return (
@@ -75,7 +85,7 @@ const CategoryDialog = ({ onClose }) => {
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"5px"}}>
                         {categories.map((category, index) => (
 
-                            <li data-v-38ab3376="" className="category-item" onClick={() => handleCategoryClick(category.name)}>
+                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleCategoryClick(category.name)}>
                               <p data-v-38ab3376="" className="text-overflow">
                                 {category.name}
                               </p>
@@ -93,7 +103,7 @@ const CategoryDialog = ({ onClose }) => {
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
                         {getSubcategoriesByName(selectedCategoryName).map((category, index) => (
-                            <li data-v-38ab3376="" className="category-item" onClick={() => handleSubcategoryClick(category.name)}>
+                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleSubcategoryClick(category.name)}>
                               <p data-v-38ab3376="" className="text-overflow">
                                 {category.name}
                               </p>
@@ -128,12 +138,13 @@ const CategoryDialog = ({ onClose }) => {
               </button>
               {(selectedCategoriesName ? selectedCategoriesName : []).length === 2 ?
                   <button type="button"
+                          onClick={handleSubmitCategoryDialog}
                           className="fashion-store-button fashion-store-button--primary fashion-store-button--normal">
                     <span>Xác nhận</span>
                   </button>
               :
                   <button type="button" disabled="disabled"
-                        className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
+                          className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
                     <span>Xác nhận</span>
                   </button>
               }
