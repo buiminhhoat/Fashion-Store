@@ -211,7 +211,7 @@ const ProductDetails = () => {
                                       {(selectedCategoriesName ? selectedCategoriesName : []).length === 0 ? <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span> : ""}
                                       {(selectedCategoriesName ? selectedCategoriesName : []).map((categoryName, index) => (
                                           <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                                            {categoryName} {index < selectedCategoriesName.length - 1 ? ", " : ""}
+                                            {categoryName} {index < selectedCategoriesName.length - 1 ? ">" : ""}
                                           </span>
 
                                       ))}

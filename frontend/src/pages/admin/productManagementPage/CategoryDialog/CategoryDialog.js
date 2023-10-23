@@ -1,5 +1,7 @@
 import {memo, useState} from "react";
 import "./style.scss";
+import { HiPlus } from 'react-icons/hi';
+
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const handleButtonCloseClick = () => {
     onClose();
@@ -75,9 +77,27 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
           <div className="fashion-store-modal__body over-height" style={{position: "relative"}}>
             <div data-v-59dc2242="" className="category-selector-wrap">
-
               <div data-v-38ab3376="" data-v-59dc2242="" className="category-selector category-selector">
-                <div data-v-38ab3376="" className="selector" style={{marginBottom:"30px"}}>
+                <div data-v-38ab3376="" className="selector" style={{marginBottom:"30px", paddingTop:"2px"}}>
+
+                  {/*<div>*/}
+                  {/*  <div data-v-38ab3376="" className="category-list" style={{height:"15px", background:"none", padding:"0"}}>*/}
+                  {/*    <ul data-v-38ab3376="" className="scroll-item"*/}
+                  {/*        style={{padding:"0 35px 0 5px", borderLeft: "0", background:"none", display:"flex", justifyContent: "space-between"}}>*/}
+
+                  {/*      <div style={{textAlign: "left"}}>*/}
+                  {/*        <HiPlus className="btn-add pointer-cursor" />*/}
+                  {/*      </div>*/}
+
+                  {/*      <div style={{textAlign: "right"}}>*/}
+                  {/*        <HiPlus className="btn-add pointer-cursor" />*/}
+                  {/*      </div>*/}
+                  {/*    </ul>*/}
+                  {/*    <ul data-v-38ab3376="" className="scroll-item" style={{borderLeft: "0", background:"none"}}>*/}
+                  {/*    </ul>*/}
+                  {/*  </div>*/}
+                  {/*</div>*/}
+
 
                   <div data-v-38ab3376="" className="category-wrap">
                     <div data-v-38ab3376="" className="category-list">
@@ -99,6 +119,14 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                               </div>
                             </li>
                         ))}
+
+                        <li data-v-38ab3376="" className="category-item">
+                          <div data-v-38ab3376="" className="text-overflow">
+                            <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
+                          </div>
+                        </li>
+
+
                       </ul>
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
@@ -115,7 +143,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -125,11 +152,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
               {(selectedCategoriesName ? selectedCategoriesName : []).length === 0 ? <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span> : ""}
               {(selectedCategoriesName ? selectedCategoriesName : []).map((categoryName, index) => (
                   <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                    {categoryName} {index < selectedCategoriesName.length - 1 ? ", " : ""}
+                    {categoryName} {index < selectedCategoriesName.length - 1 ? ">" : ""}
                   </span>
-
               ))}
             </div>
+
             <div className="fashion-store-modal__footer-buttons">
               <button type="button"
                       className="fashion-store-button fashion-store-button--normal"
