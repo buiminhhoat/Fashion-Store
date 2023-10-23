@@ -1,12 +1,11 @@
-import {memo, useState} from "react";
+import {memo, useEffect, useRef, useState} from "react";
 import "./style.scss";
 import { HiPlus } from 'react-icons/hi';
+import { BsCheckLg } from 'react-icons/bs';
+import {MdOutlineClose} from "react-icons/md";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
-  const handleButtonCloseClick = () => {
-    onClose();
-  };
-
+  const [isAdding, setIsAdding] = useState(false);
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
   const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
 
@@ -41,6 +40,18 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     },
   ];
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isAdding) {
+      inputRef.current.focus();
+    }
+  }, [isAdding]);
+
+  const handleButtonCloseClick = () => {
+    onClose();
+  };
+
   const getSubcategoriesByName = (categoryName) => {
     const selectedCategory = categories.find((category) => category.name === categoryName);
     return selectedCategory ? (selectedCategory.subcategories ? selectedCategory.subcategories : []) : [];
@@ -58,6 +69,18 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSubmitCategoryDialog = () => {
     onConfirm(selectedCategoriesNameID);
+  };
+
+  const handleAddClick = () => {
+    setIsAdding(true);
+  };
+
+  const handleSaveClick = () => {
+    setIsAdding(false);
+  };
+
+  const handleCancelClick = () => {
+    setIsAdding(false);
   };
 
   return (
@@ -79,30 +102,42 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
             <div data-v-59dc2242="" className="category-selector-wrap">
               <div data-v-38ab3376="" data-v-59dc2242="" className="category-selector category-selector">
                 <div data-v-38ab3376="" className="selector" style={{marginBottom:"30px", paddingTop:"2px"}}>
-
-                  {/*<div>*/}
-                  {/*  <div data-v-38ab3376="" className="category-list" style={{height:"15px", background:"none", padding:"0"}}>*/}
-                  {/*    <ul data-v-38ab3376="" className="scroll-item"*/}
-                  {/*        style={{padding:"0 35px 0 5px", borderLeft: "0", background:"none", display:"flex", justifyContent: "space-between"}}>*/}
-
-                  {/*      <div style={{textAlign: "left"}}>*/}
-                  {/*        <HiPlus className="btn-add pointer-cursor" />*/}
-                  {/*      </div>*/}
-
-                  {/*      <div style={{textAlign: "right"}}>*/}
-                  {/*        <HiPlus className="btn-add pointer-cursor" />*/}
-                  {/*      </div>*/}
-                  {/*    </ul>*/}
-                  {/*    <ul data-v-38ab3376="" className="scroll-item" style={{borderLeft: "0", background:"none"}}>*/}
-                  {/*    </ul>*/}
-                  {/*  </div>*/}
-                  {/*</div>*/}
-
-
                   <div data-v-38ab3376="" className="category-wrap">
                     <div data-v-38ab3376="" className="category-list">
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"5px"}}>
+
+                        {isAdding ?
+                            <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
+                              <div data-v-38ab3376="" className="text-overflow">
+                                <input className="input-category"
+                                       type="text"
+                                       ref={inputRef}
+                                />
+                              </div>
+                              <div data-v-38ab3376="" className="category-item-right">
+                                <MdOutlineClose
+                                    onClick={handleCancelClick}
+                                    className="btn-add pointer-cursor"
+                                    style={{marginRight:"5px"}}
+                                />
+                                <BsCheckLg
+                                    onClick={handleSaveClick}
+                                    className="btn-add pointer-cursor"
+                                />
+
+                              </div>
+                            </li>
+
+                        :
+                          <li data-v-38ab3376="" className="category-item" onClick={handleAddClick}>
+                            <div data-v-38ab3376="" className="text-overflow">
+                              <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
+                            </div>
+                          </li>
+                        }
+
+
                         {categories.map((category, index) => (
 
                             <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleCategoryClick({id: category.id, name: category.name})}>
@@ -119,14 +154,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                               </div>
                             </li>
                         ))}
-
-                        <li data-v-38ab3376="" className="category-item">
-                          <div data-v-38ab3376="" className="text-overflow">
-                            <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
-                          </div>
-                        </li>
-
-
                       </ul>
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
@@ -137,7 +164,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                               </p>
                             </li>
                         ))}
-
                       </ul>
 
                     </div>
