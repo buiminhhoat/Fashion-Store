@@ -36,5 +36,35 @@ public class AddressController {
         this.addressRepository = addressRepository;
     }
 
+    @PostMapping("/new-address")
+    public ResponseEntity<?> editProfile(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String accessToken) {
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+
+        Map<String, Object> jsonData = new HashMap<>();
+        String recipientName = credentials.get("recipientName");
+        String recipientPhone = credentials.get("recipientPhone");
+        String addressDetails = credentials.get("addressDetails");
+
+
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        Long userID = findByEmail.get(0).getUserID();
+        try {
+            Address address = new Address(userID, recipientName, recipientPhone, addressDetails);
+            addressRepository.save(address);
+            ResponseObject responseObject = new ResponseObject("Thêm địa chỉ mới thành công");
+            return ResponseEntity.ok(responseObject);
+        } catch (Error error) {
+            ResponseObject responseObject = new ResponseObject("Đã có lỗi xảy ra");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+    }
 }
