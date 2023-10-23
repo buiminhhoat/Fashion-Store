@@ -8,7 +8,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
-  const [selectedCategoriesName, setSelectedCategoriesName] = useState(null);
+  const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
 
   const categories = [
     {
@@ -46,18 +46,18 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     return selectedCategory ? (selectedCategory.subcategories ? selectedCategory.subcategories : []) : [];
   };
 
-  const handleCategoryClick = (categoryName) => {
-    setSelectedCategoryName(categoryName);
-    setSelectedCategoriesName([categoryName]);
+  const handleCategoryClick = (categoryNameID) => {
+    setSelectedCategoryName(categoryNameID.name);
+    setSelectedCategoriesNameID([categoryNameID]);
   };
 
-  const handleSubcategoryClick = (categoryName) => {
-    const newSelectedCategoriesName = [selectedCategoriesName[0], categoryName];
-    setSelectedCategoriesName(newSelectedCategoriesName);
+  const handleSubcategoryClick = (categoryNameID) => {
+    const newSelectedCategoriesNameID = [selectedCategoriesNameID[0], categoryNameID];
+    setSelectedCategoriesNameID(newSelectedCategoriesNameID);
   };
 
   const handleSubmitCategoryDialog = () => {
-    onConfirm(selectedCategoriesName);
+    onConfirm(selectedCategoriesNameID);
   };
 
   return (
@@ -105,7 +105,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"5px"}}>
                         {categories.map((category, index) => (
 
-                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleCategoryClick(category.name)}>
+                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleCategoryClick({id: category.id, name: category.name})}>
                               <p data-v-38ab3376="" className="text-overflow">
                                 {category.name}
                               </p>
@@ -131,7 +131,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
                         {getSubcategoriesByName(selectedCategoryName).map((category, index) => (
-                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleSubcategoryClick(category.name)}>
+                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleSubcategoryClick({id: category.id, name: category.name})}>
                               <p data-v-38ab3376="" className="text-overflow">
                                 {category.name}
                               </p>
@@ -149,10 +149,10 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
           <div className="fashion-store-modal__footer with-assist">
             <div data-v-59dc2242="" className="category-selected" style={{display:"flex"}}>
               <span data-v-59dc2242="" className="label" style={{fontSize:"14px", marginRight: "5px"}}>Đã chọn: </span>
-              {(selectedCategoriesName ? selectedCategoriesName : []).length === 0 ? <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span> : ""}
-              {(selectedCategoriesName ? selectedCategoriesName : []).map((categoryName, index) => (
+              {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 0 ? <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span> : ""}
+              {(selectedCategoriesNameID ? selectedCategoriesNameID : []).map((categoryNameID, index) => (
                   <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                    {categoryName} {index < selectedCategoriesName.length - 1 ? ">" : ""}
+                    {categoryNameID.name} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
                   </span>
               ))}
             </div>
@@ -163,7 +163,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                       onClick={handleButtonCloseClick}>
                 <span>Hủy</span>
               </button>
-              {(selectedCategoriesName ? selectedCategoriesName : []).length === 2 ?
+              {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 2 ?
                   <button type="button"
                           onClick={handleSubmitCategoryDialog}
                           className="fashion-store-button fashion-store-button--primary fashion-store-button--normal">

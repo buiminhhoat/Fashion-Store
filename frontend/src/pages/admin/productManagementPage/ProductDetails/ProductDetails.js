@@ -8,12 +8,12 @@ const ProductDetails = () => {
   const MAX_IMAGES = 8;
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
-  const [selectedCategoriesName, setSelectedCategoriesName] = useState(null);
+  const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
 
   const inputRef = useRef(null);
 
   const handleDialogConfirm = (data) => {
-    setSelectedCategoriesName(data);
+    setSelectedCategoriesNameID(data);
     closeModal();
   };
 
@@ -208,10 +208,10 @@ const ProductDetails = () => {
                                   <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-box-inner">
 
                                     <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-text">
-                                      {(selectedCategoriesName ? selectedCategoriesName : []).length === 0 ? <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span> : ""}
-                                      {(selectedCategoriesName ? selectedCategoriesName : []).map((categoryName, index) => (
+                                      {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 0 ? <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span> : ""}
+                                      {(selectedCategoriesNameID ? selectedCategoriesNameID : []).map((categoryNameID, index) => (
                                           <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                                            {categoryName} {index < selectedCategoriesName.length - 1 ? ">" : ""}
+                                            {categoryNameID.name} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
                                           </span>
 
                                       ))}
