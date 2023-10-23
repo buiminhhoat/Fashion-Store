@@ -22,9 +22,6 @@ CREATE TABLE IF NOT EXISTS Address (
     UserID BIGINT,
     RecipientName VARCHAR(255) NOT NULL,
     RecipientPhone VARCHAR(20),
-    RecipientCity VARCHAR(255),
-    RecipientDistrict VARCHAR(255),
-    RecipientWard VARCHAR(255),
     AddressDetails VARCHAR(255),
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
