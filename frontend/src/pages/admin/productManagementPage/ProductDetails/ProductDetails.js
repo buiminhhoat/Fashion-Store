@@ -25,6 +25,7 @@ const ProductDetails = () => {
 
   const handleImageChange = (e) => {
     const newFiles = Array.from(e.target.files);
+
     let totalFiles = [...selectedFiles, ...newFiles];
 
     if (totalFiles.length > MAX_IMAGES) {

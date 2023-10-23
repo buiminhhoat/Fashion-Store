@@ -5,40 +5,43 @@ import { BsCheckLg } from 'react-icons/bs';
 import {MdOutlineClose} from "react-icons/md";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
+  const [inputValue, setInputValue] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
   const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
 
-  const categories = [
-    {
-      id: 1,
-      name: "Thời Trang Nữ",
-      subcategories: [
+  const [categories, setCategories] = useState(
+      [
         {
-          id: 2,
-          name: "Áo Nữ 1",
+          id: 1,
+          name: "Thời Trang Nữ",
+          subcategories: [
+            {
+              id: 2,
+              name: "Áo Nữ 1",
+            },
+            {
+              id: 3,
+              name: "Áo Nữ 2",
+            },
+            {
+              id: 4,
+              name: "Áo Nữ 3",
+            },
+          ],
         },
         {
-          id: 3,
-          name: "Áo Nữ 2",
+          id: 5,
+          name: "Thời Trang Nam",
+          subcategories: [
+            {
+              id: 6,
+              name: "Áo Nam 1",
+            },
+          ],
         },
-        {
-          id: 4,
-          name: "Áo Nữ 3",
-        },
-      ],
-    },
-    {
-      id: 5,
-      name: "Thời Trang Nam",
-      subcategories: [
-        {
-          id: 6,
-          name: "Áo Nam 1",
-        },
-      ],
-    },
-  ];
+      ]
+  );
 
   const inputRef = useRef(null);
 
@@ -76,10 +79,15 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSaveClick = () => {
+    if (inputValue !== "") {
+      setCategories([...categories, { id: 0, name: inputValue}]);
+    }
+    setInputValue("");
     setIsAdding(false);
   };
 
   const handleCancelClick = () => {
+    setInputValue("");
     setIsAdding(false);
   };
 
@@ -110,25 +118,13 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                         {isAdding ?
                             <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
                               <div data-v-38ab3376="" className="text-overflow">
-                                <input className="input-category"
-                                       type="text"
-                                       ref={inputRef}
-                                />
+                                <input className="input-category" type="text" ref={inputRef} onChange={(e) => setInputValue(e.target.value)}/>
                               </div>
                               <div data-v-38ab3376="" className="category-item-right">
-                                <MdOutlineClose
-                                    onClick={handleCancelClick}
-                                    className="btn-add pointer-cursor"
-                                    style={{marginRight:"5px"}}
-                                />
-                                <BsCheckLg
-                                    onClick={handleSaveClick}
-                                    className="btn-add pointer-cursor"
-                                />
-
+                                <MdOutlineClose onClick={handleCancelClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
+                                <BsCheckLg onClick={handleSaveClick} className="btn-add pointer-cursor"/>
                               </div>
                             </li>
-
                         :
                           <li data-v-38ab3376="" className="category-item" onClick={handleAddClick}>
                             <div data-v-38ab3376="" className="text-overflow">
@@ -137,10 +133,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                           </li>
                         }
 
-
                         {categories.map((category, index) => (
-
-                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleCategoryClick({id: category.id, name: category.name})}>
+                            <li data-v-38ab3376="" className="category-item" key={index} onClick={() => handleCategoryClick({id: category.id, name: category.name})}>
                               <p data-v-38ab3376="" className="text-overflow">
                                 {category.name}
                               </p>
@@ -158,7 +152,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
                         {getSubcategoriesByName(selectedCategoryName).map((category, index) => (
-                            <li data-v-38ab3376="" className="category-item" key={category.id} onClick={() => handleSubcategoryClick({id: category.id, name: category.name})}>
+                            <li data-v-38ab3376="" className="category-item" key={index} onClick={() => handleSubcategoryClick({id: category.id, name: category.name})}>
                               <p data-v-38ab3376="" className="text-overflow">
                                 {category.name}
                               </p>
