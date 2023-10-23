@@ -2,8 +2,6 @@ package com.FashionStore.models;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
-
 @Entity
 @Table(name = "Address")
 public class Address {
@@ -13,9 +11,8 @@ public class Address {
     @Column(name = "AddressID")
     private Long addressID;
 
-    @ManyToOne
-    @JoinColumn(name = "UserID")
-    private Users users;
+    @Column(name = "UserID")
+    private Long usersID;
 
     @Column(name = "RecipientName")
     private String recipientName;
@@ -34,12 +31,12 @@ public class Address {
         this.addressID = addressID;
     }
 
-    public Users getUsers() {
-        return users;
+    public Long getUsersID() {
+        return usersID;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUsersID(Long usersID) {
+        this.usersID = usersID;
     }
 
     public String getRecipientName() {
@@ -70,10 +67,17 @@ public class Address {
     public String toString() {
         return "Address{" +
                 "addressID=" + addressID +
-                ", users=" + users +
+                ", usersID=" + usersID +
                 ", recipientName='" + recipientName + '\'' +
                 ", recipientPhone='" + recipientPhone + '\'' +
                 ", addressDetails='" + addressDetails + '\'' +
                 '}';
+    }
+
+    public Address(Long usersID, String recipientName, String recipientPhone, String addressDetails) {
+        this.usersID = usersID;
+        this.recipientName = recipientName;
+        this.recipientPhone = recipientPhone;
+        this.addressDetails = addressDetails;
     }
 }
