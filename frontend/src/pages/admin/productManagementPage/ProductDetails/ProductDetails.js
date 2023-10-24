@@ -142,7 +142,7 @@ const ProductDetails = () => {
   };
 
   const handleAddSizeField = () => {
-    if (sizeFields.length === MAX_SIZE_FIELDS) {
+    if (productSizeQuantity.length === MAX_SIZE_FIELDS) {
       alert("Chỉ được thêm tối đa " + MAX_SIZE_FIELDS + " kích cỡ.");
       return;
     }
