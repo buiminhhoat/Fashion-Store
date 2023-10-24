@@ -45,8 +45,9 @@ public class ProductController {
         String productName = request.getParameter("productName");
         Double productPrice = Double.valueOf(request.getParameter("productPrice"));
         String productDescription = request.getParameter("productDescription");
-
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
+        Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
+        Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
 
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
