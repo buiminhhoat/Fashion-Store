@@ -44,7 +44,7 @@ public class ProductController {
     }
 
     @PostMapping("/add-product")
-    public ResponseEntity<String> uploadFiles(HttpServletRequest request) {
+    public ResponseEntity<?> uploadFiles(HttpServletRequest request) {
         String productName = request.getParameter("productName");
         Double productPrice = Double.valueOf(request.getParameter("productPrice"));
         String productDescription = request.getParameter("productDescription");
@@ -83,6 +83,7 @@ public class ProductController {
         productsRepository.save(product);
         Long productId = product.getProductID();
         System.out.println(productId);
-        return ResponseEntity.ok("Upload successful!");
+        ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
+        return ResponseEntity.ok(responseObject);
     }
 }
