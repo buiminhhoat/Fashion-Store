@@ -8,9 +8,12 @@ const ProductDetails = () => {
   const accessToken = cookies.access_token;
 
   const MAX_IMAGES = 8;
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [productImages, setProductImages] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
   const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState(0);
+  const [productDescription, setProductDescription] = useState("");
 
   const inputRef = useRef(null);
 
@@ -20,20 +23,20 @@ const ProductDetails = () => {
   };
 
   const handleDeleteImage = (index) => {
-    const newSelectedFiles = [...selectedFiles];
-    newSelectedFiles.splice(index, 1);
-    setSelectedFiles(newSelectedFiles);
+    const newProductImages = [...productImages];
+    newProductImages.splice(index, 1);
+    setProductImages(newProductImages);
   };
 
   const handleImageChange = (e) => {
     const newFiles = Array.from(e.target.files);
-    let totalFiles = [...selectedFiles, ...newFiles];
+    let totalFiles = [...productImages, ...newFiles];
 
     if (totalFiles.length > MAX_IMAGES) {
       totalFiles = totalFiles.slice(0, MAX_IMAGES);
       alert("Chỉ được tải lên tối đa " + MAX_IMAGES + " ảnh.");
     }
-    setSelectedFiles(totalFiles);
+    setProductImages(totalFiles);
   };
 
   const handleInputImagesClick = () => {
@@ -55,12 +58,18 @@ const ProductDetails = () => {
   async function addProduct() {
     const formData = new FormData();
 
-    // Thêm các tệp ảnh vào FormData
-    for (const file of selectedFiles) {
-      formData.append('images', file);
+
+    for (const file of productImages) {
+      formData.append('productImages', file);
     }
 
-    console.log(selectedFiles);
+    formData.append('productName', productName);
+
+    formData.append('productPrice', productPrice);
+
+    formData.append('productCategoryNameID', selectedCategoriesNameID);
+
+    formData.append('productDescription', productDescription);
 
     let apiAddProductUrl = "http://localhost:9999/api/add-product";
     fetch(apiAddProductUrl, {
@@ -115,7 +124,7 @@ const ProductDetails = () => {
                           <div style={{ display: 'flex' }}>
 
                             <div style={{ display: 'flex' }}>
-                              {selectedFiles.map((file, index) => (
+                              {productImages.map((file, index) => (
                                   <div className="image-box">
                                     <img className="image-itembox" key={index} src={URL.createObjectURL(file)} alt={`Image ${index}`} />
                                     <div data-v-05032044="" data-v-1190c12e=""
@@ -148,31 +157,31 @@ const ProductDetails = () => {
 
                                       <div className="fashion-store-upload-wrapper fashion-store-upload-dragger">
 
-                                          <input type="file"
-                                                 name="file"
-                                                 ref={inputRef}
-                                                 accept="image/*"
-                                                 multiple="multiple"
-                                                 className="fashion-store-upload__input"
-                                                 onChange={handleImageChange}
-                                          />
+                                        <input type="file"
+                                               name="file"
+                                               ref={inputRef}
+                                               accept="image/*"
+                                               multiple="multiple"
+                                               className="fashion-store-upload__input"
+                                               onChange={handleImageChange}
+                                        />
 
-                                          <div data-v-05032044="" className="fashion-store-image-manager__upload__content">
-                                            <div data-v-05032044=""
-                                                 className="fashion-store-image-manager__upload__content__icon">
-                                              <i data-v-05032044="" className="fashion-store-icon">
-                                                <svg viewBox="0 0 23 21" xmlns="http://www.w3.org/2000/svg">
-                                                  <path
-                                                      d="M18.5 0A1.5 1.5 0 0120 1.5V12c-.49-.07-1.01-.07-1.5 0V1.5H2v12.65l3.395-3.408a.75.75 0 01.958-.087l.104.087L7.89 12.18l3.687-5.21a.75.75 0 01.96-.086l.103.087 3.391 3.405c.81.813.433 2.28-.398 3.07A5.235 5.235 0 0014.053 18H2a1.5 1.5 0 01-1.5-1.5v-15A1.5 1.5 0 012 0h16.5z"></path>
-                                                  <path
-                                                      d="M6.5 4.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM18.5 14.25a.75.75 0 011.5 0v2.25h2.25a.75.75 0 010 1.5H20v2.25a.75.75 0 01-1.5 0V18h-2.25a.75.75 0 010-1.5h2.25v-2.25z"></path>
-                                                </svg>
-                                              </i>
-                                            </div>
-                                            <div data-v-05032044="" className="fashion-store-image-manager__upload__content__text">
-                                              Thêm hình ảnh ({selectedFiles.length}/{MAX_IMAGES})
-                                            </div>
+                                        <div data-v-05032044="" className="fashion-store-image-manager__upload__content">
+                                          <div data-v-05032044=""
+                                               className="fashion-store-image-manager__upload__content__icon">
+                                            <i data-v-05032044="" className="fashion-store-icon">
+                                              <svg viewBox="0 0 23 21" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M18.5 0A1.5 1.5 0 0120 1.5V12c-.49-.07-1.01-.07-1.5 0V1.5H2v12.65l3.395-3.408a.75.75 0 01.958-.087l.104.087L7.89 12.18l3.687-5.21a.75.75 0 01.96-.086l.103.087 3.391 3.405c.81.813.433 2.28-.398 3.07A5.235 5.235 0 0014.053 18H2a1.5 1.5 0 01-1.5-1.5v-15A1.5 1.5 0 012 0h16.5z"></path>
+                                                <path
+                                                    d="M6.5 4.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM18.5 14.25a.75.75 0 011.5 0v2.25h2.25a.75.75 0 010 1.5H20v2.25a.75.75 0 01-1.5 0V18h-2.25a.75.75 0 010-1.5h2.25v-2.25z"></path>
+                                              </svg>
+                                            </i>
                                           </div>
+                                          <div data-v-05032044="" className="fashion-store-image-manager__upload__content__text">
+                                            Thêm hình ảnh ({productImages.length}/{MAX_IMAGES})
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -202,9 +211,12 @@ const ProductDetails = () => {
                             <div data-v-f872a002="" className="product-edit-form-item-content">
                               <div data-v-1c124603="" className="fashion-store-input" data-v-f872a002="">
                                 <div className="fashion-store-input__inner fashion-store-input__inner--large">
-                                   <input type="text" placeholder="Nhập vào" size="large" resize="none" rows="2"
-                                                 minrows="2" maxLength="Infinity" restrictiontype="input" max="Infinity"
-                                                 min="-Infinity" className="fashion-store-input__input"/>
+                                  <input type="text" placeholder="Nhập vào" size="large" resize="none" rows="2"
+                                         minrows="2" maxLength="Infinity" restrictiontype="input" max="Infinity"
+                                         min="-Infinity" className="fashion-store-input__input"
+                                         value={productName}
+                                         onChange={(e) => {setProductName(e.target.value)}}
+                                  />
                                   <div className="fashion-store-input__suffix">
                                     <span className="fashion-store-input__suffix-split"></span>
                                     0/120
@@ -281,7 +293,10 @@ const ProductDetails = () => {
                                         maxrows="26" autosize="true" maxLength="Infinity"
                                         restrictiontype="input" max="Infinity" min="-Infinity"
                                         className="fashion-store-input__inner fashion-store-input__inner--normal"
-                                        style={{resize: "none", minHeight: "209.6px", height: "209.6px"}}></textarea>
+                                        style={{resize: "none", minHeight: "209.6px", height: "209.6px"}}
+                                        value={productDescription}
+                                        onChange={(e) => setProductDescription(e.target.value)}
+                              ></textarea>
                             </div>
                             <div className="text-area-label" style={{fontSize: "14px"}}>
                               <span className="text-area-label-pre">0</span>
