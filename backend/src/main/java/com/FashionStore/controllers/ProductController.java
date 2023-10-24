@@ -31,7 +31,7 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
 
-    @Value("${upload.dir}")
+    @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
     @Autowired
