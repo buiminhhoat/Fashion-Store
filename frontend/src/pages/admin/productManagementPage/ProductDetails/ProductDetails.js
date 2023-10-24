@@ -62,15 +62,16 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (deletedSizeFields !== null) {
-      // let newSizeFields = [];
-      // for (let i = 0; i < sizeFields.length; i++) {
-      //   const field = sizeFields[i];
-      //   console.log(field.key + ' ' + deletedSizeFields)
-      //   if (field.key === deletedSizeFields) continue;
-      //   newSizeFields.push(field);
-      // }
+      let newSizeFields = [];
+      for (let i = 0; i < sizeFields.length; i++) {
+        const field = sizeFields[i];
+        console.log(field.key + ' ' + deletedSizeFields)
+        console.log(field);
+        if (field.key === deletedSizeFields) continue;
+        newSizeFields.push(field);
+      }
 
-      const newSizeFields = sizeFields.filter((field) => field.key !== deletedSizeFields);
+      // const newSizeFields = sizeFields.filter((field) => field.key !== deletedSizeFields);
       // console.log(newSizeFields);
       setSizeFields(newSizeFields);
     }
