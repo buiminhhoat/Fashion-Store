@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const [openDialog, setOpenDialog] = useState(null);
   const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
   const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState(0);
+  const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [isAddingSize, setIsAddingSize] = useState(false);
 
@@ -65,8 +65,24 @@ const ProductDetails = () => {
   };
 
   async function addProduct() {
-    const formData = new FormData();
+    if (productName === "") {
+      alert("Vui lòng nhập thông tin tên sản phẩm");
+      return;
+    }
+    if (productPrice === "") {
+      alert("Vui lòng nhập giá sản phẩm");
+      return;
+    }
+    if (selectedCategoriesNameID.length() < 2) {
+      alert("Vui lòng cho danh mục sản phẩm");
+      return;
+    }
+    if (productDescription === "") {
+      alert("Vui lòng nhập mô tả sản phẩm");
+      return;
+    }
 
+    const formData = new FormData();
 
     for (const file of productImages) {
       formData.append('productImages', file);
@@ -76,9 +92,13 @@ const ProductDetails = () => {
 
     formData.append('productPrice', productPrice);
 
-    formData.append('productCategoryNameID', selectedCategoriesNameID);
+    formData.append('ParentCategoryID', selectedCategoriesNameID[0].id);
+    formData.append('CategoryID', selectedCategoriesNameID[1].id);
+
+    console.log(selectedCategoriesNameID);
 
     formData.append('productDescription', productDescription);
+
 
     let apiAddProductUrl = "http://localhost:9999/api/add-product";
     fetch(apiAddProductUrl, {
@@ -256,9 +276,13 @@ const ProductDetails = () => {
                                     <div className="fashion-store-input__prefix">
                                       ₫<span className="fashion-store-input__prefix-split"></span>
                                     </div>
-                                    <input type="text" placeholder="Nhập vào"  size="large"  resize="vertical"  rows="2"
-                                           minrows="2" restrictiontype="value" max="Infinity" min="-Infinity" isround="true"
+                                    <input type="text" placeholder="Nhập vào"  size="large"
+                                           resize="vertical"  rows="2"
+                                           minrows="2" restrictiontype="value"
+                                           max="Infinity" min="-Infinity" isround="true"
                                            className="fashion-store-input__input"
+                                           value={productPrice}
+                                           onChange={(e) => setProductPrice(e.target.value)}
                                     />
                                   </div>
                                 </div>
