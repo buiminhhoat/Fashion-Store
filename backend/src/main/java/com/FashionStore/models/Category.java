@@ -16,6 +16,10 @@ public class Category {
     @Column(name = "ParentCategoryID")
     private Long parentCategoryID;
 
+    public Category() {
+
+    }
+
     public Category(String categoryName, Long parentCategoryID) {
         this.categoryName = categoryName;
         this.parentCategoryID = parentCategoryID;
