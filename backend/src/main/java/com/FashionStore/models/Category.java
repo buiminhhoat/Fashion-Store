@@ -20,6 +20,10 @@ public class Category {
 
     }
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public Category(String categoryName, Long parentCategoryID) {
         this.categoryName = categoryName;
         this.parentCategoryID = parentCategoryID;

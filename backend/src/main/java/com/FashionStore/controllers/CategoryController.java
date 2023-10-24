@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -56,7 +53,9 @@ public class CategoryController {
         }
 
         try {
-            Category category = new Category(categoryName, parentCategoryID);
+            Category category;
+            if (parentCategoryID == 0) category = new Category(categoryName);
+            else category = new Category(categoryName, parentCategoryID);
             categoryRepository.save(category);
             ResponseObject responseObject = new ResponseObject("Đã thêm danh mục mới thành công");
             return ResponseEntity.ok(responseObject);
@@ -64,5 +63,54 @@ public class CategoryController {
             ResponseObject responseObject = new ResponseObject("Không thể lưu danh mục vào database");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
+    }
+
+    @GetMapping("/get-category")
+    public ResponseEntity<List<CategoryResponse>> getCategory() {
+        List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
+
+        List<CategoryResponse> categoryResponses = new ArrayList<>();
+
+        for (Category category : categoryList) {
+            CategoryResponse categoryResponse = new CategoryResponse();
+            categoryResponse.setId(category.getCategoryID());
+            categoryResponse.setName(category.getCategoryName());
+
+            List<Category> subCategoryResponses = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
+            categoryResponse.setSubcategories(subCategoryResponses);
+            categoryResponses.add(categoryResponse);
+        }
+
+        return ResponseEntity.ok(categoryResponses);
+    }
+}
+
+class CategoryResponse {
+    private Long id;
+    private String name;
+    private List<Category> subcategories;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Category> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Category> subcategories) {
+        this.subcategories = subcategories;
     }
 }
