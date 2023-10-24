@@ -2,9 +2,6 @@ package com.FashionStore.controllers;
 
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.CategoryRepository;
-import com.FashionStore.repositories.ProductCategoryRepository;
-import com.FashionStore.repositories.ProductImageRepository;
-import com.FashionStore.repositories.ProductRepository;
 import com.FashionStore.security.JwtTokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -73,8 +63,8 @@ public class CategoryController {
 
         for (Category category : categoryList) {
             CategoryResponse categoryResponse = new CategoryResponse();
-            categoryResponse.setId(category.getCategoryID());
-            categoryResponse.setName(category.getCategoryName());
+            categoryResponse.setCategoryID(category.getCategoryID());
+            categoryResponse.setCategoryName(category.getCategoryName());
 
             List<Category> subCategoryResponses = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
             categoryResponse.setSubcategories(subCategoryResponses);
@@ -86,24 +76,24 @@ public class CategoryController {
 }
 
 class CategoryResponse {
-    private Long id;
-    private String name;
+    private Long categoryID;
+    private String categoryName;
     private List<Category> subcategories;
 
-    public Long getId() {
-        return id;
+    public Long getCategoryID() {
+        return categoryID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCategoryID(Long categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<Category> getSubcategories() {
