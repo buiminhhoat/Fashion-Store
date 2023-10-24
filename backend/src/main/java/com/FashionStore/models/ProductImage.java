@@ -17,5 +17,32 @@ public class ProductImage {
     @Column(name = "ImagePath")
     private String imagePath;
 
+    public ProductImage(Long productID, String imagePath) {
+        this.productID = productID;
+        this.imagePath = imagePath;
+    }
 
+    public Long getImageID() {
+        return imageID;
+    }
+
+    public void setImageID(Long imageID) {
+        this.imageID = imageID;
+    }
+
+    public Long getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Long productID) {
+        this.productID = productID;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }

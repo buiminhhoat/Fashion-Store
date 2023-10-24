@@ -1,7 +1,9 @@
 package com.FashionStore.controllers;
 
 import com.FashionStore.models.Product;
+import com.FashionStore.models.ProductImage;
 import com.FashionStore.models.ResponseObject;
+import com.FashionStore.repositories.ProductImageRepository;
 import com.FashionStore.repositories.ProductRepository;
 import com.FashionStore.security.JwtTokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,13 +29,15 @@ public class ProductController {
     private JwtTokenUtil jwtTokenUtil;
 
     private final ProductRepository productRepository;
+    private final ProductImageRepository productImageRepository;
 
     @Value("${upload.dir}")
     String UPLOAD_DIR;
 
     @Autowired
-    public ProductController(ProductRepository productRepository) {
+    public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository) {
         this.productRepository = productRepository;
+        this.productImageRepository = productImageRepository;
     }
 
     @PostMapping("/add-product")
@@ -49,9 +53,8 @@ public class ProductController {
             uploadDir.mkdirs();
         }
 
+        List<String> paths = new ArrayList<>();
         String appRoot = System.getProperty("user.dir") + "\\";
-
-        // Duyệt qua từng tệp ảnh và lưu chúng vào thư mục trên máy chủ
         for (MultipartFile image : images) {
             String originalFilename = image.getOriginalFilename();
             String fileExtension = "";
@@ -61,9 +64,10 @@ public class ProductController {
             String fileName = UUID.randomUUID().toString() + "." + fileExtension;
 
             try {
-                Path path = Paths.get(appRoot + UPLOAD_DIR + File.separator + fileName);
+                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
+                Path path = Paths.get(imagePath);
                 image.transferTo(path.toFile());
-
+                paths.add(imagePath);
                 // Lưu đường dẫn của ảnh vào database (thực hiện thao tác lưu vào database tại đây)
             } catch (IOException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
@@ -76,6 +80,11 @@ public class ProductController {
         productRepository.save(product);
         Long productId = product.getProductID();
         System.out.println(productId);
+
+        for (String imagePath: paths) {
+            ProductImage productImage = new ProductImage(productId, imagePath);
+            productImageRepository.save(productImage);
+        }
         ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
         return ResponseEntity.ok(responseObject);
     }
