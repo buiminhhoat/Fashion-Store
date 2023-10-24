@@ -1,13 +1,13 @@
 package com.FashionStore.controllers;
 
-import com.FashionStore.models.Product;
-import com.FashionStore.models.ProductCategory;
-import com.FashionStore.models.ProductImage;
-import com.FashionStore.models.ResponseObject;
+import com.FashionStore.models.*;
 import com.FashionStore.repositories.ProductCategoryRepository;
 import com.FashionStore.repositories.ProductImageRepository;
 import com.FashionStore.repositories.ProductRepository;
 import com.FashionStore.security.JwtTokenUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -47,13 +48,24 @@ public class ProductController {
     }
 
     @PostMapping("/add-product")
-    public ResponseEntity<?> uploadFiles(HttpServletRequest request) {
+    public ResponseEntity<?> addProduct(HttpServletRequest request) {
+        String productSizeQuantityJson = request.getParameter("productSizeQuantity");
+        String jsonListParam = request.getParameter("productSizeQuantity");
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ProductSizeQuantity> productSizeQuantities;
+        try {
+            productSizeQuantities = objectMapper.readValue(jsonListParam, new TypeReference<List<ProductSizeQuantity>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         String productName = request.getParameter("productName");
         Double productPrice = Double.valueOf(request.getParameter("productPrice"));
         String productDescription = request.getParameter("productDescription");
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
         Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
         Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
+
+        String jsonSizeNameJson = request.getParameter("productSize");
 
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
@@ -99,3 +111,4 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 }
+
