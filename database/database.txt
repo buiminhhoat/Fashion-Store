@@ -36,12 +36,11 @@ CREATE TABLE IF NOT EXISTS Orders (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
--- Tạo bảng Products
-CREATE TABLE IF NOT EXISTS Products (
+-- Tạo bảng Product
+CREATE TABLE IF NOT EXISTS Product (
     ProductID BIGINT PRIMARY KEY AUTO_INCREMENT,
     ProductName VARCHAR(255) NOT NULL,
     ProductPrice DECIMAL(10, 2),
-    ProductDiscountPrice DECIMAL(10, 2),
     Description TEXT
 );
 
@@ -54,15 +53,15 @@ CREATE TABLE IF NOT EXISTS OrderDetail (
     Quantity INT,
     TotalPrice DECIMAL(10, 2),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
 );
 
--- Tạo bảng ProductSizes
-CREATE TABLE IF NOT EXISTS ProductSizes (
+-- Tạo bảng Productizes
+CREATE TABLE IF NOT EXISTS Productizes (
     SizeID INT PRIMARY KEY AUTO_INCREMENT,
     ProductID BIGINT,
     SizeName VARCHAR(20),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
 );
 
 -- Tạo bảng ProductImage
@@ -70,7 +69,7 @@ CREATE TABLE IF NOT EXISTS ProductImage (
     ImageID INT PRIMARY KEY AUTO_INCREMENT,
     ProductID BIGINT,
     ImagePath VARCHAR(255),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
 );
 
 -- Tạo bảng ProductQuantities
@@ -79,8 +78,8 @@ CREATE TABLE IF NOT EXISTS ProductQuantities (
     ProductID BIGINT,
 	SizeID INT,
     Quantity INT,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    FOREIGN KEY (SizeID) REFERENCES ProductSizes(SizeID)
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+    FOREIGN KEY (SizeID) REFERENCES Productizes(SizeID)
 );
 
 -- Tạo bảng Categories
@@ -89,6 +88,6 @@ CREATE TABLE IF NOT EXISTS Categories (
     CategoryName VARCHAR(255) NOT NULL,
     ParentCategoryID INT,
 	ProductID BIGINT,
-	FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+	FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
     FOREIGN KEY (ParentCategoryID) REFERENCES Categories(CategoryID)
 );
