@@ -290,7 +290,12 @@ const ProductDetails = () => {
 
                           <div data-v-389929d8="" className="variation-edit-panel">
                             <div data-v-389929d8="" className="variation-edit-left"
-                                 style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}> Tên kích cỡ  </div>
+                                 style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}>
+                              <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
+                                <span data-v-36db20dc="" className="mandatory-icon">*</span>
+                              </div>
+                              Tên kích cỡ
+                            </div>
                             <div data-v-389929d8="" className="variation-edit-right">
                               <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
                                 <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
@@ -308,7 +313,12 @@ const ProductDetails = () => {
 
                           <div data-v-389929d8="" className="variation-edit-panel" style={{marginTop:"15px"}}>
                             <div data-v-389929d8="" className="variation-edit-left"
-                                 style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}> Kho hàng </div>
+                                 style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}>
+                              <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
+                                <span data-v-36db20dc="" className="mandatory-icon">*</span>
+                              </div>
+                              Kho hàng
+                            </div>
                             <div data-v-389929d8="" className="variation-edit-right">
                               <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
                                 <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
