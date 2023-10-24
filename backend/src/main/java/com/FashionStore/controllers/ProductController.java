@@ -54,7 +54,7 @@ public class ProductController {
         }
 
         List<String> paths = new ArrayList<>();
-        String appRoot = System.getProperty("user.dir") + "\\";
+        String appRoot = System.getProperty("user.dir") + File.separator;
         for (MultipartFile image : images) {
             String originalFilename = image.getOriginalFilename();
             String fileExtension = "";
@@ -67,7 +67,7 @@ public class ProductController {
                 String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
                 Path path = Paths.get(imagePath);
                 image.transferTo(path.toFile());
-                paths.add(imagePath);
+                paths.add(fileName);
                 // Lưu đường dẫn của ảnh vào database (thực hiện thao tác lưu vào database tại đây)
             } catch (IOException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
@@ -79,7 +79,6 @@ public class ProductController {
         Product product = new Product(productName, productPrice, productDescription);
         productRepository.save(product);
         Long productId = product.getProductID();
-        System.out.println(productId);
 
         for (String imagePath: paths) {
             ProductImage productImage = new ProductImage(productId, imagePath);
