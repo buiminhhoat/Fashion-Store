@@ -13,6 +13,9 @@ const ProductDetails = () => {
   const [productImages, setProductImages] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
   const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState(0);
+  const [productDescription, setProductDescription] = useState("");
 
   const inputRef = useRef(null);
 
@@ -57,12 +60,18 @@ const ProductDetails = () => {
   async function addProduct() {
     const formData = new FormData();
 
-    // Thêm các tệp ảnh vào FormData
+
     for (const file of productImages) {
       formData.append('productImages', file);
     }
 
-    console.log(productImages);
+    formData.append('productName', productName);
+
+    formData.append('productPrice', productPrice);
+
+    formData.append('productCategoryNameID', selectedCategoriesNameID);
+
+    formData.append('productDescription', productDescription);
 
     let apiAddProductUrl = "http://localhost:9999/api/add-product";
     fetch(apiAddProductUrl, {
@@ -206,7 +215,10 @@ const ProductDetails = () => {
                                 <div className="fashion-store-input__inner fashion-store-input__inner--large">
                                   <input type="text" placeholder="Nhập vào" size="large" resize="none" rows="2"
                                          minrows="2" maxLength="Infinity" restrictiontype="input" max="Infinity"
-                                         min="-Infinity" className="fashion-store-input__input"/>
+                                         min="-Infinity" className="fashion-store-input__input"
+                                         value={productName}
+                                         onChange={(e) => {setProductName(e.target.value)}}
+                                  />
                                   <div className="fashion-store-input__suffix">
                                     <span className="fashion-store-input__suffix-split"></span>
                                     0/120
@@ -283,7 +295,10 @@ const ProductDetails = () => {
                                         maxrows="26" autosize="true" maxLength="Infinity"
                                         restrictiontype="input" max="Infinity" min="-Infinity"
                                         className="fashion-store-input__inner fashion-store-input__inner--normal"
-                                        style={{resize: "none", minHeight: "209.6px", height: "209.6px"}}></textarea>
+                                        style={{resize: "none", minHeight: "209.6px", height: "209.6px"}}
+                                        value={productDescription}
+                                        onChange={(e) => setProductDescription(e.target.value)}
+                              ></textarea>
                             </div>
                             <div className="text-area-label" style={{fontSize: "14px"}}>
                               <span className="text-area-label-pre">0</span>
