@@ -97,12 +97,42 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingCategory(true);
   };
 
-  const handleSaveCategoryClick = () => {
-    if (inputCategoryValue !== "") {
-      setCategories([...categories, { id: 0, name: inputCategoryValue}]);
+  const apiAddCategoryUrl = "http://localhost:9999/api/add-category";
+
+  const addCategory = async () => {
+    console.log(inputCategoryValue);
+
+    const formData = new FormData();
+    formData.append('categoryName', inputCategoryValue);
+    try {
+      const response = await fetch(apiAddCategoryUrl, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+
+        if (inputCategoryValue !== "") {
+          setCategories([...categories, { id: 0, name: inputCategoryValue }]);
+        }
+
+        setInputCategoryValue("");
+        setIsAddingCategory(false);
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Không kết nối được với database');
     }
-    setInputCategoryValue("");
-    setIsAddingCategory(false);
+  };
+
+  const handleSaveCategoryClick = () => {
+    addCategory().then(r => {
+
+    });
   };
 
   const handleCancelCategoryClick = () => {
