@@ -5,8 +5,13 @@ const SizeField = ({ id, onClose, onSizeNameChange, onQuantityChange }) => {
     const [sizeName, setSizeName] = useState('');
     const [quantity, setQuantity] = useState('');
 
+    const check = () => {
+      // console.log(sizeName);
+    };
+
     const handleSizeNameChange = (event) => {
       const newSizeName = event.target.value;
+      // console.log("change")
       setSizeName(newSizeName);
       onSizeNameChange(id, newSizeName);
     };
@@ -37,7 +42,7 @@ const SizeField = ({ id, onClose, onSizeNameChange, onQuantityChange }) => {
                  className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
                  data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
               <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                <input onChange = {handleSizeNameChange} value={sizeName}
+                <input onChange = {handleSizeNameChange} onClick={check} value={sizeName}
                        type="text" placeholder="ví dụ: S, M, L, XL, v.v.." resize="none"
                        rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>

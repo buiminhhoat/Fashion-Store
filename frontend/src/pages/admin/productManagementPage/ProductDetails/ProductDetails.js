@@ -19,6 +19,7 @@ const ProductDetails = () => {
   const [productDescription, setProductDescription] = useState("");
   const [sizeFields, setSizeFields] = useState([]);
   const [deletedSizeFieldID, setDeletedSizeFieldID] = useState(null);
+  const [listDeletedSizeFieldID, setListDeletedSizeFieldID] = useState([]);
 
   const [changedQuantity, setChangedQuantity] = useState(null);
   const [changedSizeName, setChangedSizeName] = useState(null);
@@ -105,35 +106,33 @@ const ProductDetails = () => {
     setChangedQuantity({id: id, newQuantity: newQuantity});
   };
 
-  useEffect(() => {
-    console.log(productSizeQuantity);
-
-
-  }, [productSizeQuantity]);
+  // useEffect(() => {
+  //   console.log(productSizeQuantity);
+  //   console.log(listDeletedSizeFieldID);
+  // }, [productSizeQuantity]);
 
   useEffect(() => {
     if (deletedSizeFieldID !== null) {
+      setListDeletedSizeFieldID([...listDeletedSizeFieldID, deletedSizeFieldID]);
+
       let newProductSizeQuantity = [];
 
-      let newSizeFields = [];
-      for (let i = 0; i < sizeFields.length; i++) {
-        const field = sizeFields[i];
+      // let newSizeFields = [];
+      for (let i = 0; i < productSizeQuantity.length; i++) {
+        // const field = sizeFields[i];
         const product = productSizeQuantity[i];
 
-        if (field.key !== deletedSizeFieldID) {
-          newSizeFields.push(field);
-        }
+        // if (field.key !== deletedSizeFieldID) {
+        //   newSizeFields.push(field);
+        // }
 
         if (product.id !== deletedSizeFieldID) {
           newProductSizeQuantity.push(product);
         }
       }
 
-      // for (let i = 0; i < newSizeFields.length; i++) {
-      //   console.log(newSizeFields[i]);
-      // }
       setProductSizeQuantity(newProductSizeQuantity);
-      setSizeFields(newSizeFields);
+      // setSizeFields(newSizeFields);
     }
 
   }, [deletedSizeFieldID]);
@@ -147,15 +146,15 @@ const ProductDetails = () => {
       alert("Chỉ được thêm tối đa " + MAX_SIZE_FIELDS + " kích cỡ.");
       return;
     }
+
     const id = generateUniqueId();
     const newSizeField = <SizeField key={id}
                                             id={id}
                                             onClose={() => handleCancelSizeField(id)}
                                             onSizeNameChange={handleSizeNameChange}
-                                            onQuantityChange={handleQuantityChange} />;
+                                            onQuantityChange={handleQuantityChange}/>;
 
-    const newSizeFields = [...sizeFields, newSizeField];
-    setSizeFields(newSizeFields);
+    setSizeFields([...sizeFields, newSizeField]);
     setProductSizeQuantity([...productSizeQuantity, { id: id, sizeName: "", quantity: ""}]);
   };
 
@@ -412,11 +411,19 @@ const ProductDetails = () => {
                           </button>
                         </div>
 
-                        {sizeFields.map((sizeField, index) => (
-                            <div key={index} style={{marginTop:"25px"}}>
-                              {sizeField}
-                            </div>
-                        ))}
+                        {
+                          sizeFields.map((sizeField, index) => {
+                            if (!listDeletedSizeFieldID.includes(sizeField.key)) {
+                              return (
+                                  <div key={index} style={{ marginTop: "25px" }}>
+                                    {sizeField}
+                                  </div>
+                              );
+                            }
+                            return null;
+                          })
+                        }
+
 
                       </div>
                     </div>
