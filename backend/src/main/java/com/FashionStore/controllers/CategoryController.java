@@ -46,6 +46,7 @@ public class CategoryController {
     @PostMapping("/add-category")
     public ResponseEntity<?> addCategory(HttpServletRequest request) {
         String categoryName = request.getParameter("categoryName");
+        Long parentCategoryID = Long.valueOf(request.getParameter("parentCategoryID"));
 
         List<Category> categoryList = categoryRepository.findCategoriesByCategoryName(categoryName);
 
@@ -55,7 +56,7 @@ public class CategoryController {
         }
 
         try {
-            Category category = new Category(categoryName, null);
+            Category category = new Category(categoryName, parentCategoryID);
             categoryRepository.save(category);
             ResponseObject responseObject = new ResponseObject("Đã thêm danh mục mới thành công");
             return ResponseEntity.ok(responseObject);
