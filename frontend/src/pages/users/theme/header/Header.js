@@ -7,9 +7,9 @@ import './style.scss';
 import LoginDialog from "../../dialog/LoginDialog/LoginDialog";
 import ForgotPasswordDialog from "../../dialog/ForgotPasswordDialog/ForgotPasswordDialog";
 import RegisterDialog from "../../dialog/RegisterDialog/RegisterDialog";
-import {DIALOGS} from "../../dialog/util";
+import {DIALOGS} from "../../dialog/utils";
 import {Cookies, useCookies} from "react-cookie";
-import {useLogout} from "../../dialog/util/logout";
+import {useLogout} from "../../dialog/utils/logout";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);

@@ -2,7 +2,7 @@ import { memo } from "react";
 import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
-import { DIALOGS } from "../util";
+import { DIALOGS } from "../utils";
 import { Cookies } from 'react-cookie';
 
 const LoginDialog = ({ onClose, onSwitch }) => {
