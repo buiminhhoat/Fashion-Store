@@ -107,6 +107,7 @@ const ProductDetails = () => {
               <div data-v-2250a4e1="" className="panel-content-wrapper">
                 <div data-v-2250a4e1="" className="panel-content">
                   <div data-v-54a51dd8="" data-v-2250a4e1="" className="container">
+
                     <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-row">
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-label edit-title"
                            data-education-trigger-key="images">
@@ -194,7 +195,6 @@ const ProductDetails = () => {
                       </div>
                     </div>
 
-
                     <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-row">
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-label edit-title"
                            data-education-trigger-key="name">
@@ -231,6 +231,35 @@ const ProductDetails = () => {
 
                       </div>
                     </div>
+
+                    <div className="edit-row">
+                      <div className="edit-row-left edit-label" data-education-trigger-key="price">
+                        <div className="mandatory"><span className="mandatory-icon">*</span></div>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Giá</span>
+                      </div>
+                      <div className="degrade-wrap edit-row-right-full">
+                        <div className="basic-price" data-product-edit-field-unique-id="price">
+                          <div className="product-edit-form-item" data-education-trigger-key="price">
+                            <div className="product-edit-form-item-content">
+                              <div className="popover-wrap">
+                                <div className="fashion-store-input price-input product-edit-input" size="large" prefix-label="₫" is-round="true">
+                                  <div className="fashion-store-input__inner fashion-store-input__inner--large">
+                                    <div className="fashion-store-input__prefix">
+                                      ₫<span className="fashion-store-input__prefix-split"></span>
+                                    </div>
+                                    <input type="text" placeholder="Nhập vào"  size="large"  resize="vertical"  rows="2"
+                                           minrows="2" restrictiontype="value" max="Infinity" min="-Infinity" isround="true"
+                                           className="fashion-store-input__input"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-row is-last-edit-row">
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-label edit-row-left"
                            data-education-trigger-key="category">
