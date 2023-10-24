@@ -99,11 +99,44 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const apiAddCategoryUrl = "http://localhost:9999/api/add-category";
 
-  const addCategory = async () => {
-    console.log(inputCategoryValue);
-
+  const handleCategory = async () => {
+    let parentCategoryID = 0;
     const formData = new FormData();
     formData.append('categoryName', inputCategoryValue);
+    formData.append('parentCategoryID', parentCategoryID);
+    try {
+      const response = await fetch(apiAddCategoryUrl, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+
+        if (inputCategoryValue !== "") {
+          setCategories([...categories, { id: 0, name: inputCategoryValue }]);
+        }
+
+        setInputCategoryValue("");
+        setIsAddingCategory(false);
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Không kết nối được với database');
+    }
+  };
+
+  const handleSubCategory = async () => {
+    let parentCategoryID = selectedCategoriesNameID[0].id;
+    let categoryName = inputSubcategoryValue;
+
+    const formData = new FormData();
+    formData.append('parentCategoryID', parentCategoryID);
+    formData.append('categoryName', categoryName);
+
     try {
       const response = await fetch(apiAddCategoryUrl, {
         method: 'POST',
@@ -130,7 +163,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSaveCategoryClick = () => {
-    addCategory().then(r => {
+    handleCategory().then(r => {
 
     });
   };
@@ -147,6 +180,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSaveSubcategoryClick = () => {
     if (inputSubcategoryValue !== "") {
+      handleSubCategory();
       addSubcategory(selectedCategoryName, { id: 0, name: inputSubcategoryValue});
     }
     setInputSubcategoryValue("");
@@ -198,7 +232,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                         {isAddingCategory ?
                             <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
                               <div data-v-38ab3376="" className="text-overflow">
-                                <input className="input-category" type="text" ref={inputCategoryRef} onChange={(e) => setInputCategoryValue(e.target.value)}/>
+                                <input className="input-category" type="text" ref={inputCategoryRef}
+                                       onChange={(e) => setInputCategoryValue(e.target.value)}/>
                               </div>
                               <div data-v-38ab3376="" className="category-item-right">
                                 <MdOutlineClose onClick={handleCancelCategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
@@ -237,7 +272,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                             {isAddingSubcategory ?
                               <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
                                 <div data-v-38ab3376="" className="text-overflow">
-                                  <input className="input-category" type="text" ref={inputSubcategoryRef} onChange={(e) => setInputSubcategoryValue(e.target.value)}/>
+                                  <input className="input-category" type="text" ref={inputSubcategoryRef}
+                                         onChange={(e) => setInputSubcategoryValue(e.target.value)}/>
                                 </div>
                                 <div data-v-38ab3376="" className="category-item-right">
                                   <MdOutlineClose onClick={handleCancelSubcategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
