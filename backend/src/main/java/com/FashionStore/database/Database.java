@@ -1,9 +1,7 @@
 package com.FashionStore.database;
 
-import com.FashionStore.models.Address;
-import com.FashionStore.models.Users;
 import com.FashionStore.repositories.AddressRepository;
-import com.FashionStore.repositories.ProductsRepository;
+import com.FashionStore.repositories.ProductRepository;
 import com.FashionStore.repositories.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,7 @@ public class Database {
     private static final Logger logger = LoggerFactory.getLogger(Database.class);
     @Bean
     CommandLineRunner initDatabase(UsersRepository usersRepository, AddressRepository addressRepository,
-                                   ProductsRepository productsRepository) {
+                                   ProductRepository productRepository) {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {

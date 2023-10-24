@@ -2,19 +2,13 @@ package com.FashionStore.controllers;
 
 import com.FashionStore.models.Product;
 import com.FashionStore.models.ResponseObject;
-import com.FashionStore.models.Users;
-import com.FashionStore.repositories.ProductsRepository;
-import com.FashionStore.repositories.UsersRepository;
+import com.FashionStore.repositories.ProductRepository;
 import com.FashionStore.security.JwtTokenUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.util.*;
 
 @CrossOrigin(origins = "*")
@@ -33,14 +26,14 @@ public class ProductController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    private final ProductsRepository productsRepository;
+    private final ProductRepository productRepository;
 
     @Value("${upload.dir}")
     String UPLOAD_DIR;
 
     @Autowired
-    public ProductController(ProductsRepository productsRepository) {
-        this.productsRepository = productsRepository;
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @PostMapping("/add-product")
@@ -80,7 +73,7 @@ public class ProductController {
         // Lưu categoryName và đường dẫn ảnh vào database (nếu cần)
 
         Product product = new Product(productName, productPrice, productDescription);
-        productsRepository.save(product);
+        productRepository.save(product);
         Long productId = product.getProductID();
         System.out.println(productId);
         ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
