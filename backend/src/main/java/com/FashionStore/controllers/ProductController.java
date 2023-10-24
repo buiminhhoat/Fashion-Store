@@ -112,21 +112,3 @@ public class ProductController {
     }
 }
 
-class ProductSizeQuantity {
-    private String sizeName;
-
-    public String getSizeName() {
-        return sizeName;
-    }
-
-    public void setSizeName(String sizeName) {
-        this.sizeName = sizeName;
-    }
-
-    public ProductSizeQuantity() {
-
-    }
-    public ProductSizeQuantity(String sizeName) {
-        this.sizeName = sizeName;
-    }
-}
