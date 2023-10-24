@@ -1,8 +1,10 @@
 package com.FashionStore.controllers;
 
 import com.FashionStore.models.Product;
+import com.FashionStore.models.ProductCategory;
 import com.FashionStore.models.ProductImage;
 import com.FashionStore.models.ResponseObject;
+import com.FashionStore.repositories.ProductCategoryRepository;
 import com.FashionStore.repositories.ProductImageRepository;
 import com.FashionStore.repositories.ProductRepository;
 import com.FashionStore.security.JwtTokenUtil;
@@ -31,13 +33,17 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
 
+    private final ProductCategoryRepository productCategoryRepository;
+
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
     @Autowired
-    public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository) {
+    public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository,
+                             ProductCategoryRepository productCategoryRepository) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
+        this.productCategoryRepository = productCategoryRepository;
     }
 
     @PostMapping("/add-product")
@@ -85,7 +91,11 @@ public class ProductController {
             ProductImage productImage = new ProductImage(productId, imagePath);
             productImageRepository.save(productImage);
         }
-        ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
+
+        ProductCategory productCategory = new ProductCategory(productId, categoryID, parentCategoryID);
+        productCategoryRepository.save(productCategory);
+
+        ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }
 }
