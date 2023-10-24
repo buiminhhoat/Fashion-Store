@@ -12,7 +12,7 @@
 	<artifactId>Fashion-Store</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Fashion-Store</name>
-	<description>Fashion-Store</description>
+	<productDescription>Fashion-Store</productDescription>
 	<properties>
 		<java.version>21</java.version>
 	</properties>

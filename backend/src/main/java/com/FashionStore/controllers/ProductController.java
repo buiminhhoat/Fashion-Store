@@ -1,5 +1,6 @@
 package com.FashionStore.controllers;
 
+import com.FashionStore.models.Product;
 import com.FashionStore.models.ResponseObject;
 import com.FashionStore.models.Users;
 import com.FashionStore.repositories.ProductsRepository;
@@ -44,6 +45,10 @@ public class ProductController {
 
     @PostMapping("/add-product")
     public ResponseEntity<String> uploadFiles(HttpServletRequest request) {
+        String productName = request.getParameter("productName");
+        Double productPrice = Double.valueOf(request.getParameter("productPrice"));
+        String productDescription = request.getParameter("productDescription");
+
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
 
         File uploadDir = new File(UPLOAD_DIR);
@@ -74,6 +79,10 @@ public class ProductController {
 
         // Lưu categoryName và đường dẫn ảnh vào database (nếu cần)
 
+        Product product = new Product(productName, productPrice, productDescription);
+        productsRepository.save(product);
+        Long productId = product.getProductID();
+        System.out.println(productId);
         return ResponseEntity.ok("Upload successful!");
     }
 }
