@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS OrderDetail (
     OrderID INT,
     ProductID BIGINT,
     ProductPrice DECIMAL(10, 2),
-    Quantity INT,
+    Quantity BIGINT,
     TotalPrice DECIMAL(10, 2),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS OrderDetail (
 
 -- Tạo bảng ProductSize
 CREATE TABLE IF NOT EXISTS ProductSize (
-    SizeID INT PRIMARY KEY AUTO_INCREMENT,
+    SizeID BIGINT PRIMARY KEY AUTO_INCREMENT,
     ProductID BIGINT,
     SizeName VARCHAR(20),
     FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS ProductSize (
 
 -- Tạo bảng ProductImage
 CREATE TABLE IF NOT EXISTS ProductImage (
-    ImageID INT PRIMARY KEY AUTO_INCREMENT,
+    ImageID BIGINT PRIMARY KEY AUTO_INCREMENT,
     ProductID BIGINT,
     ImagePath VARCHAR(255),
     FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
@@ -74,19 +74,19 @@ CREATE TABLE IF NOT EXISTS ProductImage (
 
 -- Tạo bảng ProductQuantity
 CREATE TABLE IF NOT EXISTS ProductQuantity (
-    ProductQuantity INT PRIMARY KEY AUTO_INCREMENT,
+    QuantityID BIGINT PRIMARY KEY AUTO_INCREMENT,
     ProductID BIGINT,
-	SizeID INT,
-    Quantity INT,
+	SizeID BIGINT,
+    Quantity BIGINT,
     FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
     FOREIGN KEY (SizeID) REFERENCES ProductSize(SizeID)
 );
 
 -- Tạo bảng Category
 CREATE TABLE IF NOT EXISTS Category (
-    CategoryID INT PRIMARY KEY AUTO_INCREMENT,
+    CategoryID BIGINT PRIMARY KEY AUTO_INCREMENT,
     CategoryName VARCHAR(255) NOT NULL,
-    ParentCategoryID INT,
+    ParentCategoryID BIGINT,
 	ProductID BIGINT,
 	FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
     FOREIGN KEY (ParentCategoryID) REFERENCES Category(CategoryID)
