@@ -44,9 +44,7 @@ public class ProductController {
 
     @PostMapping("/add-product")
     public ResponseEntity<String> uploadFiles(HttpServletRequest request) {
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("images");
-
-        // Tạo thư mục lưu trữ ảnh nếu nó không tồn tại
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
 
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
@@ -57,7 +55,12 @@ public class ProductController {
 
         // Duyệt qua từng tệp ảnh và lưu chúng vào thư mục trên máy chủ
         for (MultipartFile image : images) {
-            String fileName = UUID.randomUUID().toString();
+            String originalFilename = image.getOriginalFilename();
+            String fileExtension = "";
+            if (originalFilename != null) {
+                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+            }
+            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
 
             try {
                 Path path = Paths.get(appRoot + UPLOAD_DIR + File.separator + fileName);
