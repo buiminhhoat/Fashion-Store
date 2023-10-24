@@ -1,8 +1,10 @@
 package com.FashionStore.controllers;
 
 import com.FashionStore.models.Product;
+import com.FashionStore.models.ProductCategory;
 import com.FashionStore.models.ProductImage;
 import com.FashionStore.models.ResponseObject;
+import com.FashionStore.repositories.ProductCategoryRepository;
 import com.FashionStore.repositories.ProductImageRepository;
 import com.FashionStore.repositories.ProductRepository;
 import com.FashionStore.security.JwtTokenUtil;
@@ -31,13 +33,17 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
 
+    private final ProductCategoryRepository productCategoryRepository;
+
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
     @Autowired
-    public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository) {
+    public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository,
+                             ProductCategoryRepository productCategoryRepository) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
+        this.productCategoryRepository = productCategoryRepository;
     }
 
     @PostMapping("/add-product")
@@ -45,8 +51,9 @@ public class ProductController {
         String productName = request.getParameter("productName");
         Double productPrice = Double.valueOf(request.getParameter("productPrice"));
         String productDescription = request.getParameter("productDescription");
-
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
+        Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
+        Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
 
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
@@ -84,7 +91,11 @@ public class ProductController {
             ProductImage productImage = new ProductImage(productId, imagePath);
             productImageRepository.save(productImage);
         }
-        ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
+
+        ProductCategory productCategory = new ProductCategory(productId, categoryID, parentCategoryID);
+        productCategoryRepository.save(productCategory);
+
+        ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }
 }

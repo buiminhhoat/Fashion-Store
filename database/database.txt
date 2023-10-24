@@ -87,7 +87,16 @@ CREATE TABLE IF NOT EXISTS Category (
     CategoryID BIGINT PRIMARY KEY AUTO_INCREMENT,
     CategoryName VARCHAR(255) NOT NULL,
     ParentCategoryID BIGINT,
-	ProductID BIGINT,
-	FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
     FOREIGN KEY (ParentCategoryID) REFERENCES Category(CategoryID)
+);
+
+-- Tạo bảng ProductCategory
+CREATE TABLE IF NOT EXISTS ProductCategory (
+    ProductCategoryID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    ProductID BIGINT,
+    CategoryID BIGINT,
+	ParentCategoryID BIGINT,
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+    FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
+    FOREIGN KEY (ParentCategoryID) REFERENCES Category(ParentCategoryID)
 );
