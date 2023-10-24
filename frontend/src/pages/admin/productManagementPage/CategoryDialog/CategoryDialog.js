@@ -146,10 +146,9 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       <div>
         <div className="fashion-store-modal__content fashion-store-modal__content--normal" style={{width:"700px"}}>
           <div className="fashion-store-modal__header" style={{position: "relative"}}>
-            <button type="button"
-                    className="btn-close category-dialog-btn-close pointer-cursor"
-                    aria-label="Close"
-                    onClick={handleButtonCloseClick}
+            <div className="btn-close category-dialog-btn-close pointer-cursor"
+                 aria-label="Close"
+                 onClick={handleButtonCloseClick}
             />
 
             <div className="fashion-store-modal__header-inner fashion-store-modal__header-inner__has-close">

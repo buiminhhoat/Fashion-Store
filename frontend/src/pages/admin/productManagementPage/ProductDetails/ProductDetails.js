@@ -260,6 +260,73 @@ const ProductDetails = () => {
                       </div>
                     </div>
 
+                    <div className="edit-row">
+                      <div className="edit-row-left edit-label" data-education-trigger-key="variations">
+                        <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
+                          <span data-v-36db20dc="" className="mandatory-icon">*</span>
+                        </div>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Kích cỡ</span>
+                      </div>
+                      <div>
+                        <div className="popover-wrap">
+                          <button
+                              type="button"
+                              className="primary-dash-button fashion-store-button fashion-store-button--primary fashion-store-button--large fashion-store-button--outline"
+                              data-education-trigger-key="variations">
+                            <i className="fashion-store-icon">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                <path fillRule="evenodd" d="M8.48176704,1.5 C8.75790942,1.5 8.98176704,1.72385763 8.98176704,2 L8.981,7.997 L15 7.99797574 C15.2761424,7.99797574 15.5,8.22183336 15.5,8.49797574 C15.5,8.77411811 15.2761424,8.99797574 15,8.99797574 L8.981,8.997 L8.98176704,15 C8.98176704,15.2761424 8.75790942,15.5 8.48176704,15.5 C8.20562467,15.5 7.98176704,15.2761424 7.98176704,15 L7.981,8.997 L2 8.99797574 C1.72385763,8.99797574 1.5,8.77411811 1.5,8.49797574 C1.5,8.22183336 1.72385763,7.99797574 2,7.99797574 L7.981,7.997 L7.98176704,2 C7.98176704,1.72385763 8.20562467,1.5 8.48176704,1.5 Z"></path>
+                              </svg>
+                            </i>
+                            <span> Thêm kích cỡ sản phẩm </span>
+                          </button>
+                        </div>
+
+
+                        <div data-v-389929d8="" data-v-c9a8ac92="" className="edit-row-right-full variation-edit-item">
+                         <span data-v-389929d8="" className="options-close-btn">
+                           <div className="btn-close pointer-cursor" style={{fontSize: "10px"}} aria-label="Close"/>
+                         </span>
+
+                          <div data-v-389929d8="" className="variation-edit-panel">
+                            <div data-v-389929d8="" className="variation-edit-left"
+                                 style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}> Tên kích cỡ  </div>
+                            <div data-v-389929d8="" className="variation-edit-right">
+                              <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
+                                <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
+                                     className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
+                                     data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
+                                  <div className="fashion-store-input__inner fashion-store-input__inner--normal">
+                                     <input type="text" placeholder="ví dụ: S, M, L, XL, v.v.." resize="none"
+                                            rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
+                                            max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div data-v-389929d8="" className="variation-edit-panel" style={{marginTop:"15px"}}>
+                            <div data-v-389929d8="" className="variation-edit-left"
+                                 style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}> Kho hàng </div>
+                            <div data-v-389929d8="" className="variation-edit-right">
+                              <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
+                                <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
+                                     className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
+                                     data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
+                                  <div className="fashion-store-input__inner fashion-store-input__inner--normal">
+                                    <input type="text" placeholder="Nhập số lượng" resize="none"
+                                           rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
+                                           max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-row is-last-edit-row">
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-label edit-row-left"
                            data-education-trigger-key="category">
@@ -308,8 +375,9 @@ const ProductDetails = () => {
                     <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-row description-wrap">
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-label edit-title"
                            data-education-trigger-key="description">
-                        <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1=""><span
-                            data-v-36db20dc="" className="mandatory-icon">*</span></div>
+                        <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
+                          <span data-v-36db20dc="" className="mandatory-icon">*</span>
+                        </div>
                         <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Mô tả sản phẩm</span>
                       </div>
                       <div className="edit-main">
