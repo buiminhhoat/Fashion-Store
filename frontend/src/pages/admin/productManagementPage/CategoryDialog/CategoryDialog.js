@@ -14,38 +14,39 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
   const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
 
-  const [categories, setCategories] = useState(
-      [
-        {
-          id: 1,
-          name: "Thời Trang Nữ",
-          subcategories: [
-            {
-              id: 2,
-              name: "Áo Nữ 1",
-            },
-            {
-              id: 3,
-              name: "Áo Nữ 2",
-            },
-            {
-              id: 4,
-              name: "Áo Nữ 3",
-            },
-          ],
-        },
-        {
-          id: 5,
-          name: "Thời Trang Nam",
-          subcategories: [
-            {
-              id: 6,
-              name: "Áo Nam 1",
-            },
-          ],
-        },
-      ]
-  );
+  const [categories, setCategories] = useState([]);
+
+  const apiGetCategory = "http://localhost:9999/api/get-category";
+  const fetchData = async () => {
+    try {
+      const response = await fetch(apiGetCategory, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        setCategories(data);
+        // console.log(data);
+        //
+        // if (inputCategoryValue !== "") {
+        //   setCategories([...categories, {id: 0, name: inputCategoryValue}]);
+        // }
+        //
+        // setInputCategoryValue("");
+        // setIsAddingCategory(false);
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Không kết nối được với database');
+    }
+  }
+
+  fetchData().then(r => {
+
+  });
 
   const inputCategoryRef = useRef(null);
   const inputSubcategoryRef = useRef(null);
@@ -67,14 +68,14 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const getSubcategoriesByName = (categoryName) => {
-    const selectedCategory = categories.find((category) => category.name === categoryName);
+    const selectedCategory = categories.find((category) => category.categoryName === categoryName);
     return selectedCategory ? (selectedCategory.subcategories ? selectedCategory.subcategories : []) : [];
   };
 
   const handleCategoryClick = (categoryNameID) => {
     handleCancelCategoryClick();
     handleCancelSubcategoryClick();
-    setSelectedCategoryName(categoryNameID.name);
+    setSelectedCategoryName(categoryNameID.categoryName);
     setSelectedCategoriesNameID([categoryNameID]);
   };
 
@@ -86,6 +87,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSubmitCategoryDialog = () => {
+    console.log(selectedCategoriesNameID);
     onConfirm(selectedCategoriesNameID);
   };
 
@@ -120,6 +122,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
         setInputCategoryValue("");
         setIsAddingCategory(false);
+        fetchData();
       } else {
         const data = await response.json();
         alert(data.message);
@@ -130,7 +133,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSubCategory = async () => {
-    let parentCategoryID = selectedCategoriesNameID[0].id;
+    let parentCategoryID = selectedCategoriesNameID[0].categoryID;
     let categoryName = inputSubcategoryValue;
 
     const formData = new FormData();
@@ -153,6 +156,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
         setInputCategoryValue("");
         setIsAddingCategory(false);
+        fetchData();
       } else {
         const data = await response.json();
         alert(data.message);
@@ -194,7 +198,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const addSubcategory = (categoryName, subcategory) => {
     const newCategories = [...categories];
-    const parentCategory = newCategories.find(category => category.name === categoryName);
+    const parentCategory = newCategories.find(category => category.categoryName === categoryName);
 
     if (parentCategory) {
       if (!parentCategory.subcategories) {
@@ -250,9 +254,10 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
                         {categories.map((category, index) => (
                             <li data-v-38ab3376="" className="category-item" key={index}
-                                onClick={() => handleCategoryClick({id: category.id, name: category.name})}>
+                                onClick={() => handleCategoryClick({categoryID: category.categoryID,
+                                  categoryName: category.categoryName})}>
                               <p data-v-38ab3376="" className="text-overflow">
-                                {category.name}
+                                {category.categoryName}
                               </p>
                               <div data-v-38ab3376="" className="category-item-right">
                                 <i data-v-38ab3376="" className="icon-next fashion-store-icon">
@@ -291,9 +296,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                         }
 
                         {getSubcategoriesByName(selectedCategoryName).map((category, index) => (
-                            <li data-v-38ab3376="" className="category-item" key={index} onClick={() => handleSubcategoryClick({id: category.id, name: category.name})}>
+                            <li data-v-38ab3376="" className="category-item" key={index}
+                                onClick={() => handleSubcategoryClick(
+                                    {categoryID: category.categoryID, categoryName: category.categoryName})}>
                               <p data-v-38ab3376="" className="text-overflow">
-                                {category.name}
+                                {category.categoryName}
                               </p>
                             </li>
                         ))}
@@ -311,7 +318,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
               {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 0 ? <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span> : ""}
               {(selectedCategoriesNameID ? selectedCategoriesNameID : []).map((categoryNameID, index) => (
                   <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                    {categoryNameID.name} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
+                    {categoryNameID.categoryName} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
                   </span>
               ))}
             </div>

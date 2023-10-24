@@ -102,7 +102,7 @@ const ProductDetails = () => {
       alert("Vui lòng nhập giá sản phẩm");
       return;
     }
-    if (selectedCategoriesNameID.length() < 2) {
+    if (selectedCategoriesNameID.length < 2) {
       alert("Vui lòng cho danh mục sản phẩm");
       return;
     }
@@ -121,8 +121,8 @@ const ProductDetails = () => {
 
     formData.append('productPrice', productPrice);
 
-    formData.append('ParentCategoryID', selectedCategoriesNameID[0].id);
-    formData.append('CategoryID', selectedCategoriesNameID[1].id);
+    formData.append('ParentCategoryID', selectedCategoriesNameID[0].categoryID);
+    formData.append('CategoryID', selectedCategoriesNameID[1].categoryID);
 
     console.log(selectedCategoriesNameID);
 
@@ -378,7 +378,7 @@ const ProductDetails = () => {
                                       {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 0 ? <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span> : ""}
                                       {(selectedCategoriesNameID ? selectedCategoriesNameID : []).map((categoryNameID, index) => (
                                           <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                                            {categoryNameID.name} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
+                                            {categoryNameID.categoryName} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
                                           </span>
 
                                       ))}
