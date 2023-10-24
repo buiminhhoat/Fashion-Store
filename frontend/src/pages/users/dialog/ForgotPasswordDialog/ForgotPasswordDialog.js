@@ -1,4 +1,4 @@
-import {memo} from "react";
+import React from 'react';
 import "./style.scss"
 import {DIALOGS} from "../utils";
 
@@ -56,4 +56,4 @@ const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   );
 }
 
-export default memo(ForgotPasswordDialog);
+export default ForgotPasswordDialog;

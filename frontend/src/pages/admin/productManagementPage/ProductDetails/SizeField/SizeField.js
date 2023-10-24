@@ -1,4 +1,4 @@
-import {memo, useState} from "react";
+import { useState} from "react";
 import "./style.scss";
 
 const SizeField = ({ id, onClose, onSizeNameChange, onQuantityChange }) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {memo} from "react";
+
 import RouterCustom from "./router";
 import { useLocation, useNavigate } from 'react-router-dom';
 import "./style.scss"
@@ -21,4 +21,4 @@ const ProfilePage = () => {
   );
 }
 
-export default memo(ProfilePage);
+export default ProfilePage;

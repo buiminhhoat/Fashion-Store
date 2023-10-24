@@ -1,8 +1,6 @@
-import { memo } from "react";
+import React from 'react';
 import './style.scss';
 import { useNavigate } from "react-router-dom";
-
-
 
 const ImageBanner = ({image}) => {
   const navigate = useNavigate();
@@ -24,4 +22,4 @@ const ImageBanner = ({image}) => {
   );
 };
 
-export default memo(ImageBanner);
+export default ImageBanner;

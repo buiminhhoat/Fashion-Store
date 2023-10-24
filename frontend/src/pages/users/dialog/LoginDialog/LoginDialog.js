@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React from 'react';
 import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
@@ -150,4 +150,4 @@ const LoginDialog = ({ onClose, onSwitch }) => {
   );
 }
 
-export default memo(LoginDialog);
+export default LoginDialog;

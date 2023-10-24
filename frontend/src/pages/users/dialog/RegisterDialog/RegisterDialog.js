@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React from 'react';
 import "./style.scss";
 
 import fb from "../images/fb.svg";
@@ -141,4 +141,4 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
   );
 };
 
-export default memo(RegisterDialog);
+export default RegisterDialog;

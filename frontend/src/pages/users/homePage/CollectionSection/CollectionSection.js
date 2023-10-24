@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import {useState} from "react";
 import './style.scss';
 
 import star from '../images/star.svg'
@@ -97,4 +97,4 @@ const CollectionSection = ({collectionData}) => {
   );
 }
 
-export default memo(CollectionSection);
+export default CollectionSection;

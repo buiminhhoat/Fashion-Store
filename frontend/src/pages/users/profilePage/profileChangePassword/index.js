@@ -1,4 +1,4 @@
-import {memo, useState} from "react";
+import {useState} from "react";
 import './style.scss';
 import iconOrder from '../images/order.svg';
 import likeProduct from '../images/likeProduct.svg'
@@ -206,4 +206,4 @@ const ProfileChangePassword = () => {
     );
 }
 
-export default memo(ProfileChangePassword);
+export default ProfileChangePassword;

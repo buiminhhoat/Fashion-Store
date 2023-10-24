@@ -1,4 +1,4 @@
-import {memo} from "react";
+import React from 'react';
 import './style.scss';
 import iconOrder from '../images/order.svg';
 import likeProduct from '../images/likeProduct.svg'
@@ -183,4 +183,4 @@ const ProfileNewAddress = () => {
     );
 }
 
-export default memo(ProfileNewAddress);
+export default ProfileNewAddress;

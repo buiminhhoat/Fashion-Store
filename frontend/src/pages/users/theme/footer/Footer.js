@@ -1,4 +1,4 @@
-import {memo} from "react";
+import React from 'react';
 import './style.scss'
 
 import facebook from './images/facebook.svg'
@@ -139,4 +139,4 @@ const Footer = () => {
   );
 }
 
-export default memo(Footer);
+export default Footer;

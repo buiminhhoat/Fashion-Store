@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import "./style.scss"
 import CategoryDialog from "../CategoryDialog/CategoryDialog";
 import {useCookies} from "react-cookie";
@@ -114,6 +114,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (deletedSizeFieldID !== null) {
       let newProductSizeQuantity = [];
+
       let newSizeFields = [];
       for (let i = 0; i < sizeFields.length; i++) {
         const field = sizeFields[i];
@@ -128,6 +129,9 @@ const ProductDetails = () => {
         }
       }
 
+      // for (let i = 0; i < newSizeFields.length; i++) {
+      //   console.log(newSizeFields[i]);
+      // }
       setProductSizeQuantity(newProductSizeQuantity);
       setSizeFields(newSizeFields);
     }

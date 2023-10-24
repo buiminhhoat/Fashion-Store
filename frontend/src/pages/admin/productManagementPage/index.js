@@ -1,4 +1,3 @@
-import {memo} from "react";
 import "./style.scss"
 import ProductDetails from "./ProductDetails/ProductDetails";
 
@@ -20,4 +19,4 @@ const ProductManagementPage = () => {
   );
 }
 
-export default memo(ProductManagementPage);
+export default ProductManagementPage;

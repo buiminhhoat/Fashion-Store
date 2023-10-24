@@ -1,4 +1,4 @@
-import {memo} from "react";
+import React from 'react';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 
@@ -18,4 +18,4 @@ const MasterLayout = ({children, ...props}) => {
     );
 }
 
-export default memo(MasterLayout);
+export default MasterLayout;

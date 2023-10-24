@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React from "react";
 import "./style.scss"
 
 import LoginDialog from "../dialog/LoginDialog/LoginDialog";
@@ -17,4 +17,4 @@ const LoginPage = () => {
   );
 }
 
-export default memo(LoginPage);
+export default LoginPage;

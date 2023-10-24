@@ -1,4 +1,3 @@
-import {memo} from "react";
 import './style.scss';
 import iconOrder from '../images/order.svg';
 import edit from '../images/edit.svg'
@@ -173,4 +172,4 @@ const ProfileNewAddress = () => {
     );
 }
 
-export default memo(ProfileNewAddress);
+export default ProfileNewAddress;

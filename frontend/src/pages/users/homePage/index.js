@@ -1,4 +1,4 @@
-import {memo} from "react";
+import React from 'react';
 import "./style.scss"
 import SlideBanner from "./SlideBanner/SlideBanner";
 import SubBanner from "./SubBanner/SubBanner";
@@ -151,4 +151,4 @@ const HomePage = () => {
     );
 }
 
-export default memo(HomePage);
+export default HomePage;

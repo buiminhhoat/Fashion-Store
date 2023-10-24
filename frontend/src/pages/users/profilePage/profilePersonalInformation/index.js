@@ -1,4 +1,4 @@
-import {memo, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import './style.scss';
 import iconOrder from '../images/order.svg';
 import likeProduct from '../images/likeProduct.svg'
@@ -322,4 +322,4 @@ const ProfilePersonalInformationPage = () => {
     );
 }
 
-export default memo(ProfilePersonalInformationPage);
+export default ProfilePersonalInformationPage;

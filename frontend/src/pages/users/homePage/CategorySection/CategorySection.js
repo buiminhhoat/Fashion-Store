@@ -1,4 +1,4 @@
-import {memo, useState} from "react";
+import {useState} from "react";
 import './style.scss';
 
 const productCategories = [
@@ -149,4 +149,4 @@ const CategorySection = () => {
       </section>
   );
 };
-export default memo(CategorySection);
+export default CategorySection;

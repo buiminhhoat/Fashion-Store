@@ -1,4 +1,4 @@
-import {memo, useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState} from "react";
 import "./style.scss";
 import {HiPlus} from 'react-icons/hi';
 import {BsCheckLg} from 'react-icons/bs';
@@ -349,4 +349,4 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   );
 }
 
-export default memo(CategoryDialog);
+export default CategoryDialog;

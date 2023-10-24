@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React from 'react';
 import './style.scss';
 
 const SubBanner = () => {
@@ -71,4 +71,4 @@ const SubBanner = () => {
 );
 }
 
-export default memo(SubBanner);
+export default SubBanner;

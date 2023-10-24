@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React from 'react';
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { useNavigate } from 'react-router-dom';
@@ -45,4 +45,4 @@ const SlideBanner = () => {
   );
 }
 
-export default memo(SlideBanner);
+export default SlideBanner;
