@@ -18,7 +18,12 @@ const ProductDetails = () => {
   const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [sizeFields, setSizeFields] = useState([]);
-  const [deletedSizeFields, setDeletedSizeFields] = useState(null);
+  const [deletedSizeFieldID, setDeletedSizeFieldID] = useState(null);
+
+  const [changedQuantity, setChangedQuantity] = useState(null);
+  const [changedSizeName, setChangedSizeName] = useState(null);
+
+  const [productSizeQuantity, setProductSizeQuantity] = useState([]);
 
   const inputRef = useRef(null);
 
@@ -61,24 +66,76 @@ const ProductDetails = () => {
   };
 
   useEffect(() => {
-    if (deletedSizeFields !== null) {
-      // let newSizeFields = [];
-      // for (let i = 0; i < sizeFields.length; i++) {
-      //   const field = sizeFields[i];
-      //   console.log(field.key + ' ' + deletedSizeFields)
-      //   if (field.key === deletedSizeFields) continue;
-      //   newSizeFields.push(field);
-      // }
+    if (changedSizeName !== null) {
+      const newProductSizeQuantity = productSizeQuantity.map(item => {
+        if (item.id === changedSizeName.id) {
+          return {
+            ...item,
+            sizeName: changedSizeName.newSizeName,
+          };
+        }
+        return item;
+      });
+      setProductSizeQuantity(newProductSizeQuantity);
+      setChangedSizeName(null);
+    }
+  }, [changedSizeName]);
 
-      const newSizeFields = sizeFields.filter((field) => field.key !== deletedSizeFields);
-      // console.log(newSizeFields);
+  useEffect(() => {
+    if (changedQuantity !== null) {
+      const newProductSizeQuantity = productSizeQuantity.map(item => {
+        if (item.id === changedQuantity.id) {
+          return {
+            ...item,
+            quantity: changedQuantity.newQuantity,
+          };
+        }
+        return item;
+      });
+      setProductSizeQuantity(newProductSizeQuantity);
+      setChangedQuantity(null);
+    }
+  }, [changedQuantity]);
+
+  const handleSizeNameChange = (id, newSizeName) => {
+    setChangedSizeName({id: id, newSizeName: newSizeName});
+  };
+
+  const handleQuantityChange = (id, newQuantity) => {
+    setChangedQuantity({id: id, newQuantity: newQuantity});
+  };
+
+  useEffect(() => {
+    console.log(productSizeQuantity);
+
+
+  }, [productSizeQuantity]);
+
+  useEffect(() => {
+    if (deletedSizeFieldID !== null) {
+      let newProductSizeQuantity = [];
+      let newSizeFields = [];
+      for (let i = 0; i < sizeFields.length; i++) {
+        const field = sizeFields[i];
+        const product = productSizeQuantity[i];
+
+        if (field.key !== deletedSizeFieldID) {
+          newSizeFields.push(field);
+        }
+
+        if (product.id !== deletedSizeFieldID) {
+          newProductSizeQuantity.push(product);
+        }
+      }
+
+      setProductSizeQuantity(newProductSizeQuantity);
       setSizeFields(newSizeFields);
     }
 
-  }, [deletedSizeFields]);
+  }, [deletedSizeFieldID]);
 
   const handleCancelSizeField = (sizeFieldID) => {
-    setDeletedSizeFields(sizeFieldID);
+    setDeletedSizeFieldID(sizeFieldID);
   };
 
   const handleAddSizeField = () => {
@@ -87,10 +144,15 @@ const ProductDetails = () => {
       return;
     }
     const id = generateUniqueId();
-    const newSizeField = <SizeField key={id} onClose={() => handleCancelSizeField(id)}/>;
+    const newSizeField = <SizeField key={id}
+                                            id={id}
+                                            onClose={() => handleCancelSizeField(id)}
+                                            onSizeNameChange={handleSizeNameChange}
+                                            onQuantityChange={handleQuantityChange} />;
 
     const newSizeFields = [...sizeFields, newSizeField];
     setSizeFields(newSizeFields);
+    setProductSizeQuantity([...productSizeQuantity, { id: id, sizeName: "", quantity: ""}]);
   };
 
   async function addProduct() {
@@ -466,4 +528,4 @@ const ProductDetails = () => {
   );
 }
 
-export default memo(ProductDetails);
+export default ProductDetails;

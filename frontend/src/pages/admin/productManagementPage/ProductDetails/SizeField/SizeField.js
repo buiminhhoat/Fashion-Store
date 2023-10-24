@@ -1,7 +1,22 @@
-import { memo } from "react";
+import {memo, useState} from "react";
 import "./style.scss";
 
-const SizeField = ({ onClose }) => {
+const SizeField = ({ id, onClose, onSizeNameChange, onQuantityChange }) => {
+    const [sizeName, setSizeName] = useState('');
+    const [quantity, setQuantity] = useState('');
+
+    const handleSizeNameChange = (event) => {
+      const newSizeName = event.target.value;
+      setSizeName(newSizeName);
+      onSizeNameChange(id, newSizeName);
+    };
+
+    const handleQuantityChange = (event) => {
+      const newQuantity = event.target.value;
+      setQuantity(newQuantity);
+      onQuantityChange(id, newQuantity);
+    };
+
     return (
       <div data-v-389929d8="" data-v-c9a8ac92="" className="edit-row-right-full variation-edit-item">
        <span data-v-389929d8="" className="options-close-btn" onClick={onClose}>
@@ -22,7 +37,8 @@ const SizeField = ({ onClose }) => {
                  className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
                  data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
               <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                <input type="text" placeholder="ví dụ: S, M, L, XL, v.v.." resize="none"
+                <input onChange = {handleSizeNameChange} value={sizeName}
+                       type="text" placeholder="ví dụ: S, M, L, XL, v.v.." resize="none"
                        rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
               </div>
@@ -45,7 +61,8 @@ const SizeField = ({ onClose }) => {
                  className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
                  data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
               <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                <input type="text" placeholder="Nhập số lượng" resize="none"
+                <input onChange = {handleQuantityChange} value={quantity}
+                       type="text" placeholder="Nhập số lượng" resize="none"
                        rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
               </div>
