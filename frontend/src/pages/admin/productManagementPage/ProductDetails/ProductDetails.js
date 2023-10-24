@@ -1,20 +1,24 @@
-import React, {memo, useRef, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import "./style.scss"
 import CategoryDialog from "../CategoryDialog/CategoryDialog";
 import {useCookies} from "react-cookie";
+import SizeField from "./SizeField/SizeField";
+import {generateUniqueId} from "../../utils";
 
 const ProductDetails = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
   const MAX_IMAGES = 8;
+  const MAX_SIZE_FIELDS = 8;
   const [productImages, setProductImages] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
   const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState(0);
   const [productDescription, setProductDescription] = useState("");
-  const [isAddingSize, setIsAddingSize] = useState(false);
+  const [sizeFields, setSizeFields] = useState([]);
+  const [deletedSizeFields, setDeletedSizeFields] = useState(null);
 
   const inputRef = useRef(null);
 
@@ -56,12 +60,37 @@ const ProductDetails = () => {
     closeModal();
   };
 
-  const handleAddSizeClick = () => {
-    setIsAddingSize(true);
+  useEffect(() => {
+    if (deletedSizeFields !== null) {
+      // let newSizeFields = [];
+      // for (let i = 0; i < sizeFields.length; i++) {
+      //   const field = sizeFields[i];
+      //   console.log(field.key + ' ' + deletedSizeFields)
+      //   if (field.key === deletedSizeFields) continue;
+      //   newSizeFields.push(field);
+      // }
+
+      const newSizeFields = sizeFields.filter((field) => field.key !== deletedSizeFields);
+      // console.log(newSizeFields);
+      setSizeFields(newSizeFields);
+    }
+
+  }, [deletedSizeFields]);
+
+  const handleCancelSizeField = (sizeFieldID) => {
+    setDeletedSizeFields(sizeFieldID);
   };
 
-  const handleCancelSizeClick = () => {
-    setIsAddingSize(false);
+  const handleAddSizeField = () => {
+    if (sizeFields.length === MAX_SIZE_FIELDS) {
+      alert("Chỉ được thêm tối đa " + MAX_SIZE_FIELDS + " kích cỡ.");
+      return;
+    }
+    const id = generateUniqueId();
+    const newSizeField = <SizeField key={id} onClose={() => handleCancelSizeField(id)}/>;
+
+    const newSizeFields = [...sizeFields, newSizeField];
+    setSizeFields(newSizeFields);
   };
 
   async function addProduct() {
@@ -277,74 +306,28 @@ const ProductDetails = () => {
                         <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Kích cỡ</span>
                       </div>
                       <div>
-                        {isAddingSize ?
-                          <div data-v-389929d8="" data-v-c9a8ac92="" className="edit-row-right-full variation-edit-item">
-                             <span data-v-389929d8="" className="options-close-btn" onClick={handleCancelSizeClick}>
-                               <div className="btn-close pointer-cursor" style={{fontSize: "10px"}} aria-label="Close"/>
-                             </span>
 
-                            <div data-v-389929d8="" className="variation-edit-panel">
-                              <div data-v-389929d8="" className="variation-edit-left"
-                                   style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}>
-                                <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
-                                  <span data-v-36db20dc="" className="mandatory-icon">*</span>
-                                </div>
-                                Tên kích cỡ
-                              </div>
-                              <div data-v-389929d8="" className="variation-edit-right">
-                                <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
-                                  <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
-                                       className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
-                                       data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
-                                    <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                                      <input type="text" placeholder="ví dụ: S, M, L, XL, v.v.." resize="none"
-                                             rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
-                                             max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                        <div className="popover-wrap">
+                          <button
+                              type="button"
+                              onClick={handleAddSizeField}
+                              className="primary-dash-button fashion-store-button fashion-store-button--primary fashion-store-button--large fashion-store-button--outline"
+                              data-education-trigger-key="variations">
+                            <i className="fashion-store-icon">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                <path fillRule="evenodd" d="M8.48176704,1.5 C8.75790942,1.5 8.98176704,1.72385763 8.98176704,2 L8.981,7.997 L15 7.99797574 C15.2761424,7.99797574 15.5,8.22183336 15.5,8.49797574 C15.5,8.77411811 15.2761424,8.99797574 15,8.99797574 L8.981,8.997 L8.98176704,15 C8.98176704,15.2761424 8.75790942,15.5 8.48176704,15.5 C8.20562467,15.5 7.98176704,15.2761424 7.98176704,15 L7.981,8.997 L2 8.99797574 C1.72385763,8.99797574 1.5,8.77411811 1.5,8.49797574 C1.5,8.22183336 1.72385763,7.99797574 2,7.99797574 L7.981,7.997 L7.98176704,2 C7.98176704,1.72385763 8.20562467,1.5 8.48176704,1.5 Z"></path>
+                              </svg>
+                            </i>
+                            <span> Thêm kích cỡ sản phẩm </span>
+                          </button>
+                        </div>
 
-                            <div data-v-389929d8="" className="variation-edit-panel" style={{marginTop:"15px"}}>
-                              <div data-v-389929d8="" className="variation-edit-left"
-                                   style={{fontSize:"15px", width:"100px", fontWeight: "500", lineHeight: "22px"}}>
-                                <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
-                                  <span data-v-36db20dc="" className="mandatory-icon">*</span>
-                                </div>
-                                Kho hàng
-                              </div>
-                              <div data-v-389929d8="" className="variation-edit-right">
-                                <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
-                                  <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
-                                       className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
-                                       data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
-                                    <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                                      <input type="text" placeholder="Nhập số lượng" resize="none"
-                                             rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
-                                             max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                        {sizeFields.map((sizeField, index) => (
+                            <div key={index} style={{marginTop:"25px"}}>
+                              {sizeField}
                             </div>
-                          </div>
-                        :
-                          <div className="popover-wrap">
-                            <button
-                                type="button"
-                                onClick={handleAddSizeClick}
-                                className="primary-dash-button fashion-store-button fashion-store-button--primary fashion-store-button--large fashion-store-button--outline"
-                                data-education-trigger-key="variations">
-                              <i className="fashion-store-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                  <path fillRule="evenodd" d="M8.48176704,1.5 C8.75790942,1.5 8.98176704,1.72385763 8.98176704,2 L8.981,7.997 L15 7.99797574 C15.2761424,7.99797574 15.5,8.22183336 15.5,8.49797574 C15.5,8.77411811 15.2761424,8.99797574 15,8.99797574 L8.981,8.997 L8.98176704,15 C8.98176704,15.2761424 8.75790942,15.5 8.48176704,15.5 C8.20562467,15.5 7.98176704,15.2761424 7.98176704,15 L7.981,8.997 L2 8.99797574 C1.72385763,8.99797574 1.5,8.77411811 1.5,8.49797574 C1.5,8.22183336 1.72385763,7.99797574 2,7.99797574 L7.981,7.997 L7.98176704,2 C7.98176704,1.72385763 8.20562467,1.5 8.48176704,1.5 Z"></path>
-                                </svg>
-                              </i>
-                              <span> Thêm kích cỡ sản phẩm </span>
-                            </button>
-                          </div>
-                        }
+                        ))}
+
                       </div>
                     </div>
 
