@@ -1,7 +1,7 @@
 import {memo, useEffect, useRef, useState} from "react";
 import "./style.scss";
-import { HiPlus } from 'react-icons/hi';
-import { BsCheckLg } from 'react-icons/bs';
+import {HiPlus} from 'react-icons/hi';
+import {BsCheckLg} from 'react-icons/bs';
 import {MdOutlineClose} from "react-icons/md";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
