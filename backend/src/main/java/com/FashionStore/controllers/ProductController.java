@@ -55,6 +55,15 @@ public class ProductController {
 
     @PostMapping("/add-product")
     public ResponseEntity<?> addProduct(HttpServletRequest request) {
+        String productName = request.getParameter("productName");
+        Double productPrice = Double.valueOf(request.getParameter("productPrice"));
+        String productDescription = request.getParameter("productDescription");
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
+        Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
+        Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
+
+        String jsonSizeNameJson = request.getParameter("productSize");
+
         String productSizeQuantityJson = request.getParameter("productSizeQuantity");
         String jsonListParam = request.getParameter("productSizeQuantity");
         ObjectMapper objectMapper = new ObjectMapper();
@@ -64,14 +73,6 @@ public class ProductController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        String productName = request.getParameter("productName");
-        Double productPrice = Double.valueOf(request.getParameter("productPrice"));
-        String productDescription = request.getParameter("productDescription");
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
-        Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
-        Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
-
-        String jsonSizeNameJson = request.getParameter("productSize");
 
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
