@@ -7,7 +7,7 @@ import ProfileNewAddress from "./profileNewAddress";
 import ProfileChangePassword from "./profileChangePassword";
 import ProfilePersonalInformation from "./profilePersonalInformation";
 
-const renderUserCustom = () => {
+const renderCustom = () => {
     const userRouters =  [
         {
             path: ROUTERS.USER.PROFILE,
@@ -47,7 +47,7 @@ const renderUserCustom = () => {
 }
 
 const RouterCustom = () => {
-    return renderUserCustom();
+    return renderCustom();
 }
 
 export default RouterCustom;
