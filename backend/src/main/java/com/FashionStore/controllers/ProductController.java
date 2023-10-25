@@ -1,9 +1,7 @@
 package com.FashionStore.controllers;
 
 import com.FashionStore.models.*;
-import com.FashionStore.repositories.ProductCategoryRepository;
-import com.FashionStore.repositories.ProductImageRepository;
-import com.FashionStore.repositories.ProductRepository;
+import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -36,15 +34,23 @@ public class ProductController {
 
     private final ProductCategoryRepository productCategoryRepository;
 
+    private final ProductSizeRepository productSizeRepository;
+
+    private final ProductQuantityRepository productQuantityRepository;
+
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
     @Autowired
     public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository,
-                             ProductCategoryRepository productCategoryRepository) {
+                             ProductCategoryRepository productCategoryRepository,
+                             ProductSizeRepository productSizeRepository,
+                             ProductQuantityRepository productQuantityRepository) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
+        this.productSizeRepository = productSizeRepository;
+        this.productQuantityRepository = productQuantityRepository;
     }
 
     @PostMapping("/add-product")
@@ -107,6 +113,14 @@ public class ProductController {
         ProductCategory productCategory = new ProductCategory(productId, categoryID, parentCategoryID);
         productCategoryRepository.save(productCategory);
 
+        for (ProductSizeQuantity productSizeQuantity: productSizeQuantities) {
+            ProductSize productSize = new ProductSize(productId, productSizeQuantity.getSizeName());
+            productSizeRepository.save(productSize);
+            Long sizeID = productSize.getSizeID();
+            ProductQuantity productQuantity = new ProductQuantity(productId, sizeID,
+                    Long.valueOf(productSizeQuantity.getQuantity()));
+            productQuantityRepository.save(productQuantity);
+        }
         ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }
