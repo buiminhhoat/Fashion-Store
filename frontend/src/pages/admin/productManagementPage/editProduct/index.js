@@ -73,7 +73,7 @@ const EditProductPage = () => {
             <div className="breadcrumb-wrap">
               <a href="/">Trang chủ</a>
               &gt; <span>Quản lý sản phẩm</span>
-              &gt; <span>Thêm sản phẩm</span>
+              &gt; <span>Chỉnh sửa thông tin sản phẩm</span>
             </div>
           </div>
 
@@ -94,9 +94,6 @@ const EditProductPage = () => {
                     </button>
                     <button type="button" className="product-details-btn product-details-btn-danger">
                       Hủy thay đổi
-                    </button>
-                    <button type="button" className="product-details-btn product-details-btn-danger">
-                      Xóa sản phẩm
                     </button>
                   </div>
                 </section>
