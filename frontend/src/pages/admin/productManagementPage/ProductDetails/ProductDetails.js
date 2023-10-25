@@ -106,10 +106,10 @@ const ProductDetails = () => {
     setChangedQuantity({id: id, newQuantity: newQuantity});
   };
 
-  // useEffect(() => {
-  //   console.log(productSizeQuantity);
-  //   console.log(listDeletedSizeFieldID);
-  // }, [productSizeQuantity]);
+  useEffect(() => {
+    console.log(productSizeQuantity);
+    console.log(listDeletedSizeFieldID);
+  }, [productSizeQuantity]);
 
   useEffect(() => {
     if (deletedSizeFieldID !== null) {
@@ -189,6 +189,7 @@ const ProductDetails = () => {
     formData.append('ParentCategoryID', selectedCategoriesNameID[0].categoryID);
     formData.append('CategoryID', selectedCategoriesNameID[1].categoryID);
 
+    formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
     console.log(selectedCategoriesNameID);
 
     formData.append('productDescription', productDescription);
