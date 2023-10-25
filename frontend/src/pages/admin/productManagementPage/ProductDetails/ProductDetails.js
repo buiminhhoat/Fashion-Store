@@ -5,7 +5,9 @@ import {useCookies} from "react-cookie";
 import SizeField from "./SizeField/SizeField";
 import {generateUniqueId} from "../../utils";
 
-const ProductDetails = () => {
+const ProductDetails = ({ setParentProductName, setParentProductPrice, setParentSelectedCategoriesNameID, setParentProductDescription,
+                        setParentProductImages, setParentProductSizeQuantity }) => {
+
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
@@ -20,13 +22,19 @@ const ProductDetails = () => {
   const [sizeFields, setSizeFields] = useState([]);
   const [deletedSizeFieldID, setDeletedSizeFieldID] = useState(null);
   const [listDeletedSizeFieldID, setListDeletedSizeFieldID] = useState([]);
-
   const [changedQuantity, setChangedQuantity] = useState(null);
   const [changedSizeName, setChangedSizeName] = useState(null);
-
   const [productSizeQuantity, setProductSizeQuantity] = useState([]);
 
   const inputRef = useRef(null);
+
+  //  set parent info
+  useEffect(() => { setParentProductName(productName) }, [productName]);
+  useEffect(() => { setParentProductPrice(productPrice) }, [productPrice]);
+  useEffect(() => { setParentSelectedCategoriesNameID(selectedCategoriesNameID) }, [selectedCategoriesNameID]);
+  useEffect(() => { setParentProductDescription(productDescription) }, [productDescription]);
+  useEffect(() => { setParentProductImages(productImages) }, [productImages]);
+  useEffect(() => { setParentProductSizeQuantity(productSizeQuantity) }, [productSizeQuantity]);
 
   const handleDialogConfirm = (data) => {
     setSelectedCategoriesNameID(data);
@@ -106,10 +114,10 @@ const ProductDetails = () => {
     setChangedQuantity({id: id, newQuantity: newQuantity});
   };
 
-  useEffect(() => {
-    console.log(productSizeQuantity);
-    console.log(listDeletedSizeFieldID);
-  }, [productSizeQuantity]);
+  // useEffect(() => {
+  //   console.log(productSizeQuantity);
+  //   console.log(listDeletedSizeFieldID);
+  // }, [productSizeQuantity]);
 
   useEffect(() => {
     if (deletedSizeFieldID !== null) {
@@ -158,61 +166,6 @@ const ProductDetails = () => {
     setProductSizeQuantity([...productSizeQuantity, { id: id, sizeName: "", quantity: ""}]);
   };
 
-  async function addProduct() {
-    if (productName === "") {
-      alert("Vui lòng nhập thông tin tên sản phẩm");
-      return;
-    }
-    if (productPrice === "") {
-      alert("Vui lòng nhập giá sản phẩm");
-      return;
-    }
-    if (selectedCategoriesNameID.length < 2) {
-      alert("Vui lòng cho danh mục sản phẩm");
-      return;
-    }
-    if (productDescription === "") {
-      alert("Vui lòng nhập mô tả sản phẩm");
-      return;
-    }
-
-    const formData = new FormData();
-
-    for (const file of productImages) {
-      formData.append('productImages', file);
-    }
-
-    formData.append('productName', productName);
-
-    formData.append('productPrice', productPrice);
-
-    formData.append('ParentCategoryID', selectedCategoriesNameID[0].categoryID);
-    formData.append('CategoryID', selectedCategoriesNameID[1].categoryID);
-
-    formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
-    console.log(selectedCategoriesNameID);
-
-    formData.append('productDescription', productDescription);
-
-
-    let apiAddProductUrl = "http://localhost:9999/api/add-product";
-    fetch(apiAddProductUrl, {
-      method: 'POST',
-      body: formData,
-    })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log('Upload successful:', data);
-    })
-    .catch((error) => {
-      console.error('Upload failed:', error);
-    });
-  }
 
   return (
       <div data-v-03749d40="" className="product-edit__container">
@@ -511,22 +464,6 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-
-            <section style={{ marginTop: "20px", marginBottom:"50px" }}>
-              <div className="button-container">
-                <button type="button" className="product-details-btn" onClick={addProduct}>
-                  Lưu lại
-                </button>
-                <button type="button" className="product-details-btn product-details-btn-danger">
-                  Hủy thay đổi
-                </button>
-                <button type="button" className="product-details-btn product-details-btn-danger">
-                  Xóa sản phẩm
-                </button>
-              </div>
-            </section>
-
-
           </section>
         </div>
 
