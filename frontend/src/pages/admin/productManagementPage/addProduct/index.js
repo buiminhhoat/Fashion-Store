@@ -95,9 +95,6 @@ const AddProductPage = () => {
                     <button type="button" className="product-details-btn product-details-btn-danger">
                       Hủy thay đổi
                     </button>
-                    <button type="button" className="product-details-btn product-details-btn-danger">
-                      Xóa sản phẩm
-                    </button>
                   </div>
                 </section>
               </div>
