@@ -1,7 +1,7 @@
 import {ROUTERS} from "./utils/router";
 import {Route, Routes} from "react-router-dom";
-import AddProductPage from "./addProduct";
-import EditProductPage from "./editProduct";
+import AddProductPage from "./addProductPage";
+import EditProductPage from "./editProductPage";
 
 const renderCustom = () => {
     const userRouters =  [
