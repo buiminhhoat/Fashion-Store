@@ -48,7 +48,7 @@ function ProductItem({ product }) {
 
 const ProductsSection = ({productsData}) => {
   return (
-      <section className="collection">
+      <section className="collection" style={{paddingBottom: 0}}>
         <div className="collection-wrap">
           <div className="product-list">
             {productsData.map((product, index) => (
