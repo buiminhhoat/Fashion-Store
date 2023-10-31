@@ -7,6 +7,7 @@ import LoginPage from "./pages/users/loginPage";
 import MasterLayout from "./pages/users/theme/masterLayout";
 import ProductManagementPage from "./pages/admin/productManagementPage";
 import AccountManagementPage from "./pages/admin/accountManagementPage";
+import SearchProductPage from "./pages/users/searchProductPage";
 
 const renderUserCustom = () => {
     const userRouters =  [
@@ -21,6 +22,10 @@ const renderUserCustom = () => {
         {
             path: ROUTERS.USER.LOGIN,
             component: <LoginPage />
+        },
+        {
+            path: ROUTERS.USER.SEARCH,
+            component: <SearchProductPage />
         }
     ]
 
@@ -58,6 +63,10 @@ const renderAdminCustom = () => {
         {
             path: ROUTERS.ADMIN.ACCOUNT_MANAGEMENT,
             component: <AccountManagementPage />
+        },
+        {
+            path: ROUTERS.USER.SEARCH,
+            component: <SearchProductPage />
         }
     ]
 

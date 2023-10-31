@@ -265,6 +265,7 @@ const Header = () => {
                 </div>
                 <div className="col-3 content-right d-flex justify-content-end align-items-center ps-0 pe-0">
                   <div className="search-box position-relative">
+
                     <form action="https://5sfashion.vn/search" method="get">
                       <input
                           id="search-product"
@@ -274,9 +275,12 @@ const Header = () => {
                           className="input-search form-control w-100 h-100 d-flex align-items-center"
                           placeholder="Tìm kiếm sản phẩm ..."
                       />
-                      <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">
-                        <img src={search} className="icon-search" alt="icon search" />
-                      </button>
+                      <Link to={"/search"}>
+                        <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">
+                          <img src={search} className="icon-search" alt="icon search" />
+                        </button>
+                      </Link>
+
                     </form>
                     <div className="result-box position-absolute" style={{ display: "none" }}></div>
                   </div>
