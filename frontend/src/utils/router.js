@@ -1,3 +1,5 @@
+import AccountManagementPage from "../pages/admin/accountManagementPage";
+
 export const ROUTERS = {
     USER: {
         HOME: "/*",
@@ -5,6 +7,7 @@ export const ROUTERS = {
         LOGIN: "login/*"
     },
     ADMIN: {
-        PRODUCT_MANAGEMENT: "/admin/product-management-page/*"
+        PRODUCT_MANAGEMENT: "/admin/product-management-page/*",
+        ACCOUNT_MANAGEMENT: "/admin/account-management-page/*"
     }
 }

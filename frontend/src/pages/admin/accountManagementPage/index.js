@@ -3,7 +3,7 @@ import "./style.scss"
 
 const AccountManagementPage = () => {
    return (
-    <></>
+    <div></div>
   );
 }
 

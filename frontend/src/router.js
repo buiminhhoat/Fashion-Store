@@ -6,6 +6,7 @@ import ProfilePage from "./pages/users/profilePage";
 import LoginPage from "./pages/users/loginPage";
 import MasterLayout from "./pages/users/theme/masterLayout";
 import ProductManagementPage from "./pages/admin/productManagementPage";
+import AccountManagementPage from "./pages/admin/accountManagementPage";
 
 const renderUserCustom = () => {
     const userRouters =  [
@@ -53,6 +54,10 @@ const renderAdminCustom = () => {
         {
             path: ROUTERS.ADMIN.PRODUCT_MANAGEMENT,
             component: <ProductManagementPage />
+        },
+        {
+            path: ROUTERS.ADMIN.ACCOUNT_MANAGEMENT,
+            component: <AccountManagementPage />
         }
     ]
 
