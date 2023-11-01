@@ -73,8 +73,11 @@ const HomePage = () => {
                   productName: product.productName,
                   productPrice: product.productPrice,
                   productDescription: product.productDescription,
-                  productImages: product.productImages[0]
+                  productImages: "http://localhost:9999/storage/images/" + product.productImages[0].imagePath,
+                  productLink: "/",
                 };
+                console.log("productImages")
+                console.log(productJson.productImages)
                 products.push(productJson);
               });
               let subcollection = {

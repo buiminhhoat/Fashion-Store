@@ -1,15 +1,21 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import './style.scss';
 import ProductItem from "../../components/ProductItem/ProductItem";
 
 const CollectionSection = ({collectionData}) => {
   // State để theo dõi tab đang được chọn
-  const [activeTab, setActiveTab] = useState();
+  const [activeTab, setActiveTab] = useState(null);
 
   // Hàm để chuyển tab
   const changeTab = (tabId) => {
     setActiveTab(tabId);
   };
+
+  useEffect(() => {
+    if (collectionData.content.length > 0) {
+      setActiveTab(collectionData.content[0].tab.categoryID);
+    }
+  }, []);
 
   return (
       <section className="collection">
@@ -19,7 +25,6 @@ const CollectionSection = ({collectionData}) => {
             <div className="col-8 nav-wrap">
               <ul className="nav nav-tabs" id="myTab" role="tablist">
                 {collectionData.content.map((subcollection) => (
-
                     <li className="nav-item" key={subcollection.tab.categoryID} role="presentation">
                       <a
                           className={`nav-link ${activeTab === subcollection.tab.categoryID ? 'active' : ''}`}
@@ -41,8 +46,8 @@ const CollectionSection = ({collectionData}) => {
                 (
                     (collectionData.content.find((subcollection) => subcollection.tab.categoryID === activeTab) ?
                     collectionData.content.find((subcollection) => subcollection.tab.categoryID === activeTab) :
-                    collectionData.content[0]).products
-                    .map((product, index) => (<ProductItem key={index} product={product} />))
+                    collectionData.content[0])
+                        .products.map((product, index) => (<ProductItem key={index} product={product} />))
                 )
                 :
                 (
