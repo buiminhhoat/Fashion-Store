@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
@@ -10,7 +10,7 @@ import RegisterDialog from "../../dialog/RegisterDialog/RegisterDialog";
 import {DIALOGS} from "../../dialog/utils";
 import {Cookies, useCookies} from "react-cookie";
 import {useLogout} from "../../dialog/utils/logout";
-import {fommatter} from "../../../../utils/fomatter";
+import {formatter} from "../../../../utils/formatter";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
@@ -147,9 +147,14 @@ const SearchDialog = () => {
       ProductImageURL: "https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg"
     },
   ];
-  
+
+  const [isDialogVisible, setIsDialogVisible] = useState(true);
+
   return (
-      <div className="result-box position-absolute" style={{ display: 'block' }}>
+      <div
+          className="result-box position-absolute"
+          style={{ display: isDialogVisible ? 'block' : 'none' }}
+      >
         {searchItem.map((product, index) => (
             <a key={index} href={product.ProductURL}>
               <div className="item-search d-flex">
@@ -159,7 +164,7 @@ const SearchDialog = () => {
                 <div className="product-info">
                   <div className="product-name">{product.ProductName}</div>
                   <div className="product-price d-flex align-items-center">
-                    <div className="sale-price">{fommatter(product.ProductPrice)}</div>
+                    <div className="sale-price">{formatter(product.ProductPrice)}</div>
                   </div>
                 </div>
               </div>
@@ -176,21 +181,13 @@ function SearchBar() {
 
   // Hàm xử lý khi người dùng nhấp vào trường tìm kiếm
   const handleInputFocus = () => {
-    if (searchQuery) {
-      setShowSearchDialog(true);
-    }
+    setShowSearchDialog(true);
   };
-
   // Hàm xử lý khi người dùng thay đổi giá trị nhập vào trường tìm kiếm
   const handleInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
     setShowSearchDialog(query !== ''); // Hiển thị SearchDialog nếu có văn bản
-  };
-
-  // Hàm xử lý khi người dùng nhấp chuột ra ngoài trường tìm kiếm
-  const handleInputBlur = () => {
-    setShowSearchDialog(false);
   };
 
   // Hàm xử lý khi người dùng bấm phím trong trường tìm kiếm
@@ -199,6 +196,29 @@ function SearchBar() {
       setShowSearchDialog(false);
     }
   };
+
+  const handleButton = e => {
+    setShowSearchDialog(false)
+  }
+
+  const searchBarRef = useRef(null);
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+        setShowSearchDialog(false);
+      }
+      else if (searchBarRef.current && searchBarRef.current.contains(event.target)) {
+        setShowSearchDialog(true)
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    // document.addEventListener('k')
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
 
   return (
       <div className="search-box position-relative">
@@ -212,12 +232,17 @@ function SearchBar() {
               placeholder="Tìm kiếm sản phẩm ..."
               value={searchQuery}
               onChange={handleInputChange}
-              onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
+              // onFocus={handleInputFocus}
+              // onBlur={handleInputBlur}
               onKeyDown={handleInputKeyDown}
+              ref={searchBarRef}
           />
           <Link to={"/search"}>
-            <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">
+            <button
+                className="btn btn-search position-absolute d-flex align-items-center justify-content-center"
+                type="submit"
+                onClick={handleButton}
+            >
               <img src={search} className="icon-search" alt="icon search" />
             </button>
           </Link>
