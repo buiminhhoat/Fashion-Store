@@ -2,6 +2,8 @@ import React, {useState} from "react"
 import {useParams} from "react-router-dom";
 import "./style.scss"
 
+import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
+
 const BreadcrumbProduct = () => {
   const { productID } = useParams();
 
@@ -45,6 +47,11 @@ const ProductDetailPage = () => {
             <div className="product-detail-section" id="product--content" data-id="64a37a5143b0542a360991d2">
               <BreadcrumbProduct />
 
+              <section className="detail-product">
+                <div className="container pe-0 ps-0">
+                  <ProductDetailContent />
+                </div>
+              </section>
             </div>
           </main>
         </div>

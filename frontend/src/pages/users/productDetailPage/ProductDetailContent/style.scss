@@ -1,0 +1,23 @@
+.magnifying-glass {
+    position: absolute;
+    width: 100px; /* Độ rộng của kính lúp */
+    height: 75px; /* Độ cao của kính lúp */
+    border: 2px solid #333;
+    pointer-events: none;
+    background: black center center no-repeat;
+    background-size: 100% 100%;
+}
+
+.product-image-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.magnifying-glass {
+    position: absolute;
+    border: 2px solid #333;
+    pointer-events: none;
+    background-size: 100% 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
