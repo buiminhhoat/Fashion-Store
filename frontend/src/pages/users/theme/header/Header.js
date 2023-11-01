@@ -123,54 +123,67 @@ const ProfileMenu = ({openModal}) => {
   );
 };
 
-const SearchDialog = () => {
-  const searchItem = [
-    {
-      ProductID: 1,
-      ProductName: "Áo Thun Dài Tay Nam 5S Fashion, Mềm Mịn, Thoáng Khí ATO23008",
-      ProductPrice: 249000,
-      ProductURL: "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008",
-      ProductImageURL: "https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg"
-    },
-    {
-      ProductID: 1,
-      ProductName: "Áo Thun Dài Tay Nam 5S Fashion, Mềm Mịn, Thoáng Khí ATO23008",
-      ProductPrice: 249000,
-      ProductURL: "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008",
-      ProductImageURL: "https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg"
-    },
-    {
-      ProductID: 1,
-      ProductName: "Áo Thun Dài Tay Nam 5S Fashion, Mềm Mịn, Thoáng Khí ATO23008",
-      ProductPrice: 249000,
-      ProductURL: "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008",
-      ProductImageURL: "https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg"
-    },
-  ];
+const SearchDialog = (keyword) => {
 
+  const searchItem = [
+      {
+        "productID": 1,
+        "productName": "Áo Nam 5S Fashion, Thiết Kế Basic, Lịch Lãm QAU23062",
+        "productPrice": 551000,
+        "productImages": [
+          {
+            "imageID": 1,
+            "productID": 1,
+            "imagePath": "05a7d833-f9e3-408c-800f-7a705ea0cc34.jpg" //./images/trouser.jpg
+          }
+        ],
+        "ProductURL": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
+      },
+      {
+        "productID": 1,
+        "productName": "Quần Nam 5S Fashion, Thiết Kế Basic, Lịch Lãm QAU23062",
+        "productPrice": 551000,
+        "productImages": [
+          {
+            "imageID": 1,
+            "productID": 1,
+            "imagePath": "413dd9a4-aa09-433e-9223-309029fadc76.jpg" //./images/trouser.jpg
+          }
+        ],
+        "ProductURL": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
+      }
+    ]
+
+  // console.log(keyword.keyword)
+  // console.log(searchItem[0].productName.toLowerCase().includes('á'))
+  const filteredSearchItem = searchItem.filter((product) => {
+    return product.productName.toLowerCase().includes(keyword.keyword.toString().toLowerCase());
+  });
+  // console.log(filteredSearchItem)
   const [isDialogVisible, setIsDialogVisible] = useState(true);
+  const hasResults = filteredSearchItem.length > 0;
 
   return (
-      <div
+      hasResults && (<div
           className="result-box position-absolute"
           style={{ display: isDialogVisible ? 'block' : 'none' }}
       >
-        {searchItem.map((product, index) => (
+        {filteredSearchItem.map((product, index) => (
             <a key={index} href={product.ProductURL}>
               <div className="item-search d-flex">
                 <div className="product-image d-flex align-items-center justify-content-start">
-                  <img src={product.ProductImageURL} alt={`Product Image ${product.ProductID}`} />
+                  <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={`Product Image ${product.productID}`} />
                 </div>
                 <div className="product-info">
-                  <div className="product-name">{product.ProductName}</div>
+                  <div className="product-name">{product.productName}</div>
                   <div className="product-price d-flex align-items-center">
-                    <div className="sale-price">{formatter(product.ProductPrice)}</div>
+                    <div className="sale-price">{formatter(product.productPrice)}</div>
                   </div>
                 </div>
               </div>
             </a>
         ))}
-      </div>
+      </div>)
   );
 };
 
@@ -248,7 +261,7 @@ function SearchBar() {
           </Link>
           {searchQuery && showSearchDialog && (
               <div>
-                <SearchDialog />
+                <SearchDialog keyword={searchQuery}/>
               </div>
           )}
         </form>
