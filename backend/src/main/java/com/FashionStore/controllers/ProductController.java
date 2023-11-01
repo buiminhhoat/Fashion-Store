@@ -125,5 +125,40 @@ public class ProductController {
         ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }
+
+    @GetMapping("/search/{productName}")
+    public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
+//        List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
+
+        List<Product> products = productRepository.findProductsByProductNameContaining(productName);
+        for (Product product: products) {
+            product = getProductDetails(product.getProductID());
+        }
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/product/{productID}")
+    public ResponseEntity<?> searchProductByProductName(@PathVariable Long productID) {
+        List<Product> products = productRepository.findProductByProductID(productID);
+        for (Product product: products) {
+            product = getProductDetails(product.getProductID());
+        }
+        return ResponseEntity.ok(products.get(0));
+    }
+
+    public Product getProductDetails(Long productID) {
+        Product product = productRepository.findProductByProductID(productID).get(0);
+
+        List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
+        product.setProductImages(productImages);
+
+        List<ProductSize> productSizes = productSizeRepository.findProductSizeByProductID(productID);
+        product.setProductSizes(productSizes);
+
+        List<ProductQuantity> productQuantities = productQuantityRepository.findProductQuantitiesByProductID(productID);
+        product.setProductQuantities(productQuantities);
+
+        return product;
+    }
 }
 
