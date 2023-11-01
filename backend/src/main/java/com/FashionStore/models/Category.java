@@ -19,7 +19,7 @@ public class Category {
     private Long parentCategoryID;
 
     @Transient
-    private List<Product> productList;
+    private List<Product> products;
 
     public Category() {
 
@@ -58,12 +58,12 @@ public class Category {
         this.parentCategoryID = parentCategoryID;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Category {
                 "categoryID=" + categoryID +
                 ", categoryName='" + categoryName + '\'' +
                 ", parentCategoryID=" + parentCategoryID +
-                ", productList=" + productList +
+                ", products=" + products +
                 '}';
     }
 }

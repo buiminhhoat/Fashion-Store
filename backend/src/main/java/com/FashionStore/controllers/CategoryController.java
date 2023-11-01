@@ -111,7 +111,7 @@ public class CategoryController {
                 for (ProductCategory productCategory: productCategoryList) {
                     products.add(getProduct(productCategory.getProductID()));
                 }
-                subCategory.setProductList(products);
+                subCategory.setProducts(products);
             }
             categoryResponse.setSubcategories(subCategoryList);
             categoryResponses.add(categoryResponse);
