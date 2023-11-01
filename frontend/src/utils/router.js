@@ -5,7 +5,8 @@ export const ROUTERS = {
         HOME: "/*",
         PROFILE: "profile/*",
         LOGIN: "login/*",
-        SEARCH: "search/*"
+        SEARCH: "search/*",
+        PRODUCT: "product/:productID"
     },
     ADMIN: {
         PRODUCT_MANAGEMENT: "/admin/product-management-page/*",

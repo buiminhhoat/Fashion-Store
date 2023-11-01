@@ -24,6 +24,10 @@ a {
     color: #333333;
 }
 
+a:hover {
+    color: #bd0000;
+}
+
 a:hover,
 a:focus {
     outline: none;
@@ -44,8 +48,4 @@ h2 {
 
 img {
     border: none;
-}
-
-.pointer-cursor {
-    cursor: pointer; /* Thiết lập biểu tượng ngón tay */
 }

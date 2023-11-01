@@ -1,3 +1,15 @@
 @import "pages/_all.scss";
-//@import "css/theme-color/default-theme.css";
-//@import "css/font-awesome.css";
+
+.breadcrumb-wrap {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 20px 0
+}
+
+.uppercase-text {
+    text-transform: uppercase;
+}
+
+.pointer-cursor {
+    cursor: pointer; /* Thiết lập biểu tượng ngón tay */
+}
