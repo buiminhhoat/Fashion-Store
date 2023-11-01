@@ -48,58 +48,66 @@ const banner1 = {
 const HomePage = () => {
   const [collections, setCollections] = useState([]);
   const apiAllCategoriesGetRandom12Products = "http://localhost:9999/api/all-categories/get-random-12-products";
-  let collection = [];
-  const fetchData = async () => {
-    try {
-      const response = await fetch(apiAllCategoriesGetRandom12Products, {
-        method: 'GET',
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        data.forEach(category => {
-          collection.push({category: category.categoryName});
-          // Duyệt qua danh sách các danh mục con (subcategories)
-          category.subcategories.forEach(subcategory => {
-            let subcategoryJson = [];
-            let tab = {
-                categoryID: subcategory.categoryID,
-                categoryName: subcategory.categoryName
-            }
-            subcategoryJson.push({tab: tab});
-            // Duyệt qua danh sách sản phẩm (productList)
-
-            let products = [];
-
-            subcategory.products.forEach(product => {
-              let productJson = {
-                productID: product.productID,
-                productName: product.productName,
-                productPrice: product.productPrice,
-                productDescription: product.productDescription,
-                productImages: product.productImages[0]
-              };
-              products.push(productJson);
-            });
-            subcategoryJson.push(products);
-            collection.push(subcategoryJson);
-            setCollections(...collections, collection);
-          });
-        });
-      } else {
-        const data = await response.json();
-        console.log(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      // alert('Không kết nối được với database');
-    }
-  }
-  fetchData().then(r => {});
 
   useEffect(() => {
-    console.log(collections);
-  }, collections);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiAllCategoriesGetRandom12Products, {
+          method: 'GET',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          let newCollections = [];
+          data.forEach(category => {
+            // Duyệt qua danh sách các danh mục con (subcategories)
+
+            let subcollections = []
+            category.subcategories.forEach(subcategory => {
+              // Duyệt qua danh sách sản phẩm (productList)
+              let products = [];
+              subcategory.products.forEach(product => {
+                let productJson = {
+                  productID: product.productID,
+                  productName: product.productName,
+                  productPrice: product.productPrice,
+                  productDescription: product.productDescription,
+                  productImages: product.productImages[0]
+                };
+                products.push(productJson);
+              });
+              let subcollection = {
+                tab: {
+                  categoryID: subcategory.categoryID,
+                  categoryName: subcategory.categoryName
+                },
+                products: products
+              };
+              subcollections.push(subcollection);
+            });
+
+            let collection = {
+              name: category.categoryName,
+              content: subcollections
+            };
+
+            newCollections.push(collection);
+          });
+
+          setCollections(newCollections);
+        } else {
+          const data = await response.json();
+          console.log(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        alert('Không kết nối được với database');
+      }
+    }
+    fetchData().then(r => {});
+  }, []);
+
   return (
       <main id="main">
         <SlideBanner />
