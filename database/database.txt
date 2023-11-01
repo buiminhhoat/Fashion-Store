@@ -100,3 +100,22 @@ CREATE TABLE IF NOT EXISTS ProductCategory (
     FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
     FOREIGN KEY (ParentCategoryID) REFERENCES Category(ParentCategoryID)
 );
+
+-- Tạo bảng Cart
+CREATE TABLE IF NOT EXISTS Cart (
+    CartID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    UserID BIGINT,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+-- Tạo bảng CartItem
+CREATE TABLE IF NOT EXISTS CartItem (
+    CartItemID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CartID BIGINT,
+    SizeID BIGINT,
+    Quantity BIGINT,
+    FOREIGN KEY (CartID) REFERENCES Cart(CartID),
+    FOREIGN KEY (SizeID) REFERENCES ProductSize(SizeID)
+);
+
