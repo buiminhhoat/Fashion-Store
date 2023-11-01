@@ -4,12 +4,14 @@ import ProductItem from "../../components/ProductItem/ProductItem";
 
 const CollectionSection = ({collectionData}) => {
   // State để theo dõi tab đang được chọn
-  const [activeTab, setActiveTab] = useState("tab-1");
+  const [activeTab, setActiveTab] = useState();
 
   // Hàm để chuyển tab
   const changeTab = (tabId) => {
     setActiveTab(tabId);
   };
+
+  console.log(collectionData);
 
   return (
       <section className="collection">
@@ -18,27 +20,27 @@ const CollectionSection = ({collectionData}) => {
             <p className="col-4">BỘ SƯU TẬP ÁO NAM</p>
             <div className="col-8 nav-wrap">
               <ul className="nav nav-tabs" id="myTab" role="tablist">
-                {collectionData.map((data) => (
-                    <li className="nav-item" key={data.tab.id} role="presentation">
-                      <a
-                          className={`nav-link ${activeTab === data.tab.id ? 'active' : ''}`}
-                          id={`${data.tab.id}-tab`}
-                          data-bs-toggle="tab"
-                          role="tab"
-                          aria-selected={activeTab === data.tab.id ? 'true' : 'false'}
-                          onClick={() => changeTab(data.tab.id)}
-                      >
-                        {data.tab.title}
-                      </a>
-                    </li>
-                ))}
+                {/*{collectionData.map((data) => (*/}
+                {/*    <li className="nav-item" key={data.tab.categoryID} role="presentation">*/}
+                {/*      <a*/}
+                {/*          className={`nav-link ${activeTab === data.tab.categoryID ? 'active' : ''}`}*/}
+                {/*          id={`${data.tab.categoryID}-tab`}*/}
+                {/*          data-bs-toggle="tab"*/}
+                {/*          role="tab"*/}
+                {/*          aria-selected={activeTab === data.tab.categoryID ? 'true' : 'false'}*/}
+                {/*          onClick={() => changeTab(data.tab.categoryID)}*/}
+                {/*      >*/}
+                {/*        {data.tab.categoryName}*/}
+                {/*      </a>*/}
+                {/*    </li>*/}
+                {/*))}*/}
               </ul>
             </div>
           </div>
           <div className="product-list">
-            {collectionData.find((data) => data.tab.id === activeTab).products.map((product, index) => (
-                <ProductItem key={index} product={product} />
-            ))}
+            {/*{collectionData.find((data) => data.tab.categoryID === activeTab).products.map((product, index) => (*/}
+            {/*    <ProductItem key={index} product={product} />*/}
+            {/*))}*/}
           </div>
 
           <div className="load-more-wrap text-center">

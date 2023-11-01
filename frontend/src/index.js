@@ -7,10 +7,10 @@ import './style/style.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
       <BrowserRouter>
         <RouterCustom />
       </BrowserRouter>
-    </React.StrictMode>
+    // </React.StrictMode>
 );
 reportWebVitals();
