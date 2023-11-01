@@ -10,6 +10,7 @@ import RegisterDialog from "../../dialog/RegisterDialog/RegisterDialog";
 import {DIALOGS} from "../../dialog/utils";
 import {Cookies, useCookies} from "react-cookie";
 import {useLogout} from "../../dialog/utils/logout";
+import {fommatter} from "../../../../utils/fomatter";
 
 const MenuItem = ({ to, text, subMenuItems }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
@@ -122,6 +123,83 @@ const ProfileMenu = ({openModal}) => {
   );
 };
 
+const SearchDialog = () => {
+  const searchItem = [
+    {
+      ProductID: 1,
+      ProductName: "Áo Thun Dài Tay Nam 5S Fashion, Mềm Mịn, Thoáng Khí ATO23008",
+      ProductPrice: 249000,
+      ProductURL: "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008",
+      ProductImageURL: "https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg"
+    },
+    {
+      ProductID: 1,
+      ProductName: "Áo Thun Dài Tay Nam 5S Fashion, Mềm Mịn, Thoáng Khí ATO23008",
+      ProductPrice: 249000,
+      ProductURL: "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008",
+      ProductImageURL: "https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg"
+    },
+    {
+      ProductID: 1,
+      ProductName: "Áo Thun Dài Tay Nam 5S Fashion, Mềm Mịn, Thoáng Khí ATO23008",
+      ProductPrice: 249000,
+      ProductURL: "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008",
+      ProductImageURL: "https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg"
+    },
+  ];
+  
+  return (
+      <div className="result-box position-absolute" style={{ display: 'block' }}>
+        {searchItem.map((product, index) => (
+            <a key={index} href={product.ProductURL}>
+              <div className="item-search d-flex">
+                <div className="product-image d-flex align-items-center justify-content-start">
+                  <img src={product.ProductImageURL} alt={`Product Image ${product.ProductID}`} />
+                </div>
+                <div className="product-info">
+                  <div className="product-name">{product.ProductName}</div>
+                  <div className="product-price d-flex align-items-center">
+                    <div className="sale-price">{fommatter(product.ProductPrice)}</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+        ))}
+      </div>
+  );
+};
+
+function SearchBar() {
+  // Tạo một trạng thái để theo dõi giá trị nhập vào trường tìm kiếm
+  const [searchQuery, setSearchQuery] = useState('');
+
+  return (
+      <div className="search-box position-relative">
+        <form action="https://5sfashion.vn/search" method="get">
+          <input
+              id="search-product"
+              name="query"
+              autoComplete="off"
+              type="text"
+              className="input-search form-control w-100 h-100 d-flex align-items-center"
+              placeholder="Tìm kiếm sản phẩm ..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Link to={"/search"}>
+            <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">
+              <img src={search} className="icon-search" alt="icon search" />
+            </button>
+          </Link>
+          {searchQuery && (
+              <div>
+                <SearchDialog />
+              </div>
+          )}
+        </form>
+      </div>
+  );
+}
 
 const Header = () => {
   const menuItems = [
@@ -264,26 +342,55 @@ const Header = () => {
                   ))}
                 </div>
                 <div className="col-3 content-right d-flex justify-content-end align-items-center ps-0 pe-0">
-                  <div className="search-box position-relative">
+                  <SearchBar/>
+                  {/*<div className="search-box position-relative">*/}
 
-                    <form action="https://5sfashion.vn/search" method="get">
-                      <input
-                          id="search-product"
-                          name="query"
-                          autoComplete="off"
-                          type="text"
-                          className="input-search form-control w-100 h-100 d-flex align-items-center"
-                          placeholder="Tìm kiếm sản phẩm ..."
-                      />
-                      <Link to={"/search"}>
-                        <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">
-                          <img src={search} className="icon-search" alt="icon search" />
-                        </button>
-                      </Link>
+                  {/*  <form action="https://5sfashion.vn/search" method="get">*/}
+                  {/*    <input*/}
+                  {/*        id="search-product"*/}
+                  {/*        name="query"*/}
+                  {/*        autoComplete="off"*/}
+                  {/*        type="text"*/}
+                  {/*        className="input-search form-control w-100 h-100 d-flex align-items-center"*/}
+                  {/*        placeholder="Tìm kiếm sản phẩm ..."*/}
+                  {/*    />*/}
+                  {/*    <Link to={"/search"}>*/}
+                  {/*      <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">*/}
+                  {/*        <img src={search} className="icon-search" alt="icon search" />*/}
+                  {/*      </button>*/}
+                  {/*    </Link>*/}
+                  {/*    {(*/}
+                  {/*        <div>*/}
+                  {/*          <SearchDialog/>*/}
+                  {/*        </div>*/}
+                  {/*    )}*/}
+                  {/*  </form>*/}
 
-                    </form>
-                    <div className="result-box position-absolute" style={{ display: "none" }}></div>
-                  </div>
+                  {/*  /!*<div className="result-box position-absolute" style={{ display: 'block' }}>*!/*/}
+                  {/*  /!*  <a href="https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008">*!/*/}
+                  {/*  /!*    <div className="item-search d-flex">*!/*/}
+                  {/*  /!*      <div className="product-image d-flex align-items-center justify-content-start">*!/*/}
+                  {/*  /!*        <img src="https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg" alt="ATO23008TTH (1)" />*!/*/}
+                  {/*  /!*      </div>*!/*/}
+                  {/*  /!*      <div className="product-info">*!/*/}
+                  {/*  /!*        <div className="product-name">*!/*/}
+                  {/*  /!*          {searchItem[0].ProductName}*!/*/}
+                  {/*  /!*        </div>*!/*/}
+                  {/*  /!*        <div className="product-price d-flex align-items-center">*!/*/}
+                  {/*  /!*          <div className="sale-price">*!/*/}
+                  {/*  /!*            /!*249.000&nbsp;₫*!/*!/*/}
+                  {/*  /!*            {fommatter(searchItem[0].ProductPrice)}*!/*/}
+                  {/*  /!*          </div>*!/*/}
+                  {/*  /!*        </div>*!/*/}
+                  {/*  /!*      </div>*!/*/}
+                  {/*  /!*    </div>*!/*/}
+                  {/*  /!*  </a>*!/*/}
+                  {/*  /!*</div>*!/*/}
+
+                  {/*  /!*<div className="result-box position-absolute" style={{ display: "none" }}></div>*!/*/}
+
+                  {/*</div>*/}
+
                   <div className="header-tool h-100">
                     <div className="d-flex justify-content-end align-items-center h-100">
                       <div className="cart-drop position-relative d-flex justify-content-end">
