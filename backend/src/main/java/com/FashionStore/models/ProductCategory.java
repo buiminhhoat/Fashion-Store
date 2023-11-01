@@ -19,6 +19,9 @@ public class ProductCategory {
     @Column(name = "ParentCategoryID")
     private Long parentCategoryID;
 
+    public ProductCategory() {
+    }
+
     public ProductCategory(Long productID, Long categoryID, Long parentCategoryID) {
         this.productID = productID;
         this.categoryID = categoryID;

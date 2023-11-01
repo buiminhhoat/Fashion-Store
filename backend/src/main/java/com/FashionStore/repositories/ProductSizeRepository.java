@@ -5,6 +5,8 @@ import com.FashionStore.models.ProductImage;
 import com.FashionStore.models.ProductSize;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductSizeRepository extends JpaRepository<ProductSize, Long> {
+import java.util.List;
 
+public interface ProductSizeRepository extends JpaRepository<ProductSize, Long> {
+    List<ProductSize> findProductSizeByProductID(Long productID);
 }

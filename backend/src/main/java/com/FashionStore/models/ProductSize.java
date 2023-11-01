@@ -16,6 +16,9 @@ public class ProductSize {
     @Column(name = "SizeName")
     private String sizeName;
 
+    public ProductSize() {
+    }
+
     public ProductSize(Long productID, String sizeName) {
         this.productID = productID;
         this.sizeName = sizeName;

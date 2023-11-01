@@ -19,6 +19,9 @@ public class ProductQuantity {
     @Column(name = "Quantity")
     private Long quantity;
 
+    public ProductQuantity() {
+    }
+
     public ProductQuantity(Long productID, Long sizeID, Long quantity) {
         this.productID = productID;
         this.sizeID = sizeID;

@@ -4,6 +4,8 @@ import com.FashionStore.models.Product;
 import com.FashionStore.models.ProductQuantity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductQuantityRepository extends JpaRepository<ProductQuantity, Long> {
+import java.util.List;
 
+public interface ProductQuantityRepository extends JpaRepository<ProductQuantity, Long> {
+    List<ProductQuantity> findProductQuantitiesByProductID(Long productID);
 }

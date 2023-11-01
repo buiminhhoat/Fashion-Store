@@ -17,6 +17,9 @@ public class ProductImage {
     @Column(name = "ImagePath")
     private String imagePath;
 
+    public ProductImage() {
+    }
+
     public ProductImage(Long productID, String imagePath) {
         this.productID = productID;
         this.imagePath = imagePath;
