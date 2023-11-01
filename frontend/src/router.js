@@ -8,27 +8,44 @@ import MasterLayout from "./pages/users/theme/masterLayout";
 import ProductManagementPage from "./pages/admin/productManagementPage";
 import AccountManagementPage from "./pages/admin/accountManagementPage";
 import SearchProductPage from "./pages/users/searchProductPage";
+import ProductDetailPage from "./pages/users/productDetailPage";
+
+const userRouters =  [
+    {
+        path: ROUTERS.USER.HOME,
+        component: <HomePage />
+    },
+    {
+        path: ROUTERS.USER.PROFILE,
+        component: <ProfilePage />
+    },
+    {
+        path: ROUTERS.USER.LOGIN,
+        component: <LoginPage />
+    },
+    {
+        path: ROUTERS.USER.SEARCH,
+        component: <SearchProductPage />
+    },
+    {
+        path: ROUTERS.USER.PRODUCT,
+        component: <ProductDetailPage />
+    }
+];
+
+const adminRouters =  [
+    ...userRouters,
+    {
+        path: ROUTERS.ADMIN.PRODUCT_MANAGEMENT,
+        component: <ProductManagementPage />
+    },
+    {
+        path: ROUTERS.ADMIN.ACCOUNT_MANAGEMENT,
+        component: <AccountManagementPage />
+    },
+]
 
 const renderUserCustom = () => {
-    const userRouters =  [
-        {
-            path: ROUTERS.USER.HOME,
-            component: <HomePage />
-        },
-        {
-            path: ROUTERS.USER.PROFILE,
-            component: <ProfilePage />
-        },
-        {
-            path: ROUTERS.USER.LOGIN,
-            component: <LoginPage />
-        },
-        {
-            path: ROUTERS.USER.SEARCH,
-            component: <SearchProductPage />
-        }
-    ]
-
     return (
         <MasterLayout>
             <Routes>
@@ -43,34 +60,7 @@ const renderUserCustom = () => {
 }
 
 const renderAdminCustom = () => {
-    const adminRouters =  [
-        {
-            path: ROUTERS.USER.HOME,
-            component: <HomePage />
-        },
-        {
-            path: ROUTERS.USER.PROFILE,
-            component: <ProfilePage />
-        },
-        {
-            path: ROUTERS.USER.LOGIN,
-            component: <LoginPage />
-        },
-        {
-            path: ROUTERS.ADMIN.PRODUCT_MANAGEMENT,
-            component: <ProductManagementPage />
-        },
-        {
-            path: ROUTERS.ADMIN.ACCOUNT_MANAGEMENT,
-            component: <AccountManagementPage />
-        },
-        {
-            path: ROUTERS.USER.SEARCH,
-            component: <SearchProductPage />
-        }
-    ]
-
-    return (
+       return (
         <MasterLayout>
             <Routes>
                 {
