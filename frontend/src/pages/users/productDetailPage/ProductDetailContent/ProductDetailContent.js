@@ -13,59 +13,8 @@ import ReactImageMagnify from "react-image-magnify";
 import {BiRuler} from "react-icons/bi";
 import {IoMdPricetag} from "react-icons/io";
 
-const informationProduct = {
-  productName: "Áo Siu Cấp Vip Pro Max MT2000",
-  productPrice: 100.000,
-  productDescription: "Mặc vào có thể bín thành siu nhơn",
-  productSize: [
-    {
-      sizeID: 1,
-      sizeName: "S",
-    },
-    {
-      sizeID: 2,
-      sizeName: "M",
-    },
-    {
-      sizeID: 3,
-      sizeName: "L",
-    },
-    {
-      sizeID: 4,
-      sizeName: "XL",
-    },
-    {
-      sizeID: 5,
-      sizeName: "XXL",
-    },
-    {
-      sizeID: 6,
-      sizeName: "3XL",
-    },
-  ],
-  productImage: [
-      {
-        imagePath: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-      },
-      {
-        imagePath: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-      },
-      {
-        imagePath: "https://5sfashion.vn/storage/upload/images/products/CjCAq6Q8FOGE4t8UvxVVX5YIUhLw1I1uwvDxPTWD.jpg",
-      },
-      {
-        imagePath: "https://5sfashion.vn/storage/upload/images/products/JTEgAkErPdKIycJM7GocItEoAtLMBM14l2iFQv46.jpg",
-      },
-      {
-        imagePath: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-      },
-      {
-        imagePath: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-      }
-    ],
-};
 
-const ImagesProductSection = () => {
+const ImagesProductSection = ({informationProduct}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mainImageURL, setMainImageURL] = useState("");
   const [mainImageIndex, setMainImageIndex] = useState(0);
@@ -184,7 +133,7 @@ const ImagesProductSection = () => {
   );
 }
 
-const InformationBox = () => {
+const InformationBox = ({informationProduct}) => {
   const [selectedSizeID, setSelectedSizeID] = useState(0);
   const [quantityPurchase, setQuantityPurchase] = useState(1);
 
@@ -328,11 +277,11 @@ const InformationBox = () => {
   );
 }
 
-const ProductDetailContent = () => {
+const ProductDetailContent = ({informationProduct}) => {
   return (
       <div className="detail-product-content">
-        <ImagesProductSection />
-        <InformationBox />
+        <ImagesProductSection informationProduct={informationProduct}/>
+        <InformationBox informationProduct={informationProduct}/>
       </div>
   );
 }
