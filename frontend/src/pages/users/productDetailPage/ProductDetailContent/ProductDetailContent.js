@@ -1,61 +1,31 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import ReactImageMagnify from 'react-image-magnify';
 
 const imagesProduct = [
   {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-    link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
+    imageUrl: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
   },
   {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-    link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
-  },  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-    link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
-  },  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-    link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
-  },  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-    link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
-  },  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
-    link: 'https://5sfashion.vn/danh-muc/ao-polo-nam',
+    imageUrl: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
   },
-
+  {
+    imageUrl: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
+  },
+  {
+    imageUrl: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
+  },
+  {
+    imageUrl: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
+  },
+  {
+    imageUrl: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
+  },
 ];
-
-const renderImagesProduct = () => {
-  return imagesProduct.map((image, index) => (
-      <div className="owl-item active" key={index} style={{ width: '140.25px', marginRight: '13px' }}>
-        <div className="item-image">
-          <img
-              lazy-src={image.imageUrl}
-              alt={`Icon danh mục SP 400 x 400 px_${image.name}`}
-              loading="lazy"
-              src={image.imageUrl}
-          />
-        </div>
-      </div>
-  ));
-};
-
 
 const ImagesProductSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [mainImageURL, setMainImageURL] = useState("");
   const maxImagesPerPage = 4;
 
   const handlePrevClick = () => {
@@ -66,9 +36,33 @@ const ImagesProductSection = () => {
     setCurrentSlide(Math.min(Math.max(0, imagesProduct.length - maxImagesPerPage), currentSlide + maxImagesPerPage));
   };
 
+  const handleClickImage = (imageUrl) => {
+    setMainImageURL(imageUrl);
+  };
+
+  useEffect(() => {
+    if (imagesProduct.length > 0) {
+      setMainImageURL(imagesProduct[0].imageUrl);
+    }
+  }, []);
+
+
+  const renderImagesProduct = () => {
+    return imagesProduct.map((image, index) => (
+        <div className="owl-item active" key={index} style={{ width: '140.25px', marginRight: '13px' }}>
+          <div className="item-image" onClick={() => handleClickImage(image.imageUrl)}>
+            <img
+                lazy-src={image.imageUrl}
+                alt='product-image'
+                loading="lazy"
+                src={image.imageUrl}
+            />
+          </div>
+        </div>
+    ));
+  };
 
   return (
-
       <div className="wrap-product-image">
         <div className="product-image-box">
           <div className="image-show" id="image-show">
@@ -77,10 +71,10 @@ const ImagesProductSection = () => {
                   smallImage: {
                     alt: 'product-image',
                     isFluidWidth: true,
-                    src: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg"
+                    src: mainImageURL
                   },
                   largeImage: {
-                    src: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
+                    src: mainImageURL,
                     width: 1500,
                     height: 1500
                   },
