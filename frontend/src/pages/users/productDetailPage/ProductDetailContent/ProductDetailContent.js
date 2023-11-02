@@ -1,8 +1,17 @@
 import React, {useEffect, useState} from 'react';
 
 import './style.scss';
+import {
+  Magnifier,
+  GlassMagnifier,
+  SideBySideMagnifier,
+  PictureInPictureMagnifier,
+  MOUSE_ACTIVATION,
+  TOUCH_ACTIVATION
+} from "react-image-magnifiers";
 import ReactImageMagnify from "react-image-magnify";
 import {BiRuler} from "react-icons/bi";
+import {IoMdPricetag} from "react-icons/io";
 
 const informationProduct = {
   productName: "Áo Siu Cấp Vip Pro Max MT2000",
@@ -36,7 +45,7 @@ const informationProduct = {
   ],
   productImage: [
       {
-        imagePath: "https://5sfashion.vn/storage/upload/images/products/JTEgAkErPdKIycJM7GocItEoAtLMBM14l2iFQv46.jpg",
+        imagePath: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
       },
       {
         imagePath: "https://5sfashion.vn/storage/upload/images/products/YrQv0gPyk9oLXCc0KzfxclgCWwX3QB62T5xWQJ1j.jpg",
@@ -84,10 +93,15 @@ const ImagesProductSection = () => {
 
   const renderImagesProduct = () => {
     return informationProduct.productImage.map((image, index) => (
-        <div className="owl-item active" key={index} style={{ width: '140.25px', marginRight: '13px' }}>
-          <div className={`tem-image pointer-cursor ${mainImageIndex === index ? 'image-border' : ''}`}
-               onClick={() => handleClickImage(image.imagePath, index)} >
+        <div className="owl-item active" key={index}
+             style={{ width: '140.25px', height:'140.25px', marginRight: '13px' }}>
+
+          <div className={`tem-image pointer-cursor ${mainImageIndex === index ? 'image-border' : 'image-no-border'}`}
+               onClick={() => handleClickImage(image.imagePath, index)}
+               style={{ width: '140.25px', height:'140.25px', display: "flex", justifyContent: "center", alignItems: "center", overflow: "hidden"}}
+          >
             <img
+                style={{objectFit:"contain", maxWidth: "100%", maxHeight:"100%", width:"auto", height:"auto"}}
                 lazy-src={image.imagePath}
                 alt='product-image'
                 loading="lazy"
@@ -101,24 +115,26 @@ const ImagesProductSection = () => {
   return (
       <div className="wrap-product-image">
 
-        <ReactImageMagnify
-            style={{ objectFit:"contain"}}
-            {...{
-              smallImage: {
-                alt: 'product-image',
-                isFluidWidth: true,
-                src: mainImageURL
-
-              },
-              largeImage: {
-                src: mainImageURL,
-                width: 1500,
-                height: 1500
-              },
-              enlargedImageContainerDimensions: { width: '80%', height: '80%' },
-              enlargedImagePosition: "over",
-            }}
-        />
+        <div style={{position:"relative", zIndex:"10"}}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    alt: 'product-image',
+                    isFluidWidth: true,
+                    src: mainImageURL,
+                  },
+                  largeImage: {
+                    src: mainImageURL,
+                    width: 1500,
+                    height: 1500
+                  },
+                  enlargedImageContainerDimensions: { width: '80%', height: '80%' },
+                  // enlargedImagePosition: "over",
+                }}
+            />
+          </div>
+        </div>
         {/*<div title="Side By Side Magnifier">*/}
         {/*    <SideBySideMagnifier*/}
         {/*        imageSrc={mainImageURL}*/}
@@ -128,7 +144,7 @@ const ImagesProductSection = () => {
         {/*        fillAvailableSpace={false}*/}
         {/*        overlayBoxColor="#bd0000"*/}
         {/*        overlayBoxSize="20px"*/}
-        {/*        zoomContainerBorder="0px solid #bd0000"*/}
+        {/*        zoomContainerBorder="2px solid #bd0000"*/}
         {/*        zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"*/}
         {/*    />*/}
         {/*</div>*/}
@@ -203,7 +219,8 @@ const InformationBox = () => {
         <div className="product-name-box">{informationProduct.productName}</div>
 
         <div className="price-box" style={{marginTop:"15px"}}>
-           <span className="special-price">{informationProduct.productPrice}.000đ</span>
+           <IoMdPricetag style={{fontSize:"25px", color:"#bd0000", marginRight:"5px"}}/>
+          <span className="special-price">{informationProduct.productPrice}.000đ</span>
         </div>
 
         <div className="order-action-box">
