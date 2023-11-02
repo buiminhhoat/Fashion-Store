@@ -137,7 +137,7 @@ const SearchDialog = (keyword) => {
             "imagePath": "05a7d833-f9e3-408c-800f-7a705ea0cc34.jpg" //./images/trouser.jpg
           }
         ],
-        "ProductURL": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
+        "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
       },
       {
         "productID": 1,
@@ -150,7 +150,7 @@ const SearchDialog = (keyword) => {
             "imagePath": "413dd9a4-aa09-433e-9223-309029fadc76.jpg" //./images/trouser.jpg
           }
         ],
-        "ProductURL": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
+        "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
       }
     ]
 
@@ -169,7 +169,7 @@ const SearchDialog = (keyword) => {
           style={{ display: isDialogVisible ? 'block' : 'none' }}
       >
         {filteredSearchItem.map((product, index) => (
-            <a key={index} href={product.ProductURL}>
+            <a key={index} href={product.productLink}>
               <div className="item-search d-flex">
                 <div className="product-image d-flex align-items-center justify-content-start">
                   <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={`Product Image ${product.productID}`} />
@@ -250,7 +250,7 @@ function SearchBar() {
               onKeyDown={handleInputKeyDown}
               ref={searchBarRef}
           />
-          <Link to={"/search"}>
+          <Link to={"/search/" + searchQuery}>
             <button
                 className="btn btn-search position-absolute d-flex align-items-center justify-content-center"
                 type="submit"
