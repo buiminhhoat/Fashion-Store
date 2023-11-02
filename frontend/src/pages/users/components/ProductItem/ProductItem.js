@@ -2,6 +2,7 @@ import React from "react";
 import './style.scss';
 
 import {LuShoppingCart} from "react-icons/lu";
+import {formatter} from "../../../../utils/formatter";
 
 function ProductItem({ product }) {
   return (
@@ -9,7 +10,7 @@ function ProductItem({ product }) {
         <div className="product">
           <div className="product-img">
             <a href={product.productLink}>
-              <img className="show-product-image" lazy-src={product.productImages} loading="lazy" alt={product.productName} src={product.productImages} />
+              <img className="show-product-image" lazy-src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} loading="lazy" alt={product.productName} src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} />
             </a>
           </div>
           <div className="product-info-content">
@@ -19,7 +20,7 @@ function ProductItem({ product }) {
               </a>
             </h3>
             <p className="product-price">
-              <span className="sale-price">{product.productPrice}</span>
+              <span className="sale-price">{formatter(product.productPrice)}</span>
             </p>
             {/*<div className="sold">*/}
             {/*  <LuShoppingCart style={{color:"#7b7d85", fontSize:"15px"}} alt="" loading="lazy" />*/}
