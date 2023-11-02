@@ -191,17 +191,17 @@ const InformationBox = ({informationProduct}) => {
             </div>
           </div>
 
-          <div className="wrap-product-detail row me-0 ms-0">
-            <div className="col-3 pe-0 ps-0"></div>
-            <div className="col-9 pe-0 ps-0">
-              <div className="suggest-choose-size" data-bs-toggle="modal" data-bs-target="#suggestSizeModal">
-                <BiRuler style={{fontSize:"23px", marginRight:"7px"}}/>
-                <span>Gợi ý chọn size</span>
-              </div>
-            </div>
-          </div>
+          {/*<div className="wrap-product-detail row me-0 ms-0">*/}
+          {/*  <div className="col-3 pe-0 ps-0"></div>*/}
+          {/*  <div className="col-9 pe-0 ps-0">*/}
+          {/*    <div onClick={handleSizeSuggestion} className="suggest-choose-size" data-bs-toggle="modal" data-bs-target="#suggestSizeModal">*/}
+          {/*      <BiRuler style={{fontSize:"23px", marginRight:"7px"}}/>*/}
+          {/*      <span>Gợi ý chọn size</span>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
-          <div style={{marginTop:"30px"}} className="wrap-product-detail product-quantity d-flex">
+          <div style={{marginTop:"10px"}} className="wrap-product-detail product-quantity d-flex">
             <div className="col-3 pe-0 ps-0">
               <div className="wrap-product-detail-title">Số lượng</div>
             </div>
