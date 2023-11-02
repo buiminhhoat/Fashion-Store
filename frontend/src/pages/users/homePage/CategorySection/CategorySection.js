@@ -81,7 +81,7 @@ const productCategories = [
 // Hàm render danh mục sản phẩm
 const renderProductCategories = () => {
   return productCategories.map((category, index) => (
-      <div className="owl-item active" key={index} style={{ width: '117.273px', marginRight: '1px' }}>
+      <div className="owl-item active" key={index} style={{ width: '119px' }}>
         <a href={category.link}>
           <div className="category-box">
             <div className="image-wrap position-relative w-100">
@@ -124,7 +124,7 @@ const CategorySection = () => {
           <div className="content owl-carousel owl-theme owl-loaded owl-drag" id="content-category">
             <div className="owl-stage-outer">
               <div className="owl-stage"
-                   style={{ transform: `translate3d(-${currentSlide * 118}px, 0px, 0px)`, transition: 'all 0.3s ease 0s', width: '50000px' }}>
+                   style={{ transform: `translate3d(-${currentSlide * 119}px, 0px, 0px)`, transition: 'all 0.3s ease 0s', width: '50000px' }}>
                 {renderProductCategories()}
               </div>
             </div>
@@ -139,7 +139,7 @@ const CategorySection = () => {
               <button
                   type="button"
                   role="presentation"
-                  className={`owl-next ${currentSlide === productCategories.length - 1 ? 'hide' : ''}`}
+                  className={`owl-next ${currentSlide === productCategories.length - maxCategoriesPerPage ? 'hide' : ''}`}
                   onClick={handleNextClick}>
                 <span aria-label="Next">›</span>
               </button>
