@@ -101,5 +101,36 @@ public class CartController {
         ResponseObject responseObject = new ResponseObject(HttpStatus.OK.toString(), "Đã thêm sản phẩm vào giỏ", cartItem);
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
+
+    @GetMapping("/get-cart")
+    public ResponseEntity<?> editProductToCart(HttpServletRequest request) {
+        String accessToken = String.valueOf(request.getParameter("accessToken"));
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+
+        Long userID = findByEmail.get(0).getUserID();
+
+        Cart cart = new Cart(userID);
+
+        if (cartRepository.findCartByUserID(userID) == null) {
+            cartRepository.save(cart);
+        }
+
+        cart = cartRepository.findCartByUserID(userID);
+
+        Long cartID = cart.getCartID();
+        cart.setCartItems(cartItemRepository.findCartItemByCartID(cartID));
+
+        ResponseObject responseObject = new ResponseObject(HttpStatus.OK.toString(),
+                "Đã lấy thông tin giỏ hàng thành công",
+                cart);
+        return ResponseEntity.status(HttpStatus.OK).body(responseObject);
+    }
 }
 
