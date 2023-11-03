@@ -6,40 +6,6 @@ import CategorySection from "./CategorySection/CategorySection";
 import ImageBanner from "./ImageBanner/ImageBanner";
 import CollectionSection from "./CollectionSection/CollectionSection";
 
-// let shirtCollection = [
-//   {
-//     tab: { categoryID: "tab-1", categoryName: "Áo Polo" },
-//     products: [
-//       {
-//         productName: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
-//         productImages: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
-//         productLink: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
-//         productPrice: "149.000đ",
-//       }
-//     ],
-//   },
-//   {
-//     tab: { categoryID: "tab-2", categoryName: "Áo Polo" },
-//     products: [
-//       {
-//         productName: "Áo Polo Nam 5S, Thấm Hút Tốt, Thiết kế Basic APC23031",
-//         productImages: "https://5sfashion.vn/storage/upload/images/products/NGrEEBn1PMdR8ZIrv8i4Gvg9U57CJFIqoL2CAoXi.jpg",
-//         productLink: "https://5sfashion.vn/san-pham/ao-polo-nam-5s-chat-lieu-thoang-mat-tham-hut-tot-dung-form-thiet-ke-basic-apc23031",
-//         productPrice: "149.000đ",
-//       }
-//     ],
-//   },
-//   {
-//     tab: { categoryID: "tab-3", categoryName: "Áo Tanktop" },
-//     products: [
-//       // Danh sách sản phẩm cho tab-3
-//     ],
-//   },
-// ];
-//
-// let collections = [shirtCollection];
-
-
 const banner1 = {
   url: "https://5sfashion.vn/storage/upload/images/banners/U5Xo1sDIIk0c9889d6F15cIwqK60BHZsuiJ0pno6.png",
   link: "/profile/orders",
@@ -68,13 +34,14 @@ const HomePage = () => {
               // Duyệt qua danh sách sản phẩm (productList)
               let products = [];
               subcategory.products.forEach(product => {
+
                 let productJson = {
                   productID: product.productID,
                   productName: product.productName,
                   productPrice: product.productPrice,
                   productDescription: product.productDescription,
-                  productImages: "http://localhost:9999/storage/images/" + product.productImages[0].imagePath,
                   productLink: "/",
+                  productImages: product.productImages,
                 };
                 console.log("productImages")
                 console.log(productJson.productImages)
