@@ -103,7 +103,7 @@ public class CartController {
     }
 
     @GetMapping("/get-cart")
-    public ResponseEntity<?> editProductToCart(HttpServletRequest request) {
+    public ResponseEntity<?> getCart(HttpServletRequest request) {
         String accessToken = String.valueOf(request.getParameter("accessToken"));
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
