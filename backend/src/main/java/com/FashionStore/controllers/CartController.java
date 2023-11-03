@@ -169,5 +169,33 @@ public class CartController {
                 "Chỉnh sửa sản phẩm trong giỏ hàng thành công", cartItem);
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
+
+    @PostMapping("/delete-product-in-cart")
+    public ResponseEntity<?> deleteProductInCart(HttpServletRequest request) {
+        String accessToken = String.valueOf(request.getParameter("accessToken"));
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+
+        Long cartItemID = Long.valueOf(request.getParameter("cartItemID"));
+
+        CartItem cartItem = cartItemRepository.findCartItemByCartItemID(cartItemID);
+
+        if (cartItem == null) {
+            ResponseObject responseObject = new ResponseObject("Cart Item ID không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        cartItemRepository.delete(cartItem);
+
+        ResponseObject responseObject = new ResponseObject(HttpStatus.OK.toString(),
+                "Xóa sản phẩm trong giỏ hàng thành công", cartItem);
+        return ResponseEntity.status(HttpStatus.OK).body(responseObject);
+    }
 }
 
