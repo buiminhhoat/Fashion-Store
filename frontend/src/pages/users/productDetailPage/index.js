@@ -3,7 +3,6 @@ import {useParams} from "react-router-dom";
 import "./style.scss"
 
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
-import ProductDescription from "./ProductDescription/ProductDescription";
 
 const informationProduct = {
   productName: "Áo Siu Cấp Vip Pro Max MT2000",
@@ -103,12 +102,6 @@ const ProductDetailPage = () => {
               <section className="detail-product">
                 <div className="container pe-0 ps-0">
                   <ProductDetailContent informationProduct={informationProduct} />
-                </div>
-              </section>
-
-              <section className="more-product-information" id="product-description" style={{marginBottom:"0"}}>
-                <div className="container pe-0 ps-0">
-                  <ProductDescription informationProduct={informationProduct} />
                 </div>
               </section>
 
