@@ -15,15 +15,11 @@ public class Cart {
     @Column(name = "UserID")
     private Long userID;
 
-    @Column(name = "CreatedAt")
-    private Date createdAt;
-
     public Cart() {
     }
 
-    public Cart(Long userID, Date createdAt) {
+    public Cart(Long userID) {
         this.userID = userID;
-        this.createdAt = createdAt;
     }
 
     public Long getCartID() {
@@ -42,20 +38,11 @@ public class Cart {
         this.userID = userID;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
     @Override
     public String toString() {
         return "Cart{" +
                 "cartID=" + cartID +
                 ", userID=" + userID +
-                ", createdAt=" + createdAt +
                 '}';
     }
 }
