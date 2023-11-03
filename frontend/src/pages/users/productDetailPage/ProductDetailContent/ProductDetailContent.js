@@ -1,20 +1,11 @@
 import React, {useEffect, useState} from 'react';
-
 import './style.scss';
-import {
-  Magnifier,
-  GlassMagnifier,
-  SideBySideMagnifier,
-  PictureInPictureMagnifier,
-  MOUSE_ACTIVATION,
-  TOUCH_ACTIVATION
-} from "react-image-magnifiers";
-import ReactImageMagnify from "react-image-magnify";
-import {BiRuler} from "react-icons/bi";
+
 import {IoMdPricetag} from "react-icons/io";
 
-
 const ImagesProductSection = ({informationProduct}) => {
+
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mainImageURL, setMainImageURL] = useState("");
   const [mainImageIndex, setMainImageIndex] = useState(0);
@@ -33,12 +24,59 @@ const ImagesProductSection = ({informationProduct}) => {
     setMainImageIndex(index);
   };
 
-
   useEffect(() => {
     if (informationProduct.productImage.length > 0) {
       handleClickImage(informationProduct.productImage[0].imagePath, 0);
     }
   }, []);
+
+  const RenderMainImage = () => {
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [showMagnifier, setShowMagnifier] = useState(false);
+    const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
+    const handleMouseHover = (e) => {
+      const { left, top, width, height } =
+          e.currentTarget.getBoundingClientRect();
+      const x = ((e.pageX - left) / width) * 100;
+      const y = ((e.pageY - top) / height) * 100;
+      setPosition({ x, y });
+      setCursorPosition({ x: e.pageX - left, y: e.pageY - top });
+    };
+
+    return (
+        <div
+            style={{position:"relative", zIndex:"10", width: "600px", height: "600px", cursor: "crosshair",
+                    display: "flex", justifyContent: "center", alignItems: "center"}}
+            className="img-magnifier-container"
+            onMouseEnter={() => setShowMagnifier(true)}
+            onMouseLeave={() => setShowMagnifier(false)}
+            onMouseMove={handleMouseHover}
+        >
+          <img  style={{objectFit: "contain", maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto"}}
+              className="magnifier-img" src={mainImageURL} alt="" />
+
+          {showMagnifier && (
+              <div
+                  style={{
+                    position: "absolute",
+                    left: `${cursorPosition.x - 100}px`,
+                    top: `${cursorPosition.y - 100}px`,
+                    pointerEvents: "none",
+                  }}
+              >
+                <div
+                    className="magnifier-image"
+                    style={{
+                      backgroundImage: `url(${mainImageURL})`,
+                      backgroundPosition: `${position.x}% ${position.y}%`,
+                    }}
+                />
+              </div>
+          )}
+        </div>
+    );
+  }
 
   const renderImagesProduct = () => {
     return informationProduct.productImage.map((image, index) => (
@@ -63,42 +101,9 @@ const ImagesProductSection = ({informationProduct}) => {
 
   return (
       <div className="wrap-product-image">
-
-        <div style={{position:"relative", zIndex:"10"}}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <ReactImageMagnify
-                {...{
-                  smallImage: {
-                    alt: 'product-image',
-                    isFluidWidth: true,
-                    src: mainImageURL,
-                  },
-                  largeImage: {
-                    src: mainImageURL,
-                    width: 1500,
-                    height: 1500
-                  },
-                  enlargedImageContainerDimensions: { width: '80%', height: '80%' },
-                  // enlargedImagePosition: "over",
-                }}
-            />
-          </div>
-        </div>
-        {/*<div title="Side By Side Magnifier">*/}
-        {/*    <SideBySideMagnifier*/}
-        {/*        imageSrc={mainImageURL}*/}
-        {/*        largeImageSrc={mainImageURL}*/}
-        {/*        alwaysInPlace={false}*/}
-        {/*        switchSides={false}*/}
-        {/*        fillAvailableSpace={false}*/}
-        {/*        overlayBoxColor="#bd0000"*/}
-        {/*        overlayBoxSize="20px"*/}
-        {/*        zoomContainerBorder="2px solid #bd0000"*/}
-        {/*        zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"*/}
-        {/*    />*/}
-        {/*</div>*/}
-
         <div className="product-image-box">
+          <RenderMainImage />
+
           <div className="wrap-list-image" >
             <div id="list-image" className="list-image owl-carousel owl-theme owl-loaded owl-drag">
               <div className="owl-stage-outer">
@@ -126,8 +131,6 @@ const ImagesProductSection = ({informationProduct}) => {
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
   );
@@ -173,7 +176,7 @@ const InformationBox = ({informationProduct}) => {
         </div>
 
         <div className="order-action-box">
-          <div style={{marginTop:"100px"}} className="wrap-product-detail row me-0 ms-0 mt-12">
+          <div style={{marginTop:"50px"}} className="wrap-product-detail row me-0 ms-0 mt-12">
             <div className="col-3 pe-0 ps-0">
               <p className="wrap-product-detail-title">Kích thước</p>
             </div>
@@ -271,6 +274,22 @@ const InformationBox = ({informationProduct}) => {
               </button>
             </div>
           </div>
+
+
+          <section className="more-product-information" id="product-description" style={{marginTop:"30px"}}>
+            <div className="container pe-0 ps-0">
+              <div className="product-description" style={{marginRight:"0", padding:"0"}}>
+                <div className="header-description">
+                  <button type="button" className=" btn active" style={{cursor:"default"}}>Mô tả sản phẩm</button>
+
+                  <div id="content-description" className="mt-20">
+                    {informationProduct.productDescription}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
 
         </div>
       </div>
