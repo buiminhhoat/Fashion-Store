@@ -153,10 +153,15 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
   const [quantityPurchase, setQuantityPurchase] = useState(1);
 
   const handleChooseSize = (sizeID) => {
+    setQuantityPurchase(1);
     setSelectedSizeID(sizeID);
   }
 
   const handleQuantityPurchaseChange = (e) => {
+    if (selectedSizeID === null) {
+      alert("Vui lòng chọn kích thước sản phẩm");
+      return;
+    }
     const quantity = e.target.value;
     if (!isNaN(quantity)) {
       setQuantityPurchase(Math.max(quantity, 0));
@@ -164,18 +169,38 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
   }
 
   const handleQuantityPurchaseAdd = () => {
+    if (selectedSizeID === null) {
+      alert("Vui lòng chọn kích thước sản phẩm");
+      return;
+    }
+
+    let productQuantities = 1;
+    if (informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID)) {
+      productQuantities = informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID).quantity
+    }
+
     const quantity = (quantityPurchase ? quantityPurchase : 1);
-    setQuantityPurchase(Math.min(quantity + 1, informationProduct.quantity));
+    setQuantityPurchase(Math.min(quantity + 1, productQuantities));
   }
 
   const handleQuantityPurchaseDec = () => {
+    if (selectedSizeID === null) {
+      alert("Vui lòng chọn kích thước sản phẩm");
+      return;
+    }
+
     const quantity = (quantityPurchase ? quantityPurchase : 1);
     setQuantityPurchase(Math.max(quantity - 1, 1));
   }
 
   const handleBlurInputQuantity = () => {
+    let productQuantities = 1;
+    if (informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID)) {
+      productQuantities = informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID).quantity
+    }
+
     const quantity = (quantityPurchase ? quantityPurchase : 1);
-    setQuantityPurchase(Math.min(Math.max(quantity, 1), informationProduct.quantity));
+    setQuantityPurchase(Math.min(Math.max(quantity, 1), productQuantities));
   }
 
   const handleClickAddToCart = () => {
@@ -219,17 +244,24 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
             <div className="col-9 pe-0 ps-0">
               <div className="wrap-product-detail-properties d-flex ">
 
-                { informationProduct.productSizes ?
-                    informationProduct.productSizes.map((size, index) => (
-                      <div key={index}
-                           className={`properties-wrap size ${selectedSizeID === size.sizeID ? 'selected-size' : ''}`}
-                           onClick={() => handleChooseSize(size.sizeID)}
-                      >
-                        {size.sizeName}
-                      </div>
+                {
+                  informationProduct.productSizes ?
+                  (
+                    informationProduct.productSizes.map((size, index) =>
+                    (
+                      informationProduct.productQuantities.find((quantity) => quantity.quantityID === size.sizeID) ?
+                      (
+                        informationProduct.productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity === 0 ?
+                          <div key={index} className="properties-wrap size size-sold-out">{size.sizeName}</div>
+                        :
+                          <div key={index}
+                               className={`properties-wrap size ${selectedSizeID === size.sizeID ? 'selected-size' : ''}`}
+                               onClick={() => handleChooseSize(size.sizeID)}
+                          >{size.sizeName}</div>
+                      )
+                      : <></>
                     ))
-                  :
-                    <></>
+                  ) : <></>
                 }
 
               </div>
@@ -328,7 +360,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
                 <div className="header-description">
                   <button type="button" className=" btn active" style={{cursor:"default"}}>Mô tả sản phẩm</button>
 
-                  <div id="content-description" className="mt-20">
+                  <div id="content-description" className="mt-20" style={{paddingRight:"40px"}}>
                     {informationProduct.productDescription}
                   </div>
                 </div>
