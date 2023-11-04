@@ -1,6 +1,7 @@
 import "./style.scss"
 import ProductDetails from "../ProductDetails/ProductDetails";
 import React, {useState} from "react";
+import {toast} from "react-toastify";
 
 const EditProductPage = () => {
   const [productName, setProductName] = useState("");
@@ -12,19 +13,19 @@ const EditProductPage = () => {
 
   async function addProduct() {
     if (productName === "") {
-      alert("Vui lòng nhập thông tin tên sản phẩm");
+      toast.warn("Vui lòng nhập thông tin tên sản phẩm");
       return;
     }
     if (productPrice === "") {
-      alert("Vui lòng nhập giá sản phẩm");
+      toast.warn("Vui lòng nhập giá sản phẩm");
       return;
     }
     if (selectedCategoriesNameID.length < 2) {
-      alert("Vui lòng cho danh mục sản phẩm");
+      toast.warn("Vui lòng cho danh mục sản phẩm");
       return;
     }
     if (productDescription === "") {
-      alert("Vui lòng nhập mô tả sản phẩm");
+      toast.warn("Vui lòng nhập mô tả sản phẩm");
       return;
     }
 

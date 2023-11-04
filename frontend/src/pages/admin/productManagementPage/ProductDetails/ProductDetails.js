@@ -4,6 +4,7 @@ import CategoryDialog from "../CategoryDialog/CategoryDialog";
 import {useCookies} from "react-cookie";
 import SizeField from "./SizeField/SizeField";
 import {generateUniqueId} from "../../utils";
+import {toast} from "react-toastify";
 
 const ProductDetails = ({ setParentProductName, setParentProductPrice, setParentSelectedCategoriesNameID, setParentProductDescription,
                         setParentProductImages, setParentProductSizeQuantity }) => {
@@ -53,7 +54,7 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
 
     if (totalFiles.length > MAX_IMAGES) {
       totalFiles = totalFiles.slice(0, MAX_IMAGES);
-      alert("Chỉ được tải lên tối đa " + MAX_IMAGES + " ảnh.");
+      toast.warn("Chỉ được tải lên tối đa " + MAX_IMAGES + " ảnh.");
     }
     setProductImages(totalFiles);
   };
@@ -151,7 +152,7 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
 
   const handleAddSizeField = () => {
     if (productSizeQuantity.length === MAX_SIZE_FIELDS) {
-      alert("Chỉ được thêm tối đa " + MAX_SIZE_FIELDS + " kích cỡ.");
+      toast.warn("Chỉ được thêm tối đa " + MAX_SIZE_FIELDS + " kích cỡ.");
       return;
     }
 

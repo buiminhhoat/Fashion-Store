@@ -4,6 +4,7 @@ import SlideBanner from "./SlideBanner/SlideBanner";
 import SubBanner from "./SubBanner/SubBanner";
 import CategorySection from "./CategorySection/CategorySection";
 import CollectionSection from "./CollectionSection/CollectionSection";
+import {toast} from "react-toastify";
 
 const HomePage = () => {
   const [collections, setCollections] = useState([]);
@@ -25,7 +26,7 @@ const HomePage = () => {
         }
       } catch (error) {
         console.log(error);
-        alert('Không kết nối được với database');
+        toast.error("Không kết nối được với database");
       }
     }
     fetchData().then(r => {});

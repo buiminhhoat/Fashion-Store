@@ -3,6 +3,7 @@ import "./style.scss";
 import {HiPlus} from 'react-icons/hi';
 import {BsCheckLg} from 'react-icons/bs';
 import {MdOutlineClose} from "react-icons/md";
+import {toast} from "react-toastify";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [inputCategoryValue, setInputCategoryValue] = useState('');
@@ -40,7 +41,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         alert(data.message);
       }
     } catch (error) {
-      alert('Không kết nối được với database');
+      toast.error("Không kết nối được với database");
     }
   }
 
@@ -128,7 +129,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         alert(data.message);
       }
     } catch (error) {
-      alert('Không kết nối được với database');
+      toast.error("Không kết nối được với database");
     }
   };
 
@@ -162,7 +163,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         alert(data.message);
       }
     } catch (error) {
-      alert('Không kết nối được với database');
+      toast.error("Không kết nối được với database");
     }
   };
 

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {useCookies} from "react-cookie";
 import './style.scss';
 
 import {IoMdPricetag} from "react-icons/io";
 import {formatter} from "../../../../utils/formatter";
+import {toast} from "react-toastify";
 
 const ImagesProductSection = ({informationProduct}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -159,7 +159,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
   const handleQuantityPurchaseChange = (e) => {
     if (selectedSizeID === null) {
-      alert("Vui lòng chọn kích thước sản phẩm");
+      toast.warn("Vui lòng chọn kích thước sản phẩm");
       return;
     }
     const quantity = e.target.value;
@@ -170,7 +170,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
   const handleQuantityPurchaseAdd = () => {
     if (selectedSizeID === null) {
-      alert("Vui lòng chọn kích thước sản phẩm");
+      toast.warn("Vui lòng chọn kích thước sản phẩm");
       return;
     }
 
@@ -185,7 +185,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
   const handleQuantityPurchaseDec = () => {
     if (selectedSizeID === null) {
-      alert("Vui lòng chọn kích thước sản phẩm");
+      toast.warn("Vui lòng chọn kích thước sản phẩm");
       return;
     }
 
@@ -211,7 +211,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
       }
       handleAddToCart(newOrderDetails);
     } else {
-      alert("Vui lòng chọn kích thước sản phẩm");
+      toast.warn("Vui lòng chọn kích thước sản phẩm");
     }
   }
 
@@ -223,7 +223,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
       }
       handleBuyNow(newOrderDetails);
     } else {
-      alert("Vui lòng chọn kích thước sản phẩm");
+      toast.warn("Vui lòng chọn kích thước sản phẩm");
     }
   }
 

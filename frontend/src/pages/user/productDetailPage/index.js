@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 
 import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
+import {toast} from "react-toastify";
 
 const ProductDetailPage = () => {
   const [informationProduct, setInformationProduct] = useState({});
@@ -51,7 +52,7 @@ const ProductDetailPage = () => {
         }
       } catch (error) {
         console.log(error);
-        alert('Không kết nối được với database');
+        toast.error('Không kết nối được với database');
       }
     }
     fetchData().then(r => {});

@@ -8,6 +8,7 @@ import arrowLeft1 from '../images/arrow_left_1.svg'
 import {useCookies} from "react-cookie";
 import {renderMenu} from "../utils/router";
 import {menuItemsProfile} from "../utils/router";
+import {toast} from "react-toastify";
 
 let apiNewAddressUrl = "http://localhost:9999/api/new-address";
 
@@ -49,7 +50,7 @@ const ProfileNewAddress = () => {
                 window.location.href = "http://localhost:3000/profile/personal-information";
             }
         } catch (error) {
-            alert("Không thể kết nối được với database");
+            toast.error("Không kết nối được với database");
         }
     }
     return (
