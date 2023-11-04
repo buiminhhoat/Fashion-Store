@@ -1,18 +1,15 @@
 import {Route, Routes} from "react-router-dom";
+import {ROUTERS} from "./utils/router";
 
 import ProfileOrdersPage from "./profileOrdersPage";
 import ProfileAddress from "./profileAddress";
 import ProfileNewAddress from "./profileNewAddress";
 import ProfileChangePassword from "./profileChangePassword";
 import ProfilePersonalInformation from "./profilePersonalInformation";
+import NotFoundPage from "../../error/notFoundPage";
 
-import {ROUTERS} from "./utils/router";
 const renderCustom = () => {
     const userRouters =  [
-        {
-            path: ROUTERS.USER.PROFILE,
-            component: <ProfileOrdersPage />
-        },
         {
             path: ROUTERS.USER.ORDERS_PAGE,
             component: <ProfileOrdersPage />
@@ -42,6 +39,7 @@ const renderCustom = () => {
                     <Route key={key} path={item.path} element={item.component} />
                 ))
             }
+            <Route path='*' element={<NotFoundPage />} />
         </Routes>
     )
 }

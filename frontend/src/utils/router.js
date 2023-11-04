@@ -2,10 +2,10 @@ import AccountManagementPage from "../pages/admin/accountManagementPage";
 
 export const ROUTERS = {
     USER: {
-        HOME: "/*",
+        HOME: "/",
         PROFILE: "profile/*",
-        LOGIN: "login/*",
-        SEARCH: "search/*",
+        LOGIN: "login",
+        SEARCH: "search",
         PRODUCT: "product/:productID"
     },
     ADMIN: {

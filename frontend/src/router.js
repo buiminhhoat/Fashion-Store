@@ -9,6 +9,7 @@ import ProductManagementPage from "./pages/admin/productManagementPage";
 import AccountManagementPage from "./pages/admin/accountManagementPage";
 import SearchProductPage from "./pages/users/searchProductPage";
 import ProductDetailPage from "./pages/users/productDetailPage";
+import NotFoundPage from "./pages/error/notFoundPage";
 
 const userRouters =  [
     {
@@ -68,6 +69,7 @@ const renderAdminCustom = () => {
                         <Route key={key} path={item.path} element={item.component} />
                     ))
                 }
+                <Route path='*' element={<NotFoundPage />} />
             </Routes>
         </MasterLayout>
     )
