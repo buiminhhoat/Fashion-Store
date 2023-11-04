@@ -22,7 +22,6 @@ function ProductItem({ product }) {
                     :
                     <></>
               }
-
             </a>
           </div>
           <div className="product-info-content">
