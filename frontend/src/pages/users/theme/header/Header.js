@@ -134,7 +134,7 @@ const SearchDialog = (keyword) => {
           {
             "imageID": 1,
             "productID": 1,
-            "imagePath": "05a7d833-f9e3-408c-800f-7a705ea0cc34.jpg" //./images/trouser.jpg
+            "imagePath": "3ab0377c-5c74-45ee-b7fd-f1035635e8a8.jpg" //./images/trouser.jpg
           }
         ],
         "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
@@ -147,7 +147,7 @@ const SearchDialog = (keyword) => {
           {
             "imageID": 1,
             "productID": 1,
-            "imagePath": "413dd9a4-aa09-433e-9223-309029fadc76.jpg" //./images/trouser.jpg
+            "imagePath": "82487fc9-e024-4a8c-824e-95b4bbee60a2.jpg" //./images/trouser.jpg
           }
         ],
         "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
