@@ -11,52 +11,8 @@ import emptyProduct from '../images/empty-product.png'
 import eyeOn from '../images/eye_on.svg'
 import eyeOff from '../images/eye_off.svg'
 import {useCookies} from "react-cookie";
-
-const menuItemsProfile = [
-    {
-        icon: iconOrder,
-        text: "Đơn hàng của tôi (0)",
-        link: "https://5sfashion.vn/profile/orders",
-    },
-    {
-        icon: edit,
-        text: "Chỉnh sửa thông tin cá nhân",
-        link: "https://5sfashion.vn/profile/personal-information",
-    },
-    {
-        icon: address,
-        text: "Sổ địa chỉ",
-        link: "https://5sfashion.vn/profile/address",
-    },
-    {
-        icon: unlocked,
-        text: "Đổi mật khẩu",
-        link: "https://5sfashion.vn/profile/change-password",
-    },
-    {
-        icon: logout,
-        text: "Đăng xuất",
-        link: "https://5sfashion.vn/logout",
-    },
-];
-
-function renderMenu(menuItems) {
-    const menuItemsJSX = [];
-    for (let i = 0; i < menuItems.length; i++) {
-        const menuItem = menuItems[i];
-        menuItemsJSX.push(
-            <li className="item-wrap" key={i}>
-                <div className="img-wrap">
-                    <img src={menuItem.icon} alt={`icon ${menuItem.text}`}/>
-                </div>
-                <a className="text" href={menuItem.link}>
-                    {menuItem.text}
-                </a>
-            </li>
-        );
-    }
-    return menuItemsJSX;
-}
+import {renderMenu} from "../utils/router";
+import {menuItemsProfile} from "../utils/router";
 
 const ProfileChangePassword = () => {
     const [cookies] = useCookies(['access_token']);

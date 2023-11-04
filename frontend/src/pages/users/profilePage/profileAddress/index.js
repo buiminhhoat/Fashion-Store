@@ -12,60 +12,8 @@ import plus from '../images/plus.svg'
 
 import addressList from './addressList'
 
-const menuItemsProfile = [
-    {
-        icon: iconOrder,
-        text: "Đơn hàng của tôi (0)",
-        link: "https://5sfashion.vn/profile/orders",
-    },
-    {
-        icon: edit,
-        text: "Chỉnh sửa thông tin cá nhân",
-        link: "https://5sfashion.vn/profile/personal-information",
-    },
-    {
-        icon: address,
-        text: "Sổ địa chỉ",
-        link: "https://5sfashion.vn/profile/address",
-    },
-    {
-        icon: unlocked,
-        text: "Đổi mật khẩu",
-        link: "https://5sfashion.vn/profile/change-password",
-    },
-    {
-        icon: logout,
-        text: "Đăng xuất",
-        link: "https://5sfashion.vn/logout",
-    },
-];
-
-const tabItems = [
-    { id: "tab-all", text: "Tất cả", isActive: true },
-    { id: "tab1", text: "Chờ thanh toán", isActive: false },
-    { id: "tab5", text: "Đã xác nhận", isActive: false },
-    { id: "tab2", text: "Đang giao hàng", isActive: false },
-    { id: "tab3", text: "Hoàn thành", isActive: false },
-    { id: "tab4", text: "Đã hủy", isActive: false }
-];
-
-function renderMenu(menuItems) {
-    const menuItemsJSX = [];
-    for (let i = 0; i < menuItems.length; i++) {
-        const menuItem = menuItems[i];
-        menuItemsJSX.push(
-            <li className="item-wrap" key={i}>
-                <div className="img-wrap">
-                    <img src={menuItem.icon} alt={`icon ${menuItem.text}`}/>
-                </div>
-                <a className="text" href={menuItem.link}>
-                    {menuItem.text}
-                </a>
-            </li>
-        );
-    }
-    return menuItemsJSX;
-}
+import {renderMenu} from "../utils/router";
+import {menuItemsProfile} from "../utils/router";
 
 function renderTabList(tabItems) {
     const renderTabList = () => {
@@ -114,14 +62,14 @@ function renderTabContent(tabItems) {
     return tabContent;
 }
 
-const ProfileNewAddress = () => {
+const ProfileAddress = () => {
     return (
         <div id="app">
             <main id="main">
                 <div className="container profile-wrap">
-                    <div className="breadcrumb-wrap">
-                        <a href="/">Trang chủ</a> &gt; <span>Tài khoản của tôi</span>
-                    </div>
+                    {/*<div className="breadcrumb-wrap">*/}
+                    {/*    <a href="/">Trang chủ</a> &gt; <span>Tài khoản của tôi</span>*/}
+                    {/*</div>*/}
 
                     <div className="row content-wrap">
                         <div className="col-4 menu-wrap item-row">
@@ -183,4 +131,4 @@ const ProfileNewAddress = () => {
     );
 }
 
-export default ProfileNewAddress;
+export default ProfileAddress;

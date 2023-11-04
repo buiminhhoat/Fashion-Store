@@ -10,7 +10,7 @@ function ProductItem({ product }) {
         <div className="product">
           <div className="product-img">
             <a href={product.productLink}>
-              <img className="show-product-image" lazy-src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} loading="lazy" alt={product.productName} src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} />
+              <img className="show-product-image" lazy-src={product.productImages[0].imagePath} loading="lazy" alt={product.productName} src={product.productImages[0].imagePath} />
             </a>
           </div>
           <div className="product-info-content">

@@ -1,4 +1,3 @@
-import {ROUTERS} from "./utils/router";
 import {Route, Routes} from "react-router-dom";
 
 import ProfileOrdersPage from "./profileOrdersPage";
@@ -7,6 +6,7 @@ import ProfileNewAddress from "./profileNewAddress";
 import ProfileChangePassword from "./profileChangePassword";
 import ProfilePersonalInformation from "./profilePersonalInformation";
 
+import {ROUTERS} from "./utils/router";
 const renderCustom = () => {
     const userRouters =  [
         {

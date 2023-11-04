@@ -8,34 +8,9 @@ import address from '../images/address.svg'
 import unlocked from '../images/unlocked.svg'
 import logout from '../images/logout.svg'
 import emptyProduct from '../images/empty-product.png'
-
-const menuItemsProfile = [
-    {
-        icon: iconOrder,
-        text: "Đơn hàng của tôi (0)",
-        link: "https://5sfashion.vn/profile/orders",
-    },
-    {
-        icon: edit,
-        text: "Chỉnh sửa thông tin cá nhân",
-        link: "https://5sfashion.vn/profile/personal-information",
-    },
-    {
-        icon: address,
-        text: "Sổ địa chỉ",
-        link: "https://5sfashion.vn/profile/address",
-    },
-    {
-        icon: unlocked,
-        text: "Đổi mật khẩu",
-        link: "https://5sfashion.vn/profile/change-password",
-    },
-    {
-        icon: logout,
-        text: "Đăng xuất",
-        link: "https://5sfashion.vn/logout",
-    },
-];
+import {Link} from "react-router-dom";
+import {renderMenu} from "../utils/router";
+import {menuItemsProfile} from "../utils/router";
 
 const tabItems = [
     { id: "tab-all", text: "Tất cả", isActive: true },
@@ -45,24 +20,6 @@ const tabItems = [
     { id: "tab3", text: "Hoàn thành", isActive: false },
     { id: "tab4", text: "Đã hủy", isActive: false }
 ];
-
-function renderMenu(menuItems) {
-    const menuItemsJSX = [];
-    for (let i = 0; i < menuItems.length; i++) {
-        const menuItem = menuItems[i];
-        menuItemsJSX.push(
-            <li className="item-wrap" key={i}>
-                <div className="img-wrap">
-                    <img src={menuItem.icon} alt={`icon ${menuItem.text}`}/>
-                </div>
-                <a className="text" href={menuItem.link}>
-                    {menuItem.text}
-                </a>
-            </li>
-        );
-    }
-    return menuItemsJSX;
-}
 
 function renderTabList(tabItems) {
     const renderTabList = () => {
