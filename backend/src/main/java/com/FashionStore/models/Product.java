@@ -27,6 +27,12 @@ public class Product {
     @Transient
     List <ProductQuantity> productQuantities;
 
+    @Transient
+    Category category;
+
+    @Transient
+    Category parentCategory;
+
     public Product() {
 
     }
@@ -91,6 +97,22 @@ public class Product {
 
     public void setProductQuantities(List<ProductQuantity> productQuantities) {
         this.productQuantities = productQuantities;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
     @Override
