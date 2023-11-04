@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 04, 2023 lúc 10:26 AM
+-- Thời gian đã tạo: Th10 04, 2023 lúc 05:48 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -209,7 +209,9 @@ INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 (17, 7, 'de0623d3-0122-472a-bba2-667b31e60f57.jpg'),
 (18, 7, 'c087f139-8754-4024-a1f9-0f27586ba129.jpg'),
 (19, 7, '5a8bb6c1-640d-4c31-94ad-7bb6785b248f.jpg'),
-(20, 7, 'c4098e77-e685-4719-a93a-c558232a2ee3.jpg');
+(20, 7, 'c4098e77-e685-4719-a93a-c558232a2ee3.jpg'),
+(21, 2, 'de0623d3-0122-472a-bbc2-667b31e60856.jpg'),
+(22, 2, 'de058963d3-0122-472a-bbc2-667b31e47856.jpg');
 
 -- --------------------------------------------------------
 
@@ -462,7 +464,7 @@ ALTER TABLE `productcategory`
 -- AUTO_INCREMENT cho bảng `productimage`
 --
 ALTER TABLE `productimage`
-  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `productquantity`
