@@ -120,7 +120,7 @@ public class CategoryController {
     }
 
     public Product getProduct(Long productID) {
-        Product product = productRepository.findProductByProductID(productID).get(0);
+        Product product = productRepository.findProductByProductID(productID);
 
         List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
         product.setProductImages(productImages);
