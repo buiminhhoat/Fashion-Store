@@ -3,11 +3,13 @@ import {useCookies} from "react-cookie";
 import './style.scss';
 
 import {IoMdPricetag} from "react-icons/io";
+import {formatter} from "../../../../utils/formatter";
 
 const ImagesProductSection = ({informationProduct}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mainImageURL, setMainImageURL] = useState("");
   const [mainImageIndex, setMainImageIndex] = useState(0);
+
   const maxImagesPerPage = 4;
 
   const handlePrevClick = () => {
@@ -15,19 +17,19 @@ const ImagesProductSection = ({informationProduct}) => {
   };
 
   const handleNextClick = () => {
-    setCurrentSlide(Math.min(Math.max(0, (informationProduct.productImage ? informationProduct.productImage.length : 0) - maxImagesPerPage), currentSlide + maxImagesPerPage));
+    setCurrentSlide(Math.min(Math.max(0, (informationProduct.productImages ? informationProduct.productImages.length : 0) - maxImagesPerPage), currentSlide + maxImagesPerPage));
   };
 
   const handleClickImage = (imagePath, index) => {
-    setMainImageURL(imagePath);
+    setMainImageURL("http://localhost:9999/storage/images/" + imagePath);
     setMainImageIndex(index);
   };
 
   useEffect(() => {
-    if (informationProduct.productImage && informationProduct.productImage.length > 0) {
-      handleClickImage(informationProduct.productImage[0].imagePath, 0);
+    if (informationProduct.productImages && informationProduct.productImages.length > 0) {
+      handleClickImage(informationProduct.productImages[0].imagePath, 0);
     }
-  }, []);
+  }, [informationProduct]);
 
   const RenderMainImage = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -52,7 +54,7 @@ const ImagesProductSection = ({informationProduct}) => {
             onMouseLeave={() => setShowMagnifier(false)}
             onMouseMove={handleMouseHover}
         >
-          <img  style={{objectFit: "contain", maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto"}}
+          <img  style={{objectFit: "contain", maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", backgroundColor: 'white'}}
               className="magnifier-img" src={mainImageURL} alt="" />
 
           {showMagnifier && (
@@ -67,6 +69,7 @@ const ImagesProductSection = ({informationProduct}) => {
                 <div
                     className="magnifier-image"
                     style={{
+                      backgroundColor: 'white',
                       backgroundImage: `url(${mainImageURL})`,
                       backgroundPosition: `${position.x}% ${position.y}%`,
                     }}
@@ -78,8 +81,8 @@ const ImagesProductSection = ({informationProduct}) => {
   }
 
   const renderImagesProduct = () => {
-    if (informationProduct.productImage) {
-      return informationProduct.productImage.map((image, index) => (
+    if (informationProduct.productImages) {
+      return informationProduct.productImages.map((image, index) => (
           <div className="owl-item active" key={index}
                style={{ width: '140.25px', height:'140.25px', marginRight: '13px' }}>
 
@@ -89,10 +92,10 @@ const ImagesProductSection = ({informationProduct}) => {
             >
               <img
                   style={{objectFit:"contain", maxWidth: "100%", maxHeight:"100%", width:"auto", height:"auto"}}
-                  lazy-src={image.imagePath}
+                  lazy-src={"http://localhost:9999/storage/images/" + image.imagePath}
                   alt='product-image'
                   loading="lazy"
-                  src={image.imagePath}
+                  src={"http://localhost:9999/storage/images/" + image.imagePath}
               />
             </div>
           </div>
@@ -125,11 +128,11 @@ const ImagesProductSection = ({informationProduct}) => {
                   <span aria-label="Previous">‹</span>
                 </button>
 
-                { informationProduct.productImage ?
+                { informationProduct.productImages ?
                     <button
                         type="button"
                         role="presentation"
-                        className={`owl-next ${currentSlide === informationProduct.productImage.length - maxImagesPerPage ? 'hide' : ''}`}
+                        className={`owl-next ${currentSlide === informationProduct.productImages.length - maxImagesPerPage ? 'hide' : ''}`}
                         onClick={handleNextClick}>
                       <span aria-label="Next">›</span>
                     </button>
@@ -205,7 +208,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
         <div className="price-box" style={{marginTop:"15px"}}>
            <IoMdPricetag style={{fontSize:"25px", color:"#bd0000", marginRight:"5px"}}/>
-          <span className="special-price">{informationProduct.productPrice}.000đ</span>
+          <span className="special-price">{formatter(informationProduct.productPrice)}</span>
         </div>
 
         <div className="order-action-box">
@@ -216,8 +219,8 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
             <div className="col-9 pe-0 ps-0">
               <div className="wrap-product-detail-properties d-flex ">
 
-                { informationProduct.productSize ?
-                    informationProduct.productSize.map((size, index) => (
+                { informationProduct.productSizes ?
+                    informationProduct.productSizes.map((size, index) => (
                       <div key={index}
                            className={`properties-wrap size ${selectedSizeID === size.sizeID ? 'selected-size' : ''}`}
                            onClick={() => handleChooseSize(size.sizeID)}
@@ -233,16 +236,21 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
             </div>
           </div>
 
-          <div style={{marginTop:"20px"}} className="wrap-product-detail row me-0 ms-0">
-            <div className="col-3 pe-0 ps-0"></div>
-            <div className="col-9 pe-0 ps-0">
-              <span style={{color:"#bd0000", fontWeight:"500", fontSize:"15px"}}>
-                Còn {informationProduct.quantity} sản phẩm
-              </span>
-            </div>
-          </div>
 
-          <div style={{marginTop:"10px"}} className="wrap-product-detail product-quantity d-flex">
+          { selectedSizeID ?
+              <div style={{marginTop:"20px"}} className="wrap-product-detail row me-0 ms-0">
+                <div className="col-3 pe-0 ps-0"></div>
+                  <div className="col-9 pe-0 ps-0">
+                    <span style={{color:"#bd0000", fontWeight:"500", fontSize:"15px"}}>
+                      Còn {informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID).quantity} sản phẩm
+                    </span>
+                  </div>
+              </div>
+              :
+              <></>
+          }
+
+          <div style={{marginTop: `${selectedSizeID ? "10px" : "25px"}` }} className="wrap-product-detail product-quantity d-flex">
             <div className="col-3 pe-0 ps-0">
               <div className="wrap-product-detail-title">Số lượng</div>
             </div>
