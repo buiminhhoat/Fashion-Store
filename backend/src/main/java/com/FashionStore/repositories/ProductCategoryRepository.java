@@ -9,4 +9,6 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
     List<ProductCategory> findProductCategoriesByProductCategoryID(Long productCategoryID);
     List<ProductCategory> findProductCategoriesByCategoryID(Long categoryID);
 
+    ProductCategory findProductCategoriesByProductID(Long productID);
+
 }

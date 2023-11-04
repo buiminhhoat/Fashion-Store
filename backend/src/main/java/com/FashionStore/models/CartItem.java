@@ -19,17 +19,17 @@ public class CartItem {
     @Column(name = "SizeID")
     private Long sizeID;
 
-    @Column(name = "Quantity")
-    private Long quantity;
+    @Column(name = "QuantityPurchase")
+    private Long quantityPurchase;
 
     public CartItem() {
     }
 
-    public CartItem(Long cartID, Long productID, Long sizeID, Long quantity) {
+    public CartItem(Long cartID, Long productID, Long sizeID, Long quantityPurchase) {
         this.cartID = cartID;
         this.productID = productID;
         this.sizeID = sizeID;
-        this.quantity = quantity;
+        this.quantityPurchase = quantityPurchase;
     }
 
     public Long getCartItemID() {
@@ -64,11 +64,11 @@ public class CartItem {
         this.sizeID = sizeID;
     }
 
-    public Long getQuantity() {
-        return quantity;
+    public Long getQuantityPurchase() {
+        return quantityPurchase;
     }
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
+    public void setQuantityPurchase(Long quantityPurchase) {
+        this.quantityPurchase = quantityPurchase;
     }
 }

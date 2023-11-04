@@ -38,6 +38,9 @@ public class ProductController {
 
     private final ProductQuantityRepository productQuantityRepository;
 
+    private final CategoryRepository categoryRepository;
+
+
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
@@ -45,12 +48,14 @@ public class ProductController {
     public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository,
                              ProductCategoryRepository productCategoryRepository,
                              ProductSizeRepository productSizeRepository,
-                             ProductQuantityRepository productQuantityRepository) {
+                             ProductQuantityRepository productQuantityRepository,
+                             CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
         this.productSizeRepository = productSizeRepository;
         this.productQuantityRepository = productQuantityRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @PostMapping("/add-product")
@@ -128,8 +133,6 @@ public class ProductController {
 
     @GetMapping("/search/{productName}")
     public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
-//        List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
-
         List<Product> products = productRepository.findProductsByProductNameContaining(productName);
         for (Product product: products) {
             product = getProductDetails(product.getProductID());
@@ -139,15 +142,13 @@ public class ProductController {
 
     @GetMapping("/product/{productID}")
     public ResponseEntity<?> searchProductByProductName(@PathVariable Long productID) {
-        List<Product> products = productRepository.findProductByProductID(productID);
-        for (Product product: products) {
-            product = getProductDetails(product.getProductID());
-        }
-        return ResponseEntity.ok(products.get(0));
+        Product product = productRepository.findProductByProductID(productID);
+        product = getProductDetails(product.getProductID());
+        return ResponseEntity.ok(product);
     }
 
     public Product getProductDetails(Long productID) {
-        Product product = productRepository.findProductByProductID(productID).get(0);
+        Product product = productRepository.findProductByProductID(productID);
 
         List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
         product.setProductImages(productImages);
@@ -158,6 +159,13 @@ public class ProductController {
         List<ProductQuantity> productQuantities = productQuantityRepository.findProductQuantitiesByProductID(productID);
         product.setProductQuantities(productQuantities);
 
+        ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
+
+        Category category = categoryRepository.findCategoriesByCategoryID(productCategory.getCategoryID());
+        product.setCategory(category);
+
+        Category parentCategory = categoryRepository.findCategoriesByCategoryID(productCategory.getParentCategoryID());
+        product.setParentCategory(parentCategory);
         return product;
     }
 }

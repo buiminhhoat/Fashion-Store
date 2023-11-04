@@ -3,6 +3,7 @@ package com.FashionStore.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Cart")
@@ -15,15 +16,13 @@ public class Cart {
     @Column(name = "UserID")
     private Long userID;
 
-    @Column(name = "CreatedAt")
-    private Date createdAt;
-
+    @Transient
+    private List <CartItem> cartItems;
     public Cart() {
     }
 
-    public Cart(Long userID, Date createdAt) {
+    public Cart(Long userID) {
         this.userID = userID;
-        this.createdAt = createdAt;
     }
 
     public Long getCartID() {
@@ -42,20 +41,19 @@ public class Cart {
         this.userID = userID;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
     @Override
     public String toString() {
         return "Cart{" +
                 "cartID=" + cartID +
                 ", userID=" + userID +
-                ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 }

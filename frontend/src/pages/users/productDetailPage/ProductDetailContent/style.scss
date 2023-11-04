@@ -10,3 +10,25 @@
     color: #fff !important;
     background: #bd0000 !important;
 }
+
+.img-magnifier-container {
+    position: relative;
+}
+
+.magnifier-img {
+    width: auto;
+    height: 80vh;
+}
+
+.magnifier-image {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #fff;
+}
+
+.size-sold-out {
+    border: 1px solid #E0E0E0 !important;
+    color: white !important;
+    background: #E0E0E0 !important;
+    cursor: default !important;
+}
