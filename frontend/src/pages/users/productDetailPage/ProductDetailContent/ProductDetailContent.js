@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import {useCookies} from "react-cookie";
 import './style.scss';
 
 import {IoMdPricetag} from "react-icons/io";
 
 const ImagesProductSection = ({informationProduct}) => {
-
-
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mainImageURL, setMainImageURL] = useState("");
   const [mainImageIndex, setMainImageIndex] = useState(0);
@@ -16,7 +15,7 @@ const ImagesProductSection = ({informationProduct}) => {
   };
 
   const handleNextClick = () => {
-    setCurrentSlide(Math.min(Math.max(0, informationProduct.productImage.length - maxImagesPerPage), currentSlide + maxImagesPerPage));
+    setCurrentSlide(Math.min(Math.max(0, (informationProduct.productImage ? informationProduct.productImage.length : 0) - maxImagesPerPage), currentSlide + maxImagesPerPage));
   };
 
   const handleClickImage = (imagePath, index) => {
@@ -25,7 +24,7 @@ const ImagesProductSection = ({informationProduct}) => {
   };
 
   useEffect(() => {
-    if (informationProduct.productImage.length > 0) {
+    if (informationProduct.productImage && informationProduct.productImage.length > 0) {
       handleClickImage(informationProduct.productImage[0].imagePath, 0);
     }
   }, []);
@@ -79,24 +78,28 @@ const ImagesProductSection = ({informationProduct}) => {
   }
 
   const renderImagesProduct = () => {
-    return informationProduct.productImage.map((image, index) => (
-        <div className="owl-item active" key={index}
-             style={{ width: '140.25px', height:'140.25px', marginRight: '13px' }}>
+    if (informationProduct.productImage) {
+      return informationProduct.productImage.map((image, index) => (
+          <div className="owl-item active" key={index}
+               style={{ width: '140.25px', height:'140.25px', marginRight: '13px' }}>
 
-          <div className={`tem-image pointer-cursor ${mainImageIndex === index ? 'image-border' : 'image-no-border'}`}
-               onClick={() => handleClickImage(image.imagePath, index)}
-               style={{ width: '140.25px', height:'140.25px', display: "flex", justifyContent: "center", alignItems: "center", overflow: "hidden"}}
-          >
-            <img
-                style={{objectFit:"contain", maxWidth: "100%", maxHeight:"100%", width:"auto", height:"auto"}}
-                lazy-src={image.imagePath}
-                alt='product-image'
-                loading="lazy"
-                src={image.imagePath}
-            />
+            <div className={`tem-image pointer-cursor ${mainImageIndex === index ? 'image-border' : 'image-no-border'}`}
+                 onClick={() => handleClickImage(image.imagePath, index)}
+                 style={{ width: '140.25px', height:'140.25px', display: "flex", justifyContent: "center", alignItems: "center", overflow: "hidden"}}
+            >
+              <img
+                  style={{objectFit:"contain", maxWidth: "100%", maxHeight:"100%", width:"auto", height:"auto"}}
+                  lazy-src={image.imagePath}
+                  alt='product-image'
+                  loading="lazy"
+                  src={image.imagePath}
+              />
+            </div>
           </div>
-        </div>
-    ));
+      ));
+    } else {
+      return (<></>);
+    }
   };
 
   return (
@@ -121,13 +124,19 @@ const ImagesProductSection = ({informationProduct}) => {
                     onClick={handlePrevClick}>
                   <span aria-label="Previous">‹</span>
                 </button>
-                <button
-                    type="button"
-                    role="presentation"
-                    className={`owl-next ${currentSlide === informationProduct.productImage.length - maxImagesPerPage ? 'hide' : ''}`}
-                    onClick={handleNextClick}>
-                  <span aria-label="Next">›</span>
-                </button>
+
+                { informationProduct.productImage ?
+                    <button
+                        type="button"
+                        role="presentation"
+                        className={`owl-next ${currentSlide === informationProduct.productImage.length - maxImagesPerPage ? 'hide' : ''}`}
+                        onClick={handleNextClick}>
+                      <span aria-label="Next">›</span>
+                    </button>
+                    :
+                    <></>
+                }
+
               </div>
             </div>
           </div>
@@ -136,8 +145,8 @@ const ImagesProductSection = ({informationProduct}) => {
   );
 }
 
-const InformationBox = ({informationProduct}) => {
-  const [selectedSizeID, setSelectedSizeID] = useState(0);
+const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => {
+  const [selectedSizeID, setSelectedSizeID] = useState(null);
   const [quantityPurchase, setQuantityPurchase] = useState(1);
 
   const handleChooseSize = (sizeID) => {
@@ -153,7 +162,7 @@ const InformationBox = ({informationProduct}) => {
 
   const handleQuantityPurchaseAdd = () => {
     const quantity = (quantityPurchase ? quantityPurchase : 1);
-    setQuantityPurchase(quantity + 1);
+    setQuantityPurchase(Math.min(quantity + 1, informationProduct.quantity));
   }
 
   const handleQuantityPurchaseDec = () => {
@@ -163,7 +172,31 @@ const InformationBox = ({informationProduct}) => {
 
   const handleBlurInputQuantity = () => {
     const quantity = (quantityPurchase ? quantityPurchase : 1);
-    setQuantityPurchase(quantity);
+    setQuantityPurchase(Math.min(Math.max(quantity, 1), informationProduct.quantity));
+  }
+
+  const handleClickAddToCart = () => {
+    if (selectedSizeID) {
+      const newOrderDetails = {
+        sizeID: selectedSizeID,
+        quantityPurchase: quantityPurchase,
+      }
+      handleAddToCart(newOrderDetails);
+    } else {
+      alert("Vui lòng chọn kích thước sản phẩm");
+    }
+  }
+
+  const handleClickBuyNow = () => {
+    if (selectedSizeID) {
+      const newOrderDetails = {
+        sizeID: selectedSizeID,
+        quantityPurchase: quantityPurchase,
+      }
+      handleBuyNow(newOrderDetails);
+    } else {
+      alert("Vui lòng chọn kích thước sản phẩm");
+    }
   }
 
   return (
@@ -183,26 +216,31 @@ const InformationBox = ({informationProduct}) => {
             <div className="col-9 pe-0 ps-0">
               <div className="wrap-product-detail-properties d-flex ">
 
-                {informationProduct.productSize.map((size) => (
-                    <div className={`properties-wrap size ${selectedSizeID === size.sizeID ? 'selected-size' : ''}`}
-                         onClick={() => handleChooseSize(size.sizeID)}>
-                      {size.sizeName}
-                    </div>
-                ))}
+                { informationProduct.productSize ?
+                    informationProduct.productSize.map((size, index) => (
+                      <div key={index}
+                           className={`properties-wrap size ${selectedSizeID === size.sizeID ? 'selected-size' : ''}`}
+                           onClick={() => handleChooseSize(size.sizeID)}
+                      >
+                        {size.sizeName}
+                      </div>
+                    ))
+                  :
+                    <></>
+                }
 
               </div>
             </div>
           </div>
 
-          {/*<div className="wrap-product-detail row me-0 ms-0">*/}
-          {/*  <div className="col-3 pe-0 ps-0"></div>*/}
-          {/*  <div className="col-9 pe-0 ps-0">*/}
-          {/*    <div onClick={handleSizeSuggestion} className="suggest-choose-size" data-bs-toggle="modal" data-bs-target="#suggestSizeModal">*/}
-          {/*      <BiRuler style={{fontSize:"23px", marginRight:"7px"}}/>*/}
-          {/*      <span>Gợi ý chọn size</span>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          <div style={{marginTop:"20px"}} className="wrap-product-detail row me-0 ms-0">
+            <div className="col-3 pe-0 ps-0"></div>
+            <div className="col-9 pe-0 ps-0">
+              <span style={{color:"#bd0000", fontWeight:"500", fontSize:"15px"}}>
+                Còn {informationProduct.quantity} sản phẩm
+              </span>
+            </div>
+          </div>
 
           <div style={{marginTop:"10px"}} className="wrap-product-detail product-quantity d-flex">
             <div className="col-3 pe-0 ps-0">
@@ -232,11 +270,11 @@ const InformationBox = ({informationProduct}) => {
             </div>
           </div>
 
-          <div style={{marginTop:"30px"}} className="wrap-product-detail btn-action d-flex">
+          <div style={{marginTop:"40px"}} className="wrap-product-detail btn-action d-flex">
             <div className="d-flex w-100">
-              <button id="add-cart" className="btn-add-to-cart ">
+              <button id="add-cart" className="btn-add-to-cart" onClick={handleClickAddToCart}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_10_3091)">
+                  <g>
                     <path
                         d="M10.7917 8.45831C9.34187 8.45831 8.16675 9.63344 8.16675 11.0833C8.16675 12.5332 9.34187 13.7083 10.7917 13.7083C12.2416 13.7083 13.4167 12.5332 13.4167 11.0833C13.4167 9.63344 12.2416 8.45831 10.7917 8.45831ZM11.9584 11.375H11.0834V12.25C11.0834 12.411 10.9527 12.5416 10.7917 12.5416C10.6307 12.5416 10.5001 12.411 10.5001 12.25V11.375H9.62508C9.46408 11.375 9.33341 11.2443 9.33341 11.0833C9.33341 10.9223 9.46408 10.7916 9.62508 10.7916H10.5001V9.91665C10.5001 9.75565 10.6307 9.62498 10.7917 9.62498C10.9527 9.62498 11.0834 9.75565 11.0834 9.91665V10.7916H11.9584C12.1194 10.7916 12.2501 10.9223 12.2501 11.0833C12.2501 11.2443 12.1194 11.375 11.9584 11.375Z"
                         fill="#C81D31"></path>
@@ -254,9 +292,9 @@ const InformationBox = ({informationProduct}) => {
                   <span> Thêm vào giỏ hàng </span>
                 </div>
               </button>
-              <button className="btn-buy-now ">
+              <button className="btn-buy-now " onClick={handleClickBuyNow}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_10_3091)">
+                  <g>
                     <path
                         d="M10.7917 8.45831C9.34187 8.45831 8.16675 9.63344 8.16675 11.0833C8.16675 12.5332 9.34187 13.7083 10.7917 13.7083C12.2416 13.7083 13.4167 12.5332 13.4167 11.0833C13.4167 9.63344 12.2416 8.45831 10.7917 8.45831ZM11.9584 11.375H11.0834V12.25C11.0834 12.411 10.9527 12.5416 10.7917 12.5416C10.6307 12.5416 10.5001 12.411 10.5001 12.25V11.375H9.62508C9.46408 11.375 9.33341 11.2443 9.33341 11.0833C9.33341 10.9223 9.46408 10.7916 9.62508 10.7916H10.5001V9.91665C10.5001 9.75565 10.6307 9.62498 10.7917 9.62498C10.9527 9.62498 11.0834 9.75565 11.0834 9.91665V10.7916H11.9584C12.1194 10.7916 12.2501 10.9223 12.2501 11.0833C12.2501 11.2443 12.1194 11.375 11.9584 11.375Z"
                         fill="#C81D31"></path>
@@ -276,7 +314,7 @@ const InformationBox = ({informationProduct}) => {
           </div>
 
 
-          <section className="more-product-information" id="product-description" style={{marginTop:"30px"}}>
+          <section className="more-product-information" id="product-description" style={{marginTop:"40px"}}>
             <div className="container pe-0 ps-0">
               <div className="product-description" style={{marginRight:"0", padding:"0"}}>
                 <div className="header-description">
@@ -296,11 +334,14 @@ const InformationBox = ({informationProduct}) => {
   );
 }
 
-const ProductDetailContent = ({informationProduct}) => {
+const ProductDetailContent = ({informationProduct, setOrderDetails, handleAddToCart, handleBuyNow}) => {
   return (
       <div className="detail-product-content">
         <ImagesProductSection informationProduct={informationProduct}/>
-        <InformationBox informationProduct={informationProduct}/>
+        <InformationBox informationProduct={informationProduct}
+                        handleAddToCart={handleAddToCart}
+                        handleBuyNow={handleBuyNow}
+        />
       </div>
   );
 }
