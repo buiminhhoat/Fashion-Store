@@ -21,6 +21,8 @@ public class Category {
     @Transient
     private List<Product> products;
 
+    @Transient
+    private List<Category> subCategories;
     public Category() {
 
     }
@@ -64,6 +66,14 @@ public class Category {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public List<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<Category> subCategories) {
+        this.subCategories = subCategories;
     }
 
     @Override
