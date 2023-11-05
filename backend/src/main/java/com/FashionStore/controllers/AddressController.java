@@ -62,4 +62,22 @@ public class AddressController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
     }
+
+    @PostMapping("/get-all-addresses")
+    public ResponseEntity<?> getAllAddresses(@RequestHeader("Authorization") String accessToken) {
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        Long userID = findByEmail.get(0).getUserID();
+
+        return ResponseEntity.ok(addressRepository.findAddressByUsersID(userID));
+    }
 }
