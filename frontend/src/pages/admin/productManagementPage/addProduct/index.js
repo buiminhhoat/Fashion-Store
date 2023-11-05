@@ -14,7 +14,6 @@ const AddProductPage = () => {
     productName: "",
     productPrice: "",
     productDescription: "",
-    productImages: [],
     productQuantities: [],
     productSizes: [],
     category:{},

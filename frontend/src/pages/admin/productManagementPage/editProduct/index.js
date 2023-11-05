@@ -13,14 +13,19 @@ const EditProductPage = () => {
     productName: "",
     productPrice: "",
     productDescription: "",
-    productImages: [],
     productQuantities: [],
     productSizes: [],
     category:{},
     parentCategory:{},
   });
 
-  async function addProduct() {
+  // useEffect(() => {
+  //   console.log("productImages");
+  //   console.log(productImages);
+  // }, [productImages]);
+
+
+  async function editProduct() {
     if (informationProduct.productName === "") {
       toast.warn("Vui lòng nhập thông tin tên sản phẩm");
       return;
@@ -37,8 +42,6 @@ const EditProductPage = () => {
       toast.warn("Vui lòng nhập mô tả sản phẩm");
       return;
     }
-
-    console.log(productImages)
 
     const formData = new FormData();
 
@@ -59,25 +62,33 @@ const EditProductPage = () => {
     // formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
 
 
-    // let apiAddProductUrl = "http://localhost:9999/api/add-product";
-    // fetch(apiAddProductUrl, {
-    //   method: 'POST',
-    //   body: formData,
-    // })
-    // .then((response) => {
-    //   if (!response.ok) {
-    //     throw new Error('Upload failed');
-    //   }
-    //   return response.json();
-    // })
-    // .then((data) => {
-    //   toast.success("Lưu thành công");
-    //   console.log('Upload successful:', data);
-    // })
-    // .catch((error) => {
-    //   toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-    //   console.error('Upload failed:', error);
-    // });
+    let apiAddProductUrl = "http://localhost:9999/api/add-product";
+    fetch(apiAddProductUrl, {
+      method: 'POST',
+      body: formData,
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      toast.success("Lưu thành công");
+      console.log('Upload successful:', data);
+    })
+    .catch((error) => {
+      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      console.error('Upload failed:', error);
+    });
+  }
+
+  async function fetchImageAsFile(imageUrl, imageName) {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+
+    const file = new File([blob], imageName, { type: blob.type });
+    return file;
   }
 
   useEffect(() => {
@@ -90,10 +101,21 @@ const EditProductPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           setInformationProduct(data);
 
-          // setProductImages();
+          const fetchImagePromises = data.productImages.map(imageData => {
+            const imageUrl = "http://localhost:9999/storage/images/" + imageData.imagePath;
+            return fetchImageAsFile(imageUrl, imageData.imagePath);
+          });
+
+          Promise.all(fetchImagePromises)
+              .then(files => {
+                setProductImages(files);
+              })
+              .catch(error => {
+                console.error("Error loading images:", error);
+              });
 
         } else {
           const data = await response.json();
@@ -121,14 +143,15 @@ const EditProductPage = () => {
           <div className="container pe-0 ps-0" style={{marginTop: "10px"}}>
             <ProductDetails informationProduct={informationProduct}
                             setInformationProduct={setInformationProduct}
-                            setParentProductImages={setProductImages}
+                            productImages={productImages}
+                            setProductImages={setProductImages}
             />
 
             <div data-v-03749d40="" className="product-edit__container">
               <div data-v-03749d40="" className="product-edit">
                 <section style={{ marginBottom:"50px" }}>
                   <div className="button-container">
-                    <button type="button" className="product-details-btn" onClick={addProduct}>
+                    <button type="button" className="product-details-btn" onClick={editProduct}>
                       Lưu lại
                     </button>
                     <button type="button" className="product-details-btn product-details-btn-danger">

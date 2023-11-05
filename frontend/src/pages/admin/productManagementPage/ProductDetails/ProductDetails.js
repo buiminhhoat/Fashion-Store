@@ -6,16 +6,12 @@ import SizeField from "./SizeField/SizeField";
 import {generateUniqueId} from "../../utils";
 import {toast} from "react-toastify";
 
-const ProductDetails = ({ informationProduct, setInformationProduct, setParentProductImages }) => {
+const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages }) => {
   const MAX_IMAGES = 8;
   const MAX_SIZE_FIELDS = 8;
-  const [productImages, setProductImages] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
 
   const inputRef = useRef(null);
-
-  //  set parent info
-  useEffect(() => { setParentProductImages(productImages) }, [productImages]);
 
   const handleDeleteImage = (index) => {
     const newProductImages = [...productImages];
@@ -205,7 +201,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, setParentPr
 
                             <div style={{ display: 'flex' }}>
                               {productImages.map((file, index) => (
-                                  <div className="image-box">
+                                  <div key={index} className="image-box">
                                     <img className="image-itembox" key={index} src={URL.createObjectURL(file)} alt={`Image ${index}`} />
                                     <div data-v-05032044="" data-v-1190c12e=""
                                          className="fashion-store-image-manager__tools">
