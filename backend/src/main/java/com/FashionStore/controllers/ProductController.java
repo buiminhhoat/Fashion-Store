@@ -68,13 +68,21 @@ public class ProductController {
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
         Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
         Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
-        String jsonSizeNameJson = request.getParameter("productSize");
-        String productSizeQuantityJson = request.getParameter("productSizeQuantity");
-        String jsonListParam = request.getParameter("productSizeQuantity");
+        String productSizesJson = request.getParameter("productSizes");
+        String productQuantitiesJson = request.getParameter("productQuantities");
+//        String jsonListParam = request.getParameter("productSizeQuantity");
         ObjectMapper objectMapper = new ObjectMapper();
-        List<ProductSizeQuantity> productSizeQuantities;
+
+        List<ProductSize> productSizes;
         try {
-            productSizeQuantities = objectMapper.readValue(jsonListParam, new TypeReference<List<ProductSizeQuantity>>(){});
+            productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<ProductQuantity> productQuantities;
+        try {
+            productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>(){});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -117,14 +125,18 @@ public class ProductController {
         ProductCategory productCategory = new ProductCategory(productId, categoryID, parentCategoryID);
         productCategoryRepository.save(productCategory);
 
-        for (ProductSizeQuantity productSizeQuantity: productSizeQuantities) {
-            ProductSize productSize = new ProductSize(productId, productSizeQuantity.getSizeName());
+        for (int i = 0; i < productSizes.size(); ++i) {
+            ProductSize productSize = productSizes.get(i);
+            productSize.setProductID(productId);
             productSizeRepository.save(productSize);
+
             Long sizeID = productSize.getSizeID();
-            ProductQuantity productQuantity = new ProductQuantity(productId, sizeID,
-                    Long.valueOf(productSizeQuantity.getQuantity()));
+            ProductQuantity productQuantity = productQuantities.get(i);
+            productQuantity.setProductID(productId);
+            productQuantity.setSizeID(sizeID);
             productQuantityRepository.save(productQuantity);
         }
+
         ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }

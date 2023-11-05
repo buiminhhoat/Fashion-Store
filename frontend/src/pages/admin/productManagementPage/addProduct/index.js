@@ -53,6 +53,9 @@ const AddProductPage = () => {
     formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
     formData.append('productSizes', JSON.stringify(informationProduct.productSizes));
 
+    console.log(JSON.stringify(informationProduct.productQuantities));
+    console.log(JSON.stringify(informationProduct.productSizes));
+
     // formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
 
     let apiAddProductUrl = "http://localhost:9999/api/add-product";
