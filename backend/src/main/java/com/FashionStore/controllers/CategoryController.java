@@ -73,7 +73,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/get-category")
+    @GetMapping("/get-all-category")
     public ResponseEntity<List<CategoryResponse>> getCategory() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
@@ -134,12 +134,15 @@ public class CategoryController {
         return product;
     }
 
-    @GetMapping("/get-all-product-category")
-    public ResponseEntity<?> getAllProductCategory() {
-        List<Category> parentCategories = categoryRepository.findCategoriesByParentCategoryID(null);
-        for (Category category: parentCategories) {
-            category.setSubCategories(categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID()));
+    @GetMapping("/get-category-details")
+    public ResponseEntity<?> getCategory(HttpServletRequest request) {
+        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
+        List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
+        List<Product> products = new ArrayList<>();
+        for (ProductCategory productCategory: productCategoryList) {
+            Long productID = productCategory.getProductID();
+            products.add(getProduct(productID));
         }
-        return ResponseEntity.ok(parentCategories);
+        return ResponseEntity.ok(products);
     }
 }
