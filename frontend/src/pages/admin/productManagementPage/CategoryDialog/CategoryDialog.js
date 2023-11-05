@@ -247,19 +247,19 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                         }
 
                         {categories.map((category, index) => (
-                            <li data-v-38ab3376="" className="category-item" key={index}
-                                onClick={() => handleCategoryClick(category)}
-                            >
-                              <p data-v-38ab3376="" className="text-overflow">{category.categoryName}</p>
-                              <div data-v-38ab3376="" className="category-item-right">
-                                <i data-v-38ab3376="" className="icon-next fashion-store-icon">
-                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                                    <path
-                                        d="M23.5 15.5l-12-11c-.6-.6-1.5-.6-2.1 0-.2.2-.4.6-.4 1s.2.8.4 1l10.9 10-10.9 10c-.6.6-.6 1.5 0 2.1.3.3.7.4 1 .4.4 0 .7-.1 1-.4l11.9-10.9.1-.1c.3-.3.4-.7.4-1.1.1-.4 0-.8-.3-1z"></path>
-                                  </svg>
-                                </i>
-                              </div>
-                            </li>
+                          <li data-v-38ab3376="" key={index} className="category-item" onClick={() => handleCategoryClick(category)}>
+                            <p data-v-38ab3376=""
+                               className={`text-overflow ${category.categoryID === selectedParentCategory.categoryID ? 'selected-category' : ''}`}
+                            >{category.categoryName}</p>
+                            <div data-v-38ab3376="" className="category-item-right">
+                              <i data-v-38ab3376="" className="icon-next fashion-store-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                                  <path className={`${category.categoryID === selectedParentCategory.categoryID ? 'selected-category' : ''}`}
+                                      d="M23.5 15.5l-12-11c-.6-.6-1.5-.6-2.1 0-.2.2-.4.6-.4 1s.2.8.4 1l10.9 10-10.9 10c-.6.6-.6 1.5 0 2.1.3.3.7.4 1 .4.4 0 .7-.1 1-.4l11.9-10.9.1-.1c.3-.3.4-.7.4-1.1.1-.4 0-.8-.3-1z"></path>
+                                </svg>
+                              </i>
+                            </div>
+                          </li>
                         ))}
                       </ul>
 
@@ -293,7 +293,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                           getSubcategoriesByParentCategoryID(selectedParentCategory.categoryID).map((subcategory, index) => (
                             <li data-v-38ab3376="" className="category-item" key={index}
                                 onClick={() => handleSubcategoryClick(subcategory)}>
-                              <p data-v-38ab3376="" className="text-overflow">
+                              <p data-v-38ab3376="" className={`text-overflow ${subcategory.categoryID === selectedCategory.categoryID ? 'selected-category' : ''}`}>
                                 {subcategory.categoryName}
                               </p>
                             </li>
