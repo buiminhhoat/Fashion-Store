@@ -101,7 +101,7 @@ const ProfileMenu = ({openModal}) => {
         <div className={`account_header position-absolute ${profileMenuVisible ? "show" : ""}`} style={{textDecoration: "none"}}>
           <ul className="p-0 m-0">
             <li>
-              <a href="/profile">
+              <a href="/profile/orders">
                 <b>Khanh Nguyễn</b>
               </a>
             </li>
