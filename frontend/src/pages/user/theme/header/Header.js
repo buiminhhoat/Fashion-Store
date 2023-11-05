@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
+import {toast} from "react-toastify";
 import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
@@ -123,41 +124,40 @@ const ProfileMenu = ({openModal}) => {
   );
 };
 
-const SearchDialog = (keyword) => {
+const SearchDialog = ({keyword}) => {
 
-  const searchItem = [
-      {
-        "productID": 1,
-        "productName": "Áo Nam 5S Fashion, Thiết Kế Basic, Lịch Lãm QAU23062",
-        "productPrice": 551000,
-        "productImages": [
-          {
-            "imageID": 1,
-            "productID": 1,
-            "imagePath": "3ab0377c-5c74-45ee-b7fd-f1035635e8a8.jpg" //./images/trouser.jpg
-          }
-        ],
-      },
-      {
-        "productID": 6,
-        "productName": "Quần Nam 5S Fashion, Thiết Kế Basic, Lịch Lãm QAU23062",
-        "productPrice": 551000,
-        "productImages": [
-          {
-            "imageID": 1,
-            "productID": 1,
-            "imagePath": "82487fc9-e024-4a8c-824e-95b4bbee60a2.jpg" //./images/trouser.jpg
-          }
-        ],
+  const apiProductBySearch = "http://localhost:9999/api/search/" + keyword;
+  const [searchItem, setSearchItem] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiProductBySearch, {
+          method: 'GET',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          // console.log(data);
+          setSearchItem(data.slice(0, 5));
+        } else {
+          const data = await response.json();
+          console.log(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error('Không kết nối được với database');
       }
-    ]
+    }
+    fetchData().then(r => {});
+  }, [keyword]);
 
-  // console.log(keyword.keyword)
-  // console.log(searchItem[0].productName.toLowerCase().includes('á'))
-  const filteredSearchItem = searchItem.filter((product) => {
-    return product.productName.toLowerCase().includes(keyword.keyword.toString().toLowerCase());
-  });
-  // console.log(filteredSearchItem)
+  // const filteredSearchItem = searchItem.filter((product) => {
+  //   return product.productName.toLowerCase().includes(keyword.toString().toLowerCase());
+  // });
+
+  const filteredSearchItem = searchItem;
+
   const [isDialogVisible, setIsDialogVisible] = useState(true);
   const hasResults = filteredSearchItem.length > 0;
 
@@ -183,6 +183,11 @@ const SearchDialog = (keyword) => {
               </Link>
             </div>
         ))}
+        <div class="view_all_search">
+          <Link to={"/search/" + keyword}>
+            <div title="Xem tất cả">Xem tất cả</div>
+          </Link>
+        </div>
       </div>)
   );
 };
@@ -235,7 +240,7 @@ function SearchBar() {
 
   return (
       <div className="search-box position-relative">
-        <form action="https://5sfashion.vn/search" method="get">
+        <form>
           <input
               id="search-product"
               name="query"
