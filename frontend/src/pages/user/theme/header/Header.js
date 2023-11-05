@@ -276,99 +276,99 @@ function SearchBar() {
 
 const Header = () => {
   const menuItems = [
-    { to: "/danh-muc/sale", text: "SALE" },
+    { to: "/category/sale", text: "SALE" },
     {
-      to: "/danh-muc/ao-nam",
+      to: "/category/ao-nam",
       text: "ÁO NAM",
       subMenuItems: [
         {
-          to: "/danh-muc/ao-thun-nam",
+          to: "/category/ao-thun-nam",
           text: "Áo Nam Xuân Hè",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/danh-muc/ao-polo-nam", text: "Áo Polo Nam" },
-            { to: "/danh-muc/ao-so-mi-nam", text: "Áo Sơ Mi Nam" },
-            { to: "/danh-muc/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/danh-muc/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
+            { to: "/category/ao-polo-nam", text: "Áo Polo Nam" },
+            { to: "/category/ao-so-mi-nam", text: "Áo Sơ Mi Nam" },
+            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
           ],
         },
         {
-          to: "/danh-muc/ao-len-nam",
+          to: "/category/ao-len-nam",
           text: "Áo Nam Thu Đông",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/danh-muc/ao-ni-nam", text: "Áo Nỉ Nam" },
-            { to: "/danh-muc/ao-khoac-nam", text: "Áo Khoác Nam" },
-            { to: "/danh-muc/ao-len-nam", text: "Áo Len Nam" },
+            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+            { to: "/category/ao-ni-nam", text: "Áo Nỉ Nam" },
+            { to: "/category/ao-khoac-nam", text: "Áo Khoác Nam" },
+            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
           ],
         },
       ],
     },
     {
-      to: "/danh-muc/quan-nam",
+      to: "/category/quan-nam",
       text: "QUẦN NAM",
       subMenuItems: [
         {
-          to: "/danh-muc/ao-thun-nam",
+          to: "/category/ao-thun-nam",
           text: "Áo Nam Xuân Hè",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/danh-muc/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/danh-muc/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
+            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
           ],
         },
         {
-          to: "/danh-muc/ao-len-nam",
+          to: "/category/ao-len-nam",
           text: "Áo Nam Thu Đông",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/danh-muc/ao-len-nam", text: "Áo Len Nam" },
+            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
           ],
         },
       ],
     },
     {
-      to: "/danh-muc/quan-nam",
+      to: "/category/quan-nam",
       text: "PHỤ KIỆN",
       subMenuItems: [
         {
-          to: "/danh-muc/ao-thun-nam",
+          to: "/category/ao-thun-nam",
           text: "Áo Nam Xuân Hè",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/danh-muc/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/danh-muc/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
+            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
           ],
         },
         {
-          to: "/danh-muc/ao-len-nam",
+          to: "/category/ao-len-nam",
           text: "Áo Nam Thu Đông",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/danh-muc/ao-len-nam", text: "Áo Len Nam" },
+            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
           ],
         },
       ],
     },
     {
-      to: "/danh-muc/quan-nam",
+      to: "/category/quan-nam",
       text: "BỘ SƯU TẬP",
       subMenuItems: [
         {
-          to: "/danh-muc/ao-thun-nam",
+          to: "/category/ao-thun-nam",
           text: "Áo Nam Xuân Hè",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/danh-muc/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/danh-muc/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
+            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
           ],
         },
         {
-          to: "/danh-muc/ao-len-nam",
+          to: "/category/ao-len-nam",
           text: "Áo Nam Thu Đông",
           subMenuItems: [
-            { to: "/danh-muc/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/danh-muc/ao-len-nam", text: "Áo Len Nam" },
+            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
           ],
         },
       ],
@@ -416,53 +416,6 @@ const Header = () => {
                 </div>
                 <div className="col-3 content-right d-flex justify-content-end align-items-center ps-0 pe-0">
                   <SearchBar/>
-                  {/*<div className="search-box position-relative">*/}
-
-                  {/*  <form action="https://5sfashion.vn/search" method="get">*/}
-                  {/*    <input*/}
-                  {/*        id="search-product"*/}
-                  {/*        name="query"*/}
-                  {/*        autoComplete="off"*/}
-                  {/*        type="text"*/}
-                  {/*        className="input-search form-control w-100 h-100 d-flex align-items-center"*/}
-                  {/*        placeholder="Tìm kiếm sản phẩm ..."*/}
-                  {/*    />*/}
-                  {/*    <Link to={"/search"}>*/}
-                  {/*      <button className="btn btn-search position-absolute d-flex align-items-center justify-content-center" type="submit">*/}
-                  {/*        <img src={search} className="icon-search" alt="icon search" />*/}
-                  {/*      </button>*/}
-                  {/*    </Link>*/}
-                  {/*    {(*/}
-                  {/*        <div>*/}
-                  {/*          <SearchDialog/>*/}
-                  {/*        </div>*/}
-                  {/*    )}*/}
-                  {/*  </form>*/}
-
-                  {/*  /!*<div className="result-box position-absolute" style={{ display: 'block' }}>*!/*/}
-                  {/*  /!*  <a href="https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008">*!/*/}
-                  {/*  /!*    <div className="item-search d-flex">*!/*/}
-                  {/*  /!*      <div className="product-image d-flex align-items-center justify-content-start">*!/*/}
-                  {/*  /!*        <img src="https://5sfashion.vn/storage/upload/images/products/bOGPTwiRZZ8ajKdGmOPZElP9XuSw7HvE3ODBs8f1.jpg" alt="ATO23008TTH (1)" />*!/*/}
-                  {/*  /!*      </div>*!/*/}
-                  {/*  /!*      <div className="product-info">*!/*/}
-                  {/*  /!*        <div className="product-name">*!/*/}
-                  {/*  /!*          {searchItem[0].ProductName}*!/*/}
-                  {/*  /!*        </div>*!/*/}
-                  {/*  /!*        <div className="product-price d-flex align-items-center">*!/*/}
-                  {/*  /!*          <div className="sale-price">*!/*/}
-                  {/*  /!*            /!*249.000&nbsp;₫*!/*!/*/}
-                  {/*  /!*            {fommatter(searchItem[0].ProductPrice)}*!/*/}
-                  {/*  /!*          </div>*!/*/}
-                  {/*  /!*        </div>*!/*/}
-                  {/*  /!*      </div>*!/*/}
-                  {/*  /!*    </div>*!/*/}
-                  {/*  /!*  </a>*!/*/}
-                  {/*  /!*</div>*!/*/}
-
-                  {/*  /!*<div className="result-box position-absolute" style={{ display: "none" }}></div>*!/*/}
-
-                  {/*</div>*/}
 
                   <div className="header-tool h-100">
                     <div className="d-flex justify-content-end align-items-center h-100">
