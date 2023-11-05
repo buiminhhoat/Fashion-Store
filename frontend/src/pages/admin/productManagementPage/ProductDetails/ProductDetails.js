@@ -9,6 +9,8 @@ import {toast} from "react-toastify";
 const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages }) => {
   const MAX_IMAGES = 8;
   const MAX_SIZE_FIELDS = 8;
+  const MAX_LENGTH_PRODUCT_NAME= 120;
+  const MAX_LENGTH_PRODUCT_DESCRIPTION = 2000;
   const [openDialog, setOpenDialog] = useState(null);
 
   const inputRef = useRef(null);
@@ -124,7 +126,9 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
   }
 
   const handleInputProductName = (e) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    value = value.substring(0, MAX_LENGTH_PRODUCT_NAME);
+
     const newInformationProduct = {
       ...informationProduct,
       productName: value,
@@ -134,10 +138,9 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
 
   const handleInputProductPrice = (e) => {
     const value = e.target.value;
-    // console.log(value);
-    // if (!isNaN(value)) {
-    //   return;
-    // }
+    if (isNaN(value)) {
+      return;
+    }
 
     const newInformationProduct = {
       ...informationProduct,
@@ -147,7 +150,9 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
   }
 
   const handleInputProductDescription = (e) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    value = value.substring(0, MAX_LENGTH_PRODUCT_DESCRIPTION);
+
     const newInformationProduct = {
       ...informationProduct,
       productDescription: value,
@@ -294,7 +299,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                                   />
                                   <div className="fashion-store-input__suffix">
                                     <span className="fashion-store-input__suffix-split"></span>
-                                    0/120
+                                    {informationProduct.productName.length + '/' + MAX_LENGTH_PRODUCT_NAME}
                                   </div>
                                 </div>
 
@@ -447,9 +452,9 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                                         onChange={handleInputProductDescription}
                               ></textarea>
                             </div>
-                            <div className="text-area-label" style={{fontSize: "14px"}}>
-                              <span className="text-area-label-pre">0</span>
-                              <span>/3000</span>
+                            <div className="text-area-label" style={{fontSize: "14px", color:"#999999"}}>
+                              <span className="text-area-label-pre">{informationProduct.productDescription.length}</span>
+                              <span>{'/' + MAX_LENGTH_PRODUCT_DESCRIPTION}</span>
                             </div>
                           </div>
 
