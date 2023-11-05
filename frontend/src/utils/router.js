@@ -4,6 +4,7 @@ export const ROUTERS = {
         PROFILE: "/profile/*",
         LOGIN: "/login",
         SEARCH: "/search",
+        CHECKOUT: "/checkout",
         PRODUCT: "/product/:productID"
     },
     ADMIN: {
