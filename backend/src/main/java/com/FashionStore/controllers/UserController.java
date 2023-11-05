@@ -98,4 +98,16 @@ public class UserController {
         ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
         return ResponseEntity.ok(responseObject);
     }
+
+    @PostMapping("/delete-user")
+    public ResponseEntity<?> deleteUser(HttpServletRequest request) {
+        Long userID = Long.valueOf(request.getParameter("userID"));
+
+        Users user = usersRepository.findUsersByUserID(userID);
+
+        usersRepository.delete(user);
+
+        ResponseObject responseObject = new ResponseObject("Thông tin người dùng đã được xóa");
+        return ResponseEntity.ok(responseObject);
+    }
 }
