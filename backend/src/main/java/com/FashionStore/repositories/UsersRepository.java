@@ -10,4 +10,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     List<Users> findUsersByPhoneNumber(String phoneNumber);
     List<Users> findUsersByEmailAndHashedPassword(String email, String hashedPassword);
     List<Users> findUsersByPhoneNumberAndHashedPassword(String phoneNumber, String hashedPassword);
+
+    Users findUsersByUserID(Long userID);
 }
