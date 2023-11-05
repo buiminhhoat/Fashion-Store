@@ -18,7 +18,7 @@ const productsData = [
     "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
   },
   {
-    "productID": 1,
+    "productID": 6,
     "productName": "Quần Nam 5S Fashion, Thiết Kế Basic, Lịch Lãm QAU23062",
     "productPrice": 551000,
     "productImages": [
