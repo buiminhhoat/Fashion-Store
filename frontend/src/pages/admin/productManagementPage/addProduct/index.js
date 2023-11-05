@@ -91,7 +91,7 @@ const AddProductPage = () => {
             <ProductDetails informationProduct={informationProduct}
                             setInformationProduct={setInformationProduct}
                             productImages={productImages}
-                            setParentProductImages={setProductImages}
+                            setProductImages={setProductImages}
             />
 
             <div data-v-03749d40="" className="product-edit__container">
