@@ -88,10 +88,10 @@ const ProfilePersonalInformationPage = () => {
                     throw new Error("Không có refresh token.");
                 }
 
-                const apiFetchUserData = "http://localhost:9999/api/user-data";
+                const apiFetchUserData = "http://localhost:9999/api/get-user-data";
 
                 const response = await fetch(apiFetchUserData, {
-                    method: "POST",
+                    method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*",
