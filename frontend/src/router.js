@@ -11,6 +11,8 @@ import SearchProductPage from "./pages/user/searchProductPage";
 import ProductDetailPage from "./pages/user/productDetailPage";
 import NotFoundPage from "./pages/error/notFoundPage";
 import CheckoutPage from "./pages/user/checkoutPage";
+import CategoryPage from "./pages/user/categoryPage";
+import CartPage from "./pages/user/cartPage";
 
 const userRouters =  [
     {
@@ -36,6 +38,14 @@ const userRouters =  [
     {
         path: ROUTERS.USER.CHECKOUT,
         component: <CheckoutPage />
+    },
+    {
+        path: ROUTERS.USER.CATEGORY,
+        component: <CategoryPage />
+    },
+    {
+        path: ROUTERS.USER.CART,
+        component: <CartPage />
     }
 ];
 
