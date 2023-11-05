@@ -42,4 +42,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+    @GetMapping("/get-all-users")
+    public ResponseEntity<?> getAllUsers() {
+        List<Users> users = usersRepository.findAll();
+        for (Users user: users) {
+            user.setHashedPassword(null);
+        }
+        return ResponseEntity.ok(users);
+    }
 }
