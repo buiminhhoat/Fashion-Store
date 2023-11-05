@@ -22,6 +22,9 @@ public class CartItem {
     @Column(name = "QuantityPurchase")
     private Long quantityPurchase;
 
+    @Transient
+    Product product;
+
     public CartItem() {
     }
 
@@ -70,5 +73,13 @@ public class CartItem {
 
     public void setQuantityPurchase(Long quantityPurchase) {
         this.quantityPurchase = quantityPurchase;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
