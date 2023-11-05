@@ -218,7 +218,7 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(HttpServletRequest request) {
         Long productID = Long.valueOf(request.getParameter("productID"));
 
-        Product product = productRepository.findProductByProductID(productID);
+//        Product product = productRepository.findProductByProductID(productID);
 
         try {
             cleanProduct(productID);
@@ -226,7 +226,7 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
         }
 
-        productRepository.delete(product);
+//        productRepository.delete(product);
 
         ResponseObject responseObject = new ResponseObject("Đã xóa sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
@@ -247,15 +247,26 @@ public class ProductController {
             productImageRepository.delete(productImage);
         }
 
-        /* Product Category */
-        ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
-        productCategoryRepository.delete(productCategory);
+        try {
+            /* Product Category */
+            ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
+            if (productCategory != null)
+                productCategoryRepository.delete(productCategory);
 
-        /* Product Size */
-        productSizeRepository.deleteAll(productSizeRepository.findProductSizeByProductID(productID));
+            /* Product Quantity*/
+            productQuantityRepository.deleteAll(productQuantityRepository.findProductQuantitiesByProductID(productID));
 
-        /* Product Quantity*/
-        productQuantityRepository.deleteAll(productQuantityRepository.findProductQuantitiesByProductID(productID));
+            /* Product Size */
+            productSizeRepository.deleteAll(productSizeRepository.findProductSizeByProductID(productID));
+
+
+            // Xóa Product chính
+            productRepository.deleteById(productID);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+
     }
     @GetMapping("/search/{productName}")
     public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
