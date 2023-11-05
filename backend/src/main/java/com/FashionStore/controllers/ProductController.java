@@ -278,7 +278,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{productID}")
-    public ResponseEntity<?> searchProductByProductName(@PathVariable Long productID) {
+    public ResponseEntity<?> searchProductByProductID(@PathVariable Long productID) {
         Product product = productRepository.findProductByProductID(productID);
         product = getProductDetails(product.getProductID());
         return ResponseEntity.ok(product);
