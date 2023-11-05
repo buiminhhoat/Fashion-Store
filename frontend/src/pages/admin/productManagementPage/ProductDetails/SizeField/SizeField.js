@@ -1,24 +1,14 @@
 import { useState} from "react";
 import "./style.scss";
 
-const SizeField = ({ id, onClose, onSizeNameChange, onQuantityChange }) => {
-    const [sizeName, setSizeName] = useState('');
-    const [quantity, setQuantity] = useState('');
-
-    const check = () => {
-      // console.log(sizeName);
-    };
-
-    const handleSizeNameChange = (event) => {
-      const newSizeName = event.target.value;
-      // console.log("change")
-      setSizeName(newSizeName);
+const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuantityChange }) => {
+    const handleSizeNameChange = (e) => {
+      const newSizeName = e.target.value;
       onSizeNameChange(id, newSizeName);
     };
 
-    const handleQuantityChange = (event) => {
-      const newQuantity = event.target.value;
-      setQuantity(newQuantity);
+    const handleQuantityChange = (e) => {
+      const newQuantity = e.target.value;
       onQuantityChange(id, newQuantity);
     };
 
@@ -42,7 +32,8 @@ const SizeField = ({ id, onClose, onSizeNameChange, onQuantityChange }) => {
                  className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
                  data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
               <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                <input onChange = {handleSizeNameChange} onClick={check} value={sizeName}
+                <input onChange = {handleSizeNameChange}
+                       value={informationProduct.productSizes.find((size) => size.sizeID === id).sizeName}
                        type="text" placeholder="ví dụ: S, M, L, XL, v.v.." resize="none"
                        rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
@@ -66,7 +57,8 @@ const SizeField = ({ id, onClose, onSizeNameChange, onQuantityChange }) => {
                  className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
                  data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
               <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                <input onChange = {handleQuantityChange} value={quantity}
+                <input onChange = {handleQuantityChange}
+                       value={informationProduct.productQuantities.find((quantity) => quantity.quantityID === id).quantity}
                        type="text" placeholder="Nhập số lượng" resize="none"
                        rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>

@@ -3,69 +3,78 @@ import "./style.scss"
 
 import ProductDetails from "../ProductDetails/ProductDetails";
 import {toast} from "react-toastify";
+import {useParams} from "react-router-dom";
 
 const AddProductPage = () => {
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
-  const [productDescription, setProductDescription] = useState("");
+  const { productID } = useParams();
   const [productImages, setProductImages] = useState([]);
-  const [productSizeQuantity, setProductSizeQuantity] = useState([]);
+
+  const [informationProduct, setInformationProduct] = useState({
+    productID: productID,
+    productName: "",
+    productPrice: "",
+    productDescription: "",
+    productImages: [],
+    productQuantities: [],
+    productSizes: [],
+    category:{},
+    parentCategory:{},
+  });
 
   async function addProduct() {
-    if (productName === "") {
+    if (informationProduct.productName === "") {
       toast.warn("Vui lòng nhập thông tin tên sản phẩm");
       return;
     }
-    if (productPrice === "") {
+    if (informationProduct.productPrice === "") {
       toast.warn("Vui lòng nhập giá sản phẩm");
       return;
     }
-    if (selectedCategoriesNameID.length < 2) {
-      toast.warn("Vui lòng cho danh mục sản phẩm");
+    if (informationProduct.category === {} && informationProduct.parentCategory === {}) {
+      toast.warn("Vui lòng chọn danh mục sản phẩm");
       return;
     }
-    if (productDescription === "") {
+    if (informationProduct.productDescription === "") {
       toast.warn("Vui lòng nhập mô tả sản phẩm");
       return;
     }
 
     const formData = new FormData();
 
-    for (const file of productImages) {
-      formData.append('productImages', file);
-    }
+    formData.append('productID', informationProduct.productID);
+    formData.append('productName', informationProduct.productName);
+    formData.append('productPrice', informationProduct.productPrice);
+    formData.append('productDescription', informationProduct.productDescription);
 
-    formData.append('productName', productName);
+    for (const file of productImages) { formData.append('productImages', file);}
 
-    formData.append('productPrice', productPrice);
+    formData.append('CategoryID', informationProduct.category.categoryID);
+    formData.append('ParentCategoryID', informationProduct.parentCategory.categoryID);
 
-    formData.append('ParentCategoryID', selectedCategoriesNameID[0].categoryID);
-    formData.append('CategoryID', selectedCategoriesNameID[1].categoryID);
+    formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
+    formData.append('productSizes', JSON.stringify(informationProduct.productSizes));
 
-    formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
-    console.log(selectedCategoriesNameID);
-
-    formData.append('productDescription', productDescription);
-
+    // formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
 
     let apiAddProductUrl = "http://localhost:9999/api/add-product";
     fetch(apiAddProductUrl, {
       method: 'POST',
       body: formData,
     })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Upload failed');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log('Upload successful:', data);
-        })
-        .catch((error) => {
-          console.error('Upload failed:', error);
-        });
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      toast.success("Lưu thành công");
+      console.log('Upload successful:', data);
+    })
+    .catch((error) => {
+      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      console.error('Upload failed:', error);
+    });
   }
 
   return (
@@ -80,12 +89,10 @@ const AddProductPage = () => {
           </div>
 
           <div className="container pe-0 ps-0" style={{marginTop: "10px"}}>
-            <ProductDetails setParentProductName={setProductName}
-                            setParentProductPrice={setProductPrice}
-                            setParentSelectedCategoriesNameID={setSelectedCategoriesNameID}
-                            setParentProductDescription={setProductDescription}
+            <ProductDetails informationProduct={informationProduct}
+                            setInformationProduct={setInformationProduct}
                             setParentProductImages={setProductImages}
-                            setParentProductSizeQuantity={setProductSizeQuantity}/>
+            />
 
             <div data-v-03749d40="" className="product-edit__container">
               <div data-v-03749d40="" className="product-edit">

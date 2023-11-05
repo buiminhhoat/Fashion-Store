@@ -8,16 +8,28 @@ import {toast} from "react-toastify";
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [inputCategoryValue, setInputCategoryValue] = useState('');
   const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const [inputSubcategoryValue, setInputSubcategoryValue] = useState('');
   const [isAddingSubcategory, setIsAddingSubcategory] = useState(false);
 
-  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
-  const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
+  const [selectedParentCategory, setSelectedParentCategory] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState({});
 
-  const [categories, setCategories] = useState([]);
+
+  const inputCategoryRef = useRef(null);
+  const inputSubcategoryRef = useRef(null);
 
   const apiGetCategory = "http://localhost:9999/api/get-all-categories";
+
+  const handleButtonCloseClick = () => {
+    onClose();
+  };
+
+  const handleSubmitCategoryDialog = () => {
+    onConfirm(selectedCategory, selectedParentCategory);
+  };
+
   const fetchData = async () => {
     try {
       const response = await fetch(apiGetCategory, {
@@ -26,31 +38,22 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log("apiGetCategory");
+        console.log(data);
 
         setCategories(data);
-        // console.log(data);
-        //
-        // if (inputCategoryValue !== "") {
-        //   setCategories([...categories, {id: 0, name: inputCategoryValue}]);
-        // }
-        //
-        // setInputCategoryValue("");
-        // setIsAddingCategory(false);
       } else {
         const data = await response.json();
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error("Không kết nối được với database");
     }
   }
 
-  fetchData().then(r => {
-
-  });
-
-  const inputCategoryRef = useRef(null);
-  const inputSubcategoryRef = useRef(null);
+  useEffect(() => {
+    fetchData().then(r => {});
+  }, []);
 
   useEffect(() => {
     if (isAddingCategory && inputCategoryRef) {
@@ -64,45 +67,35 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     }
   }, [isAddingSubcategory]);
 
-  const handleButtonCloseClick = () => {
-    onClose();
-  };
-
-  const getSubcategoriesByName = (categoryName) => {
-    const selectedCategory = categories.find((category) => category.categoryName === categoryName);
+  const getSubcategoriesByParentCategoryID = (categoryID) => {
+    const selectedCategory = categories.find((category) => category.categoryID === categoryID);
     return selectedCategory ? (selectedCategory.subcategories ? selectedCategory.subcategories : []) : [];
   };
 
-  const handleCategoryClick = (categoryNameID) => {
+  const handleCategoryClick = (category) => {
     handleCancelCategoryClick();
     handleCancelSubcategoryClick();
-    setSelectedCategoryName(categoryNameID.categoryName);
-    setSelectedCategoriesNameID([categoryNameID]);
+    setSelectedCategory({});
+    setSelectedParentCategory(category);
   };
 
-  const handleSubcategoryClick = (categoryNameID) => {
+  const handleSubcategoryClick = (subcategory) => {
     handleCancelCategoryClick();
     handleCancelSubcategoryClick();
-    const newSelectedCategoriesNameID = [selectedCategoriesNameID[0], categoryNameID];
-    setSelectedCategoriesNameID(newSelectedCategoriesNameID);
-  };
-
-  const handleSubmitCategoryDialog = () => {
-    console.log(selectedCategoriesNameID);
-    onConfirm(selectedCategoriesNameID);
+    setSelectedCategory(subcategory);
   };
 
   // handle category
   const handleAddCategoryClick = () => {
-    setSelectedCategoryName(null);
-    setSelectedCategoriesNameID(null);
+    setSelectedCategory({});
+    setSelectedParentCategory({});
     handleCancelSubcategoryClick();
     setIsAddingCategory(true);
   };
 
   const apiAddCategoryUrl = "http://localhost:9999/api/add-category";
 
-  const handleCategory = async () => {
+  const handleSaveCategory = async () => {
     let parentCategoryID = 0;
     const formData = new FormData();
     formData.append('categoryName', inputCategoryValue);
@@ -115,7 +108,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.ok) {
         const data = await response.json();
-        alert(data.message);
+        toast.success(data.message);
 
         if (inputCategoryValue !== "") {
           setCategories([...categories, { id: 0, name: inputCategoryValue }]);
@@ -126,15 +119,15 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         fetchData();
       } else {
         const data = await response.json();
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error("Không kết nối được với database");
     }
   };
 
-  const handleSubCategory = async () => {
-    let parentCategoryID = selectedCategoriesNameID[0].categoryID;
+  const handleSaveSubCategory = async () => {
+    let parentCategoryID = selectedParentCategory.categoryID;
     let categoryName = inputSubcategoryValue;
 
     const formData = new FormData();
@@ -149,7 +142,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.ok) {
         const data = await response.json();
-        alert(data.message);
+        toast.success(data.message);
 
         if (inputCategoryValue !== "") {
           setCategories([...categories, { id: 0, name: inputCategoryValue }]);
@@ -160,7 +153,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         fetchData();
       } else {
         const data = await response.json();
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error("Không kết nối được với database");
@@ -168,7 +161,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSaveCategoryClick = () => {
-    handleCategory().then(r => {
+    handleSaveCategory().then(r => {
 
     });
   };
@@ -185,8 +178,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSaveSubcategoryClick = () => {
     if (inputSubcategoryValue !== "") {
-      handleSubCategory();
-      addSubcategory(selectedCategoryName, { id: 0, name: inputSubcategoryValue});
+      handleSaveSubCategory();
+      addSubcategory({ id: 0, name: inputSubcategoryValue});
     }
     setInputSubcategoryValue("");
     setIsAddingSubcategory(false);
@@ -197,15 +190,15 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingSubcategory(false);
   };
 
-  const addSubcategory = (categoryName, subcategory) => {
+  const addSubcategory = (newSubcategory) => {
     const newCategories = [...categories];
-    const parentCategory = newCategories.find(category => category.categoryName === categoryName);
+    const parentCategory = newCategories.find(category => category.categoryID === selectedCategory.ID);
 
     if (parentCategory) {
       if (!parentCategory.subcategories) {
         parentCategory.subcategories = [];
       }
-      parentCategory.subcategories.push(subcategory);
+      parentCategory.subcategories.push(newSubcategory);
 
       setCategories(newCategories);
     }
@@ -255,11 +248,9 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
                         {categories.map((category, index) => (
                             <li data-v-38ab3376="" className="category-item" key={index}
-                                onClick={() => handleCategoryClick({categoryID: category.categoryID,
-                                  categoryName: category.categoryName})}>
-                              <p data-v-38ab3376="" className="text-overflow">
-                                {category.categoryName}
-                              </p>
+                                onClick={() => handleCategoryClick(category)}
+                            >
+                              <p data-v-38ab3376="" className="text-overflow">{category.categoryName}</p>
                               <div data-v-38ab3376="" className="category-item-right">
                                 <i data-v-38ab3376="" className="icon-next fashion-store-icon">
                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -273,38 +264,41 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                       </ul>
 
                       <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
-                        {selectedCategoryName === null ? "" :
-                          <div>
-                            {isAddingSubcategory ?
-                              <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
-                                <div data-v-38ab3376="" className="text-overflow">
-                                  <input className="input-category" type="text" ref={inputSubcategoryRef}
-                                         onChange={(e) => setInputSubcategoryValue(e.target.value)}/>
-                                </div>
-                                <div data-v-38ab3376="" className="category-item-right">
-                                  <MdOutlineClose onClick={handleCancelSubcategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
-                                  <BsCheckLg onClick={handleSaveSubcategoryClick} className="btn-add pointer-cursor"/>
-                                </div>
-                              </li>
-                              :
-                              <li data-v-38ab3376="" className="category-item" onClick={handleAddSubcategoryClick}>
-                                <div data-v-38ab3376="" className="text-overflow">
-                                  <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
-                                </div>
-                              </li>
-                            }
-                          </div>
+                        {
+                          selectedParentCategory.categoryName?
+                            <div>
+                              {isAddingSubcategory ?
+                                <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
+                                  <div data-v-38ab3376="" className="text-overflow">
+                                    <input className="input-category" type="text" ref={inputSubcategoryRef}
+                                           onChange={(e) => setInputSubcategoryValue(e.target.value)}/>
+                                  </div>
+                                  <div data-v-38ab3376="" className="category-item-right">
+                                    <MdOutlineClose onClick={handleCancelSubcategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
+                                    <BsCheckLg onClick={handleSaveSubcategoryClick} className="btn-add pointer-cursor"/>
+                                  </div>
+                                </li>
+                                :
+                                <li data-v-38ab3376="" className="category-item" onClick={handleAddSubcategoryClick}>
+                                  <div data-v-38ab3376="" className="text-overflow">
+                                    <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
+                                  </div>
+                                </li>
+                              }
+                            </div>
+                          : <></>
                         }
 
-                        {getSubcategoriesByName(selectedCategoryName).map((category, index) => (
+                        {
+                          getSubcategoriesByParentCategoryID(selectedParentCategory.categoryID).map((subcategory, index) => (
                             <li data-v-38ab3376="" className="category-item" key={index}
-                                onClick={() => handleSubcategoryClick(
-                                    {categoryID: category.categoryID, categoryName: category.categoryName})}>
+                                onClick={() => handleSubcategoryClick(subcategory)}>
                               <p data-v-38ab3376="" className="text-overflow">
-                                {category.categoryName}
+                                {subcategory.categoryName}
                               </p>
                             </li>
-                        ))}
+                          ))
+                        }
                       </ul>
 
                     </div>
@@ -316,12 +310,23 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
           <div className="fashion-store-modal__footer with-assist">
             <div data-v-59dc2242="" className="category-selected" style={{display:"flex"}}>
               <span data-v-59dc2242="" className="label" style={{fontSize:"14px", marginRight: "5px"}}>Đã chọn: </span>
-              {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 0 ? <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span> : ""}
-              {(selectedCategoriesNameID ? selectedCategoriesNameID : []).map((categoryNameID, index) => (
-                  <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                    {categoryNameID.categoryName} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
+
+              {
+                selectedParentCategory.categoryName ?
+                  <span style={{fontSize:"14px", marginRight: "5px"}} >
+                    {selectedParentCategory.categoryName}
+
+                    {
+                      selectedCategory.categoryName ?
+                        (" > " + selectedCategory.categoryName)
+                      :
+                        ""
+                    }
                   </span>
-              ))}
+                :
+                  <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span>
+              }
+
             </div>
 
             <div className="fashion-store-modal__footer-buttons">
@@ -330,13 +335,15 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                       onClick={handleButtonCloseClick}>
                 <span>Hủy</span>
               </button>
-              {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 2 ?
+
+              {
+                selectedCategory.categoryName && selectedParentCategory.categoryName ?
                   <button type="button"
                           onClick={handleSubmitCategoryDialog}
                           className="fashion-store-button fashion-store-button--primary fashion-store-button--normal">
                     <span>Xác nhận</span>
                   </button>
-              :
+                :
                   <button type="button" disabled="disabled"
                           className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
                     <span>Xác nhận</span>

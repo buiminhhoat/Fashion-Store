@@ -6,41 +6,16 @@ import SizeField from "./SizeField/SizeField";
 import {generateUniqueId} from "../../utils";
 import {toast} from "react-toastify";
 
-const ProductDetails = ({ setParentProductName, setParentProductPrice, setParentSelectedCategoriesNameID, setParentProductDescription,
-                        setParentProductImages, setParentProductSizeQuantity }) => {
-
-  const [cookies] = useCookies(['access_token']);
-  const accessToken = cookies.access_token;
-
+const ProductDetails = ({ informationProduct, setInformationProduct, setParentProductImages }) => {
   const MAX_IMAGES = 8;
   const MAX_SIZE_FIELDS = 8;
   const [productImages, setProductImages] = useState([]);
   const [openDialog, setOpenDialog] = useState(null);
-  const [selectedCategoriesNameID, setSelectedCategoriesNameID] = useState(null);
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [sizeFields, setSizeFields] = useState([]);
-  const [deletedSizeFieldID, setDeletedSizeFieldID] = useState(null);
-  const [listDeletedSizeFieldID, setListDeletedSizeFieldID] = useState([]);
-  const [changedQuantity, setChangedQuantity] = useState(null);
-  const [changedSizeName, setChangedSizeName] = useState(null);
-  const [productSizeQuantity, setProductSizeQuantity] = useState([]);
 
   const inputRef = useRef(null);
 
   //  set parent info
-  useEffect(() => { setParentProductName(productName) }, [productName]);
-  useEffect(() => { setParentProductPrice(productPrice) }, [productPrice]);
-  useEffect(() => { setParentSelectedCategoriesNameID(selectedCategoriesNameID) }, [selectedCategoriesNameID]);
-  useEffect(() => { setParentProductDescription(productDescription) }, [productDescription]);
   useEffect(() => { setParentProductImages(productImages) }, [productImages]);
-  useEffect(() => { setParentProductSizeQuantity(productSizeQuantity) }, [productSizeQuantity]);
-
-  const handleDialogConfirm = (data) => {
-    setSelectedCategoriesNameID(data);
-    closeModal();
-  };
 
   const handleDeleteImage = (index) => {
     const newProductImages = [...productImages];
@@ -75,98 +50,124 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
     closeModal();
   };
 
-  useEffect(() => {
-    if (changedSizeName !== null) {
-      const newProductSizeQuantity = productSizeQuantity.map(item => {
-        if (item.id === changedSizeName.id) {
-          return {
-            ...item,
-            sizeName: changedSizeName.newSizeName,
-          };
-        }
-        return item;
-      });
-      setProductSizeQuantity(newProductSizeQuantity);
-      setChangedSizeName(null);
-    }
-  }, [changedSizeName]);
-
-  useEffect(() => {
-    if (changedQuantity !== null) {
-      const newProductSizeQuantity = productSizeQuantity.map(item => {
-        if (item.id === changedQuantity.id) {
-          return {
-            ...item,
-            quantity: changedQuantity.newQuantity,
-          };
-        }
-        return item;
-      });
-      setProductSizeQuantity(newProductSizeQuantity);
-      setChangedQuantity(null);
-    }
-  }, [changedQuantity]);
-
   const handleSizeNameChange = (id, newSizeName) => {
-    setChangedSizeName({id: id, newSizeName: newSizeName});
+    const newProductSizes = informationProduct.productSizes.map(size => (
+      size.sizeID === id ? { ...size, sizeName: newSizeName } : size
+    ));
+
+    let newInformationProduct = {
+      ...informationProduct,
+      productSizes: newProductSizes,
+    };
+    setInformationProduct(newInformationProduct);
   };
 
   const handleQuantityChange = (id, newQuantity) => {
-    setChangedQuantity({id: id, newQuantity: newQuantity});
+    const newProductQuantities = informationProduct.productQuantities.map(quantity => (
+        quantity.quantityID === id ? { ...quantity, quantity: newQuantity } : quantity
+    ));
+
+    let newInformationProduct = {
+      ...informationProduct,
+      productQuantities: newProductQuantities,
+    };
+    setInformationProduct(newInformationProduct);
   };
 
-  // useEffect(() => {
-  //   console.log(productSizeQuantity);
-  //   console.log(listDeletedSizeFieldID);
-  // }, [productSizeQuantity]);
+  const handleCancelSizeField = (sizeFieldID) => {
+    let newProductQuantities = [];
+    let newProductSizes = [];
 
-  useEffect(() => {
-    if (deletedSizeFieldID !== null) {
-      setListDeletedSizeFieldID([...listDeletedSizeFieldID, deletedSizeFieldID]);
+    for (let i = 0; i < informationProduct.productQuantities.length; ++i) {
+      const quantity = informationProduct.productQuantities[i];
+      const size = informationProduct.productSizes[i];
 
-      let newProductSizeQuantity = [];
-
-      // let newSizeFields = [];
-      for (let i = 0; i < productSizeQuantity.length; i++) {
-        // const field = sizeFields[i];
-        const product = productSizeQuantity[i];
-
-        // if (field.key !== deletedSizeFieldID) {
-        //   newSizeFields.push(field);
-        // }
-
-        if (product.id !== deletedSizeFieldID) {
-          newProductSizeQuantity.push(product);
-        }
+      if (quantity.quantityID !== sizeFieldID) {
+        newProductQuantities.push(quantity);
+        newProductSizes.push(size);
       }
-
-      setProductSizeQuantity(newProductSizeQuantity);
-      // setSizeFields(newSizeFields);
     }
 
-  }, [deletedSizeFieldID]);
-
-  const handleCancelSizeField = (sizeFieldID) => {
-    setDeletedSizeFieldID(sizeFieldID);
+    const newInformationProduct = {
+      ...informationProduct,
+      productQuantities: newProductQuantities,
+      productSizes: newProductSizes
+    }
+    setInformationProduct(newInformationProduct);
   };
 
   const handleAddSizeField = () => {
-    if (productSizeQuantity.length === MAX_SIZE_FIELDS) {
+    if (informationProduct.productQuantities.length === MAX_SIZE_FIELDS) {
       toast.warn("Chỉ được thêm tối đa " + MAX_SIZE_FIELDS + " kích cỡ.");
       return;
     }
-
     const id = generateUniqueId();
-    const newSizeField = <SizeField key={id}
-                                            id={id}
-                                            onClose={() => handleCancelSizeField(id)}
-                                            onSizeNameChange={handleSizeNameChange}
-                                            onQuantityChange={handleQuantityChange}/>;
-
-    setSizeFields([...sizeFields, newSizeField]);
-    setProductSizeQuantity([...productSizeQuantity, { id: id, sizeName: "", quantity: ""}]);
+    handleAddProductSizeQuantity(id, "", "")
   };
 
+  const handleAddProductSizeQuantity = (id, sizeName, quantity) => {
+    const valueQuantity = {
+      quantityID: id,
+      productID: informationProduct.productID,
+      sizeID: id,
+      quantity: quantity,
+    };
+
+    const valueSize = {
+      sizeID: id,
+      productID: informationProduct.productID,
+      sizeName: sizeName
+    };
+
+    const newInformationProduct = {
+      ...informationProduct,
+      productQuantities: [...informationProduct.productQuantities, valueQuantity],
+      productSizes: [...informationProduct.productSizes, valueSize]
+    }
+    setInformationProduct(newInformationProduct);
+  }
+
+  const handleInputProductName = (e) => {
+    const value = e.target.value;
+    const newInformationProduct = {
+      ...informationProduct,
+      productName: value,
+    }
+    setInformationProduct(newInformationProduct);
+  }
+
+  const handleInputProductPrice = (e) => {
+    const value = e.target.value;
+    // console.log(value);
+    // if (!isNaN(value)) {
+    //   return;
+    // }
+
+    const newInformationProduct = {
+      ...informationProduct,
+      productPrice: value,
+    }
+    setInformationProduct(newInformationProduct);
+  }
+
+  const handleInputProductDescription = (e) => {
+    const value = e.target.value;
+    const newInformationProduct = {
+      ...informationProduct,
+      productDescription: value,
+    }
+    setInformationProduct(newInformationProduct);
+  }
+
+  const handleDialogConfirm = (selectedCategory, selectedParentCategory) => {
+    const newInformationProduct = {
+      ...informationProduct,
+      category: selectedCategory,
+      parentCategory: selectedParentCategory,
+    }
+    setInformationProduct(newInformationProduct);
+    closeModal();
+  };
 
   return (
       <div data-v-03749d40="" className="product-edit__container">
@@ -292,8 +293,8 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
                                   <input type="text" placeholder="Nhập vào" size="large" resize="none" rows="2"
                                          minrows="2" maxLength="Infinity" restrictiontype="input" max="Infinity"
                                          min="-Infinity" className="fashion-store-input__input"
-                                         value={productName}
-                                         onChange={(e) => {setProductName(e.target.value)}}
+                                         value={informationProduct.productName}
+                                         onChange={handleInputProductName}
                                   />
                                   <div className="fashion-store-input__suffix">
                                     <span className="fashion-store-input__suffix-split"></span>
@@ -330,8 +331,8 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
                                            minrows="2" restrictiontype="value"
                                            max="Infinity" min="-Infinity" isround="true"
                                            className="fashion-store-input__input"
-                                           value={productPrice}
-                                           onChange={(e) => setProductPrice(e.target.value)}
+                                           value={informationProduct.productPrice}
+                                           onChange={handleInputProductPrice}
                                     />
                                   </div>
                                 </div>
@@ -367,18 +368,16 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
                         </div>
 
                         {
-                          sizeFields.map((sizeField, index) => {
-                            if (!listDeletedSizeFieldID.includes(sizeField.key)) {
-                              return (
-                                  <div key={index} style={{ marginTop: "25px" }}>
-                                    {sizeField}
-                                  </div>
-                              );
-                            }
-                            return null;
-                          })
+                          informationProduct.productQuantities.map((quantity, index) => (
+                              <div key={index} style={{ marginTop: "25px" }}>
+                                <SizeField id={quantity.quantityID}
+                                           informationProduct={informationProduct}
+                                           onClose={() => handleCancelSizeField(quantity.quantityID)}
+                                           onSizeNameChange={handleSizeNameChange}
+                                           onQuantityChange={handleQuantityChange}/>
+                              </div>
+                          ))
                         }
-
 
                       </div>
                     </div>
@@ -403,13 +402,14 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
                                   <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-box-inner">
 
                                     <div data-v-55f54b9f="" data-v-1190c12e="" className="product-category-text">
-                                      {(selectedCategoriesNameID ? selectedCategoriesNameID : []).length === 0 ? <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span> : ""}
-                                      {(selectedCategoriesNameID ? selectedCategoriesNameID : []).map((categoryNameID, index) => (
-                                          <span key={index} style={{fontSize:"14px", marginRight: "5px"}} >
-                                            {categoryNameID.categoryName} {index < selectedCategoriesNameID.length - 1 ? ">" : ""}
+                                      {
+                                        informationProduct.category.categoryName && informationProduct.parentCategory.categoryName ?
+                                          <span style={{fontSize:"14px", marginRight: "5px"}} >
+                                            {informationProduct.parentCategory.categoryName + " > " + informationProduct.category.categoryName}
                                           </span>
+                                        : <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span>
+                                      }
 
-                                      ))}
                                     </div>
 
                                     <i data-v-55f54b9f="" className="product-category-icon fashion-store-icon"
@@ -447,8 +447,8 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
                                         restrictiontype="input" max="Infinity" min="-Infinity"
                                         className="fashion-store-input__inner fashion-store-input__inner--normal"
                                         style={{resize: "none", minHeight: "209.6px", height: "209.6px"}}
-                                        value={productDescription}
-                                        onChange={(e) => setProductDescription(e.target.value)}
+                                        value={informationProduct.productDescription}
+                                        onChange={handleInputProductDescription}
                               ></textarea>
                             </div>
                             <div className="text-area-label" style={{fontSize: "14px"}}>
@@ -470,7 +470,9 @@ const ProductDetails = ({ setParentProductName, setParentProductPrice, setParent
 
         {openDialog === true && (
             <div className="modal-overlay">
-              <CategoryDialog onClose={handleDialogClose} onConfirm={handleDialogConfirm} />
+              <CategoryDialog onClose={handleDialogClose}
+                              onConfirm={handleDialogConfirm}
+              />
             </div>
         )}
 
