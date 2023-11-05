@@ -183,7 +183,7 @@ const SearchDialog = ({keyword}) => {
               </Link>
             </div>
         ))}
-        <div class="view_all_search">
+        <div className="view_all_search">
           <Link to={"/search/" + keyword}>
             <div title="Xem tất cả">Xem tất cả</div>
           </Link>

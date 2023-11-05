@@ -71,7 +71,7 @@ function CartPage(product) {
     if (amount < product[0].productQuantities[0].quantity) {
       setAmount(amount + 1);
     } else {
-      toast.error('Số lượng trong kho không đủ!');
+      toast.warn('Số lượng trong kho không đủ!');
     }
   }
 
@@ -91,19 +91,19 @@ function CartPage(product) {
             <ol className="breadcrumb">
               <li className="breadcrumb-item"><Link to ="/"> Trang chủ </Link></li>
               <li className="breadcrumb-item"> &gt;</li>
-              <li className="breadcrumb-item active" aria-current="page">Thanh toán</li>
+              <li className="breadcrumb-item active" aria-current="page">Giỏ hàng ({product.length})</li>
             </ol>
           </nav>
 
           {!amount ?
               (
-                  <div class="cart-empty">
-                    <div class="cart-empty__img">
+                  <div className="cart-empty">
+                    <div className="cart-empty__img">
                       <img src={emptyIcon} alt="no data"/>
                         <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
                     </div>
-                    <div class="cart-empty__action">
-                      <a href="/" type="button" class="btn btn-danger cart__bill__total">
+                    <div className="cart-empty__action">
+                      <a href="/" type="button" className="btn btn-danger cart__bill__total">
                         <span>Mua ngay</span>
                       </a>
                     </div>
