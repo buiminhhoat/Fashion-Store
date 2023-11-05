@@ -37,7 +37,7 @@ const productList = [
       {
         "sizeID": 3,
         "productID": 1,
-        "sizeName": "L"
+        "sizeName": "XXL"
       }
     ],
     "productQuantities": [
@@ -51,15 +51,49 @@ const productList = [
         "quantityID": 2,
         "productID": 1,
         "sizeID": 2,
-        "quantity": 10
+        "quantity": 2
       },
       {
         "quantityID": 3,
         "productID": 1,
         "sizeID": 3,
-        "quantity": 30
+        "quantity": 0
       }
     ]
+  },
+  {
+    "productID": 2,
+    "productName": "Áo Thun Dài Tay Nam, Thiết Kế Basic ATO23014",
+    "productPrice": 195000.0,
+    "imagePath": "de0623d3-0122-472a-bbc2-667b31e60856.jpg",
+    "currentQuantity": 1,
+
+    "productSizes": [
+      {
+        "sizeID": 7,
+        "productID": 2,
+        "sizeName": "S"
+      },
+      {
+        "sizeID": 8,
+        "productID": 2,
+        "sizeName": "L"
+      }
+    ],
+    "productQuantities": [
+      {
+        "quantityID": 7,
+        "productID": 2,
+        "sizeID": 7,
+        "quantity": 20
+      },
+      {
+        "quantityID": 8,
+        "productID": 2,
+        "sizeID": 8,
+        "quantity": 900
+      }
+    ],
   }
 ]
 
@@ -67,11 +101,19 @@ function CheckoutPage(product) {
   product = productList;
 
   const [amount, setAmount] = useState(product[0].currentQuantity)
+  const [selectedSizeID, setSelectedSizeID] = useState(product[0].productSizes[0].sizeID)
   const handleIncreaseAmount = () => {
-    if (amount < product[0].productQuantities[0].quantity) {
+    let productQuantities = 1;
+    if (product[0].productQuantities.find((quantity) => quantity.quantityID === selectedSizeID)) {
+      productQuantities = product[0].productQuantities.find((quantity) => quantity.quantityID === selectedSizeID).quantity
+    }
+
+    // setAmount(Math.min(amount + 1, productQuantities));
+
+    if (amount < productQuantities) {
       setAmount(amount + 1);
     } else {
-      toast.error('Số lượng trong kho không đủ!');
+      toast.warn('Số lượng sẵn có không đủ!');
     }
   }
 
@@ -81,6 +123,11 @@ function CheckoutPage(product) {
 
   const handleCloseButton = () => {
     setAmount(0);
+  }
+
+  const handleChooseSize = (sizeID) => {
+    setAmount(1);
+    setSelectedSizeID(sizeID);
   }
   console.log("Reload!");
 
@@ -97,13 +144,13 @@ function CheckoutPage(product) {
 
           {!amount ?
               (
-                  <div class="cart-empty">
-                    <div class="cart-empty__img">
+                  <div className="cart-empty">
+                    <div className="cart-empty__img">
                       <img src={emptyIcon} alt="no data"/>
                         <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
                     </div>
-                    <div class="cart-empty__action">
-                      <a href="/" type="button" class="btn btn-danger cart__bill__total">
+                    <div className="cart-empty__action">
+                      <a href="/" type="button" className="btn btn-danger cart__bill__total">
                         <span>Mua ngay</span>
                       </a>
                     </div>
@@ -127,16 +174,32 @@ function CheckoutPage(product) {
                               <img src={closeButton} alt="icon close" onClick={handleCloseButton}/>
                             </div>
                             <div className="product__classify">
-                              <div className="dropdown">
-                                <button type="button" data-bs-toggle="dropdown" className="btn btn-classify text-start position-relative dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span className="label">Phân loại hàng</span>:
-                                  <span className="text-black">Đen | S</span>
-                                  <img className="icon-down position-absolute" src={arrowDown} alt="icon arrow down" />
-                                </button>
-                                <div className="dropdown-menu">
-                                  <img src={closeButton} alt="icon close" />
-                                </div>
-                              </div>
+                              {/*<div className="dropdown">*/}
+                                {/*<button type="button" data-bs-toggle="dropdown" className="btn btn-classify text-start position-relative dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
+                                  <div className="wrap-product-detail-properties d-flex ">
+                                    {
+                                      product[0].productSizes ?
+                                          (
+                                              product[0].productSizes.map((size, index) =>
+                                                  (
+                                                      product[0].productQuantities.find((quantity) => quantity.quantityID === size.sizeID) ?
+                                                          (
+                                                              product[0].productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity === 0 ?
+                                                                  <div key={index} className="size-wrap size size-sold-out">{size.sizeName}</div>
+                                                                  :
+                                                                  <div key={index}
+                                                                       className={`size-wrap size ${selectedSizeID === size.sizeID ? 'selected-size' : ''}`}
+                                                                       onClick={() => handleChooseSize(size.sizeID)}
+                                                                  >{size.sizeName}</div>
+                                                          )
+                                                          : <></>
+                                                  ))
+                                          ) : <></>
+                                    }
+                                  </div>
+                                {/*  <img className="icon-down position-absolute" src={arrowDown} alt="icon arrow down" />*/}
+                                {/*</button>*/}
+                              {/*</div>*/}
                             </div>
                             <div className="product__price d-flex align-items-center">
                               <div className="product__price__sale">
@@ -155,6 +218,7 @@ function CheckoutPage(product) {
                           </div>
                         </div>
                       </div>
+
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
                         <div className="cart__address cursor-pointer" onClick={openModalCreateAddress}>
                           <div className="cart__address__title d-flex align-items-center justify-content-between">

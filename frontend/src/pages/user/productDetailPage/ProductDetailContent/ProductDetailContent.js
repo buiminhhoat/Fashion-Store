@@ -243,7 +243,6 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
             </div>
             <div className="col-9 pe-0 ps-0">
               <div className="wrap-product-detail-properties d-flex ">
-
                 {
                   informationProduct.productSizes ?
                   (

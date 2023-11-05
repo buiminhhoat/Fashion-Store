@@ -35,6 +35,9 @@ public class CartController {
 
     private final UsersRepository usersRepository;
 
+    private final CategoryRepository categoryRepository;
+
+
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
@@ -45,7 +48,8 @@ public class CartController {
                           ProductQuantityRepository productQuantityRepository,
                           CartRepository cartRepository,
                           CartItemRepository cartItemRepository,
-                          UsersRepository usersRepository) {
+                          UsersRepository usersRepository,
+                          CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
@@ -54,6 +58,7 @@ public class CartController {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.usersRepository = usersRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/get-cart")
@@ -81,10 +86,35 @@ public class CartController {
         Long cartID = cart.getCartID();
         cart.setCartItems(cartItemRepository.findCartItemByCartID(cartID));
 
+        for (CartItem cartItem: cart.getCartItems()) {
+            cartItem.setProduct(getProductDetails(cartItem.getProductID()));
+        }
         ResponseObject responseObject = new ResponseObject(HttpStatus.OK.toString(),
                 "Đã lấy thông tin giỏ hàng thành công",
                 cart);
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
+    }
+
+    public Product getProductDetails(Long productID) {
+        Product product = productRepository.findProductByProductID(productID);
+
+        List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
+        product.setProductImages(productImages);
+
+        List<ProductSize> productSizes = productSizeRepository.findProductSizeByProductID(productID);
+        product.setProductSizes(productSizes);
+
+        List<ProductQuantity> productQuantities = productQuantityRepository.findProductQuantitiesByProductID(productID);
+        product.setProductQuantities(productQuantities);
+
+        ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
+
+        Category category = categoryRepository.findCategoriesByCategoryID(productCategory.getCategoryID());
+        product.setCategory(category);
+
+        Category parentCategory = categoryRepository.findCategoriesByCategoryID(productCategory.getParentCategoryID());
+        product.setParentCategory(parentCategory);
+        return product;
     }
 
     @PostMapping("/add-product-to-cart")
@@ -132,7 +162,6 @@ public class CartController {
         ResponseObject responseObject = new ResponseObject(HttpStatus.OK.toString(), "Đã thêm sản phẩm vào giỏ", cartItem);
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
-
 
     @PostMapping("/edit-product-in-cart")
     public ResponseEntity<?> editProductInCart(HttpServletRequest request) {

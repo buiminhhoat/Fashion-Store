@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 
 import java.io.File;
@@ -68,13 +70,21 @@ public class ProductController {
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
         Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
         Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
-        String jsonSizeNameJson = request.getParameter("productSize");
-        String productSizeQuantityJson = request.getParameter("productSizeQuantity");
-        String jsonListParam = request.getParameter("productSizeQuantity");
+        String productSizesJson = request.getParameter("productSizes");
+        String productQuantitiesJson = request.getParameter("productQuantities");
+//        String jsonListParam = request.getParameter("productSizeQuantity");
         ObjectMapper objectMapper = new ObjectMapper();
-        List<ProductSizeQuantity> productSizeQuantities;
+
+        List<ProductSize> productSizes;
         try {
-            productSizeQuantities = objectMapper.readValue(jsonListParam, new TypeReference<List<ProductSizeQuantity>>(){});
+            productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<ProductQuantity> productQuantities;
+        try {
+            productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>(){});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -117,14 +127,18 @@ public class ProductController {
         ProductCategory productCategory = new ProductCategory(productId, categoryID, parentCategoryID);
         productCategoryRepository.save(productCategory);
 
-        for (ProductSizeQuantity productSizeQuantity: productSizeQuantities) {
-            ProductSize productSize = new ProductSize(productId, productSizeQuantity.getSizeName());
+        for (int i = 0; i < productSizes.size(); ++i) {
+            ProductSize productSize = productSizes.get(i);
+            productSize.setProductID(productId);
             productSizeRepository.save(productSize);
+
             Long sizeID = productSize.getSizeID();
-            ProductQuantity productQuantity = new ProductQuantity(productId, sizeID,
-                    Long.valueOf(productSizeQuantity.getQuantity()));
+            ProductQuantity productQuantity = productQuantities.get(i);
+            productQuantity.setProductID(productId);
+            productQuantity.setSizeID(sizeID);
             productQuantityRepository.save(productQuantity);
         }
+
         ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }
@@ -232,6 +246,70 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 
+    @GetMapping("/search/{productName}")
+    public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
+        List<Product> allProducts = productRepository.findAll();
+        List<Product> products = new ArrayList<>();
+
+        List<Pair<Long, Integer>> pairs = new ArrayList<>();
+
+        productName = replaceVietnameseChars(productName);
+        String[] productNameList = productName.split(" ");
+        for (Product product : allProducts) {
+            int count = 0;
+            for (String word: productName.split(" ")) {
+                if (replaceVietnameseChars(product.getProductName().toLowerCase()).contains(word.toLowerCase())) {
+//                    matchingProducts.add(getProductDetails(product.getProductID()));
+                    ++count;
+                }
+            }
+            if (count > productNameList.length / 2)
+                pairs.add(new Pair<>(product.getProductID(), count));
+        }
+
+        Collections.sort(pairs, new Comparator<Pair<Long, Integer>>() {
+            @Override
+            public int compare(Pair<Long, Integer> pair1, Pair<Long, Integer> pair2) {
+                return pair2.getSecond().compareTo(pair1.getSecond());
+            }
+        });
+
+        for (Pair<Long, Integer> pair: pairs) {
+            products.add(getProductDetails(pair.getFirst()));
+        }
+
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/product/{productID}")
+    public ResponseEntity<?> searchProductByProductID(@PathVariable Long productID) {
+        Product product = productRepository.findProductByProductID(productID);
+        product = getProductDetails(product.getProductID());
+        return ResponseEntity.ok(product);
+    }
+
+    public Product getProductDetails(Long productID) {
+        Product product = productRepository.findProductByProductID(productID);
+
+        List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
+        product.setProductImages(productImages);
+
+        List<ProductSize> productSizes = productSizeRepository.findProductSizeByProductID(productID);
+        product.setProductSizes(productSizes);
+
+        List<ProductQuantity> productQuantities = productQuantityRepository.findProductQuantitiesByProductID(productID);
+        product.setProductQuantities(productQuantities);
+
+        ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
+
+        Category category = categoryRepository.findCategoriesByCategoryID(productCategory.getCategoryID());
+        product.setCategory(category);
+
+        Category parentCategory = categoryRepository.findCategoriesByCategoryID(productCategory.getParentCategoryID());
+        product.setParentCategory(parentCategory);
+        return product;
+    }
+
     void cleanProduct(Long productID) throws IOException {
         /* Dọn rác */
         /* Dọn ảnh có trong database và storage - product Image */
@@ -268,42 +346,46 @@ public class ProductController {
         }
 
     }
-    @GetMapping("/search/{productName}")
-    public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
-        List<Product> products = productRepository.findProductsByProductNameIsContaining(productName);
-        for (Product product: products) {
-            product = getProductDetails(product.getProductID());
+
+    // Hàm thay thế các chữ cái đặc biệt và dấu từ chuỗi Tiếng Việt
+    private String replaceVietnameseChars(String input) {
+        Map<String, String> vietnameseCharMap = new HashMap<>();
+        vietnameseCharMap.put("àáảãạâầấẩẫậăằắẳẵặ", "a");
+        vietnameseCharMap.put("èéẻẽẹêềếểễệ", "e");
+        vietnameseCharMap.put("ìíỉĩị", "i");
+        vietnameseCharMap.put("òóỏõọôồốổỗộơờớởỡợ", "o");
+        vietnameseCharMap.put("ùúủũụưừứửữự", "u");
+        vietnameseCharMap.put("ỳýỷỹỵ", "y");
+        vietnameseCharMap.put("đ", "d");
+
+        for (Map.Entry<String, String> entry : vietnameseCharMap.entrySet()) {
+            String regex = "[" + entry.getKey() + "]";
+            input = input.replaceAll(regex, entry.getValue());
         }
-        return ResponseEntity.ok(products);
-    }
 
-    @GetMapping("/product/{productID}")
-    public ResponseEntity<?> searchProductByProductID(@PathVariable Long productID) {
-        Product product = productRepository.findProductByProductID(productID);
-        product = getProductDetails(product.getProductID());
-        return ResponseEntity.ok(product);
-    }
-
-    public Product getProductDetails(Long productID) {
-        Product product = productRepository.findProductByProductID(productID);
-
-        List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
-        product.setProductImages(productImages);
-
-        List<ProductSize> productSizes = productSizeRepository.findProductSizeByProductID(productID);
-        product.setProductSizes(productSizes);
-
-        List<ProductQuantity> productQuantities = productQuantityRepository.findProductQuantitiesByProductID(productID);
-        product.setProductQuantities(productQuantities);
-
-        ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
-
-        Category category = categoryRepository.findCategoriesByCategoryID(productCategory.getCategoryID());
-        product.setCategory(category);
-
-        Category parentCategory = categoryRepository.findCategoriesByCategoryID(productCategory.getParentCategoryID());
-        product.setParentCategory(parentCategory);
-        return product;
+        return input;
     }
 }
 
+class Pair<F, S> {
+    private F first;
+    private S second;
+
+    public Pair(F first, S second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    public F getFirst() {
+        return first;
+    }
+
+    public S getSecond() {
+        return second;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
+}
