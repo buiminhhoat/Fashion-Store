@@ -56,7 +56,7 @@ const ProductDetailPage = () => {
       }
     }
     fetchData().then(r => {});
-  }, []);
+  }, [productID]);
 
   const BreadcrumbProduct = () => {
     const [breadCrumbInfo, setBreadcrumbInfo] = useState({

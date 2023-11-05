@@ -137,10 +137,9 @@ const SearchDialog = (keyword) => {
             "imagePath": "3ab0377c-5c74-45ee-b7fd-f1035635e8a8.jpg" //./images/trouser.jpg
           }
         ],
-        "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
       },
       {
-        "productID": 1,
+        "productID": 6,
         "productName": "Quần Nam 5S Fashion, Thiết Kế Basic, Lịch Lãm QAU23062",
         "productPrice": 551000,
         "productImages": [
@@ -150,7 +149,6 @@ const SearchDialog = (keyword) => {
             "imagePath": "82487fc9-e024-4a8c-824e-95b4bbee60a2.jpg" //./images/trouser.jpg
           }
         ],
-        "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
       }
     ]
 
@@ -169,19 +167,21 @@ const SearchDialog = (keyword) => {
           style={{ display: isDialogVisible ? 'block' : 'none' }}
       >
         {filteredSearchItem.map((product, index) => (
-            <a key={index} href={product.productLink}>
-              <div className="item-search d-flex">
-                <div className="product-image d-flex align-items-center justify-content-start">
-                  <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={`Product Image ${product.productID}`} />
-                </div>
-                <div className="product-info">
-                  <div className="product-name">{product.productName}</div>
-                  <div className="product-price d-flex align-items-center">
-                    <div className="sale-price">{formatter(product.productPrice)}</div>
+            <div key={index}>
+              <Link to={"/product/" + product.productID}>
+                <div className="item-search d-flex">
+                  <div className="product-image d-flex align-items-center justify-content-start">
+                    <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={`Product Image ${product.productID}`} />
+                  </div>
+                  <div className="product-info">
+                    <div className="product-name">{product.productName}</div>
+                    <div className="product-price d-flex align-items-center">
+                      <div className="sale-price">{formatter(product.productPrice)}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </Link>
+            </div>
         ))}
       </div>)
   );
