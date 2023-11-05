@@ -69,11 +69,11 @@ const ProductDetailPage = () => {
                   <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
                 </li>
                 <li className="link">
-                  <a href="/"><span>{informationProduct.parentCategory.categoryName}</span></a>
+                  <a href="/"><span>{(informationProduct.parentCategory ? informationProduct.parentCategory.categoryName : "Danh mục 1")}</span></a>
                   <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
                 </li>
                 <li className="link">
-                  <a href="/"><span>{informationProduct.category.categoryName}</span></a>
+                  <a href="/"><span>{(informationProduct.category ? informationProduct.category.categoryName : "Danh mục 2")}</span></a>
                   <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
                 </li>
                 <li className="link breadcrumb__name">{informationProduct.productName}</li>

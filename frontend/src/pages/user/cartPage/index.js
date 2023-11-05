@@ -63,7 +63,7 @@ const productList = [
   }
 ]
 
-function CheckoutPage(product) {
+function CartPage(product) {
   product = productList;
 
   const [amount, setAmount] = useState(product[0].currentQuantity)
@@ -233,4 +233,4 @@ function CheckoutPage(product) {
   );
 }
 
-export default CheckoutPage;
+export default CartPage;
