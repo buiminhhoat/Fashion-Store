@@ -3,13 +3,10 @@ import {Route, Routes} from "react-router-dom";
 import AddProductPage from "./addProduct";
 import EditProductPage from "./editProduct";
 import ProductListPage from "./productList";
+import NotFoundPage from "../../error/notFoundPage";
 
 const renderCustom = () => {
     const userRouters =  [
-        {
-            path: ROUTERS.ADMIN.PRODUCT_MANAGEMENT,
-            component: <AddProductPage />
-        },
         {
             path: ROUTERS.ADMIN.ADD_PRODUCT,
             component: <AddProductPage />
@@ -31,6 +28,7 @@ const renderCustom = () => {
                     <Route key={key} path={item.path} element={item.component} />
                 ))
             }
+            <Route path='*' element={<NotFoundPage />} />
         </Routes>
     )
 }

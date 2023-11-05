@@ -1,14 +1,15 @@
 import {ROUTERS} from "./utils/router";
 import {Route, Routes} from "react-router-dom";
 
-import HomePage from "./pages/users/homePage";
-import ProfilePage from "./pages/users/profilePage";
-import LoginPage from "./pages/users/loginPage";
-import MasterLayout from "./pages/users/theme/masterLayout";
+import HomePage from "./pages/user/homePage";
+import ProfilePage from "./pages/user/profilePage";
+import LoginPage from "./pages/user/loginPage";
+import MasterLayout from "./pages/user/theme/masterLayout";
 import ProductManagementPage from "./pages/admin/productManagementPage";
 import AccountManagementPage from "./pages/admin/accountManagementPage";
-import SearchProductPage from "./pages/users/searchProductPage";
-import ProductDetailPage from "./pages/users/productDetailPage";
+import SearchProductPage from "./pages/user/searchProductPage";
+import ProductDetailPage from "./pages/user/productDetailPage";
+import NotFoundPage from "./pages/error/notFoundPage";
 
 const userRouters =  [
     {
@@ -68,6 +69,7 @@ const renderAdminCustom = () => {
                         <Route key={key} path={item.path} element={item.component} />
                     ))
                 }
+                <Route path='*' element={<NotFoundPage />} />
             </Routes>
         </MasterLayout>
     )
