@@ -60,6 +60,40 @@ const productList = [
         "quantity": 0
       }
     ]
+  },
+  {
+    "productID": 2,
+    "productName": "Áo Thun Dài Tay Nam, Thiết Kế Basic ATO23014",
+    "productPrice": 195000.0,
+    "imagePath": "de0623d3-0122-472a-bbc2-667b31e60856.jpg",
+    "currentQuantity": 1,
+
+    "productSizes": [
+      {
+        "sizeID": 7,
+        "productID": 2,
+        "sizeName": "S"
+      },
+      {
+        "sizeID": 8,
+        "productID": 2,
+        "sizeName": "L"
+      }
+    ],
+    "productQuantities": [
+      {
+        "quantityID": 7,
+        "productID": 2,
+        "sizeID": 7,
+        "quantity": 20
+      },
+      {
+        "quantityID": 8,
+        "productID": 2,
+        "sizeID": 8,
+        "quantity": 900
+      }
+    ],
   }
 ]
 
@@ -184,6 +218,7 @@ function CheckoutPage(product) {
                           </div>
                         </div>
                       </div>
+
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
                         <div className="cart__address cursor-pointer" onClick={openModalCreateAddress}>
                           <div className="cart__address__title d-flex align-items-center justify-content-between">
