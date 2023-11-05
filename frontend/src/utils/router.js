@@ -3,7 +3,7 @@ export const ROUTERS = {
         HOME: "/",
         PROFILE: "/profile/*",
         LOGIN: "/login",
-        SEARCH: "/search",
+        SEARCH: "/search/:keyword",
         CHECKOUT: "/checkout",
         PRODUCT: "/product/:productID"
     },

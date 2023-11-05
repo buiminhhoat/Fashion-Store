@@ -6,19 +6,14 @@ import com.FashionStore.models.Users;
 import com.FashionStore.repositories.AddressRepository;
 import com.FashionStore.repositories.UsersRepository;
 import com.FashionStore.security.JwtTokenUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -37,7 +32,7 @@ public class AddressController {
     }
 
     @PostMapping("/new-address")
-    public ResponseEntity<?> editProfile(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity<?> newAddress(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String accessToken) {
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -66,5 +61,23 @@ public class AddressController {
             ResponseObject responseObject = new ResponseObject("Đã có lỗi xảy ra");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
+    }
+
+    @PostMapping("/get-all-addresses")
+    public ResponseEntity<?> getAllAddresses(@RequestHeader("Authorization") String accessToken) {
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        Long userID = findByEmail.get(0).getUserID();
+
+        return ResponseEntity.ok(addressRepository.findAddressByUsersID(userID));
     }
 }

@@ -23,6 +23,7 @@ public class Category {
 
     @Transient
     private List<Category> subCategories;
+
     public Category() {
 
     }
@@ -32,6 +33,12 @@ public class Category {
     }
 
     public Category(String categoryName, Long parentCategoryID) {
+        this.categoryName = categoryName;
+        this.parentCategoryID = parentCategoryID;
+    }
+
+    public Category(Long categoryID, String categoryName, Long parentCategoryID) {
+        this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.parentCategoryID = parentCategoryID;
     }

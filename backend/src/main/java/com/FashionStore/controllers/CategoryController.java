@@ -145,4 +145,26 @@ public class CategoryController {
         }
         return ResponseEntity.ok(products);
     }
+
+    @GetMapping("/search/category")
+    public ResponseEntity<?> searchCategory(HttpServletRequest request) {
+        String categoryName = request.getParameter("categoryName");
+        List<Category> categories = categoryRepository.findCategoriesByParentCategoryID(null);
+        List<Category> result = new ArrayList<>();
+        for (Category category: categories) {
+            if (category.getParentCategoryID() != null) continue;
+            List<Category> subCategoryList = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
+            List<Category> resultSubCategoryList = new ArrayList<>();
+            for (Category subCategory: subCategoryList) {
+                if (subCategory.getCategoryName().contains(categoryName)) {
+                    resultSubCategoryList.add(subCategory);
+                }
+            }
+            if (!resultSubCategoryList.isEmpty()) {
+                category.setSubCategories(resultSubCategoryList);
+                result.add(category);
+            }
+        }
+        return ResponseEntity.ok(result);
+    }
 }

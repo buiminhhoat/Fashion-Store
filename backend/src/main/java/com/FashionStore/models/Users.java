@@ -1,5 +1,6 @@
 package com.FashionStore.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -11,28 +12,40 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
 
+    @Column(name = "Fullname")
     private String fullName;
 
+    @Column(name = "Email")
     private String email;
+
+    @Column(name = "HashedPassword")
     private String hashedPassword;
 
+    @Column(name = "PhoneNumber")
     private String phoneNumber;
 
+    @Column(name = "Gender")
     private String gender;
 
+    @Column(name = "DateBirthday")
     private Date dateBirthday;
 
+    @Column(name = "AvatarPath")
     private String avatarPath;
+
+    @Column(name = "IsAdmin")
+    private boolean isAdmin;
 
     public Users() {
 
     }
 
-    public Users(String fullName, String email, String hashedPassword, String phoneNumber) {
+    public Users(String fullName, String email, String hashedPassword, String phoneNumber, boolean isAdmin) {
         this.fullName = fullName;
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.phoneNumber = phoneNumber;
+        this.isAdmin = isAdmin;
     }
 
     public String getEmail() {
@@ -99,6 +112,14 @@ public class Users {
         this.avatarPath = avatarPath;
     }
 
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
@@ -108,8 +129,9 @@ public class Users {
                 ", hashedPassword='" + hashedPassword + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender='" + gender + '\'' +
-                ", dateBirthday='" + dateBirthday + '\'' +
+                ", dateBirthday=" + dateBirthday +
                 ", avatarPath='" + avatarPath + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }
