@@ -73,7 +73,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/get-all-category")
+    @GetMapping("/get-all-categories")
     public ResponseEntity<List<CategoryResponse>> getCategory() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 

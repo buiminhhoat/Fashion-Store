@@ -17,7 +17,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const [categories, setCategories] = useState([]);
 
-  const apiGetCategory = "http://localhost:9999/api/get-all-category";
+  const apiGetCategory = "http://localhost:9999/api/get-all-categories";
   const fetchData = async () => {
     try {
       const response = await fetch(apiGetCategory, {
