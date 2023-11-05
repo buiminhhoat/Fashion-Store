@@ -110,4 +110,20 @@ public class UserController {
         ResponseObject responseObject = new ResponseObject("Thông tin người dùng đã được xóa");
         return ResponseEntity.ok(responseObject);
     }
+
+    @GetMapping("/search-user-by-email")
+    public ResponseEntity<?> searchUserByEmail(HttpServletRequest request) {
+        String email = request.getParameter("email");
+
+        List<Users> users = usersRepository.findUsersByEmail(email);
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/search-user-by-phone-number")
+    public ResponseEntity<?> searchUserByPhoneNumber(HttpServletRequest request) {
+        String phoneNumber = request.getParameter("phoneNumber");
+
+        List<Users> users = usersRepository.findUsersByPhoneNumber(phoneNumber);
+        return ResponseEntity.ok(users);
+    }
 }
