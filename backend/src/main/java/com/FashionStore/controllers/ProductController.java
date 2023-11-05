@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -40,6 +41,7 @@ public class ProductController {
 
     private final CategoryRepository categoryRepository;
 
+    private final String appRoot = System.getProperty("user.dir") + File.separator;
 
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
@@ -60,6 +62,76 @@ public class ProductController {
 
     @PostMapping("/add-product")
     public ResponseEntity<?> addProduct(HttpServletRequest request) {
+        String productName = request.getParameter("productName");
+        Double productPrice = Double.valueOf(request.getParameter("productPrice"));
+        String productDescription = request.getParameter("productDescription");
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
+        Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
+        Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
+        String jsonSizeNameJson = request.getParameter("productSize");
+        String productSizeQuantityJson = request.getParameter("productSizeQuantity");
+        String jsonListParam = request.getParameter("productSizeQuantity");
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ProductSizeQuantity> productSizeQuantities;
+        try {
+            productSizeQuantities = objectMapper.readValue(jsonListParam, new TypeReference<List<ProductSizeQuantity>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        File uploadDir = new File(UPLOAD_DIR);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        List<String> paths = new ArrayList<>();
+        for (MultipartFile image : images) {
+            String originalFilename = image.getOriginalFilename();
+            String fileExtension = "";
+            if (originalFilename != null) {
+                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+            }
+            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
+
+            try {
+                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
+                Path path = Paths.get(imagePath);
+                image.transferTo(path.toFile());
+                paths.add(fileName);
+                // Lưu đường dẫn của ảnh vào database (thực hiện thao tác lưu vào database tại đây)
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
+            }
+        }
+
+
+        Product product = new Product(productName, productPrice, productDescription);
+        productRepository.save(product);
+        Long productId = product.getProductID();
+
+        for (String imagePath: paths) {
+            ProductImage productImage = new ProductImage(productId, imagePath);
+            productImageRepository.save(productImage);
+        }
+
+        ProductCategory productCategory = new ProductCategory(productId, categoryID, parentCategoryID);
+        productCategoryRepository.save(productCategory);
+
+        for (ProductSizeQuantity productSizeQuantity: productSizeQuantities) {
+            ProductSize productSize = new ProductSize(productId, productSizeQuantity.getSizeName());
+            productSizeRepository.save(productSize);
+            Long sizeID = productSize.getSizeID();
+            ProductQuantity productQuantity = new ProductQuantity(productId, sizeID,
+                    Long.valueOf(productSizeQuantity.getQuantity()));
+            productQuantityRepository.save(productQuantity);
+        }
+        ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
+        return ResponseEntity.ok(responseObject);
+    }
+
+    @PostMapping("/edit-product")
+    public ResponseEntity<?> editProduct(HttpServletRequest request) {
+        Long productID = Long.valueOf(request.getParameter("productID"));
         String productName = request.getParameter("productName");
         Double productPrice = Double.valueOf(request.getParameter("productPrice"));
         String productDescription = request.getParameter("productDescription");
@@ -105,8 +177,20 @@ public class ProductController {
             }
         }
 
+        try {
+            cleanProduct(productID);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+        }
 
-        Product product = new Product(productName, productPrice, productDescription);
+//        Product product = new Product(productName, productPrice, productDescription);
+
+        /* Cập nhật thông tin sản phẩm */
+        Product product = productRepository.findProductByProductID(productID);
+        product.setProductName(productName);
+        product.setProductPrice(productPrice);
+        product.setProductDescription(productDescription);
+
         productRepository.save(product);
         Long productId = product.getProductID();
 
@@ -130,6 +214,31 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 
+    void cleanProduct(Long productID) throws IOException {
+        /* Dọn rác */
+        /* Dọn ảnh có trong database và storage - product Image */
+        for (ProductImage productImage: productImageRepository.findProductImageByProductID(productID)) {
+            String fileName = productImage.getImagePath();
+            String filePathToDelete = appRoot + UPLOAD_DIR + File.separator + fileName;
+            try {
+                Path pathToDelete = Paths.get(filePathToDelete);
+                Files.deleteIfExists(pathToDelete);
+            } catch (IOException e) {
+                throw e;
+            }
+            productImageRepository.delete(productImage);
+        }
+
+        /* Product Category */
+        ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
+        productCategoryRepository.delete(productCategory);
+
+        /* Product Size */
+        productSizeRepository.deleteAll(productSizeRepository.findProductSizeByProductID(productID));
+
+        /* Product Quantity*/
+        productQuantityRepository.deleteAll(productQuantityRepository.findProductQuantitiesByProductID(productID));
+    }
     @GetMapping("/search/{productName}")
     public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
         List<Product> products = productRepository.findProductsByProductNameContaining(productName);
