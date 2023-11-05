@@ -90,6 +90,7 @@ const AddProductPage = () => {
           <div className="container pe-0 ps-0" style={{marginTop: "10px"}}>
             <ProductDetails informationProduct={informationProduct}
                             setInformationProduct={setInformationProduct}
+                            productImages={productImages}
                             setParentProductImages={setProductImages}
             />
 
