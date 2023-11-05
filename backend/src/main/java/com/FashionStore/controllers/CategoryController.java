@@ -133,4 +133,13 @@ public class CategoryController {
 
         return product;
     }
+
+    @GetMapping("/get-all-product-category")
+    public ResponseEntity<?> getAllProductCategory() {
+        List<Category> parentCategories = categoryRepository.findCategoriesByParentCategoryID(null);
+        for (Category category: parentCategories) {
+            category.setSubCategories(categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID()));
+        }
+        return ResponseEntity.ok(parentCategories);
+    }
 }
