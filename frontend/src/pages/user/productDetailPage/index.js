@@ -11,7 +11,6 @@ const ProductDetailPage = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
   const { productID } = useParams();
-
   const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
 
   // useEffect(() => {

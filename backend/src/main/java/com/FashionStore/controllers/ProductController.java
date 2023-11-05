@@ -270,7 +270,7 @@ public class ProductController {
     }
     @GetMapping("/search/{productName}")
     public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
-        List<Product> products = productRepository.findProductsByProductNameContaining(productName);
+        List<Product> products = productRepository.findProductsByProductNameIsContaining(productName);
         for (Product product: products) {
             product = getProductDetails(product.getProductID());
         }
