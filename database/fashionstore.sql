@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 04, 2023 lúc 05:48 PM
+-- Thời gian đã tạo: Th10 05, 2023 lúc 11:25 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -40,7 +40,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
-(1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội');
+(1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ');
 
 -- --------------------------------------------------------
 
@@ -76,21 +77,22 @@ CREATE TABLE `cartitem` (
 CREATE TABLE `category` (
   `CategoryID` bigint(20) NOT NULL,
   `CategoryName` varchar(255) NOT NULL,
-  `ParentCategoryID` bigint(20) DEFAULT NULL
+  `ParentCategoryID` bigint(20) DEFAULT NULL,
+  `ImagePath` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `category`
 --
 
-INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`) VALUES
-(1, 'Áo Nam', NULL),
-(2, 'Áo Thun', 1),
-(3, 'Áo Khoác', 1),
-(4, 'Áo Polo', 1),
-(5, 'Quần Nam', NULL),
-(6, 'Quần Âu', 5),
-(7, 'Quần Short Thể Thao', 5);
+INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `ImagePath`) VALUES
+(1, 'Áo Nam', NULL, NULL),
+(2, 'Áo Thun', 1, NULL),
+(3, 'Áo Khoác', 1, NULL),
+(4, 'Áo Polo', 1, NULL),
+(5, 'Quần Nam', NULL, NULL),
+(6, 'Quần Âu', 5, NULL),
+(7, 'Quần Short Thể Thao', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -416,7 +418,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `address`
 --
 ALTER TABLE `address`
-  MODIFY `AddressID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `AddressID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
