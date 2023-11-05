@@ -10,6 +10,7 @@ import AccountManagementPage from "./pages/admin/accountManagementPage";
 import SearchProductPage from "./pages/user/searchProductPage";
 import ProductDetailPage from "./pages/user/productDetailPage";
 import NotFoundPage from "./pages/error/notFoundPage";
+import CheckoutPage from "./pages/user/checkoutPage";
 
 const userRouters =  [
     {
@@ -31,6 +32,10 @@ const userRouters =  [
     {
         path: ROUTERS.USER.PRODUCT,
         component: <ProductDetailPage />
+    },
+    {
+        path: ROUTERS.USER.CHECKOUT,
+        component: <CheckoutPage />
     }
 ];
 
