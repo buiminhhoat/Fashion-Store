@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 05, 2023 lúc 11:25 AM
+-- Thời gian đã tạo: Th10 05, 2023 lúc 05:02 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -33,7 +33,7 @@ CREATE TABLE `address` (
   `RecipientName` varchar(255) NOT NULL,
   `RecipientPhone` varchar(20) DEFAULT NULL,
   `AddressDetails` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `address`
@@ -52,7 +52,7 @@ INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`,
 CREATE TABLE `cart` (
   `CartID` bigint(20) NOT NULL,
   `UserID` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE `cartitem` (
   `ProductID` bigint(20) DEFAULT NULL,
   `SizeID` bigint(20) DEFAULT NULL,
   `QuantityPurchase` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE `category` (
   `CategoryName` varchar(255) NOT NULL,
   `ParentCategoryID` bigint(20) DEFAULT NULL,
   `ImagePath` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `category`
@@ -107,7 +107,7 @@ CREATE TABLE `orderdetail` (
   `ProductPrice` decimal(10,2) DEFAULT NULL,
   `Quantity` bigint(20) DEFAULT NULL,
   `TotalPrice` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,7 @@ CREATE TABLE `orders` (
   `TotalAmount` decimal(10,2) DEFAULT NULL,
   `OrderStatus` varchar(20) DEFAULT NULL,
   `UserID` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -134,7 +134,7 @@ CREATE TABLE `product` (
   `ProductName` varchar(255) NOT NULL,
   `productPrice` double DEFAULT NULL,
   `ProductDescription` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `product`
@@ -160,7 +160,7 @@ CREATE TABLE `productcategory` (
   `ProductID` bigint(20) DEFAULT NULL,
   `CategoryID` bigint(20) DEFAULT NULL,
   `ParentCategoryID` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `productcategory`
@@ -185,7 +185,7 @@ CREATE TABLE `productimage` (
   `ImageID` bigint(20) NOT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `ImagePath` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `productimage`
@@ -226,7 +226,7 @@ CREATE TABLE `productquantity` (
   `ProductID` bigint(20) DEFAULT NULL,
   `SizeID` bigint(20) DEFAULT NULL,
   `Quantity` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `productquantity`
@@ -263,7 +263,7 @@ CREATE TABLE `productsize` (
   `SizeID` bigint(20) NOT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `SizeName` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `productsize`
@@ -306,7 +306,7 @@ CREATE TABLE `users` (
   `AvatarPath` varchar(255) DEFAULT NULL,
   `IsAdmin` tinyint(1) DEFAULT NULL,
   `hashedPassword` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
