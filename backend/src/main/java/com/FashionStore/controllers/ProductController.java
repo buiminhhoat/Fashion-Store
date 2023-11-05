@@ -210,7 +210,25 @@ public class ProductController {
                     Long.valueOf(productSizeQuantity.getQuantity()));
             productQuantityRepository.save(productQuantity);
         }
-        ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
+        ResponseObject responseObject = new ResponseObject("Đã chỉnh sửa sản phẩm thành công");
+        return ResponseEntity.ok(responseObject);
+    }
+
+    @PostMapping("/delete-product")
+    public ResponseEntity<?> deleteProduct(HttpServletRequest request) {
+        Long productID = Long.valueOf(request.getParameter("productID"));
+
+        Product product = productRepository.findProductByProductID(productID);
+
+        try {
+            cleanProduct(productID);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+        }
+
+        productRepository.delete(product);
+
+        ResponseObject responseObject = new ResponseObject("Đã xóa sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }
 
