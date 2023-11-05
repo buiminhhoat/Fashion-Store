@@ -105,7 +105,6 @@ public class ProductController {
             }
         }
 
-        // Lưu categoryName và đường dẫn ảnh vào database (nếu cần)
 
         Product product = new Product(productName, productPrice, productDescription);
         productRepository.save(product);
