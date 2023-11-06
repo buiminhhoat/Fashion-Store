@@ -393,6 +393,46 @@ const Header = () => {
     closeModal();
   };
 
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
+  const apiGetCart = "http://localhost:9999/api/get-cart?accessToken=Bearer " + accessToken;
+  const [loading, setLoading] = useState(true)
+  const [productInCart, setProductIncart] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiGetCart, {
+          method: 'GET',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setProductIncart(data.data.cartItems.length);
+          // console.log(product)
+        } else {
+          const data = await response.json();
+          console.log(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error('Không kết nối được với database');
+      } finally {
+        // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
+    return <div></div>;
+
+  }
+
   return (
       <header id="header">
         <div className="header position-fixed">
@@ -428,7 +468,7 @@ const Header = () => {
                             ></path>
                           </svg>
                           <span className="count_item count_item_pr hidden-count position-absolute text-center d-flex align-items-center justify-content-center">
-                            0
+                            {productInCart}
                           </span>
                         </Link>
                       </div>

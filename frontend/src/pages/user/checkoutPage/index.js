@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react"
 import {toast} from "react-toastify";
 import queryString from 'query-string';
-import {useCookies} from "react-cookie";
 import {useLocation} from "react-router-dom";
 
 import "./style.scss"

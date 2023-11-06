@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {useNavigate} from 'react-router-dom';
+import {useCookies} from "react-cookie";
 
 import './style.scss';
 
@@ -207,17 +208,44 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
     setQuantityPurchase(Math.min(Math.max(quantity, 1), productQuantities));
   }
 
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
   const handleClickAddToCart = () => {
     if (selectedSizeID) {
       const newOrderDetails = {
         sizeID: selectedSizeID,
         quantityPurchase: quantityPurchase,
-      }
-      handleAddToCart(newOrderDetails);
+      };
+
+      // Tạo một đối tượng chứa thông tin cho HTTP request
+      // const requestData = {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(newOrderDetails),
+      // };
+      // console.log(newOrderDetails.sizeID)
+      // // Gửi HTTP request để thêm sản phẩm vào giỏ hàng
+      // fetch(`http://localhost:9999/api/add-product-to-cart?accessToken=Bearer${" "+accessToken}&productID=${informationProduct.productID}&sizeID=${newOrderDetails.sizeID}&quantityPurchase=${newOrderDetails.quantityPurchase}`, requestData)
+      //     .then((response) => {
+      //       if (response.ok) {
+      //         // Xử lý khi request thành công, ví dụ: hiển thị thông báo thành công
+      //         toast.success("Sản phẩm đã được thêm vào giỏ hàng");
+      //       } else {
+      //         // Xử lý khi request không thành công, ví dụ: hiển thị thông báo lỗi
+      //         toast.error("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       // Xử lý lỗi kết nối hoặc lỗi khác
+      //       console.error("Lỗi khi thực hiện HTTP request:", error);
+      //     });
     } else {
       toast.warn("Vui lòng chọn kích thước sản phẩm");
     }
-  }
+  };
+
 
   const handleClickBuyNow = () => {
     if (selectedSizeID) {
