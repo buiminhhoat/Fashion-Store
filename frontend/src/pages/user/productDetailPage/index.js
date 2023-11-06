@@ -18,12 +18,43 @@ const ProductDetailPage = () => {
   //   console.log(orderDetails);
   // }, [orderDetails]);
 
+  async function addToCart(orderDetails) {
+    const formData = new FormData();
+    formData.append('accessToken', orderDetails.accessToken);
+    formData.append('productID', orderDetails.productID);
+    formData.append('sizeID', orderDetails.sizeID);
+    formData.append('quantityPurchase', orderDetails.quantityPurchase);
+
+    let apiAddToCart = "http://localhost:9999/api/add-product-to-cart";
+    fetch(apiAddToCart, {
+      method: 'POST',
+      body: formData,
+    })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Upload failed');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          toast.success("Đã thêm vào giỏ hàng thành công");
+          console.log('Upload successful:', data);
+        })
+        .catch((error) => {
+          toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+          console.error('Upload failed:', error);
+        });
+  }
+
+
   const handleAddToCart = (newOrder) => {
     const orderDetails = {
       accessToken: accessToken,
       productID: informationProduct.productID,
       ...newOrder,
     };
+    console.log(orderDetails)
+    addToCart(orderDetails).then(r => {})
   }
 
   const handleBuyNow = (newOrder) => {
