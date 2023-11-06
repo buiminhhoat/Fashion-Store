@@ -20,8 +20,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   const inputCategoryRef = useRef(null);
   const inputSubcategoryRef = useRef(null);
 
-  const apiGetCategory = "http://localhost:9999/api/get-all-categories";
-
   const handleButtonCloseClick = () => {
     onClose();
   };
@@ -31,6 +29,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const fetchData = async () => {
+    const apiGetCategory = "http://localhost:9999/api/get-all-categories";
     try {
       const response = await fetch(apiGetCategory, {
         method: 'GET',
@@ -38,8 +37,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiGetCategory");
-        console.log(data);
+        // console.log("apiGetCategory");
+        // console.log(data);
 
         setCategories(data);
       } else {
