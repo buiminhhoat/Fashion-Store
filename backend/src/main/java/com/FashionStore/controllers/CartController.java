@@ -150,7 +150,12 @@ public class CartController {
             cartItem = new CartItem(cartID, productID, sizeID, quantityPurchase);
             cartItemRepository.save(cartItem);
         } else {
+            Long limitQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(productID, sizeID).getQuantity();
             Long oldCartItemQuantity = cartItem.getQuantityPurchase();
+            if (oldCartItemQuantity + quantityPurchase > limitQuantity) {
+                ResponseObject responseObject = new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), "Trong kho chỉ còn lại " + limitQuantity + " sản phẩm", null);
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+            }
             cartItem.setQuantityPurchase(oldCartItemQuantity + quantityPurchase);
             cartItemRepository.save(cartItem);
         }
@@ -178,6 +183,12 @@ public class CartController {
         Long quantityPurchase = Long.valueOf(request.getParameter("quantityPurchase"));
 
         CartItem cartItem = cartItemRepository.findCartItemByCartItemID(cartItemID);
+
+        Long limitQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(productID, sizeID).getQuantity();
+        if (quantityPurchase > limitQuantity) {
+            ResponseObject responseObject = new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), "Trong kho chỉ còn lại " + limitQuantity + " sản phẩm", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
 
         if (cartItem == null) {
             ResponseObject responseObject = new ResponseObject("Cart Item ID không hợp lệ");

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ProductQuantityRepository extends JpaRepository<ProductQuantity, Long> {
     List<ProductQuantity> findProductQuantitiesByProductID(Long productID);
+    ProductQuantity findProductQuantitiesByProductIDAndSizeID(Long productID, Long sizeID);
 }
