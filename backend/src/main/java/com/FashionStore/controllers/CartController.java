@@ -144,20 +144,16 @@ public class CartController {
         cart = cartRepository.findCartByUserID(userID);
 
         Long cartID = cart.getCartID();
-        CartItem cartItem = new CartItem(cartID, productID, sizeID, quantityPurchase);
+        CartItem cartItem = cartItemRepository.findCartItemByCartIDAndProductIDAndSizeID(cartID, productID, sizeID);
 
-        CartItem oldCartItem = cartItemRepository.findCartItemByCartIDAndProductID(cartID, productID);
-
-        if (oldCartItem != null && Objects.equals(cartItem.getCartID(), oldCartItem.getCartID())
-            && Objects.equals(cartItem.getProductID(), oldCartItem.getProductID())) {
-            if (Objects.equals(cartItem.getSizeID(), oldCartItem.getSizeID())) {
-                Long oldCartItemQuantity = oldCartItem.getQuantityPurchase();
-                cartItemRepository.delete(oldCartItem);
-                cartItem.setQuantityPurchase(oldCartItemQuantity + cartItem.getQuantityPurchase());
-            }
+        if (cartItem == null) {
+            cartItem = new CartItem(cartID, productID, sizeID, quantityPurchase);
+            cartItemRepository.save(cartItem);
+        } else {
+            Long oldCartItemQuantity = cartItem.getQuantityPurchase();
+            cartItem.setQuantityPurchase(oldCartItemQuantity + quantityPurchase);
+            cartItemRepository.save(cartItem);
         }
-
-        cartItemRepository.save(cartItem);
 
         ResponseObject responseObject = new ResponseObject(HttpStatus.OK.toString(), "Đã thêm sản phẩm vào giỏ", cartItem);
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
