@@ -1,5 +1,8 @@
 import React, {useEffect, useRef, useState} from "react"
 import {toast} from "react-toastify";
+import queryString from 'query-string';
+import {useCookies} from "react-cookie";
+import {useLocation} from "react-router-dom";
 
 import "./style.scss"
 import "./css/cart.css";
@@ -61,51 +64,38 @@ const productList = [
       }
     ]
   },
-  {
-    "productID": 2,
-    "productName": "Áo Thun Dài Tay Nam, Thiết Kế Basic ATO23014",
-    "productPrice": 195000.0,
-    "imagePath": "de0623d3-0122-472a-bbc2-667b31e60856.jpg",
-    "currentQuantity": 1,
-
-    "productSizes": [
-      {
-        "sizeID": 7,
-        "productID": 2,
-        "sizeName": "S"
-      },
-      {
-        "sizeID": 8,
-        "productID": 2,
-        "sizeName": "L"
-      }
-    ],
-    "productQuantities": [
-      {
-        "quantityID": 7,
-        "productID": 2,
-        "sizeID": 7,
-        "quantity": 20
-      },
-      {
-        "quantityID": 8,
-        "productID": 2,
-        "sizeID": 8,
-        "quantity": 900
-      }
-    ],
-  }
 ]
 
-function CheckoutPage(product) {
-  product = productList;
+function CheckoutPage() {
 
-  const [amount, setAmount] = useState(product[0].currentQuantity)
-  const [selectedSizeID, setSelectedSizeID] = useState(product[0].productSizes[0].sizeID)
+  // product = productList;
+
+
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+
+  const productID = queryParams.productID;
+  // console.log(productID)
+  const sizeID = parseInt(queryParams.sizeID, 10);
+  const currentQuantity = parseInt(queryParams.quantity, 10);
+
+  // const [cookies] = useCookies(['access_token']);
+  // const accessToken = cookies.access_token;
+
+  const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
+
+  const [selectedSizeID, setSelectedSizeID] = useState(sizeID)
+  const [amount, setAmount] = useState(currentQuantity)
+  const [product, setProduct] = useState({})
+  const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
+
+  console.log(selectedSizeID)
+
+
   const handleIncreaseAmount = () => {
     let productQuantities = 1;
-    if (product[0].productQuantities.find((quantity) => quantity.quantityID === selectedSizeID)) {
-      productQuantities = product[0].productQuantities.find((quantity) => quantity.quantityID === selectedSizeID).quantity
+    if (product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID)) {
+      productQuantities = product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity
     }
 
     // setAmount(Math.min(amount + 1, productQuantities));
@@ -126,8 +116,47 @@ function CheckoutPage(product) {
   }
 
   const handleChooseSize = (sizeID) => {
-    setAmount(1);
+    // setAmount(1);
     setSelectedSizeID(sizeID);
+
+    let productQuantities = 1;
+    if (product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID)) {
+      productQuantities = product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity
+    }
+
+    setAmount(Math.min(amount, productQuantities));
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiProductDetailByID, {
+          method: 'GET',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setProduct(data);
+        } else {
+          const data = await response.json();
+          console.log(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error('Không kết nối được với database');
+      } finally {
+        // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
+    return <div></div>;
+
   }
   console.log("Reload!");
 
@@ -162,14 +191,15 @@ function CheckoutPage(product) {
                       <div className="left-content col-xl-8 col-lg-8 col-md-6 col-12">
                         <div className="card-product d-flex">
                           <div className="image-product">
-                            <Link to ={"/product/" + product[0].productID}>
-                                <img src={"http://localhost:9999/storage/images/" + product[0].imagePath} alt={product[0].productName} />
+                            <Link to ={"/product/" + product.productID}>
+                                <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={product.productName} />
+                              {/*{console.log(product.productImages)}*/}
                             </Link>
                           </div>
                           <div className="product__info">
                             <div className="product__name d-flex align-items-start justify-content-between">
-                              <Link to ={"/product/" + product[0].productID}>
-                                <h5 className="name">{product[0].productName}</h5>
+                              <Link to ={"/product/" + product.productID}>
+                                <h5 className="name">{product.productName}</h5>
                               </Link>
                               <img src={closeButton} alt="icon close" onClick={handleCloseButton}/>
                             </div>
@@ -178,13 +208,13 @@ function CheckoutPage(product) {
                                 {/*<button type="button" data-bs-toggle="dropdown" className="btn btn-classify text-start position-relative dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
                                   <div className="wrap-product-detail-properties d-flex ">
                                     {
-                                      product[0].productSizes ?
+                                      product.productSizes ?
                                           (
-                                              product[0].productSizes.map((size, index) =>
+                                              product.productSizes.map((size, index) =>
                                                   (
-                                                      product[0].productQuantities.find((quantity) => quantity.quantityID === size.sizeID) ?
+                                                      product.productQuantities.find((quantity) => quantity.quantityID === size.sizeID) ?
                                                           (
-                                                              product[0].productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity === 0 ?
+                                                              product.productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity === 0 ?
                                                                   <div key={index} className="size-wrap size size-sold-out">{size.sizeName}</div>
                                                                   :
                                                                   <div key={index}
@@ -203,7 +233,7 @@ function CheckoutPage(product) {
                             </div>
                             <div className="product__price d-flex align-items-center">
                               <div className="product__price__sale">
-                                {formatter(product[0].productPrice * amount)}
+                                {formatter(product.productPrice * amount)}
                               </div>
                             </div>
                             <div className="product__quantity d-flex">
@@ -257,7 +287,7 @@ function CheckoutPage(product) {
                               </div>
                               <div className="col-6 cart__bill--mb">
                                 <div className="cart__bill__value">
-                                  <div className="cart__bill__title text-end">{formatter(product[0].productPrice * amount)}</div>
+                                  <div className="cart__bill__title text-end">{formatter(product.productPrice * amount)}</div>
                                   {/*<div className="bill__price__save text-end">(tiết kiệm 269k)</div>*/}
                                 </div>
                               </div>
@@ -276,13 +306,13 @@ function CheckoutPage(product) {
                               </div>
                               <div className="col-6 cart__bill--mb  row-sum">
                                 <div className="cart__bill__value">
-                                  <div className="cart__bill__title text-end text-red">{formatter(product[0].productPrice * amount)}</div>
+                                  <div className="cart__bill__title text-end text-red">{formatter(product.productPrice * amount)}</div>
                                 </div>
                               </div>
                             </div>
                             <span onClick={openModalCreateAddress}>
                                             <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
-                                                <span className="text-checkout">Thanh toán:  {formatter(product[0].productPrice * amount)} <span>COD</span></span>
+                                                <span className="text-checkout">Thanh toán:  {formatter(product.productPrice * amount)} <span>COD</span></span>
                                             </button>
                             </span>
                           </div>

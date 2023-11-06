@@ -136,8 +136,8 @@ function CartPage(product) {
     product[id].selectedSizeID = sizeID
 
     let productQuantities = 1;
-    if (product[id].productQuantities.find((quantity) => quantity.quantityID === product[id].selectedSizeID)) {
-      productQuantities = product[id].productQuantities.find((quantity) => quantity.quantityID === product[id].selectedSizeID).quantity
+    if (product[id].productQuantities.find((quantity) => quantity.sizeID === product[id].selectedSizeID)) {
+      productQuantities = product[id].productQuantities.find((quantity) => quantity.sizeID === product[id].selectedSizeID).quantity
     }
 
     product[id].currentQuantity = Math.min(product[id].currentQuantity, productQuantities);
@@ -204,9 +204,9 @@ function CartPage(product) {
                                       (
                                           product[0].productSizes.map((size, index) =>
                                               (
-                                                  product[0].productQuantities.find((quantity) => quantity.quantityID === size.sizeID) ?
+                                                  product[0].productQuantities.find((quantity) => quantity.sizeID === size.sizeID) ?
                                                       (
-                                                          product[0].productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity === 0 ?
+                                                          product[0].productQuantities.find((quantity) => quantity.sizeID === size.sizeID).quantity === 0 ?
                                                               <div key={index} className="size-wrap size size-sold-out">{size.sizeName}</div>
                                                               :
                                                               <div key={index}
@@ -257,9 +257,9 @@ function CartPage(product) {
                                       (
                                           product[1].productSizes.map((size, index) =>
                                               (
-                                                  product[1].productQuantities.find((quantity) => quantity.quantityID === size.sizeID) ?
+                                                  product[1].productQuantities.find((quantity) => quantity.sizeID === size.sizeID) ?
                                                       (
-                                                          product[1].productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity === 0 ?
+                                                          product[1].productQuantities.find((quantity) => quantity.sizeID === size.sizeID).quantity === 0 ?
                                                               <div key={index} className="size-wrap size size-sold-out">{size.sizeName}</div>
                                                               :
                                                               <div key={index}
