@@ -7,6 +7,7 @@ import com.FashionStore.security.JwtTokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,25 +36,26 @@ public class ProfileController {
     }
 
     @PostMapping("/edit-profile")
-    public ResponseEntity<?> editProfile(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity<?> editProfile(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        String email = credentials.get("email");
+        String email = request.getParameter("email");
 
         if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(accessToken))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        String fullName = credentials.get("fullName");
-        String gender = credentials.get("gender");
+        String fullName = request.getParameter("fullName");
+        String gender = request.getParameter("gender");
         Map<String, Object> jsonData = new HashMap<>();
         String day = "", month = "", year = "";
         // Sử dụng ObjectMapper để chuyển đổi chuỗi JSON thành Map
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            jsonData = objectMapper.readValue(credentials.get("dateBirthday"), new TypeReference<Map<String, Object>>() {});
+            jsonData = objectMapper.readValue(request.getParameter("dateBirthday"), new TypeReference<Map<String, Object>>() {});
             day = (String) jsonData.get("day");
             month = (String) jsonData.get("month");
             year = (String) jsonData.get("year");
@@ -73,16 +75,16 @@ public class ProfileController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> credentials,
-                                            @RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity<?> changePassword(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        String oldPassword = credentials.get("oldPassword");
-        String newPassword = credentials.get("newPassword");
+        String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
 
         List<Users> findByEmail = usersRepository.findUsersByEmail(email);
         Users user = findByEmail.get(0);
