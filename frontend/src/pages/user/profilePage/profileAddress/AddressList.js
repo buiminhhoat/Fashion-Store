@@ -1,36 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Cookies, useCookies} from "react-cookie";
 
-let addresses = [
-    {
-        id: "65201956a33b82cac209f638",
-        recipientName: "Bùi Minh Hoạt",
-        recipientPhone: "0945405xxx",
-        isDefault: true,
-        addressDetails: "144 XT, Phường DVH, Quận CG, Hà Nội",
-        editLink: "https://5sfashion.vn/profile/address/65201956a33b82cac209f638",
-    },
-
-    {
-        id: "65201956a33b82cac209a529",
-        recipientName: "Nguyễn Châu Khanh",
-        recipientPhone: "0944252xxx",
-        isDefault: false,
-        addressDetails: "3 VTQ, Phường XYZ, Quận Thanh Xuân, Hà Nội",
-        editLink: "https://5sfashion.vn/profile/address/65201956a33b82cac209a529",
-    },
-
-    {
-        id: "65201956a33b82cac209sf32",
-        recipientName: "Nguyễn Tiến Dũng",
-        recipientPhone: "0903481xxx",
-        isDefault: false,
-        addressDetails: "Trương Định, Phường MNP, Quận Hoàng Mai, Hà Nội",
-        editLink: "https://5sfashion.vn/profile/address/65201956a33b82cac209sf32",
-    },
-    // Thêm các địa chỉ khác vào đây nếu cần
-];
-
 const addressesNew = [
     {
         "addressID": 3,
@@ -59,7 +29,7 @@ function AddressList() {
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
     const [addresses, setAddresses] = useState([]);
-
+    // console.log(accessToken)
     useEffect(() => {
         // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
         fetch("http://localhost:9999/api/get-all-addresses", {
@@ -70,6 +40,7 @@ function AddressList() {
         })
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 setAddresses(data);
             })
             .catch((error) => {
