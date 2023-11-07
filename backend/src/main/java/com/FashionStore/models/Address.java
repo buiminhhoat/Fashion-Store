@@ -30,11 +30,12 @@ public class Address {
 
     }
 
-    public Address(Long usersID, String recipientName, String recipientPhone, String addressDetails) {
+    public Address(Long usersID, String recipientName, String recipientPhone, String addressDetails, boolean isDefault) {
         this.usersID = usersID;
         this.recipientName = recipientName;
         this.recipientPhone = recipientPhone;
         this.addressDetails = addressDetails;
+        this.isDefault = isDefault;
     }
 
     public Long getAddressID() {
