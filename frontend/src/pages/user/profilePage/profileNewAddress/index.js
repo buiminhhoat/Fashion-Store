@@ -8,34 +8,36 @@ import arrowLeft1 from '../images/arrow_left_1.svg'
 import {useCookies} from "react-cookie";
 import Menu from "../utils/menu.js"
 import {toast} from "react-toastify";
+import {useState} from "react";
 
 let apiNewAddressUrl = "http://localhost:9999/api/new-address";
 
 const ProfileNewAddress = () => {
     const [cookies] = useCookies(['access_token']);
+    const [recipientName, setRecipientName] = useState("");
+    const [recipientPhone, setRecipientPhone] = useState("");
+    const [addressDetails, setAddressDetails] = useState("");
+    const [isDefault, setIsDefault] = useState(false);
+
     const accessToken = cookies.access_token;
     const handleSave = async () => {
-        const fullName = document.getElementById("name").value;
-        const phoneNumber = document.getElementById("phone").value;
-        const address = document.getElementById("address").value;
-        console.log(fullName);
-        console.log(phoneNumber);
-        console.log(address);
+        const formData = new FormData();
 
-        const addressInfo = {
-            recipientName: fullName,
-            recipientPhone: phoneNumber,
-            addressDetails: address
-        }
+        console.log(recipientName);
+        formData.append('recipientName', recipientName);
+        formData.append('recipientPhone', recipientPhone);
+        formData.append('addressDetails', addressDetails);
+        formData.append('isDefault', isDefault);
+
+        console.log(formData);
 
         try {
             const response = await fetch(apiNewAddressUrl, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`,
                 },
-                body: JSON.stringify(addressInfo)
+                body: formData,
             })
 
             if (response.status === 200) {
@@ -86,17 +88,24 @@ const ProfileNewAddress = () => {
                                                 <label className="form-label">Họ tên</label>
                                                 <input type="text" className="form-control"
                                                        id="name" placeholder="Nhập họ tên" name="name"
+                                                       onChange={(e) => setRecipientName(e.target.value)}
                                                 />
                                                 <span className="error" id="errorName" />
                                             </div>
                                             <div className="info__item">
                                                 <label className="form-label">Số điện thoại</label>
-                                                <input type="text" className="form-control" id="phone" placeholder="Nhập số điện thoại" name="phone" />
+                                                <input type="text" className="form-control" id="phone"
+                                                       placeholder="Nhập số điện thoại" name="phone"
+                                                       onChange={(e) => setRecipientPhone(e.target.value)}
+                                                />
                                                 <span className="error" id="errorPhone" />
                                             </div>
                                             <div className="info__item">
                                                 <label className="form-label">Địa chỉ</label>
-                                                <input type="text" className="form-control" id="address" placeholder="Nhập địa chỉ" name="address" />
+                                                <input type="text" className="form-control" id="address"
+                                                       placeholder="Nhập địa chỉ" name="address"
+                                                       onChange={(e) => setAddressDetails(e.target.value)}
+                                                />
                                                 <span className="error" id="errorAddress" />
                                             </div>
                                         </article>
