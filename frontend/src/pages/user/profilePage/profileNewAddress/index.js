@@ -52,6 +52,10 @@ const ProfileNewAddress = () => {
             toast.error("Không kết nối được với database");
         }
     }
+
+    const handleCancel = () => {
+        window.location.reload();
+    }
     return (
         <div id="app">
             <main id="main">
@@ -67,7 +71,7 @@ const ProfileNewAddress = () => {
                             <section className="new__address__wrap" style={{minHeight: "438px"}}>
                                 <section className="header__wrap">
                                     <button className="btn__back">
-                                        <a href="https://5sfashion.vn/profile/address">
+                                        <a href="/profile/address">
                                             <img src={arrowLeft1} alt="icon arrow left" />
                                         </a>
                                     </button>
@@ -100,7 +104,7 @@ const ProfileNewAddress = () => {
 
                                     <section className="footer__wrap" style={{marginLeft: "30px"}}>
                                         <button type="button" className="btn btn-danger" id="save" onClick={handleSave}>Hoàn thành</button>
-                                        <button type="button" className="btn btn-outline-danger" id="cancel">Hủy bỏ</button>
+                                        <button type="button" className="btn btn-outline-danger" id="cancel" onClick={handleCancel}>Hủy bỏ</button>
                                     </section>
                                 </form>
                             </section>
