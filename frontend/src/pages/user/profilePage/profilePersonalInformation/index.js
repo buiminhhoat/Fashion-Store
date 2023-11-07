@@ -23,14 +23,13 @@ const ProfilePersonalInformationPage = () => {
     console.log(accessToken);
 
     const handleSaveInformation = () => {
-        // Tạo một đối tượng chứa thông tin cần cập nhật
-        const updatedUserInfo = {
-            fullName: name,
-            email: email,
-            phoneNumber: phoneNumber,
-            gender: gender,
-            dateBirthday: JSON.stringify(dateBirthday),
-        };
+        const formData = new FormData();
+        formData.append('fullName', name);
+        formData.append('email', email);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('gender', gender);
+        formData.append('dateBirthday', JSON.stringify(dateBirthday));
+
 
         if (name === "" || email === "" || phoneNumber === "" || gender === "" || dateBirthday.day === ""
             || dateBirthday.month === "" || dateBirthday.year === "") {
@@ -44,11 +43,9 @@ const ProfilePersonalInformationPage = () => {
         fetch(apiEditProfile, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                // Thêm Authorization Header với refresh token
                 Authorization: `Bearer ${accessToken}`,
             },
-            body: JSON.stringify(updatedUserInfo),
+            body: formData,
         })
             .then(response => {
                 if (!response.ok) {
