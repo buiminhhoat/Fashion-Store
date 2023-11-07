@@ -36,34 +36,124 @@ const productListFake = [
 
 function CartPage() {
   // product = productList;
+  const [numberProduct, setNumberProduct] = useState(0)
+
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
+  const apiGetCart = "http://localhost:9999/api/get-cart?accessToken=Bearer " + accessToken;
+
   const [product, setProduct] = useState({});
   const handleIncreaseAmount = (id) => {
+    // Lấy số lượng sản phẩm hiện tại trong giỏ hàng
     let productQuantities = 1;
     if (product[id].informationProduct.productQuantities.find((quantity) => quantity.quantityID === product[id].sizeID)) {
-      productQuantities = product[id].informationProduct.productQuantities.find((quantity) => quantity.quantityID === product[id].sizeID).quantity
+      productQuantities = product[id].informationProduct.productQuantities.find((quantity) => quantity.quantityID === product[id].sizeID).quantity;
     }
 
-    // setAmount(Math.min(amount + 1, productQuantities));
-
     if (product[id].quantityPurchase < productQuantities) {
-      const updatedProduct = [...product]; // Tạo một bản sao mới để tránh thay đổi trực tiếp
+      // Tạo một bản sao mới để tránh thay đổi trực tiếp
+      const updatedProduct = [...product];
       updatedProduct[id].quantityPurchase++;
-      setProduct(updatedProduct); // Cập nhật trạng thái sản phẩm
+
+      // Cập nhật trạng thái sản phẩm
+      setProduct(updatedProduct);
+
+      // Gửi yêu cầu cập nhật lên cơ sở dữ liệu
+      const updatedQuantity = updatedProduct[id].quantityPurchase;
+      const productID = updatedProduct[id].informationProduct.productID;
+      const sizeID = updatedProduct[id].sizeID;
+
+      // Gửi yêu cầu cập nhật lên server
+      const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+
+      fetch(updateCartURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+          .then((response) => {
+            if (response.ok) {
+              // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
+            } else {
+              throw new Error('Lỗi khi cập nhật giỏ hàng.');
+            }
+          })
+          .catch((error) => {
+            console.error('Lỗi:', error);
+            // Có thể hiển thị thông báo lỗi cho người dùng ở đây
+          });
     } else {
       toast.warn('Số lượng sẵn có không đủ!');
     }
-  }
+  };
+
 
   const handleDecreaseAmount = (id) => {
-    const updatedProduct = [...product]; // Tạo một bản sao mới để tránh thay đổi trực tiếp
+    // Tạo một bản sao mới để tránh thay đổi trực tiếp
+    const updatedProduct = [...product];
     updatedProduct[id].quantityPurchase--;
-    updatedProduct[id].quantityPurchase = Math.max(0,  product[id].quantityPurchase);
-    setProduct(updatedProduct);
-  }
+    updatedProduct[id].quantityPurchase = Math.max(0, updatedProduct[id].quantityPurchase);
+    if (updatedProduct[id].quantityPurchase == 0) {
+      handleCloseButton(id);
+      return;
+    }
 
-  const handleCloseButton = () => {
-    return 1;
-  }
+
+    // Cập nhật trạng thái sản phẩm
+    setProduct(updatedProduct);
+
+    // Gửi yêu cầu cập nhật lên cơ sở dữ liệu
+    const updatedQuantity = updatedProduct[id].quantityPurchase;
+    const productID = updatedProduct[id].informationProduct.productID;
+    const sizeID = updatedProduct[id].sizeID;
+
+    // Gửi yêu cầu cập nhật lên server
+    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+
+    fetch(updateCartURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+        .then((response) => {
+          if (response.ok) {
+            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
+          } else {
+            throw new Error('Lỗi khi cập nhật giỏ hàng.');
+          }
+        })
+        .catch((error) => {
+          console.error('Lỗi:', error);
+          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
+        });
+  };
+
+
+  const handleCloseButton = (id) => {
+    // Gửi yêu cầu xóa sản phẩm khỏi giỏ hàng lên server
+    const deleteCartItemURL = `http://localhost:9999/api/delete-product-in-cart?accessToken=${accessToken}&cartItemID=${product[id].cartItemID}`;
+
+    fetch(deleteCartItemURL, {
+      method: 'POST', // Sử dụng phương thức DELETE để xóa sản phẩm
+    })
+        .then((response) => {
+          if (response.ok) {
+            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
+            // Nếu bạn muốn cập nhật lại trạng thái giỏ hàng sau khi xóa sản phẩm, hãy thực hiện ở đây
+            setNumberProduct(numberProduct-1);
+            // console.log(numberProduct)
+          } else {
+            throw new Error('Lỗi khi xóa sản phẩm khỏi giỏ hàng.');
+          }
+        })
+        .catch((error) => {
+          console.error('Lỗi:', error);
+          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
+        });
+  };
 
   const handleChooseSize = (sizeID, id) => {
     const updatedProduct = [...product]; // Tạo một bản sao mới để tránh thay đổi trực tiếp
@@ -78,6 +168,33 @@ function CartPage() {
     updatedProduct[id].quantityPurchase = Math.min(updatedProduct[id].quantityPurchase, productQuantities);
     setProduct(updatedProduct);
 
+    // Cập nhật trạng thái sản phẩm
+    setProduct(updatedProduct);
+
+    // Gửi yêu cầu cập nhật lên cơ sở dữ liệu
+    const updatedQuantity = updatedProduct[id].quantityPurchase;
+    const productID = updatedProduct[id].informationProduct.productID;
+
+    // Gửi yêu cầu cập nhật lên server
+    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+
+    fetch(updateCartURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+        .then((response) => {
+          if (response.ok) {
+            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
+          } else {
+            throw new Error('Lỗi khi cập nhật giỏ hàng.');
+          }
+        })
+        .catch((error) => {
+          console.error('Lỗi:', error);
+          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
+        });
   }
 
   const calcTotalPrice = () => {
@@ -90,10 +207,10 @@ function CartPage() {
   // console.log("Reload!");
 
 
-  const [cookies] = useCookies(['access_token']);
-  const accessToken = cookies.access_token;
-
-  const apiGetCart = "http://localhost:9999/api/get-cart?accessToken=Bearer " + accessToken;
+  // const [cookies] = useCookies(['access_token']);
+  // const accessToken = cookies.access_token;
+  //
+  // const apiGetCart = "http://localhost:9999/api/get-cart?accessToken=Bearer " + accessToken;
   // console.log(apiGetCart)
   const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
 
@@ -128,6 +245,7 @@ function CartPage() {
           // Chờ tất cả các promises hoàn thành và cập nhật state product
           const updatedProduct = await Promise.all(productPromises);
           setProduct(updatedProduct);
+          setNumberProduct(updatedProduct.length);
           console.log(updatedProduct)
         } else {
           const data = await response.json();
@@ -142,7 +260,7 @@ function CartPage() {
     };
 
     fetchData();
-  }, []);
+  }, [numberProduct]);
 
   if (loading) {
     // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
@@ -186,7 +304,7 @@ function CartPage() {
                                 handleDecreaseAmount={() => handleDecreaseAmount(index)}
                                 handleIncreaseAmount={() => handleIncreaseAmount(index)}
                                 handleChooseSize={(sizeID) => handleChooseSize(sizeID, index)}
-                                handleCloseButton={handleCloseButton}
+                                handleCloseButton={() => handleCloseButton(index)}
                             />
                         ))}
 

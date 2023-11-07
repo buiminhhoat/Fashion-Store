@@ -26,25 +26,30 @@ const ProductDetailPage = () => {
     formData.append('quantityPurchase', orderDetails.quantityPurchase);
 
     let apiAddToCart = "http://localhost:9999/api/add-product-to-cart";
-    fetch(apiAddToCart, {
-      method: 'POST',
-      body: formData,
-    })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Upload failed');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          toast.success("Đã thêm vào giỏ hàng thành công");
-          console.log('Upload successful:', data);
-        })
-        .catch((error) => {
-          toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-          console.error('Upload failed:', error);
-        });
+    try {
+      const response = await fetch(apiAddToCart, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success("Đã thêm vào giỏ hàng thành công");
+        console.log('Upload successful:', data);
+      } else if (response.status === 401) {
+        // Xử lý khi số lượng hàng trong kho không đủ
+        toast.warn("Số lượng hàng trong kho không đủ. Vui lòng giảm số lượng mua hoặc chọn kích thước khác.");
+      } else {
+        // Xử lý các trường hợp lỗi khác
+        toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
+      }
+    } catch (error) {
+      // Xử lý lỗi kết nối hoặc lỗi khác
+      toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
+      console.error('Upload failed:', error);
+    }
   }
+
 
 
   const handleAddToCart = (newOrder) => {

@@ -216,7 +216,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
         sizeID: selectedSizeID,
         quantityPurchase: quantityPurchase,
       };
-
+      handleAddToCart(newOrderDetails);
       // Tạo một đối tượng chứa thông tin cho HTTP request
       // const requestData = {
       //   method: 'POST',
