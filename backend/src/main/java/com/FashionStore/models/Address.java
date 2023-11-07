@@ -23,6 +23,9 @@ public class Address {
     @Column(name = "AddressDetails")
     private String addressDetails;
 
+    @Column(name = "IsDefault")
+    private boolean isDefault;
+
     public Address() {
 
     }
@@ -74,6 +77,14 @@ public class Address {
         this.addressDetails = addressDetails;
     }
 
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
     @Override
     public String toString() {
         return "Address{" +
@@ -82,6 +93,7 @@ public class Address {
                 ", recipientName='" + recipientName + '\'' +
                 ", recipientPhone='" + recipientPhone + '\'' +
                 ", addressDetails='" + addressDetails + '\'' +
+                ", isDefault=" + isDefault +
                 '}';
     }
 }
