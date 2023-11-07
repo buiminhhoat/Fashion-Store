@@ -60,7 +60,7 @@ const SearchProductPage = () => {
         }
       } catch (error) {
         console.log(error);
-        toast.error('Không kết nối được với database');
+        toast.error('Không thể kết nối được với database');
       }
     }
     fetchData().then(r => {});

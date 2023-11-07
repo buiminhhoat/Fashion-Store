@@ -209,7 +209,7 @@ const SearchDialog = ({keyword}) => {
         }
       } catch (error) {
         console.log(error);
-        toast.error('Không kết nối được với database');
+        toast.error('Không thể kết nối được với database');
       }
     }
     fetchData().then(r => {});
@@ -484,7 +484,7 @@ const Header = () => {
         }
       } catch (error) {
         console.log(error);
-        toast.error('Không kết nối được với database');
+        toast.error('Không thể kết nối được với database');
       } finally {
         // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
         setLoading(false);
