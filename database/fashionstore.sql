@@ -7,6 +7,10 @@
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
+DROP DATABASE IF EXISTS fashionstore;
+CREATE DATABASE fashionstore;
+USE fashionstore;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -40,9 +44,12 @@ CREATE TABLE `address` (
 -- Đang đổ dữ liệu cho bảng `address`
 --
 
-INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `IsDefault`) VALUES
-(1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội', 1),
-(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', NULL);
+INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
+(1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ'),
+(3, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Trương Định, Tương Mai, Hoàng Mai, Hà Nội'),
+(4, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Silicon Valley, United States of America'),
+(5, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Massachusetts Institute of Technology, United States of America');
 
 -- --------------------------------------------------------
 
