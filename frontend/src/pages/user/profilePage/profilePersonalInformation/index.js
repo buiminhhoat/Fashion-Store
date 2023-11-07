@@ -80,9 +80,7 @@ const ProfilePersonalInformationPage = () => {
                 const response = await fetch(apiFetchUserData, {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*",
-                        "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
                         Authorization: `Bearer ${accessToken}`
                     },
                 });
