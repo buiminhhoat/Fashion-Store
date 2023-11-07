@@ -18,57 +18,9 @@ const openModalCreateAddress = () => {
   return 1;
 }
 
-const productList = [
-  {
-    "productID": 1,
-    "productName": "Quần Âu Nam 5S Fashion, Thiết Kế Basic, Lịch Lãm QAU23062",
-    "productPrice": 551000.0,
-    "imagePath": "031eb83d-2ce8-49e0-94c7-ec338e20af53.jpg",
-    "currentQuantity": 1,
-    "productSizes": [
-      {
-        "sizeID": 1,
-        "productID": 1,
-        "sizeName": "S"
-      },
-      {
-        "sizeID": 2,
-        "productID": 1,
-        "sizeName": "M"
-      },
-      {
-        "sizeID": 3,
-        "productID": 1,
-        "sizeName": "XXL"
-      }
-    ],
-    "productQuantities": [
-      {
-        "quantityID": 1,
-        "productID": 1,
-        "sizeID": 1,
-        "quantity": 4
-      },
-      {
-        "quantityID": 2,
-        "productID": 1,
-        "sizeID": 2,
-        "quantity": 2
-      },
-      {
-        "quantityID": 3,
-        "productID": 1,
-        "sizeID": 3,
-        "quantity": 0
-      }
-    ]
-  },
-]
-
 function CheckoutPage() {
 
   // product = productList;
-
 
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
@@ -157,6 +109,10 @@ function CheckoutPage() {
     return <div></div>;
 
   }
+
+  const openModalAddress = () => {
+    return 1;
+  }
   console.log("Reload!");
 
   return (
@@ -203,8 +159,6 @@ function CheckoutPage() {
                               <img src={closeButton} alt="icon close" onClick={handleCloseButton}/>
                             </div>
                             <div className="product__classify">
-                              {/*<div className="dropdown">*/}
-                                {/*<button type="button" data-bs-toggle="dropdown" className="btn btn-classify text-start position-relative dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
                                   <div className="wrap-product-detail-properties d-flex ">
                                     {
                                       product.productSizes ?
@@ -226,9 +180,6 @@ function CheckoutPage() {
                                           ) : <></>
                                     }
                                   </div>
-                                {/*  <img className="icon-down position-absolute" src={arrowDown} alt="icon arrow down" />*/}
-                                {/*</button>*/}
-                              {/*</div>*/}
                             </div>
                             <div className="product__price d-flex align-items-center">
                               <div className="product__price__sale">
@@ -249,7 +200,7 @@ function CheckoutPage() {
                       </div>
 
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        <div className="cart__address cursor-pointer" onClick={openModalCreateAddress}>
+                        <div className="cart__address cursor-pointer" onClick={openModalAddress}>
                           <div className="cart__address__title d-flex align-items-center justify-content-between">
                             <div className="cart__address__title__left mb-6px">
                               <img src={locationDot} alt="icon address" />
