@@ -63,7 +63,7 @@ public class CartController {
 
     @GetMapping("/get-cart")
     public ResponseEntity<?> getCart(HttpServletRequest request) {
-        String accessToken = String.valueOf(request.getParameter("accessToken"));
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
@@ -119,7 +119,7 @@ public class CartController {
 
     @PostMapping("/add-product-to-cart")
     public ResponseEntity<?> addProductToCart(HttpServletRequest request) {
-        String accessToken = String.valueOf(request.getParameter("accessToken"));
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
@@ -166,7 +166,7 @@ public class CartController {
 
     @PostMapping("/edit-product-in-cart")
     public ResponseEntity<?> editProductInCart(HttpServletRequest request) {
-        String accessToken = String.valueOf(request.getParameter("accessToken"));
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
@@ -208,7 +208,7 @@ public class CartController {
 
     @PostMapping("/delete-product-in-cart")
     public ResponseEntity<?> deleteProductInCart(HttpServletRequest request) {
-        String accessToken = String.valueOf(request.getParameter("accessToken"));
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
@@ -236,7 +236,7 @@ public class CartController {
 
     @PostMapping("/delete-all-product-in-cart")
     public ResponseEntity<?> deleteAllProductInCart(HttpServletRequest request) {
-        String accessToken = String.valueOf(request.getParameter("accessToken"));
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
