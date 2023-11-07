@@ -115,7 +115,7 @@ function CartPage() {
     fetch(updateCartURL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+
       },
     })
         .then((response) => {
@@ -181,7 +181,7 @@ function CartPage() {
     fetch(updateCartURL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+
       },
     })
         .then((response) => {
