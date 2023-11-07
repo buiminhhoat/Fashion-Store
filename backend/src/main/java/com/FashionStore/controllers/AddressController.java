@@ -73,7 +73,8 @@ public class AddressController {
     }
 
     @PostMapping("/get-all-addresses")
-    public ResponseEntity<?> getAllAddresses(@RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity<?> getAllAddresses(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
