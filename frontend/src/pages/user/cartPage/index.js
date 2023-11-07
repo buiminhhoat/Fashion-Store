@@ -41,7 +41,7 @@ function CartPage() {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "http://localhost:9999/api/get-cart?accessToken=Bearer " + accessToken;
+  const apiGetCart = "http://localhost:9999/api/get-cart";
 
   const [product, setProduct] = useState({});
   const handleIncreaseAmount = (id) => {
@@ -70,7 +70,7 @@ function CartPage() {
       fetch(updateCartURL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
       })
           .then((response) => {
