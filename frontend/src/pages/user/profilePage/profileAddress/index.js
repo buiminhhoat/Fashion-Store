@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 import './style.scss';
 import iconOrder from '../images/order.svg';
 import likeProduct from '../images/likeProduct.svg'
@@ -10,7 +12,7 @@ import logout from '../images/logout.svg'
 import emptyProduct from '../images/empty-product.png'
 import plus from '../images/plus.svg'
 
-import addressList from './addressList'
+import AddressList from './AddressList'
 import Menu from "../utils/menu.js"
 
 const ProfileAddress = () => {
@@ -30,11 +32,11 @@ const ProfileAddress = () => {
                                 <div className="header-wrap">
                                     <span className="title">Sổ địa chỉ</span>
                                 </div>
-                                {addressList()}
-                                <a href="https://5sfashion.vn/profile/new-address" className="btn-wrap">
+                                <AddressList/>
+                                <Link to= {"/profile/new-address"} className="btn-wrap">
                                     <span>Thêm địa chỉ mới</span>
                                     <img src={plus} alt="icon add address" />
-                                </a>
+                                </Link>
 
                                 <div className="modal fade" id="delete-address-modal" data-bs-keyboard="false">
                                     <div className="modal-dialog modal-dialog-centered">

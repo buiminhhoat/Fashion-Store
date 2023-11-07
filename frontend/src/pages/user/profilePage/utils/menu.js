@@ -104,8 +104,8 @@ const Menu = () => {
             <div className="header-wrap">
                 <div className="image-wrap">
                     <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt={userData.fullName} id="action-upload"/>
-                    <input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>
-                    <input type="file" id="upload-file" className="d-none"/>
+                    {/*<input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>*/}
+                    {/*<input type="file" id="upload-file" className="d-none"/>*/}
                 </div>
                 <div className="text-header">
                     <p>Xin chào,</p>
