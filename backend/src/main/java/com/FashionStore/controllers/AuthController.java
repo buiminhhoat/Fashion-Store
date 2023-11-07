@@ -5,6 +5,7 @@ import com.FashionStore.models.ResponseObject;
 import com.FashionStore.models.Users;
 import com.FashionStore.repositories.UsersRepository;
 import com.FashionStore.security.JwtTokenUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-        String email = credentials.get("email");
-        String phoneNumber = credentials.get("email");
-        String password = credentials.get("password");
+    public ResponseEntity<?> login(HttpServletRequest request) {
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("email");
+        String password = request.getParameter("password");
 
         List<Users> findByEmail = usersRepository.findUsersByEmailAndHashedPassword(email, password);
         List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumberAndHashedPassword(phoneNumber, password);
@@ -56,7 +57,8 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<?> refresh(@RequestHeader("Authorization") String refreshToken) {
+    public ResponseEntity<?> refresh(HttpServletRequest request) {
+        String refreshToken = request.getHeader("Authorization");
         refreshToken = refreshToken.replace("Bearer ", "");
 
         if (jwtTokenUtil.isTokenExpired(refreshToken)) {
@@ -73,10 +75,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody Users users) {
+    public ResponseEntity<String> registerUser(HttpServletRequest request) {
         try {
-            String email = users.getEmail();
-            String phoneNumber = users.getPhoneNumber();
+            String fullName = request.getParameter("fullName");
+            String email = request.getParameter("email");
+            String phoneNumber = request.getParameter("phoneNumber");
+            String hashedPassword = request.getParameter("hashedPassword");
 
             List<Users> findByEmail = usersRepository.findUsersByEmail(email);
             List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumber(phoneNumber);
@@ -89,6 +93,7 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Số điện thoại đã tồn tại trên hệ thống. Đăng ký không thành công!");
             }
 
+            Users users = new Users(fullName, email, hashedPassword, phoneNumber, false);
             usersRepository.save(users);
             return ResponseEntity.ok("Đăng ký thành công");
         }
