@@ -6,6 +6,7 @@ import com.FashionStore.models.Users;
 import com.FashionStore.repositories.AddressRepository;
 import com.FashionStore.repositories.UsersRepository;
 import com.FashionStore.security.JwtTokenUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,8 @@ public class AddressController {
     }
 
     @PostMapping("/new-address")
-    public ResponseEntity<?> newAddress(@RequestBody Map<String, String> credentials, @RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity<?> newAddress(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -41,9 +43,10 @@ public class AddressController {
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
 
         Map<String, Object> jsonData = new HashMap<>();
-        String recipientName = credentials.get("recipientName");
-        String recipientPhone = credentials.get("recipientPhone");
-        String addressDetails = credentials.get("addressDetails");
+        String recipientName = request.getParameter("recipientName");
+        String recipientPhone = request.getParameter("recipientPhone");
+        String addressDetails = request.getParameter("addressDetails");
+        Boolean isDefault = Boolean.valueOf(request.getParameter("isDefault"));
 
 
         List<Users> findByEmail = usersRepository.findUsersByEmail(email);
@@ -53,7 +56,14 @@ public class AddressController {
         }
         Long userID = findByEmail.get(0).getUserID();
         try {
-            Address address = new Address(userID, recipientName, recipientPhone, addressDetails);
+            if (isDefault) {
+                Address currentAddressDefault = addressRepository.findAddressByUsersIDAndIsDefault(userID, true);
+                if (currentAddressDefault != null) {
+                    currentAddressDefault.setIsDefault(false);
+                    addressRepository.save(currentAddressDefault);
+                }
+            }
+            Address address = new Address(userID, recipientName, recipientPhone, addressDetails, isDefault);
             addressRepository.save(address);
             ResponseObject responseObject = new ResponseObject("Thêm địa chỉ mới thành công");
             return ResponseEntity.ok(responseObject);
