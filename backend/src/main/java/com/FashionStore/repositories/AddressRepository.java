@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
     List<Address> findAddressByUsersID(Long userId);
+
+    Address findAddressByUsersIDAndIsDefault(Long userID, boolean isDefault);
 }
