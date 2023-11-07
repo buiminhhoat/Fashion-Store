@@ -36,9 +36,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
-          "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
-          "Accept": "text/html,application/xhtml+xml,application/xml, application/json",
         },
       });
 
