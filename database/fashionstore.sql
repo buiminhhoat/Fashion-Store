@@ -3,13 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 05, 2023 lúc 05:02 PM
+-- Thời gian đã tạo: Th10 07, 2023 lúc 06:47 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
-
-DROP DATABASE IF EXISTS fashionstore;
-CREATE DATABASE fashionstore;
-USE fashionstore;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,19 +32,17 @@ CREATE TABLE `address` (
   `UserID` bigint(20) DEFAULT NULL,
   `RecipientName` varchar(255) NOT NULL,
   `RecipientPhone` varchar(20) DEFAULT NULL,
-  `AddressDetails` varchar(255) DEFAULT NULL
+  `AddressDetails` varchar(255) DEFAULT NULL,
+  `isDefault` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `address`
 --
 
-INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
-(1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ'),
-(3, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Trương Định, Tương Mai, Hoàng Mai, Hà Nội'),
-(4, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Silicon Valley, United States of America'),
-(5, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Massachusetts Institute of Technology, United States of America');
+INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `isDefault`) VALUES
+(1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội', 1),
+(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', NULL);
 
 -- --------------------------------------------------------
 
@@ -127,7 +121,8 @@ CREATE TABLE `orders` (
   `OrderDate` date DEFAULT NULL,
   `TotalAmount` decimal(10,2) DEFAULT NULL,
   `OrderStatus` varchar(20) DEFAULT NULL,
-  `UserID` bigint(20) DEFAULT NULL
+  `UserID` bigint(20) DEFAULT NULL,
+  `AddressID` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -371,7 +366,8 @@ ALTER TABLE `orderdetail`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`OrderID`),
-  ADD KEY `UserID` (`UserID`);
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `AddressID` (`AddressID`);
 
 --
 -- Chỉ mục cho bảng `product`
@@ -534,7 +530,8 @@ ALTER TABLE `orderdetail`
 -- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `productcategory`
