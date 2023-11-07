@@ -70,7 +70,6 @@ public class ProductController {
         Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
         String productSizesJson = request.getParameter("productSizes");
         String productQuantitiesJson = request.getParameter("productQuantities");
-//        String jsonListParam = request.getParameter("productSizeQuantity");
         ObjectMapper objectMapper = new ObjectMapper();
 
         List<ProductSize> productSizes;
@@ -230,8 +229,6 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(HttpServletRequest request) {
         Long productID = Long.valueOf(request.getParameter("productID"));
 
-//        Product product = productRepository.findProductByProductID(productID);
-
         try {
             cleanProduct(productID);
         } catch (IOException e) {
@@ -245,7 +242,7 @@ public class ProductController {
     }
 
     @GetMapping("/search/{productName}")
-    public ResponseEntity<?> searchProductByProductName(@PathVariable String productName) {
+    public ResponseEntity<?> searchProductByProductName(HttpServletRequest request, @PathVariable String productName) {
         List<Product> allProducts = productRepository.findAll();
         List<Product> products = new ArrayList<>();
 
@@ -280,7 +277,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{productID}")
-    public ResponseEntity<?> searchProductByProductID(@PathVariable Long productID) {
+    public ResponseEntity<?> searchProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
         Product product = productRepository.findProductByProductID(productID);
         product = getProductDetails(product.getProductID());
         return ResponseEntity.ok(product);
