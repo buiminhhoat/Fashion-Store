@@ -23,6 +23,10 @@ const LoginDialog = ({ onClose, onSwitch }) => {
 
     // Lấy giá trị của email và mật khẩu từ form
 
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
     console.log(email);
     console.log(password);
 
@@ -34,7 +38,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
       // Gửi yêu cầu đăng nhập đến máy chủ
       const response = await fetch(apiLoginUrl, {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: formData,
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
