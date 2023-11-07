@@ -42,8 +42,7 @@ public class AddressController {
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
 
-        Map<String, Object> jsonData = new HashMap<>();
-        String recipientName = request.getParameter("recipientName");
+        String recipientName = String.valueOf(request.getParameter("recipientName"));
         String recipientPhone = request.getParameter("recipientPhone");
         String addressDetails = request.getParameter("addressDetails");
         Boolean isDefault = Boolean.valueOf(request.getParameter("isDefault"));
