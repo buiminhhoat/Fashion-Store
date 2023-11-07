@@ -37,7 +37,7 @@ CREATE TABLE `address` (
   `RecipientName` varchar(255) NOT NULL,
   `RecipientPhone` varchar(20) DEFAULT NULL,
   `AddressDetails` varchar(255) DEFAULT NULL,
-  `isDefault` tinyint(1) DEFAULT NULL
+  `IsDefault` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
