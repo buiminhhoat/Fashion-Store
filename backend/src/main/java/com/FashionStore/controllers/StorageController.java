@@ -1,5 +1,6 @@
 package com.FashionStore.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,7 +21,7 @@ public class StorageController {
     String UPLOAD_DIR;
 
     @GetMapping("/images/{imageName}")
-    public ResponseEntity<byte[]> getImage(@PathVariable String imageName) {
+    public ResponseEntity<byte[]> getImage(HttpServletRequest request, @PathVariable String imageName) {
         String appRoot = System.getProperty("user.dir") + File.separator;
         String filePath = appRoot + UPLOAD_DIR + File.separator;
 
