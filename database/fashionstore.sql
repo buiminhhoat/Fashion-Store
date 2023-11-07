@@ -33,14 +33,14 @@ CREATE TABLE `address` (
   `RecipientName` varchar(255) NOT NULL,
   `RecipientPhone` varchar(20) DEFAULT NULL,
   `AddressDetails` varchar(255) DEFAULT NULL,
-  `isDefault` tinyint(1) DEFAULT NULL
+  `IsDefault` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `address`
 --
 
-INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `isDefault`) VALUES
+INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `IsDefault`) VALUES
 (1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội', 1),
 (2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', NULL);
 
