@@ -11,8 +11,7 @@ import emptyProduct from '../images/empty-product.png'
 import eyeOn from '../images/eye_on.svg'
 import eyeOff from '../images/eye_off.svg'
 import {useCookies} from "react-cookie";
-import {renderMenu} from "../utils/router";
-import {menuItemsProfile} from "../utils/router";
+import Menu from "../utils/menu.js"
 
 const ProfileChangePassword = () => {
     const [cookies] = useCookies(['access_token']);
@@ -71,23 +70,7 @@ const ProfileChangePassword = () => {
                     </div>
 
                     <div className="row content-wrap">
-                        <div className="col-4 menu-wrap item-row">
-                            <div className="header-wrap">
-                                <div className="image-wrap">
-                                    <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt="Hoạt Bùi Minh" id="action-upload"/>
-                                    <input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>
-                                    <input type="file" id="upload-file" className="d-none"/>
-                                </div>
-                                <div className="text-header">
-                                    <p>Xin chào,</p>
-                                    <p className="name">Hoạt Bùi Minh</p>
-                                </div>
-                            </div>
-
-                            <div className="menu-nav-wrap">
-                                <ul>{renderMenu(menuItemsProfile)}</ul>
-                            </div>
-                        </div>
+                        <Menu/>
 
                         <div className="col-8 content-children item-row">
                             <section className="change__password__wrap">

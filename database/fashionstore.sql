@@ -45,7 +45,10 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
 (1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ');
+(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ'),
+(3, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Trương Định, Tương Mai, Hoàng Mai, Hà Nội'),
+(4, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Silicon Valley, United States of America'),
+(5, 3, 'Nguyễn Tiến Dũng', '0903481758', 'Massachusetts Institute of Technology, United States of America');
 
 -- --------------------------------------------------------
 

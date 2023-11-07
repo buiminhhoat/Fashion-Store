@@ -6,8 +6,16 @@ export function useLogout() {
 
     const logout = () => {
         removeAccessTokenCookie('access_token');
+        removeAccessTokenCookie('access_token');
+        removeAccessTokenCookie('access_token');
+        removeAccessTokenCookie('access_token');
+        removeAccessTokenCookie('access_token');
+        removeAccessTokenCookie('access_token');
+
         removeRefreshTokenCookie('refresh_token');
-        window.location.reload();
+
+        // Redirect về trang chính của bạn (localhost:3000)
+        window.location.href = 'http://localhost:3000';
     };
 
     return logout;

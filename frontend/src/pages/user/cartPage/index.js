@@ -275,7 +275,7 @@ function CartPage() {
             <ol className="breadcrumb">
               <li className="breadcrumb-item"><Link to ="/"> Trang chủ </Link></li>
               <li className="breadcrumb-item"> &gt;</li>
-              <li className="breadcrumb-item active" aria-current="page">Giỏ hàng ({product.length})</li>
+              <li className="breadcrumb-item active" aria-current="page">Giỏ hàng ({numberProduct})</li>
             </ol>
           </nav>
 

@@ -9,17 +9,7 @@ import unlocked from '../images/unlocked.svg'
 import logout from '../images/logout.svg'
 import emptyProduct from '../images/empty-product.png'
 import {Cookies, useCookies} from 'react-cookie';
-import {renderMenu} from "../utils/router";
-import {menuItemsProfile} from "../utils/router";
-
-const tabItems = [
-    { id: "tab-all", text: "Tất cả", isActive: true },
-    { id: "tab1", text: "Chờ thanh toán", isActive: false },
-    { id: "tab5", text: "Đã xác nhận", isActive: false },
-    { id: "tab2", text: "Đang giao hàng", isActive: false },
-    { id: "tab3", text: "Hoàn thành", isActive: false },
-    { id: "tab4", text: "Đã hủy", isActive: false }
-];
+import Menu from "../utils/menu";
 
 const ProfilePersonalInformationPage = () => {
     const [userData, setUserData] = useState(null);
@@ -147,23 +137,7 @@ const ProfilePersonalInformationPage = () => {
                     </div>
 
                     <div className="row content-wrap">
-                        <div className="col-4 menu-wrap item-row">
-                            <div className="header-wrap">
-                                <div className="image-wrap">
-                                    <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt="Hoạt Bùi Minh" id="action-upload"/>
-                                    <input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>
-                                    <input type="file" id="upload-file" className="d-none"/>
-                                </div>
-                                <div className="text-header">
-                                    <p>Xin chào,</p>
-                                    <p className="name">Hoạt Bùi Minh</p>
-                                </div>
-                            </div>
-
-                            <div className="menu-nav-wrap">
-                                <ul>{renderMenu(menuItemsProfile)}</ul>
-                            </div>
-                        </div>
+                        <Menu/>
 
                         <div className="col-8 content-children item-row">
                             <div className="information-wrap">
