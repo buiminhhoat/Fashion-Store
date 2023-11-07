@@ -35,7 +35,7 @@ export const menuItemsProfile = [
     {
         icon: unlocked,
         text: "Đổi mật khẩu",
-        link: "/profile" + ROUTERS.USER.CHANGE_PASSWORD //"https://5sfashion.vn/profile/change-password",
+        link: "/profile" + ROUTERS.USER.CHANGE_PASSWORD,
     },
     {
         icon: logout,
