@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
@@ -16,12 +16,12 @@ const LoginDialog = ({ onClose, onSwitch }) => {
 
   const apiLoginUrl = "http://localhost:9999/api/login";
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
 
     // Lấy giá trị của email và mật khẩu từ form
-    const email = document.getElementById("email-login").value;
-    const password = document.getElementById("password-login").value;
 
     console.log(email);
     console.log(password);
@@ -93,12 +93,17 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                   <input type="hidden" name="_token" value="kd38LX3442ZoaFGkcWgeVWKJ0xwLrIk5YxQOdqzJ" />
                   <div className="input-wrap">
                     <label className="title">Email/Số điện thoại</label>
-                    <input id="email-login" name="email" type="text" placeholder="Nhập email hoặc số điện thoại" />
+                    <input id="email-login" name="email" type="text" placeholder="Nhập email hoặc số điện thoại"
+                           onChange={(e) => setEmail(e.target.value)}
+                    />
                   </div>
                   <span className="text-danger error-text email-error"></span>
                   <div className="input-wrap input-password-wrap">
                     <label className="title">Mật khẩu</label>
-                    <input id="password-login" name="password" className="input-password" type="password" placeholder="Nhập mật khẩu" />
+                    <input id="password-login" name="password" className="input-password" type="password"
+                           placeholder="Nhập mật khẩu"
+                           onChange={(e) => setPassword(e.target.value)}
+                    />
                     {/*<div className="icon-wrap">*/}
                     {/*<i className="fa-regular fa-eye btn-show-password" data-input-target=".input-password" style={{ display: 'none' }}></i>*/}
                     {/*<i className="fa-regular fa-eye-slash btn-hiden-password" data-input-target=".input-password" style={{ display: 'none' }}></i>*/}
