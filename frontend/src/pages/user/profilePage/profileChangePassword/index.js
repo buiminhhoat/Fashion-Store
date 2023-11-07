@@ -27,20 +27,18 @@ const ProfileChangePassword = () => {
             return;
         }
 
-        const updatedUserInfo = {
-            oldPassword: oldPassword,
-            newPassword: newPassword,
-        };
+        const formData = new FormData();
+        formData.append('oldPassword', oldPassword);
+        formData.append('oldPassword', oldPassword);
 
         try {
             const apiChangePassword = "http://localhost:9999/api/change-password";
             const response = await fetch(apiChangePassword, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`,
                 },
-                body: JSON.stringify(updatedUserInfo),
+                body: formData,
             });
 
             if (!response.ok) {
