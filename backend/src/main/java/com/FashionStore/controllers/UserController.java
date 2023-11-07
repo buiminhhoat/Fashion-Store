@@ -34,7 +34,8 @@ public class UserController {
     }
 
     @GetMapping("/get-user-data")
-    public ResponseEntity<Users> getUserData(@RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity<Users> getUserData(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (jwtTokenUtil.isTokenValid(accessToken)) {
             String email = jwtTokenUtil.getSubjectFromToken(accessToken);
