@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./style.scss";
 
 import fb from "../images/fb.svg";
@@ -6,33 +6,28 @@ import gg from "../images/gg.svg";
 import { DIALOGS } from "../utils";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [hashedPassword, setHashedPassword] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Lấy thông tin từ các trường input
-    const fullName = document.getElementById("name-register").value;
-    const email = document.getElementById("email-register").value;
-    const phoneNumber = document.getElementById("phone-register").value;
-    const hashedPassword = document.getElementById("password-register").value;
-
-    // Tạo một đối tượng chứa thông tin đăng ký
-    const registrationData = {
-      fullName,
-      email,
-      phoneNumber,
-      hashedPassword,
-    };
+    const formData = new FormData();
+    formData.append('fullName', fullName);
+    formData.append('email', email);
+    formData.append('phoneNumber', phoneNumber);
+    formData.append('hashedPassword', hashedPassword);
 
     try {
       // Gửi dữ liệu đăng ký đến máy chủ, ví dụ sử dụng fetch hoặc axios
       const response = await fetch("http://localhost:9999/api/register", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
-          "Accept": "text/html,application/xhtml+xml,application/xml",
         },
-        body: JSON.stringify(registrationData),
+        body: formData,
       });
 
       if (response.ok) {
@@ -84,22 +79,31 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                 <form onSubmit={handleSubmit} method="POST" action="http://localhost:9999/api/register" className="form" id="form-register">
                   <div className="input-wrap mt-0">
                     <label className="title">Họ và tên</label>
-                    <input id="name-register" name="name" type="text" placeholder="Nhập họ và tên" required />
+                    <input id="name-register" name="name" type="text" placeholder="Nhập họ và tên" required
+                           onChange={(e) => setFullName(e.target.value)}
+                    />
                   </div>
                   <span className="text-danger error-text name-register-error"></span>
                   <div className="input-wrap">
                     <label className="title">Email</label>
-                    <input id="email-register" name="email" type="email" placeholder="Nhập email" required />
+                    <input id="email-register" name="email" type="email" placeholder="Nhập email" required
+                           onChange={(e) => setEmail(e.target.value)}
+                    />
                   </div>
                   <span className="text-danger error-text email-register-error"></span>
                   <div className="input-wrap">
                     <label className="title">Số điện thoại</label>
-                    <input id="phone-register" name="phone" type="text" placeholder="Nhập số điện thoại" required />
+                    <input id="phone-register" name="phone" type="text" placeholder="Nhập số điện thoại" required
+                           onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
                   </div>
                   <span className="text-danger error-text phone-register-error"></span>
                   <div className="input-wrap input-password-wrap">
                     <label className="title">Mật khẩu</label>
-                    <input id="password-register" name="password" className="input-password" type="password" placeholder="Nhập mật khẩu" aria-autocomplete="list" required />
+                    <input id="password-register" name="password" className="input-password" type="password"
+                           placeholder="Nhập mật khẩu" aria-autocomplete="list" required
+                           onChange={(e) => setHashedPassword(e.target.value)}
+                    />
                   </div>
                   <span className="text-danger error-text password-register-error"></span>
                   <div className="btn-wrap">
