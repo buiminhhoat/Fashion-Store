@@ -459,7 +459,7 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "http://localhost:9999/api/get-cart?accessToken=Bearer " + accessToken;
+  const apiGetCart = "http://localhost:9999/api/get-cart";
   const [loading, setLoading] = useState(true)
   const [productInCart, setProductIncart] = useState(0);
 
@@ -468,6 +468,9 @@ const Header = () => {
       try {
         const response = await fetch(apiGetCart, {
           method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
         });
 
         if (response.ok) {
