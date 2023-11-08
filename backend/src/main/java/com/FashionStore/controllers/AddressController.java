@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,6 +31,32 @@ public class AddressController {
     public AddressController(UsersRepository usersRepository, AddressRepository addressRepository) {
         this.usersRepository = usersRepository;
         this.addressRepository = addressRepository;
+    }
+
+    @PostMapping("/get-address")
+    public ResponseEntity<?> getAddress(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+
+        Long addressID = Long.valueOf(request.getParameter("addressID"));
+
+        Address address = addressRepository.findAddressByAddressID(addressID);
+        if (address == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Users users = usersRepository.findUsersByUserID(address.getUsersID());
+        if (!Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        return ResponseEntity.ok(address);
     }
 
     @PostMapping("/new-address")
