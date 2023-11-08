@@ -152,6 +152,46 @@ public class AddressController {
         }
     }
 
+    @PostMapping("/set-default-address")
+    public ResponseEntity<?> setDefaultAddress(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+
+        Long addressID = Long.valueOf(request.getParameter("addressID"));
+
+        Address address = addressRepository.findAddressByAddressID(addressID);
+        if (address == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Users users = usersRepository.findUsersByUserID(address.getUsersID());
+        if (!Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        Long userID = users.getUserID();
+        try {
+            Address currentAddressDefault = addressRepository.findAddressByUsersIDAndIsDefault(userID, true);
+            if (currentAddressDefault != null) {
+                currentAddressDefault.setIsDefault(false);
+                addressRepository.save(currentAddressDefault);
+            }
+
+            address.setIsDefault(true);
+            addressRepository.save(address);
+            ResponseObject responseObject = new ResponseObject("Đã thay đổi địa chỉ mặc định thành công");
+            return ResponseEntity.ok(responseObject);
+        } catch (Error error) {
+            ResponseObject responseObject = new ResponseObject("Đã có lỗi xảy ra");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+    }
 
     @PostMapping("/get-all-addresses")
     public ResponseEntity<?> getAllAddresses(HttpServletRequest request) {
