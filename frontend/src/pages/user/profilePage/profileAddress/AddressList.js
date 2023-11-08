@@ -28,7 +28,7 @@ const addressesNew = [
 function AddressList() {
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
-    const [addresses, setAddresses] = useState([]);
+    const [addresses, setAddresses] = useState([{}, {}]);
     // console.log(accessToken)
     useEffect(() => {
         // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
@@ -48,6 +48,10 @@ function AddressList() {
             });
     }, []);
 
+    const handleSetDefault = (id) => {
+        return 1;
+    }
+
     return (
         <div>
             {addresses.map((address, index) => (
@@ -57,7 +61,14 @@ function AddressList() {
                             <span className="name">{address.recipientName}</span>
                             <div className="break-item">|</div>
                             <span className="phone">{address.recipientPhone}</span>
-                            {address.isDefault && <div className="default-address">Mặc định</div>}
+                            {address.default ?
+                                (<div className="default-address">Mặc định</div>) :
+                                (<button className="btn-set-default pointer" data-address-id="652c63418a828b4b6e095526" onClick={() => handleSetDefault(index)}>
+                                    <span className="set-default">
+                                        Thiết lập mặc định
+                                    </span>
+                                 </button>)
+                            }
                         </div>
                         <div className="address">
                             <span>{address.addressDetails}</span>

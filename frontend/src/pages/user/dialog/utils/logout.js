@@ -15,7 +15,7 @@ export function useLogout() {
         removeRefreshTokenCookie('refresh_token');
 
         // Redirect về trang chính của bạn (localhost:3000)
-        window.location.href = 'http://localhost:3000';
+        window.location.href = '/';
     };
 
     return logout;

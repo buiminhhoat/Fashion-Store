@@ -43,12 +43,12 @@ const ProfileNewAddress = () => {
             if (response.status === 200) {
                 let jsonResponse = await response.json();
                 alert(jsonResponse.message);
-                window.location.href = "http://localhost:3000/profile/personal-information";
+                window.location.href = "/profile/address";
             }
             else {
                 let jsonResponse = await response.json();
                 alert(jsonResponse.message);
-                window.location.href = "http://localhost:3000/profile/personal-information";
+                window.location.href = "/profile/address";
             }
         } catch (error) {
             toast.error("Không kết nối được với database");
@@ -108,6 +108,14 @@ const ProfileNewAddress = () => {
                                                 />
                                                 <span className="error" id="errorAddress" />
                                             </div>
+                                            <div className="info__item">
+                                                <label className="form-label">Mặc định</label>
+                                                <label className="checkbox-container">
+                                                    <input type="checkbox" id="isDefault" name="isDefault" checked={isDefault} onChange={() => setIsDefault(!isDefault)} />
+                                                    <span className="checkmark"></span>
+                                                </label>
+                                            </div>
+
                                         </article>
                                     </section>
 
