@@ -110,13 +110,19 @@ function CartPage() {
     const sizeID = updatedProduct[id].sizeID;
 
     // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+    // Gửi yêu cầu cập nhật lên server
+    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?`;
+    const formData = new FormData()
+
+    formData.append('cartItemID', product[id].cartItemID)
+    formData.append('productID', productID);
+    formData.append('sizeID', sizeID);
+    formData.append('quantityPurchase', updatedQuantity);
 
     fetch(updateCartURL, {
       method: 'POST',
-      headers: {
-
-      },
+      headers: {"Authorization" : "Bearer " + accessToken},
+      body: formData,
     })
         .then((response) => {
           if (response.ok) {
@@ -134,10 +140,15 @@ function CartPage() {
 
   const handleCloseButton = (id) => {
     // Gửi yêu cầu xóa sản phẩm khỏi giỏ hàng lên server
-    const deleteCartItemURL = `http://localhost:9999/api/delete-product-in-cart?accessToken=${accessToken}&cartItemID=${product[id].cartItemID}`;
-
+    const deleteCartItemURL = `http://localhost:9999/api/delete-product-in-cart`;
+        // ?accessToken=${accessToken}&cartItemID=${product[id].cartItemID}
+    const formData = new FormData()
+    //=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}
+    formData.append('cartItemID', product[id].cartItemID)
     fetch(deleteCartItemURL, {
-      method: 'POST', // Sử dụng phương thức DELETE để xóa sản phẩm
+      method: 'POST',
+      headers: {"Authorization" : "Bearer " + accessToken},
+      body: formData,
     })
         .then((response) => {
           if (response.ok) {
@@ -176,13 +187,18 @@ function CartPage() {
     const productID = updatedProduct[id].informationProduct.productID;
 
     // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?`;
+    const formData = new FormData()
+    //=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}
+    formData.append('cartItemID', product[id].cartItemID)
+    formData.append('productID', productID);
+    formData.append('sizeID', sizeID);
+    formData.append('quantityPurchase', updatedQuantity);
 
     fetch(updateCartURL, {
       method: 'POST',
-      headers: {
-
-      },
+      headers: {"Authorization" : "Bearer " + accessToken},
+      body: formData,
     })
         .then((response) => {
           if (response.ok) {
@@ -219,6 +235,7 @@ function CartPage() {
       try {
         const response = await fetch(apiGetCart, {
           method: 'GET',
+          headers: {"Authorization" : "Bearer " + accessToken},
         });
 
         if (response.ok) {

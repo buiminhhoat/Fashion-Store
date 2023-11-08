@@ -28,7 +28,7 @@ const ProfileChangePassword = () => {
         }
 
         const formData = new FormData();
-        formData.append('oldPassword', oldPassword);
+        formData.append('newPassword', newPassword);
         formData.append('oldPassword', oldPassword);
 
         try {
