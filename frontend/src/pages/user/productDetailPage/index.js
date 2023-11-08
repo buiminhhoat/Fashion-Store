@@ -20,7 +20,7 @@ const ProductDetailPage = () => {
 
   async function addToCart(orderDetails) {
     const formData = new FormData();
-    formData.append('accessToken', orderDetails.accessToken);
+    // formData.append('accessToken', orderDetails.accessToken);
     formData.append('productID', orderDetails.productID);
     formData.append('sizeID', orderDetails.sizeID);
     formData.append('quantityPurchase', orderDetails.quantityPurchase);
@@ -29,6 +29,7 @@ const ProductDetailPage = () => {
     try {
       const response = await fetch(apiAddToCart, {
         method: 'POST',
+        headers: {"Authorization" : "Bearer " + orderDetails.accessToken},
         body: formData,
       });
 
