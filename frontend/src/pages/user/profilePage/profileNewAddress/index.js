@@ -20,7 +20,37 @@ const ProfileNewAddress = () => {
     const [isDefault, setIsDefault] = useState(false);
 
     const accessToken = cookies.access_token;
+
+    const getAddresses = () => {
+        const formData = new FormData();
+        // formData.append('addressID', addressID);
+        try {
+            fetch("http://localhost:9999/api/get-all-addresses", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                // body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // console.log(data);
+                    setIsDefault(data.length == 0);
+                    // console.log(isDefault)
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                })
+        }
+        finally {
+            // setLoading(false);
+        }
+    }
+
+    getAddresses();
+
     const handleSave = async () => {
+
         const formData = new FormData();
 
         console.log(recipientName);

@@ -33,6 +33,7 @@ function AddressList() {
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
     const [addresses, setAddresses] = useState([{}, {}]);
+
     const updateData = () => {
         fetch("http://localhost:9999/api/get-all-addresses", {
             method: "POST",
