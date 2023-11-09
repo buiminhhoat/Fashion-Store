@@ -5,23 +5,26 @@ const addressesNew = [
     {
         "addressID": 3,
         "usersID": 3,
-        "recipientName": "Nguyễn Tiến Dũng",
-        "recipientPhone": "0903481758",
-        "addressDetails": "Trương Định, Tương Mai, Hoàng Mai, Hà Nội"
+        "recipientName": "Dzung Tien",
+        "recipientPhone": "3123",
+        "addressDetails": "Ha Noi",
+        "default": false
     },
     {
         "addressID": 4,
         "usersID": 3,
-        "recipientName": "Nguyễn Tiến Dũng",
-        "recipientPhone": "0903481758",
-        "addressDetails": "Silicon Valley, United States of America"
+        "recipientName": "Cope",
+        "recipientPhone": "",
+        "addressDetails": "",
+        "default": false
     },
     {
         "addressID": 5,
         "usersID": 3,
-        "recipientName": "Nguyễn Tiến Dũng",
-        "recipientPhone": "0903481758",
-        "addressDetails": "Massachusetts Institute of Technology, United States of America"
+        "recipientName": "Kiki",
+        "recipientPhone": "0123",
+        "addressDetails": "456",
+        "default": true
     }
 ]
 
@@ -39,7 +42,8 @@ function AddressList() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                setAddresses(data);
+                const sortedAddresses = data.sort((a, b) => (b.default || 0) - (a.default || 0));
+                setAddresses(sortedAddresses);
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -53,12 +57,14 @@ function AddressList() {
 
     const handleSetDefault = async (id) => {
         try {
-            const response = await fetch(`http://localhost:9999/api/set-default-address?addressID=${addresses[id].addressID}`, {
+            const formData = new FormData()
+            formData.append("addressID", addresses[id].addressID)
+            const response = await fetch(`http://localhost:9999/api/set-default-address`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
                 },
-                // body: `addressID=${id}`,
+                body: formData,
             });
 
             if (response.ok) {
@@ -72,7 +78,6 @@ function AddressList() {
             console.error("Error:", error);
         }
     };
-
 
     return (
         <div>
