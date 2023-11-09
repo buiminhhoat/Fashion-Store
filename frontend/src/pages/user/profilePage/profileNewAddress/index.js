@@ -56,7 +56,7 @@ const ProfileNewAddress = () => {
     }
 
     const handleCancel = () => {
-        window.location.reload();
+        window.location.href = "/profile/address";
     }
     return (
         <div id="app">

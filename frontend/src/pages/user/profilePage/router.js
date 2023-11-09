@@ -4,6 +4,7 @@ import {ROUTERS} from "./utils/router";
 import ProfileOrdersPage from "./profileOrdersPage";
 import ProfileAddress from "./profileAddress";
 import ProfileNewAddress from "./profileNewAddress";
+import ProfileEditAddress from "./profileEditAddress";
 import ProfileChangePassword from "./profileChangePassword";
 import ProfilePersonalInformation from "./profilePersonalInformation";
 import NotFoundPage from "../../error/notFoundPage";
@@ -21,6 +22,10 @@ const renderCustom = () => {
         {
             path: ROUTERS.USER.NEW_ADDRESS,
             component: <ProfileNewAddress />
+        },
+        {
+            path: ROUTERS.USER.EDIT_ADDRESS,
+            component: <ProfileEditAddress />
         },
         {
             path: ROUTERS.USER.CHANGE_PASSWORD,

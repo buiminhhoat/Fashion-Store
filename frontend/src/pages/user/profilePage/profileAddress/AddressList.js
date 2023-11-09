@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Cookies, useCookies} from "react-cookie";
+import {Link} from "react-router-dom";
 
 const addressesNew = [
     {
@@ -102,7 +103,9 @@ function AddressList() {
                         </div>
                         <div className="box-btn-wrap">
                             <div className="btn-wrap-item">
-                                <a href={address.editLink} className="edit">Sửa</a>
+                                <Link to = {"/profile/edit-address/" + address.addressID}>
+                                    <div className="edit">Sửa</div>
+                                </Link>
                             </div>
                         </div>
                     </div>

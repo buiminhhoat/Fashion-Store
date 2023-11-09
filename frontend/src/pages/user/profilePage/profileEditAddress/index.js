@@ -8,26 +8,59 @@ import arrowLeft1 from '../images/arrow_left_1.svg'
 import {useCookies} from "react-cookie";
 import Menu from "../utils/menu.js"
 import {toast} from "react-toastify";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
-let apiNewAddressUrl = "http://localhost:9999/api/new-address";
+let apiNewAddressUrl = "http://localhost:9999/api/edit-address";
 
 const ProfileEditAddress = () => {
     const [cookies] = useCookies(['access_token']);
+    const [address, setAddress] = useState({});
     const [recipientName, setRecipientName] = useState("");
     const [recipientPhone, setRecipientPhone] = useState("");
     const [addressDetails, setAddressDetails] = useState("");
     const [isDefault, setIsDefault] = useState(false);
-
+    const { addressID } = useParams();
     const accessToken = cookies.access_token;
+    // const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
+
+    const getData = () => {
+        const formData = new FormData();
+        formData.append('addressID', addressID);
+        try {
+            fetch("http://localhost:9999/api/get-address", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    setAddress(data);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                })
+        }
+        finally {
+            // setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
     const handleSave = async () => {
         const formData = new FormData();
 
         console.log(recipientName);
+        formData.append('addressID', addressID);
         formData.append('recipientName', recipientName);
         formData.append('recipientPhone', recipientPhone);
         formData.append('addressDetails', addressDetails);
-        formData.append('isDefault', isDefault);
+        formData.append('isDefault', address.default);
 
         console.log(formData);
 
@@ -56,8 +89,14 @@ const ProfileEditAddress = () => {
     }
 
     const handleCancel = () => {
-        window.location.reload();
+        window.location.href = "/profile/address";
     }
+
+    // if (loading) {
+    //     // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
+    //     return <div></div>;
+    //
+    // }
     return (
         <div id="app">
             <main id="main">
@@ -77,7 +116,7 @@ const ProfileEditAddress = () => {
                                             <img src={arrowLeft1} alt="icon arrow left" />
                                         </a>
                                     </button>
-                                    <span className="title">Thêm địa chỉ mới</span>
+                                    <span className="title">Cập nhật địa chỉ</span>
                                 </section>
 
                                 <form id="add-new-address" action="https://5sfashion.vn/profile/store-address" method="POST">
@@ -89,6 +128,7 @@ const ProfileEditAddress = () => {
                                                 <input type="text" className="form-control"
                                                        id="name" placeholder="Nhập họ tên" name="name"
                                                        onChange={(e) => setRecipientName(e.target.value)}
+                                                       defaultValue={address.recipientName}
                                                 />
                                                 <span className="error" id="errorName" />
                                             </div>
@@ -97,6 +137,7 @@ const ProfileEditAddress = () => {
                                                 <input type="text" className="form-control" id="phone"
                                                        placeholder="Nhập số điện thoại" name="phone"
                                                        onChange={(e) => setRecipientPhone(e.target.value)}
+                                                       defaultValue={address.recipientPhone}
                                                 />
                                                 <span className="error" id="errorPhone" />
                                             </div>
@@ -105,16 +146,10 @@ const ProfileEditAddress = () => {
                                                 <input type="text" className="form-control" id="address"
                                                        placeholder="Nhập địa chỉ" name="address"
                                                        onChange={(e) => setAddressDetails(e.target.value)}
+                                                       defaultValue={address.addressDetails}
                                                 />
                                                 <span className="error" id="errorAddress" />
                                             </div>
-                                            {/*<div className="info__item">*/}
-                                            {/*    <label className="form-label">Mặc định</label>*/}
-                                            {/*    <label className="checkbox-container">*/}
-                                            {/*        <input type="checkbox" id="isDefault" name="isDefault" checked={isDefault} onChange={() => setIsDefault(!isDefault)} />*/}
-                                            {/*        <span className="checkmark"></span>*/}
-                                            {/*    </label>*/}
-                                            {/*</div>*/}
 
                                         </article>
                                     </section>
