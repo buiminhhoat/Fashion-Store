@@ -10,9 +10,10 @@ import closeButton from "./images/close.svg";
 import locationDot from "./images/location-dot.svg"
 import cardIcon from "./images/card.svg"
 import cod from "./images/cod.svg"
-import arrowDown from "../theme/header/images/arrow-down.svg"
+import arrowRight from "./images/angle-right.svg"
 import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
+import {useCookies} from "react-cookie";
 
 const openModalCreateAddress = () => {
   return 1;
@@ -78,6 +79,37 @@ function CheckoutPage() {
     setAmount(Math.min(amount, productQuantities));
   }
 
+  const [addresses, setAddresses] = useState([{}]);
+  const [cookies] = useCookies(['access_token']);
+  const [choosedAddress, setChoosedAddress] = useState({})
+  const accessToken = cookies.access_token;
+  const getAddresses = () => {
+    const formData = new FormData();
+    // formData.append('addressID', addressID);
+    try {
+      fetch("http://localhost:9999/api/get-all-addresses", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        // body: formData,
+      })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setChoosedAddress(data.find((address) => {return address.default == true}));
+            setAddresses(data);
+            // console.log(isDefault)
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          })
+    }
+    finally {
+      // setLoading(false);
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -102,6 +134,8 @@ function CheckoutPage() {
       }
     };
     fetchData();
+    getAddresses();
+
   }, []);
 
   if (loading) {
@@ -111,6 +145,10 @@ function CheckoutPage() {
   }
 
   const openModalAddress = () => {
+    return 1;
+  }
+
+  const openModalListAddress = () => {
     return 1;
   }
   console.log("Reload!");
@@ -200,16 +238,41 @@ function CheckoutPage() {
                       </div>
 
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        <div className="cart__address cursor-pointer" onClick={openModalAddress}>
-                          <div className="cart__address__title d-flex align-items-center justify-content-between">
-                            <div className="cart__address__title__left mb-6px">
-                              <img src={locationDot} alt="icon address" />
-                              <h5 className="mb-0">Địa chỉ nhận hàng</h5>
-                            </div>
-                          </div>
-                          <div className="cart__address__description">
-                            <div>Tạo địa chỉ nhận hàng tại đây</div>
-                          </div>
+                        <div className="cart__address cursor-pointer" onClick={openModalListAddress}>
+                          {
+                            !addresses.length ? (
+                                <>
+                                  <div className="cart__address__title d-flex align-items-center justify-content-between">
+                                    <div className="cart__address__title__left mb-6px">
+                                      <img src={locationDot} alt="icon address" />
+                                      <h5 className="mb-0">Địa chỉ nhận hàng</h5>
+                                    </div>
+                                  </div>
+                                  <div className="cart__address__description">
+                                    <div>Tạo địa chỉ nhận hàng tại đây</div>
+                                  </div>
+                                </>
+                            ) : (
+                                <>
+                                  <div class="cart__address__title d-flex align-items-center justify-content-between">
+                                    <div class="cart__address__title__left mb-6px">
+                                      <img src={locationDot} alt="icon address"/>
+                                        <h5 class="mb-0">Địa chỉ nhận hàng</h5>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                      <span class="change-address">Thay đổi địa chỉ</span>
+                                      <img src={arrowRight} alt="icon arrow next"/>
+                                    </div>
+                                  </div>
+                                  <div class="cart__address__description">
+                                    <div>{choosedAddress.recipientName}<span>|</span> {choosedAddress.recipientPhone}</div>
+                                    <div> {choosedAddress.addressDetails}</div>
+                                  </div>
+                                </>
+                                // </button>
+                            )
+                          }
+
                         </div>
                         <div className="cart__address">
                           <div className="cart__address__title d-flex align-items-center justify-content-between">

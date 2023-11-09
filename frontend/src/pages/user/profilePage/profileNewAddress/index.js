@@ -13,12 +13,12 @@ import {useState} from "react";
 let apiNewAddressUrl = "http://localhost:9999/api/new-address";
 
 const ProfileNewAddress = () => {
-    const [cookies] = useCookies(['access_token']);
     const [recipientName, setRecipientName] = useState("");
     const [recipientPhone, setRecipientPhone] = useState("");
     const [addressDetails, setAddressDetails] = useState("");
     const [isDefault, setIsDefault] = useState(false);
 
+    const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
 
     const getAddresses = () => {
