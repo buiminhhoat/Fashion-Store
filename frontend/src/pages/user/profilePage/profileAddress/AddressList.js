@@ -29,9 +29,7 @@ function AddressList() {
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
     const [addresses, setAddresses] = useState([{}, {}]);
-    // console.log(accessToken)
-    useEffect(() => {
-        // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
+    const updateData = () => {
         fetch("http://localhost:9999/api/get-all-addresses", {
             method: "POST",
             headers: {
@@ -46,11 +44,35 @@ function AddressList() {
             .catch((error) => {
                 console.error("Error:", error);
             });
+    }
+    // console.log(accessToken)
+    useEffect(() => {
+        // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
+        updateData();
     }, []);
 
-    const handleSetDefault = (id) => {
-        return 1;
-    }
+    const handleSetDefault = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:9999/api/set-default-address?addressID=${addresses[id].addressID}`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                // body: `addressID=${id}`,
+            });
+
+            if (response.ok) {
+                updateData();
+                // Hoặc thực hiện các thao tác cần thiết khác
+            } else {
+                // Xử lý lỗi nếu có
+                console.error("Error:", response);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
 
     return (
         <div>

@@ -108,13 +108,13 @@ const ProfileNewAddress = () => {
                                                 />
                                                 <span className="error" id="errorAddress" />
                                             </div>
-                                            <div className="info__item">
-                                                <label className="form-label">Mặc định</label>
-                                                <label className="checkbox-container">
-                                                    <input type="checkbox" id="isDefault" name="isDefault" checked={isDefault} onChange={() => setIsDefault(!isDefault)} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                            </div>
+                                            {/*<div className="info__item">*/}
+                                            {/*    <label className="form-label">Mặc định</label>*/}
+                                            {/*    <label className="checkbox-container">*/}
+                                            {/*        <input type="checkbox" id="isDefault" name="isDefault" checked={isDefault} onChange={() => setIsDefault(!isDefault)} />*/}
+                                            {/*        <span className="checkmark"></span>*/}
+                                            {/*    </label>*/}
+                                            {/*</div>*/}
 
                                         </article>
                                     </section>
