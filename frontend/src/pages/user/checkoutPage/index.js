@@ -97,7 +97,7 @@ function CheckoutPage() {
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-            setChoosedAddress(data.find((address) => {return address.default == true}));
+            setChoosedAddress(data.find((address) => {return address.isDefault == true}));
             setAddresses(data);
             // console.log(isDefault)
           })

@@ -78,7 +78,7 @@ public class Address {
         this.addressDetails = addressDetails;
     }
 
-    public boolean isDefault() {
+    public boolean getIsDefault() {
         return isDefault;
     }
 

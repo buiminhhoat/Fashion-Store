@@ -44,7 +44,7 @@ function AddressList() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                const sortedAddresses = data.sort((a, b) => (b.default || 0) - (a.default || 0));
+                const sortedAddresses = data.sort((a, b) => (b.isDefault || 0) - (a.isDefault || 0));
                 setAddresses(sortedAddresses);
             })
             .catch((error) => {
@@ -90,7 +90,7 @@ function AddressList() {
                             <span className="name">{address.recipientName}</span>
                             <div className="break-item">|</div>
                             <span className="phone">{address.recipientPhone}</span>
-                            {address.default ?
+                            {address.isDefault ?
                                 (<div className="default-address">Mặc định</div>) :
                                 (<button className="btn-set-default pointer" data-address-id="652c63418a828b4b6e095526" onClick={() => handleSetDefault(index)}>
                                     <span className="set-default">
