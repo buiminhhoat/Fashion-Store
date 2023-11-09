@@ -39,6 +39,9 @@ const ProfileEditAddress = () => {
                 .then((data) => {
                     console.log(data);
                     setAddress(data);
+                    setRecipientName(data.recipientName);
+                    setRecipientPhone(data.recipientPhone);
+                    setAddressDetails(data.addressDetails);
                 })
                 .catch((error) => {
                     console.error("Error:", error);
