@@ -98,10 +98,10 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `Image
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orderdetail`
+-- Cấu trúc bảng cho bảng `orderdetails`
 --
 
-CREATE TABLE `orderdetail` (
+CREATE TABLE `orderdetails` (
   `OrderDetailID` int(11) NOT NULL,
   `OrderID` int(11) DEFAULT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
@@ -359,9 +359,9 @@ ALTER TABLE `category`
   ADD KEY `ParentCategoryID` (`ParentCategoryID`);
 
 --
--- Chỉ mục cho bảng `orderdetail`
+-- Chỉ mục cho bảng `orderdetails`
 --
-ALTER TABLE `orderdetail`
+ALTER TABLE `orderdetails`
   ADD PRIMARY KEY (`OrderDetailID`),
   ADD KEY `OrderID` (`OrderID`),
   ADD KEY `ProductID` (`ProductID`);
@@ -447,9 +447,9 @@ ALTER TABLE `category`
   MODIFY `CategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `orderdetail`
+-- AUTO_INCREMENT cho bảng `orderdetails`
 --
-ALTER TABLE `orderdetail`
+ALTER TABLE `orderdetails`
   MODIFY `OrderDetailID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -525,9 +525,9 @@ ALTER TABLE `category`
   ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`ParentCategoryID`) REFERENCES `category` (`CategoryID`);
 
 --
--- Các ràng buộc cho bảng `orderdetail`
+-- Các ràng buộc cho bảng `orderdetails`
 --
-ALTER TABLE `orderdetail`
+ALTER TABLE `orderdetails`
   ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
   ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE SET NULL;
 
