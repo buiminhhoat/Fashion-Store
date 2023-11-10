@@ -204,6 +204,7 @@ public class OrdersController {
 
     public Orders getOrderDetails(Long orderID) {
         Orders orders = ordersRepository.findOrdersByOrderID(orderID);
+        orders.setOrderDetails(orderDetailsRepository.findOrderDetailsByOrderID(orderID));
         return orders;
     }
 }
