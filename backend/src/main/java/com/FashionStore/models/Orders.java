@@ -38,6 +38,9 @@ public class Orders {
     @Column(name = "AddressDetails")
     private String addressDetails;
 
+    @Transient
+    private List<OrderDetails> orderDetails;
+
     public Orders() {
 
     }
@@ -112,5 +115,13 @@ public class Orders {
 
     public void setAddressDetails(String addressDetails) {
         this.addressDetails = addressDetails;
+    }
+
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

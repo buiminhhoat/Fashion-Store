@@ -40,6 +40,8 @@ public class OrdersController {
 
     private final CategoryRepository categoryRepository;
 
+    private final OrdersRepository ordersRepository;
+
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
     @Value("${upload_image.dir}")
@@ -50,13 +52,26 @@ public class OrdersController {
                             ProductCategoryRepository productCategoryRepository,
                             ProductSizeRepository productSizeRepository,
                             ProductQuantityRepository productQuantityRepository,
-                            CategoryRepository categoryRepository) {
+                            CategoryRepository categoryRepository,
+                            OrdersRepository ordersRepository) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
         this.productSizeRepository = productSizeRepository;
         this.productQuantityRepository = productQuantityRepository;
         this.categoryRepository = categoryRepository;
+        this.ordersRepository = ordersRepository;
+    }
+
+    @PostMapping("/orders/{orderID}")
+    public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request, @PathVariable Long orderID) {
+        Orders orders = getOrderDetails(orderID);
+        return ResponseEntity.ok(orders);
+    }
+
+    public Orders getOrderDetails(Long orderID) {
+        Orders orders = ordersRepository.findOrdersByOrderID(orderID);
+        return orders;
     }
 }
 
