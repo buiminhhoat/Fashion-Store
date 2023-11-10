@@ -107,6 +107,7 @@ CREATE TABLE `orderdetails` (
   `ProductID` bigint(20) DEFAULT NULL,
   `ProductName` varchar(255) NOT NULL,
   `SizeName` varchar(20) NOT NULL,
+  `ImagePath` varchar(255) DEFAULT NULL,
   `ProductPrice` decimal(10,2) NOT NULL,
   `Quantity` bigint(20) NOT NULL,
   `TotalPrice` decimal(10,2) NOT NULL

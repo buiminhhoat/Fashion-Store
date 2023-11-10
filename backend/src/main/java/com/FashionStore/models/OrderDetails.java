@@ -24,6 +24,9 @@ public class OrderDetails {
     @Column(name = "ProductName", nullable = false)
     private String productName;
 
+    @Column(name = "ImagePath")
+    private String imagePath;
+
     @Column(name = "SizeName", nullable = false)
     private String sizeName;
 
@@ -78,6 +81,14 @@ public class OrderDetails {
 
     public void setSizeName(String sizeName) {
         this.sizeName = sizeName;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public BigDecimal getProductPrice() {
