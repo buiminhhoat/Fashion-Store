@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 07, 2023 lúc 06:47 PM
+-- Thời gian đã tạo: Th10 10, 2023 lúc 03:33 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -33,7 +33,7 @@ CREATE TABLE `address` (
   `RecipientName` varchar(255) NOT NULL,
   `RecipientPhone` varchar(20) DEFAULT NULL,
   `AddressDetails` varchar(255) DEFAULT NULL,
-  `IsDefault` tinyint(1) DEFAULT NULL
+  `IsDefault` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `IsDefault`) VALUES
 (1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội', 1),
-(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', NULL);
+(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', 0);
 
 -- --------------------------------------------------------
 
@@ -105,9 +105,11 @@ CREATE TABLE `orderdetail` (
   `OrderDetailID` int(11) NOT NULL,
   `OrderID` int(11) DEFAULT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
-  `ProductPrice` decimal(10,2) DEFAULT NULL,
-  `Quantity` bigint(20) DEFAULT NULL,
-  `TotalPrice` decimal(10,2) DEFAULT NULL
+  `ProductName` varchar(255) NOT NULL,
+  `SizeName` varchar(20) NOT NULL,
+  `ProductPrice` decimal(10,2) NOT NULL,
+  `Quantity` bigint(20) NOT NULL,
+  `TotalPrice` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -524,7 +526,7 @@ ALTER TABLE `category`
 --
 ALTER TABLE `orderdetail`
   ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
-  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`);
+  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE SET NULL;
 
 --
 -- Các ràng buộc cho bảng `orders`
