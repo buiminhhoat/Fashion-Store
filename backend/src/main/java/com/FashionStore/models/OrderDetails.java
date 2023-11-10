@@ -2,7 +2,6 @@ package com.FashionStore.models;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
@@ -31,16 +30,28 @@ public class OrderDetails {
     private String sizeName;
 
     @Column(name = "ProductPrice", nullable = false)
-    private BigDecimal productPrice;
+    private Long productPrice;
 
     @Column(name = "Quantity", nullable = false)
     private Long quantity;
 
     @Column(name = "TotalPrice", nullable = false)
-    private BigDecimal totalPrice;
+    private Long totalPrice;
 
     public OrderDetails() {
 
+    }
+
+    public OrderDetails(Long orderID, Long productID, String productName,
+                        String imagePath, String sizeName, Long productPrice, Long quantity, Long totalPrice) {
+        this.orderID = orderID;
+        this.productID = productID;
+        this.productName = productName;
+        this.imagePath = imagePath;
+        this.sizeName = sizeName;
+        this.productPrice = productPrice;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
     }
 
     public Long getOrderDetailID() {
@@ -91,11 +102,11 @@ public class OrderDetails {
         this.imagePath = imagePath;
     }
 
-    public BigDecimal getProductPrice() {
+    public Long getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
+    public void setProductPrice(Long productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -107,11 +118,11 @@ public class OrderDetails {
         this.quantity = quantity;
     }
 
-    public BigDecimal getTotalPrice() {
+    public Long getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(Long totalPrice) {
         this.totalPrice = totalPrice;
     }
 }

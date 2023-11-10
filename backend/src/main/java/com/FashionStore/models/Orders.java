@@ -2,8 +2,7 @@ package com.FashionStore.models;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,7 +17,7 @@ public class Orders {
     private Date orderDate;
 
     @Column(name = "TotalAmount")
-    private BigDecimal totalAmount;
+    private Long totalAmount;
 
     @Column(name = "OrderStatus")
     private String orderStatus;
@@ -45,6 +44,20 @@ public class Orders {
 
     }
 
+    public Orders(Date orderDate, Long totalAmount,
+                  String orderStatus, Long userID, Long addressID, 
+                  String recipientName, String recipientPhone, 
+                  String addressDetails) {
+        this.orderDate = orderDate;
+        this.totalAmount = totalAmount;
+        this.orderStatus = orderStatus;
+        this.userID = userID;
+        this.addressID = addressID;
+        this.recipientName = recipientName;
+        this.recipientPhone = recipientPhone;
+        this.addressDetails = addressDetails;
+    }
+
     public Long getOrderID() {
         return orderID;
     }
@@ -61,11 +74,11 @@ public class Orders {
         this.orderDate = orderDate;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Long getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Long totalAmount) {
         this.totalAmount = totalAmount;
     }
 
