@@ -91,7 +91,7 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/add-orders-by-Cart")
+    @PostMapping("/add-orders-by-cart")
     public ResponseEntity<?> addOrdersByCart(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -142,7 +142,32 @@ public class OrdersController {
         for (CartItem cartItem: cartItems) {
             Product product = getProductDetails(cartItem.getProductID());
             ProductSize productSize = productSizeRepository.findProductSizeBySizeID(cartItem.getSizeID());
-            String imagePath = "";
+
+            // Đặt tên tệp ảnh cần sao chép
+            String fileNameToCopy = productImageRepository.findProductImageByProductID(product.getProductID()).get(0).getImagePath();
+
+            // Đường dẫn đến tệp gốc
+            String filePathToCopy = appRoot + UPLOAD_DIR + File.separator + fileNameToCopy;
+
+
+            // Đường dẫn đến tệp mới
+            String fileExtension = "";
+            if (fileNameToCopy != null) {
+                fileExtension = fileNameToCopy.substring(fileNameToCopy.lastIndexOf(".") + 1);
+            }
+            String imagePath = UUID.randomUUID().toString() + "." + fileExtension;
+            String newFilePath = appRoot + UPLOAD_DIR + File.separator + imagePath;
+
+            try {
+                // Đọc dữ liệu từ tệp gốc
+                byte[] imageData = Files.readAllBytes(Paths.get(filePathToCopy));
+
+                // Ghi dữ liệu vào tệp mới
+                Files.write(Paths.get(newFilePath), imageData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(), product.getProductName(),
                     imagePath, productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
                     product.getProductPrice() * cartItem.getQuantityPurchase());
