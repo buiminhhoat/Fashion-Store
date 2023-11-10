@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Cookies, useCookies} from "react-cookie";
 import {Link} from "react-router-dom";
+import async from "async";
 
 const addressesNew = [
     {
@@ -81,6 +82,35 @@ function AddressList() {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            const formData = new FormData()
+            formData.append("addressID", addresses[id].addressID)
+            formData.append("recipientName", addresses[id].recipientName)
+            formData.append("recipientPhone", addresses[id].recipientPhone)
+            formData.append("addressDetails", addresses[id].addressDetails)
+            formData.append("isDefault", addresses[id].isDefault)
+
+            const response = await fetch(`http://localhost:9999/api/delete-address`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                body: formData,
+            });
+
+            if (response.ok) {
+                updateData();
+                // Hoặc thực hiện các thao tác cần thiết khác
+            } else {
+                // Xử lý lỗi nếu có
+                console.error("Error:", response);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
     return (
         <div>
             {addresses.map((address, index) => (
@@ -107,6 +137,13 @@ function AddressList() {
                                 <Link to = {"/profile/edit-address/" + address.addressID}>
                                     <div className="edit">Sửa</div>
                                 </Link>
+                                {!address.isDefault && (
+                                        <>
+                                            <div className="break-item">|</div>
+                                            <span className="delete delete-address" onClick={() => handleDelete(index)}> Xóa </span>
+                                        </>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
