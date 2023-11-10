@@ -180,6 +180,80 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
+    @PostMapping("/add-orders-by-checkout")
+    public ResponseEntity<?> addOrdersByCheckout(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        Long addressID = Long.valueOf(request.getParameter("addressID"));
+        Long totalAmount = Long.valueOf(request.getParameter("totalAmount"));
+        Long productID = Long.valueOf(request.getParameter("productID"));
+        Long sizeID = Long.valueOf(request.getParameter("sizeID"));
+        Long quantityPurchase = Long.valueOf(request.getParameter("quantityPurchase"));
+
+        Date orderDate = new Date();
+        orderDate.setTime(orderDate.getTime());
+
+        String orderStatus = "Đang chờ xác nhận";
+
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        String email = jwtTokenUtil.getSubjectFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        Users users = findByEmail.get(0);
+        Long userID = users.getUserID();
+
+        Address address = addressRepository.findAddressByAddressID(addressID);
+        Orders orders = new Orders(orderDate, totalAmount, orderStatus, userID, addressID,
+                address.getRecipientName(), address.getRecipientPhone(), address.getAddressDetails());
+
+        ordersRepository.save(orders);
+
+
+        List<OrderDetails> orderDetailsList = new ArrayList<>();
+        Product product = getProductDetails(productID);
+        ProductSize productSize = productSizeRepository.findProductSizeBySizeID(sizeID);
+
+        // Đặt tên tệp ảnh cần sao chép
+        String fileNameToCopy = productImageRepository.findProductImageByProductID(product.getProductID()).get(0).getImagePath();
+
+        // Đường dẫn đến tệp gốc
+        String filePathToCopy = appRoot + UPLOAD_DIR + File.separator + fileNameToCopy;
+
+
+        // Đường dẫn đến tệp mới
+        String fileExtension = "";
+        if (fileNameToCopy != null) {
+            fileExtension = fileNameToCopy.substring(fileNameToCopy.lastIndexOf(".") + 1);
+        }
+        String imagePath = UUID.randomUUID().toString() + "." + fileExtension;
+        String newFilePath = appRoot + UPLOAD_DIR + File.separator + imagePath;
+
+        try {
+            // Đọc dữ liệu từ tệp gốc
+            byte[] imageData = Files.readAllBytes(Paths.get(filePathToCopy));
+
+            // Ghi dữ liệu vào tệp mới
+            Files.write(Paths.get(newFilePath), imageData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(),
+                product.getProductName(),
+                imagePath, productSize.getSizeName(), product.getProductPrice(), quantityPurchase,
+                product.getProductPrice() * quantityPurchase);
+        orderDetailsList.add(orderDetails);
+        orderDetailsRepository.save(orderDetails);
+
+        orders.setOrderDetails(orderDetailsList);
+        return ResponseEntity.ok(orders);
+    }
+
     public Product getProductDetails(Long productID) {
         Product product = productRepository.findProductByProductID(productID);
 
