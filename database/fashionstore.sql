@@ -108,9 +108,9 @@ CREATE TABLE `orderdetails` (
   `ProductName` varchar(255) NOT NULL,
   `SizeName` varchar(20) NOT NULL,
   `ImagePath` varchar(255) DEFAULT NULL,
-  `ProductPrice` decimal(10,2) NOT NULL,
+  `ProductPrice` bigint(20) NOT NULL,
   `Quantity` bigint(20) NOT NULL,
-  `TotalPrice` decimal(10,2) NOT NULL
+  `TotalPrice` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -122,7 +122,7 @@ CREATE TABLE `orderdetails` (
 CREATE TABLE `orders` (
   `OrderID` bigint(20) NOT NULL,
   `OrderDate` date DEFAULT NULL,
-  `TotalAmount` decimal(10,2) DEFAULT NULL,
+  `TotalAmount` bigint(20) DEFAULT NULL,
   `OrderStatus` varchar(20) DEFAULT NULL,
   `UserID` bigint(20) DEFAULT NULL,
   `AddressID` bigint(20) DEFAULT NULL,
