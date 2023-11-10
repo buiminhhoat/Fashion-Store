@@ -86,10 +86,10 @@ function AddressList() {
         try {
             const formData = new FormData()
             formData.append("addressID", addresses[id].addressID)
-            formData.append("recipientName", addresses[id].recipientName)
-            formData.append("recipientPhone", addresses[id].recipientPhone)
-            formData.append("addressDetails", addresses[id].addressDetails)
-            formData.append("isDefault", addresses[id].isDefault)
+            // formData.append("recipientName", addresses[id].recipientName)
+            // formData.append("recipientPhone", addresses[id].recipientPhone)
+            // formData.append("addressDetails", addresses[id].addressDetails)
+            // formData.append("isDefault", addresses[id].isDefault)
 
             const response = await fetch(`http://localhost:9999/api/delete-address`, {
                 method: "POST",
