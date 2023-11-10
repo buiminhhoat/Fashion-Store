@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 10, 2023 lúc 03:33 AM
+-- Thời gian đã tạo: Th10 10, 2023 lúc 03:51 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -124,7 +124,10 @@ CREATE TABLE `orders` (
   `TotalAmount` decimal(10,2) DEFAULT NULL,
   `OrderStatus` varchar(20) DEFAULT NULL,
   `UserID` bigint(20) DEFAULT NULL,
-  `AddressID` bigint(20) DEFAULT NULL
+  `AddressID` bigint(20) DEFAULT NULL,
+  `RecipientName` varchar(255) NOT NULL,
+  `RecipientPhone` varchar(20) DEFAULT NULL,
+  `AddressDetails` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
