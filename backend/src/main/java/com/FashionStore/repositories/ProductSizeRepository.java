@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ProductSizeRepository extends JpaRepository<ProductSize, Long> {
     List<ProductSize> findProductSizeByProductID(Long productID);
+    ProductSize findProductSizeBySizeID(Long sizeID);
 }

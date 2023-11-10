@@ -63,7 +63,7 @@ public class ProductController {
     @PostMapping("/add-product")
     public ResponseEntity<?> addProduct(HttpServletRequest request) {
         String productName = request.getParameter("productName");
-        Double productPrice = Double.valueOf(request.getParameter("productPrice"));
+        Long productPrice = Long.valueOf(request.getParameter("productPrice"));
         String productDescription = request.getParameter("productDescription");
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
         Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
@@ -144,7 +144,7 @@ public class ProductController {
     public ResponseEntity<?> editProduct(HttpServletRequest request) {
         Long productID = Long.valueOf(request.getParameter("productID"));
         String productName = request.getParameter("productName");
-        Double productPrice = Double.valueOf(request.getParameter("productPrice"));
+        Long productPrice = Long.valueOf(request.getParameter("productPrice"));
         String productDescription = request.getParameter("productDescription");
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
         Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
