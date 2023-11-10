@@ -102,8 +102,8 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `Image
 --
 
 CREATE TABLE `orderdetails` (
-  `OrderDetailID` int(11) NOT NULL,
-  `OrderID` int(11) DEFAULT NULL,
+  `OrderDetailID` bigint(20) NOT NULL,
+  `OrderID` bigint(20) DEFAULT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `ProductName` varchar(255) NOT NULL,
   `SizeName` varchar(20) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `orderdetails` (
 --
 
 CREATE TABLE `orders` (
-  `OrderID` int(11) NOT NULL,
+  `OrderID` bigint(20) NOT NULL,
   `OrderDate` date DEFAULT NULL,
   `TotalAmount` decimal(10,2) DEFAULT NULL,
   `OrderStatus` varchar(20) DEFAULT NULL,
@@ -450,13 +450,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `OrderDetailID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderDetailID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
