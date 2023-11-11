@@ -43,7 +43,8 @@ function AddressModal({
                 console.log(data);
                 const sortedAddresses = data.sort((a, b) => (b.isDefault || 0) - (a.isDefault || 0));
                 setAddressList(sortedAddresses);
-                setIsDefault(data.length == 0);
+                setIsDefault(data.length === 0);
+                if (data.length === 1) setIdSelected(data[0].addressID);
 
             })
             .catch((error) => {
