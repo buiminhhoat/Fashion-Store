@@ -14,11 +14,6 @@ const ProductDetailPage = () => {
   const { productID } = useParams();
   const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
 
-  // useEffect(() => {
-  //   console.log("orderDetails");
-  //   console.log(orderDetails);
-  // }, [orderDetails]);
-
   async function addToCart(orderDetails) {
     const formData = new FormData();
     // formData.append('accessToken', orderDetails.accessToken);
@@ -52,15 +47,12 @@ const ProductDetailPage = () => {
     }
   }
 
-
-
   const handleAddToCart = (newOrder) => {
     const orderDetails = {
       accessToken: accessToken,
       productID: informationProduct.productID,
       ...newOrder,
     };
-    console.log(orderDetails)
     addToCart(orderDetails).then(r => {})
   }
 
@@ -87,6 +79,7 @@ const ProductDetailPage = () => {
         } else {
           const data = await response.json();
           console.log(data.message);
+          navigate(`/error`);
         }
       } catch (error) {
         console.log(error);
