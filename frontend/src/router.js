@@ -22,7 +22,7 @@ const ScrollToTop = () => {
         document.querySelector('body').scrollTo(0, 0);
     }, [pathname]);
 
-    return null; // Không có gì cần render
+    return null;
 };
 
 const userRouters =  [

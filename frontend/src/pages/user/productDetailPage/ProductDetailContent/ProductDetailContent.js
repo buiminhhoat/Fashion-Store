@@ -153,7 +153,6 @@ const ImagesProductSection = ({informationProduct}) => {
 }
 
 const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => {
-  const navigate = useNavigate();
   const [selectedSizeID, setSelectedSizeID] = useState(null);
   const [quantityPurchase, setQuantityPurchase] = useState(1);
 
@@ -254,7 +253,6 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
         quantityPurchase: quantityPurchase,
       }
       handleBuyNow(newOrderDetails);
-      // navigate(`/checkout?productID=${informationProduct.productID}&sizeID=${newOrderDetails.sizeID}&quantity=${newOrderDetails.quantityPurchase}`);
     } else {
       toast.warn("Vui lòng chọn kích thước sản phẩm");
     }
