@@ -329,6 +329,7 @@ function CartPage() {
                       </div>
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
                         <AddressSection/>
+
                         <div className="cart__address">
                           <div className="cart__address__title d-flex align-items-center justify-content-between">
                             <div className="cart__address__title__left mb-20px">
