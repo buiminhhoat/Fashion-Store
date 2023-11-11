@@ -14,6 +14,7 @@ import arrowRight from "./images/angle-right.svg"
 import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import {useCookies} from "react-cookie";
+import AddressModal from "./AddressModal";
 
 const openModalCreateAddress = () => {
   return 1;
@@ -83,6 +84,8 @@ function CheckoutPage() {
   const [cookies] = useCookies(['access_token']);
   const [choosedAddress, setChoosedAddress] = useState({})
   const accessToken = cookies.access_token;
+  const [openModal, setOpenModal] = useState(false);
+
   const getAddresses = () => {
     const formData = new FormData();
     // formData.append('addressID', addressID);
@@ -144,12 +147,12 @@ function CheckoutPage() {
 
   }
 
-  const openModalAddress = () => {
-    return 1;
+  const openModalListAddress = () => {
+    setOpenModal(true);
   }
 
-  const openModalListAddress = () => {
-    return 1;
+  const closeModalListAddress = () => {
+    setOpenModal(false);
   }
   console.log("Reload!");
 
@@ -259,7 +262,7 @@ function CheckoutPage() {
                                       <img src={locationDot} alt="icon address"/>
                                         <h5 class="mb-0">Địa chỉ nhận hàng</h5>
                                     </div>
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center" onClick={openModalListAddress}>
                                       <span class="change-address">Thay đổi địa chỉ</span>
                                       <img src={arrowRight} alt="icon arrow next"/>
                                     </div>
@@ -336,7 +339,12 @@ function CheckoutPage() {
               )
           }
         </section>
+        {openModal && (
+              <AddressModal selectedAddress={choosedAddress} closeModalListAddress={closeModalListAddress}/>
+            )
+        }
       </main>
+
   );
 }
 
