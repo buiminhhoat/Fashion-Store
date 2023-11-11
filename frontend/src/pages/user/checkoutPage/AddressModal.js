@@ -6,7 +6,8 @@ import {useCookies} from "react-cookie";
 function AddressModal({
                           selectedAddress,
                           // addressList,
-                          updateAddressSelected,
+                          // updateAddressSelected,
+                          // setSelectedAddress,
                           openModalUpdateAddress,
                           openModalCreateAddress,
                           closeModalListAddress,
@@ -15,6 +16,7 @@ function AddressModal({
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
     const [addressList, setAddressList] = useState([{}])
+    const [idSelected, setIdSelected] = useState(selectedAddress.addressID)
     const updateData = () => {
         fetch("http://localhost:9999/api/get-all-addresses", {
             method: "POST",
@@ -62,6 +64,10 @@ function AddressModal({
         }
     };
 
+    const updateAddressSelected = (addressID) => {
+        setIdSelected(addressID);
+    }
+
     return (
         <div className="modal-create-address visible">
             <div className="modal-create-address__backdrop"></div>
@@ -82,11 +88,11 @@ function AddressModal({
                                             onChange={() => updateAddressSelected(address.addressID)}
                                             id={address.addressID}
                                             value={address.addressID}
-                                            checked={address.addressID === selectedAddress}
+                                            checked={address.addressID === idSelected}
                                         />
 
                                         <div className="center-content">
-                                            <label htmlFor={address.addressID} onClick={() => updateAddressSelected(address.addressID)}>
+                                            <label onClick={() => updateAddressSelected(address.addressID)}>
                                                 <div className="cart__address__description">
                                                     <div className="d-flex justify-content-between">
                                                         <div className="fw-bold">{address.recipientName} | {address.recipientPhone}</div>
@@ -123,7 +129,7 @@ function AddressModal({
 
                     <div className="modal-create-address-footer">
                         <div className="btn-cancel" onClick={closeModalListAddress}>Hủy bỏ</div>
-                        <div className="btn-submit" onClick={confirmAddress}>Xác nhận</div>
+                        <div className="btn-submit" onClick={() => confirmAddress(addressList.find((address) => address.addressID === idSelected))}>Xác nhận</div>
                     </div>
                 </div>
             </div>

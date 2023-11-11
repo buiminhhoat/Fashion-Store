@@ -82,7 +82,7 @@ function CheckoutPage() {
 
   const [addresses, setAddresses] = useState([{}]);
   const [cookies] = useCookies(['access_token']);
-  const [choosedAddress, setChoosedAddress] = useState({})
+  const [selectedAddress, setSelectedAddress] = useState({})
   const accessToken = cookies.access_token;
   const [openModal, setOpenModal] = useState(false);
 
@@ -100,7 +100,7 @@ function CheckoutPage() {
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-            setChoosedAddress(data.find((address) => {return address.isDefault == true}));
+            setSelectedAddress(data.find((address) => {return address.isDefault == true}));
             setAddresses(data);
             // console.log(isDefault)
           })
@@ -152,6 +152,11 @@ function CheckoutPage() {
   }
 
   const closeModalListAddress = () => {
+    setOpenModal(false);
+  }
+
+  const confirmAddress = (address) => {
+    setSelectedAddress(address);
     setOpenModal(false);
   }
   console.log("Reload!");
@@ -268,8 +273,8 @@ function CheckoutPage() {
                                     </div>
                                   </div>
                                   <div class="cart__address__description">
-                                    <div>{choosedAddress.recipientName}<span>|</span> {choosedAddress.recipientPhone}</div>
-                                    <div> {choosedAddress.addressDetails}</div>
+                                    <div>{selectedAddress.recipientName}<span>|</span> {selectedAddress.recipientPhone}</div>
+                                    <div> {selectedAddress.addressDetails}</div>
                                   </div>
                                 </>
                                 // </button>
@@ -340,7 +345,7 @@ function CheckoutPage() {
           }
         </section>
         {openModal && (
-              <AddressModal selectedAddress={choosedAddress} closeModalListAddress={closeModalListAddress}/>
+              <AddressModal selectedAddress={selectedAddress} confirmAddress = {confirmAddress} closeModalListAddress={closeModalListAddress}/>
             )
         }
       </main>
