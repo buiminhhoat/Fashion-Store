@@ -206,7 +206,7 @@ function AddressModal({
                                     Địa chỉ nhận hàng
                                 </div>
                                 <div className="modal-sub-title">
-                                    Cập nhật địa chỉ
+                                    Thêm địa chỉ
                                 </div>
                                 <div className="input-item">
                                     <div className="input-item__title">
