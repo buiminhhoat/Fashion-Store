@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
-import {useNavigate} from 'react-router-dom';
 import {useCookies} from "react-cookie";
 
 import './style.scss';
@@ -14,14 +12,14 @@ const ImagesProductSection = ({informationProduct}) => {
   const [mainImageURL, setMainImageURL] = useState("");
   const [mainImageIndex, setMainImageIndex] = useState(0);
 
-  const maxImagesPerPage = 4;
+  const MAX_IMAGES_PER_PAGE = 4;
 
   const handlePrevClick = () => {
-    setCurrentSlide(Math.max(0, currentSlide - maxImagesPerPage));
+    setCurrentSlide(Math.max(0, currentSlide - MAX_IMAGES_PER_PAGE));
   };
 
   const handleNextClick = () => {
-    setCurrentSlide(Math.min(Math.max(0, (informationProduct.productImages ? informationProduct.productImages.length : 0) - maxImagesPerPage), currentSlide + maxImagesPerPage));
+    setCurrentSlide(Math.min(Math.max(0, (informationProduct.productImages ? informationProduct.productImages.length : 0) - MAX_IMAGES_PER_PAGE), currentSlide + MAX_IMAGES_PER_PAGE));
   };
 
   const handleClickImage = (imagePath, index) => {
@@ -136,7 +134,7 @@ const ImagesProductSection = ({informationProduct}) => {
                     <button
                         type="button"
                         role="presentation"
-                        className={`owl-next ${currentSlide === informationProduct.productImages.length - maxImagesPerPage ? 'hide' : ''}`}
+                        className={`owl-next ${informationProduct.productImages.length <= MAX_IMAGES_PER_PAGE || currentSlide === informationProduct.productImages.length - MAX_IMAGES_PER_PAGE ? 'hide' : ''}`}
                         onClick={handleNextClick}>
                       <span aria-label="Next">›</span>
                     </button>
