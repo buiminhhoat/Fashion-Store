@@ -3,7 +3,7 @@ import locationDot from "../../cartPage/images/location-dot.svg";
 import arrowRight from "../../checkoutPage/images/angle-right.svg";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
-import AddressModal from "../../checkoutPage/AddressModal"; // Assuming you have an arrow-right image
+import AddressModal from "./AddressModal"; // Assuming you have an arrow-right image
 
 function AddressSection({
                             // openModalListAddress,
@@ -34,9 +34,8 @@ function AddressSection({
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
-                    if (data.length !== 0) setSelectedAddress(data.find((address) => {return address.isDefault == true}));
+                    if (data.length === 1) setSelectedAddress(data.find((address) => {return address.isDefault == true}));
                     setAddresses(data);
-                    // console.log(isDefault)
                 })
                 .catch((error) => {
                     console.error("Error:", error);
