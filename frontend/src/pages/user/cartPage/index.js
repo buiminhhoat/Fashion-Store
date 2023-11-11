@@ -14,7 +14,6 @@ import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
-import AddressModal from "../checkoutPage/AddressModal";
 const openModalCreateAddress = () => {
   return 1;
 }
@@ -39,9 +38,6 @@ const productListFake = [
 function CartPage() {
   // product = productList;
   const [numberProduct, setNumberProduct] = useState(0)
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedAddress, setSelectedAddress] = useState({})
-
 
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
@@ -290,19 +286,6 @@ function CartPage() {
 
   }
 
-  const openModalListAddress = () => {
-    setOpenModal(true);
-  }
-
-  const closeModalListAddress = () => {
-    setOpenModal(false);
-  }
-
-  const confirmAddress = (address) => {
-    setSelectedAddress(address);
-    setOpenModal(false);
-  }
-
   return (
       <main id ="main-checkout">
         <section className="cart__wrapper container">
@@ -345,8 +328,7 @@ function CartPage() {
 
                       </div>
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        {/*<AddressSection openModalListAddress = {openModalListAddress} addresses = {addresses} selectedAddress = {selectedAddress} />*/}
-
+                        <AddressSection/>
                         <div className="cart__address">
                           <div className="cart__address__title d-flex align-items-center justify-content-between">
                             <div className="cart__address__title__left mb-20px">
@@ -409,10 +391,6 @@ function CartPage() {
               )
           }
         </section>
-        {/*{openModal && (*/}
-        {/*    <AddressModal selectedAddress={selectedAddress} confirmAddress = {confirmAddress} closeModalListAddress={closeModalListAddress}/>*/}
-        {/*  )*/}
-        {/*}*/}
       </main>
   );
 }
