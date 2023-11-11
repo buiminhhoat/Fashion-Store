@@ -34,7 +34,9 @@ function AddressSection({
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
-                    if (data.length === 1) setSelectedAddress(data.find((address) => {return address.isDefault == true}));
+                    if (selectedAddress.addressID === undefined && data.length !== 0) {
+                        setSelectedAddress(data.find((address) => {return address.isDefault === true}));
+                    }
                     setAddresses(data);
                 })
                 .catch((error) => {
