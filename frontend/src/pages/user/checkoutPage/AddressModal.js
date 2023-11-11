@@ -128,7 +128,7 @@ function AddressModal({
         formData.append('recipientName', recipientName);
         formData.append('recipientPhone', recipientPhone);
         formData.append('addressDetails', addressDetails);
-        // formData.append('isDefault', address.default);
+        formData.append('isDefault', addressList.find((address) => address.addressID === addressID).isDefault);
 
         console.log(formData);
 
@@ -158,6 +158,7 @@ function AddressModal({
     const switchModal = (modal, updateID) => {
         setOpenModal(modal);
         updateAddressID.current = updateID;
+        
         if (updateID !== undefined) {
             const formData = new FormData();
             formData.append('addressID', updateID);
@@ -344,7 +345,7 @@ function AddressModal({
                                         <input className="name" type="text"
                                                placeholder="Nhập họ tên"
                                                onChange={(e) => setRecipientName(e.target.value)}
-                                               defaultValue={addressList.find((address) => address.addressID == updateAddressID.current).recipientName}
+                                               defaultValue={addressList.find((address) => address.addressID === updateAddressID.current).recipientName}
                                         />
                                     </div>
                                 </div>
@@ -358,7 +359,7 @@ function AddressModal({
                                             <input className="phone" type="text"
                                                    placeholder="Nhập số điện thoại"
                                                    onChange={(e) => setRecipientPhone(e.target.value)}
-                                                   defaultValue={addressList.find((address) => address.addressID == updateAddressID.current).recipientPhone}
+                                                   defaultValue={addressList.find((address) => address.addressID === updateAddressID.current).recipientPhone}
                                             />
                                         </div>
                                     </div>
@@ -373,7 +374,7 @@ function AddressModal({
                                             <input className="address" type="text"
                                                    placeholder="Nhập địa chỉ"
                                                    onChange={(e) => setAddressDetails(e.target.value)}
-                                                   defaultValue={addressList.find((address) => address.addressID == updateAddressID.current).addressDetails}
+                                                   defaultValue={addressList.find((address) => address.addressID === updateAddressID.current).addressDetails}
                                             />
                                         </div>
                                     </div>
@@ -382,7 +383,6 @@ function AddressModal({
 
 
                             <div className="modal-create-address-footer ">
-                                {/*<div onClick={updateAddress} className="btn-submit">Cập nhật</div>*/}
                                 <div className="btn-cancel" onClick={() => switchModal(MODAL.LIST_ADDRESS)}>Hủy bỏ</div>
                                 <div className="btn-submit" onClick={() => handleConfirmUpdateAddress(updateAddressID.current)}>Cập nhật</div>
                             </div>
