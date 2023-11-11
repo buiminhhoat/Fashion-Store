@@ -15,6 +15,7 @@ import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import {useCookies} from "react-cookie";
 import AddressModal from "./AddressModal";
+import AddressSection from "../components/AddressSection/AddressSection";
 
 const openModalCreateAddress = () => {
   return 1;
@@ -246,42 +247,9 @@ function CheckoutPage() {
                       </div>
 
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        <div className="cart__address cursor-pointer" onClick={openModalListAddress}>
-                          {
-                            !addresses.length ? (
-                                <>
-                                  <div className="cart__address__title d-flex align-items-center justify-content-between">
-                                    <div className="cart__address__title__left mb-6px">
-                                      <img src={locationDot} alt="icon address" />
-                                      <h5 className="mb-0">Địa chỉ nhận hàng</h5>
-                                    </div>
-                                  </div>
-                                  <div className="cart__address__description">
-                                    <div>Tạo địa chỉ nhận hàng tại đây</div>
-                                  </div>
-                                </>
-                            ) : (
-                                <>
-                                  <div class="cart__address__title d-flex align-items-center justify-content-between">
-                                    <div class="cart__address__title__left mb-6px">
-                                      <img src={locationDot} alt="icon address"/>
-                                        <h5 class="mb-0">Địa chỉ nhận hàng</h5>
-                                    </div>
-                                    <div class="d-flex align-items-center" onClick={openModalListAddress}>
-                                      <span class="change-address">Thay đổi địa chỉ</span>
-                                      <img src={arrowRight} alt="icon arrow next"/>
-                                    </div>
-                                  </div>
-                                  <div class="cart__address__description">
-                                    <div>{selectedAddress.recipientName}<span>|</span> {selectedAddress.recipientPhone}</div>
-                                    <div> {selectedAddress.addressDetails}</div>
-                                  </div>
-                                </>
-                                // </button>
-                            )
-                          }
+                        <AddressSection openModalListAddress = {openModalListAddress} addresses = {addresses} selectedAddress = {selectedAddress} />
 
-                        </div>
+
                         <div className="cart__address">
                           <div className="cart__address__title d-flex align-items-center justify-content-between">
                             <div className="cart__address__title__left mb-20px">
