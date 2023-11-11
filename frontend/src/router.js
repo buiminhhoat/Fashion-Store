@@ -1,5 +1,6 @@
 import {ROUTERS} from "./utils/router";
-import {Route, Routes} from "react-router-dom";
+import {useEffect} from "react";
+import {Route, Routes, useLocation} from "react-router-dom";
 
 import HomePage from "./pages/user/homePage";
 import ProfilePage from "./pages/user/profilePage";
@@ -13,6 +14,16 @@ import NotFoundPage from "./pages/error/notFoundPage";
 import CheckoutPage from "./pages/user/checkoutPage";
 import CategoryPage from "./pages/user/categoryPage";
 import CartPage from "./pages/user/cartPage";
+
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        document.querySelector('body').scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+};
 
 const userRouters =  [
     {
@@ -78,6 +89,7 @@ const renderUserCustom = () => {
 const renderAdminCustom = () => {
        return (
         <MasterLayout>
+            <ScrollToTop />
             <Routes>
                 {
                     adminRouters.map((item, key) => (

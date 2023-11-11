@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react"
 import {useCookies} from "react-cookie";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
 
 const ProductDetailPage = () => {
+  const navigate = useNavigate();
   const [informationProduct, setInformationProduct] = useState({});
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
@@ -69,6 +70,7 @@ const ProductDetailPage = () => {
       productID: informationProduct.productID,
       ...newOrder,
     };
+    navigate(`/checkout?productID=${orderDetails.productID}&sizeID=${orderDetails.sizeID}&quantity=${orderDetails.quantityPurchase}`);
   }
 
   useEffect(() => {
