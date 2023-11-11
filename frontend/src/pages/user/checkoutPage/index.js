@@ -43,8 +43,6 @@ function CheckoutPage() {
   const [product, setProduct] = useState({})
   const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
 
-  console.log(selectedSizeID)
-
 
   const handleIncreaseAmount = () => {
     let productQuantities = 1;
@@ -81,38 +79,8 @@ function CheckoutPage() {
     setAmount(Math.min(amount, productQuantities));
   }
 
-  const [addresses, setAddresses] = useState([{}]);
   const [cookies] = useCookies(['access_token']);
-  const [selectedAddress, setSelectedAddress] = useState({})
   const accessToken = cookies.access_token;
-  const [openModal, setOpenModal] = useState(false);
-
-  const getAddresses = () => {
-    const formData = new FormData();
-    // formData.append('addressID', addressID);
-    try {
-      fetch("http://localhost:9999/api/get-all-addresses", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-        },
-        // body: formData,
-      })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            setSelectedAddress(data.find((address) => {return address.isDefault == true}));
-            setAddresses(data);
-            // console.log(isDefault)
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          })
-    }
-    finally {
-      // setLoading(false);
-    }
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -138,7 +106,6 @@ function CheckoutPage() {
       }
     };
     fetchData();
-    getAddresses();
 
   }, []);
 
@@ -146,19 +113,6 @@ function CheckoutPage() {
     // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
     return <div></div>;
 
-  }
-
-  const openModalListAddress = () => {
-    setOpenModal(true);
-  }
-
-  const closeModalListAddress = () => {
-    setOpenModal(false);
-  }
-
-  const confirmAddress = (address) => {
-    setSelectedAddress(address);
-    setOpenModal(false);
   }
   console.log("Reload!");
 
@@ -247,7 +201,7 @@ function CheckoutPage() {
                       </div>
 
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        <AddressSection openModalListAddress = {openModalListAddress} addresses = {addresses} selectedAddress = {selectedAddress} />
+                        <AddressSection/>
 
 
                         <div className="cart__address">
@@ -312,10 +266,6 @@ function CheckoutPage() {
               )
           }
         </section>
-        {openModal && (
-              <AddressModal selectedAddress={selectedAddress} confirmAddress = {confirmAddress} closeModalListAddress={closeModalListAddress}/>
-            )
-        }
       </main>
 
   );
