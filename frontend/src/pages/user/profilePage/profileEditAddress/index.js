@@ -11,7 +11,7 @@ import {toast} from "react-toastify";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 
-let apiNewAddressUrl = "http://localhost:9999/api/edit-address";
+let apiEditAddressUrl = "http://localhost:9999/api/edit-address";
 
 const ProfileEditAddress = () => {
     const [cookies] = useCookies(['access_token']);
@@ -68,7 +68,7 @@ const ProfileEditAddress = () => {
         console.log(formData);
 
         try {
-            const response = await fetch(apiNewAddressUrl, {
+            const response = await fetch(apiEditAddressUrl, {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
