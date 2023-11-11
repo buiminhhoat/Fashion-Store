@@ -34,7 +34,7 @@ function AddressSection({
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
-                    setSelectedAddress(data.find((address) => {return address.isDefault == true}));
+                    if (data.length !== 0) setSelectedAddress(data.find((address) => {return address.isDefault == true}));
                     setAddresses(data);
                     // console.log(isDefault)
                 })
@@ -50,7 +50,7 @@ function AddressSection({
     useEffect(() => {
         getAddresses();
 
-    }, []);
+    }, [openModal]);
 
     if (loading) {
         // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
