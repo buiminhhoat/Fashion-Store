@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import {cssTransition, ToastContainer} from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const MasterLayout = ({children, ...props}) => {
@@ -9,15 +9,6 @@ const MasterLayout = ({children, ...props}) => {
   const divStyle = {
     marginTop: "80px",
   };
-
-  const Zoom = cssTransition({
-    enter: 'zoomIn',
-    exit: 'zoomOut',
-    appendPosition: false,
-    collapse: true,
-    collapseDuration: 300
-  });
-
 
   return (
     <div {...props}>
