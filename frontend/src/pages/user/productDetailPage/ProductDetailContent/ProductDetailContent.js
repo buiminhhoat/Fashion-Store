@@ -254,7 +254,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
         quantityPurchase: quantityPurchase,
       }
       handleBuyNow(newOrderDetails);
-      navigate(`/checkout?productID=${informationProduct.productID}&sizeID=${newOrderDetails.sizeID}&quantity=${newOrderDetails.quantityPurchase}`);
+      // navigate(`/checkout?productID=${informationProduct.productID}&sizeID=${newOrderDetails.sizeID}&quantity=${newOrderDetails.quantityPurchase}`);
     } else {
       toast.warn("Vui lòng chọn kích thước sản phẩm");
     }
