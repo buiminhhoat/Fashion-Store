@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from "react"
 import {useCookies} from "react-cookie";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
+import queryString from "query-string";
 
 const ProductDetailPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+
   const [informationProduct, setInformationProduct] = useState({});
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
-  const { productID } = useParams();
-  const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
+  const productID = queryParams.productID;
 
   async function addToCart(orderDetails) {
     const formData = new FormData();
@@ -67,6 +70,7 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
       try {
         const response = await fetch(apiProductDetailByID, {
           method: 'GET',

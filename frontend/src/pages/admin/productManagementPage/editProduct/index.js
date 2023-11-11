@@ -2,10 +2,14 @@ import "./style.scss"
 import ProductDetails from "../ProductDetails/ProductDetails";
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
-import {useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import queryString from "query-string";
 
 const EditProductPage = () => {
-  const { productID } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const productID = queryParams.productID;
   const [productImages, setProductImages] = useState([]);
 
   const [informationProduct, setInformationProduct] = useState({
@@ -18,12 +22,6 @@ const EditProductPage = () => {
     category:{},
     parentCategory:{},
   });
-
-  // useEffect(() => {
-  //   console.log("productImages");
-  //   console.log(productImages);
-  // }, [productImages]);
-
 
   async function editProduct() {
     if (informationProduct.productName === "") {
@@ -120,6 +118,7 @@ const EditProductPage = () => {
         } else {
           const data = await response.json();
           console.log(data.message);
+          navigate(`/error`);
         }
       } catch (error) {
         console.log(error);

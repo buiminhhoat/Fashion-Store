@@ -11,7 +11,7 @@ function ProductItem({ product }) {
       <div className="product-item">
         <div className="product">
 
-          <Link to={"/product/" + product.productID}>
+          <Link to={"/product?productID=" + product.productID}>
             <div className="product-img">
               {
                 product.productImages.length > 0 ?
@@ -30,7 +30,7 @@ function ProductItem({ product }) {
 
           <div className="product-info-content">
             <h3 className="product-title">
-              <Link to={"/product/" + product.productID}>
+              <Link to={"/product?productID=" + product.productID}>
                 <div className="text-wrap">{product.productName}</div>
               </Link>
             </h3>

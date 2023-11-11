@@ -231,7 +231,7 @@ const SearchDialog = ({keyword}) => {
       >
         {filteredSearchItem.map((product, index) => (
             <div key={index}>
-              <Link to={"/product/" + product.productID}>
+              <Link to={"/product?productID=" + product.productID}>
                 <div className="item-search d-flex">
                   <div className="product-image d-flex align-items-center justify-content-start">
                     <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={`Product Image ${product.productID}`} />

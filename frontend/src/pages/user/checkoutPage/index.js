@@ -147,14 +147,14 @@ function CheckoutPage() {
                       <div className="left-content col-xl-8 col-lg-8 col-md-6 col-12">
                         <div className="card-product d-flex">
                           <div className="image-product">
-                            <Link to ={"/product/" + product.productID}>
+                            <Link to ={"/product?productID=" + product.productID}>
                                 <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={product.productName} />
                               {/*{console.log(product.productImages)}*/}
                             </Link>
                           </div>
                           <div className="product__info">
                             <div className="product__name d-flex align-items-start justify-content-between">
-                              <Link to ={"/product/" + product.productID}>
+                              <Link to ={"/product?productID=" + product.productID}>
                                 <h5 className="name">{product.productName}</h5>
                               </Link>
                               <img src={closeButton} alt="icon close" onClick={handleCloseButton}/>

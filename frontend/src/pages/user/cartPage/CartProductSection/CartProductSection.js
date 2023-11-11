@@ -7,13 +7,13 @@ function CartProduct({ product, handleDecreaseAmount, handleIncreaseAmount, hand
     return (
         <div className="card-product d-flex">
             <div className="image-product">
-                <Link to={"/product/" + product.productID}>
+                <Link to={"/product?productID=" + product.productID}>
                     <img src={"http://localhost:9999/storage/images/" + product.informationProduct.productImages[0].imagePath} alt={product.informationProduct.productName} />
                 </Link>
             </div>
             <div className="product__info">
                 <div className="product__name d-flex align-items-start justify-content-between">
-                    <Link to={"/product/" + product.productID}>
+                    <Link to={"/product?productID=" + product.productID}>
                         <h5 className="name">{product.informationProduct.productName}</h5>
                     </Link>
                     <img src={closeButton} alt="icon close" onClick={handleCloseButton} />
