@@ -3,23 +3,17 @@ package com.FashionStore.controllers;
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -85,8 +79,9 @@ public class OrdersController {
         this.cartItemRepository = cartItemRepository;
     }
 
-    @PostMapping("/orders/{orderID}")
-    public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request, @PathVariable Long orderID) {
+    @PostMapping("/orders")
+    public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request) {
+        Long orderID = Long.valueOf(request.getParameter("orderID"));
         Orders orders = getOrderDetails(orderID);
         return ResponseEntity.ok(orders);
     }
@@ -101,7 +96,7 @@ public class OrdersController {
         Date orderDate = new Date();
         orderDate.setTime(orderDate.getTime());
 
-        String orderStatus = "Đang chờ xác nhận";
+        String orderStatus = "Chờ xác nhận";
 
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
@@ -193,7 +188,7 @@ public class OrdersController {
         Date orderDate = new Date();
         orderDate.setTime(orderDate.getTime());
 
-        String orderStatus = "Đang chờ xác nhận";
+        String orderStatus = "Chờ xác nhận";
 
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
@@ -251,6 +246,41 @@ public class OrdersController {
         orderDetailsRepository.save(orderDetails);
 
         orders.setOrderDetails(orderDetailsList);
+        return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("/orders/get-all-orders-by-order-status")
+    public ResponseEntity<?> getAllOrdersByStatus(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+
+        List<Orders> allOrdersByOrderStatus = new ArrayList<>();
+
+        String orderStatus = request.getParameter("orderStatus");
+
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        String email = jwtTokenUtil.getSubjectFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        Users users = findByEmail.get(0);
+        Long userID = users.getUserID();
+
+        if (Objects.equals(orderStatus, "Tất cả")) {
+            allOrdersByOrderStatus = ordersRepository.findOrdersByUserID(userID);
+        }
+        else {
+            allOrdersByOrderStatus = ordersRepository.findOrdersByUserIDAndOrderStatus(userID, orderStatus);
+        }
+
+        List<Orders> orders = new ArrayList<>();
+        for (Orders o: allOrdersByOrderStatus) {
+            orders.add(getOrderDetails(o.getOrderID()));
+        }
         return ResponseEntity.ok(orders);
     }
 
