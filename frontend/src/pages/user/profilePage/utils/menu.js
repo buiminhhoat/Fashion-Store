@@ -33,7 +33,7 @@ const menuItemsProfile = [
     {
         icon: logout,
         text: "Đăng xuất",
-        link: "https://5sfashion.vn/logout",
+        link: "/",
     },
 ];
 
@@ -44,6 +44,10 @@ const Menu = () => {
     const [userData, setUserData] = useState({}); // State để lưu dữ liệu từ máy chủ
     // const [loading, setLoading] = useState(true);
     const logout = useLogout(); // Use the useLogout custom Hook
+
+    const handleLogout = () => {
+        logout(); // Call the logout function returned by the custom Hook
+    };
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -89,7 +93,7 @@ const Menu = () => {
                         <img src={menuItem.icon} alt={`icon ${menuItem.text}`}/>
                     </div>
                     <Link to={menuItem.link}>
-                        <div className="text">
+                        <div className="text" onClick={menuItem.text === "Đăng xuất" ? handleLogout : null}>
                             {menuItem.text}
                         </div>
                     </Link>
