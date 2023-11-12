@@ -125,7 +125,7 @@ function CheckoutPage() {
 
     fetch(apiAddToCartByCheckout, {
       method: 'POST',
-      headers: {"Authorization" : "Bearer " + accessToken},
+      headers: {"Authorization": "Bearer " + accessToken},
       body: formData,
     })
         .then((response) => {
@@ -147,8 +147,6 @@ function CheckoutPage() {
           console.error('Lỗi:', error);
           // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
-
-
   }
 
   if (loading) {

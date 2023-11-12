@@ -4,7 +4,7 @@ import {toast} from "react-toastify";
 
 import "./style.scss"
 import "./css/cart.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import closeButton from "./images/close.svg";
 import locationDot from "./images/location-dot.svg"
 import cardIcon from "./images/card.svg"
@@ -37,6 +37,8 @@ const productListFake = [
 
 function CartPage() {
   // product = productList;
+  const navigate = useNavigate();
+
   const [numberProduct, setNumberProduct] = useState(0)
   const [selectedAddress, setSelectedAddress] = useState({a:1})
 
@@ -281,6 +283,42 @@ function CartPage() {
     fetchData();
   }, [numberProduct]);
 
+  const handlePurchase = () => {
+    const apiAddToCartByCart = `http://localhost:9999/api/add-orders-by-cart`;
+    const formData = new FormData()
+
+    formData.append('addressID', selectedAddress.addressID)
+    formData.append('totalAmount', calcTotalPrice());
+    // formData.append('productID', productID);
+    // formData.append('sizeID', sizeID);
+    // formData.append('quantityPurchase', amount);
+
+    fetch(apiAddToCartByCart, {
+      method: 'POST',
+      headers: {"Authorization": "Bearer " + accessToken},
+      body: formData,
+    })
+        .then((response) => {
+          if (response.ok) {
+            // Sử dụng phương thức .json() để đọc dữ liệu JSON từ response
+            toast.success("Đặt hàng thành công!");
+            navigate('/profile/orders');
+            return response.json();
+          } else {
+            throw new Error('Lỗi khi đặt hàng.');
+          }
+        })
+        .then((data) => {
+          // In ra object trong data
+          console.log(data);
+          // Bạn có thể thực hiện các thao tác khác với dữ liệu ở đây
+        })
+        .catch((error) => {
+          console.error('Lỗi:', error);
+          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
+        });
+  }
+
   if (loading) {
     // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
     return <div></div>;
@@ -380,7 +418,7 @@ function CartPage() {
                                 </div>
                               </div>
                             </div>
-                            <span onClick={openModalCreateAddress}>
+                            <span onClick={handlePurchase}>
                                             <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
                                                 <span className="text-checkout">Thanh toán:  {formatter(calcTotalPrice())} <span>COD</span></span>
                                             </button>
