@@ -14,7 +14,7 @@ import arrowRight from "./images/angle-right.svg"
 import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import {useCookies} from "react-cookie";
-import AddressModal from "./AddressModal";
+import AddressModal from "../components/AddressSection/AddressModal";
 import AddressSection from "../components/AddressSection/AddressSection";
 
 const openModalCreateAddress = () => {

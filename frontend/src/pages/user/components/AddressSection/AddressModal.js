@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
-import locationDot from "./images/location-dot.svg"
-import plus from '../profilePage/images/plus.svg'
-import "./style.scss"
+import locationDot from "../../checkoutPage/images/location-dot.svg"
+import plus from '../../profilePage/images/plus.svg'
+import "../../checkoutPage/style.scss"
 import {useCookies} from "react-cookie";
 import {toast} from "react-toastify";
 
@@ -43,7 +43,8 @@ function AddressModal({
                 console.log(data);
                 const sortedAddresses = data.sort((a, b) => (b.isDefault || 0) - (a.isDefault || 0));
                 setAddressList(sortedAddresses);
-                setIsDefault(data.length == 0);
+                setIsDefault(data.length === 0);
+                if (data.length === 1) setIdSelected(data[0].addressID);
 
             })
             .catch((error) => {
@@ -259,7 +260,7 @@ function AddressModal({
                 )
             }
 
-            {openModal == MODAL.CREATE_ADDRESS && (
+            {openModal === MODAL.CREATE_ADDRESS && (
                     <div className="modal-create-address visible">
                     <div className="modal-create-address__backdrop"></div>
                     <div className="modal-create-address__content-wrap">
@@ -324,7 +325,7 @@ function AddressModal({
                 )
             }
 
-            {openModal == MODAL.UPDATE_ADDRESS && (
+            {openModal === MODAL.UPDATE_ADDRESS && (
                     <div className="modal-create-address visible">
                     <div className="modal-create-address__backdrop"></div>
                     <div className="modal-create-address__content-wrap">
