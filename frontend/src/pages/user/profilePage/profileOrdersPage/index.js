@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import iconOrder from '../images/order.svg';
 import likeProduct from '../images/likeProduct.svg'
@@ -13,8 +13,9 @@ import {renderMenu} from "../utils/router";
 import {menuItemsProfile} from "../utils/router";
 import Menu from "../utils/menu.js";
 import {formatter} from "../../../../utils/formatter";
+import {useCookies} from "react-cookie";
 
-const orderList = [
+const orderListFake = [
     {
         "orderID": 1,
         "orderDate": "2023-11-12T14:08:44.000+00:00",
@@ -85,7 +86,7 @@ const tabItems = [
     { id: "tab4", text: "Đã hủy"}
 ];
 
-function renderTabList(openTab, setOpenTab) {
+const RenderTabList = (openTab, setOpenTab) => {
     const handleSwitchTab = (tab) => {
         setOpenTab(tab);
     }
@@ -113,9 +114,45 @@ function renderTabList(openTab, setOpenTab) {
     );
 }
 
-function renderTabContent(openTab, setOpenTab) {
+const RenderTabContent = (openTab, setOpenTab) => {
+    const [orderList, setOrderList] = useState([{}])
 
+    const [cookies] = useCookies(['access_token']);
+    const accessToken = cookies.access_token;
+    const [loading, setLoading] = useState(true);
 
+    const getData = () => {
+        const formData = new FormData();
+        formData.append('orderStatus', openTab);
+
+        fetch("http://localhost:9999/api/orders/get-all-orders-by-order-status", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+            body: formData
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setOrderList(data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
+    // console.log(accessToken)
+    useEffect(() => {
+        // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
+        getData();
+    }, [openTab]);
+
+    if (loading) {
+        return (<div></div>);
+    }
 
     return (
         orderList.length ? (
@@ -170,7 +207,7 @@ function renderTabContent(openTab, setOpenTab) {
                         <div className="total-money">
                             Thành tiền:
                             <span className="money">
-                                            {formatter(order.totalAmount)}
+                                            &nbsp; {formatter(order.totalAmount)}
                                         </span>
                         </div>
                         <div className="status-order">
@@ -241,11 +278,11 @@ const ProfileOrdersPage = () => {
                         <Menu/>
                         <div className="col-8 content-children item-row">
                             <div className="order-wrap">
-                                {renderTabList(openTab, setOpenTab)}
+                                {RenderTabList(openTab, setOpenTab)}
 
                                 <div className="order-list">
                                     <div className="tab-content clearfix" id="nav-tabContent">
-                                        {renderTabContent(openTab, setOpenTab)}
+                                        {RenderTabContent(openTab, setOpenTab)}
                                     </div>
                                 </div>
                             </div>
