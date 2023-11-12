@@ -308,6 +308,22 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
+    /* Admin */
+    @PostMapping("/orders/set-order-status")
+    public ResponseEntity<?> setOrderStatus(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+
+        Long orderID = Long.valueOf(request.getParameter("orderID"));
+        String orderStatus = request.getParameter("orderStatus");
+
+        Orders orders = getOrderDetails(orderID);
+        orders.setOrderStatus(orderStatus);
+        ordersRepository.save(orders);
+
+        return ResponseEntity.ok(orders);
+    }
+
     public Product getProductDetails(Long productID) {
         Product product = productRepository.findProductByProductID(productID);
 
