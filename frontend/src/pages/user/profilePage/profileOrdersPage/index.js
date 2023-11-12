@@ -12,16 +12,17 @@ import {Link} from "react-router-dom";
 import {renderMenu} from "../utils/router";
 import {menuItemsProfile} from "../utils/router";
 import Menu from "../utils/menu.js";
+import {formatter} from "../../../../utils/formatter";
 
-const ordersFake = [
+const orderList = [
     {
         "orderID": 1,
         "orderDate": "2023-11-12T14:08:44.000+00:00",
-        "totalAmount": 195000,
+        "totalAmount": 1270000,
         "orderStatus": "Đang chờ xác nhận",
         "userID": 1,
         "addressID": 2,
-        "recipientName": "Bùi Minh Hoạt",
+        "recipientName": "Nguyễn Tiến Dũng",
         "recipientPhone": "0896037569",
         "addressDetails": "134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ",
         "orderDetails": [
@@ -35,9 +36,44 @@ const ordersFake = [
                 "productPrice": 174000,
                 "quantity": 5,
                 "totalPrice": 870000
+            },
+            {
+                "orderDetailID": 1,
+                "orderID": 1,
+                "productID": 1,
+                "productName": "Polo Dài Tay Nam 5S Fashion, Thiết Kế Basic APD23002",
+                "imagePath": "2e5f2767-3c1b-40b8-a294-694b54e157b5.jpg",
+                "sizeName": "XL",
+                "productPrice": 200000,
+                "quantity": 2,
+                "totalPrice": 400000
             }
         ]
-    }
+    },
+    {
+        "orderID": 2,
+        "orderDate": "2023-11-12T14:13:33.000+00:00",
+        "totalAmount": 870000,
+        "orderStatus": "Đang chờ xác nhận",
+        "userID": 1,
+        "addressID": 2,
+        "recipientName": "Bùi Minh Hoạt",
+        "recipientPhone": "0896037569",
+        "addressDetails": "134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ",
+        "orderDetails": [
+            {
+                "orderDetailID": 2,
+                "orderID": 2,
+                "productID": 1,
+                "productName": "Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí ATO23008",
+                "imagePath": "a05f617e-760e-4e32-a166-f4bab0f70062.jpg",
+                "sizeName": "S",
+                "productPrice": 174000,
+                "quantity": 5,
+                "totalPrice": 870000
+            }
+        ]
+    },
 ];
 
 const tabItems = [
@@ -79,121 +115,112 @@ function renderTabList(openTab, setOpenTab) {
 
 function renderTabContent(openTab, setOpenTab) {
 
+
+
     return (
-        <>
-            <div class="order-item-wrap show-detail">
-                <div class="header-wrap">
-                    <div class="code-wrap">
-                        Mã đơn hàng <span class="code">#DH0007353</span>
-                    </div>
-                    <div class="status-wrap">
-                        <p class="date">05:10 16/10/2023</p>
-                        <div class="status status-un-paid">
-                            <span>Chưa thanh toán</span>
+        orderList.length ? (
+            orderList.map((order, index) => (
+                <div className="order-item-wrap show-detail">
+                    <div className="header-wrap">
+                        <div className="code-wrap">
+                            Mã đơn hàng <span className="code">{order.orderID}</span>
                         </div>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="product-wrap">
-                        <div class="img-wrap">
-                            <img src="https://5sfashion.vn/storage/upload/images/products/akg22020ghi_df72ad89691d4dcc81699d190d856270.jpg" alt="Áo Khoác Gió Nam 5S Fashion, Cản Gió, Cản Bụi AKG22020"/>
-                        </div>
-                        <div class="info-wrap">
-                            <a href="https://5sfashion.vn/san-pham/ao-khoac-gio-akg22020">
-                                <div class="name">
-                                    Áo Khoác Gió Nam 5S Fashion, Cản Gió, Cản Bụi AKG22020
-                                </div>
-                            </a>
-                            <div class="property-wrap">
-                                <span>Chì</span>&nbsp;
-                                <p class="break-item">|</p>&nbsp;
-                                <span>Size XL</span>
-                            </div>
-                            <div class="quantity-wrap">
-                                Số lượng: <span>1</span>
-                            </div>
-                            <div class="money-wrap">
-                                <span>469.000đ</span>
+                        <div className="status-wrap">
+                            <p className="date">{order.orderDate}</p>
+                            <div className="status status-un-paid">
+                                <span>{order.orderStatus}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="product-wrap">
-                        <div class="img-wrap">
-                            <img src="https://5sfashion.vn/storage/upload/images/products/zNJtsuGJhOTKe06fFLmAIWWFDyx3Rtqw6nXm7wTO.jpg" alt="Polo Dài Tay Nam 5S Fashion, Thiết Kế Basic APD23002"/>
-                        </div>
-                        <div class="info-wrap">
-                            <a href="https://5sfashion.vn/san-pham/polo-dai-tay-nam-5s-fashion-thiet-ke-basic-apd23002">
-                                <div class="name">
-                                    Polo Dài Tay Nam 5S Fashion, Thiết Kế Basic APD23002
-                                </div>
-                            </a>
-                            <div class="property-wrap">
-                                <span>Trắng</span>&nbsp;
-                                <p class="break-item">|</p>&nbsp;
-                                <span>Size XL</span>
-                            </div>
-                            <div class="quantity-wrap">
-                                Số lượng: <span>1</span>
-                            </div>
-                            <div class="money-wrap">
-                                <span>313.000đ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="total-wrap">
-                    <div class="total-money">
-                        Thành tiền:
-                        <span class="money">
-                                            782.000đ
-                                        </span>
-                    </div>
-                    <div class="status-order">
-                                        <span class="status status-fail">
-                                                                                    Hệ thống hủy
-                                        </span>
-                    </div>
-                </div>
-                <div class="detail-wrap show-detail">
-                    <div class="content-detail-wrap">
-                        <div class="info-order-wrap">
-                            <div class="row item-info">
-                                <div class="col-3 label-wrap">
-                                    Hình thức thanh toán:
-                                </div>
-                                <div class="col-9 text-wrap">
-                                    Thanh toán khi nhận hàng
-                                </div>
-                            </div>
-                            <div class="row item-info">
-                                <div class="col-3 label-wrap">
-                                    Địa chỉ nhận hàng:
-                                </div>
-                                <div class="col-9 text-wrap">
-                                    <div class="information">
-                                        <span class="name">Nguyễn Châu Khanh</span>
-                                        <div class="break-item">|</div>
-                                        <span class="phone">0944252966</span>
+                    <div className="content-wrap">
+                        {
+                            order.orderDetails.map((orderDetail, index) => (
+                                <div className="product-wrap">
+                                    <div className="img-wrap">
+                                        <img
+                                            src={"http://localhost:9999/storage/images/" + orderDetail.imagePath}
+                                            alt={orderDetail.productName}/>
                                     </div>
-                                    <div>
-                                        <span>1, Thị trấn Tây Đằng ,Huyện Ba Vì, Hà Nội</span>
+                                    <div className="info-wrap">
+                                        <a href="https://5sfashion.vn/san-pham/ao-khoac-gio-akg22020">
+                                            <div className="name">
+                                                {orderDetail.productName}
+                                            </div>
+                                        </a>
+                                        <div className="property-wrap">
+                                            {/*<span>Chì</span>&nbsp;*/}
+                                            {/*<p className="break-item">|</p>&nbsp;*/}
+                                            <span>Size {orderDetail.sizeName}</span>
+                                        </div>
+                                        <div className="property-wrap">
+                                            Số lượng: <span>{orderDetail.quantity}</span>
+                                            {/*<p className="break-item">|</p>&nbsp;*/}
+                                            {/*<span>Size {orderDetail.sizeName}</span>*/}
+                                        </div>
+                                        <div className="money-wrap">
+                                            <span>{formatter(orderDetail.totalPrice)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+
+                    </div>
+                    <div className="total-wrap">
+                        <div className="total-money">
+                            Thành tiền:
+                            <span className="money">
+                                            {formatter(order.totalAmount)}
+                                        </span>
+                        </div>
+                        <div className="status-order">
+                                        <span className="status status-fail">
+                                                                                    {order.orderStatus}
+                                        </span>
+                        </div>
+                    </div>
+                    <div className="detail-wrap show-detail">
+                        <div className="content-detail-wrap">
+                            <div className="info-order-wrap">
+                                <div className="row item-info">
+                                    <div className="col-3 label-wrap">
+                                        Hình thức thanh toán:
+                                    </div>
+                                    <div className="col-9 text-wrap">
+                                        Thanh toán khi nhận hàng
+                                    </div>
+                                </div>
+                                <div className="row item-info">
+                                    <div className="col-3 label-wrap">
+                                        Địa chỉ nhận hàng:
+                                    </div>
+                                    <div className="col-9 text-wrap">
+                                        <div className="information">
+                                            <span className="name">{order.recipientName}</span>
+                                            <div class="break-item">|</div>
+                                            <span class="phone">{order.recipientPhone}</span>
+                                        </div>
+                                        <div>
+                                            <span>{order.addressDetails}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            ))
+        ) : (
             <div
                 className={`tab-pane show`}
                 role="tabpanel"
             >
                 <div className="empty-content">
-                    <img src={emptyProduct} alt="no data" />
+                    <img src={emptyProduct} alt="no data"/>
                     <p>Không có đơn hàng nào</p>
                 </div>
             </div>
-        </>
+        )
     );
 }
 
