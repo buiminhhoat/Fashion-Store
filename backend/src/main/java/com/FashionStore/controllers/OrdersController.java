@@ -128,13 +128,13 @@ public class OrdersController {
         Cart cart = cartRepository.findCartByUserID(userID);
 
         if (cart == null) {
-            ResponseObject responseObject = new ResponseObject("Giỏ hàng đã trống!");
+            ResponseObject responseObject = new ResponseObject("Giỏ hàng đang trống!");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         List<CartItem> cartItems = cartItemRepository.findCartItemByCartID(cart.getCartID());
 
         if (cartItems.isEmpty()) {
-            ResponseObject responseObject = new ResponseObject("Giỏ hàng đã trống!");
+            ResponseObject responseObject = new ResponseObject("Giỏ hàng đang trống!");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 

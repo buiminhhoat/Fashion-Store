@@ -15,7 +15,7 @@ import Menu from "../utils/menu.js";
 
 const tabItems = [
     { id: "tab-all", text: "Tất cả", isActive: true },
-    { id: "tab1", text: "Chờ thanh toán", isActive: false },
+    { id: "tab1", text: "Chờ xác nhận", isActive: false },
     { id: "tab5", text: "Đã xác nhận", isActive: false },
     { id: "tab2", text: "Đang giao hàng", isActive: false },
     { id: "tab3", text: "Hoàn thành", isActive: false },
