@@ -79,8 +79,9 @@ public class OrdersController {
         this.cartItemRepository = cartItemRepository;
     }
 
-    @PostMapping("/orders/{orderID}")
-    public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request, @PathVariable Long orderID) {
+    @PostMapping("/orders")
+    public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request) {
+        Long orderID = Long.valueOf(request.getParameter("orderID"));
         Orders orders = getOrderDetails(orderID);
         return ResponseEntity.ok(orders);
     }
@@ -269,7 +270,7 @@ public class OrdersController {
         Users users = findByEmail.get(0);
         Long userID = users.getUserID();
 
-        if (Objects.equals(orderStatus, "all")) {
+        if (Objects.equals(orderStatus, "Tất cả")) {
             allOrdersByOrderStatus = ordersRepository.findOrdersByUserID(userID);
         }
         else {
