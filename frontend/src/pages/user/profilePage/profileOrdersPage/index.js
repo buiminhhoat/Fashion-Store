@@ -86,6 +86,33 @@ const tabItems = [
     { id: "tab4", text: "Đã hủy"}
 ];
 
+function convertDateTimeFormat(dateTimeString) {
+    const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour12: false, // Đặt giờ theo định dạng 24 giờ
+    };
+
+    const dateTime = new Date(dateTimeString);
+    const formattedDateTime = dateTime.toLocaleDateString('vi-VN', options);
+
+    // Tách giờ và phút từ chuỗi định dạng
+    const [time, date] = formattedDateTime.split(' ');
+
+    // Chia giờ và phút
+    const [hour, minute] = time.split(':');
+
+    // Định dạng lại giờ với số 0 phía trước khi cần thiết
+    const formattedHour = hour.padStart(2, '0');
+
+    // Kết hợp lại và trả về kết quả cuối cùng
+    return `${formattedHour}:${minute} ${date}`;
+}
+
+
 const RenderTabList = (openTab, setOpenTab) => {
     const handleSwitchTab = (tab) => {
         setOpenTab(tab);
@@ -163,7 +190,7 @@ const RenderTabContent = (openTab, setOpenTab) => {
                             Mã đơn hàng <span className="code">{order.orderID}</span>
                         </div>
                         <div className="status-wrap">
-                            <p className="date">{order.orderDate}</p>
+                            <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
                             <div className="status status-un-paid">
                                 <span>{order.orderStatus}</span>
                             </div>
