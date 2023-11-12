@@ -159,14 +159,14 @@ const ProfileMenu = ({openModal}) => {
                       <a href="/profile/orders">Đơn hàng của tôi</a>
                     </li>
                     <li>
-                      <a href={"/profile/address"}> Sổ địa chỉ </a>
+                      <a href="/profile/personal-information">Thông tin cá nhân</a>
                     </li>
-                    {/*<li>*/}
-                    {/*  <a href="/profile">Trang cá nhân</a>*/}
-                    {/*</li>*/}
-                    {/*<li>*/}
-                    {/*  <a href="#">Sản phẩm yêu thích</a>*/}
-                    {/*</li>*/}
+                    <li>
+                      <a href="/profile/address"> Sổ địa chỉ </a>
+                    </li>
+                    <li>
+                      <a href="/profile/change-password">Đổi mật khẩu</a>
+                    </li>
                     <li className="logout">
                       <a href="#logout" onClick={handleLogout}> Đăng xuất </a>
                     </li>
