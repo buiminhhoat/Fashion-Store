@@ -6,6 +6,7 @@ import './style.scss';
 import {IoMdPricetag} from "react-icons/io";
 import {formatter} from "../../../../utils/formatter";
 import {toast} from "react-toastify";
+import axios from "axios";
 
 const ImagesProductSection = ({informationProduct}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -33,10 +34,15 @@ const ImagesProductSection = ({informationProduct}) => {
     }
   }, [informationProduct]);
 
+  // useEffect(() => {
+  //   console.log("dd11")
+  // }, []);
+
   const RenderMainImage = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [showMagnifier, setShowMagnifier] = useState(false);
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+    const [imageFile, setImageFile] = useState("");
 
     const handleMouseHover = (e) => {
       const { left, top, width, height } =
@@ -47,38 +53,91 @@ const ImagesProductSection = ({informationProduct}) => {
       setCursorPosition({ x: e.pageX - left, y: e.pageY - top });
     };
 
-    return (
-        <div
-            style={{position:"relative", zIndex:"10", width: "600px", height: "600px", cursor: "crosshair",
-                    display: "flex", justifyContent: "center", alignItems: "center"}}
-            className="img-magnifier-container"
-            onMouseEnter={() => setShowMagnifier(true)}
-            onMouseLeave={() => setShowMagnifier(false)}
-            onMouseMove={handleMouseHover}
-        >
-          <img  style={{objectFit: "contain", maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", backgroundColor: 'white'}}
-              className="magnifier-img" src={mainImageURL} alt="" />
+    const fetchAndProcessImage = async () => {
+      const imageUrl = mainImageURL;
+      const targetSize = 1200;
+      try {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
 
-          {showMagnifier && (
-              <div
-                  style={{
-                    position: "absolute",
-                    left: `${cursorPosition.x - 100}px`,
-                    top: `${cursorPosition.y - 100}px`,
-                    pointerEvents: "none",
-                  }}
-              >
+        const base64Image = await blobToBase64(blob);
+
+        const img = new Image();
+        img.src = `data:image/jpeg;base64,${base64Image}`;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = targetSize;
+          canvas.height = targetSize;
+
+          const scaleFactor = Math.min(targetSize / img.width, targetSize / img.height);
+          const newWidth = img.width * scaleFactor;
+          const newHeight = img.height * scaleFactor;
+
+          const x = (canvas.width - newWidth) / 2;
+          const y = (canvas.height - newHeight) / 2;
+
+          ctx.fillStyle = 'white'; // Màu nền trắng
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, x, y, newWidth, newHeight);
+
+          const processedImageDataUrl = canvas.toDataURL('image/jpeg');
+          setImageFile(processedImageDataUrl);
+        };
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const blobToBase64 = (blob) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
+
+    useEffect(() => {
+      console.log(mainImageURL);
+      fetchAndProcessImage().then(r => {});
+    }, [mainImageURL]);
+
+    return (
+      <div style={{width: "600px", height: "600px"}}>
+        <div style={{width: "100%", height: "100%"}}>
+          <div
+              style={{zIndex: "10", width: "100%", height: "100%"}}
+              className="img-magnifier-container"
+              onMouseEnter={() => setShowMagnifier(true)}
+              onMouseLeave={() => setShowMagnifier(false)}
+              onMouseMove={handleMouseHover}
+          >
+            { imageFile !== "" && <img style={{width: "100%", height: "100%", cursor: "crosshair"}} className="magnifier-img" src={imageFile} alt=""/> }
+
+            { imageFile !== "" && showMagnifier && (
                 <div
-                    className="magnifier-image"
                     style={{
-                      backgroundColor: 'white',
-                      backgroundImage: `url(${mainImageURL})`,
-                      backgroundPosition: `${position.x}% ${position.y}%`,
+                      position: "absolute",
+                      left: `${cursorPosition.x - 100}px`,
+                      top: `${cursorPosition.y - 100}px`,
+                      pointerEvents: "none",
                     }}
-                />
-              </div>
-          )}
+                >
+                  <div
+                      className="magnifier-image"
+                      style={{
+                        backgroundColor: 'white',
+                        border:"3px solid #f5f5f5",
+                        backgroundImage: `url(${imageFile})`,
+                        backgroundPosition: `${position.x}% ${position.y}%`,
+                      }}
+                  />
+                </div>
+            )}
+          </div>
         </div>
+      </div>
     );
   }
 
@@ -111,7 +170,6 @@ const ImagesProductSection = ({informationProduct}) => {
       <div className="wrap-product-image">
         <div className="product-image-box">
           <RenderMainImage />
-
           <div className="wrap-list-image" >
             <div id="list-image" className="list-image owl-carousel owl-theme owl-loaded owl-drag">
               <div className="owl-stage-outer">
@@ -402,7 +460,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
   );
 }
 
-const ProductDetailContent = ({informationProduct, setOrderDetails, handleAddToCart, handleBuyNow}) => {
+const ProductDetailContent = ({informationProduct, handleAddToCart, handleBuyNow}) => {
   return (
       <div className="detail-product-content">
         <ImagesProductSection informationProduct={informationProduct}/>
