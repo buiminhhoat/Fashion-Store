@@ -284,6 +284,30 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
+    @PostMapping("/orders/cancel-order")
+    public ResponseEntity<?> cancelOrder(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+
+        Long orderID = Long.valueOf(request.getParameter("orderID"));
+
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        String email = jwtTokenUtil.getSubjectFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Orders orders = getOrderDetails(orderID);
+        orders.setOrderStatus("Đã hủy");
+        ordersRepository.save(orders);
+
+        return ResponseEntity.ok(orders);
+    }
+
     public Product getProductDetails(Long productID) {
         Product product = productRepository.findProductByProductID(productID);
 
