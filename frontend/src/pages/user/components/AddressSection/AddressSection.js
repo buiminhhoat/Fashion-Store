@@ -8,15 +8,16 @@ import AddressModal from "./AddressModal"; // Assuming you have an arrow-right i
 function AddressSection({
                             // openModalListAddress,
                             // addresses,
-                            // selectedAddress,
+                            selectedAddress,
+                            setSelectedAddress,
                         }) {
 
     const [addresses, setAddresses] = useState([{}]);
     const [openModal, setOpenModal] = useState(false);
 
-
+    console.log(selectedAddress)
     const [cookies] = useCookies(['access_token']);
-    const [selectedAddress, setSelectedAddress] = useState({})
+    // const [selectedAddress, setSelectedAddress] = useState({})
     const accessToken = cookies.access_token;
     const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
 

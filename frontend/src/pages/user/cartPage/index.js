@@ -38,6 +38,7 @@ const productListFake = [
 function CartPage() {
   // product = productList;
   const [numberProduct, setNumberProduct] = useState(0)
+  const [selectedAddress, setSelectedAddress] = useState({a:1})
 
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
@@ -328,7 +329,7 @@ function CartPage() {
 
                       </div>
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        <AddressSection/>
+                        <AddressSection selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>
 
                         <div className="cart__address">
                           <div className="cart__address__title d-flex align-items-center justify-content-between">

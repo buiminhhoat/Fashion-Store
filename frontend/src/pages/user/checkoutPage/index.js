@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react"
 import {toast} from "react-toastify";
 import queryString from 'query-string';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import "./style.scss"
 import "./css/cart.css";
@@ -24,6 +24,7 @@ const openModalCreateAddress = () => {
 function CheckoutPage() {
 
   // product = productList;
+  const navigate = useNavigate();
 
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
@@ -41,6 +42,8 @@ function CheckoutPage() {
   const [selectedSizeID, setSelectedSizeID] = useState(sizeID)
   const [amount, setAmount] = useState(currentQuantity)
   const [product, setProduct] = useState({})
+  const [selectedAddress, setSelectedAddress] = useState({a:1})
+
   const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
 
 
@@ -109,6 +112,45 @@ function CheckoutPage() {
 
   }, []);
 
+  const handlePurchase = () => {
+    const total = product.productPrice * amount
+    const apiAddToCartByCheckout = `http://localhost:9999/api/add-orders-by-checkout`;
+    const formData = new FormData()
+
+    formData.append('addressID', selectedAddress.addressID)
+    formData.append('totalAmount', total);
+    formData.append('productID', productID);
+    formData.append('sizeID', sizeID);
+    formData.append('quantityPurchase', amount);
+
+    fetch(apiAddToCartByCheckout, {
+      method: 'POST',
+      headers: {"Authorization" : "Bearer " + accessToken},
+      body: formData,
+    })
+        .then((response) => {
+          if (response.ok) {
+            // Sử dụng phương thức .json() để đọc dữ liệu JSON từ response
+            toast.success("Đặt hàng thành công!");
+            navigate('/profile/orders');
+            return response.json();
+          } else {
+            throw new Error('Lỗi khi đặt hàng.');
+          }
+        })
+        .then((data) => {
+          // In ra object trong data
+          console.log(data);
+          // Bạn có thể thực hiện các thao tác khác với dữ liệu ở đây
+        })
+        .catch((error) => {
+          console.error('Lỗi:', error);
+          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
+        });
+
+
+  }
+
   if (loading) {
     // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
     return <div></div>;
@@ -149,7 +191,6 @@ function CheckoutPage() {
                           <div className="image-product">
                             <Link to ={"/product?productID=" + product.productID}>
                                 <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={product.productName} />
-                              {/*{console.log(product.productImages)}*/}
                             </Link>
                           </div>
                           <div className="product__info">
@@ -201,7 +242,7 @@ function CheckoutPage() {
                       </div>
 
                       <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        <AddressSection/>
+                        <AddressSection selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>
 
 
                         <div className="cart__address">
@@ -253,7 +294,7 @@ function CheckoutPage() {
                                 </div>
                               </div>
                             </div>
-                            <span onClick={openModalCreateAddress}>
+                            <span onClick={handlePurchase}>
                                             <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
                                                 <span className="text-checkout">Thanh toán:  {formatter(product.productPrice * amount)} <span>COD</span></span>
                                             </button>
