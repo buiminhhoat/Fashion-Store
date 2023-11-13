@@ -113,6 +113,11 @@ function CheckoutPage() {
   }, []);
 
   const handlePurchase = () => {
+    if (selectedAddress.addressID === undefined) {
+      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+      return;
+    }
+
     const total = product.productPrice * amount
     const apiAddToCartByCheckout = `http://localhost:9999/api/add-orders-by-checkout`;
     const formData = new FormData()
