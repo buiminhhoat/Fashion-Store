@@ -9,10 +9,13 @@ import {useCookies} from "react-cookie";
 import Menu from "../utils/menu.js"
 import {toast} from "react-toastify";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 let apiNewAddressUrl = "http://localhost:9999/api/public/new-address";
 
 const ProfileNewAddress = () => {
+    const navigate = useNavigate()
+
     const [recipientName, setRecipientName] = useState("");
     const [recipientPhone, setRecipientPhone] = useState("");
     const [addressDetails, setAddressDetails] = useState("");
@@ -73,12 +76,12 @@ const ProfileNewAddress = () => {
             if (response.status === 200) {
                 let jsonResponse = await response.json();
                 toast.success(jsonResponse.message);
-                window.location.href = "/profile/address";
+                navigate("/profile/address");
             }
             else {
                 let jsonResponse = await response.json();
                 alert(jsonResponse.message);
-                window.location.href = "/profile/address";
+                navigate("/profile/address");
             }
         } catch (error) {
             toast.error("Không kết nối được với database");
@@ -86,7 +89,7 @@ const ProfileNewAddress = () => {
     }
 
     const handleCancel = () => {
-        window.location.href = "/profile/address";
+        navigate("/profile/address");
     }
     return (
         <div id="app">
