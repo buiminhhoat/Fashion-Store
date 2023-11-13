@@ -39,6 +39,8 @@ const menuItemsProfile = [
 
 // Tạo một component Menu từ dữ liệu menuItems
 const Menu = () => {
+    const [avatar, setAvatar] = useState(null);
+
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
     const [userData, setUserData] = useState({}); // State để lưu dữ liệu từ máy chủ
@@ -102,15 +104,39 @@ const Menu = () => {
         }
         return menuItemsJSX;
     }
+    const onFileChange = (e) => {
+        const file = e.target.files[0];
+        setAvatar(URL.createObjectURL(file));
+
+        // Thực hiện các thao tác khác nếu cần thiết, ví dụ: tải lên máy chủ.
+        // Cần xử lý logic tải lên máy chủ tại đây.
+    };
 
     return (
         <div className="col-4 menu-wrap item-row">
             <div className="header-wrap">
+                {/*<div className="image-wrap">*/}
+                {/*    <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt={userData.fullName} id="action-upload"/>*/}
+                {/*    /!*<input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>*!/*/}
+                {/*    <input type="file" id="upload-file" className="d-none"/>*/}
+
+                {/*</div>*/}
+
                 <div className="image-wrap">
-                    <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt={userData.fullName} id="action-upload"/>
-                    {/*<input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>*/}
-                    {/*<input type="file" id="upload-file" className="d-none"/>*/}
+                    <img
+                        src={avatar ? avatar : "https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg"}
+                        alt={userData.fullName}
+                        id="action-upload"
+                        onClick={() => document.getElementById('upload-file').click()}
+                    />
+                    <input
+                        type="file"
+                        id="upload-file"
+                        className="d-none"
+                        onChange={(e) => onFileChange(e)}
+                    />
                 </div>
+
                 <div className="text-header">
                     <p>Xin chào,</p>
                     <p className="name">{userData.fullName}</p>

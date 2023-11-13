@@ -10,7 +10,7 @@ import Menu from "../utils/menu.js"
 import {toast} from "react-toastify";
 import {useState} from "react";
 
-let apiNewAddressUrl = "http://localhost:9999/api/new-address";
+let apiNewAddressUrl = "http://localhost:9999/api/public/new-address";
 
 const ProfileNewAddress = () => {
     const [recipientName, setRecipientName] = useState("");
@@ -25,7 +25,7 @@ const ProfileNewAddress = () => {
         const formData = new FormData();
         // formData.append('addressID', addressID);
         try {
-            fetch("http://localhost:9999/api/get-all-addresses", {
+            fetch("http://localhost:9999/api/public/get-all-addresses", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
@@ -110,8 +110,8 @@ const ProfileNewAddress = () => {
                                     <span className="title">Thêm địa chỉ mới</span>
                                 </section>
 
-                                <form id="add-new-address" action="https://5sfashion.vn/profile/store-address" method="POST">
-                                    <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
+                                <form id="add-new-address">
+                                    <input type="hidden"/>
                                     <section className="content__wrap">
                                         <article className="information__wrap" style={{marginLeft: "20px"}}>
                                             <div className="info__item">

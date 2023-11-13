@@ -25,7 +25,7 @@ function AddressSection({
         const formData = new FormData();
         // formData.append('addressID', addressID);
         try {
-            fetch("http://localhost:9999/api/get-all-addresses", {
+            fetch("http://localhost:9999/api/public/get-all-addresses", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
