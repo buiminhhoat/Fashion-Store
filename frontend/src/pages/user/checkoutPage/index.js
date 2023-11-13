@@ -119,7 +119,7 @@ function CheckoutPage() {
     }
 
     const total = product.productPrice * amount
-    const apiAddToCartByCheckout = `http://localhost:9999/api/add-orders-by-checkout`;
+    const apiAddToCartByCheckout = `http://localhost:9999/api/public/add-orders-by-checkout`;
     const formData = new FormData()
 
     formData.append('addressID', selectedAddress.addressID)

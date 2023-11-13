@@ -79,14 +79,14 @@ public class OrdersController {
         this.cartItemRepository = cartItemRepository;
     }
 
-    @PostMapping("/orders")
+    @PostMapping("/public/orders")
     public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request) {
         Long orderID = Long.valueOf(request.getParameter("orderID"));
         Orders orders = getOrderDetails(orderID);
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/add-orders-by-cart")
+    @PostMapping("/public/add-orders-by-cart")
     public ResponseEntity<?> addOrdersByCart(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -175,7 +175,7 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/add-orders-by-checkout")
+    @PostMapping("/public/add-orders-by-checkout")
     public ResponseEntity<?> addOrdersByCheckout(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -249,7 +249,7 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/orders/get-all-orders-by-order-status")
+    @PostMapping("/public/orders/get-all-orders-by-order-status")
     public ResponseEntity<?> getAllOrdersByStatus(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -284,7 +284,7 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/orders/cancel-order")
+    @PostMapping("/public/orders/cancel-order")
     public ResponseEntity<?> cancelOrder(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -309,7 +309,7 @@ public class OrdersController {
     }
 
     /* Admin */
-    @PostMapping("/orders/set-order-status")
+    @PostMapping("/admin/orders/set-order-status")
     public ResponseEntity<?> setOrderStatus(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
