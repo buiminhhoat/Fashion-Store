@@ -55,7 +55,7 @@ const Menu = () => {
         const fetchUserData = async () => {
             if (accessToken) {
                 try {
-                    const serverUrl = "http://localhost:9999/api";
+                    const serverUrl = "http://localhost:9999/api/public";
                     const response = await fetch(`${serverUrl}/get-user-data`, {
                         method: "GET",
                         headers: {

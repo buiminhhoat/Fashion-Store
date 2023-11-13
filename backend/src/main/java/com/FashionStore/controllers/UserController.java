@@ -42,7 +42,7 @@ public class UserController {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping("/get-user-data")
+    @GetMapping("/public/get-user-data")
     public ResponseEntity<Users> getUserData(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -61,7 +61,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/get-all-users")
+    @GetMapping("/admin/get-all-users")
     public ResponseEntity<?> getAllUsers() {
         List<Users> users = usersRepository.findAll();
         for (Users user: users) {
@@ -70,7 +70,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/edit-user")
+    @PostMapping("/admin/edit-user")
     public ResponseEntity<?> editUser(HttpServletRequest request) {
         Long userID = Long.valueOf(request.getParameter("userID"));
         String email = request.getParameter("email");
@@ -109,7 +109,7 @@ public class UserController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/delete-user")
+    @PostMapping("/admin/delete-user")
     public ResponseEntity<?> deleteUser(HttpServletRequest request) {
         Long userID = Long.valueOf(request.getParameter("userID"));
 
@@ -121,7 +121,7 @@ public class UserController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @GetMapping("/search-user-by-email")
+    @GetMapping("/admin/search-user-by-email")
     public ResponseEntity<?> searchUserByEmail(HttpServletRequest request) {
         String email = request.getParameter("email");
 
@@ -129,7 +129,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/search-user-by-phone-number")
+    @GetMapping("/admin/search-user-by-phone-number")
     public ResponseEntity<?> searchUserByPhoneNumber(HttpServletRequest request) {
         String phoneNumber = request.getParameter("phoneNumber");
 
@@ -137,7 +137,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/upload-profile-image")
+    @PostMapping("/public/upload-profile-image")
     public ResponseEntity<?> uploadProfileImage(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -180,7 +180,7 @@ public class UserController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/get-profile-image")
+    @PostMapping("/public/get-profile-image")
     public ResponseEntity<?> getProfileImage(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
