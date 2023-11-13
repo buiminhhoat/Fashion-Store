@@ -184,9 +184,9 @@ const RenderTabContent = (openTab, setOpenTab) => {
     function handleCancelOrder(orderID) {
         const formData = new FormData();
         formData.append('orderID', orderID);
-        formData.append('orderStatus', "Đã huỷ");
+        // formData.append('orderStatus', "Đã huỷ");
 
-        fetch("http://localhost:9999/api/orders/set-order-status", {
+        fetch("http://localhost:9999/api/orders/cancel-order", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
@@ -231,11 +231,11 @@ const RenderTabContent = (openTab, setOpenTab) => {
                                             alt={orderDetail.productName}/>
                                     </div>
                                     <div className="info-wrap">
-                                        <a href="https://5sfashion.vn/san-pham/ao-khoac-gio-akg22020">
+                                        <Link to={"/product?productID=" + orderDetail.productID}>
                                             <div className="name">
                                                 {orderDetail.productName}
                                             </div>
-                                        </a>
+                                        </Link>
                                         <div className="property-wrap">
                                             {/*<span>Chì</span>&nbsp;*/}
                                             {/*<p className="break-item">|</p>&nbsp;*/}
@@ -262,14 +262,15 @@ const RenderTabContent = (openTab, setOpenTab) => {
                                             &nbsp; {formatter(order.totalAmount)}
                                         </span>
                         </div>
-                        <div className="status-order">
-                                        {/*<span className="status status-fail">*/}
-                                                                                    {/*{order.orderStatus}*/}
-                                            <button className="cancel-order" onClick={() => handleCancelOrder(order.orderID)}>
-                                                                Huỷ đơn hàng
-                                            </button>
-                                        {/*</span>*/}
-                        </div>
+                        {
+                            ((order.orderStatus === "Chờ xác nhận") && (
+                                <button className="cancel-order" onClick={() => handleCancelOrder(order.orderID)}>
+                                    Huỷ đơn hàng
+                                </button>
+                                )
+                            )
+                        }
+
                     </div>
                     <div className="detail-wrap show-detail">
                         <div className="content-detail-wrap">
