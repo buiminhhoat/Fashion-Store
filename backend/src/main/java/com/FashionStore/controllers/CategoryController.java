@@ -48,7 +48,7 @@ public class CategoryController {
         this.productQuantityRepository = productQuantityRepository;
     }
 
-    @PostMapping("/add-category")
+    @PostMapping("/admin/add-category")
     public ResponseEntity<?> addCategory(HttpServletRequest request) {
         String categoryName = request.getParameter("categoryName");
         Long parentCategoryID = Long.valueOf(request.getParameter("parentCategoryID"));
@@ -73,7 +73,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/get-all-categories")
+    @GetMapping("/public/get-all-categories")
     public ResponseEntity<List<CategoryResponse>> getCategory() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
@@ -92,7 +92,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryResponses);
     }
 
-    @GetMapping("/all-categories/get-random-12-products")
+    @GetMapping("/public/all-categories/get-random-12-products")
     public ResponseEntity<?> getAllCategoriesRandom12() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
@@ -134,7 +134,7 @@ public class CategoryController {
         return product;
     }
 
-    @GetMapping("/get-category-details")
+    @GetMapping("/public/get-category-details")
     public ResponseEntity<?> getCategory(HttpServletRequest request) {
         Long categoryID = Long.valueOf(request.getParameter("categoryID"));
         List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
@@ -146,7 +146,7 @@ public class CategoryController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/search/category")
+    @GetMapping("/public/search/category")
     public ResponseEntity<?> searchCategory(HttpServletRequest request) {
         String categoryName = request.getParameter("categoryName");
         List<Category> categories = categoryRepository.findCategoriesByParentCategoryID(null);

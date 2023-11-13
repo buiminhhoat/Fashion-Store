@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 
 const HomePage = () => {
   const [collections, setCollections] = useState([]);
-  const apiAllCategoriesGetRandom12Products = "http://localhost:9999/api/all-categories/get-random-12-products";
+  const apiAllCategoriesGetRandom12Products = "http://localhost:9999/api/public/all-categories/get-random-12-products";
 
   useEffect(() => {
     const fetchData = async () => {

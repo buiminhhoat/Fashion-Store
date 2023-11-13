@@ -24,7 +24,7 @@ const ProductDetailPage = () => {
     formData.append('sizeID', orderDetails.sizeID);
     formData.append('quantityPurchase', orderDetails.quantityPurchase);
 
-    let apiAddToCart = "http://localhost:9999/api/add-product-to-cart";
+    let apiAddToCart = "http://localhost:9999/api/public/add-product-to-cart";
     try {
       const response = await fetch(apiAddToCart, {
         method: 'POST',

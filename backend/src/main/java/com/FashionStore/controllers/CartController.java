@@ -61,7 +61,7 @@ public class CartController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/get-cart")
+    @GetMapping("/public/get-cart")
     public ResponseEntity<?> getCart(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -117,7 +117,7 @@ public class CartController {
         return product;
     }
 
-    @PostMapping("/add-product-to-cart")
+    @PostMapping("/public/add-product-to-cart")
     public ResponseEntity<?> addProductToCart(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -164,7 +164,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 
-    @PostMapping("/edit-product-in-cart")
+    @PostMapping("/public/edit-product-in-cart")
     public ResponseEntity<?> editProductInCart(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -206,7 +206,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 
-    @PostMapping("/delete-product-in-cart")
+    @PostMapping("/public/delete-product-in-cart")
     public ResponseEntity<?> deleteProductInCart(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -234,7 +234,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 
-    @PostMapping("/delete-all-product-in-cart")
+    @PostMapping("/public/delete-all-product-in-cart")
     public ResponseEntity<?> deleteAllProductInCart(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
