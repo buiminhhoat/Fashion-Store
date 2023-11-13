@@ -179,4 +179,25 @@ public class UserController {
         ResponseObject responseObject = new ResponseObject("Cập nhật ảnh đại diện thành công");
         return ResponseEntity.ok(responseObject);
     }
+
+    @PostMapping("/get-profile-image")
+    public ResponseEntity<?> getProfileImage(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        String email = jwtTokenUtil.getSubjectFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+
+        Users users = findByEmail.get(0);
+        users.setHashedPassword(null);
+        return ResponseEntity.ok(users);
+    }
 }
