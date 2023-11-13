@@ -459,7 +459,7 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "http://localhost:9999/api/get-cart";
+  const apiGetCart = "http://localhost:9999/api/public/get-cart";
   const [loading, setLoading] = useState(true)
   const [productInCart, setProductIncart] = useState(0);
 

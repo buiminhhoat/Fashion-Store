@@ -45,7 +45,7 @@ function CartPage() {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "http://localhost:9999/api/get-cart";
+  const apiGetCart = "http://localhost:9999/api/public/get-cart";
 
   const [product, setProduct] = useState({});
   const handleIncreaseAmount = (id) => {
