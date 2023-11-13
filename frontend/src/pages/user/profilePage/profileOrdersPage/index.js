@@ -120,7 +120,7 @@ const RenderTabList = (openTab, setOpenTab) => {
     const renderTabList = () => {
         return tabItems.map((tab, index) => (
             <button
-                key={tab.id}
+                key={tab.text}
                 className={`nav-link ${openTab === tab.text ? "active" : ""}`}
                 // data-bs-toggle="tab"
                 // data-bs-target={`#${tab.id}`}
@@ -181,10 +181,35 @@ const RenderTabContent = (openTab, setOpenTab) => {
         return (<div></div>);
     }
 
+    function handleCancelOrder(orderID) {
+        const formData = new FormData();
+        formData.append('orderID', orderID);
+        formData.append('orderStatus', "Đã huỷ");
+
+        fetch("http://localhost:9999/api/orders/set-order-status", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+            body: formData
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                getData();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
+
     return (
         orderList.length ? (
             orderList.map((order, index) => (
-                <div className="order-item-wrap show-detail">
+                <div key = {index} className="order-item-wrap show-detail">
                     <div className="header-wrap">
                         <div className="code-wrap">
                             Mã đơn hàng <span className="code">{order.orderID}</span>
@@ -199,7 +224,7 @@ const RenderTabContent = (openTab, setOpenTab) => {
                     <div className="content-wrap">
                         {
                             order.orderDetails.map((orderDetail, index) => (
-                                <div className="product-wrap">
+                                <div key = {index} className="product-wrap">
                                     <div className="img-wrap">
                                         <img
                                             src={"http://localhost:9999/storage/images/" + orderDetail.imagePath}
@@ -238,9 +263,12 @@ const RenderTabContent = (openTab, setOpenTab) => {
                                         </span>
                         </div>
                         <div className="status-order">
-                                        <span className="status status-fail">
-                                                                                    {order.orderStatus}
-                                        </span>
+                                        {/*<span className="status status-fail">*/}
+                                                                                    {/*{order.orderStatus}*/}
+                                            <button className="cancel-order" onClick={() => handleCancelOrder(order.orderID)}>
+                                                                Huỷ đơn hàng
+                                            </button>
+                                        {/*</span>*/}
                         </div>
                     </div>
                     <div className="detail-wrap show-detail">
@@ -261,8 +289,8 @@ const RenderTabContent = (openTab, setOpenTab) => {
                                     <div className="col-9 text-wrap">
                                         <div className="information">
                                             <span className="name">{order.recipientName}</span>
-                                            <div class="break-item">|</div>
-                                            <span class="phone">{order.recipientPhone}</span>
+                                            <div className="break-item">|</div>
+                                            <span className="phone">{order.recipientPhone}</span>
                                         </div>
                                         <div>
                                             <span>{order.addressDetails}</span>
