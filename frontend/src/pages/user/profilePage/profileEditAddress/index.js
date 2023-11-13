@@ -9,11 +9,13 @@ import {useCookies} from "react-cookie";
 import Menu from "../utils/menu.js"
 import {toast} from "react-toastify";
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 let apiEditAddressUrl = "http://localhost:9999/api/public/edit-address";
 
 const ProfileEditAddress = () => {
+    const navigate = useNavigate();
+
     const [cookies] = useCookies(['access_token']);
     const [address, setAddress] = useState({});
     const [recipientName, setRecipientName] = useState("");
@@ -78,13 +80,14 @@ const ProfileEditAddress = () => {
 
             if (response.status === 200) {
                 let jsonResponse = await response.json();
-                alert(jsonResponse.message);
-                window.location.href = "/profile/address";
+                // alert(jsonResponse.message);
+                toast.success(jsonResponse.message)
+                navigate("/profile/address");
             }
             else {
                 let jsonResponse = await response.json();
-                alert(jsonResponse.message);
-                window.location.href = "/profile/address";
+                toast.warn(jsonResponse.message);
+                navigate("/profile/address");
             }
         } catch (error) {
             toast.error("Không kết nối được với database");
@@ -92,7 +95,7 @@ const ProfileEditAddress = () => {
     }
 
     const handleCancel = () => {
-        window.location.href = "/profile/address";
+        navigate("/profile/address");
     }
 
     // if (loading) {

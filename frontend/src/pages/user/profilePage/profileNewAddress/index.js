@@ -72,7 +72,7 @@ const ProfileNewAddress = () => {
 
             if (response.status === 200) {
                 let jsonResponse = await response.json();
-                alert(jsonResponse.message);
+                toast.success(jsonResponse.message);
                 window.location.href = "/profile/address";
             }
             else {
