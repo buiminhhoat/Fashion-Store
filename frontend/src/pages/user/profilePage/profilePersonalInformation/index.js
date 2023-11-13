@@ -37,7 +37,7 @@ const ProfilePersonalInformationPage = () => {
             errorText.innerHTML = 'Vui lòng nhập đầy đủ thông tin';
             return;
         }
-        const apiEditProfile = "http://localhost:9999/api/edit-profile";
+        const apiEditProfile = "http://localhost:9999/api/public/edit-profile";
 
         // Tạo yêu cầu HTTP POST
         fetch(apiEditProfile, {
