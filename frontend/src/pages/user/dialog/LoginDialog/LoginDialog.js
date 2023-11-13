@@ -14,7 +14,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
     onSwitch(dialogName);
   };
 
-  const apiLoginUrl = "http://localhost:9999/api/login";
+  const apiLoginUrl = "http://localhost:9999/api/public/login";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

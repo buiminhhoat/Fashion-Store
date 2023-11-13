@@ -33,7 +33,7 @@ public class AuthController {
         this.usersRepository = usersRepository;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/public/login")
     public ResponseEntity<?> login(HttpServletRequest request) {
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("email");
@@ -56,7 +56,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), "Đăng nhập thành công", tokens));
     }
 
-    @PostMapping("/refresh")
+    @PostMapping("/public/refresh")
     public ResponseEntity<?> refresh(HttpServletRequest request) {
         String refreshToken = request.getHeader("Authorization");
         refreshToken = refreshToken.replace("Bearer ", "");
@@ -74,7 +74,7 @@ public class AuthController {
         return ResponseEntity.ok(tokens);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/public/register")
     public ResponseEntity<String> registerUser(HttpServletRequest request) {
         try {
             String fullName = request.getParameter("fullName");
