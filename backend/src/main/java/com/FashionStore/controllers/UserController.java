@@ -9,15 +9,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -27,6 +31,11 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     private final UsersRepository usersRepository;
+
+    private final String appRoot = System.getProperty("user.dir") + File.separator;
+
+    @Value("${upload_image.dir}")
+    String UPLOAD_DIR;
 
     @Autowired
     public UserController(UsersRepository usersRepository) {
@@ -126,5 +135,48 @@ public class UserController {
 
         List<Users> users = usersRepository.findUsersByPhoneNumber(phoneNumber);
         return ResponseEntity.ok(users);
+    }
+
+    @PostMapping("/upload-profile-image")
+    public ResponseEntity<?> uploadProfileImage(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("profileImage");
+
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        String email = jwtTokenUtil.getSubjectFromToken(accessToken);
+        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        List<String> paths = new ArrayList<>();
+        for (MultipartFile image : images) {
+            String originalFilename = image.getOriginalFilename();
+            String fileExtension = "";
+            if (originalFilename != null) {
+                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+            }
+            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
+
+            try {
+                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
+                Path path = Paths.get(imagePath);
+                image.transferTo(path.toFile());
+                paths.add(fileName);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
+            }
+        }
+
+        Users users = findByEmail.get(0);
+        users.setAvatarPath(paths.get(0));
+        usersRepository.save(users);
+
+        ResponseObject responseObject = new ResponseObject("Cập nhật ảnh đại diện thành công");
+        return ResponseEntity.ok(responseObject);
     }
 }
