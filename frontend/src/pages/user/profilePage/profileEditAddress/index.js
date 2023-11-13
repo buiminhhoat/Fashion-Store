@@ -65,7 +65,7 @@ const ProfileEditAddress = () => {
         formData.append('recipientName', recipientName);
         formData.append('recipientPhone', recipientPhone);
         formData.append('addressDetails', addressDetails);
-        formData.append('isDefault', address.default);
+        formData.append('isDefault', address.isDefault);
 
         console.log(formData);
 
