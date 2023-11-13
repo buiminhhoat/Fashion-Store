@@ -40,6 +40,7 @@ const menuItemsProfile = [
 // Tạo một component Menu từ dữ liệu menuItems
 const Menu = () => {
     const [avatar, setAvatar] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
@@ -51,33 +52,61 @@ const Menu = () => {
         logout(); // Call the logout function returned by the custom Hook
     };
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            if (accessToken) {
-                try {
-                    const serverUrl = "http://localhost:9999/api/public";
-                    const response = await fetch(`${serverUrl}/get-user-data`, {
-                        method: "GET",
-                        headers: {
-                            "Authorization": `Bearer ${accessToken}`,
-                        },
-                    });
+    // const getAvatar = async () => {
+    //     if (accessToken) {
+    //         try {
+    //             const serverUrl = "http://localhost:9999/api/public";
+    //             const response = await fetch(`${serverUrl}/get-profile-image`, {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Authorization": `Bearer ${accessToken}`,
+    //                 },
+    //             });
+    //
+    //             if (response.status === 200) {
+    //                 const data = await response.json();
+    //                 setAvatar(data);
+    //                 console.log(avatar)
+    //             } else {
+    //                 throw new Error("Unauthorized");
+    //             }
+    //         } catch (error) {
+    //             console.error("Error:", error);
+    //         } finally {
+    //             // setLoading(false)
+    //         }
+    //     }
+    // }
 
-                    if (response.status === 200) {
-                        const data = await response.json();
-                        setUserData(data);
-                    } else {
-                        throw new Error("Unauthorized");
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                } finally {
-                    // setLoading(false)
+    const fetchUserData = async () => {
+        if (accessToken) {
+            try {
+                const serverUrl = "http://localhost:9999/api/public";
+                const response = await fetch(`${serverUrl}/get-user-data`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${accessToken}`,
+                    },
+                });
+
+                if (response.status === 200) {
+                    const data = await response.json();
+                    setUserData(data);
+                    console.log(data);
+                } else {
+                    throw new Error("Unauthorized");
                 }
+            } catch (error) {
+                console.error("Error:", error);
+            } finally {
+                setLoading(false)
             }
-        };
-        fetchUserData();
+        }
+    };
 
+    useEffect(() => {
+        // getAvatar();
+        fetchUserData();
     }, []);
 
     // if (loading) {
@@ -104,14 +133,36 @@ const Menu = () => {
         }
         return menuItemsJSX;
     }
-    const onFileChange = (e) => {
+    const uploadAvatar = (e) => {
         const file = e.target.files[0];
-        setAvatar(URL.createObjectURL(file));
 
-        // Thực hiện các thao tác khác nếu cần thiết, ví dụ: tải lên máy chủ.
-        // Cần xử lý logic tải lên máy chủ tại đây.
+        const formData = new FormData();
+        formData.append('profileImage', file);
+        try {
+            fetch("http://localhost:9999/api/public/upload-profile-image", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    fetchUserData();
+                    console.log("huhu")
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                })
+        }
+        finally {
+            // setLoading(false);
+        }
     };
 
+    // if (loading === true) {
+    //     return <div></div>
+    // }
     return (
         <div className="col-4 menu-wrap item-row">
             <div className="header-wrap">
@@ -124,7 +175,7 @@ const Menu = () => {
 
                 <div className="image-wrap">
                     <img
-                        src={avatar ? avatar : "https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg"}
+                        src={userData.avatarPath !== undefined ? "http://localhost:9999/storage/images/" + userData.avatarPath : "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
                         alt={userData.fullName}
                         id="action-upload"
                         onClick={() => document.getElementById('upload-file').click()}
@@ -133,7 +184,7 @@ const Menu = () => {
                         type="file"
                         id="upload-file"
                         className="d-none"
-                        onChange={(e) => onFileChange(e)}
+                        onChange={(e) => uploadAvatar(e)}
                     />
                 </div>
 
