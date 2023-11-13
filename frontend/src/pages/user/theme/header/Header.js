@@ -189,7 +189,7 @@ const ProfileMenu = ({openModal}) => {
 
 const SearchDialog = ({keyword}) => {
 
-  const apiProductBySearch = "http://localhost:9999/api/search/" + keyword;
+  const apiProductBySearch = "http://localhost:9999/api/public/search/" + keyword;
   const [searchItem, setSearchItem] = useState({});
 
   useEffect(() => {

@@ -60,7 +60,7 @@ public class ProductController {
         this.categoryRepository = categoryRepository;
     }
 
-    @PostMapping("/add-product")
+    @PostMapping("/admin/add-product")
     public ResponseEntity<?> addProduct(HttpServletRequest request) {
         String productName = request.getParameter("productName");
         Long productPrice = Long.valueOf(request.getParameter("productPrice"));
@@ -140,7 +140,7 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/edit-product")
+    @PostMapping("/admin/edit-product")
     public ResponseEntity<?> editProduct(HttpServletRequest request) {
         Long productID = Long.valueOf(request.getParameter("productID"));
         String productName = request.getParameter("productName");
@@ -225,7 +225,7 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/delete-product")
+    @PostMapping("/admin/delete-product")
     public ResponseEntity<?> deleteProduct(HttpServletRequest request) {
         Long productID = Long.valueOf(request.getParameter("productID"));
 
@@ -241,7 +241,7 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @GetMapping("/search/{productName}")
+    @GetMapping("/public/search/{productName}")
     public ResponseEntity<?> searchProductByProductName(HttpServletRequest request, @PathVariable String productName) {
         List<Product> allProducts = productRepository.findAll();
         List<Product> products = new ArrayList<>();
@@ -276,7 +276,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/product/{productID}")
+    @GetMapping("/public/product/{productID}")
     public ResponseEntity<?> searchProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
         Product product = productRepository.findProductByProductID(productID);
         product = getProductDetails(product.getProductID());

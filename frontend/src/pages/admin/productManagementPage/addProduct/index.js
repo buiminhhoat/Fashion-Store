@@ -58,7 +58,7 @@ const AddProductPage = () => {
 
     // formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
 
-    let apiAddProductUrl = "http://localhost:9999/api/add-product";
+    let apiAddProductUrl = "http://localhost:9999/api/admin/add-product";
     fetch(apiAddProductUrl, {
       method: 'POST',
       body: formData,
