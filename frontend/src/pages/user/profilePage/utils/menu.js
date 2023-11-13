@@ -52,32 +52,6 @@ const Menu = () => {
         logout(); // Call the logout function returned by the custom Hook
     };
 
-    // const getAvatar = async () => {
-    //     if (accessToken) {
-    //         try {
-    //             const serverUrl = "http://localhost:9999/api/public";
-    //             const response = await fetch(`${serverUrl}/get-profile-image`, {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Authorization": `Bearer ${accessToken}`,
-    //                 },
-    //             });
-    //
-    //             if (response.status === 200) {
-    //                 const data = await response.json();
-    //                 setAvatar(data);
-    //                 console.log(avatar)
-    //             } else {
-    //                 throw new Error("Unauthorized");
-    //             }
-    //         } catch (error) {
-    //             console.error("Error:", error);
-    //         } finally {
-    //             // setLoading(false)
-    //         }
-    //     }
-    // }
-
     const fetchUserData = async () => {
         if (accessToken) {
             try {
@@ -175,7 +149,9 @@ const Menu = () => {
 
                 <div className="image-wrap">
                     <img
-                        src={userData.avatarPath !== undefined ? "http://localhost:9999/storage/images/" + userData.avatarPath : "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
+                        src={(userData.avatarPath !== undefined && userData.avatarPath !== null) ?
+                            "http://localhost:9999/storage/images/" + userData.avatarPath :
+                            "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
                         alt={userData.fullName}
                         id="action-upload"
                         onClick={() => document.getElementById('upload-file').click()}
