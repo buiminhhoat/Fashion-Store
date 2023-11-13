@@ -12,7 +12,7 @@ import {Link} from "react-router-dom";
 const menuItemsProfile = [
     {
         icon: iconOrder,
-        text: "Đơn hàng của tôi (0)",
+        text: "Đơn hàng của tôi",
         link: "/profile" + ROUTERS.USER.ORDERS_PAGE //"https://5sfashion.vn/profile/orders",
     },
     {
