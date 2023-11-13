@@ -284,7 +284,7 @@ function CartPage() {
   }, [numberProduct]);
 
   const handlePurchase = () => {
-    const apiAddToCartByCart = `http://localhost:9999/api/add-orders-by-cart`;
+    const apiAddToCartByCart = `http://localhost:9999/api/public/add-orders-by-cart`;
     const formData = new FormData()
 
     formData.append('addressID', selectedAddress.addressID)

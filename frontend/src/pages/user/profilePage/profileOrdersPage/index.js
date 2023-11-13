@@ -152,7 +152,7 @@ const RenderTabContent = (openTab, setOpenTab) => {
         const formData = new FormData();
         formData.append('orderStatus', openTab);
 
-        fetch("http://localhost:9999/api/orders/get-all-orders-by-order-status", {
+        fetch("http://localhost:9999/api/public/orders/get-all-orders-by-order-status", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
@@ -186,7 +186,7 @@ const RenderTabContent = (openTab, setOpenTab) => {
         formData.append('orderID', orderID);
         // formData.append('orderStatus', "Đã huỷ");
 
-        fetch("http://localhost:9999/api/orders/cancel-order", {
+        fetch("http://localhost:9999/api/public/orders/cancel-order", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
