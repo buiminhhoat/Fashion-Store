@@ -7,7 +7,7 @@ const ProductListPage  = () => {
   const [categories, setCategories] = useState([]);
 
   const fetchData = async () => {
-    const apiGetCategory = "http://localhost:9999/api/get-all-categories";
+    const apiGetCategory = "http://localhost:9999/api/public/get-all-categories";
     try {
       const response = await fetch(apiGetCategory, {
         method: 'GET',

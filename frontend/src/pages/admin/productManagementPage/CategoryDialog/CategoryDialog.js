@@ -29,7 +29,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const fetchData = async () => {
-    const apiGetCategory = "http://localhost:9999/api/get-all-categories";
+    const apiGetCategory = "http://localhost:9999/api/public/get-all-categories";
     try {
       const response = await fetch(apiGetCategory, {
         method: 'GET',
@@ -92,7 +92,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingCategory(true);
   };
 
-  const apiAddCategoryUrl = "http://localhost:9999/api/add-category";
+  const apiAddCategoryUrl = "http://localhost:9999/api/admin/add-category";
 
   const handleSaveCategory = async () => {
     let parentCategoryID = 0;
