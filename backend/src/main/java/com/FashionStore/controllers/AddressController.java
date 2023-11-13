@@ -33,7 +33,7 @@ public class AddressController {
         this.addressRepository = addressRepository;
     }
 
-    @PostMapping("/get-address")
+    @PostMapping("/public/get-address")
     public ResponseEntity<?> getAddress(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -59,7 +59,7 @@ public class AddressController {
         return ResponseEntity.ok(address);
     }
 
-    @PostMapping("/new-address")
+    @PostMapping("/public/new-address")
     public ResponseEntity<?> newAddress(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -99,7 +99,7 @@ public class AddressController {
         }
     }
 
-    @PostMapping("/edit-address")
+    @PostMapping("/public/edit-address")
     public ResponseEntity<?> editAddress(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -152,7 +152,7 @@ public class AddressController {
         }
     }
 
-    @PostMapping("/delete-address")
+    @PostMapping("/public/delete-address")
     public ResponseEntity<?> deleteAddress(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -180,7 +180,7 @@ public class AddressController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/set-default-address")
+    @PostMapping("/public/set-default-address")
     public ResponseEntity<?> setDefaultAddress(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -221,7 +221,7 @@ public class AddressController {
         }
     }
 
-    @PostMapping("/get-all-addresses")
+    @PostMapping("/public/get-all-addresses")
     public ResponseEntity<?> getAllAddresses(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
