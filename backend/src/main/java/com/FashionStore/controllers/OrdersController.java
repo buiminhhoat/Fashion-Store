@@ -103,11 +103,11 @@ public class OrdersController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Users users = findByEmail.get(0);
+        Users users = findByEmail;
         Long userID = users.getUserID();
 
         Address address = addressRepository.findAddressByAddressID(addressID);
@@ -195,11 +195,11 @@ public class OrdersController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Users users = findByEmail.get(0);
+        Users users = findByEmail;
         Long userID = users.getUserID();
 
         Address address = addressRepository.findAddressByAddressID(addressID);
@@ -263,11 +263,11 @@ public class OrdersController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Users users = findByEmail.get(0);
+        Users users = findByEmail;
         Long userID = users.getUserID();
 
         if (Objects.equals(orderStatus, "Tất cả")) {
@@ -296,8 +296,8 @@ public class OrdersController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 

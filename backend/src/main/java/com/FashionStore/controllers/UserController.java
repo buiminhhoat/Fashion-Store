@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -48,11 +49,11 @@ public class UserController {
         accessToken = accessToken.replace("Bearer ", "");
         if (jwtTokenUtil.isTokenValid(accessToken)) {
             String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-            List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-            if (findByEmail.isEmpty()) {
+            Users findByEmail = usersRepository.findUsersByEmail(email);
+            if (findByEmail == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-            Users users = findByEmail.get(0);
+            Users users = findByEmail;
             users.setHashedPassword(null);
             return ResponseEntity.ok(users);
         }
@@ -82,10 +83,12 @@ public class UserController {
 
         Users user = usersRepository.findUsersByUserID(userID);
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         user.setEmail(email);
         user.setFullName(fullName);
         user.setGender(gender);
-        user.setHashedPassword(newPassword);
+        user.setHashedPassword(passwordEncoder.encode(newPassword));
         user.setPhoneNumber(phoneNumber);
         user.setIsAdmin(isAdmin);
 
@@ -125,7 +128,7 @@ public class UserController {
     public ResponseEntity<?> searchUserByEmail(HttpServletRequest request) {
         String email = request.getParameter("email");
 
-        List<Users> users = usersRepository.findUsersByEmail(email);
+        Users users = usersRepository.findUsersByEmail(email);
         return ResponseEntity.ok(users);
     }
 
@@ -157,8 +160,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
@@ -181,7 +184,7 @@ public class UserController {
             }
         }
 
-        Users users = findByEmail.get(0);
+        Users users = findByEmail;
         users.setAvatarPath(paths.get(0));
         usersRepository.save(users);
 

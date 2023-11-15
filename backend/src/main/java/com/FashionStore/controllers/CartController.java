@@ -71,9 +71,9 @@ public class CartController {
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
 
-        Long userID = findByEmail.get(0).getUserID();
+        Long userID = findByEmail.getUserID();
 
         Cart cart = new Cart(userID);
 
@@ -127,9 +127,9 @@ public class CartController {
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
 
-        Long userID = findByEmail.get(0).getUserID();
+        Long userID = findByEmail.getUserID();
         Long productID = Long.valueOf(request.getParameter("productID"));
         Long sizeID = Long.valueOf(request.getParameter("sizeID"));
         Long quantityPurchase = Long.valueOf(request.getParameter("quantityPurchase"));
@@ -174,9 +174,9 @@ public class CartController {
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
 
-        Long userID = findByEmail.get(0).getUserID();
+        Long userID = findByEmail.getUserID();
         Long cartItemID = Long.valueOf(request.getParameter("cartItemID"));
         Long productID = Long.valueOf(request.getParameter("productID"));
         Long sizeID = Long.valueOf(request.getParameter("sizeID"));
@@ -216,7 +216,7 @@ public class CartController {
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
 
         Long cartItemID = Long.valueOf(request.getParameter("cartItemID"));
 
@@ -244,9 +244,9 @@ public class CartController {
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
 
-        Long userID = findByEmail.get(0).getUserID();
+        Long userID = findByEmail.getUserID();
 
         Cart cart = new Cart(userID);
 

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,8 +65,8 @@ public class ProfileController {
         }
 
 
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        Users user = findByEmail.get(0);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        Users user = findByEmail;
         user.setFullName(fullName);
         user.setGender(gender);
         user.setDateBirthday(new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day)));
@@ -86,12 +87,14 @@ public class ProfileController {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
 
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        Users user = findByEmail.get(0);
-        if (!Objects.equals(user.getHashedPassword(), oldPassword)) {
+        Users user = usersRepository.findUsersByEmail(email);
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(oldPassword, user.getHashedPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
         }
-        user.setHashedPassword(newPassword);
+
+        user.setHashedPassword(passwordEncoder.encode(newPassword));
         usersRepository.save(user);
         return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công!");
     }
