@@ -11,11 +11,10 @@
 	<groupId>com.Fashion-Store</groupId>
 	<artifactId>Fashion-Store</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<categoryName>Fashion-Store</categoryName>
-	<productDescription>Fashion-Store</productDescription>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+	<description>Fashion-Store</description>
 	<dependencies>
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
