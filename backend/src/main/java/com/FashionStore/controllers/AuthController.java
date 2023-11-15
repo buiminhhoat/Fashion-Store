@@ -51,7 +51,7 @@ public class AuthController {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(plainPassword, user.getHashedPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials. Please check your login information.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập của bạn.");
         }
 
         String accessToken = jwtTokenUtil.generateAccessToken(email);
