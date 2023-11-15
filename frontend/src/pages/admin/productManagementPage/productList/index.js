@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import "./style.scss"
 import {toast} from "react-toastify";
-import {RiPriceTagLine} from "react-icons/ri";
 import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
+import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
 
 const ProductListPage  = () => {
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
@@ -56,11 +56,9 @@ const ProductListPage  = () => {
             </div>
           </div>
 
-
-
           <div className="container pe-0 ps-0" style={{marginTop: "10px", paddingBottom: "40px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
-              <p className="category-title">Danh mục</p>
+              <p className="category-title">DANH MỤC SẢN PHẨM</p>
               <section>
                 <div style={{overflow: "hidden", borderRadius:"5px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"white"}}>
 
@@ -73,7 +71,13 @@ const ProductListPage  = () => {
                           >
                             <div>
                               <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
-                                <RiPriceTagLine style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/> {category.categoryName}
+                                {
+                                  selectedCategoriesID.find((id) => id === category.categoryID) ?
+                                    <MdArrowDropDown style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                  :
+                                    <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                }
+                                {category.categoryName}
                               </div>
 
                             </div>
@@ -91,48 +95,91 @@ const ProductListPage  = () => {
 
                           <div>
                             {
-                              selectedCategoriesID.find((id) => id === category.categoryID) ?
-                                  category.subcategories.map((subcategory, index) => (
-                                      <div key={index}>
-                                        <div className="subcategory-field pointer-cursor">
-                                          <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                            <div style={{alignSelf: `${index !== category.subcategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
-                                              height:`${index !== category.subcategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                              selectedCategoriesID.find((id) => id === category.categoryID) &&
+                              category.subcategories &&
+                              category.subcategories.map((subcategory, index) => (
+                                <div key={index}>
+                                  <div className="subcategory-field pointer-cursor"
+                                       onClick={() => handleCategoryClick(subcategory.categoryID)}
+                                  >
+                                    <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                      <div style={{alignSelf: `${index !== category.subcategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
+                                        height:`${index !== category.subcategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
 
-                                            <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+                                      <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
-                                            <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
-                                              <img
-                                                  className="img-subcategory"
-                                                  src="https://i.imgur.com/cVeZv1A.png"
-                                                  alt=""
-                                              />
-                                            </div>
-
-                                            <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
-                                              {subcategory.categoryName}
-                                            </div>
-                                          </div>
-
-                                          <div style={{display:"flex"}}>
-                                            <div className="btn-edit-category"
-                                                 style={{marginRight:"20px"}}>
-                                              <HiOutlineTrash />
-                                            </div>
-                                            <div className="btn-edit-category"
-                                                 style={{marginRight:"0"}}>
-                                              <BiSolidEdit />
-                                            </div>
-                                          </div>
-
-                                        </div>
+                                      <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                                        <img
+                                            className="img-subcategory"
+                                            src="https://i.imgur.com/cVeZv1A.png"
+                                            alt=""
+                                        />
                                       </div>
-                                  ))
-                                  : <></>
+
+                                      <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
+                                        {subcategory.categoryName}
+                                      </div>
+                                    </div>
+
+                                    <div style={{display:"flex"}}>
+                                      <div className="btn-edit-category"
+                                           style={{marginRight:"20px"}}>
+                                        <HiOutlineTrash />
+                                      </div>
+                                      <div className="btn-edit-category"
+                                           style={{marginRight:"0"}}>
+                                        <BiSolidEdit />
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+                                  <div>
+                                    {
+                                      selectedCategoriesID.find((id) => id === subcategory.categoryID) &&
+                                        subcategory.products &&
+                                        subcategory.products.map((product, index) => (
+                                          <div key={index}>
+                                            <div className="subcategory-field">
+                                              <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                                <div style={{alignSelf: `${index !== category.subcategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
+                                                  height:`${index !== category.subcategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+
+                                                <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+
+                                                <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                                                  <img
+                                                      className="img-subcategory"
+                                                      src="https://i.imgur.com/cVeZv1A.png"
+                                                      alt=""
+                                                  />
+                                                </div>
+
+                                                <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
+                                                  {product.productName}
+                                                </div>
+                                              </div>
+
+                                              <div style={{display:"flex"}}>
+                                                <div className="btn-edit-category"
+                                                     style={{marginRight:"20px"}}>
+                                                  <HiOutlineTrash />
+                                                </div>
+                                                <div className="btn-edit-category"
+                                                     style={{marginRight:"0"}}>
+                                                  <BiSolidEdit />
+                                                </div>
+                                              </div>
+
+                                            </div>
+                                          </div>
+                                        ))
+                                    }
+                                  </div>
+                                </div>
+                              ))
                             }
                           </div>
-
-
                         </div>
                     ))
                   }

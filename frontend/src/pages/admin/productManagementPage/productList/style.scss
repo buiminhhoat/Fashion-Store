@@ -1,9 +1,9 @@
 .category-title {
     color: #bd0000;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 800;
     margin-bottom: 0;
-    padding: 20px 0 20px;
+    padding: 20px 5px 20px;
 }
 
 .category-field {
@@ -50,6 +50,15 @@
     border-radius: 100px;
     border: 2px #E4E4E4 solid;
 }
+
+//@keyframes slideToTop {
+//    from {
+//        transform: translateY(-100%);
+//    }
+//    to {
+//        transform: translateY(0);
+//    }
+//}
 
 .subcategory-field {
     display: flex;
