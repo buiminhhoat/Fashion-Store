@@ -111,7 +111,7 @@ const CategoryPage = ({keyword}) => {
       }
     }
     fetchData().then(r => {});
-  }, []);
+  }, [categoryID]);
 
   // const filteredProductsData = productsData;
   // console.log(filteredProductsData)
@@ -140,7 +140,7 @@ const CategoryPage = ({keyword}) => {
                         <span class="title-child">Sắp xếp theo:</span>
                         <select class="form-select sort-item" model="selectedSort">
                           <option value="" selected="">
-                            Chọn điều khiện lọc
+                            Chọn điều kiện lọc
                           </option>
                           <option value="1">
                             Sản phẩm mới nhất
@@ -235,7 +235,7 @@ const CategoryPage = ({keyword}) => {
                 <>
                   <section className="product-result">
                   <section className="product-label ">
-                    {productsData.categoryName.toUpperCase()} ({productsData.length} sản phẩm)
+                    {productsData.categoryName.toUpperCase()} ({productsData.products.length} sản phẩm)
                   </section>
                   </section>
                   {/*<div className="search-result">*/}
