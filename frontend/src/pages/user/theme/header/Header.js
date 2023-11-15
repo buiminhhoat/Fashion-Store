@@ -13,7 +13,7 @@ import {Cookies, useCookies} from "react-cookie";
 import {useLogout} from "../../dialog/utils/logout";
 import {formatter} from "../../../../utils/formatter";
 
-const MenuItem = ({ to, text, subMenuItems }) => {
+const MenuItem = ({ categoryID, categoryName, subCategories }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
 
   const handleMouseEnter = () => {
@@ -30,36 +30,37 @@ const MenuItem = ({ to, text, subMenuItems }) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
       >
-        <Link to={to} className="menu-header-text d-flex align-items-center text-center position-relative">
-          {text}
-          {subMenuItems && (
+        <Link to={"category/" + categoryID} className="menu-header-text d-flex align-items-center text-center position-relative">
+          {categoryName.toUpperCase()}
+          {subCategories && (
               <img src={arrowDown} alt="icon arrow down" className="position-absolute"/>
           )}
         </Link>
-        {subMenuItems && (
+        {subCategories && (
             <div className={`mega-menu position-absolute ${megaMenuVisible ? "show" : ""}`} id="mega-menu-box">
               <div className="mega-menu-content d-flex">
-                {subMenuItems.map((subMenuItem, subIndex) => (
-                    <div key={subIndex} className="menu-col">
-                      <div className="menu-parent d-flex align-items-center">
-                        <div className="menu-parent-title d-flex align-items-center">
-                          <Link to={subMenuItem.to}>{subMenuItem.text}</Link>
-                        </div>
-                        {subMenuItem.subMenuItems && (
-                            <img src={arrowDown} className="menu-icon" alt="icon arrow down"/>
-                        )}
-                      </div>
-                      {subMenuItem.subMenuItems && (
+                {/*{subCategories.map((subCategory, subIndex) => (*/}
+                {/*    <div key={subIndex} className="menu-col">*/}
+                {/*      <div className="menu-parent d-flex align-items-center">*/}
+                {/*        <div className="menu-parent-title d-flex align-items-center">*/}
+                {/*          <Link to={"category?categoryID=" + subCategory.categoryID}>{subCategory.categoryName}</Link>*/}
+                {/*        </div>*/}
+                {/*        {subCategory.subCategories && (*/}
+                {/*            <img src={arrowDown} className="menu-icon" alt="icon arrow down"/>*/}
+                {/*        )}*/}
+                {/*      </div>*/}
+                {/*      {subCategory.subCategories && (*/}
+                <div className="menu-col">
                           <ul className="menu-children ps-0">
-                            {subMenuItem.subMenuItems.map((subSubMenu, subSubMenuIndex) => (
+                            {subCategories.map((subCategory, subSubMenuIndex) => (
                                 <li key={subSubMenuIndex} className="d-flex align-items-center">
-                                  <Link to={subSubMenu.to}>{subSubMenu.text}</Link>
+                                  <Link to={"category/" + subCategory.categoryID}>{subCategory.categoryName}</Link>
                                 </li>
                             ))}
                           </ul>
-                      )}
+                      {/*)}*/}
                     </div>
-                ))}
+                {/*))}*/}
               </div>
             </div>
         )}
@@ -339,7 +340,56 @@ function SearchBar() {
 
 const Header = () => {
   const menuItems = [
-    { to: "/category/sale", text: "SALE" },
+    {
+      "categoryID": 1,
+      "categoryName": "Áo Nam",
+      "subcategories": [
+        {
+          "categoryID": 2,
+          "categoryName": "Áo Thun",
+          "parentCategoryID": 1,
+          "products": null,
+          "subCategories": null
+        },
+        {
+          "categoryID": 3,
+          "categoryName": "Áo Khoác",
+          "parentCategoryID": 1,
+          "products": null,
+          "subCategories": null
+        },
+        {
+          "categoryID": 4,
+          "categoryName": "Áo Polo",
+          "parentCategoryID": 1,
+          "products": null,
+          "subCategories": null
+        }
+      ]
+    },
+    {
+      "categoryID": 5,
+      "categoryName": "Quần Nam",
+      "subcategories": [
+        {
+          "categoryID": 6,
+          "categoryName": "Quần Âu",
+          "parentCategoryID": 5,
+          "products": null,
+          "subCategories": null
+        },
+        {
+          "categoryID": 7,
+          "categoryName": "Quần Short Thể Thao",
+          "parentCategoryID": 5,
+          "products": null,
+          "subCategories": null
+        }
+      ]
+    }
+  ]
+  const menuItemsFake = [
+    // { to: "/category/sale", text: "SALE" },
     {
       to: "/category/ao-nam",
       text: "ÁO NAM",
@@ -390,52 +440,52 @@ const Header = () => {
         },
       ],
     },
-    {
-      to: "/category/quan-nam",
-      text: "PHỤ KIỆN",
-      subMenuItems: [
-        {
-          to: "/category/ao-thun-nam",
-          text: "Áo Nam Xuân Hè",
-          subMenuItems: [
-            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-          ],
-        },
-        {
-          to: "/category/ao-len-nam",
-          text: "Áo Nam Thu Đông",
-          subMenuItems: [
-            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-          ],
-        },
-      ],
-    },
-    {
-      to: "/category/quan-nam",
-      text: "BỘ SƯU TẬP",
-      subMenuItems: [
-        {
-          to: "/category/ao-thun-nam",
-          text: "Áo Nam Xuân Hè",
-          subMenuItems: [
-            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-          ],
-        },
-        {
-          to: "/category/ao-len-nam",
-          text: "Áo Nam Thu Đông",
-          subMenuItems: [
-            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-          ],
-        },
-      ],
-    },
+    // {
+    //   to: "/category/quan-nam",
+    //   text: "PHỤ KIỆN",
+    //   subMenuItems: [
+    //     {
+    //       to: "/category/ao-thun-nam",
+    //       text: "Áo Nam Xuân Hè",
+    //       subMenuItems: [
+    //         { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
+    //         { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+    //         { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+    //       ],
+    //     },
+    //     {
+    //       to: "/category/ao-len-nam",
+    //       text: "Áo Nam Thu Đông",
+    //       subMenuItems: [
+    //         { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+    //         { to: "/category/ao-len-nam", text: "Áo Len Nam" },
+    //       ],
+    //     },
+    //   ],
+    // },
+    // {
+    //   to: "/category/quan-nam",
+    //   text: "BỘ SƯU TẬP",
+    //   subMenuItems: [
+    //     {
+    //       to: "/category/ao-thun-nam",
+    //       text: "Áo Nam Xuân Hè",
+    //       subMenuItems: [
+    //         { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
+    //         { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
+    //         { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
+    //       ],
+    //     },
+    //     {
+    //       to: "/category/ao-len-nam",
+    //       text: "Áo Nam Thu Đông",
+    //       subMenuItems: [
+    //         { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
+    //         { to: "/category/ao-len-nam", text: "Áo Len Nam" },
+    //       ],
+    //     },
+    //   ],
+    // },
   ];
 
   const [openDialog, setOpenDialog] = useState(null);
@@ -514,9 +564,9 @@ const Header = () => {
                   {menuItems.map((menuItem, index) => (
                       <MenuItem
                           key={index}
-                          to={menuItem.to}
-                          text={menuItem.text}
-                          subMenuItems={menuItem.subMenuItems}
+                          categoryID={menuItem.categoryID}
+                          categoryName={menuItem.categoryName}
+                          subCategories={menuItem.subcategories}
                       />
                   ))}
                 </div>

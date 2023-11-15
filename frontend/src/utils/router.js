@@ -6,7 +6,7 @@ export const ROUTERS = {
         SEARCH: "/search/:keyword",
         CHECKOUT: "/checkout",
         PRODUCT: "/product",
-        CATEGORY: "/category/:keyword",
+        CATEGORY: "/category/:categoryID",
         CART: "/cart",
     },
     ADMIN: {
