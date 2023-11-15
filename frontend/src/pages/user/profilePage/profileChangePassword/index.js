@@ -32,7 +32,7 @@ const ProfileChangePassword = () => {
         formData.append('oldPassword', oldPassword);
 
         try {
-            const apiChangePassword = "http://localhost:9999/api/change-password";
+            const apiChangePassword = "http://localhost:9999/api/public/change-password";
             const response = await fetch(apiChangePassword, {
                 method: 'POST',
                 headers: {

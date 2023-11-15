@@ -37,7 +37,7 @@ const ProfilePersonalInformationPage = () => {
             errorText.innerHTML = 'Vui lòng nhập đầy đủ thông tin';
             return;
         }
-        const apiEditProfile = "http://localhost:9999/api/edit-profile";
+        const apiEditProfile = "http://localhost:9999/api/public/edit-profile";
 
         // Tạo yêu cầu HTTP POST
         fetch(apiEditProfile, {
@@ -75,7 +75,7 @@ const ProfilePersonalInformationPage = () => {
                     throw new Error("Không có refresh token.");
                 }
 
-                const apiFetchUserData = "http://localhost:9999/api/get-user-data";
+                const apiFetchUserData = "http://localhost:9999/api/public/get-user-data";
 
                 const response = await fetch(apiFetchUserData, {
                     method: "GET",

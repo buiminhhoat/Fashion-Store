@@ -70,7 +70,7 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
+      const apiProductDetailByID = "http://localhost:9999/api/public/product/" + productID;
       try {
         const response = await fetch(apiProductDetailByID, {
           method: 'GET',

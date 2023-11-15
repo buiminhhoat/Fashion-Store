@@ -69,7 +69,7 @@ function CartPage() {
       const sizeID = updatedProduct[id].sizeID;
 
       // Gửi yêu cầu cập nhật lên server
-      const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+      const updateCartURL = `http://localhost:9999/api/public/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
 
       fetch(updateCartURL, {
         method: 'POST',
@@ -115,7 +115,7 @@ function CartPage() {
 
     // Gửi yêu cầu cập nhật lên server
     // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?`;
+    const updateCartURL = `http://localhost:9999/api/public/edit-product-in-cart?`;
     const formData = new FormData()
 
     formData.append('cartItemID', product[id].cartItemID)
@@ -144,7 +144,7 @@ function CartPage() {
 
   const handleCloseButton = (id) => {
     // Gửi yêu cầu xóa sản phẩm khỏi giỏ hàng lên server
-    const deleteCartItemURL = `http://localhost:9999/api/delete-product-in-cart`;
+    const deleteCartItemURL = `http://localhost:9999/api/public/delete-product-in-cart`;
         // ?accessToken=${accessToken}&cartItemID=${product[id].cartItemID}
     const formData = new FormData()
     //=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}
@@ -191,7 +191,7 @@ function CartPage() {
     const productID = updatedProduct[id].informationProduct.productID;
 
     // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `http://localhost:9999/api/edit-product-in-cart?`;
+    const updateCartURL = `http://localhost:9999/api/public/edit-product-in-cart?`;
     const formData = new FormData()
     //=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}
     formData.append('cartItemID', product[id].cartItemID)
@@ -251,7 +251,7 @@ function CartPage() {
             const productID = cartItem.productID;
 
             // Fetch thông tin product theo productID
-            const productResponse = await fetch(`http://localhost:9999/api/product/${productID}`);
+            const productResponse = await fetch(`http://localhost:9999/api/public/product/${productID}`);
             if (productResponse.ok) {
               const productData = await productResponse.json();
               const productInformation = productData;

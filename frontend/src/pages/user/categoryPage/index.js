@@ -39,7 +39,7 @@ const CategoryPage = ({keyword}) => {
   const location = useLocation().pathname;
   const encodedSearchString = location.substring("/category/".length);
   const decodedSearchString = decodeURIComponent(encodedSearchString);
-  const apiProductBySearch = "http://localhost:9999/api/search/" + decodedSearchString;
+  const apiProductBySearch = "http://localhost:9999/api/public/search/" + decodedSearchString;
 
   const [productsData, setProductsData] = useState({});
 

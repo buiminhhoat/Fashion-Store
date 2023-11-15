@@ -35,7 +35,7 @@ public class ProfileController {
         this.usersRepository = usersRepository;
     }
 
-    @PostMapping("/edit-profile")
+    @PostMapping("/public/edit-profile")
     public ResponseEntity<?> editProfile(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
@@ -74,7 +74,7 @@ public class ProfileController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/change-password")
+    @PostMapping("/public/change-password")
     public ResponseEntity<?> changePassword(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");

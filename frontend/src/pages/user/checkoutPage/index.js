@@ -37,7 +37,7 @@ function CheckoutPage() {
   // const [cookies] = useCookies(['access_token']);
   // const accessToken = cookies.access_token;
 
-  const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
+  const apiProductDetailByID = "http://localhost:9999/api/public/product/" + productID;
 
   const [selectedSizeID, setSelectedSizeID] = useState(sizeID)
   const [amount, setAmount] = useState(currentQuantity)
