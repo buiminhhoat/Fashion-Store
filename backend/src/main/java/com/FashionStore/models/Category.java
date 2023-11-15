@@ -18,6 +18,9 @@ public class Category {
     @Column(name = "ParentCategoryID")
     private Long parentCategoryID;
 
+    @Column(name = "ImagePath")
+    private String imagePath;
+
     @Transient
     private List<Product> products;
 
@@ -83,13 +86,23 @@ public class Category {
         this.subCategories = subCategories;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "categoryID=" + categoryID +
                 ", categoryName='" + categoryName + '\'' +
                 ", parentCategoryID=" + parentCategoryID +
+                ", imagePath='" + imagePath + '\'' +
                 ", products=" + products +
+                ", subCategories=" + subCategories +
                 '}';
     }
 }
