@@ -321,9 +321,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `FullName`, `Email`, `PhoneNumber`, `Gender`, `DateBirthday`, `AvatarPath`, `IsAdmin`, `hashedPassword`) VALUES
-(1, 'Bùi Minh Hoạt', 'official.buiminhhoat@gmail.com', '0945405238', 'Nam', '2003-09-06', NULL, 1, '0945405238'),
-(2, 'Nguyễn Châu Khanh', 'chaukhanh0605@gmail.com', '0944252960', NULL, NULL, NULL, 1, '0944252960'),
-(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, NULL, 1, '0903481758');
+(1, 'Bùi Minh Hoạt', 'official.buiminhhoat@gmail.com', '0945405238', 'Nam', '2003-09-06', NULL, 1, '$2a$10$T8MIwYiIinEg1/UTV8Y2UeRrMgCKG7g7O0SS2uiYZHoGCb6UrUWAO'),
+(2, 'Nguyễn Châu Khanh', 'chaukhanh0605@gmail.com', '0944252960', NULL, NULL, NULL, 1, '$2a$10$WlWXmICMXAKm8SJfAHs/W.k4q9GbL/yk1.zkgZhaY6lCGpBU6EwkO'),
+(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, NULL, 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe');
 
 --
 -- Chỉ mục cho các bảng đã đổ
