@@ -137,6 +137,15 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @PostMapping("/admin/get-all-users")
+    public ResponseEntity<?> getAllUsers(HttpServletRequest request) {
+        List<Users> users = usersRepository.findAll();
+        for (Users user: users) {
+            user.setHashedPassword(null);
+        }
+        return ResponseEntity.ok(users);
+    }
+
     @PostMapping("/public/upload-profile-image")
     public ResponseEntity<?> uploadProfileImage(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
