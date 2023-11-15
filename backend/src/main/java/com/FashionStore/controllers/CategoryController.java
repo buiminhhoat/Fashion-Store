@@ -96,6 +96,27 @@ public class CategoryController {
         }
     }
 
+    @PostMapping("/admin/delete-category")
+    public ResponseEntity<?> deleteCategory(HttpServletRequest request) {
+        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
+
+        Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
+
+        if (category == null) {
+            ResponseObject responseObject = new ResponseObject("Danh mục không tồn tại!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        try {
+            categoryRepository.delete(category);
+            ResponseObject responseObject = new ResponseObject("Xóa danh mục thành công");
+            return ResponseEntity.ok(responseObject);
+        } catch (Error error) {
+            ResponseObject responseObject = new ResponseObject("Không thể xóa danh mục trong database");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+    }
+
     @GetMapping("/public/get-all-categories")
     public ResponseEntity<List<CategoryResponse>> getCategory() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
