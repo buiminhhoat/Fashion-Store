@@ -26,7 +26,7 @@ const ButtonBackToTop = () => {
   }, []);
 
   useEffect(() => {
-    console.log(scrollY);
+    // console.log(scrollY);
   }, [scrollY]);
 
   return (
