@@ -1,14 +1,26 @@
-.search-wrapper .search-title {
+//.search-wrapper .search-title {
+//  color: #4f525d;
+//  font-size: 26px;
+//  font-weight: 600;
+//  line-height: 36px;
+//  margin-bottom: -50px;
+//  margin-top: 125px;
+//  margin-left:30px;
+//}
+//
+//.search-wrapper .search-result {
+//  margin-left: -30px;
+//  margin-right: 30px;
+//}
+
+.product-label {
   color: #4f525d;
   font-size: 26px;
   font-weight: 600;
   line-height: 36px;
-  margin-bottom: -50px;
-  margin-top: 125px;
-  margin-left:30px;
+  //margin: 24px auto;
+  margin: 24px !important;
+  max-width: 1228px;
+  width: 100%;
 }
 
-.search-wrapper .search-result {
-  margin-left: -30px;
-  margin-right: 30px;
-}

@@ -1,12 +1,19 @@
 .product-list {
   width: 100%;
-  padding: 30px;
+  padding: 0px;
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Hiển thị 4 sản phẩm trên mỗi dòng */
   row-gap: 30px; /* Khoảng cách giữa các sản phẩm */
 
 }
 
-.collection {
-  padding: 30px;
+.product-item {
+  //margin-right: 15px;
+  //margin-left: 15px;
+  margin-bottom: 24px;
+  //padding-left: 20px;
+  //padding-right: 20px;
 }
+//.collection {
+//  padding: 30px;
+//}

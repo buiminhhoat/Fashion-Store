@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import './style.scss';
 import ProductItem from "../../components/ProductItem/ProductItem";
+import {Link} from "react-router-dom";
 
 const CollectionSection = ({collectionData}) => {
   // State để theo dõi tab đang được chọn
@@ -57,11 +58,11 @@ const CollectionSection = ({collectionData}) => {
           </div>
 
           <div className="load-more-wrap text-center">
-            <a href="#">
+            <Link to={"/category/" + collectionData.categoryID}>
               <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product">
                 Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
