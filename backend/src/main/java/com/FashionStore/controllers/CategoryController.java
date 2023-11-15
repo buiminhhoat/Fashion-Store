@@ -9,9 +9,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,6 +37,8 @@ public class CategoryController {
     private final ProductSizeRepository productSizeRepository;
 
     private final ProductQuantityRepository productQuantityRepository;
+
+    private final String appRoot = System.getProperty("user.dir") + File.separator;
 
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
@@ -115,6 +124,43 @@ public class CategoryController {
             ResponseObject responseObject = new ResponseObject("Không thể xóa danh mục trong database");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
+    }
+
+    @PostMapping("/admin/upload-category-image")
+    public ResponseEntity<?> uploadCategoryImage(HttpServletRequest request) {
+        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("profileImage");
+
+        Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
+
+        if (category == null) {
+            ResponseObject responseObject = new ResponseObject("Danh mục không tồn tại!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        List<String> paths = new ArrayList<>();
+        for (MultipartFile image : images) {
+            String originalFilename = image.getOriginalFilename();
+            String fileExtension = "";
+            if (originalFilename != null) {
+                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+            }
+            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
+
+            try {
+                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
+                Path path = Paths.get(imagePath);
+                image.transferTo(path.toFile());
+                paths.add(fileName);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
+            }
+        }
+
+        category.setImagePath(paths.get(0));
+        categoryRepository.save(category);
+        ResponseObject responseObject = new ResponseObject("Cập nhật ảnh danh mục thành công");
+        return ResponseEntity.ok(responseObject);
     }
 
     @GetMapping("/public/get-all-categories")
