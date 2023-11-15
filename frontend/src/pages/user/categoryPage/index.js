@@ -6,6 +6,7 @@ import {useLocation, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import fillterIcon from "./images/bars-filter.svg"
 import CategorySection from "../homePage/CategorySection/CategorySection.js";
+import {bottom} from "@popperjs/core";
 
 const productsData = {
   "categoryID": 2,
@@ -243,7 +244,7 @@ const CategoryPage = ({keyword}) => {
                   {/*</div>*/}
                   <div className="load-more-wrap text-center">
                     <a href="#">
-                      <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product">
+                      <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"margin-bottom":"10px"}}>
                         Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
                       </button>
                     </a>
