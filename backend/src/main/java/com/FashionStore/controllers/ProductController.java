@@ -277,7 +277,7 @@ public class ProductController {
     }
 
     @GetMapping("/public/product/{productID}")
-    public ResponseEntity<?> searchProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
+    public ResponseEntity<?> getProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
         Product product = productRepository.findProductByProductID(productID);
         product = getProductDetails(product.getProductID());
         return ResponseEntity.ok(product);

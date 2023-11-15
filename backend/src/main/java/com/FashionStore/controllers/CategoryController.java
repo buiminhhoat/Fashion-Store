@@ -182,6 +182,12 @@ public class CategoryController {
         return ResponseEntity.ok(categoryResponses);
     }
 
+    @PostMapping("/public/category/{categoryID}")
+    public ResponseEntity<?> getCategoryByCategoryID(HttpServletRequest request, @PathVariable Long categoryID) {
+        List<Product> products = getProductsInCategory(categoryID);
+        return ResponseEntity.ok(products);
+    }
+
     @GetMapping("/public/all-categories/get-random-12-products")
     public ResponseEntity<?> getAllCategoriesRandom12() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
@@ -224,16 +230,27 @@ public class CategoryController {
         return product;
     }
 
-    @GetMapping("/public/get-category-details")
-    public ResponseEntity<?> getCategory(HttpServletRequest request) {
-        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
-        List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
+    public List<Product> getProductsInCategory(Long categoryID) {
+        Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
         List<Product> products = new ArrayList<>();
-        for (ProductCategory productCategory: productCategoryList) {
-            Long productID = productCategory.getProductID();
-            products.add(getProduct(productID));
+        if (category.getParentCategoryID() == null) {
+            List<Category> subCategories = categoryRepository.findCategoriesByParentCategoryID(categoryID);
+            for (Category subCategory: subCategories) {
+                List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(subCategory.getCategoryID());
+                for (ProductCategory productCategory : productCategoryList) {
+                    Long productID = productCategory.getProductID();
+                    products.add(getProduct(productID));
+                }
+            }
         }
-        return ResponseEntity.ok(products);
+        else {
+            List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
+            for (ProductCategory productCategory : productCategoryList) {
+                Long productID = productCategory.getProductID();
+                products.add(getProduct(productID));
+            }
+        }
+        return products;
     }
 
     @GetMapping("/public/search/category")
