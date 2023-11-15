@@ -73,6 +73,29 @@ public class CategoryController {
         }
     }
 
+    @PostMapping("/admin/edit-category")
+    public ResponseEntity<?> editCategory(HttpServletRequest request) {
+        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
+        String categoryName = request.getParameter("categoryName");
+
+        Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
+
+        if (category == null) {
+            ResponseObject responseObject = new ResponseObject("Danh mục không tồn tại!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        try {
+            category.setCategoryName(categoryName);
+            categoryRepository.save(category);
+            ResponseObject responseObject = new ResponseObject("Chỉnh sửa danh mục thành công");
+            return ResponseEntity.ok(responseObject);
+        } catch (Error error) {
+            ResponseObject responseObject = new ResponseObject("Không thể chỉnh sửa danh mục trong database");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+    }
+
     @GetMapping("/public/get-all-categories")
     public ResponseEntity<List<CategoryResponse>> getCategory() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
