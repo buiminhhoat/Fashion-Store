@@ -3,7 +3,10 @@ import "./style.scss"
 import {toast} from "react-toastify";
 import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
-import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
+import {MdArrowDropDown, MdArrowRight, MdOutlineClose} from "react-icons/md";
+import {TbListSearch} from "react-icons/tb";
+import {BsCheckLg} from "react-icons/bs";
+import {IoSearch} from "react-icons/io5";
 
 const ProductListPage  = () => {
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
@@ -59,8 +62,26 @@ const ProductListPage  = () => {
           <div className="container pe-0 ps-0" style={{marginTop: "10px", paddingBottom: "40px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
               <p className="category-title">DANH MỤC SẢN PHẨM</p>
+              <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
+                borderRadius:"3px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
+                <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
+                  <div style={{color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
+                    <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
+                    Tìm kiếm theo danh mục
+                  </div>
+                  <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
+                    <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
+                      <input style={{width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px",}} type="text"/>
+                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}/>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
               <section>
-                <div style={{overflow: "hidden", borderRadius:"5px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"white"}}>
+                <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
+                  borderRadius:"3px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
 
                   {
                     categories.map((category, index) => (
@@ -183,7 +204,6 @@ const ProductListPage  = () => {
                         </div>
                     ))
                   }
-
 
                 </div>
               </section>
