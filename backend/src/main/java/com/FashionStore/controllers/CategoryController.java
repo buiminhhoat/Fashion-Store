@@ -184,8 +184,9 @@ public class CategoryController {
 
     @PostMapping("/public/category/{categoryID}")
     public ResponseEntity<?> getCategoryByCategoryID(HttpServletRequest request, @PathVariable Long categoryID) {
-        List<Product> products = getProductsInCategory(categoryID);
-        return ResponseEntity.ok(products);
+        Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
+        category.setProducts(getProductsInCategory(categoryID));
+        return ResponseEntity.ok(category);
     }
 
     @GetMapping("/public/all-categories/get-random-12-products")
