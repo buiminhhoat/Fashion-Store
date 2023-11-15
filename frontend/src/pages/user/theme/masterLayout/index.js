@@ -6,7 +6,6 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import btnUp from "./images/up.svg"
-import {useLocation} from "react-router-dom";
 
 const ButtonBackToTop = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -24,10 +23,6 @@ const ButtonBackToTop = () => {
     handleScroll();
     document.querySelector('body').addEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    console.log(scrollY);
-  }, [scrollY]);
 
   return (
       <div>
