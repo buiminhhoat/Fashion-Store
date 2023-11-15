@@ -40,7 +40,7 @@ public class PrivateApiInterceptor implements HandlerInterceptor {
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
 
-        Users users = usersRepository.findUsersByEmail(email).get(0);
+        Users users = usersRepository.findUsersByEmail(email);
         if (users.getIsAdmin()) {
             return true;
         }

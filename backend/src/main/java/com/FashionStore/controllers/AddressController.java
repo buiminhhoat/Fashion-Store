@@ -75,12 +75,12 @@ public class AddressController {
         boolean isDefault = Boolean.parseBoolean(request.getParameter("isDefault"));
 
 
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
-        Long userID = findByEmail.get(0).getUserID();
+        Long userID = findByEmail.getUserID();
         try {
             if (isDefault) {
                 Address currentAddressDefault = addressRepository.findAddressByUsersIDAndIsDefault(userID, true);
@@ -230,12 +230,12 @@ public class AddressController {
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
-        Long userID = findByEmail.get(0).getUserID();
+        Long userID = findByEmail.getUserID();
 
         return ResponseEntity.ok(addressRepository.findAddressByUsersID(userID));
     }

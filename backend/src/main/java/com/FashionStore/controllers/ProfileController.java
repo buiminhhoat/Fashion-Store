@@ -64,8 +64,8 @@ public class ProfileController {
         }
 
 
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        Users user = findByEmail.get(0);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        Users user = findByEmail;
         user.setFullName(fullName);
         user.setGender(gender);
         user.setDateBirthday(new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day)));
@@ -86,8 +86,8 @@ public class ProfileController {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
 
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        Users user = findByEmail.get(0);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        Users user = findByEmail;
         if (!Objects.equals(user.getHashedPassword(), oldPassword)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
         }

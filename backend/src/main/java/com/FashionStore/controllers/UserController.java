@@ -48,11 +48,11 @@ public class UserController {
         accessToken = accessToken.replace("Bearer ", "");
         if (jwtTokenUtil.isTokenValid(accessToken)) {
             String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-            List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-            if (findByEmail.isEmpty()) {
+            Users findByEmail = usersRepository.findUsersByEmail(email);
+            if (findByEmail == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-            Users users = findByEmail.get(0);
+            Users users = findByEmail;
             users.setHashedPassword(null);
             return ResponseEntity.ok(users);
         }
@@ -125,7 +125,7 @@ public class UserController {
     public ResponseEntity<?> searchUserByEmail(HttpServletRequest request) {
         String email = request.getParameter("email");
 
-        List<Users> users = usersRepository.findUsersByEmail(email);
+        Users users = usersRepository.findUsersByEmail(email);
         return ResponseEntity.ok(users);
     }
 
@@ -157,8 +157,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        List<Users> findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
@@ -181,7 +181,7 @@ public class UserController {
             }
         }
 
-        Users users = findByEmail.get(0);
+        Users users = findByEmail;
         users.setAvatarPath(paths.get(0));
         usersRepository.save(users);
 

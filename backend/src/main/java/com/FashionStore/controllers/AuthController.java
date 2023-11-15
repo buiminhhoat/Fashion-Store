@@ -1,6 +1,5 @@
 package com.FashionStore.controllers;
 
-import com.FashionStore.models.JwtResponse;
 import com.FashionStore.models.ResponseObject;
 import com.FashionStore.models.Users;
 import com.FashionStore.repositories.UsersRepository;
@@ -11,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -37,13 +37,21 @@ public class AuthController {
     public ResponseEntity<?> login(HttpServletRequest request) {
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("email");
-        String password = request.getParameter("password");
 
-        List<Users> findByEmail = usersRepository.findUsersByEmailAndHashedPassword(email, password);
-        List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumberAndHashedPassword(phoneNumber, password);
+        String plainPassword = request.getParameter("password");
 
-        if (findByEmail.isEmpty() && findByPhoneNumber.isEmpty()) {
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        Users findByPhoneNumber = usersRepository.findUsersByEmail(phoneNumber);
+
+        if (findByEmail == null && findByPhoneNumber == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập của bạn.");
+        }
+
+        Users user = (findByEmail != null) ? findByEmail : findByPhoneNumber;
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(plainPassword, user.getHashedPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials. Please check your login information.");
         }
 
         String accessToken = jwtTokenUtil.generateAccessToken(email);
@@ -80,12 +88,15 @@ public class AuthController {
             String fullName = request.getParameter("fullName");
             String email = request.getParameter("email");
             String phoneNumber = request.getParameter("phoneNumber");
-            String hashedPassword = request.getParameter("hashedPassword");
+            String plainPassword = request.getParameter("hashedPassword");
 
-            List<Users> findByEmail = usersRepository.findUsersByEmail(email);
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(plainPassword);
+
+            Users findByEmail = usersRepository.findUsersByEmail(email);
             List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumber(phoneNumber);
 
-            if (!findByEmail.isEmpty()) {
+            if (findByEmail == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email đã tồn tại trên hệ thống. Đăng ký không thành công! ");
             }
 
