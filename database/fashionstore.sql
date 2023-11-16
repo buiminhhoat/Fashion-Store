@@ -79,7 +79,7 @@ CREATE TABLE `category` (
   `CategoryID` bigint(20) NOT NULL,
   `CategoryName` varchar(255) NOT NULL,
   `ParentCategoryID` bigint(20) DEFAULT NULL,
-  `ImagePath` varchar(255) DEFAULT NULL
+  `ImagePath` varchar(255) NOT NULL DEFAULT 'img-category-default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
@@ -87,13 +87,13 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `ImagePath`) VALUES
-(1, 'Áo Nam', NULL, NULL),
-(2, 'Áo Thun', 1, NULL),
-(3, 'Áo Khoác', 1, NULL),
-(4, 'Áo Polo', 1, NULL),
-(5, 'Quần Nam', NULL, NULL),
-(6, 'Quần Âu', 5, NULL),
-(7, 'Quần Short Thể Thao', 5, NULL);
+(1, 'Áo Nam', NULL, 'img-category-default.png'),
+(2, 'Áo Thun', 1, 'img-category-default.png'),
+(3, 'Áo Khoác', 1, 'img-category-default.png'),
+(4, 'Áo Polo', 1, 'img-category-default.png'),
+(5, 'Quần Nam', NULL, 'img-category-default.png'),
+(6, 'Quần Âu', 5, 'img-category-default.png'),
+(7, 'Quần Short Thể Thao', 5, 'img-category-default.png');
 
 -- --------------------------------------------------------
 

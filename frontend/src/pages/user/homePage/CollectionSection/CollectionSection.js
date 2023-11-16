@@ -13,8 +13,8 @@ const CollectionSection = ({collectionData}) => {
   };
 
   useEffect(() => {
-    if (collectionData.subcategories.length > 0) {
-      setActiveTab(collectionData.subcategories[0].categoryID);
+    if (collectionData.subCategories.length > 0) {
+      setActiveTab(collectionData.subCategories[0].categoryID);
     }
   }, []);
 
@@ -25,17 +25,17 @@ const CollectionSection = ({collectionData}) => {
             <p className="col-4">{collectionData.categoryName}</p>
             <div className="col-8 nav-wrap">
               <ul className="nav nav-tabs" id="myTab" role="tablist">
-                {collectionData.subcategories.map((subcategory) => (
-                    <li className="nav-item" key={subcategory.categoryID} role="presentation">
+                {collectionData.subCategories.map((subCategory) => (
+                    <li className="nav-item" key={subCategory.categoryID} role="presentation">
                       <a
-                          className={`nav-link ${activeTab === subcategory.categoryID ? 'active' : ''}`}
-                          id={`${subcategory.categoryID}-tab`}
+                          className={`nav-link ${activeTab === subCategory.categoryID ? 'active' : ''}`}
+                          id={`${subCategory.categoryID}-tab`}
                           data-bs-toggle="tab"
                           role="tab"
-                          aria-selected={activeTab === subcategory.categoryID ? 'true' : 'false'}
-                          onClick={() => changeTab(subcategory.categoryID)}
+                          aria-selected={activeTab === subCategory.categoryID ? 'true' : 'false'}
+                          onClick={() => changeTab(subCategory.categoryID)}
                       >
-                        {subcategory.categoryName}
+                        {subCategory.categoryName}
                       </a>
                     </li>
                 ))}
@@ -43,11 +43,11 @@ const CollectionSection = ({collectionData}) => {
             </div>
           </div>
           <div className="product-list">
-            {(collectionData.subcategories.length > 0 ?
+            {(collectionData.subCategories.length > 0 ?
                 (
-                    (collectionData.subcategories.find((subcategory) => subcategory.categoryID === activeTab) ?
-                    collectionData.subcategories.find((subcategory) => subcategory.categoryID === activeTab) :
-                    collectionData.subcategories[0])
+                    (collectionData.subCategories.find((subCategory) => subCategory.categoryID === activeTab) ?
+                    collectionData.subCategories.find((subCategory) => subCategory.categoryID === activeTab) :
+                    collectionData.subCategories[0])
                         .products.map((product, index) => (<ProductItem key={index} product={product} />))
                 )
                 :
