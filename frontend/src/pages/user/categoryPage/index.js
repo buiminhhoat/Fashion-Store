@@ -88,7 +88,7 @@ const CategoryPage = ({keyword}) => {
   // const decodedSearchString = decodeURIComponent(encodedSearchString);
   const { categoryID } = useParams();
   const apiProductBySearch = "http://localhost:9999/api/public/category/" + categoryID;
-
+  const [numberProduct, setNumberProduct] = useState(1);
   const [productsData, setProductsData] = useState({});
   const [selectedSort, setSelectedSort] = useState(null);
 
@@ -175,14 +175,18 @@ const CategoryPage = ({keyword}) => {
                   </section>
                   </section>
                   {/*<div className="search-result">*/}
-                    <ProductsSection productsData={productsData.products} />
+                    <ProductsSection productsData={productsData.products.slice(0, numberProduct)} />
                   {/*</div>*/}
                   <div className="load-more-wrap text-center">
-                    <a href="#">
-                      <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}>
-                        Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
-                      </button>
-                    </a>
+                    {productsData.products.length !== numberProduct &&
+                      (<a href="#">
+                        <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}
+                                onClick={() => setNumberProduct(Math.min(numberProduct + 1, productsData.products.length))}
+                        >
+                          Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
+                        </button>
+                      </a>)
+                    }
                   </div>
                 </>
             ) : (
