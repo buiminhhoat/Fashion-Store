@@ -39,6 +39,10 @@
     border: 2px #E4E4E4 solid;
 }
 
+.btn-edit-category:hover {
+    background-color: #E4E4E4;
+}
+
 .selected-btn-edit-category {
     display: flex;
     align-items: center;
@@ -49,6 +53,11 @@
     color: #E4E4E4;
     border-radius: 100px;
     border: 2px #E4E4E4 solid;
+}
+
+.selected-btn-edit-category:hover {
+    background-color: #E4E4E4;
+    color: #ac0000;
 }
 
 //@keyframes slideToTop {
