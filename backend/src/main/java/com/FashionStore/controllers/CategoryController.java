@@ -129,7 +129,7 @@ public class CategoryController {
     @PostMapping("/admin/upload-category-image")
     public ResponseEntity<?> uploadCategoryImage(HttpServletRequest request) {
         Long categoryID = Long.valueOf(request.getParameter("categoryID"));
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("profileImage");
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("categoryImage");
 
         Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
 
@@ -164,22 +164,22 @@ public class CategoryController {
     }
 
     @GetMapping("/public/get-all-categories")
-    public ResponseEntity<List<CategoryResponse>> getCategory() {
+    public ResponseEntity<List<Category>> getCategory() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
-        List<CategoryResponse> categoryResponses = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
 
-        for (Category category : categoryList) {
-            CategoryResponse categoryResponse = new CategoryResponse();
-            categoryResponse.setCategoryID(category.getCategoryID());
-            categoryResponse.setCategoryName(category.getCategoryName());
+        for (Category category: categoryList) {
+            Category temp = new Category();
+            temp.setCategoryID(category.getCategoryID());
+            temp.setCategoryName(category.getCategoryName());
 
-            List<Category> subCategoryResponses = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
-            categoryResponse.setSubcategories(subCategoryResponses);
-            categoryResponses.add(categoryResponse);
+            List<Category> subCategory = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
+            temp.setSubCategories(subCategory);
+            categories.add(temp);
         }
 
-        return ResponseEntity.ok(categoryResponses);
+        return ResponseEntity.ok(categories);
     }
 
     @PostMapping("/public/category/{categoryID}")
@@ -193,12 +193,12 @@ public class CategoryController {
     public ResponseEntity<?> getAllCategoriesRandom12() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
-        List<CategoryResponse> categoryResponses = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
 
         for (Category category : categoryList) {
-            CategoryResponse categoryResponse = new CategoryResponse();
-            categoryResponse.setCategoryID(category.getCategoryID());
-            categoryResponse.setCategoryName(category.getCategoryName());
+            Category temp = new Category();
+            temp.setCategoryID(category.getCategoryID());
+            temp.setCategoryName(category.getCategoryName());
 
             List<Category> subCategoryList = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
             for (Category subCategory: subCategoryList) {
@@ -210,10 +210,10 @@ public class CategoryController {
                 }
                 subCategory.setProducts(products);
             }
-            categoryResponse.setSubcategories(subCategoryList);
-            categoryResponses.add(categoryResponse);
+            temp.setSubCategories(subCategoryList);
+            categories.add(temp);
         }
-        return ResponseEntity.ok(categoryResponses);
+        return ResponseEntity.ok(categories);
     }
 
     public Product getProduct(Long productID) {
