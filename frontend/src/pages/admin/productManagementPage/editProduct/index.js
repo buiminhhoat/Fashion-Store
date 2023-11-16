@@ -84,9 +84,7 @@ const EditProductPage = () => {
   async function fetchImageAsFile(imageUrl, imageName) {
     const response = await fetch(imageUrl);
     const blob = await response.blob();
-
-    const file = new File([blob], imageName, { type: blob.type });
-    return file;
+    return new File([blob], imageName, {type: blob.type});
   }
 
   useEffect(() => {

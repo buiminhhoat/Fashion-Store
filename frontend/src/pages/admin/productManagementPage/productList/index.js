@@ -12,6 +12,16 @@ const ProductListPage  = () => {
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [categoriesImgID, setCategoriesImgID] = useState([]);
+
+  async function fetchImageAsFile(imageUrl, imageName, categoryID) {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return {
+      categoryID: categoryID,
+      imageFile: new File([blob], imageName, {type: blob.type})
+    };
+  }
 
   const fetchData = async () => {
     const apiGetCategory = "http://localhost:9999/api/public/get-all-categories";
@@ -26,6 +36,23 @@ const ProductListPage  = () => {
         console.log(data);
 
         setCategories(data);
+
+        const fetchImagePromises = data.flatMap(category =>
+            category.subCategories.map(subCategory => {
+              const imageUrl = "http://localhost:9999/storage/images/" + subCategory.imagePath;
+              return fetchImageAsFile(imageUrl, subCategory.imagePath, subCategory.categoryID);
+            })
+        );
+
+        Promise.all(fetchImagePromises)
+            .then(files => {
+              setCategoriesImgID(files);
+            })
+            .catch(error => {
+              console.error("Error loading images:", error);
+            });
+
+
       } else {
         const data = await response.json();
         toast.error(data.message);
@@ -38,7 +65,6 @@ const ProductListPage  = () => {
   useEffect(() => {
     fetchData().then(r => {});
   }, []);
-
 
   const handleImageClick = () => {
     inputRef.current.click();
@@ -146,7 +172,8 @@ const ProductListPage  = () => {
                                         <img
                                             id="action-upload"
                                             className="img-subCategory"
-                                            src="https://i.imgur.com/cVeZv1A.png"
+                                            src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
+                                                URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
                                             alt=""
                                             onClick={handleImageClick}
                                         />
