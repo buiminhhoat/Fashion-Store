@@ -4,8 +4,12 @@ import {HiPlus} from 'react-icons/hi';
 import {BsCheckLg} from 'react-icons/bs';
 import {MdOutlineClose} from "react-icons/md";
 import {toast} from "react-toastify";
+import {useCookies} from "react-cookie";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const [inputCategoryValue, setInputCategoryValue] = useState('');
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -102,6 +106,9 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     try {
       const response = await fetch(apiAddCategoryUrl, {
         method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
         body: formData,
       });
 
