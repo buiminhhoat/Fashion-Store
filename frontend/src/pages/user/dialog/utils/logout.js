@@ -7,13 +7,14 @@ export function useLogout() {
     const [, , removeRefreshTokenCookie] = useCookies(['refresh_token']);
 
     const logout = async () => {
-        navigate('/');
+        // navigate('/');
         console.log('Access Token:', document.cookie);
         removeAccessTokenCookie('access_token');
         removeRefreshTokenCookie('refresh_token');
 
         // Redirect về trang chính của bạn (localhost:3000)
         // window.location.href = '/';
+        navigate('/');
     };
 
     return logout;
