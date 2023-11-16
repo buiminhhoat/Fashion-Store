@@ -8,8 +8,6 @@ import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
 
 const ProductListPage  = () => {
-  const inputRef = useRef(null);
-
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoriesImgID, setCategoriesImgID] = useState([]);
@@ -66,14 +64,18 @@ const ProductListPage  = () => {
     fetchData().then(r => {});
   }, []);
 
-  const handleImageClick = () => {
-    inputRef.current.click();
+  const handleImageClick = (categoryID) => {
+    document.getElementById(`img-input-${categoryID}`).click();
   };
 
   const handleFileChange = (e, categoryID) => {
     if (e.target.files.length === 0) return;
     const file = e.target.files[0];
     if (file) {
+      const newCategoriesImgID = categoriesImgID.map(imgID => {
+          return (imgID.categoryID === categoryID ? { ...imgID, imageFile: file } : imgID);
+      });
+      setCategoriesImgID(newCategoriesImgID);
       console.log('Đã chọn file:', file);
     }
   };
@@ -175,15 +177,15 @@ const ProductListPage  = () => {
                                             src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
                                                 URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
                                             alt=""
-                                            onClick={handleImageClick}
+                                            onClick={() => handleImageClick(subCategory.categoryID)}
                                         />
                                         <input
                                             type="file"
-                                            ref={inputRef}
+                                            id={`img-input-${subCategory.categoryID}`}
                                             accept="image/*"
                                             multiple="multiple"
                                             style={{ display: 'none' }}
-                                            onChange={() => handleFileChange(subCategory.categoryID)}
+                                            onChange={(e) => handleFileChange(e, subCategory.categoryID)}
                                         />
                                       </div>
 
