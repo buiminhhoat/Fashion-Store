@@ -77,6 +77,10 @@ const productsData = {
   ],
   "subCategories": null
 }
+const SORT = {
+  ASC: "1",
+  DECS: "2",
+}
 const CategoryPage = ({keyword}) => {
   // Sử dụng useLocation để lấy đường dẫn URL hiện tại
   // const location = useLocation().pathname;
@@ -86,7 +90,7 @@ const CategoryPage = ({keyword}) => {
   const apiProductBySearch = "http://localhost:9999/api/public/category/" + categoryID;
 
   const [productsData, setProductsData] = useState({});
-
+  const [selectedSort, setSelectedSort] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,7 +105,13 @@ const CategoryPage = ({keyword}) => {
         if (response.ok) {
           const data = await response.json();
           // console.log(data);
+          if (selectedSort === SORT.ASC) {
+            data.products = data.products.sort((a, b) => a.productPrice - b.productPrice);
+          } else if (selectedSort === SORT.DECS) {
+            data.products = data.products.sort((a, b) => b.productPrice - a.productPrice);
+          }
           setProductsData(data);
+
         } else {
           const data = await response.json();
           console.log(data.message);
@@ -112,118 +122,43 @@ const CategoryPage = ({keyword}) => {
       }
     }
     fetchData().then(r => {});
-  }, [categoryID]);
+  }, [categoryID, selectedSort]);
 
-  // const filteredProductsData = productsData;
-  // console.log(filteredProductsData)
   const hasResult = productsData.categoryID > 0;
 
-  function handleChangeLayout(show) {
-    return undefined;
-  }
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedSort(selectedValue);
+  };
 
   return (
       <main id="main">
         <section className="category-wrapper">
           <section className="container container-category">
           {/*<CategorySection/>*/}
-            <section class="box-filter">
+            <section className="box-filter">
               <div id="KfIh1dAIDGfFwK40Btv4">
-                <div class="filter-wrapper">
-                  <div class="filter-box d-flex align-items-center justify-content-between ">
-                    <div class="filter-item d-flex align-items-center">
-                      <img src={fillterIcon} class="icon" alt="icon filter"/>
+                <div className="filter-wrapper">
+                  <div className="filter-box d-flex align-items-center justify-content-between ">
+                    <div className="filter-item d-flex align-items-center">
+                      <img src={fillterIcon} className="icon" alt="icon filter"/>
                         <span>Bộ lọc</span>
                     </div>
 
-                    <div class="other-item d-flex align-items-center">
-                      <div class="sort-box d-flex align-items-center">
-                        <span class="title-child">Sắp xếp theo:</span>
-                        <select class="form-select sort-item" model="selectedSort">
-                          <option value="" selected="">
+                    <div className="other-item d-flex align-items-center">
+                      <div className="sort-box d-flex align-items-center">
+                        <span className="title-child">Sắp xếp theo:</span>
+                        <select className="form-select sort-item" onChange={handleSelectChange}>
+                          <option value="">
                             Chọn điều kiện lọc
                           </option>
-                          <option value="1">
-                            Sản phẩm mới nhất
+                          <option value={SORT.ASC}>
+                            Sản phẩm giá thấp
                           </option>
-                          <option value="2">
-                            Sản phẩm cũ nhất
+                          <option value={SORT.DECS} >
+                            Sản phẩm giá cao
                           </option>
                         </select>
-                      </div>
-
-                      <div class="layout-box ">
-                        <span class="title-child">Xem theo:</span>
-                        <svg onClick="handleChangeLayout('hidden')" id="layout-1" class="icon icon-active" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g clip-path="url(#clip0_396_9480)">
-                            <path d="M6 0H0.666667C0.298477 0 0 0.298477 0 0.666667V6C0 6.36819 0.298477 6.66667 0.666667 6.66667H6C6.36819 6.66667 6.66667 6.36819 6.66667 6V0.666667C6.66667 0.298477 6.36819 0 6 0Z" fill="currentColor"></path>
-                            <path d="M15.3335 0H10.0002C9.63197 0 9.3335 0.298477 9.3335 0.666667V6C9.3335 6.36819 9.63197 6.66667 10.0002 6.66667H15.3335C15.7017 6.66667 16.0002 6.36819 16.0002 6V0.666667C16.0002 0.298477 15.7017 0 15.3335 0Z" fill="currentColor"></path>
-                            <path d="M6 9.33331H0.666667C0.298477 9.33331 0 9.63179 0 9.99998V15.3333C0 15.7015 0.298477 16 0.666667 16H6C6.36819 16 6.66667 15.7015 6.66667 15.3333V9.99998C6.66667 9.63179 6.36819 9.33331 6 9.33331Z" fill="currentColor"></path>
-                            <path d="M15.3335 9.33331H10.0002C9.63197 9.33331 9.3335 9.63179 9.3335 9.99998V15.3333C9.3335 15.7015 9.63197 16 10.0002 16H15.3335C15.7017 16 16.0002 15.7015 16.0002 15.3333V9.99998C16.0002 9.63179 15.7017 9.33331 15.3335 9.33331Z" fill="currentColor"></path>
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_396_9480">
-                              <rect width="16" height="16" fill="white"></rect>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <svg onClick="handleChangeLayout('show')" id="layout-2" class="icon " width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="17.3333" height="4.36364" rx="0.5" fill="currentColor"></rect>
-                          <rect y="5.81818" width="17.3333" height="4.36364" rx="0.5" fill="currentColor"></rect>
-                          <rect y="11.6364" width="17.3333" height="4.36364" rx="0.5" fill="currentColor"></rect>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="filter-option-box">
-                    <div class="option-box d-flex justify-content-between">
-                      <div class="filter-option d-flex">
-                        <div class="filter-option-item">
-                          <div class="label-option">Chọn màu</div>
-                          <div class="round-box d-flex flex-wrap">
-                            <button style={{"background-color": "#D67D1E"}} class="round-item cursor-point " onClick="filterColor('#D67D1E')"/>
-                          </div>
-                        </div>
-                        <div class="filter-option-item">
-                          <div class="label-option">Chọn size</div>
-                          <div class="square-box d-flex flex-wrap">
-                            <button onClick="filterSize('S')" class="cursor-point square-item d-flex align-items-center justify-content-center">
-                              S
-                            </button>
-                          </div>
-                        </div>
-                        <div className="filter-option-item">
-                          <div class="label-option">Chọn khoảng giá</div>
-                          <div class="range-box">
-                            <div class="slider-track" style={{
-                              background: 'linear-gradient(to right, rgb(235, 235, 235) 0%, rgb(200, 29, 49) 0%, rgb(200, 29, 49) 100%, rgb(235, 235, 235) 100%)'
-                            }}></div>
-
-                            <input id="slider-1" class="range-item" type="range" min="0" max="535000" value="0"/>
-                              <div id="tooltip-1" class="tooltip-box" style={{width: "13px", left: "calc((0% + 10px) - 9px)"}}>
-                                <div class="tooltip-content d-flex align-items-center justify-content-center">
-                                  <span id="range1">0</span>
-                                </div>
-                              </div>
-
-                              <input id="slider-2" class="range-item" type="range" min="0" max="535000" value="535000"/>
-                                <div id="tooltip-2" class="tooltip-box"   style={{ width: '45.5px', left: 'calc(100% + -10px - 25px)' }}>
-                                  <div class="tooltip-content d-flex align-items-center justify-content-center">
-                                    <span id="range2">535.000</span>
-                                  </div>
-                                </div>
-
-                                <div className="range-values d-flex justify-content-between">
-                                  <span>0</span>
-                                  <span>535,000</span>
-                                </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="filter-action d-flex align-items-end">
-                        <button type="button" className="btn-accept load-product" onClick="confirmFilter">Xác nhận</button>
-                        <button type="button" className="btn-reset load-product" onClick="resetFilter">Thiết lập lại</button>
                       </div>
                     </div>
                   </div>
@@ -244,7 +179,7 @@ const CategoryPage = ({keyword}) => {
                   {/*</div>*/}
                   <div className="load-more-wrap text-center">
                     <a href="#">
-                      <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"margin-bottom":"10px"}}>
+                      <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}>
                         Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
                       </button>
                     </a>
