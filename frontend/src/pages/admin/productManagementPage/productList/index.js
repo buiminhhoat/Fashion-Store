@@ -3,9 +3,8 @@ import "./style.scss"
 import {toast} from "react-toastify";
 import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
-import {MdArrowDropDown, MdArrowRight, MdOutlineClose} from "react-icons/md";
+import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
-import {BsCheckLg} from "react-icons/bs";
 import {IoSearch} from "react-icons/io5";
 
 const ProductListPage  = () => {
