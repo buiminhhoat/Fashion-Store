@@ -343,7 +343,7 @@ const Header = () => {
     {
       "categoryID": 1,
       "categoryName": "Áo Nam",
-      "subcategories": [
+      "subCategories": [
         {
           "categoryID": 2,
           "categoryName": "Áo Thun",
@@ -370,7 +370,7 @@ const Header = () => {
     {
       "categoryID": 5,
       "categoryName": "Quần Nam",
-      "subcategories": [
+      "subCategories": [
         {
           "categoryID": 6,
           "categoryName": "Quần Âu",
@@ -566,7 +566,7 @@ const Header = () => {
                           key={index}
                           categoryID={menuItem.categoryID}
                           categoryName={menuItem.categoryName}
-                          subCategories={menuItem.subcategories}
+                          subCategories={menuItem.subCategories}
                       />
                   ))}
                 </div>
