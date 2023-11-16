@@ -79,7 +79,7 @@ CREATE TABLE `category` (
   `CategoryID` bigint(20) NOT NULL,
   `CategoryName` varchar(255) NOT NULL,
   `ParentCategoryID` bigint(20) DEFAULT NULL,
-  `ImagePath` varchar(255) NOT NULL DEFAULT 'img-category-default.png'
+  `ImagePath` varchar(255) DEFAULT 'img-category-default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
