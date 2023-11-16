@@ -19,7 +19,7 @@ public class Category {
     private Long parentCategoryID;
 
     @Column(name = "ImagePath")
-    private String imagePath;
+    private String imagePath = "img-category-default.png";
 
     @Transient
     private List<Product> products;
