@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./style.scss"
 import {toast} from "react-toastify";
 import {HiOutlineTrash} from "react-icons/hi";
@@ -9,6 +9,8 @@ import {BsCheckLg} from "react-icons/bs";
 import {IoSearch} from "react-icons/io5";
 
 const ProductListPage  = () => {
+  const inputRef = useRef(null);
+
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -38,6 +40,18 @@ const ProductListPage  = () => {
     fetchData().then(r => {});
   }, []);
 
+
+  const handleImageClick = () => {
+    inputRef.current.click();
+  };
+
+  const handleFileChange = (e, categoryID) => {
+    if (e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    if (file) {
+      console.log('Đã chọn file:', file);
+    }
+  };
 
   const handleCategoryClick = (categoryID) => {
       if (selectedCategoriesID.includes(categoryID)) {
@@ -131,9 +145,19 @@ const ProductListPage  = () => {
 
                                       <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
                                         <img
+                                            id="action-upload"
                                             className="img-subcategory"
                                             src="https://i.imgur.com/cVeZv1A.png"
                                             alt=""
+                                            onClick={handleImageClick}
+                                        />
+                                        <input
+                                            type="file"
+                                            ref={inputRef}
+                                            accept="image/*"
+                                            multiple="multiple"
+                                            style={{ display: 'none' }}
+                                            onChange={() => handleFileChange(subcategory.categoryID)}
                                         />
                                       </div>
 
