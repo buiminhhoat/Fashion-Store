@@ -169,7 +169,7 @@ const ProfileMenu = ({openModal}) => {
                       <a href="/profile/change-password">Đổi mật khẩu</a>
                     </li>
                     <li className="logout">
-                      <a href="#logout" onClick={handleLogout}> Đăng xuất </a>
+                      <a onClick={handleLogout}> Đăng xuất </a>
                     </li>
                   </ul>
                 </div>

@@ -55,9 +55,17 @@ const LoginDialog = ({ onClose, onSwitch }) => {
 
         const cookies = new Cookies();
         // Lưu access token vào session cookie
+        // Check if access_token cookie doesn't exist
+        if (!cookies['access_token']) {
+          cookies.set('access_token', access_token, { path: '/' });
+        }
 
-        cookies.set('access_token', access_token, { path: '/' });
-        cookies.set('refresh_token', refresh_token, { path: '/' });
+        // Check if refresh_token cookie doesn't exist
+        if (!cookies['refresh_token']) {
+          cookies.set('refresh_token', refresh_token, { path: '/' });
+        }
+        // cookies.set('access_token', access_token, { path: '/' });
+        // cookies.set('refresh_token', refresh_token, { path: '/' });
 
         window.location.reload();
       } else {
