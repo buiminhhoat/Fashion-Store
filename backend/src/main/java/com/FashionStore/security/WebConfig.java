@@ -3,6 +3,7 @@ package com.FashionStore.security;
 import com.FashionStore.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -20,6 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new PrivateApiInterceptor(usersRepository, jwtTokenUtil))
-                .addPathPatterns("/api/admin/**"); // Đặt các đường dẫn của private API ở đây
+                .addPathPatterns("/api/admin/**");
     }
 }
