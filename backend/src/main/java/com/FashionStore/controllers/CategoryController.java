@@ -170,9 +170,7 @@ public class CategoryController {
         List<Category> categories = new ArrayList<>();
 
         for (Category category: categoryList) {
-            Category temp = new Category();
-            temp.setCategoryID(category.getCategoryID());
-            temp.setCategoryName(category.getCategoryName());
+            Category temp = category;
 
             List<Category> subCategory = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
             temp.setSubCategories(subCategory);
@@ -199,7 +197,6 @@ public class CategoryController {
             Category temp = new Category();
             temp.setCategoryID(category.getCategoryID());
             temp.setCategoryName(category.getCategoryName());
-
             List<Category> subCategoryList = categoryRepository.findCategoriesByParentCategoryID(category.getCategoryID());
             for (Category subCategory: subCategoryList) {
                 Long categoryID = subCategory.getCategoryID();
