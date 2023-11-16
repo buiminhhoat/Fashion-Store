@@ -130,22 +130,22 @@ const ProductListPage  = () => {
                           <div>
                             {
                               selectedCategoriesID.find((id) => id === category.categoryID) &&
-                              category.subcategories &&
-                              category.subcategories.map((subcategory, index) => (
+                              category.subCategories &&
+                              category.subCategories.map((subCategory, index) => (
                                 <div key={index}>
-                                  <div className="subcategory-field pointer-cursor"
-                                       onClick={() => handleCategoryClick(subcategory.categoryID)}
+                                  <div className="subCategory-field pointer-cursor"
+                                       onClick={() => handleCategoryClick(subCategory.categoryID)}
                                   >
                                     <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                      <div style={{alignSelf: `${index !== category.subcategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
-                                        height:`${index !== category.subcategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                                      <div style={{alignSelf: `${index !== category.subCategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
+                                        height:`${index !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
 
                                       <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
                                       <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
                                         <img
                                             id="action-upload"
-                                            className="img-subcategory"
+                                            className="img-subCategory"
                                             src="https://i.imgur.com/cVeZv1A.png"
                                             alt=""
                                             onClick={handleImageClick}
@@ -156,12 +156,12 @@ const ProductListPage  = () => {
                                             accept="image/*"
                                             multiple="multiple"
                                             style={{ display: 'none' }}
-                                            onChange={() => handleFileChange(subcategory.categoryID)}
+                                            onChange={() => handleFileChange(subCategory.categoryID)}
                                         />
                                       </div>
 
                                       <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
-                                        {subcategory.categoryName}
+                                        {subCategory.categoryName}
                                       </div>
                                     </div>
 
@@ -180,20 +180,20 @@ const ProductListPage  = () => {
 
                                   <div>
                                     {
-                                      selectedCategoriesID.find((id) => id === subcategory.categoryID) &&
-                                        subcategory.products &&
-                                        subcategory.products.map((product, index) => (
+                                      selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                        subCategory.products &&
+                                        subCategory.products.map((product, index) => (
                                           <div key={index}>
-                                            <div className="subcategory-field">
+                                            <div className="subCategory-field">
                                               <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                                <div style={{alignSelf: `${index !== category.subcategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
-                                                  height:`${index !== category.subcategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                                                <div style={{alignSelf: `${index !== category.subCategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
+                                                  height:`${index !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
 
                                                 <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
                                                 <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
                                                   <img
-                                                      className="img-subcategory"
+                                                      className="img-subCategory"
                                                       src="https://i.imgur.com/cVeZv1A.png"
                                                       alt=""
                                                   />

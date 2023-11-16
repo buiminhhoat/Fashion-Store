@@ -10,15 +10,15 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [categories, setCategories] = useState([]);
 
-  const [inputSubcategoryValue, setInputSubcategoryValue] = useState('');
-  const [isAddingSubcategory, setIsAddingSubcategory] = useState(false);
+  const [inputSubCategoryValue, setInputSubCategoryValue] = useState('');
+  const [isAddingSubCategory, setIsAddingSubCategory] = useState(false);
 
   const [selectedParentCategory, setSelectedParentCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState({});
 
 
   const inputCategoryRef = useRef(null);
-  const inputSubcategoryRef = useRef(null);
+  const inputSubCategoryRef = useRef(null);
 
   const handleButtonCloseClick = () => {
     onClose();
@@ -37,8 +37,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.ok) {
         const data = await response.json();
-        // console.log("apiGetCategory");
-        // console.log(data);
+        console.log("apiGetCategory");
+        console.log(data);
 
         setCategories(data);
       } else {
@@ -61,34 +61,34 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   }, [isAddingCategory]);
 
   useEffect(() => {
-    if (isAddingSubcategory && inputSubcategoryRef) {
-      inputSubcategoryRef.current.focus();
+    if (isAddingSubCategory && inputSubCategoryRef) {
+      inputSubCategoryRef.current.focus();
     }
-  }, [isAddingSubcategory]);
+  }, [isAddingSubCategory]);
 
-  const getSubcategoriesByParentCategoryID = (categoryID) => {
+  const getSubCategoriesByParentCategoryID = (categoryID) => {
     const selectedCategory = categories.find((category) => category.categoryID === categoryID);
-    return selectedCategory ? (selectedCategory.subcategories ? selectedCategory.subcategories : []) : [];
+    return selectedCategory ? (selectedCategory.subCategories ? selectedCategory.subCategories : []) : [];
   };
 
   const handleCategoryClick = (category) => {
     handleCancelCategoryClick();
-    handleCancelSubcategoryClick();
+    handleCancelSubCategoryClick();
     setSelectedCategory({});
     setSelectedParentCategory(category);
   };
 
-  const handleSubcategoryClick = (subcategory) => {
+  const handleSubCategoryClick = (subCategory) => {
     handleCancelCategoryClick();
-    handleCancelSubcategoryClick();
-    setSelectedCategory(subcategory);
+    handleCancelSubCategoryClick();
+    setSelectedCategory(subCategory);
   };
 
   // handle category
   const handleAddCategoryClick = () => {
     setSelectedCategory({});
     setSelectedParentCategory({});
-    handleCancelSubcategoryClick();
+    handleCancelSubCategoryClick();
     setIsAddingCategory(true);
   };
 
@@ -127,7 +127,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSaveSubCategory = async () => {
     let parentCategoryID = selectedParentCategory.categoryID;
-    let categoryName = inputSubcategoryValue;
+    let categoryName = inputSubCategoryValue;
 
     const formData = new FormData();
     formData.append('parentCategoryID', parentCategoryID);
@@ -170,34 +170,34 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingCategory(false);
   };
 
-  // handle subcategory
-  const handleAddSubcategoryClick = () => {
-    setIsAddingSubcategory(true);
+  // handle subCategory
+  const handleAddSubCategoryClick = () => {
+    setIsAddingSubCategory(true);
   };
 
-  const handleSaveSubcategoryClick = () => {
-    if (inputSubcategoryValue !== "") {
+  const handleSaveSubCategoryClick = () => {
+    if (inputSubCategoryValue !== "") {
       handleSaveSubCategory();
-      addSubcategory({ id: 0, name: inputSubcategoryValue});
+      addSubCategory({ id: 0, name: inputSubCategoryValue});
     }
-    setInputSubcategoryValue("");
-    setIsAddingSubcategory(false);
+    setInputSubCategoryValue("");
+    setIsAddingSubCategory(false);
   };
 
-  const handleCancelSubcategoryClick = () => {
-    setInputSubcategoryValue("");
-    setIsAddingSubcategory(false);
+  const handleCancelSubCategoryClick = () => {
+    setInputSubCategoryValue("");
+    setIsAddingSubCategory(false);
   };
 
-  const addSubcategory = (newSubcategory) => {
+  const addSubCategory = (newSubCategory) => {
     const newCategories = [...categories];
     const parentCategory = newCategories.find(category => category.categoryID === selectedCategory.ID);
 
     if (parentCategory) {
-      if (!parentCategory.subcategories) {
-        parentCategory.subcategories = [];
+      if (!parentCategory.subCategories) {
+        parentCategory.subCategories = [];
       }
-      parentCategory.subcategories.push(newSubcategory);
+      parentCategory.subCategories.push(newSubCategory);
 
       setCategories(newCategories);
     }
@@ -266,19 +266,19 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                         {
                           selectedParentCategory.categoryName?
                             <div>
-                              {isAddingSubcategory ?
+                              {isAddingSubCategory ?
                                 <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
                                   <div data-v-38ab3376="" className="text-overflow">
-                                    <input className="input-category" type="text" ref={inputSubcategoryRef}
-                                           onChange={(e) => setInputSubcategoryValue(e.target.value)}/>
+                                    <input className="input-category" type="text" ref={inputSubCategoryRef}
+                                           onChange={(e) => setInputSubCategoryValue(e.target.value)}/>
                                   </div>
                                   <div data-v-38ab3376="" className="category-item-right">
-                                    <MdOutlineClose onClick={handleCancelSubcategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
-                                    <BsCheckLg onClick={handleSaveSubcategoryClick} className="btn-add pointer-cursor"/>
+                                    <MdOutlineClose onClick={handleCancelSubCategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
+                                    <BsCheckLg onClick={handleSaveSubCategoryClick} className="btn-add pointer-cursor"/>
                                   </div>
                                 </li>
                                 :
-                                <li data-v-38ab3376="" className="category-item" onClick={handleAddSubcategoryClick}>
+                                <li data-v-38ab3376="" className="category-item" onClick={handleAddSubCategoryClick}>
                                   <div data-v-38ab3376="" className="text-overflow">
                                     <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
                                   </div>
@@ -289,11 +289,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                         }
 
                         {
-                          getSubcategoriesByParentCategoryID(selectedParentCategory.categoryID).map((subcategory, index) => (
+                          getSubCategoriesByParentCategoryID(selectedParentCategory.categoryID).map((subCategory, index) => (
                             <li data-v-38ab3376="" className="category-item" key={index}
-                                onClick={() => handleSubcategoryClick(subcategory)}>
-                              <p data-v-38ab3376="" className={`text-overflow ${subcategory.categoryID === selectedCategory.categoryID ? 'selected-category' : ''}`}>
-                                {subcategory.categoryName}
+                                onClick={() => handleSubCategoryClick(subCategory)}>
+                              <p data-v-38ab3376="" className={`text-overflow ${subCategory.categoryID === selectedCategory.categoryID ? 'selected-category' : ''}`}>
+                                {subCategory.categoryName}
                               </p>
                             </li>
                           ))
