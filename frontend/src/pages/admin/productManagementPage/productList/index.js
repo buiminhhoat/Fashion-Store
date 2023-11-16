@@ -6,8 +6,12 @@ import {BiSolidEdit} from "react-icons/bi";
 import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
+import {useCookies} from "react-cookie";
 
 const ProductListPage  = () => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoriesImgID, setCategoriesImgID] = useState([]);
@@ -64,6 +68,44 @@ const ProductListPage  = () => {
     fetchData().then(r => {});
   }, []);
 
+  async function changeImageCategory(imageFile, categoryID) {
+    const formData = new FormData();
+    formData.append('categoryID', categoryID);
+    formData.append('categoryImage', imageFile);
+
+
+    // for (const file of productImages) { formData.append('productImages', file);}
+
+    let apiAddProductUrl = "http://localhost:9999/api/admin/upload-category-image";
+    fetch(apiAddProductUrl, {
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+      },
+      body: formData,
+    })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Upload failed');
+          }
+          return response.json();
+        })
+        .then((data) => {
+
+          const newCategoriesImgID = categoriesImgID.map(imgID => {
+            return (imgID.categoryID === categoryID ? { ...imgID, imageFile: imageFile } : imgID);
+          });
+          setCategoriesImgID(newCategoriesImgID);
+
+          toast.success("Cập nhật ảnh thành công");
+          console.log('Upload successful:', data);
+        })
+        .catch((error) => {
+          toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+          console.error('Upload failed:', error);
+        });
+  }
+
   const handleImageClick = (categoryID) => {
     document.getElementById(`img-input-${categoryID}`).click();
   };
@@ -72,10 +114,7 @@ const ProductListPage  = () => {
     if (e.target.files.length === 0) return;
     const file = e.target.files[0];
     if (file) {
-      const newCategoriesImgID = categoriesImgID.map(imgID => {
-          return (imgID.categoryID === categoryID ? { ...imgID, imageFile: file } : imgID);
-      });
-      setCategoriesImgID(newCategoriesImgID);
+      changeImageCategory(file, categoryID).then(r => {});
       console.log('Đã chọn file:', file);
     }
   };
@@ -104,7 +143,7 @@ const ProductListPage  = () => {
             <div style={{margin:"0 70px 0 40px"}}>
               <p className="category-title">DANH MỤC SẢN PHẨM</p>
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
-                borderRadius:"3px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
+                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
                   <div style={{color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
                     <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
@@ -122,7 +161,7 @@ const ProductListPage  = () => {
 
               <section>
                 <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
-                  borderRadius:"3px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
+                  borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
 
                   {
                     categories.map((category, index) => (
