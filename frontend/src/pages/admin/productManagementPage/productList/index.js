@@ -124,7 +124,8 @@ const ProductListPage  = () => {
         const updatedCategoriesID = selectedCategoriesID.filter((id) => id !== categoryID);
         setSelectedCategoriesID(updatedCategoriesID);
       } else {
-        const updatedCategoriesID = [...selectedCategoriesID, categoryID];
+        // const updatedCategoriesID = [...selectedCategoriesID, categoryID];
+        const updatedCategoriesID = [categoryID];
         setSelectedCategoriesID(updatedCategoriesID);
       }
   }
@@ -323,7 +324,7 @@ const ProductListPage  = () => {
 
         {deleteCategory && (
             <div className="modal-overlay">
-              <ConfirmDialog title={"Cảnh báo"}
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
                              subTitle={deleteCategory.type === "category" ?
                                  (
                                      <>
