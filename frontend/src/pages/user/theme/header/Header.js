@@ -5,12 +5,12 @@ import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import logo_fashion_store from "./images/logo_fashion_store.png";
 import './style.scss';
-import LoginDialog from "../../dialog/LoginDialog/LoginDialog";
-import ForgotPasswordDialog from "../../dialog/ForgotPasswordDialog/ForgotPasswordDialog";
-import RegisterDialog from "../../dialog/RegisterDialog/RegisterDialog";
-import {DIALOGS} from "../../dialog/utils";
+import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
+import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
+import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
+import {DIALOGS} from "../../components/dialogs/utils";
 import {Cookies, useCookies} from "react-cookie";
-import {useLogout} from "../../dialog/utils/logout";
+import {useLogout} from "../../components/dialogs/utils/logout";
 import {formatter} from "../../../../utils/formatter";
 
 const MenuItem = ({ categoryID, categoryName, subCategories }) => {

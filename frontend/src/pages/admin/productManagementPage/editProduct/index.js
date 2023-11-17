@@ -1,5 +1,5 @@
 import "./style.scss"
-import ProductDetails from "../ProductDetails/ProductDetails";
+import ProductDetails from "../components/ProductDetails/ProductDetails";
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";

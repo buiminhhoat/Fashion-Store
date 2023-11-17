@@ -73,9 +73,6 @@ const ProductListPage  = () => {
     formData.append('categoryID', categoryID);
     formData.append('categoryImage', imageFile);
 
-
-    // for (const file of productImages) { formData.append('productImages', file);}
-
     let apiAddProductUrl = "/api/admin/upload-category-image";
     fetch(apiAddProductUrl, {
       method: 'POST',
@@ -127,6 +124,10 @@ const ProductListPage  = () => {
         const updatedCategoriesID = [...selectedCategoriesID, categoryID];
         setSelectedCategoriesID(updatedCategoriesID);
       }
+  }
+
+  const handleDeleteCategory = (categoryID, type) => {
+
   }
 
   return (
@@ -184,7 +185,9 @@ const ProductListPage  = () => {
                             </div>
                             <div style={{display:"flex"}}>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
-                                   style={{marginRight:"20px"}}>
+                                   style={{marginRight:"20px"}}
+                                   onClick={() => handleDeleteCategory(category.categoryID, "category")}
+                              >
                                 <HiOutlineTrash />
                               </div>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
@@ -235,7 +238,9 @@ const ProductListPage  = () => {
 
                                     <div style={{display:"flex"}}>
                                       <div className="btn-edit-category"
-                                           style={{marginRight:"20px"}}>
+                                           style={{marginRight:"20px"}}
+                                           onClick={() => handleDeleteCategory(category.categoryID, "sub-category")}
+                                      >
                                         <HiOutlineTrash />
                                       </div>
                                       <div className="btn-edit-category"

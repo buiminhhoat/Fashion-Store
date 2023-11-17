@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.scss"
 
-import LoginDialog from "../dialog/LoginDialog/LoginDialog";
+import LoginDialog from "../components/dialogs/LoginDialog/LoginDialog";
 
 const LoginPage = () => {
   const handleDialogSwitch = (dialogName) => {
