@@ -15,7 +15,7 @@ const ProductListPage  = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [deleteCategory, setDeleteCategory] = useState(null);
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -131,12 +131,16 @@ const ProductListPage  = () => {
       }
   }
 
-  const deleteCategory = (categoryID, type) => {
-
+  const handleDeleteCategory = () => {
+    setDeleteCategory(null);
   }
 
-  const handleBtnDeleteCategoryClick = (categoryID, type) => {
-    setOpenConfirmDialog(true);
+  const handleBtnDeleteCategoryClick = (categoryID, categoryName, type) => {
+    setDeleteCategory({
+      type: type,
+      categoryID: categoryID,
+      categoryName: categoryName,
+    })
   }
 
 
@@ -196,7 +200,7 @@ const ProductListPage  = () => {
                             <div style={{display:"flex"}}>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
                                    style={{marginRight:"20px"}}
-                                   onClick={() => handleBtnDeleteCategoryClick(category.categoryID, "category")}
+                                   onClick={() => handleBtnDeleteCategoryClick(category.categoryID, category.categoryName, "category")}
                               >
                                 <HiOutlineTrash />
                               </div>
@@ -249,7 +253,7 @@ const ProductListPage  = () => {
                                     <div style={{display:"flex"}}>
                                       <div className="btn-edit-category"
                                            style={{marginRight:"20px"}}
-                                           onClick={() => handleBtnDeleteCategoryClick(category.categoryID, "sub-category")}
+                                           onClick={() => handleBtnDeleteCategoryClick(subCategory.categoryID, subCategory.categoryName, "sub-category")}
                                       >
                                         <HiOutlineTrash />
                                       </div>
@@ -318,14 +322,28 @@ const ProductListPage  = () => {
 
         </main>
 
-        {openConfirmDialog && (
+        {deleteCategory && (
             <div className="modal-overlay">
               <ConfirmDialog title={"Cảnh báo"}
-                             subTitle={""}
+                             subTitle={deleteCategory.type === "category" ?
+                                 (
+                                     <>
+                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deleteCategory.categoryName}</span> không? <br />
+                                       Thao tác này sẽ xóa tất cả danh mục con cùng với sản phẩm thuộc danh mục này.
+                                     </>
+                                 )
+                                 :
+                                 (
+                                     <>
+                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deleteCategory.categoryName}</span> không? <br />
+                                       Thao tác này sẽ xóa tất cả những sản phẩm thuộc danh mục này.
+                                     </>
+                                 )
+                             }
                              titleBtnAccept={"Xóa"}
                              titleBtnCancel={"Hủy bỏ"}
-                             onAccept={deleteCategory}
-                             onCancel={() => {setOpenConfirmDialog(false)}}/>
+                             onAccept={handleDeleteCategory}
+                             onCancel={() => {setDeleteCategory(null)}}/>
             </div>
         )}
 
