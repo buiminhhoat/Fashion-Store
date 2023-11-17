@@ -32,7 +32,7 @@ import {toast} from "react-toastify";
 //     "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
 //   }
 // ]
-
+const NUMBER_PRODUCT = 1;
 const SearchProductPage = () => {
   // Sử dụng useLocation để lấy đường dẫn URL hiện tại
   const location = useLocation().pathname;
@@ -41,6 +41,8 @@ const SearchProductPage = () => {
   const apiProductBySearch = "/api/public/search/" + decodedSearchString;
 
   const [productsData, setProductsData] = useState({});
+  const [numberProduct, setNumberProduct] = useState(NUMBER_PRODUCT);
+
 
 
   useEffect(() => {
@@ -84,14 +86,18 @@ const SearchProductPage = () => {
                     Có {filteredProductsData.length} kết quả cho từ khóa "{decodedSearchString}"
                   </div>
                   <div className="search-result">
-                    <ProductsSection productsData={filteredProductsData} />
+                    <ProductsSection productsData={filteredProductsData.slice(0, numberProduct)} />
                   </div>
                   <div className="load-more-wrap text-center">
-                    <a href="#">
-                      <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product">
-                        Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
-                      </button>
-                    </a>
+                    {productsData.length !== numberProduct &&
+                        (<a href="#">
+                          <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}
+                                  onClick={() => setNumberProduct(Math.min(numberProduct + NUMBER_PRODUCT, productsData.length))}
+                          >
+                            Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
+                          </button>
+                        </a>)
+                    }
                   </div>
                 </>
             ) : (
