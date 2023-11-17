@@ -124,6 +124,10 @@ const CategoryPage = ({keyword}) => {
     fetchData().then(r => {});
   }, [categoryID, selectedSort]);
 
+  useEffect(() => {
+    setNumberProduct(1);
+  }, [categoryID]);
+
   const hasResult = productsData.categoryID > 0;
 
   const handleSelectChange = (event) => {
