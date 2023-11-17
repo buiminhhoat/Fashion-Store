@@ -90,7 +90,7 @@ const ProfileEditAddress = () => {
                 navigate("/profile/address");
             }
         } catch (error) {
-            toast.error("Không kết nối được với database");
+            toast.error("Không thể kết nối được với database");
         }
     }
 

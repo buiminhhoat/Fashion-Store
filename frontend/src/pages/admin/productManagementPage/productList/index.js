@@ -60,7 +60,7 @@ const ProductListPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không kết nối được với database");
+      toast.error("Không thể kết nối được với database");
     }
   }
 

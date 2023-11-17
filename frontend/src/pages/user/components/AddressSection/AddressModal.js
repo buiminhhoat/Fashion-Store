@@ -115,7 +115,7 @@ function AddressModal({
                 // alert(jsonResponse.message);
             }
         } catch (error) {
-            toast.error("Không kết nối được với database");
+            toast.error("Không thể kết nối được với database");
         }
 
         switchModal(MODAL.LIST_ADDRESS)
@@ -151,7 +151,7 @@ function AddressModal({
                 // alert(jsonResponse.message);
             }
         } catch (error) {
-            toast.error("Không kết nối được với database");
+            toast.error("Không thể kết nối được với database");
         }
         switchModal(MODAL.LIST_ADDRESS)
     }
