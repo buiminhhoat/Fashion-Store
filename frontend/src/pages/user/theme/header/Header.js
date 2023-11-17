@@ -235,7 +235,7 @@ const SearchDialog = ({keyword}) => {
               <Link to={"/product?productID=" + product.productID}>
                 <div className="item-search d-flex">
                   <div className="product-image d-flex align-items-center justify-content-start">
-                    <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={`Product Image ${product.productID}`} />
+                    <img src={"/storage/images/" + product.productImages[0].imagePath} alt={`Product Image ${product.productID}`} />
                   </div>
                   <div className="product-info">
                     <div className="product-name">{product.productName}</div>

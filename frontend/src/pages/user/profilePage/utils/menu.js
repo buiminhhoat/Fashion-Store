@@ -150,7 +150,7 @@ const Menu = () => {
                 <div className="image-wrap">
                     <img
                         src={(userData.avatarPath !== undefined && userData.avatarPath !== null) ?
-                            "http://localhost:9999/storage/images/" + userData.avatarPath :
+                            "/storage/images/" + userData.avatarPath :
                             "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
                         alt={userData.fullName}
                         id="action-upload"

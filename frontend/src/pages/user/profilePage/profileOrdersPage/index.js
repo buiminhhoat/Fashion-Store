@@ -227,7 +227,7 @@ const RenderTabContent = (openTab, setOpenTab) => {
                                 <div key = {index} className="product-wrap">
                                     <div className="img-wrap">
                                         <img
-                                            src={"http://localhost:9999/storage/images/" + orderDetail.imagePath}
+                                            src={"/storage/images/" + orderDetail.imagePath}
                                             alt={orderDetail.productName}/>
                                     </div>
                                     <div className="info-wrap">

@@ -41,7 +41,7 @@ const ProductListPage  = () => {
 
         const fetchImagePromises = data.flatMap(category =>
             category.subCategories.map(subCategory => {
-              const imageUrl = "http://localhost:9999/storage/images/" + subCategory.imagePath;
+              const imageUrl = "/storage/images/" + subCategory.imagePath;
               return fetchImageAsFile(imageUrl, subCategory.imagePath, subCategory.categoryID);
             })
         );

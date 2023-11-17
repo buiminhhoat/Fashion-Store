@@ -193,7 +193,7 @@ function CheckoutPage() {
                         <div className="card-product d-flex">
                           <div className="image-product">
                             <Link to ={"/product?productID=" + product.productID}>
-                                <img src={"http://localhost:9999/storage/images/" + product.productImages[0].imagePath} alt={product.productName} />
+                                <img src={"/storage/images/" + product.productImages[0].imagePath} alt={product.productName} />
                             </Link>
                           </div>
                           <div className="product__info">
