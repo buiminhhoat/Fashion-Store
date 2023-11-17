@@ -55,7 +55,7 @@ const Menu = () => {
     const fetchUserData = async () => {
         if (accessToken) {
             try {
-                const serverUrl = "http://localhost:9999/api/public";
+                const serverUrl = "/api/public";
                 const response = await fetch(`${serverUrl}/get-user-data`, {
                     method: "GET",
                     headers: {
@@ -113,7 +113,7 @@ const Menu = () => {
         const formData = new FormData();
         formData.append('profileImage', file);
         try {
-            fetch("http://localhost:9999/api/public/upload-profile-image", {
+            fetch("/api/public/upload-profile-image", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,

@@ -27,6 +27,10 @@ public class PrivateApiInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+
         String accessToken = request.getHeader("Authorization");
         if (accessToken == null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);

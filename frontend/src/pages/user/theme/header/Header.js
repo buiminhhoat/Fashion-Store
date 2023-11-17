@@ -92,7 +92,7 @@ const ProfileMenu = ({openModal}) => {
     const fetchUserData = async () => {
       if (accessToken) {
         try {
-          const serverUrl = "http://localhost:9999/api/public";
+          const serverUrl = "/api/public";
           const response = await fetch(`${serverUrl}/get-user-data`, {
             method: "GET",
             headers: {
@@ -190,7 +190,7 @@ const ProfileMenu = ({openModal}) => {
 
 const SearchDialog = ({keyword}) => {
 
-  const apiProductBySearch = "http://localhost:9999/api/public/search/" + keyword;
+  const apiProductBySearch = "/api/public/search/" + keyword;
   const [searchItem, setSearchItem] = useState({});
 
   useEffect(() => {
@@ -509,7 +509,7 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "http://localhost:9999/api/public/get-cart";
+  const apiGetCart = "/api/public/get-cart";
   const [loading, setLoading] = useState(true)
   const [productInCart, setProductIncart] = useState(0);
 

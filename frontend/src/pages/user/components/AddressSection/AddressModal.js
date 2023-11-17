@@ -32,7 +32,7 @@ function AddressModal({
     const [addressList, setAddressList] = useState([{}])
     const [idSelected, setIdSelected] = useState(selectedAddress.addressID)
     const updateData = () => {
-        fetch("http://localhost:9999/api/public/get-all-addresses", {
+        fetch("/api/public/get-all-addresses", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
@@ -61,7 +61,7 @@ function AddressModal({
         try {
             const formData = new FormData()
             formData.append("addressID", addressList[id].addressID)
-            const response = await fetch(`http://localhost:9999/api/public/set-default-address`, {
+            const response = await fetch(`/api/public/set-default-address`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
@@ -98,7 +98,7 @@ function AddressModal({
         console.log(formData);
 
         try {
-            const response = await fetch("http://localhost:9999/api/public/new-address", {
+            const response = await fetch("/api/public/new-address", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -134,7 +134,7 @@ function AddressModal({
         console.log(formData);
 
         try {
-            const response = await fetch("http://localhost:9999/api/public/edit-address", {
+            const response = await fetch("/api/public/edit-address", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -164,7 +164,7 @@ function AddressModal({
             const formData = new FormData();
             formData.append('addressID', updateID);
             try {
-                fetch("http://localhost:9999/api/public/get-address", {
+                fetch("/api/public/get-address", {
                     method: "POST",
                     headers: {
                         "Authorization": `Bearer ${accessToken}`,

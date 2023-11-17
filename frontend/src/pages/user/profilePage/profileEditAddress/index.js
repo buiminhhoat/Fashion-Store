@@ -11,7 +11,7 @@ import {toast} from "react-toastify";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
-let apiEditAddressUrl = "http://localhost:9999/api/public/edit-address";
+let apiEditAddressUrl = "/api/public/edit-address";
 
 const ProfileEditAddress = () => {
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const ProfileEditAddress = () => {
         const formData = new FormData();
         formData.append('addressID', addressID);
         try {
-            fetch("http://localhost:9999/api/public/get-address", {
+            fetch("/api/public/get-address", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,

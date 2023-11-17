@@ -11,7 +11,7 @@ import {toast} from "react-toastify";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-let apiNewAddressUrl = "http://localhost:9999/api/public/new-address";
+let apiNewAddressUrl = "/api/public/new-address";
 
 const ProfileNewAddress = () => {
     const navigate = useNavigate()
@@ -28,7 +28,7 @@ const ProfileNewAddress = () => {
         const formData = new FormData();
         // formData.append('addressID', addressID);
         try {
-            fetch("http://localhost:9999/api/public/get-all-addresses", {
+            fetch("/api/public/get-all-addresses", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,

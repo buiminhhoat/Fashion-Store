@@ -22,7 +22,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
 
     try {
       // Gửi dữ liệu đăng ký đến máy chủ, ví dụ sử dụng fetch hoặc axios
-      const response = await fetch("http://localhost:9999/api/public/register", {
+      const response = await fetch("/api/public/register", {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -76,7 +76,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                 <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
               <div className="form-wrap">
-                <form onSubmit={handleSubmit} method="POST" action="http://localhost:9999/api/public/register" className="form" id="form-register">
+                <form onSubmit={handleSubmit} method="POST" action="/api/public/register" className="form" id="form-register">
                   <div className="input-wrap mt-0">
                     <label className="title">Họ và tên</label>
                     <input id="name-register" name="name" type="text" placeholder="Nhập họ và tên" required

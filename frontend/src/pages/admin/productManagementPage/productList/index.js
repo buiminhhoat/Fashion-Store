@@ -26,7 +26,7 @@ const ProductListPage  = () => {
   }
 
   const fetchData = async () => {
-    const apiGetCategory = "http://localhost:9999/api/public/get-all-categories";
+    const apiGetCategory = "/api/public/get-all-categories";
     try {
       const response = await fetch(apiGetCategory, {
         method: 'GET',
@@ -76,7 +76,7 @@ const ProductListPage  = () => {
 
     // for (const file of productImages) { formData.append('productImages', file);}
 
-    let apiAddProductUrl = "http://localhost:9999/api/admin/upload-category-image";
+    let apiAddProductUrl = "/api/admin/upload-category-image";
     fetch(apiAddProductUrl, {
       method: 'POST',
       headers: {

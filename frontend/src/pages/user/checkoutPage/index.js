@@ -37,7 +37,7 @@ function CheckoutPage() {
   // const [cookies] = useCookies(['access_token']);
   // const accessToken = cookies.access_token;
 
-  const apiProductDetailByID = "http://localhost:9999/api/public/product/" + productID;
+  const apiProductDetailByID = "/api/public/product/" + productID;
 
   const [selectedSizeID, setSelectedSizeID] = useState(sizeID)
   const [amount, setAmount] = useState(currentQuantity)
@@ -119,7 +119,7 @@ function CheckoutPage() {
     }
 
     const total = product.productPrice * amount
-    const apiAddToCartByCheckout = `http://localhost:9999/api/public/add-orders-by-checkout`;
+    const apiAddToCartByCheckout = `/api/public/add-orders-by-checkout`;
     const formData = new FormData()
 
     formData.append('addressID', selectedAddress.addressID)

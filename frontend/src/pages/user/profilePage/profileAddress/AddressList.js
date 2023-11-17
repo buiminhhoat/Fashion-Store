@@ -36,7 +36,7 @@ function AddressList() {
     const [addresses, setAddresses] = useState([{}, {}]);
 
     const updateData = () => {
-        fetch("http://localhost:9999/api/public/get-all-addresses", {
+        fetch("/api/public/get-all-addresses", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
@@ -62,7 +62,7 @@ function AddressList() {
         try {
             const formData = new FormData()
             formData.append("addressID", addresses[id].addressID)
-            const response = await fetch(`http://localhost:9999/api/public/set-default-address`, {
+            const response = await fetch(`/api/public/set-default-address`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
@@ -91,7 +91,7 @@ function AddressList() {
             // formData.append("addressDetails", addresses[id].addressDetails)
             // formData.append("isDefault", addresses[id].isDefault)
 
-            const response = await fetch(`http://localhost:9999/api/delete-address`, {
+            const response = await fetch(`/api/delete-address`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,

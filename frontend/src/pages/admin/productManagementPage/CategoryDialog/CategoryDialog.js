@@ -33,7 +33,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const fetchData = async () => {
-    const apiGetCategory = "http://localhost:9999/api/public/get-all-categories";
+    const apiGetCategory = "/api/public/get-all-categories";
     try {
       const response = await fetch(apiGetCategory, {
         method: 'GET',
@@ -96,13 +96,22 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingCategory(true);
   };
 
-  const apiAddCategoryUrl = "http://localhost:9999/api/admin/add-category";
+  const apiAddCategoryUrl = "/api/admin/add-category";
 
   const handleSaveCategory = async () => {
     let parentCategoryID = 0;
     const formData = new FormData();
     formData.append('categoryName', inputCategoryValue);
     formData.append('parentCategoryID', parentCategoryID);
+    console.log(accessToken);
+    console.log("Sending request:", {
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+      },
+      body: formData,
+    });
+
     try {
       const response = await fetch(apiAddCategoryUrl, {
         method: 'POST',
@@ -143,6 +152,9 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     try {
       const response = await fetch(apiAddCategoryUrl, {
         method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
         body: formData,
       });
 

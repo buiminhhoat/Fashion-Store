@@ -87,7 +87,7 @@ const CategoryPage = ({keyword}) => {
   // const encodedSearchString = location.substring("/category/".length);
   // const decodedSearchString = decodeURIComponent(encodedSearchString);
   const { categoryID } = useParams();
-  const apiProductBySearch = "http://localhost:9999/api/public/category/" + categoryID;
+  const apiProductBySearch = "/api/public/category/" + categoryID;
 
   const [productsData, setProductsData] = useState({});
   const [selectedSort, setSelectedSort] = useState(null);

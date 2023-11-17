@@ -60,7 +60,7 @@ const EditProductPage = () => {
     // formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
 
 
-    let apiAddProductUrl = "http://localhost:9999/api/admin/add-product";
+    let apiAddProductUrl = "/api/admin/add-product";
     fetch(apiAddProductUrl, {
       method: 'POST',
       body: formData,
@@ -88,7 +88,7 @@ const EditProductPage = () => {
   }
 
   useEffect(() => {
-    const apiProductDetailByID = "http://localhost:9999/api/product/" + productID;
+    const apiProductDetailByID = "/api/product/" + productID;
     const fetchData = async () => {
       try {
         const response = await fetch(apiProductDetailByID, {

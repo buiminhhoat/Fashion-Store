@@ -282,7 +282,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
       // };
       // console.log(newOrderDetails.sizeID)
       // // Gửi HTTP request để thêm sản phẩm vào giỏ hàng
-      // fetch(`http://localhost:9999/api/add-product-to-cart?accessToken=Bearer${" "+accessToken}&productID=${informationProduct.productID}&sizeID=${newOrderDetails.sizeID}&quantityPurchase=${newOrderDetails.quantityPurchase}`, requestData)
+      // fetch(`/api/add-product-to-cart?accessToken=Bearer${" "+accessToken}&productID=${informationProduct.productID}&sizeID=${newOrderDetails.sizeID}&quantityPurchase=${newOrderDetails.quantityPurchase}`, requestData)
       //     .then((response) => {
       //       if (response.ok) {
       //         // Xử lý khi request thành công, ví dụ: hiển thị thông báo thành công
