@@ -135,7 +135,8 @@ const ProductListPage  = () => {
     setDeleteCategory(null);
   }
 
-  const handleBtnDeleteCategoryClick = (categoryID, categoryName, type) => {
+  const handleBtnDeleteCategoryClick = (e, categoryID, categoryName, type) => {
+    e.stopPropagation();
     setDeleteCategory({
       type: type,
       categoryID: categoryID,
@@ -200,7 +201,7 @@ const ProductListPage  = () => {
                             <div style={{display:"flex"}}>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
                                    style={{marginRight:"20px"}}
-                                   onClick={() => handleBtnDeleteCategoryClick(category.categoryID, category.categoryName, "category")}
+                                   onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, "category")}
                               >
                                 <HiOutlineTrash />
                               </div>
@@ -253,7 +254,7 @@ const ProductListPage  = () => {
                                     <div style={{display:"flex"}}>
                                       <div className="btn-edit-category"
                                            style={{marginRight:"20px"}}
-                                           onClick={() => handleBtnDeleteCategoryClick(subCategory.categoryID, subCategory.categoryName, "sub-category")}
+                                           onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
                                       >
                                         <HiOutlineTrash />
                                       </div>
