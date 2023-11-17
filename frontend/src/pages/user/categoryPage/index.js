@@ -87,8 +87,8 @@ const CategoryPage = ({keyword}) => {
   // const encodedSearchString = location.substring("/category/".length);
   // const decodedSearchString = decodeURIComponent(encodedSearchString);
   const { categoryID } = useParams();
-  const apiProductBySearch = "/api/public/category/" + categoryID;
-
+  const apiProductBySearch = "http://localhost:9999/api/public/category/" + categoryID;
+  const [numberProduct, setNumberProduct] = useState(1);
   const [productsData, setProductsData] = useState({});
   const [selectedSort, setSelectedSort] = useState(null);
 
@@ -124,6 +124,10 @@ const CategoryPage = ({keyword}) => {
     fetchData().then(r => {});
   }, [categoryID, selectedSort]);
 
+  useEffect(() => {
+    setNumberProduct(1);
+  }, [categoryID]);
+
   const hasResult = productsData.categoryID > 0;
 
   const handleSelectChange = (event) => {
@@ -135,14 +139,14 @@ const CategoryPage = ({keyword}) => {
       <main id="main">
         <section className="category-wrapper">
           <section className="container container-category">
-          {/*<CategorySection/>*/}
+            {/*<CategorySection/>*/}
             <section className="box-filter">
               <div id="KfIh1dAIDGfFwK40Btv4">
                 <div className="filter-wrapper">
                   <div className="filter-box d-flex align-items-center justify-content-between ">
                     <div className="filter-item d-flex align-items-center">
                       <img src={fillterIcon} className="icon" alt="icon filter"/>
-                        <span>Bộ lọc</span>
+                      <span>Bộ lọc</span>
                     </div>
 
                     <div className="other-item d-flex align-items-center">
@@ -166,37 +170,41 @@ const CategoryPage = ({keyword}) => {
               </div>
 
             </section>
-          <div>
-            {hasResult ? (
-                <>
-                  <section className="product-result">
-                  <section className="product-label ">
-                    {productsData.categoryName.toUpperCase()} ({productsData.products.length} sản phẩm)
-                  </section>
-                  </section>
+            <div>
+              {hasResult ? (
+                  <>
+                    <section className="product-result">
+                      <section className="product-label ">
+                        {productsData.categoryName.toUpperCase()} ({productsData.products.length} sản phẩm)
+                      </section>
+                    </section>
                   {/*<div className="search-result">*/}
-                    <ProductsSection productsData={productsData.products} />
+                    <ProductsSection productsData={productsData.products.slice(0, numberProduct)} />
                   {/*</div>*/}
-                  <div className="load-more-wrap text-center">
-                    <a href="#">
-                      <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}>
-                        Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
-                      </button>
-                    </a>
-                  </div>
-                </>
-            ) : (
-                <div className="empty-data text-center">
-                  <div className="result-empty">
-                    <img src="https://5sfashion.vn/images/empty-result.png" alt="no data"/>
+                    <div className="load-more-wrap text-center">
+                      {productsData.products.length !== numberProduct &&
+                          (<a href="#">
+                            <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}
+                                    onClick={() => setNumberProduct(Math.min(numberProduct + 1, productsData.products.length))}
+                            >
+                              Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
+                            </button>
+                          </a>)
+                      }
+                    </div>
+                  </>
+              ) : (
+                  <div className="empty-data text-center">
+                    <div className="result-empty">
+                      <img src="https://5sfashion.vn/images/empty-result.png" alt="no data"/>
                       <p>Không có kết quả nào cho từ khóa trên</p>
                       <span>Xin vui lòng thử lại với từ khóa khác. VD:</span>
                       <span>Áo khoác, Quần dài...</span>
+                    </div>
                   </div>
-                </div>
-            )}
-          </div>
-        </section>
+              )}
+            </div>
+          </section>
         </section>
       </main>
   );
