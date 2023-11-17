@@ -7,8 +7,6 @@ import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
 import {useCookies} from "react-cookie";
-import {DIALOGS} from "../../../user/components/dialogs/utils";
-import LoginDialog from "../../../user/components/dialogs/LoginDialog/LoginDialog";
 import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const ProductListPage  = () => {
