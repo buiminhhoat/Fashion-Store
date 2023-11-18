@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping("/**")
+    @GetMapping("/admin/**")
     public String home() {
         return "index"; // Trả về tên của trang chủ (index.html)
     }
