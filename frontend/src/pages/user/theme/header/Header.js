@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {toast} from "react-toastify";
 import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
@@ -12,6 +12,7 @@ import {DIALOGS} from "../../components/dialogs/utils";
 import {Cookies, useCookies} from "react-cookie";
 import {useLogout} from "../../components/dialogs/utils/logout";
 import {formatter} from "../../../../utils/formatter";
+import {CartContext} from "../masterLayout";
 
 const MenuItem = ({ categoryID, categoryName, subCategories }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
@@ -339,7 +340,7 @@ function SearchBar() {
 }
 
 const Header = () => {
-  const menuItems = [
+  const menuItemsFake = [
     {
       "categoryID": 1,
       "categoryName": "Áo Nam",
@@ -388,105 +389,8 @@ const Header = () => {
       ]
     }
   ]
-  const menuItemsFake = [
-    // { to: "/category/sale", text: "SALE" },
-    {
-      to: "/category/ao-nam",
-      text: "ÁO NAM",
-      subMenuItems: [
-        {
-          to: "/category/ao-thun-nam",
-          text: "Áo Nam Xuân Hè",
-          subMenuItems: [
-            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/category/ao-polo-nam", text: "Áo Polo Nam" },
-            { to: "/category/ao-so-mi-nam", text: "Áo Sơ Mi Nam" },
-            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-          ],
-        },
-        {
-          to: "/category/ao-len-nam",
-          text: "Áo Nam Thu Đông",
-          subMenuItems: [
-            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/category/ao-ni-nam", text: "Áo Nỉ Nam" },
-            { to: "/category/ao-khoac-nam", text: "Áo Khoác Nam" },
-            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-          ],
-        },
-      ],
-    },
-    {
-      to: "/category/quan-nam",
-      text: "QUẦN NAM",
-      subMenuItems: [
-        {
-          to: "/category/ao-thun-nam",
-          text: "Áo Nam Xuân Hè",
-          subMenuItems: [
-            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-          ],
-        },
-        {
-          to: "/category/ao-len-nam",
-          text: "Áo Nam Thu Đông",
-          subMenuItems: [
-            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-          ],
-        },
-      ],
-    },
-    // {
-    //   to: "/category/quan-nam",
-    //   text: "PHỤ KIỆN",
-    //   subMenuItems: [
-    //     {
-    //       to: "/category/ao-thun-nam",
-    //       text: "Áo Nam Xuân Hè",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-    //         { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-    //         { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-    //       ],
-    //     },
-    //     {
-    //       to: "/category/ao-len-nam",
-    //       text: "Áo Nam Thu Đông",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-    //         { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   to: "/category/quan-nam",
-    //   text: "BỘ SƯU TẬP",
-    //   subMenuItems: [
-    //     {
-    //       to: "/category/ao-thun-nam",
-    //       text: "Áo Nam Xuân Hè",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-    //         { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-    //         { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-    //       ],
-    //     },
-    //     {
-    //       to: "/category/ao-len-nam",
-    //       text: "Áo Nam Thu Đông",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-    //         { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-    //       ],
-    //     },
-    //   ],
-    // },
-  ];
+  const [menuItems, setMenuItems] = useState([{}])
+  const cartContext = useContext(CartContext);
 
   const [openDialog, setOpenDialog] = useState(null);
 
@@ -509,14 +413,14 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "/api/public/get-cart";
+  const apiGetAllCategories = "api/public/get-all-categories" ///api/public/get-cart";
   const [loading, setLoading] = useState(true)
-  const [productInCart, setProductIncart] = useState(0);
+  // const [productInCart, setProductIncart] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiGetCart, {
+        const response = await fetch(apiGetAllCategories, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${accessToken}`,
@@ -526,8 +430,7 @@ const Header = () => {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
-          setProductIncart(data.data.cartItems.length);
-          // console.log(product)
+          setMenuItems(data);
         } else {
           const data = await response.json();
           console.log(data.message);
@@ -548,6 +451,7 @@ const Header = () => {
     return <div></div>;
 
   }
+
 
   return (
       <header id="header">
@@ -584,7 +488,7 @@ const Header = () => {
                             ></path>
                           </svg>
                           <span className="count_item count_item_pr hidden-count position-absolute text-center d-flex align-items-center justify-content-center">
-                            {productInCart}
+                            {cartContext.amountInCart}
                           </span>
                         </Link>
                       </div>
