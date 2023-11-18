@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useContext, useEffect, useRef, useState} from "react"
 import {useCookies} from "react-cookie";
 import {toast} from "react-toastify";
 
@@ -14,6 +14,7 @@ import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
+import {CartContext} from "../theme/masterLayout";
 const openModalCreateAddress = () => {
   return 1;
 }
@@ -36,6 +37,7 @@ const productListFake = [
 ]
 
 function CartPage() {
+  const cartContext = useContext(CartContext);
   // product = productList;
   const navigate = useNavigate();
 
@@ -159,6 +161,7 @@ function CartPage() {
             // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
             // Nếu bạn muốn cập nhật lại trạng thái giỏ hàng sau khi xóa sản phẩm, hãy thực hiện ở đây
             setNumberProduct(numberProduct-1);
+            cartContext.getAmountInCart().then(r => r);
             // console.log(numberProduct)
           } else {
             throw new Error('Lỗi khi xóa sản phẩm khỏi giỏ hàng.');
