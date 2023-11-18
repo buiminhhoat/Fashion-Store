@@ -289,23 +289,31 @@ const ProductListPage  = () => {
 
                                       <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
-                                      <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
-                                        <img
-                                            id="action-upload"
-                                            className="img-subCategory"
-                                            src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
-                                                URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
-                                            alt=""
-                                            onClick={() => handleImageClick(subCategory.categoryID)}
-                                        />
-                                        <input
-                                            type="file"
-                                            id={`img-input-${subCategory.categoryID}`}
-                                            accept="image/*"
-                                            multiple="multiple"
-                                            style={{ display: 'none' }}
-                                            onChange={(e) => handleFileChange(e, subCategory.categoryID)}
-                                        />
+                                      <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+                                        <div style={{zIndex:"1", borderRadius:"100%", border:"3px solid #a30000", padding:"2px", backgroundColor:"white"}}>
+                                          <img
+                                              id="action-upload"
+                                              className="img-subCategory"
+                                              src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
+                                                  URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
+                                              alt=""
+                                              onClick={() => handleImageClick(subCategory.categoryID)}
+                                          />
+                                          <input
+                                              type="file"
+                                              id={`img-input-${subCategory.categoryID}`}
+                                              accept="image/*"
+                                              multiple="multiple"
+                                              style={{ display: 'none' }}
+                                              onChange={(e) => handleFileChange(e, subCategory.categoryID)}
+                                          />
+                                        </div>
+                                        { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                          subCategory.products &&
+                                          <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
+                                            height:"51%", borderRight:"3px solid #a30000",
+                                            marginLeft:"25px"}}/>
+                                        }
                                       </div>
 
                                       <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
