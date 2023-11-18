@@ -63,6 +63,7 @@ const ProductListPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Không thể kết nối được với database");
     }
   }
@@ -119,7 +120,38 @@ const ProductListPage  = () => {
     }
   };
 
-  const handleCategoryClick = (categoryID) => {
+  const fetchProductData = async (categoryID) => {
+    const apiProductByCategoryID = "/api/public/category/" + categoryID;
+    console.log(apiProductByCategoryID)
+    try {
+      const response = await fetch(apiProductByCategoryID, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // console.log("apiProductByCategoryID");
+        // console.log(data);
+        setCategories((newCategories) =>
+            newCategories.map((category) => ({
+              ...category,
+              subCategories: category.subCategories.map((subCategory) =>
+                  subCategory.categoryID === data.categoryID ? data : subCategory
+              ),
+            }))
+        );
+
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
+  const handleCategoryClick = (categoryID, type) => {
       if (selectedCategoriesID.includes(categoryID)) {
         const updatedCategoriesID = selectedCategoriesID.filter((id) => id !== categoryID);
         setSelectedCategoriesID(updatedCategoriesID);
@@ -127,6 +159,9 @@ const ProductListPage  = () => {
         const updatedCategoriesID = [...selectedCategoriesID, categoryID];
         // const updatedCategoriesID = [categoryID];
         setSelectedCategoriesID(updatedCategoriesID);
+      }
+      if (type === "sub-category") {
+        fetchProductData(categoryID).then(r => {});
       }
   }
 
@@ -211,7 +246,7 @@ const ProductListPage  = () => {
                         <div key={index}>
                           <div className={`pointer-cursor ${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-category-field" : "category-field"}`}
                                style={{borderTop: `${index !== 0 ? "2px solid #E4E4E4" : "none"}`}}
-                               onClick={() => handleCategoryClick(category.categoryID)}
+                               onClick={() => handleCategoryClick(category.categoryID, "category")}
                           >
                             <div>
                               <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
@@ -243,14 +278,14 @@ const ProductListPage  = () => {
                             {
                               selectedCategoriesID.find((id) => id === category.categoryID) &&
                               category.subCategories &&
-                              category.subCategories.map((subCategory, index) => (
-                                <div key={index}>
+                              category.subCategories.map((subCategory, subCategoryIndex) => (
+                                <div key={subCategoryIndex}>
                                   <div className="subCategory-field pointer-cursor"
-                                       onClick={() => handleCategoryClick(subCategory.categoryID)}
+                                       onClick={() => handleCategoryClick(subCategory.categoryID, "sub-category")}
                                   >
                                     <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                      <div style={{alignSelf: `${index !== category.subCategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
-                                        height:`${index !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                                      <div style={{alignSelf: "flex-start", width:"25px",
+                                        height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
 
                                       <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
@@ -297,12 +332,16 @@ const ProductListPage  = () => {
                                     {
                                       selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
                                         subCategory.products &&
-                                        subCategory.products.map((product, index) => (
-                                          <div key={index}>
-                                            <div className="subCategory-field">
+                                        subCategory.products.map((product, productIndex) => (
+                                          <div key={productIndex}>
+                                            <div className="product-field">
                                               <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                                <div style={{alignSelf: `${index !== category.subCategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
-                                                  height:`${index !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                                                <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
+                                                  borderRight:`${subCategoryIndex !== category.subCategories.length - 1 ? "3px solid #a30000":"3px"}`}}/>
+
+                                                <div style={{alignSelf: "flex-start", width:"25px",
+                                                  height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
+                                                  marginLeft:"25px"}}/>
 
                                                 <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
