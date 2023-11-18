@@ -304,6 +304,7 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
             // Sử dụng phương thức .json() để đọc dữ liệu JSON từ response
+            cartContext.getAmountInCart().then(r => r);
             toast.success("Đặt hàng thành công!");
             navigate('/profile/orders');
             return response.json();
