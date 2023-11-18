@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {ROUTERS} from "./router";
-import {useLogout} from "../../dialog/utils/logout";
+import {useLogout} from "../../components/dialogs/utils/logout";
 import {useCookies} from "react-cookie";
 
 import iconOrder from "../images/order.svg";

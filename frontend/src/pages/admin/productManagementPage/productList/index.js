@@ -7,10 +7,13 @@ import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
 import {useCookies} from "react-cookie";
+import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const ProductListPage  = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+
+  const [deletedCategory, setDeletedCategory] = useState(null);
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -73,9 +76,6 @@ const ProductListPage  = () => {
     formData.append('categoryID', categoryID);
     formData.append('categoryImage', imageFile);
 
-
-    // for (const file of productImages) { formData.append('productImages', file);}
-
     let apiAddProductUrl = "/api/admin/upload-category-image";
     fetch(apiAddProductUrl, {
       method: 'POST',
@@ -125,8 +125,51 @@ const ProductListPage  = () => {
         setSelectedCategoriesID(updatedCategoriesID);
       } else {
         const updatedCategoriesID = [...selectedCategoriesID, categoryID];
+        // const updatedCategoriesID = [categoryID];
         setSelectedCategoriesID(updatedCategoriesID);
       }
+  }
+
+  async function deleteCategory() {
+    const formData = new FormData();
+    formData.append('categoryID', deletedCategory.categoryID);
+
+    let apiAddProductUrl = "/api/admin/delete-category";
+    fetch(apiAddProductUrl, {
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+      },
+      body: formData,
+    })
+        .then(async (response) => {
+          if (!response.ok) {
+            const data = await response.json();
+            toast.error(data.message);
+            throw new Error('Failed');
+          }
+          return response.json();
+        })
+        .then(() => {
+          toast.success("Đã xóa danh mục");
+          setCategories((newCategories) =>
+              newCategories.filter((category) => category.categoryID !== deletedCategory.categoryID)
+          );
+          setDeletedCategory(null);
+        })
+        .catch((error) => {
+          // toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+          console.error('Failed:', error);
+        });
+  }
+
+  const handleBtnDeleteCategoryClick = (e, categoryID, categoryName, type) => {
+    e.stopPropagation();
+    setDeletedCategory({
+      type: type,
+      categoryID: categoryID,
+      categoryName: categoryName,
+    })
   }
 
   return (
@@ -184,7 +227,9 @@ const ProductListPage  = () => {
                             </div>
                             <div style={{display:"flex"}}>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
-                                   style={{marginRight:"20px"}}>
+                                   style={{marginRight:"20px"}}
+                                   onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, "category")}
+                              >
                                 <HiOutlineTrash />
                               </div>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
@@ -235,7 +280,9 @@ const ProductListPage  = () => {
 
                                     <div style={{display:"flex"}}>
                                       <div className="btn-edit-category"
-                                           style={{marginRight:"20px"}}>
+                                           style={{marginRight:"20px"}}
+                                           onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
+                                      >
                                         <HiOutlineTrash />
                                       </div>
                                       <div className="btn-edit-category"
@@ -302,6 +349,32 @@ const ProductListPage  = () => {
           </div>
 
         </main>
+
+        {deletedCategory && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={deletedCategory.type === "category" ?
+                                 (
+                                     <>
+                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> không? <br />
+                                       Thao tác này sẽ xóa tất cả danh mục con cùng với sản phẩm thuộc danh mục này.
+                                     </>
+                                 )
+                                 :
+                                 (
+                                     <>
+                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> không? <br />
+                                       Thao tác này sẽ xóa tất cả những sản phẩm thuộc danh mục này.
+                                     </>
+                                 )
+                             }
+                             titleBtnAccept={"Xóa"}
+                             titleBtnCancel={"Hủy bỏ"}
+                             onAccept={deleteCategory}
+                             onCancel={() => {setDeletedCategory(null)}}/>
+            </div>
+        )}
+
       </div>
   );
 }
