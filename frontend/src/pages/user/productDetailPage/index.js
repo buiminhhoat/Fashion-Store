@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import {useCookies} from "react-cookie";
 import {useLocation, useNavigate} from "react-router-dom";
 
@@ -6,8 +6,11 @@ import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
 import queryString from "query-string";
+import {CartContext} from "../theme/masterLayout";
 
 const ProductDetailPage = () => {
+  const cartContext = useContext(CartContext);
+
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
@@ -34,6 +37,7 @@ const ProductDetailPage = () => {
 
       if (response.ok) {
         const data = await response.json();
+        cartContext.getAmountInCart();
         toast.success("Đã thêm vào giỏ hàng thành công");
         console.log('Upload successful:', data);
       } else if (response.status === 401) {

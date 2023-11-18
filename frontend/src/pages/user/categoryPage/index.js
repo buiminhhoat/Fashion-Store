@@ -77,18 +77,22 @@ const productsData = {
   ],
   "subCategories": null
 }
+
 const SORT = {
   ASC: "1",
   DECS: "2",
 }
+
+const NUMBER_PRODUCT = 1;
+
 const CategoryPage = ({keyword}) => {
   // Sử dụng useLocation để lấy đường dẫn URL hiện tại
   // const location = useLocation().pathname;
   // const encodedSearchString = location.substring("/category/".length);
   // const decodedSearchString = decodeURIComponent(encodedSearchString);
   const { categoryID } = useParams();
-  const apiProductBySearch = "http://localhost:9999/api/public/category/" + categoryID;
-  const [numberProduct, setNumberProduct] = useState(1);
+  const apiProductBySearch = "/api/public/category/" + categoryID;
+  const [numberProduct, setNumberProduct] = useState(NUMBER_PRODUCT);
   const [productsData, setProductsData] = useState({});
   const [selectedSort, setSelectedSort] = useState(null);
 
@@ -185,7 +189,7 @@ const CategoryPage = ({keyword}) => {
                       {productsData.products.length !== numberProduct &&
                           (<a href="#">
                             <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}
-                                    onClick={() => setNumberProduct(Math.min(numberProduct + 1, productsData.products.length))}
+                                    onClick={() => setNumberProduct(Math.min(numberProduct + NUMBER_PRODUCT, productsData.products.length))}
                             >
                               Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
                             </button>

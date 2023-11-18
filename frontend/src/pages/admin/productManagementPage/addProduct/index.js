@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./style.scss"
 
-import ProductDetails from "../ProductDetails/ProductDetails";
+import ProductDetails from "../components/ProductDetails/ProductDetails";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
 
