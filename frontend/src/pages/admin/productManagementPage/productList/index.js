@@ -72,10 +72,10 @@ const ProductListPage  = () => {
     fetchData().then(r => {});
   }, []);
 
-  useEffect(() => {
-    console.log("categories");
-    console.log(categories);
-  }, [categories]);
+  // useEffect(() => {
+  //   console.log("categories");
+  //   console.log(categories);
+  // }, [categories]);
 
   async function changeImageCategory(imageFile, categoryID) {
     const formData = new FormData();
@@ -197,8 +197,14 @@ const ProductListPage  = () => {
         })
         .then(() => {
           toast.success("Đã xóa danh mục");
+          // window.location.reload();
           setCategories((newCategories) =>
-              newCategories.filter((category) => category.categoryID !== deletedCategory.categoryID)
+              newCategories.map((category) => ({
+                ...category,
+                subCategories: category.subCategories.filter(
+                    (subCategory) => subCategory.categoryID !== deletedCategory.categoryID
+                ),
+              })).filter((category) => category.categoryID !== deletedCategory.categoryID)
           );
           setDeletedCategory(null);
         })
