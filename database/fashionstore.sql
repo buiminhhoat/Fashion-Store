@@ -523,7 +523,7 @@ ALTER TABLE `CartItem`
 -- Các ràng buộc cho bảng `Category`
 --
 ALTER TABLE `Category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`ParentCategoryID`) REFERENCES `Category` (`CategoryID`);
+  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`ParentCategoryID`) REFERENCES `Category` (`CategoryID`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `OrderDetails`
@@ -543,9 +543,9 @@ ALTER TABLE `Orders`
 -- Các ràng buộc cho bảng `ProductCategory`
 --
 ALTER TABLE `ProductCategory`
-  ADD CONSTRAINT `productcategory_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`),
-  ADD CONSTRAINT `productcategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Category` (`CategoryID`),
-  ADD CONSTRAINT `productcategory_ibfk_3` FOREIGN KEY (`ParentCategoryID`) REFERENCES `Category` (`ParentCategoryID`);
+  ADD CONSTRAINT `productcategory_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `productcategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Category` (`CategoryID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `productcategory_ibfk_3` FOREIGN KEY (`ParentCategoryID`) REFERENCES `Category` (`ParentCategoryID`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `ProductImage`
