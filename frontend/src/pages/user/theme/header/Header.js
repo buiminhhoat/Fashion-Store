@@ -32,7 +32,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
           onMouseLeave={handleMouseLeave}
       >
         <Link to={"category/" + categoryID} className="menu-header-text d-flex align-items-center text-center position-relative">
-          {categoryName.toUpperCase()}
+          {categoryName && categoryName.toUpperCase()}
           {subCategories && (
               <img src={arrowDown} alt="icon arrow down" className="position-absolute"/>
           )}
@@ -413,37 +413,42 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
+<<<<<<< HEAD
   const apiGetAllCategories = "/api/public/get-all-categories" ///api/public/get-cart";
+=======
+>>>>>>> refs/remotes/origin/main
   const [loading, setLoading] = useState(true)
   // const [productInCart, setProductIncart] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiGetAllCategories, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-          },
-        });
+  const fetchData = async () => {
+    const apiGetAllCategories = "/api/public/get-all-categories";
+    try {
+      const response = await fetch(apiGetAllCategories, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setMenuItems(data);
-        } else {
-          const data = await response.json();
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error('Không thể kết nối được với database');
-      } finally {
-        // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
-        setLoading(false);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setMenuItems(data);
+      } else {
+        const data = await response.json();
+        console.log(data.message);
       }
-    };
-    fetchData();
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    } finally {
+      // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData().then(r => {});
   }, []);
 
   if (loading) {

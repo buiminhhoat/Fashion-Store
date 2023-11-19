@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `address`
+-- Cấu trúc bảng cho bảng `Address`
 --
 
-CREATE TABLE `address` (
+CREATE TABLE `Address` (
   `AddressID` bigint(20) NOT NULL,
   `UserID` bigint(20) DEFAULT NULL,
   `RecipientName` varchar(255) NOT NULL,
@@ -37,20 +37,20 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `address`
+-- Đang đổ dữ liệu cho bảng `Address`
 --
 
-INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `IsDefault`) VALUES
+INSERT INTO `Address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `IsDefault`) VALUES
 (1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội', 1),
 (2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', 0);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cart`
+-- Cấu trúc bảng cho bảng `Cart`
 --
 
-CREATE TABLE `cart` (
+CREATE TABLE `Cart` (
   `CartID` bigint(20) NOT NULL,
   `UserID` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -58,10 +58,10 @@ CREATE TABLE `cart` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cartitem`
+-- Cấu trúc bảng cho bảng `CartItem`
 --
 
-CREATE TABLE `cartitem` (
+CREATE TABLE `CartItem` (
   `CartItemID` bigint(20) NOT NULL,
   `CartID` bigint(20) DEFAULT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
@@ -72,10 +72,10 @@ CREATE TABLE `cartitem` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `category`
+-- Cấu trúc bảng cho bảng `Category`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE `Category` (
   `CategoryID` bigint(20) NOT NULL,
   `CategoryName` varchar(255) NOT NULL,
   `ParentCategoryID` bigint(20) DEFAULT NULL,
@@ -83,10 +83,10 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `category`
+-- Đang đổ dữ liệu cho bảng `Category`
 --
 
-INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `ImagePath`) VALUES
+INSERT INTO `Category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `ImagePath`) VALUES
 (1, 'Áo Nam', NULL, 'img-category-default.png'),
 (2, 'Áo Thun', 1, 'img-category-default.png'),
 (3, 'Áo Khoác', 1, 'img-category-default.png'),
@@ -98,10 +98,10 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `Image
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orderdetails`
+-- Cấu trúc bảng cho bảng `OrderDetails`
 --
 
-CREATE TABLE `orderdetails` (
+CREATE TABLE `OrderDetails` (
   `OrderDetailID` bigint(20) NOT NULL,
   `OrderID` bigint(20) DEFAULT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
@@ -116,10 +116,10 @@ CREATE TABLE `orderdetails` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Cấu trúc bảng cho bảng `Orders`
 --
 
-CREATE TABLE `orders` (
+CREATE TABLE `Orders` (
   `OrderID` bigint(20) NOT NULL,
   `OrderDate` date DEFAULT NULL,
   `TotalAmount` bigint(20) DEFAULT NULL,
@@ -134,10 +134,10 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product`
+-- Cấu trúc bảng cho bảng `Product`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE `Product` (
   `ProductID` bigint(20) NOT NULL,
   `ProductName` varchar(255) NOT NULL,
   `productPrice` double DEFAULT NULL,
@@ -145,10 +145,10 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `product`
+-- Đang đổ dữ liệu cho bảng `Product`
 --
 
-INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescription`) VALUES
+INSERT INTO `Product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescription`) VALUES
 (1, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí ATO23008', 174000, 'ÁO THUN THIẾT KẾ CONFIDENCE \r\n\r\nÁo thun dài tay thiết kế in ép nhiệt bền bỉ, không rạn vỡ khi giặt ủi. Hình in mang phong cách trẻ trung, tạo điểm nhấn nổi bật.\r\n\r\nChất liệu chủ đạo từ Cotton mang lại cảm giác vải mềm mại, co giãn và đàn hồi tốt, cho bạn trải nghiệm thoải mái tối đa khi mặc.'),
 (2, 'Áo Thun Dài Tay Nam, Thiết Kế Basic ATO23014', 195000, 'ÁO THUN TRƠN\r\n\r\nÁo thun dài tay nâng cao trải nghiệm với chất liệu mới Viscose - sợi tơ tổng hợp có đặc điểm siêu mảnh, mềm mại hơn, độ mịn và bóng nhẹ tạo thẩm mỹ cao hơn.\r\n\r\nSản phẩm áo thun trơn đáp logo tinh tế, màu sắc nam tính dễ mặc, dễ phối đồ ngay cả khi mặc bên trong áo khoác.'),
 (3, 'Áo Khoác GIó Nam, Cản Gió, Trượt Nước AKG23015', 559000, 'ÁO KHOÁC GIÓ THỂ THAO PHỐI MÀU & CHẦN CHỈ NỔI. Thiết kế mới cho thu đông 2023 mang đến cho bạn chiếc áo khoác ứng dụng thời trang linh hoạt, form dáng thể thao khoẻ khoắn, màu sắc trẻ trung hiện đại.'),
@@ -160,10 +160,10 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescr
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `productcategory`
+-- Cấu trúc bảng cho bảng `ProductCategory`
 --
 
-CREATE TABLE `productcategory` (
+CREATE TABLE `ProductCategory` (
   `ProductCategoryID` bigint(20) NOT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `CategoryID` bigint(20) DEFAULT NULL,
@@ -171,10 +171,10 @@ CREATE TABLE `productcategory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `productcategory`
+-- Đang đổ dữ liệu cho bảng `ProductCategory`
 --
 
-INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`, `ParentCategoryID`) VALUES
+INSERT INTO `ProductCategory` (`ProductCategoryID`, `ProductID`, `CategoryID`, `ParentCategoryID`) VALUES
 (1, 1, 2, 1),
 (2, 2, 2, 1),
 (3, 3, 3, 1),
@@ -186,20 +186,20 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `productimage`
+-- Cấu trúc bảng cho bảng `ProductImage`
 --
 
-CREATE TABLE `productimage` (
+CREATE TABLE `ProductImage` (
   `ImageID` bigint(20) NOT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `ImagePath` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `productimage`
+-- Đang đổ dữ liệu cho bảng `ProductImage`
 --
 
-INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
+INSERT INTO `ProductImage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 (1, 1, '031eb83d-2ce8-49e0-94c7-ec338e20af53.jpg'),
 (2, 1, 'dfd3e424-2ffe-4c31-8b20-7053c3ab3078.jpg'),
 (3, 1, 'fcff2644-2f23-4614-a648-2d05a266c6a6.jpg'),
@@ -226,10 +226,10 @@ INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `productquantity`
+-- Cấu trúc bảng cho bảng `ProductQuantity`
 --
 
-CREATE TABLE `productquantity` (
+CREATE TABLE `ProductQuantity` (
   `QuantityID` bigint(20) NOT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `SizeID` bigint(20) DEFAULT NULL,
@@ -237,10 +237,10 @@ CREATE TABLE `productquantity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `productquantity`
+-- Đang đổ dữ liệu cho bảng `ProductQuantity`
 --
 
-INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) VALUES
+INSERT INTO `ProductQuantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) VALUES
 (1, 1, 1, 50),
 (2, 1, 2, 100),
 (3, 1, 3, 200),
@@ -264,20 +264,20 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `productsize`
+-- Cấu trúc bảng cho bảng `ProductSize`
 --
 
-CREATE TABLE `productsize` (
+CREATE TABLE `ProductSize` (
   `SizeID` bigint(20) NOT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `SizeName` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `productsize`
+-- Đang đổ dữ liệu cho bảng `ProductSize`
 --
 
-INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
+INSERT INTO `ProductSize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 (1, 1, 'S'),
 (2, 1, 'M'),
 (3, 1, 'L'),
@@ -301,10 +301,10 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Cấu trúc bảng cho bảng `Users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `Users` (
   `UserID` bigint(20) NOT NULL,
   `FullName` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
@@ -317,10 +317,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Đang đổ dữ liệu cho bảng `Users`
 --
 
-INSERT INTO `users` (`UserID`, `FullName`, `Email`, `PhoneNumber`, `Gender`, `DateBirthday`, `AvatarPath`, `IsAdmin`, `hashedPassword`) VALUES
+INSERT INTO `Users` (`UserID`, `FullName`, `Email`, `PhoneNumber`, `Gender`, `DateBirthday`, `AvatarPath`, `IsAdmin`, `hashedPassword`) VALUES
 (1, 'Bùi Minh Hoạt', 'official.buiminhhoat@gmail.com', '0945405238', 'Nam', '2003-09-06', NULL, 1, '$2a$10$T8MIwYiIinEg1/UTV8Y2UeRrMgCKG7g7O0SS2uiYZHoGCb6UrUWAO'),
 (2, 'Nguyễn Châu Khanh', 'chaukhanh0605@gmail.com', '0944252960', NULL, NULL, NULL, 1, '$2a$10$WlWXmICMXAKm8SJfAHs/W.k4q9GbL/yk1.zkgZhaY6lCGpBU6EwkO'),
 (3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, NULL, 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe');
@@ -330,92 +330,92 @@ INSERT INTO `users` (`UserID`, `FullName`, `Email`, `PhoneNumber`, `Gender`, `Da
 --
 
 --
--- Chỉ mục cho bảng `address`
+-- Chỉ mục cho bảng `Address`
 --
-ALTER TABLE `address`
+ALTER TABLE `Address`
   ADD PRIMARY KEY (`AddressID`),
   ADD KEY `UserID` (`UserID`);
 
 --
--- Chỉ mục cho bảng `cart`
+-- Chỉ mục cho bảng `Cart`
 --
-ALTER TABLE `cart`
+ALTER TABLE `Cart`
   ADD PRIMARY KEY (`CartID`),
   ADD KEY `UserID` (`UserID`);
 
 --
--- Chỉ mục cho bảng `cartitem`
+-- Chỉ mục cho bảng `CartItem`
 --
-ALTER TABLE `cartitem`
+ALTER TABLE `CartItem`
   ADD PRIMARY KEY (`CartItemID`),
   ADD KEY `CartID` (`CartID`),
   ADD KEY `ProductID` (`ProductID`),
   ADD KEY `SizeID` (`SizeID`);
 
 --
--- Chỉ mục cho bảng `category`
+-- Chỉ mục cho bảng `Category`
 --
-ALTER TABLE `category`
+ALTER TABLE `Category`
   ADD PRIMARY KEY (`CategoryID`),
   ADD KEY `ParentCategoryID` (`ParentCategoryID`);
 
 --
--- Chỉ mục cho bảng `orderdetails`
+-- Chỉ mục cho bảng `OrderDetails`
 --
-ALTER TABLE `orderdetails`
+ALTER TABLE `OrderDetails`
   ADD PRIMARY KEY (`OrderDetailID`),
   ADD KEY `OrderID` (`OrderID`),
   ADD KEY `ProductID` (`ProductID`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Chỉ mục cho bảng `Orders`
 --
-ALTER TABLE `orders`
+ALTER TABLE `Orders`
   ADD PRIMARY KEY (`OrderID`),
   ADD KEY `UserID` (`UserID`),
   ADD KEY `AddressID` (`AddressID`);
 
 --
--- Chỉ mục cho bảng `product`
+-- Chỉ mục cho bảng `Product`
 --
-ALTER TABLE `product`
+ALTER TABLE `Product`
   ADD PRIMARY KEY (`ProductID`);
 
 --
--- Chỉ mục cho bảng `productcategory`
+-- Chỉ mục cho bảng `ProductCategory`
 --
-ALTER TABLE `productcategory`
+ALTER TABLE `ProductCategory`
   ADD PRIMARY KEY (`ProductCategoryID`),
   ADD KEY `ProductID` (`ProductID`),
   ADD KEY `CategoryID` (`CategoryID`),
   ADD KEY `ParentCategoryID` (`ParentCategoryID`);
 
 --
--- Chỉ mục cho bảng `productimage`
+-- Chỉ mục cho bảng `ProductImage`
 --
-ALTER TABLE `productimage`
+ALTER TABLE `ProductImage`
   ADD PRIMARY KEY (`ImageID`),
   ADD KEY `ProductID` (`ProductID`);
 
 --
--- Chỉ mục cho bảng `productquantity`
+-- Chỉ mục cho bảng `ProductQuantity`
 --
-ALTER TABLE `productquantity`
+ALTER TABLE `ProductQuantity`
   ADD PRIMARY KEY (`QuantityID`),
   ADD KEY `ProductID` (`ProductID`),
   ADD KEY `SizeID` (`SizeID`);
 
 --
--- Chỉ mục cho bảng `productsize`
+-- Chỉ mục cho bảng `ProductSize`
 --
-ALTER TABLE `productsize`
+ALTER TABLE `ProductSize`
   ADD PRIMARY KEY (`SizeID`),
   ADD KEY `ProductID` (`ProductID`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Chỉ mục cho bảng `Users`
 --
-ALTER TABLE `users`
+ALTER TABLE `Users`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `Email` (`Email`);
 
@@ -424,75 +424,75 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT cho bảng `address`
+-- AUTO_INCREMENT cho bảng `Address`
 --
-ALTER TABLE `address`
+ALTER TABLE `Address`
   MODIFY `AddressID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `cart`
+-- AUTO_INCREMENT cho bảng `Cart`
 --
-ALTER TABLE `cart`
+ALTER TABLE `Cart`
   MODIFY `CartID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `cartitem`
+-- AUTO_INCREMENT cho bảng `CartItem`
 --
-ALTER TABLE `cartitem`
+ALTER TABLE `CartItem`
   MODIFY `CartItemID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `category`
+-- AUTO_INCREMENT cho bảng `Category`
 --
-ALTER TABLE `category`
+ALTER TABLE `Category`
   MODIFY `CategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `orderdetails`
+-- AUTO_INCREMENT cho bảng `OrderDetails`
 --
-ALTER TABLE `orderdetails`
+ALTER TABLE `OrderDetails`
   MODIFY `OrderDetailID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT cho bảng `Orders`
 --
-ALTER TABLE `orders`
+ALTER TABLE `Orders`
   MODIFY `OrderID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `product`
+-- AUTO_INCREMENT cho bảng `Product`
 --
-ALTER TABLE `product`
+ALTER TABLE `Product`
   MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `productcategory`
+-- AUTO_INCREMENT cho bảng `ProductCategory`
 --
-ALTER TABLE `productcategory`
+ALTER TABLE `ProductCategory`
   MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `productimage`
+-- AUTO_INCREMENT cho bảng `ProductImage`
 --
-ALTER TABLE `productimage`
+ALTER TABLE `ProductImage`
   MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT cho bảng `productquantity`
+-- AUTO_INCREMENT cho bảng `ProductQuantity`
 --
-ALTER TABLE `productquantity`
+ALTER TABLE `ProductQuantity`
   MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT cho bảng `productsize`
+-- AUTO_INCREMENT cho bảng `ProductSize`
 --
-ALTER TABLE `productsize`
+ALTER TABLE `ProductSize`
   MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT cho bảng `Users`
 --
-ALTER TABLE `users`
+ALTER TABLE `Users`
   MODIFY `UserID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -500,71 +500,71 @@ ALTER TABLE `users`
 --
 
 --
--- Các ràng buộc cho bảng `address`
+-- Các ràng buộc cho bảng `Address`
 --
-ALTER TABLE `address`
-  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE;
+ALTER TABLE `Address`
+  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `Users` (`UserID`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `cart`
+-- Các ràng buộc cho bảng `Cart`
 --
-ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE;
+ALTER TABLE `Cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `Users` (`UserID`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `cartitem`
+-- Các ràng buộc cho bảng `CartItem`
 --
-ALTER TABLE `cartitem`
-  ADD CONSTRAINT `cartitem_ibfk_1` FOREIGN KEY (`CartID`) REFERENCES `cart` (`CartID`),
-  ADD CONSTRAINT `cartitem_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`),
-  ADD CONSTRAINT `cartitem_ibfk_3` FOREIGN KEY (`SizeID`) REFERENCES `productsize` (`SizeID`);
+ALTER TABLE `CartItem`
+  ADD CONSTRAINT `cartitem_ibfk_1` FOREIGN KEY (`CartID`) REFERENCES `Cart` (`CartID`),
+  ADD CONSTRAINT `cartitem_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`),
+  ADD CONSTRAINT `cartitem_ibfk_3` FOREIGN KEY (`SizeID`) REFERENCES `ProductSize` (`SizeID`);
 
 --
--- Các ràng buộc cho bảng `category`
+-- Các ràng buộc cho bảng `Category`
 --
-ALTER TABLE `category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`ParentCategoryID`) REFERENCES `category` (`CategoryID`);
+ALTER TABLE `Category`
+  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`ParentCategoryID`) REFERENCES `Category` (`CategoryID`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `orderdetails`
+-- Các ràng buộc cho bảng `OrderDetails`
 --
-ALTER TABLE `orderdetails`
-  ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
-  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE SET NULL;
+ALTER TABLE `OrderDetails`
+  ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `Orders` (`OrderID`),
+  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE SET NULL;
 
 --
--- Các ràng buộc cho bảng `orders`
+-- Các ràng buộc cho bảng `Orders`
 --
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON DELETE CASCADE;
+ALTER TABLE `Orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `Users` (`UserID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`AddressID`) REFERENCES `Address` (`AddressID`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `productcategory`
+-- Các ràng buộc cho bảng `ProductCategory`
 --
-ALTER TABLE `productcategory`
-  ADD CONSTRAINT `productcategory_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`),
-  ADD CONSTRAINT `productcategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `category` (`CategoryID`),
-  ADD CONSTRAINT `productcategory_ibfk_3` FOREIGN KEY (`ParentCategoryID`) REFERENCES `category` (`ParentCategoryID`);
+ALTER TABLE `ProductCategory`
+  ADD CONSTRAINT `productcategory_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `productcategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Category` (`CategoryID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `productcategory_ibfk_3` FOREIGN KEY (`ParentCategoryID`) REFERENCES `Category` (`ParentCategoryID`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `productimage`
+-- Các ràng buộc cho bảng `ProductImage`
 --
-ALTER TABLE `productimage`
-  ADD CONSTRAINT `productimage_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`);
+ALTER TABLE `ProductImage`
+  ADD CONSTRAINT `productimage_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`);
 
 --
--- Các ràng buộc cho bảng `productquantity`
+-- Các ràng buộc cho bảng `ProductQuantity`
 --
-ALTER TABLE `productquantity`
-  ADD CONSTRAINT `productquantity_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`),
-  ADD CONSTRAINT `productquantity_ibfk_2` FOREIGN KEY (`SizeID`) REFERENCES `productsize` (`SizeID`);
+ALTER TABLE `ProductQuantity`
+  ADD CONSTRAINT `productquantity_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`),
+  ADD CONSTRAINT `productquantity_ibfk_2` FOREIGN KEY (`SizeID`) REFERENCES `ProductSize` (`SizeID`);
 
 --
--- Các ràng buộc cho bảng `productsize`
+-- Các ràng buộc cho bảng `ProductSize`
 --
-ALTER TABLE `productsize`
-  ADD CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`);
+ALTER TABLE `ProductSize`
+  ADD CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
