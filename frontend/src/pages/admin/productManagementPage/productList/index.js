@@ -350,7 +350,13 @@ const ProductListPage  = () => {
                                       :
                                       <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
                                 }
-                                {category.categoryName}
+                                <a className="hover-underline-animation"
+                                    href={`/category?categoryID=${category.categoryID}`}
+                                    style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`,}}
+                                >
+                                  {category.categoryName}
+                                </a>
+
                               </div>
 
                             </div>
@@ -412,9 +418,12 @@ const ProductListPage  = () => {
                                             }
                                           </div>
 
-                                          <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
+                                          <a className="hover-underline-animation"
+                                             href={`/category?categoryID=${subCategory.categoryID}`}
+                                             style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                          >
                                             {subCategory.categoryName}
-                                          </div>
+                                          </a>
                                         </div>
 
                                         <div style={{display:"flex"}}>
@@ -459,7 +468,7 @@ const ProductListPage  = () => {
                                                       </div>
 
                                                       <a href={`/product?productID=${product.productID}`}
-                                                         className="cursor-point"
+                                                         className="cursor-point hover-underline-animation"
                                                          style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
                                                          // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
                                                       >

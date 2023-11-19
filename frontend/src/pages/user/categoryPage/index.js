@@ -1,12 +1,11 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useEffect, useState} from "react"
 import "./style.scss"
 import "./css/_category.css"
 import ProductsSection from "./ProductsSection/ProductsSection";
-import {useLocation, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import fillterIcon from "./images/bars-filter.svg"
-import CategorySection from "../homePage/CategorySection/CategorySection.js";
-import {bottom} from "@popperjs/core";
+import queryString from "query-string";
 
 const productsData = {
   "categoryID": 2,
@@ -86,12 +85,12 @@ const SORT = {
 const NUMBER_PRODUCT = 1;
 
 const CategoryPage = ({keyword}) => {
-  // Sử dụng useLocation để lấy đường dẫn URL hiện tại
-  // const location = useLocation().pathname;
-  // const encodedSearchString = location.substring("/category/".length);
-  // const decodedSearchString = decodeURIComponent(encodedSearchString);
-  const { categoryID } = useParams();
-  const apiProductBySearch = "/api/public/category/" + categoryID;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+
+  const categoryID = queryParams.categoryID;
+
   const [numberProduct, setNumberProduct] = useState(NUMBER_PRODUCT);
   const [productsData, setProductsData] = useState({});
   const [selectedSort, setSelectedSort] = useState(null);
@@ -100,6 +99,7 @@ const CategoryPage = ({keyword}) => {
     const fetchData = async () => {
       // const formData = new FormData();
       // formData.append('categoryID', categoryID)
+      const apiProductBySearch = "/api/public/category/" + categoryID;
       try {
         const response = await fetch(apiProductBySearch, {
           method: 'POST',
@@ -119,6 +119,7 @@ const CategoryPage = ({keyword}) => {
         } else {
           const data = await response.json();
           console.log(data.message);
+          navigate(`/error`);
         }
       } catch (error) {
         console.log(error);
