@@ -3,7 +3,7 @@ import "./style.scss"
 import {toast} from "react-toastify";
 import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
-import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
+import {MdArrowDropDown, MdArrowRight, MdLibraryAdd} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
 import {useCookies} from "react-cookie";
@@ -107,11 +107,17 @@ const ProductListPage  = () => {
         });
   }
 
-  const handleImageClick = (categoryID) => {
+  const handleImageClick = (e, categoryID) => {
+    e.stopPropagation();
     document.getElementById(`img-input-${categoryID}`).click();
   };
 
+  const handleInputImageClick = (e) => {
+    e.stopPropagation();
+  };
+
   const handleFileChange = (e, categoryID) => {
+    e.stopPropagation();
     if (e.target.files.length === 0) return;
     const file = e.target.files[0];
     if (file) {
@@ -122,7 +128,6 @@ const ProductListPage  = () => {
 
   const fetchProductData = async (categoryID) => {
     const apiProductByCategoryID = "/api/public/category/" + categoryID;
-    console.log(apiProductByCategoryID)
     try {
       const response = await fetch(apiProductByCategoryID, {
         method: 'POST',
@@ -219,7 +224,10 @@ const ProductListPage  = () => {
 
           <div className="container pe-0 ps-0" style={{marginTop: "10px", paddingBottom: "40px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
-              <p className="category-title">DANH MỤC SẢN PHẨM</p>
+              <p className="category-title">
+                DANH MỤC SẢN PHẨM
+                <MdLibraryAdd style={{margin:"0 0 8px 8px", fontSize:"27px"}}/>
+              </p>
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
                 borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
@@ -297,7 +305,7 @@ const ProductListPage  = () => {
                                               src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
                                                   URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
                                               alt=""
-                                              onClick={() => handleImageClick(subCategory.categoryID)}
+                                              onClick={(e) => handleImageClick(e, subCategory.categoryID)}
                                           />
                                           <input
                                               type="file"
@@ -305,6 +313,7 @@ const ProductListPage  = () => {
                                               accept="image/*"
                                               multiple="multiple"
                                               style={{ display: 'none' }}
+                                              onClick={(e) => handleInputImageClick(e)}
                                               onChange={(e) => handleFileChange(e, subCategory.categoryID)}
                                           />
                                         </div>
