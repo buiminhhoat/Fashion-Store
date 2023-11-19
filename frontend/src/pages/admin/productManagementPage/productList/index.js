@@ -17,12 +17,13 @@ const ProductListPage  = () => {
   const accessToken = cookies.access_token;
 
   const [deletedCategory, setDeletedCategory] = useState(null);
+  const [deletedProduct, setDeletedProduct] = useState(null);
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoriesImgID, setCategoriesImgID] = useState([]);
 
-  async function fetchImageAsFile(imageUrl, imageName, categoryID) {
+  const  fetchImageAsFile = async (imageUrl, imageName, categoryID) => {
     const response = await fetch(imageUrl);
     const blob = await response.blob();
     return {
@@ -80,39 +81,45 @@ const ProductListPage  = () => {
   //   console.log(categories);
   // }, [categories]);
 
-  async function changeImageCategory(imageFile, categoryID) {
+  const changeImageCategory = async (imageFile, categoryID) => {
     const formData = new FormData();
     formData.append('categoryID', categoryID);
     formData.append('categoryImage', imageFile);
 
-    let apiAddProductUrl = "/api/admin/upload-category-image";
-    fetch(apiAddProductUrl, {
-      method: 'POST',
-      headers: {
-        "Authorization": `Bearer ${accessToken}`,
-      },
-      body: formData,
-    })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Upload failed');
-          }
-          return response.json();
-        })
-        .then((data) => {
+    let apiUploadCategoryImageUrl = "/api/admin/upload-category-image";
+    try {
+      const response = await fetch(apiUploadCategoryImageUrl, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
 
-          const newCategoriesImgID = categoriesImgID.map(imgID => {
-            return (imgID.categoryID === categoryID ? { ...imgID, imageFile: imageFile } : imgID);
-          });
-          setCategoriesImgID(newCategoriesImgID);
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', apiUploadCategoryImageUrl);
+        return;
+      }
 
-          toast.success("Cập nhật ảnh thành công");
-          console.log('Upload successful:', data);
-        })
-        .catch((error) => {
-          toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-          console.error('Upload failed:', error);
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+        console.log('Upload successful:', data);
+
+        const newCategoriesImgID = categoriesImgID.map(imgID => {
+          return (imgID.categoryID === categoryID ? { ...imgID, imageFile: imageFile } : imgID);
         });
+        setCategoriesImgID(newCategoriesImgID);
+        // fetchData();
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error('Failed:', error);
+    }
   }
 
   const handleImageClick = (e, categoryID) => {
@@ -165,56 +172,107 @@ const ProductListPage  = () => {
   }
 
   const handleCategoryClick = (categoryID, type) => {
-      if (selectedCategoriesID.includes(categoryID)) {
-        const updatedCategoriesID = selectedCategoriesID.filter((id) => id !== categoryID);
-        setSelectedCategoriesID(updatedCategoriesID);
-      } else {
-        const updatedCategoriesID = [...selectedCategoriesID, categoryID];
-        // const updatedCategoriesID = [categoryID];
-        setSelectedCategoriesID(updatedCategoriesID);
-      }
-      if (type === "sub-category") {
-        fetchProductData(categoryID).then(r => {});
-      }
+    if (selectedCategoriesID.includes(categoryID)) {
+      const updatedCategoriesID = selectedCategoriesID.filter((id) => id !== categoryID);
+      setSelectedCategoriesID(updatedCategoriesID);
+    } else {
+      const updatedCategoriesID = [...selectedCategoriesID, categoryID];
+      // const updatedCategoriesID = [categoryID];
+      setSelectedCategoriesID(updatedCategoriesID);
+    }
+    if (type === "sub-category") {
+      fetchProductData(categoryID).then(r => {});
+    }
   }
 
-  async function deleteCategory() {
+  const deleteCategory = async () => {
     const formData = new FormData();
     formData.append('categoryID', deletedCategory.categoryID);
 
-    let apiAddProductUrl = "/api/admin/delete-category";
-    fetch(apiAddProductUrl, {
-      method: 'POST',
-      headers: {
-        "Authorization": `Bearer ${accessToken}`,
-      },
-      body: formData,
-    })
-        .then(async (response) => {
-          if (!response.ok) {
-            const data = await response.json();
-            toast.error(data.message);
-            throw new Error('Failed');
-          }
-          return response.json();
-        })
-        .then(() => {
-          toast.success("Đã xóa danh mục");
-          // window.location.reload();
-          setCategories((newCategories) =>
-              newCategories.map((category) => ({
-                ...category,
-                subCategories: category.subCategories.filter(
-                    (subCategory) => subCategory.categoryID !== deletedCategory.categoryID
+    let apiDeleteCategoryUrl = "/api/admin/delete-category";
+    try {
+      const response = await fetch(apiDeleteCategoryUrl, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', apiDeleteCategoryUrl);
+        return;
+      }
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+        setCategories((newCategories) =>
+            newCategories.map((category) => ({
+              ...category,
+              subCategories: category.subCategories.filter(
+                  (subCategory) => subCategory.categoryID !== deletedCategory.categoryID
+              ),
+            })).filter((category) => category.categoryID !== deletedCategory.categoryID)
+        );
+        setDeletedCategory(null);
+
+        // fetchData();
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error('Failed:', error);
+    }
+  }
+
+  const deleteProduct = async () => {
+    const formData = new FormData();
+    formData.append('productID', deletedProduct.productID);
+
+    let apiDeleteProductUrl = "/api/admin/delete-product";
+    try {
+      const response = await fetch(apiDeleteProductUrl, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', apiDeleteProductUrl);
+        return;
+      }
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+        setCategories((newCategories) =>
+            newCategories.map((category) => ({
+              ...category,
+              subCategories: category.subCategories.map((subCategory) => ({
+                ...subCategory,
+                products: subCategory.products.filter(
+                    (product) => product.productID !== deletedProduct.productID
                 ),
-              })).filter((category) => category.categoryID !== deletedCategory.categoryID)
-          );
-          setDeletedCategory(null);
-        })
-        .catch((error) => {
-          // toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-          console.error('Failed:', error);
-        });
+              })),
+            }))
+        );
+        setDeletedProduct(null);
+        // fetchData();
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error('Failed:', error);
+    }
   }
 
   const handleBtnDeleteCategoryClick = (e, categoryID, categoryName, type) => {
@@ -228,7 +286,16 @@ const ProductListPage  = () => {
 
   const handleBtnEditProductClick = (e, productID) => {
     e.stopPropagation();
-    navigate(`/admin/product-management-page/edit-product?productID=` + productID);
+    // window.open(`/admin/product-management-page/edit-product?productID=${productID}`, '_blank');
+    navigate(`/admin/product-management-page/edit-product?productID=${productID}`);
+  }
+
+  const handleBtnDeleteProductClick = (e, productID, productName) => {
+    e.stopPropagation();
+    setDeletedProduct({
+      productID: productID,
+      productName: productName,
+    })
   }
 
   return (
@@ -279,9 +346,9 @@ const ProductListPage  = () => {
                               <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
                                 {
                                   selectedCategoriesID.find((id) => id === category.categoryID) ?
-                                    <MdArrowDropDown style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
-                                  :
-                                    <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                      <MdArrowDropDown style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                      :
+                                      <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
                                 }
                                 {category.categoryName}
                               </div>
@@ -303,119 +370,121 @@ const ProductListPage  = () => {
 
                           <div>
                             {
-                              selectedCategoriesID.find((id) => id === category.categoryID) &&
-                              category.subCategories &&
-                              category.subCategories.map((subCategory, subCategoryIndex) => (
-                                <div key={subCategoryIndex}>
-                                  <div className="subCategory-field pointer-cursor"
-                                       onClick={() => handleCategoryClick(subCategory.categoryID, "sub-category")}
-                                  >
-                                    <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                      <div style={{alignSelf: "flex-start", width:"25px",
-                                        height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                                selectedCategoriesID.find((id) => id === category.categoryID) &&
+                                category.subCategories &&
+                                category.subCategories.map((subCategory, subCategoryIndex) => (
+                                    <div key={subCategoryIndex}>
+                                      <div className="subCategory-field pointer-cursor"
+                                           onClick={() => handleCategoryClick(subCategory.categoryID, "sub-category")}
+                                      >
+                                        <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                          <div style={{alignSelf: "flex-start", width:"25px",
+                                            height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
 
-                                      <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+                                          <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
-                                      <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
-                                        <div style={{zIndex:"1", borderRadius:"100%", border:"3px solid #a30000", padding:"2px", backgroundColor:"white"}}>
-                                          <img
-                                              id="action-upload"
-                                              className="img-subCategory"
-                                              src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
-                                                  URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
-                                              alt=""
-                                              onClick={(e) => handleImageClick(e, subCategory.categoryID)}
-                                          />
-                                          <input
-                                              type="file"
-                                              id={`img-input-${subCategory.categoryID}`}
-                                              accept="image/*"
-                                              multiple="multiple"
-                                              style={{ display: 'none' }}
-                                              onClick={(e) => handleInputImageClick(e)}
-                                              onChange={(e) => handleFileChange(e, subCategory.categoryID)}
-                                          />
+                                          <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+                                            <div style={{zIndex:"1", borderRadius:"100%", border:"3px solid #a30000", padding:"2px", backgroundColor:"white"}}>
+                                              <img
+                                                  id="action-upload"
+                                                  className="img-subCategory"
+                                                  src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
+                                                      URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
+                                                  alt=""
+                                                  onClick={(e) => handleImageClick(e, subCategory.categoryID)}
+                                              />
+                                              <input
+                                                  type="file"
+                                                  id={`img-input-${subCategory.categoryID}`}
+                                                  accept="image/*"
+                                                  multiple="multiple"
+                                                  style={{ display: 'none' }}
+                                                  onClick={(e) => handleInputImageClick(e)}
+                                                  onChange={(e) => handleFileChange(e, subCategory.categoryID)}
+                                              />
+                                            </div>
+                                            { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                                subCategory.products &&
+                                                subCategory.products.length > 0 &&
+                                                <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
+                                                  height:"51%", borderRight:"3px solid #a30000",
+                                                  marginLeft:"25px"}}/>
+                                            }
+                                          </div>
+
+                                          <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
+                                            {subCategory.categoryName}
+                                          </div>
                                         </div>
-                                        { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
-                                          subCategory.products &&
-                                          subCategory.products.length > 0 &&
-                                          <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
-                                            height:"51%", borderRight:"3px solid #a30000",
-                                            marginLeft:"25px"}}/>
+
+                                        <div style={{display:"flex"}}>
+                                          <div className="btn-edit-category"
+                                               style={{marginRight:"20px"}}
+                                               onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
+                                          >
+                                            <HiOutlineTrash />
+                                          </div>
+                                          <div className="btn-edit-category"
+                                               style={{marginRight:"0"}}>
+                                            <BiSolidEdit />
+                                          </div>
+                                        </div>
+
+                                      </div>
+
+                                      <div>
+                                        {
+                                            selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                            subCategory.products &&
+                                            subCategory.products.map((product, productIndex) => (
+                                                <div key={productIndex}>
+                                                  <div className="product-field">
+                                                    <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                                      <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
+                                                        borderRight:`${subCategoryIndex !== category.subCategories.length - 1 ? "3px solid #a30000":"3px"}`}}/>
+
+                                                      <div style={{alignSelf: "flex-start", width:"25px",
+                                                        height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
+                                                        marginLeft:"25px"}}/>
+
+                                                      <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+
+                                                      <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                                                        <img
+                                                            className="img-subCategory"
+                                                            src={product.productImages.length > 0 ?
+                                                                "/storage/images/" + product.productImages[0].imagePath : ""}
+                                                            alt=""
+                                                        />
+                                                      </div>
+
+                                                      <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
+                                                        {product.productName}
+                                                      </div>
+                                                    </div>
+
+                                                    <div style={{display:"flex"}}>
+                                                      <div className="pointer-cursor btn-edit-category"
+                                                           style={{marginRight:"20px"}}
+                                                           onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
+                                                      >
+                                                        <HiOutlineTrash />
+                                                      </div>
+                                                      <div className="pointer-cursor btn-edit-category"
+                                                           style={{marginRight:"0"}}
+                                                           onClick={(e) => handleBtnEditProductClick(e, product.productID)}
+                                                      >
+                                                        <BiSolidEdit />
+                                                      </div>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                            ))
                                         }
                                       </div>
-
-                                      <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
-                                        {subCategory.categoryName}
-                                      </div>
                                     </div>
-
-                                    <div style={{display:"flex"}}>
-                                      <div className="btn-edit-category"
-                                           style={{marginRight:"20px"}}
-                                           onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
-                                      >
-                                        <HiOutlineTrash />
-                                      </div>
-                                      <div className="btn-edit-category"
-                                           style={{marginRight:"0"}}>
-                                        <BiSolidEdit />
-                                      </div>
-                                    </div>
-
-                                  </div>
-
-                                  <div>
-                                    {
-                                      selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
-                                        subCategory.products &&
-                                        subCategory.products.map((product, productIndex) => (
-                                          <div key={productIndex}>
-                                            <div className="product-field">
-                                              <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                                <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
-                                                  borderRight:`${subCategoryIndex !== category.subCategories.length - 1 ? "3px solid #a30000":"3px"}`}}/>
-
-                                                <div style={{alignSelf: "flex-start", width:"25px",
-                                                  height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
-                                                  marginLeft:"25px"}}/>
-
-                                                <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
-
-                                                <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
-                                                  <img
-                                                      className="img-subCategory"
-                                                      src={product.productImages.length > 0 ?
-                                                          "/storage/images/" + product.productImages[0].imagePath : ""}
-                                                      alt=""
-                                                  />
-                                                </div>
-
-                                                <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
-                                                  {product.productName}
-                                                </div>
-                                              </div>
-
-                                              <div style={{display:"flex"}}>
-                                                <div className="pointer-cursor btn-edit-category"
-                                                     style={{marginRight:"20px"}}>
-                                                  <HiOutlineTrash />
-                                                </div>
-                                                <div className="pointer-cursor btn-edit-category"
-                                                     style={{marginRight:"0"}}
-                                                     onClick={(e) => handleBtnEditProductClick(e, product.productID)}
-                                                >
-                                                  <BiSolidEdit />
-                                                </div>
-                                              </div>
-
-                                            </div>
-                                          </div>
-                                        ))
-                                    }
-                                  </div>
-                                </div>
-                              ))
+                                ))
                             }
                           </div>
                         </div>
@@ -451,6 +520,20 @@ const ProductListPage  = () => {
                              titleBtnCancel={"Hủy bỏ"}
                              onAccept={deleteCategory}
                              onCancel={() => {setDeletedCategory(null)}}/>
+            </div>
+        )}
+
+        {deletedProduct && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={ <>
+                               Bạn có chắc chắn xóa sản phẩm <span style={{color:"#bd0000"}}>{deletedProduct.productName}</span> không? <br />
+                             </>
+                             }
+                             titleBtnAccept={"Xóa"}
+                             titleBtnCancel={"Hủy bỏ"}
+                             onAccept={deleteProduct}
+                             onCancel={() => {setDeletedProduct(null)}}/>
             </div>
         )}
 
