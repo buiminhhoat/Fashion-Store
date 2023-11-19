@@ -16,7 +16,7 @@ import {CartContext} from "../masterLayout";
 
 const MenuItem = ({ categoryID, categoryName, subCategories }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
-
+  console.log(categoryID)
   const handleMouseEnter = () => {
     setMegaMenuVisible(true);
   };
@@ -413,7 +413,7 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetAllCategories = "api/public/get-all-categories" ///api/public/get-cart";
+  const apiGetAllCategories = "/api/public/get-all-categories" ///api/public/get-cart";
   const [loading, setLoading] = useState(true)
   // const [productInCart, setProductIncart] = useState(0);
 
