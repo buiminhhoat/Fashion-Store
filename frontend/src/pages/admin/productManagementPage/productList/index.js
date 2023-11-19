@@ -72,6 +72,11 @@ const ProductListPage  = () => {
     fetchData().then(r => {});
   }, []);
 
+  useEffect(() => {
+    console.log("categories");
+    console.log(categories);
+  }, [categories]);
+
   async function changeImageCategory(imageFile, categoryID) {
     const formData = new FormData();
     formData.append('categoryID', categoryID);
@@ -135,8 +140,8 @@ const ProductListPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // console.log("apiProductByCategoryID");
-        // console.log(data);
+        console.log("apiProductByCategoryID");
+        console.log(data);
         setCategories((newCategories) =>
             newCategories.map((category) => ({
               ...category,
@@ -319,6 +324,7 @@ const ProductListPage  = () => {
                                         </div>
                                         { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
                                           subCategory.products &&
+                                          subCategory.products.length > 0 &&
                                           <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
                                             height:"51%", borderRight:"3px solid #a30000",
                                             marginLeft:"25px"}}/>
