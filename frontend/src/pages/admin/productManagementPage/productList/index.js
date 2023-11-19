@@ -284,11 +284,11 @@ const ProductListPage  = () => {
     })
   }
 
-  const handleBtnEditProductClick = (e, productID) => {
-    e.stopPropagation();
-    // window.open(`/admin/product-management-page/edit-product?productID=${productID}`, '_blank');
-    navigate(`/admin/product-management-page/edit-product?productID=${productID}`);
-  }
+  // const handleBtnEditProductClick = (e, productID) => {
+  //   e.stopPropagation();
+  //   // window.open(`/admin/product-management-page/edit-product?productID=${productID}`, '_blank');
+  //   navigate(`/admin/product-management-page/edit-product?productID=${productID}`);
+  // }
 
   const handleBtnDeleteProductClick = (e, productID, productName) => {
     e.stopPropagation();
@@ -458,9 +458,13 @@ const ProductListPage  = () => {
                                                         />
                                                       </div>
 
-                                                      <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
+                                                      <a href={`/product?productID=${product.productID}`}
+                                                         className="cursor-point"
+                                                         style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                                         // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
+                                                      >
                                                         {product.productName}
-                                                      </div>
+                                                      </a>
                                                     </div>
 
                                                     <div style={{display:"flex"}}>
@@ -470,12 +474,17 @@ const ProductListPage  = () => {
                                                       >
                                                         <HiOutlineTrash />
                                                       </div>
-                                                      <div className="pointer-cursor btn-edit-category"
-                                                           style={{marginRight:"0"}}
-                                                           onClick={(e) => handleBtnEditProductClick(e, product.productID)}
+                                                      <a
+                                                          // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
                                                       >
-                                                        <BiSolidEdit />
-                                                      </div>
+                                                        <div className="pointer-cursor btn-edit-category"
+                                                             style={{marginRight:"0"}}
+                                                             onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
+                                                        >
+                                                          <BiSolidEdit />
+                                                        </div>
+                                                      </a>
+
                                                     </div>
 
                                                   </div>
