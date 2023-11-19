@@ -1,17 +1,18 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {toast} from "react-toastify";
 import { Link } from "react-router-dom";
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import logo_fashion_store from "./images/logo_fashion_store.png";
 import './style.scss';
-import LoginDialog from "../../dialog/LoginDialog/LoginDialog";
-import ForgotPasswordDialog from "../../dialog/ForgotPasswordDialog/ForgotPasswordDialog";
-import RegisterDialog from "../../dialog/RegisterDialog/RegisterDialog";
-import {DIALOGS} from "../../dialog/utils";
+import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
+import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
+import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
+import {DIALOGS} from "../../components/dialogs/utils";
 import {Cookies, useCookies} from "react-cookie";
-import {useLogout} from "../../dialog/utils/logout";
+import {useLogout} from "../../components/dialogs/utils/logout";
 import {formatter} from "../../../../utils/formatter";
+import {CartContext} from "../masterLayout";
 
 const MenuItem = ({ categoryID, categoryName, subCategories }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
@@ -31,7 +32,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
           onMouseLeave={handleMouseLeave}
       >
         <Link to={"category/" + categoryID} className="menu-header-text d-flex align-items-center text-center position-relative">
-          {categoryName.toUpperCase()}
+          {categoryName && categoryName.toUpperCase()}
           {subCategories && (
               <img src={arrowDown} alt="icon arrow down" className="position-absolute"/>
           )}
@@ -339,7 +340,7 @@ function SearchBar() {
 }
 
 const Header = () => {
-  const menuItems = [
+  const menuItemsFake = [
     {
       "categoryID": 1,
       "categoryName": "Áo Nam",
@@ -388,105 +389,8 @@ const Header = () => {
       ]
     }
   ]
-  const menuItemsFake = [
-    // { to: "/category/sale", text: "SALE" },
-    {
-      to: "/category/ao-nam",
-      text: "ÁO NAM",
-      subMenuItems: [
-        {
-          to: "/category/ao-thun-nam",
-          text: "Áo Nam Xuân Hè",
-          subMenuItems: [
-            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/category/ao-polo-nam", text: "Áo Polo Nam" },
-            { to: "/category/ao-so-mi-nam", text: "Áo Sơ Mi Nam" },
-            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-          ],
-        },
-        {
-          to: "/category/ao-len-nam",
-          text: "Áo Nam Thu Đông",
-          subMenuItems: [
-            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/category/ao-ni-nam", text: "Áo Nỉ Nam" },
-            { to: "/category/ao-khoac-nam", text: "Áo Khoác Nam" },
-            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-          ],
-        },
-      ],
-    },
-    {
-      to: "/category/quan-nam",
-      text: "QUẦN NAM",
-      subMenuItems: [
-        {
-          to: "/category/ao-thun-nam",
-          text: "Áo Nam Xuân Hè",
-          subMenuItems: [
-            { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-            { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-            { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-          ],
-        },
-        {
-          to: "/category/ao-len-nam",
-          text: "Áo Nam Thu Đông",
-          subMenuItems: [
-            { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-            { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-          ],
-        },
-      ],
-    },
-    // {
-    //   to: "/category/quan-nam",
-    //   text: "PHỤ KIỆN",
-    //   subMenuItems: [
-    //     {
-    //       to: "/category/ao-thun-nam",
-    //       text: "Áo Nam Xuân Hè",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-    //         { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-    //         { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-    //       ],
-    //     },
-    //     {
-    //       to: "/category/ao-len-nam",
-    //       text: "Áo Nam Thu Đông",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-    //         { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   to: "/category/quan-nam",
-    //   text: "BỘ SƯU TẬP",
-    //   subMenuItems: [
-    //     {
-    //       to: "/category/ao-thun-nam",
-    //       text: "Áo Nam Xuân Hè",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-nam", text: "Áo Thun Nam" },
-    //         { to: "/category/ao-tank-top-ba-lo-nam", text: "Áo Tank Top Nam" },
-    //         { to: "/category/ao-chong-nang-nam", text: "Áo Chống Nắng Nam" },
-    //       ],
-    //     },
-    //     {
-    //       to: "/category/ao-len-nam",
-    //       text: "Áo Nam Thu Đông",
-    //       subMenuItems: [
-    //         { to: "/category/ao-thun-dai-tay-nam", text: "Áo Thun Dài Tay Nam" },
-    //         { to: "/category/ao-len-nam", text: "Áo Len Nam" },
-    //       ],
-    //     },
-    //   ],
-    // },
-  ];
+  const [menuItems, setMenuItems] = useState([{}])
+  const cartContext = useContext(CartContext);
 
   const [openDialog, setOpenDialog] = useState(null);
 
@@ -509,38 +413,38 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "/api/public/get-cart";
   const [loading, setLoading] = useState(true)
-  const [productInCart, setProductIncart] = useState(0);
+  // const [productInCart, setProductIncart] = useState(0);
+
+  const fetchData = async () => {
+    const apiGetAllCategories = "/api/public/get-all-categories";
+    try {
+      const response = await fetch(apiGetAllCategories, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setMenuItems(data);
+      } else {
+        const data = await response.json();
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    } finally {
+      // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiGetCart, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setProductIncart(data.data.cartItems.length);
-          // console.log(product)
-        } else {
-          const data = await response.json();
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error('Không thể kết nối được với database');
-      } finally {
-        // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
-        setLoading(false);
-      }
-    };
-    fetchData();
+    fetchData().then(r => {});
   }, []);
 
   if (loading) {
@@ -548,6 +452,7 @@ const Header = () => {
     return <div></div>;
 
   }
+
 
   return (
       <header id="header">
@@ -584,7 +489,7 @@ const Header = () => {
                             ></path>
                           </svg>
                           <span className="count_item count_item_pr hidden-count position-absolute text-center d-flex align-items-center justify-content-center">
-                            {productInCart}
+                            {cartContext.amountInCart}
                           </span>
                         </Link>
                       </div>

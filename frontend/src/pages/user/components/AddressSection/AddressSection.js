@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import locationDot from "../../cartPage/images/location-dot.svg";
 import arrowRight from "../../checkoutPage/images/angle-right.svg";
-import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import AddressModal from "./AddressModal"; // Assuming you have an arrow-right image
 

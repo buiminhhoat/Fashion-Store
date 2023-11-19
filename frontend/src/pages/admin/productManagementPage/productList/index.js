@@ -7,10 +7,13 @@ import {MdArrowDropDown, MdArrowRight} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
 import {useCookies} from "react-cookie";
+import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const ProductListPage  = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+
+  const [deletedCategory, setDeletedCategory] = useState(null);
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -60,6 +63,7 @@ const ProductListPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Không thể kết nối được với database");
     }
   }
@@ -72,9 +76,6 @@ const ProductListPage  = () => {
     const formData = new FormData();
     formData.append('categoryID', categoryID);
     formData.append('categoryImage', imageFile);
-
-
-    // for (const file of productImages) { formData.append('productImages', file);}
 
     let apiAddProductUrl = "/api/admin/upload-category-image";
     fetch(apiAddProductUrl, {
@@ -119,14 +120,91 @@ const ProductListPage  = () => {
     }
   };
 
-  const handleCategoryClick = (categoryID) => {
+  const fetchProductData = async (categoryID) => {
+    const apiProductByCategoryID = "/api/public/category/" + categoryID;
+    console.log(apiProductByCategoryID)
+    try {
+      const response = await fetch(apiProductByCategoryID, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // console.log("apiProductByCategoryID");
+        // console.log(data);
+        setCategories((newCategories) =>
+            newCategories.map((category) => ({
+              ...category,
+              subCategories: category.subCategories.map((subCategory) =>
+                  subCategory.categoryID === data.categoryID ? data : subCategory
+              ),
+            }))
+        );
+
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
+  const handleCategoryClick = (categoryID, type) => {
       if (selectedCategoriesID.includes(categoryID)) {
         const updatedCategoriesID = selectedCategoriesID.filter((id) => id !== categoryID);
         setSelectedCategoriesID(updatedCategoriesID);
       } else {
         const updatedCategoriesID = [...selectedCategoriesID, categoryID];
+        // const updatedCategoriesID = [categoryID];
         setSelectedCategoriesID(updatedCategoriesID);
       }
+      if (type === "sub-category") {
+        fetchProductData(categoryID).then(r => {});
+      }
+  }
+
+  async function deleteCategory() {
+    const formData = new FormData();
+    formData.append('categoryID', deletedCategory.categoryID);
+
+    let apiAddProductUrl = "/api/admin/delete-category";
+    fetch(apiAddProductUrl, {
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+      },
+      body: formData,
+    })
+        .then(async (response) => {
+          if (!response.ok) {
+            const data = await response.json();
+            toast.error(data.message);
+            throw new Error('Failed');
+          }
+          return response.json();
+        })
+        .then(() => {
+          toast.success("Đã xóa danh mục");
+          setCategories((newCategories) =>
+              newCategories.filter((category) => category.categoryID !== deletedCategory.categoryID)
+          );
+          setDeletedCategory(null);
+        })
+        .catch((error) => {
+          // toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+          console.error('Failed:', error);
+        });
+  }
+
+  const handleBtnDeleteCategoryClick = (e, categoryID, categoryName, type) => {
+    e.stopPropagation();
+    setDeletedCategory({
+      type: type,
+      categoryID: categoryID,
+      categoryName: categoryName,
+    })
   }
 
   return (
@@ -168,7 +246,7 @@ const ProductListPage  = () => {
                         <div key={index}>
                           <div className={`pointer-cursor ${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-category-field" : "category-field"}`}
                                style={{borderTop: `${index !== 0 ? "2px solid #E4E4E4" : "none"}`}}
-                               onClick={() => handleCategoryClick(category.categoryID)}
+                               onClick={() => handleCategoryClick(category.categoryID, "category")}
                           >
                             <div>
                               <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
@@ -184,7 +262,9 @@ const ProductListPage  = () => {
                             </div>
                             <div style={{display:"flex"}}>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
-                                   style={{marginRight:"20px"}}>
+                                   style={{marginRight:"20px"}}
+                                   onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, "category")}
+                              >
                                 <HiOutlineTrash />
                               </div>
                               <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
@@ -198,34 +278,42 @@ const ProductListPage  = () => {
                             {
                               selectedCategoriesID.find((id) => id === category.categoryID) &&
                               category.subCategories &&
-                              category.subCategories.map((subCategory, index) => (
-                                <div key={index}>
+                              category.subCategories.map((subCategory, subCategoryIndex) => (
+                                <div key={subCategoryIndex}>
                                   <div className="subCategory-field pointer-cursor"
-                                       onClick={() => handleCategoryClick(subCategory.categoryID)}
+                                       onClick={() => handleCategoryClick(subCategory.categoryID, "sub-category")}
                                   >
                                     <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                      <div style={{alignSelf: `${index !== category.subCategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
-                                        height:`${index !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                                      <div style={{alignSelf: "flex-start", width:"25px",
+                                        height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
 
                                       <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
-                                      <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
-                                        <img
-                                            id="action-upload"
-                                            className="img-subCategory"
-                                            src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
-                                                URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
-                                            alt=""
-                                            onClick={() => handleImageClick(subCategory.categoryID)}
-                                        />
-                                        <input
-                                            type="file"
-                                            id={`img-input-${subCategory.categoryID}`}
-                                            accept="image/*"
-                                            multiple="multiple"
-                                            style={{ display: 'none' }}
-                                            onChange={(e) => handleFileChange(e, subCategory.categoryID)}
-                                        />
+                                      <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+                                        <div style={{zIndex:"1", borderRadius:"100%", border:"3px solid #a30000", padding:"2px", backgroundColor:"white"}}>
+                                          <img
+                                              id="action-upload"
+                                              className="img-subCategory"
+                                              src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
+                                                  URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
+                                              alt=""
+                                              onClick={() => handleImageClick(subCategory.categoryID)}
+                                          />
+                                          <input
+                                              type="file"
+                                              id={`img-input-${subCategory.categoryID}`}
+                                              accept="image/*"
+                                              multiple="multiple"
+                                              style={{ display: 'none' }}
+                                              onChange={(e) => handleFileChange(e, subCategory.categoryID)}
+                                          />
+                                        </div>
+                                        { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                          subCategory.products &&
+                                          <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
+                                            height:"51%", borderRight:"3px solid #a30000",
+                                            marginLeft:"25px"}}/>
+                                        }
                                       </div>
 
                                       <div style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}>
@@ -235,7 +323,9 @@ const ProductListPage  = () => {
 
                                     <div style={{display:"flex"}}>
                                       <div className="btn-edit-category"
-                                           style={{marginRight:"20px"}}>
+                                           style={{marginRight:"20px"}}
+                                           onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
+                                      >
                                         <HiOutlineTrash />
                                       </div>
                                       <div className="btn-edit-category"
@@ -250,12 +340,16 @@ const ProductListPage  = () => {
                                     {
                                       selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
                                         subCategory.products &&
-                                        subCategory.products.map((product, index) => (
-                                          <div key={index}>
-                                            <div className="subCategory-field">
+                                        subCategory.products.map((product, productIndex) => (
+                                          <div key={productIndex}>
+                                            <div className="product-field">
                                               <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                                <div style={{alignSelf: `${index !== category.subCategories.length - 1 ? "auto" : "flex-start"}`, width:"25px",
-                                                  height:`${index !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+                                                <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
+                                                  borderRight:`${subCategoryIndex !== category.subCategories.length - 1 ? "3px solid #a30000":"3px"}`}}/>
+
+                                                <div style={{alignSelf: "flex-start", width:"25px",
+                                                  height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
+                                                  marginLeft:"25px"}}/>
 
                                                 <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
@@ -302,6 +396,32 @@ const ProductListPage  = () => {
           </div>
 
         </main>
+
+        {deletedCategory && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={deletedCategory.type === "category" ?
+                                 (
+                                     <>
+                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> không? <br />
+                                       Thao tác này sẽ xóa tất cả danh mục con cùng với sản phẩm thuộc danh mục này.
+                                     </>
+                                 )
+                                 :
+                                 (
+                                     <>
+                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> không? <br />
+                                       Thao tác này sẽ xóa tất cả những sản phẩm thuộc danh mục này.
+                                     </>
+                                 )
+                             }
+                             titleBtnAccept={"Xóa"}
+                             titleBtnCancel={"Hủy bỏ"}
+                             onAccept={deleteCategory}
+                             onCancel={() => {setDeletedCategory(null)}}/>
+            </div>
+        )}
+
       </div>
   );
 }
