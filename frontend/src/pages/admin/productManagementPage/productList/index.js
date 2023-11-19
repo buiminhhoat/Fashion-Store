@@ -8,8 +8,11 @@ import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {useNavigate} from "react-router-dom";
 
 const ProductListPage  = () => {
+  const navigate = useNavigate();
+
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
@@ -223,6 +226,11 @@ const ProductListPage  = () => {
     })
   }
 
+  const handleBtnEditProductClick = (e, productID) => {
+    e.stopPropagation();
+    navigate(`/admin/product-management-page/edit-product?productID=` + productID);
+  }
+
   return (
       <div id="app">
         <main id="main">
@@ -389,12 +397,14 @@ const ProductListPage  = () => {
                                               </div>
 
                                               <div style={{display:"flex"}}>
-                                                <div className="btn-edit-category"
+                                                <div className="pointer-cursor btn-edit-category"
                                                      style={{marginRight:"20px"}}>
                                                   <HiOutlineTrash />
                                                 </div>
-                                                <div className="btn-edit-category"
-                                                     style={{marginRight:"0"}}>
+                                                <div className="pointer-cursor btn-edit-category"
+                                                     style={{marginRight:"0"}}
+                                                     onClick={(e) => handleBtnEditProductClick(e, product.productID)}
+                                                >
                                                   <BiSolidEdit />
                                                 </div>
                                               </div>

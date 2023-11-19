@@ -88,7 +88,7 @@ const EditProductPage = () => {
   }
 
   useEffect(() => {
-    const apiProductDetailByID = "/api/product/" + productID;
+    const apiProductDetailByID = "/api/public/product/" + productID;
     const fetchData = async () => {
       try {
         const response = await fetch(apiProductDetailByID, {
