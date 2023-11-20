@@ -41,23 +41,28 @@ public class ProductController {
 
     private final CategoryRepository categoryRepository;
 
+    private final CartItemRepository cartItemRepository;
+
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
     @Autowired
-    public ProductController(ProductRepository productRepository, ProductImageRepository productImageRepository,
+    public ProductController(ProductRepository productRepository,
+                             ProductImageRepository productImageRepository,
                              ProductCategoryRepository productCategoryRepository,
                              ProductSizeRepository productSizeRepository,
                              ProductQuantityRepository productQuantityRepository,
-                             CategoryRepository categoryRepository) {
+                             CategoryRepository categoryRepository,
+                             CartItemRepository cartItemRepository) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
         this.productSizeRepository = productSizeRepository;
         this.productQuantityRepository = productQuantityRepository;
         this.categoryRepository = categoryRepository;
+        this.cartItemRepository = cartItemRepository;
     }
 
     @PostMapping("/admin/add-product")
@@ -149,15 +154,20 @@ public class ProductController {
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
         Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
         Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
-
-        String jsonSizeNameJson = request.getParameter("productSize");
-
-        String productSizeQuantityJson = request.getParameter("productSizeQuantity");
-        String jsonListParam = request.getParameter("productSizeQuantity");
+        String productSizesJson = request.getParameter("productSizes");
+        String productQuantitiesJson = request.getParameter("productQuantities");
         ObjectMapper objectMapper = new ObjectMapper();
-        List<ProductSizeQuantity> productSizeQuantities;
+
+        List<ProductSize> productSizes;
         try {
-            productSizeQuantities = objectMapper.readValue(jsonListParam, new TypeReference<List<ProductSizeQuantity>>(){});
+            productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<ProductQuantity> productQuantities;
+        try {
+            productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>(){});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -167,8 +177,15 @@ public class ProductController {
             uploadDir.mkdirs();
         }
 
+        try {
+            cleanProduct(productID);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+        }
+
+        Product product = new Product(productName, productPrice, productDescription);
+
         List<String> paths = new ArrayList<>();
-        String appRoot = System.getProperty("user.dir") + File.separator;
         for (MultipartFile image : images) {
             String originalFilename = image.getOriginalFilename();
             String fileExtension = "";
@@ -188,20 +205,7 @@ public class ProductController {
             }
         }
 
-        try {
-            cleanProduct(productID);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
-        }
-
-//        Product product = new Product(productName, productPrice, productDescription);
-
-        /* Cập nhật thông tin sản phẩm */
-        Product product = productRepository.findProductByProductID(productID);
-        product.setProductName(productName);
-        product.setProductPrice(productPrice);
-        product.setProductDescription(productDescription);
-
+//        Product product = new Product(productID, productName, productPrice, productDescription);
         productRepository.save(product);
         Long productId = product.getProductID();
 
@@ -213,14 +217,18 @@ public class ProductController {
         ProductCategory productCategory = new ProductCategory(productId, categoryID, parentCategoryID);
         productCategoryRepository.save(productCategory);
 
-        for (ProductSizeQuantity productSizeQuantity: productSizeQuantities) {
-            ProductSize productSize = new ProductSize(productId, productSizeQuantity.getSizeName());
+        for (int i = 0; i < productSizes.size(); ++i) {
+            ProductSize productSize = productSizes.get(i);
+            productSize.setProductID(productId);
             productSizeRepository.save(productSize);
+
             Long sizeID = productSize.getSizeID();
-            ProductQuantity productQuantity = new ProductQuantity(productId, sizeID,
-                    Long.valueOf(productSizeQuantity.getQuantity()));
+            ProductQuantity productQuantity = productQuantities.get(i);
+            productQuantity.setProductID(productId);
+            productQuantity.setSizeID(sizeID);
             productQuantityRepository.save(productQuantity);
         }
+
         ResponseObject responseObject = new ResponseObject("Đã chỉnh sửa sản phẩm thành công");
         return ResponseEntity.ok(responseObject);
     }
@@ -321,6 +329,9 @@ public class ProductController {
         }
 
         try {
+            /* Cart Item */
+            cartItemRepository.deleteAll(cartItemRepository.findCartItemByProductID(productID));
+
             /* Product Category */
             ProductCategory productCategory = productCategoryRepository.findProductCategoriesByProductID(productID);
             if (productCategory != null)
@@ -332,14 +343,12 @@ public class ProductController {
             /* Product Size */
             productSizeRepository.deleteAll(productSizeRepository.findProductSizeByProductID(productID));
 
-
             // Xóa Product chính
             productRepository.deleteById(productID);
         }
         catch (Exception e) {
             throw e;
         }
-
     }
 
     // Hàm thay thế các chữ cái đặc biệt và dấu từ chuỗi Tiếng Việt
