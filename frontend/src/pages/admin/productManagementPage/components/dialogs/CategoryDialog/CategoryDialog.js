@@ -18,20 +18,19 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const [inputCategoryValue, setInputCategoryValue] = useState('');
-  const [isAddingCategory, setIsAddingCategory] = useState(false);
-  const [categories, setCategories] = useState([]);
-
-  const [inputSubCategoryValue, setInputSubCategoryValue] = useState('');
-  const [isAddingSubCategory, setIsAddingSubCategory] = useState(false);
-
   const [selectedParentCategory, setSelectedParentCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState({});
 
-  const [editingCategoryID, setEditingCategoryID] = useState(null);
+  const [inputValue, setInputValue] = useState('');
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [isAddingSubCategory, setIsAddingSubCategory] = useState(false);
 
   const inputCategoryRef = useRef(null);
   const inputSubCategoryRef = useRef(null);
+
+  const [categories, setCategories] = useState([]);
+
+  const [editingCategoryID, setEditingCategoryID] = useState(null);
 
   const handleButtonCloseClick = () => {
     onClose();
@@ -103,7 +102,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setSelectedCategory(subCategory);
   };
 
-  // handle category
   const handleAddCategoryClick = () => {
     setSelectedCategory({});
     setSelectedParentCategory({});
@@ -111,19 +109,24 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingCategory(true);
   };
 
+  const handleAddSubCategoryClick = () => {
+    setSelectedCategory({});
+    setIsAddingSubCategory(true);
+  };
+
   const handleSaveCategory = async () => {
-    if (inputCategoryValue === "") {
+    if (inputValue === "") {
       toast.warn("Tên danh mục không được để trống");
       return;
     }
-    if (!startsWithLetter(inputCategoryValue)) {
+    if (!startsWithLetter(inputValue)) {
       toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
       return;
     }
 
     let parentCategoryID = 0;
     const formData = new FormData();
-    formData.append('categoryName', inputCategoryValue);
+    formData.append('categoryName', inputValue);
     formData.append('parentCategoryID', parentCategoryID);
 
     const apiAddCategoryUrl = "/api/admin/add-category";
@@ -140,11 +143,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         const data = await response.json();
         toast.success(data.message);
 
-        // if (inputCategoryValue !== "") {
-        //   setCategories([...categories, { id: 0, name: inputCategoryValue }]);
+        // if (inputValue !== "") {
+        //   setCategories([...categories, { id: 0, name: inputValue }]);
         // }
 
-        setInputCategoryValue("");
+        setInputValue("");
         setIsAddingCategory(false);
         fetchData().then(r => {});
       } else {
@@ -157,17 +160,17 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSaveSubCategory = async () => {
-    // if (inputCategoryValue === "") {
-    //   toast.warn("Tên danh mục không được để trống");
-    //   return;
-    // }
-    // if (!startsWithLetter(inputCategoryValue)) {
-    //   toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
-    //   return;
-    // }
+    if (inputValue === "") {
+      toast.warn("Tên danh mục không được để trống");
+      return;
+    }
+    if (!startsWithLetter(inputValue)) {
+      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      return;
+    }
 
     let parentCategoryID = selectedParentCategory.categoryID;
-    let categoryName = inputSubCategoryValue;
+    let categoryName = inputValue;
 
     const formData = new FormData();
     formData.append('parentCategoryID', parentCategoryID);
@@ -187,11 +190,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         const data = await response.json();
         toast.success(data.message);
 
-        // if (inputCategoryValue !== "") {
-        //   setCategories([...categories, { id: 0, name: inputCategoryValue }]);
+        // if (inputValue !== "") {
+        //   setCategories([...categories, { id: 0, name: inputValue }]);
         // }
 
-        handleCancelCategoryClick();
+        handleCancelSubCategoryClick();
         fetchData().then(r => {});
       } else {
         const data = await response.json();
@@ -204,6 +207,10 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSaveCategoryClick = () => {
     handleSaveCategory().then(r => {});
+  };
+
+  const handleSaveSubCategoryClick = () => {
+    handleSaveSubCategory().then(r => {});
   };
 
   const deleteCategory = async (categoryID, type) => {
@@ -254,11 +261,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   }
 
   const editCategory = async (categoryID, categoryName) => {
-    if (inputCategoryValue === "") {
+    if (inputValue === "") {
       toast.warn("Tên danh mục không được để trống");
       return;
     }
-    if (!startsWithLetter(inputCategoryValue)) {
+    if (!startsWithLetter(inputValue)) {
       toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
       return;
     }
@@ -298,37 +305,24 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   }
 
   const handleSaveEditCategoryClick = (categoryID) => {
-    editCategory(categoryID, inputCategoryValue).then(r => {});
+    editCategory(categoryID, inputValue).then(r => {});
   }
 
   const handleEditCategoryClick = (e, categoryID, categoryName) => {
     e.stopPropagation();
-    setInputCategoryValue(categoryName);
+    setInputValue(categoryName);
     setEditingCategoryID(categoryID);
   }
 
-  // handle subCategory
-  const handleAddSubCategoryClick = () => {
-    setIsAddingSubCategory(true);
-  };
-
-  const handleSaveSubCategoryClick = () => {
-    if (inputSubCategoryValue !== "") {
-      handleSaveSubCategory().then(r => {});
-      // addSubCategory({ id: 0, name: inputSubCategoryValue});
-    }
-    handleCancelSubCategoryClick();
-  };
-
   const handleCancelSubCategoryClick = (e) => {
     if (e) e.stopPropagation();
-    setInputSubCategoryValue("");
+    setInputValue("");
     setIsAddingSubCategory(false);
   };
 
   const handleCancelCategoryClick = (e) => {
     if (e) e.stopPropagation();
-    setInputCategoryValue("");
+    setInputValue("");
     setIsAddingCategory(false);
     setEditingCategoryID(null);
   };
@@ -376,8 +370,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                             <div data-v-38ab3376="" className="text-overflow">
                               <input className="input-category"
                                      type="text" ref={inputCategoryRef}
-                                     value={inputCategoryValue}
-                                     onChange={(e) => setInputCategoryValue(e.target.value)}
+                                     value={inputValue}
+                                     onChange={(e) => setInputValue(e.target.value)}
                               />
                             </div>
                             <div data-v-38ab3376="" className="category-item-right">
@@ -388,7 +382,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                           :
                           <li data-v-38ab3376="" className="category-item" onClick={handleAddCategoryClick}>
                             <div data-v-38ab3376="" className="text-overflow">
-                              <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
+                              <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"3px", marginRight:"5px"}}/> Thêm danh mục
                             </div>
                           </li>
                       }
@@ -401,8 +395,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                                 <input className="input-category"
                                        style={{borderBottom: "1px solid #bd0000"}}
                                        type="text" ref={inputCategoryRef}
-                                       value={inputCategoryValue}
-                                       onChange={(e) => setInputCategoryValue(e.target.value)}
+                                       value={inputValue}
+                                       onChange={(e) => setInputValue(e.target.value)}
                                 />
                               </div>
                               <div data-v-38ab3376="" className="category-item-right">
@@ -464,8 +458,10 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                             {isAddingSubCategory ?
                                 <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
                                   <div data-v-38ab3376="" className="text-overflow">
-                                    <input className="input-category" type="text" ref={inputSubCategoryRef}
-                                           onChange={(e) => setInputSubCategoryValue(e.target.value)}/>
+                                    <input className="input-category"
+                                           type="text" ref={inputSubCategoryRef}
+                                           value={inputValue}
+                                           onChange={(e) => setInputValue(e.target.value)}/>
                                   </div>
                                   <div data-v-38ab3376="" className="category-item-right">
                                     <MdOutlineClose onClick={(e) => handleCancelSubCategoryClick(e)} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
@@ -475,7 +471,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                                 :
                                 <li data-v-38ab3376="" className="category-item" onClick={handleAddSubCategoryClick}>
                                   <div data-v-38ab3376="" className="text-overflow">
-                                    <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
+                                    <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"3px", marginRight:"5px"}}/> Thêm danh mục
                                   </div>
                                 </li>
                             }
