@@ -275,9 +275,7 @@ const ProductListPage  = () => {
               ...category,
               subCategories: category.subCategories.map((subCategory) => ({
                 ...subCategory,
-                products: subCategory.products.filter(
-                    (product) => product.productID !== deletedProduct.productID
-                ),
+                products: (subCategory.products ? subCategory.products.filter((product) => product.productID !== deletedProduct.productID) : null)
               })),
             }))
         );
@@ -371,8 +369,7 @@ const ProductListPage  = () => {
   const ListSection = () => {
     return (
         <div>
-          { categories &&
-              categories.length > 0 &&
+          {
               <section>
                 <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
                   borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
