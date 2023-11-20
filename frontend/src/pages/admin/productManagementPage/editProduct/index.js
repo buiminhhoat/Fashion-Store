@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
+import {useCookies} from "react-cookie";
 
 const EditProductPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,8 @@ const EditProductPage = () => {
   const queryParams = queryString.parse(location.search);
   const productID = queryParams.productID;
   const [productImages, setProductImages] = useState([]);
-
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
   const [informationProduct, setInformationProduct] = useState({
     productID: productID,
     productName: "",
@@ -62,6 +64,9 @@ const EditProductPage = () => {
     fetch(apiAddProductUrl, {
       method: 'POST',
       body: formData,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
     })
     .then((response) => {
       if (!response.ok) {
