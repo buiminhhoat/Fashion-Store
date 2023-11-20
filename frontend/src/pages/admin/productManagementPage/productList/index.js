@@ -190,6 +190,12 @@ const ProductListPage  = () => {
         method: 'GET',
       });
 
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', apiProductBySearch);
+        return;
+      }
+
       if (response.ok) {
         const data = await response.json();
         console.log("apiProductBySearch");
