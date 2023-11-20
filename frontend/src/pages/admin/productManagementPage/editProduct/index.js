@@ -50,17 +50,15 @@ const EditProductPage = () => {
 
     for (const file of productImages) { formData.append('productImages', file);}
 
-    formData.append('CategoryID', informationProduct.category.categoryID);
     formData.append('ParentCategoryID', informationProduct.parentCategory.categoryID);
+    formData.append('CategoryID', informationProduct.category.categoryID);
 
-    formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
     formData.append('productSizes', JSON.stringify(informationProduct.productSizes));
-
+    formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
 
     // formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
 
-
-    let apiAddProductUrl = "/api/admin/add-product";
+    let apiAddProductUrl = "/api/admin/edit-product";
     fetch(apiAddProductUrl, {
       method: 'POST',
       body: formData,
@@ -72,7 +70,7 @@ const EditProductPage = () => {
       return response.json();
     })
     .then((data) => {
-      toast.success("Lưu thành công");
+      toast.success("Chỉnh sửa thông tin sản phẩm thành công");
       console.log('Upload successful:', data);
     })
     .catch((error) => {
@@ -88,7 +86,7 @@ const EditProductPage = () => {
   }
 
   useEffect(() => {
-    const apiProductDetailByID = "/api/product/" + productID;
+    const apiProductDetailByID = "/api/public/product/" + productID;
     const fetchData = async () => {
       try {
         const response = await fetch(apiProductDetailByID, {

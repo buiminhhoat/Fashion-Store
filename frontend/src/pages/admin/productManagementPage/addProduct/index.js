@@ -70,7 +70,7 @@ const AddProductPage = () => {
       return response.json();
     })
     .then((data) => {
-      toast.success("Lưu thành công");
+      toast.success("Thêm sản phẩm thành công");
       console.log('Upload successful:', data);
     })
     .catch((error) => {

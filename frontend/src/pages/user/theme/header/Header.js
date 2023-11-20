@@ -31,7 +31,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
       >
-        <Link to={"category/" + categoryID} className="menu-header-text d-flex align-items-center text-center position-relative">
+        <Link to={"/category?categoryID=" + categoryID} className="menu-header-text d-flex align-items-center text-center position-relative">
           {categoryName && categoryName.toUpperCase()}
           {subCategories && (
               <img src={arrowDown} alt="icon arrow down" className="position-absolute"/>
@@ -55,7 +55,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
                           <ul className="menu-children ps-0">
                             {subCategories.map((subCategory, subSubMenuIndex) => (
                                 <li key={subSubMenuIndex} className="d-flex align-items-center">
-                                  <Link to={"category/" + subCategory.categoryID}>{subCategory.categoryName}</Link>
+                                  <Link to={"/category?categoryID=" + subCategory.categoryID}>{subCategory.categoryName}</Link>
                                 </li>
                             ))}
                           </ul>
