@@ -8,7 +8,8 @@ export function isSubstringIgnoreCaseAndAccents(keyword, str) {
   return lowerCaseB.includes(lowerCaseA);
 }
 
-export function startsWithLetter(inputCategoryValue) {
-  const firstChar = inputCategoryValue.charAt(0);
+export function isStartWithLetter(str) {
+  const newStr = removeAccents(str);
+  const firstChar = newStr.charAt(0);
   return /^[a-zA-Z]/.test(firstChar);
 }

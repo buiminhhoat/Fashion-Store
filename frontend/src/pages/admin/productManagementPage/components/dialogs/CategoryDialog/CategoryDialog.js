@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
-import {startsWithLetter} from "../../../../../../utils";
+import {isStartWithLetter} from "../../../../../../utils";
 
 const CATEGORY = {
   SUB_CATEGORY: "SUB_CATEGORY",
@@ -136,7 +136,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       toast.warn("Tên danh mục không được để trống");
       return;
     }
-    if (!startsWithLetter(inputValue)) {
+    if (!isStartWithLetter(inputValue)) {
       toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
       return;
     }
@@ -181,7 +181,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       toast.warn("Tên danh mục không được để trống");
       return;
     }
-    if (!startsWithLetter(inputValue)) {
+    if (!isStartWithLetter(inputValue)) {
       toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
       return;
     }
@@ -282,7 +282,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       toast.warn("Tên danh mục không được để trống");
       return;
     }
-    if (!startsWithLetter(inputValue)) {
+    if (!isStartWithLetter(inputValue)) {
       toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
       return;
     }
