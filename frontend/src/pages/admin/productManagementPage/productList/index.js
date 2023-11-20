@@ -19,7 +19,7 @@ const SEARCH = {
 }
 
 const ProductListPage  = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate();;
 
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
@@ -36,9 +36,13 @@ const ProductListPage  = () => {
   const  fetchImageAsFile = async (imageUrl, imageName, categoryID) => {
     const response = await fetch(imageUrl);
     const blob = await response.blob();
+
+    const newImageFile = new File([blob], imageName, {type: blob.type});
+    const newImageURL = URL.createObjectURL(newImageFile);
     return {
       categoryID: categoryID,
-      imageFile: new File([blob], imageName, {type: blob.type})
+      imageFile: newImageFile,
+      imageURL: newImageURL
     };
   }
 
@@ -87,6 +91,10 @@ const ProductListPage  = () => {
   }, []);
 
   // useEffect(() => {
+  //   console.log("categoriesImgID");
+  //   console.log(categoriesImgID);
+  // }, [categoriesImgID]);
+  // useEffect(() => {
   //   console.log("categories");
   //   console.log(categories);
   // }, [categories]);
@@ -118,7 +126,7 @@ const ProductListPage  = () => {
         console.log('Upload successful:', data);
 
         const newCategoriesImgID = categoriesImgID.map(imgID => {
-          return (imgID.categoryID === categoryID ? { ...imgID, imageFile: imageFile } : imgID);
+          return (imgID.categoryID === categoryID ? { ...imgID, imageFile: imageFile, imageURL: URL.createObjectURL(imageFile) } : imgID);
         });
         setCategoriesImgID(newCategoriesImgID);
         // fetchData();
@@ -311,12 +319,9 @@ const ProductListPage  = () => {
   const handleSelectChange = (event) => {
     setSelectedSearch(event.target.value);
     setSearchInputValue("");
-    handleBtnSearchClick();
+    setSelectedCategoriesID([]);
+    fetchData().then(r => {});
   };
-
-  // useEffect(() => {
-  //
-  // }, [selectedSearch]);
 
   const handleBtnSearchClick = () => {
     setSelectedCategoriesID([]);
@@ -437,7 +442,7 @@ const ProductListPage  = () => {
                                                   id="action-upload"
                                                   className="img-subCategory"
                                                   src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
-                                                      URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
+                                                      categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageURL : ""}
                                                   alt=""
                                                   onClick={(e) => handleImageClick(e, subCategory.categoryID)}
                                               />
