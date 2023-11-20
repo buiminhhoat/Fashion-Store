@@ -1,5 +1,6 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./style.scss"
+
 import {toast} from "react-toastify";
 import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
@@ -9,6 +10,7 @@ import {IoSearch} from "react-icons/io5";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {useNavigate} from "react-router-dom";
+import {isSubstringIgnoreCaseAndAccents} from "../../../../utils";
 
 const SEARCH = {
   CATEGORY: "",
@@ -308,24 +310,20 @@ const ProductListPage  = () => {
 
   const handleSelectChange = (event) => {
     setSelectedSearch(event.target.value);
+    setSearchInputValue("");
     handleBtnSearchClick();
   };
 
-  const handleBtnSearchClick = () => {
-    function removeAccents(str) {
-      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu từ chuỗi
-    }
+  // useEffect(() => {
+  //
+  // }, [selectedSearch]);
 
-    function isSubstringIgnoreCaseAndAccents(keyword, str) {
-      const lowerCaseA = removeAccents(keyword.toLowerCase());
-      const lowerCaseB = removeAccents(str.toLowerCase());
-      return lowerCaseB.includes(lowerCaseA);
-    }
+  const handleBtnSearchClick = () => {
+    setSelectedCategoriesID([]);
 
     switch (selectedSearch) {
       case SEARCH.CATEGORY:
         fetchData().then(r => {
-          setSelectedCategoriesID([]);
           setCategories((newCategories) =>
               newCategories.filter((category) =>
                   isSubstringIgnoreCaseAndAccents(searchInputValue, category.categoryName)
@@ -336,7 +334,6 @@ const ProductListPage  = () => {
         break;
       case SEARCH.SUB_CATEGORY:
         fetchData().then(r => {
-          setSelectedCategoriesID([]);
           setCategories((newCategories) =>
             newCategories.map((category) => ({
               ...category,
