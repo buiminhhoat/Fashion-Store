@@ -249,7 +249,7 @@ const SearchDialog = ({keyword}) => {
             </div>
         ))}
         <div className="view_all_search">
-          <Link to={"/search/" + keyword}>
+          <Link to={"/search/" + keyword} id = {keyword}>
             <div title="Xem tất cả">Xem tất cả</div>
           </Link>
         </div>
@@ -413,12 +413,10 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-<<<<<<< HEAD
   const apiGetAllCategories = "/api/public/get-all-categories" ///api/public/get-cart";
-=======
->>>>>>> refs/remotes/origin/main
+
   const [loading, setLoading] = useState(true)
-  // const [productInCart, setProductIncart] = useState(0);
+  // const [productInCart, setProductIncart] = useState(0)
 
   const fetchData = async () => {
     const apiGetAllCategories = "/api/public/get-all-categories";
