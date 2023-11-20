@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
+import {startsWithLetter} from "../../../../../../utils";
 
 const CATEGORY = {
   SUB_CATEGORY: "SUB_CATEGORY",
@@ -27,6 +28,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   const [selectedParentCategory, setSelectedParentCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState({});
 
+  const [editingCategoryID, setEditingCategoryID] = useState(null);
 
   const inputCategoryRef = useRef(null);
   const inputSubCategoryRef = useRef(null);
@@ -72,6 +74,12 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   }, [isAddingCategory]);
 
   useEffect(() => {
+    if (editingCategoryID && inputCategoryRef) {
+      inputCategoryRef.current.focus();
+    }
+  }, [editingCategoryID]);
+
+  useEffect(() => {
     if (isAddingSubCategory && inputSubCategoryRef) {
       inputSubCategoryRef.current.focus();
     }
@@ -104,6 +112,15 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSaveCategory = async () => {
+    if (inputCategoryValue === "") {
+      toast.warn("Tên danh mục không được để trống");
+      return;
+    }
+    if (!startsWithLetter(inputCategoryValue)) {
+      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      return;
+    }
+
     let parentCategoryID = 0;
     const formData = new FormData();
     formData.append('categoryName', inputCategoryValue);
@@ -140,6 +157,15 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSaveSubCategory = async () => {
+    // if (inputCategoryValue === "") {
+    //   toast.warn("Tên danh mục không được để trống");
+    //   return;
+    // }
+    // if (!startsWithLetter(inputCategoryValue)) {
+    //   toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+    //   return;
+    // }
+
     let parentCategoryID = selectedParentCategory.categoryID;
     let categoryName = inputSubCategoryValue;
 
@@ -227,6 +253,60 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     deleteCategory(categoryID, type).then(r => {})
   }
 
+  const editCategory = async (categoryID, categoryName) => {
+    if (inputCategoryValue === "") {
+      toast.warn("Tên danh mục không được để trống");
+      return;
+    }
+    if (!startsWithLetter(inputCategoryValue)) {
+      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('categoryID', categoryID);
+    formData.append('categoryName', categoryName);
+
+    let apiEditCategoryUrl = "/api/admin/edit-category";
+    try {
+      const response = await fetch(apiEditCategoryUrl, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', apiEditCategoryUrl);
+        return;
+      }
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+        fetchData().then(r => { setEditingCategoryID(null) });
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error('Failed:', error);
+    }
+  }
+
+  const handleSaveEditCategoryClick = (categoryID) => {
+    editCategory(categoryID, inputCategoryValue).then(r => {});
+  }
+
+  const handleEditCategoryClick = (e, categoryID, categoryName) => {
+    e.stopPropagation();
+    setInputCategoryValue(categoryName);
+    setEditingCategoryID(categoryID);
+  }
+
   // handle subCategory
   const handleAddSubCategoryClick = () => {
     setIsAddingSubCategory(true);
@@ -240,14 +320,17 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     handleCancelSubCategoryClick();
   };
 
-  const handleCancelSubCategoryClick = () => {
+  const handleCancelSubCategoryClick = (e) => {
+    if (e) e.stopPropagation();
     setInputSubCategoryValue("");
     setIsAddingSubCategory(false);
   };
 
-  const handleCancelCategoryClick = () => {
+  const handleCancelCategoryClick = (e) => {
+    if (e) e.stopPropagation();
     setInputCategoryValue("");
     setIsAddingCategory(false);
+    setEditingCategoryID(null);
   };
 
   // const addSubCategory = (newSubCategory) => {
@@ -291,11 +374,14 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                       {isAddingCategory ?
                           <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
                             <div data-v-38ab3376="" className="text-overflow">
-                              <input className="input-category" type="text" ref={inputCategoryRef}
-                                     onChange={(e) => setInputCategoryValue(e.target.value)}/>
+                              <input className="input-category"
+                                     type="text" ref={inputCategoryRef}
+                                     value={inputCategoryValue}
+                                     onChange={(e) => setInputCategoryValue(e.target.value)}
+                              />
                             </div>
                             <div data-v-38ab3376="" className="category-item-right">
-                              <MdOutlineClose onClick={handleCancelCategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
+                              <MdOutlineClose onClick={(e) => handleCancelCategoryClick(e)} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
                               <BsCheckLg onClick={handleSaveCategoryClick} className="btn-add pointer-cursor"/>
                             </div>
                           </li>
@@ -307,15 +393,35 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                           </li>
                       }
 
-                      {categories.map((category, index) => (
-                          <li data-v-38ab3376="" key={index} className="category-item" onClick={() => handleCategoryClick(category)}>
-                            <p data-v-38ab3376=""
-                               className={`text-overflow ${category.categoryID === selectedParentCategory.categoryID ? 'selected-category' : ''}`}
-                            >{category.categoryName}</p>
+                      {categories && categories.map((category, index) => (
+                        <>
+                          {editingCategoryID && category.categoryID === editingCategoryID ?
+                            <li key={index} data-v-38ab3376="" className="category-item" style={{background:"white"}}>
+                              <div data-v-38ab3376="" className="text-overflow">
+                                <input className="input-category"
+                                       style={{borderBottom: "1px solid #bd0000"}}
+                                       type="text" ref={inputCategoryRef}
+                                       value={inputCategoryValue}
+                                       onChange={(e) => setInputCategoryValue(e.target.value)}
+                                />
+                              </div>
+                              <div data-v-38ab3376="" className="category-item-right">
+                                <MdOutlineClose onClick={(e) => handleCancelCategoryClick(e)} className="btn-add pointer-cursor" style={{marginRight:"5px", color:"#bd0000"}}/>
+                                <BsCheckLg onClick={() => handleSaveEditCategoryClick(category.categoryID)} className="btn-add pointer-cursor"  style={{color:"#bd0000"}}/>
+                              </div>
+                            </li>
+                            :
+                            <li data-v-38ab3376="" key={index} className="category-item" onClick={() => handleCategoryClick(category)}>
+                              <p data-v-38ab3376="" className={`text-overflow ${category.categoryID === selectedParentCategory.categoryID ? 'selected-category' : ''}`}>
+                                {category.categoryName}
+                              </p>
 
                               { category.categoryID === selectedParentCategory.categoryID ?
                                   <div data-v-38ab3376="" className="category-item-right">
-                                    <FiEdit3  onClick={handleSaveCategoryClick} className="selected-category btn-add pointer-cursor" style={{marginRight:"6px"}}/>
+                                    <FiEdit3  onClick={(e) => handleEditCategoryClick(e, category.categoryID, category.categoryName)}
+                                              className="selected-category btn-add pointer-cursor"
+                                              style={{marginRight:"6px"}}
+                                    />
 
                                     <ConfigProvider
                                         button={{
@@ -333,8 +439,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                                         <HiOutlineTrash className="selected-category btn-delete pointer-cursor"/>
                                       </Popconfirm>
                                     </ConfigProvider>
-
-
                                   </div>
                                   :
                                   <div data-v-38ab3376="" className="category-item-right">
@@ -345,35 +449,37 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                                     </i>
                                   </div>
                               }
-
-                          </li>
+                            </li>
+                          }
+                        </>
                       ))}
                     </ul>
 
+
+
+
                     <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
-                      {
-                        selectedParentCategory.categoryName?
-                            <div>
-                              {isAddingSubCategory ?
-                                  <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
-                                    <div data-v-38ab3376="" className="text-overflow">
-                                      <input className="input-category" type="text" ref={inputSubCategoryRef}
-                                             onChange={(e) => setInputSubCategoryValue(e.target.value)}/>
-                                    </div>
-                                    <div data-v-38ab3376="" className="category-item-right">
-                                      <MdOutlineClose onClick={handleCancelSubCategoryClick} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
-                                      <BsCheckLg onClick={handleSaveSubCategoryClick} className="btn-add pointer-cursor"/>
-                                    </div>
-                                  </li>
-                                  :
-                                  <li data-v-38ab3376="" className="category-item" onClick={handleAddSubCategoryClick}>
-                                    <div data-v-38ab3376="" className="text-overflow">
-                                      <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
-                                    </div>
-                                  </li>
-                              }
-                            </div>
-                            : <></>
+                      { selectedParentCategory.categoryName &&
+                          <div>
+                            {isAddingSubCategory ?
+                                <li data-v-38ab3376="" className="category-item" style={{background:"white"}}>
+                                  <div data-v-38ab3376="" className="text-overflow">
+                                    <input className="input-category" type="text" ref={inputSubCategoryRef}
+                                           onChange={(e) => setInputSubCategoryValue(e.target.value)}/>
+                                  </div>
+                                  <div data-v-38ab3376="" className="category-item-right">
+                                    <MdOutlineClose onClick={(e) => handleCancelSubCategoryClick(e)} className="btn-add pointer-cursor" style={{marginRight:"5px"}}/>
+                                    <BsCheckLg onClick={handleSaveSubCategoryClick} className="btn-add pointer-cursor"/>
+                                  </div>
+                                </li>
+                                :
+                                <li data-v-38ab3376="" className="category-item" onClick={handleAddSubCategoryClick}>
+                                  <div data-v-38ab3376="" className="text-overflow">
+                                    <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"4px", marginRight:"5px"}}/> Thêm danh mục
+                                  </div>
+                                </li>
+                            }
+                          </div>
                       }
 
                       {
@@ -421,20 +527,13 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
           <div data-v-59dc2242="" className="category-selected" style={{display:"flex"}}>
             <span data-v-59dc2242="" className="label" style={{fontSize:"14px", marginRight: "5px"}}>Đã chọn: </span>
 
-            {
-              selectedParentCategory.categoryName ?
-                  <span style={{fontSize:"14px", marginRight: "5px"}} >
-                    {selectedParentCategory.categoryName}
-
-                    {
-                      selectedCategory.categoryName ?
-                          (" > " + selectedCategory.categoryName)
-                          :
-                          ""
-                    }
-                  </span>
-                  :
-                  <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span>
+            {selectedParentCategory.categoryName ?
+              <span style={{fontSize:"14px", marginRight: "5px"}} >
+                {selectedParentCategory.categoryName}
+                {selectedCategory.categoryName && (" > " + selectedCategory.categoryName) }
+              </span>
+              :
+              <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span>
             }
 
           </div>
@@ -446,18 +545,17 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
               <span>Hủy</span>
             </button>
 
-            {
-              selectedCategory.categoryName && selectedParentCategory.categoryName ?
-                  <button type="button"
-                          onClick={handleSubmitCategoryDialog}
-                          className="fashion-store-button fashion-store-button--primary fashion-store-button--normal">
-                    <span>Xác nhận</span>
-                  </button>
-                  :
-                  <button type="button" disabled="disabled"
-                          className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
-                    <span>Xác nhận</span>
-                  </button>
+            {selectedCategory.categoryName && selectedParentCategory.categoryName ?
+                <button type="button"
+                        onClick={handleSubmitCategoryDialog}
+                        className="fashion-store-button fashion-store-button--primary fashion-store-button--normal">
+                  <span>Xác nhận</span>
+                </button>
+                :
+                <button type="button" disabled="disabled"
+                        className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
+                  <span>Xác nhận</span>
+                </button>
             }
 
           </div>
