@@ -29,6 +29,7 @@ const ProductListPage  = () => {
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [productsData, setProductsData] = useState([]);
   const [categoriesImgID, setCategoriesImgID] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [selectedSearch, setSelectedSearch] = useState("");
@@ -89,16 +90,7 @@ const ProductListPage  = () => {
   useEffect(() => {
     fetchData().then(r => {});
   }, []);
-
-  // useEffect(() => {
-  //   console.log("categoriesImgID");
-  //   console.log(categoriesImgID);
-  // }, [categoriesImgID]);
-  // useEffect(() => {
-  //   console.log("categories");
-  //   console.log(categories);
-  // }, [categories]);
-
+  
   const changeImageCategory = async (imageFile, categoryID) => {
     const formData = new FormData();
     formData.append('categoryID', categoryID);
@@ -159,7 +151,7 @@ const ProductListPage  = () => {
     }
   };
 
-  const fetchProductData = async (categoryID) => {
+  const fetchProductDataByCategoryID = async (categoryID) => {
     const apiProductByCategoryID = "/api/public/category/" + categoryID;
     try {
       const response = await fetch(apiProductByCategoryID, {
@@ -189,6 +181,32 @@ const ProductListPage  = () => {
     }
   }
 
+  const fetchProductDataBySearch = async (encodedSearchString) => {
+    const decodedSearchString = decodeURIComponent(encodedSearchString);
+    const apiProductBySearch = "/api/public/search/" + decodedSearchString;
+
+    try {
+      const response = await fetch(apiProductBySearch, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("apiProductBySearch");
+        console.log(data);
+        setProductsData(data);
+
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
+
   const handleCategoryClick = (categoryID, type) => {
     if (selectedCategoriesID.includes(categoryID)) {
       const updatedCategoriesID = selectedCategoriesID.filter((id) => id !== categoryID);
@@ -199,7 +217,7 @@ const ProductListPage  = () => {
       setSelectedCategoriesID(updatedCategoriesID);
     }
     if (type === "sub-category") {
-      fetchProductData(categoryID).then(r => {});
+      fetchProductDataByCategoryID(categoryID).then(r => {});
     }
   }
 
@@ -318,6 +336,7 @@ const ProductListPage  = () => {
     setSelectedSearch(event.target.value);
     setSearchInputValue("");
     setSelectedCategoriesID([]);
+    setProductsData([]);
     fetchData().then(r => {});
   };
 
@@ -348,25 +367,12 @@ const ProductListPage  = () => {
         });
         break;
       case SEARCH.PRODUCT:
-        // fetchData().then(r => {
-        //   setSelectedCategoriesID([]);
-        //   setCategories((newCategories) =>
-        //       newCategories.map((category) => ({
-        //         ...category,
-        //         subCategories: category.subCategories.map((subCategory) => ({
-        //           ...subCategory,
-        //           products: subCategory.products.filter(
-        //               (product) => isSubstringIgnoreCaseAndAccents(searchInputValue, product.productName)
-        //           ),
-        //         })),
-        //       }))
-        //   );
-        // });
+        fetchProductDataBySearch(searchInputValue).then(r => {});
         break;
     }
   };
 
-  const ListSection = () => {
+  const ListCategorySection = () => {
     return (
         <div>
           {
@@ -560,6 +566,70 @@ const ProductListPage  = () => {
     );
   }
 
+  const ListProductSection = () => {
+    return (
+      <section>
+        <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
+          borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
+
+          <div>
+            {
+                productsData &&
+                productsData.map((product, productIndex) => (
+                    <div key={productIndex}>
+                      <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
+                        <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                          <div style={{alignSelf: "flex-start", width:"25px", height:"100%", borderRight:"3px"}}/>
+
+                          <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                            <img
+                                className="img-subCategory"
+                                src={product.productImages.length > 0 ?
+                                    "/storage/images/" + product.productImages[0].imagePath : ""}
+                                alt=""
+                            />
+                          </div>
+
+                          <a href={`/product?productID=${product.productID}`}
+                             className="cursor-point hover-underline-animation"
+                             style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                              // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
+                          >
+                            {product.productName}
+                          </a>
+                        </div>
+
+                        <div style={{display:"flex"}}>
+                          <div className="pointer-cursor btn-edit-category"
+                               style={{marginRight:"20px"}}
+                               onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
+                          >
+                            <HiOutlineTrash />
+                          </div>
+                          <a
+                              // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
+                          >
+                            <div className="pointer-cursor btn-edit-category"
+                                 style={{marginRight:"0"}}
+                                 onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
+                            >
+                              <BiSolidEdit />
+                            </div>
+                          </a>
+
+                        </div>
+
+                      </div>
+                    </div>
+                ))
+            }
+          </div>
+
+        </div>
+      </section>
+    );
+  }
+
   return (
       <div id="app">
         <main id="main">
@@ -618,7 +688,10 @@ const ProductListPage  = () => {
                 </div>
               </div>
 
-              <ListSection />
+              {
+                selectedSearch === SEARCH.PRODUCT ? <ListProductSection /> : <ListCategorySection />
+              }
+
               {/*{*/}
               {/*  selectedSearch === SEARCH.SUB_CATEGORY ? <SelectedSearchSubCategory /> :*/}
               {/*  (selectedSearch === SEARCH.PRODUCT ? <SelectedSearchProduct /> : <SelectedSearchCategory />)*/}

@@ -46,6 +46,7 @@ const SearchProductPage = () => {
 
 
   useEffect(() => {
+    console.log(apiProductBySearch);
     const fetchData = async () => {
       try {
         const response = await fetch(apiProductBySearch, {
