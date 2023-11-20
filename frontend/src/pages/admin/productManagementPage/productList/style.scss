@@ -132,3 +132,19 @@
     -o-object-fit: cover;
     object-fit: cover;
 }
+
+.select-search {
+    background-position: right 6px;
+    background-size: 10px 10px;
+    background-color: #f9f9f9;
+    border: none;
+    color: #4f525d;
+    font-size: 16px;
+    padding: 0 10px 0 10px;
+    width: max-content;
+    display: block;
+}
+
+.select-search:focus {
+    box-shadow: none
+}
