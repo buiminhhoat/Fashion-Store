@@ -551,20 +551,20 @@ ALTER TABLE `ProductCategory`
 -- Các ràng buộc cho bảng `ProductImage`
 --
 ALTER TABLE `ProductImage`
-  ADD CONSTRAINT `productimage_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`);
+  ADD CONSTRAINT `productimage_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `ProductQuantity`
 --
 ALTER TABLE `ProductQuantity`
-  ADD CONSTRAINT `productquantity_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`),
-  ADD CONSTRAINT `productquantity_ibfk_2` FOREIGN KEY (`SizeID`) REFERENCES `ProductSize` (`SizeID`);
+  ADD CONSTRAINT `productquantity_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `productquantity_ibfk_2` FOREIGN KEY (`SizeID`) REFERENCES `ProductSize` (`SizeID`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `ProductSize`
 --
 ALTER TABLE `ProductSize`
-  ADD CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`);
+  ADD CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
