@@ -311,68 +311,56 @@ const ProductListPage  = () => {
   };
 
   const handleBtnSearchClick = () => {
-    if (selectedSearch === "") {
-      toast.warn("Vui lòng chọn điều kiện tìm kiếm");
-      return;
+    function removeAccents(str) {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu từ chuỗi
     }
 
+    function isSubstringIgnoreCaseAndAccents(keyword, str) {
+      const lowerCaseA = removeAccents(keyword.toLowerCase());
+      const lowerCaseB = removeAccents(str.toLowerCase());
+      return lowerCaseB.includes(lowerCaseA);
+    }
+
+    switch (selectedSearch) {
+      case "":
+        toast.warn("Vui lòng chọn điều kiện tìm kiếm");
+        return;
+      case SEARCH.CATEGORY:
+        fetchData().then(r => {
+          setCategories((newCategories) =>
+              newCategories.filter((category) =>
+                  isSubstringIgnoreCaseAndAccents(searchInputValue, category.categoryName)
+              )
+          );
+        });
+
+        break;
+      case SEARCH.SUB_CATEGORY:
+        fetchData().then(r => {
+          setCategories((newCategories) =>
+              newCategories.filter((category) =>
+                  isSubstringIgnoreCaseAndAccents(searchInputValue, category.categoryName)
+              )
+          );
+        });
+        break;
+      case SEARCH.PRODUCT:
+        fetchData().then(r => {
+          setCategories((newCategories) =>
+              newCategories.filter((category) =>
+                  isSubstringIgnoreCaseAndAccents(searchInputValue, category.categoryName)
+              )
+          );
+        });
+        break;
+    }
   };
 
-  return (
-      <div id="app">
-        <main id="main">
-          <div className="container profile-wrap">
-            <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý sản phẩm</span>
-            </div>
-          </div>
-
-          <div className="container pe-0 ps-0" style={{marginTop: "10px", paddingBottom: "40px"}}>
-            <div style={{margin:"0 70px 0 40px"}}>
-              <p className="category-title">
-                DANH MỤC SẢN PHẨM
-                <MdLibraryAdd style={{margin:"0 0 8px 8px", fontSize:"27px"}}/>
-              </p>
-              <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
-                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
-                <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
-                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
-                    <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
-                    Tìm kiếm theo:
-                    <div style={{paddingTop:"2px"}}>
-                      <select className="select-search sort-item" onChange={handleSelectChange}>
-                        <option value="">
-                          Chọn điều kiện tìm kiếm
-                        </option>
-                        <option value={SEARCH.CATEGORY}>
-                          Danh mục lớn
-                        </option>
-                        <option value={SEARCH.SUB_CATEGORY} >
-                          Danh mục con
-                        </option>
-                        <option value={SEARCH.PRODUCT} >
-                          Sản phẩm
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
-                    <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
-                      <input
-                          style={{width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px",}}
-                          type="text"
-                          value={searchInputValue}
-                          onChange={(e) => setSearchInputValue(e.target.value)}
-                      />
-                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}
-                                onClick={handleBtnSearchClick} />
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
+  const SelectedSearchCategory = () => {
+    return (
+        <div>
+          { categories &&
+              categories.length > 0 &&
               <section>
                 <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
                   borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
@@ -393,8 +381,8 @@ const ProductListPage  = () => {
                                       <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
                                 }
                                 <a className="hover-underline-animation"
-                                    href={`/category?categoryID=${category.categoryID}`}
-                                    style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`,}}
+                                   href={`/category?categoryID=${category.categoryID}`}
+                                   style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`,}}
                                 >
                                   {category.categoryName}
                                 </a>
@@ -512,7 +500,7 @@ const ProductListPage  = () => {
                                                       <a href={`/product?productID=${product.productID}`}
                                                          className="cursor-point hover-underline-animation"
                                                          style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
-                                                         // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
+                                                          // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
                                                       >
                                                         {product.productName}
                                                       </a>
@@ -553,6 +541,454 @@ const ProductListPage  = () => {
 
                 </div>
               </section>
+          }
+        </div>
+    );
+  }
+
+  const SelectedSearchSubCategory = () => {
+    return (
+        <div>
+          { categories &&
+              categories.length > 0 &&
+              <section>
+                <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
+                  borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
+
+                  {
+                    categories.map((category, index) => (
+                        <div key={index}>
+                          <div className={`pointer-cursor ${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-category-field" : "category-field"}`}
+                               style={{borderTop: `${index !== 0 ? "2px solid #E4E4E4" : "none"}`}}
+                               onClick={() => handleCategoryClick(category.categoryID, "category")}
+                          >
+                            <div>
+                              <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
+                                {
+                                  selectedCategoriesID.find((id) => id === category.categoryID) ?
+                                      <MdArrowDropDown style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                      :
+                                      <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                }
+                                <a className="hover-underline-animation"
+                                   href={`/category?categoryID=${category.categoryID}`}
+                                   style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`,}}
+                                >
+                                  {category.categoryName}
+                                </a>
+
+                              </div>
+
+                            </div>
+                            <div style={{display:"flex"}}>
+                              <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
+                                   style={{marginRight:"20px"}}
+                                   onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, "category")}
+                              >
+                                <HiOutlineTrash />
+                              </div>
+                              <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
+                                   style={{marginRight:"0"}}>
+                                <BiSolidEdit />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            {
+                                selectedCategoriesID.find((id) => id === category.categoryID) &&
+                                category.subCategories &&
+                                category.subCategories.map((subCategory, subCategoryIndex) => (
+                                    <div key={subCategoryIndex}>
+                                      <div className="subCategory-field pointer-cursor"
+                                           onClick={() => handleCategoryClick(subCategory.categoryID, "sub-category")}
+                                      >
+                                        <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                          <div style={{alignSelf: "flex-start", width:"25px",
+                                            height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+
+                                          <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+
+                                          <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+                                            <div style={{zIndex:"1", borderRadius:"100%", border:"3px solid #a30000", padding:"2px", backgroundColor:"white"}}>
+                                              <img
+                                                  id="action-upload"
+                                                  className="img-subCategory"
+                                                  src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
+                                                      URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
+                                                  alt=""
+                                                  onClick={(e) => handleImageClick(e, subCategory.categoryID)}
+                                              />
+                                              <input
+                                                  type="file"
+                                                  id={`img-input-${subCategory.categoryID}`}
+                                                  accept="image/*"
+                                                  multiple="multiple"
+                                                  style={{ display: 'none' }}
+                                                  onClick={(e) => handleInputImageClick(e)}
+                                                  onChange={(e) => handleFileChange(e, subCategory.categoryID)}
+                                              />
+                                            </div>
+                                            { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                                subCategory.products &&
+                                                subCategory.products.length > 0 &&
+                                                <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
+                                                  height:"51%", borderRight:"3px solid #a30000",
+                                                  marginLeft:"25px"}}/>
+                                            }
+                                          </div>
+
+                                          <a className="hover-underline-animation"
+                                             href={`/category?categoryID=${subCategory.categoryID}`}
+                                             style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                          >
+                                            {subCategory.categoryName}
+                                          </a>
+                                        </div>
+
+                                        <div style={{display:"flex"}}>
+                                          <div className="btn-edit-category"
+                                               style={{marginRight:"20px"}}
+                                               onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
+                                          >
+                                            <HiOutlineTrash />
+                                          </div>
+                                          <div className="btn-edit-category"
+                                               style={{marginRight:"0"}}>
+                                            <BiSolidEdit />
+                                          </div>
+                                        </div>
+
+                                      </div>
+
+                                      <div>
+                                        {
+                                            selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                            subCategory.products &&
+                                            subCategory.products.map((product, productIndex) => (
+                                                <div key={productIndex}>
+                                                  <div className="product-field">
+                                                    <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                                      <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
+                                                        borderRight:`${subCategoryIndex !== category.subCategories.length - 1 ? "3px solid #a30000":"3px"}`}}/>
+
+                                                      <div style={{alignSelf: "flex-start", width:"25px",
+                                                        height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
+                                                        marginLeft:"25px"}}/>
+
+                                                      <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+
+                                                      <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                                                        <img
+                                                            className="img-subCategory"
+                                                            src={product.productImages.length > 0 ?
+                                                                "/storage/images/" + product.productImages[0].imagePath : ""}
+                                                            alt=""
+                                                        />
+                                                      </div>
+
+                                                      <a href={`/product?productID=${product.productID}`}
+                                                         className="cursor-point hover-underline-animation"
+                                                         style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                                          // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
+                                                      >
+                                                        {product.productName}
+                                                      </a>
+                                                    </div>
+
+                                                    <div style={{display:"flex"}}>
+                                                      <div className="pointer-cursor btn-edit-category"
+                                                           style={{marginRight:"20px"}}
+                                                           onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
+                                                      >
+                                                        <HiOutlineTrash />
+                                                      </div>
+                                                      <a
+                                                          // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
+                                                      >
+                                                        <div className="pointer-cursor btn-edit-category"
+                                                             style={{marginRight:"0"}}
+                                                             onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
+                                                        >
+                                                          <BiSolidEdit />
+                                                        </div>
+                                                      </a>
+
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                            ))
+                                        }
+                                      </div>
+                                    </div>
+                                ))
+                            }
+                          </div>
+                        </div>
+                    ))
+                  }
+
+                </div>
+              </section>
+          }
+        </div>
+    );
+  }
+
+  const SelectedSearchProduct = () => {
+    return (
+        <div>
+          { categories &&
+              categories.length > 0 &&
+              <section>
+                <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
+                  borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
+
+                  {
+                    categories.map((category, index) => (
+                        <div key={index}>
+                          <div className={`pointer-cursor ${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-category-field" : "category-field"}`}
+                               style={{borderTop: `${index !== 0 ? "2px solid #E4E4E4" : "none"}`}}
+                               onClick={() => handleCategoryClick(category.categoryID, "category")}
+                          >
+                            <div>
+                              <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
+                                {
+                                  selectedCategoriesID.find((id) => id === category.categoryID) ?
+                                      <MdArrowDropDown style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                      :
+                                      <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                }
+                                <a className="hover-underline-animation"
+                                   href={`/category?categoryID=${category.categoryID}`}
+                                   style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`,}}
+                                >
+                                  {category.categoryName}
+                                </a>
+
+                              </div>
+
+                            </div>
+                            <div style={{display:"flex"}}>
+                              <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
+                                   style={{marginRight:"20px"}}
+                                   onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, "category")}
+                              >
+                                <HiOutlineTrash />
+                              </div>
+                              <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
+                                   style={{marginRight:"0"}}>
+                                <BiSolidEdit />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            {
+                                selectedCategoriesID.find((id) => id === category.categoryID) &&
+                                category.subCategories &&
+                                category.subCategories.map((subCategory, subCategoryIndex) => (
+                                    <div key={subCategoryIndex}>
+                                      <div className="subCategory-field pointer-cursor"
+                                           onClick={() => handleCategoryClick(subCategory.categoryID, "sub-category")}
+                                      >
+                                        <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                          <div style={{alignSelf: "flex-start", width:"25px",
+                                            height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000"}}/>
+
+                                          <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+
+                                          <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+                                            <div style={{zIndex:"1", borderRadius:"100%", border:"3px solid #a30000", padding:"2px", backgroundColor:"white"}}>
+                                              <img
+                                                  id="action-upload"
+                                                  className="img-subCategory"
+                                                  src={categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID) ?
+                                                      URL.createObjectURL(categoriesImgID.find((imgID) => imgID.categoryID === subCategory.categoryID).imageFile) : ""}
+                                                  alt=""
+                                                  onClick={(e) => handleImageClick(e, subCategory.categoryID)}
+                                              />
+                                              <input
+                                                  type="file"
+                                                  id={`img-input-${subCategory.categoryID}`}
+                                                  accept="image/*"
+                                                  multiple="multiple"
+                                                  style={{ display: 'none' }}
+                                                  onClick={(e) => handleInputImageClick(e)}
+                                                  onChange={(e) => handleFileChange(e, subCategory.categoryID)}
+                                              />
+                                            </div>
+                                            { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                                subCategory.products &&
+                                                subCategory.products.length > 0 &&
+                                                <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
+                                                  height:"51%", borderRight:"3px solid #a30000",
+                                                  marginLeft:"25px"}}/>
+                                            }
+                                          </div>
+
+                                          <a className="hover-underline-animation"
+                                             href={`/category?categoryID=${subCategory.categoryID}`}
+                                             style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                          >
+                                            {subCategory.categoryName}
+                                          </a>
+                                        </div>
+
+                                        <div style={{display:"flex"}}>
+                                          <div className="btn-edit-category"
+                                               style={{marginRight:"20px"}}
+                                               onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
+                                          >
+                                            <HiOutlineTrash />
+                                          </div>
+                                          <div className="btn-edit-category"
+                                               style={{marginRight:"0"}}>
+                                            <BiSolidEdit />
+                                          </div>
+                                        </div>
+
+                                      </div>
+
+                                      <div>
+                                        {
+                                            selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                            subCategory.products &&
+                                            subCategory.products.map((product, productIndex) => (
+                                                <div key={productIndex}>
+                                                  <div className="product-field">
+                                                    <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                                      <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
+                                                        borderRight:`${subCategoryIndex !== category.subCategories.length - 1 ? "3px solid #a30000":"3px"}`}}/>
+
+                                                      <div style={{alignSelf: "flex-start", width:"25px",
+                                                        height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
+                                                        marginLeft:"25px"}}/>
+
+                                                      <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+
+                                                      <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                                                        <img
+                                                            className="img-subCategory"
+                                                            src={product.productImages.length > 0 ?
+                                                                "/storage/images/" + product.productImages[0].imagePath : ""}
+                                                            alt=""
+                                                        />
+                                                      </div>
+
+                                                      <a href={`/product?productID=${product.productID}`}
+                                                         className="cursor-point hover-underline-animation"
+                                                         style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                                          // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
+                                                      >
+                                                        {product.productName}
+                                                      </a>
+                                                    </div>
+
+                                                    <div style={{display:"flex"}}>
+                                                      <div className="pointer-cursor btn-edit-category"
+                                                           style={{marginRight:"20px"}}
+                                                           onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
+                                                      >
+                                                        <HiOutlineTrash />
+                                                      </div>
+                                                      <a
+                                                          // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
+                                                      >
+                                                        <div className="pointer-cursor btn-edit-category"
+                                                             style={{marginRight:"0"}}
+                                                             onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
+                                                        >
+                                                          <BiSolidEdit />
+                                                        </div>
+                                                      </a>
+
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                            ))
+                                        }
+                                      </div>
+                                    </div>
+                                ))
+                            }
+                          </div>
+                        </div>
+                    ))
+                  }
+
+                </div>
+              </section>
+          }
+        </div>
+    );
+  }
+
+  return (
+      <div id="app">
+        <main id="main">
+          <div className="container profile-wrap">
+            <div className="breadcrumb-wrap">
+              <a href="/">Trang chủ</a>
+              &gt; <span>Quản lý sản phẩm</span>
+            </div>
+          </div>
+
+          <div className="container pe-0 ps-0" style={{marginTop: "10px", paddingBottom: "40px"}}>
+            <div style={{margin:"0 70px 0 40px"}}>
+              <p className="category-title">
+                DANH MỤC SẢN PHẨM
+                <MdLibraryAdd style={{margin:"0 0 8px 8px", fontSize:"27px"}}/>
+              </p>
+              <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
+                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
+                <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
+                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
+                    <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
+                    Tìm kiếm theo:
+                    <div style={{paddingTop:"2px"}}>
+                      <select className="select-search sort-item" onChange={handleSelectChange}>
+                        <option value="">
+                          Chọn điều kiện tìm kiếm
+                        </option>
+                        <option value={SEARCH.CATEGORY}>
+                          Danh mục lớn
+                        </option>
+                        <option value={SEARCH.SUB_CATEGORY} >
+                          Danh mục con
+                        </option>
+                        <option value={SEARCH.PRODUCT} >
+                          Sản phẩm
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
+                    <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
+                      <input
+                          className="placeholder-color"
+                          style={{width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}
+                          type="text"
+                          value={searchInputValue}
+                          placeholder="Nhập từ khóa"
+                          onChange={(e) => setSearchInputValue(e.target.value)}
+                      />
+                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}
+                                onClick={handleBtnSearchClick}
+                                className="pointer-cursor"/>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {
+                selectedSearch === SEARCH.SUB_CATEGORY ? <SelectedSearchSubCategory /> :
+                (selectedSearch === SEARCH.PRODUCT ? <SelectedSearchProduct /> : <SelectedSearchCategory />)
+              }
+
             </div>
           </div>
 

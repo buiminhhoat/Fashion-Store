@@ -148,3 +148,7 @@
 .select-search:focus {
     box-shadow: none
 }
+
+.placeholder-color::placeholder {
+    color: #C05050;
+}
