@@ -18,6 +18,11 @@ const SEARCH = {
   PRODUCT: "product"
 }
 
+const CATEGORY = {
+  SUB_CATEGORY: "SUB_CATEGORY",
+  PARENT_CATEGORY: "PARENT_CATEGORY",
+}
+
 const ProductListPage  = () => {
   const navigate = useNavigate();;
 
@@ -222,7 +227,7 @@ const ProductListPage  = () => {
       // const updatedCategoriesID = [categoryID];
       setSelectedCategoriesID(updatedCategoriesID);
     }
-    if (type === "sub-category") {
+    if (type === CATEGORY.SUB_CATEGORY) {
       fetchProductDataByCategoryID(categoryID).then(r => {});
     }
   }
@@ -392,7 +397,7 @@ const ProductListPage  = () => {
                           { selectedSearch !== SEARCH.SUB_CATEGORY &&
                               <div className={`pointer-cursor ${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-category-field" : "category-field"}`}
                                    style={{borderTop: `${index !== 0 ? "2px solid #E4E4E4" : "none"}`}}
-                                   onClick={() => handleCategoryClick(category.categoryID, "category")}
+                                   onClick={() => handleCategoryClick(category.categoryID, CATEGORY.PARENT_CATEGORY)}
                               >
                                 <div>
                                   <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
@@ -415,7 +420,7 @@ const ProductListPage  = () => {
                                 <div style={{display:"flex"}}>
                                   <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
                                        style={{marginRight:"20px"}}
-                                       onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, "category")}
+                                       onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, CATEGORY.PARENT_CATEGORY)}
                                   >
                                     <HiOutlineTrash />
                                   </div>
@@ -434,7 +439,7 @@ const ProductListPage  = () => {
                                 category.subCategories.map((subCategory, subCategoryIndex) => (
                                     <div key={subCategoryIndex}>
                                       <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "subCategory-field" : "search-subCategory-field"} pointer-cursor`}
-                                           onClick={() => handleCategoryClick(subCategory.categoryID, "sub-category")}
+                                           onClick={() => handleCategoryClick(subCategory.categoryID, CATEGORY.SUB_CATEGORY)}
                                       >
                                         <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
 
@@ -485,7 +490,7 @@ const ProductListPage  = () => {
                                         <div style={{display:"flex"}}>
                                           <div className="btn-edit-category"
                                                style={{marginRight:"20px"}}
-                                               onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, "sub-category")}
+                                               onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, CATEGORY.SUB_CATEGORY)}
                                           >
                                             <HiOutlineTrash />
                                           </div>

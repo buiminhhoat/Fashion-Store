@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState} from "react";
 import "./style.scss";
-import {HiPlus} from 'react-icons/hi';
+import {HiOutlineTrash, HiPlus} from 'react-icons/hi';
 import {BsCheckLg} from 'react-icons/bs';
 import {MdOutlineClose} from "react-icons/md";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
+import {FiEdit3} from "react-icons/fi";
+import {ConfigProvider, Popconfirm} from "antd";
+
+const CATEGORY = {
+  SUB_CATEGORY: "SUB_CATEGORY",
+  PARENT_CATEGORY: "PARENT_CATEGORY",
+}
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);
@@ -96,22 +103,13 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingCategory(true);
   };
 
-  const apiAddCategoryUrl = "/api/admin/add-category";
-
   const handleSaveCategory = async () => {
     let parentCategoryID = 0;
     const formData = new FormData();
     formData.append('categoryName', inputCategoryValue);
     formData.append('parentCategoryID', parentCategoryID);
-    console.log(accessToken);
-    console.log("Sending request:", {
-      method: 'POST',
-      headers: {
-        "Authorization": `Bearer ${accessToken}`,
-      },
-      body: formData,
-    });
 
+    const apiAddCategoryUrl = "/api/admin/add-category";
     try {
       const response = await fetch(apiAddCategoryUrl, {
         method: 'POST',
@@ -125,13 +123,13 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         const data = await response.json();
         toast.success(data.message);
 
-        if (inputCategoryValue !== "") {
-          setCategories([...categories, { id: 0, name: inputCategoryValue }]);
-        }
+        // if (inputCategoryValue !== "") {
+        //   setCategories([...categories, { id: 0, name: inputCategoryValue }]);
+        // }
 
         setInputCategoryValue("");
         setIsAddingCategory(false);
-        fetchData();
+        fetchData().then(r => {});
       } else {
         const data = await response.json();
         toast.error(data.message);
@@ -149,6 +147,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     formData.append('parentCategoryID', parentCategoryID);
     formData.append('categoryName', categoryName);
 
+    const apiAddCategoryUrl = "/api/admin/add-category";
     try {
       const response = await fetch(apiAddCategoryUrl, {
         method: 'POST',
@@ -162,13 +161,12 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         const data = await response.json();
         toast.success(data.message);
 
-        if (inputCategoryValue !== "") {
-          setCategories([...categories, { id: 0, name: inputCategoryValue }]);
-        }
+        // if (inputCategoryValue !== "") {
+        //   setCategories([...categories, { id: 0, name: inputCategoryValue }]);
+        // }
 
-        setInputCategoryValue("");
-        setIsAddingCategory(false);
-        fetchData();
+        handleCancelCategoryClick();
+        fetchData().then(r => {});
       } else {
         const data = await response.json();
         toast.error(data.message);
@@ -179,15 +177,55 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const handleSaveCategoryClick = () => {
-    handleSaveCategory().then(r => {
-
-    });
+    handleSaveCategory().then(r => {});
   };
 
-  const handleCancelCategoryClick = () => {
-    setInputCategoryValue("");
-    setIsAddingCategory(false);
-  };
+  const deleteCategory = async (categoryID, type) => {
+    const formData = new FormData();
+    formData.append('categoryID', categoryID);
+
+    let apiDeleteCategoryUrl = "/api/admin/delete-category";
+    try {
+      const response = await fetch(apiDeleteCategoryUrl, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', apiDeleteCategoryUrl);
+        return;
+      }
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+
+        if (type === CATEGORY.PARENT_CATEGORY) {
+          setSelectedParentCategory({});
+          setSelectedCategory({});
+        }
+        if (type === CATEGORY.SUB_CATEGORY) {
+          setSelectedCategory({});
+        }
+
+        fetchData().then(r => {});
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error('Failed:', error);
+    }
+  }
+
+  const handleDeleteCategoryClick = (categoryID, type) => {
+    deleteCategory(categoryID, type).then(r => {})
+  }
 
   // handle subCategory
   const handleAddSubCategoryClick = () => {
@@ -196,11 +234,10 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSaveSubCategoryClick = () => {
     if (inputSubCategoryValue !== "") {
-      handleSaveSubCategory();
-      addSubCategory({ id: 0, name: inputSubCategoryValue});
+      handleSaveSubCategory().then(r => {});
+      // addSubCategory({ id: 0, name: inputSubCategoryValue});
     }
-    setInputSubCategoryValue("");
-    setIsAddingSubCategory(false);
+    handleCancelSubCategoryClick();
   };
 
   const handleCancelSubCategoryClick = () => {
@@ -208,19 +245,24 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setIsAddingSubCategory(false);
   };
 
-  const addSubCategory = (newSubCategory) => {
-    const newCategories = [...categories];
-    const parentCategory = newCategories.find(category => category.categoryID === selectedCategory.ID);
-
-    if (parentCategory) {
-      if (!parentCategory.subCategories) {
-        parentCategory.subCategories = [];
-      }
-      parentCategory.subCategories.push(newSubCategory);
-
-      setCategories(newCategories);
-    }
+  const handleCancelCategoryClick = () => {
+    setInputCategoryValue("");
+    setIsAddingCategory(false);
   };
+
+  // const addSubCategory = (newSubCategory) => {
+  //   const newCategories = [...categories];
+  //   const parentCategory = newCategories.find(category => category.categoryID === selectedCategory.ID);
+  //
+  //   if (parentCategory) {
+  //     if (!parentCategory.subCategories) {
+  //       parentCategory.subCategories = [];
+  //     }
+  //     parentCategory.subCategories.push(newSubCategory);
+  //
+  //     setCategories(newCategories);
+  //   }
+  // };
 
   return (
     <div className="modal" id="modal-auth" style={{ display: 'flex', alignItems:"center", justifyContent:"center" }}>
@@ -270,14 +312,40 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                             <p data-v-38ab3376=""
                                className={`text-overflow ${category.categoryID === selectedParentCategory.categoryID ? 'selected-category' : ''}`}
                             >{category.categoryName}</p>
-                            <div data-v-38ab3376="" className="category-item-right">
-                              <i data-v-38ab3376="" className="icon-next fashion-store-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                                  <path className={`${category.categoryID === selectedParentCategory.categoryID ? 'selected-category' : ''}`}
-                                        d="M23.5 15.5l-12-11c-.6-.6-1.5-.6-2.1 0-.2.2-.4.6-.4 1s.2.8.4 1l10.9 10-10.9 10c-.6.6-.6 1.5 0 2.1.3.3.7.4 1 .4.4 0 .7-.1 1-.4l11.9-10.9.1-.1c.3-.3.4-.7.4-1.1.1-.4 0-.8-.3-1z"></path>
-                                </svg>
-                              </i>
-                            </div>
+
+                              { category.categoryID === selectedParentCategory.categoryID ?
+                                  <div data-v-38ab3376="" className="category-item-right">
+                                    <FiEdit3  onClick={handleSaveCategoryClick} className="selected-category btn-add pointer-cursor" style={{marginRight:"6px"}}/>
+
+                                    <ConfigProvider
+                                        button={{
+                                          style: { width: 80, margin: 4 },
+                                        }}
+                                    >
+                                      <Popconfirm
+                                          placement="top"
+                                          title={'Bạn có chắc chắn xóa danh mục này không? '}
+                                          description={<div>Thao tác này sẽ xóa tất cả danh mục con <br></br>  cùng với sản phẩm thuộc danh mục này.</div>}
+                                          okText={<div>Xóa</div>}
+                                          cancelText={<div>Hủy</div>}
+                                          onConfirm={() => handleDeleteCategoryClick(category.categoryID, CATEGORY.PARENT_CATEGORY)}
+                                      >
+                                        <HiOutlineTrash className="selected-category btn-delete pointer-cursor"/>
+                                      </Popconfirm>
+                                    </ConfigProvider>
+
+
+                                  </div>
+                                  :
+                                  <div data-v-38ab3376="" className="category-item-right">
+                                    <i data-v-38ab3376="" className="icon-next fashion-store-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                                        <path d="M23.5 15.5l-12-11c-.6-.6-1.5-.6-2.1 0-.2.2-.4.6-.4 1s.2.8.4 1l10.9 10-10.9 10c-.6.6-.6 1.5 0 2.1.3.3.7.4 1 .4.4 0 .7-.1 1-.4l11.9-10.9.1-.1c.3-.3.4-.7.4-1.1.1-.4 0-.8-.3-1z"></path>
+                                      </svg>
+                                    </i>
+                                  </div>
+                              }
+
                           </li>
                       ))}
                     </ul>
@@ -315,6 +383,29 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                               <p data-v-38ab3376="" className={`text-overflow ${subCategory.categoryID === selectedCategory.categoryID ? 'selected-category' : ''}`}>
                                 {subCategory.categoryName}
                               </p>
+                              { subCategory.categoryID === selectedCategory.categoryID &&
+                                  <div data-v-38ab3376="" className="category-item-right">
+                                    <FiEdit3  onClick={handleSaveCategoryClick} className="selected-category btn-add pointer-cursor" style={{marginRight:"6px"}}/>
+
+                                    <ConfigProvider
+                                        button={{
+                                          style: { width: 80, margin: 4 },
+                                        }}
+                                    >
+                                      <Popconfirm
+                                          placement="top"
+                                          title={'Bạn có chắc chắn xóa danh mục này không? '}
+                                          description={<div>Thao tác này sẽ xóa tất cả những sản phẩm<br></br> thuộc danh mục này.</div>}
+                                          okText={<div>Xóa</div>}
+                                          cancelText={<div>Hủy</div>}
+                                          onConfirm={() => handleDeleteCategoryClick(subCategory.categoryID, CATEGORY.SUB_CATEGORY)}
+                                      >
+                                        <HiOutlineTrash className="selected-category btn-delete pointer-cursor"/>
+                                      </Popconfirm>
+                                    </ConfigProvider>
+
+                                  </div>
+                              }
                             </li>
                         ))
                       }
