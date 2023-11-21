@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.Normalizer;
 import java.util.*;
+import java.util.regex.Pattern;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -351,22 +353,15 @@ public class ProductController {
         }
     }
 
-    // Hàm thay thế các chữ cái đặc biệt và dấu từ chuỗi Tiếng Việt
+    private static String removeDiacritics(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(normalized).replaceAll("");
+    }
+
     private String replaceVietnameseChars(String input) {
-        Map<String, String> vietnameseCharMap = new HashMap<>();
-        vietnameseCharMap.put("àáảãạâầấẩẫậăằắẳẵặ", "a");
-        vietnameseCharMap.put("èéẻẽẹêềếểễệ", "e");
-        vietnameseCharMap.put("ìíỉĩị", "i");
-        vietnameseCharMap.put("òóỏõọôồốổỗộơờớởỡợ", "o");
-        vietnameseCharMap.put("ùúủũụưừứửữự", "u");
-        vietnameseCharMap.put("ỳýỷỹỵ", "y");
-        vietnameseCharMap.put("đ", "d");
-
-        for (Map.Entry<String, String> entry : vietnameseCharMap.entrySet()) {
-            String regex = "[" + entry.getKey() + "]";
-            input = input.replaceAll(regex, entry.getValue());
-        }
-
+        input = input.toLowerCase();
+        input = removeDiacritics(input);
         return input;
     }
 }
