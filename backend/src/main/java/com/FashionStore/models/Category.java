@@ -1,6 +1,9 @@
 package com.FashionStore.models;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -31,19 +34,22 @@ public class Category {
 
     }
 
-    public Category(String categoryName) {
+    public Category(String categoryName, String imagePath) {
         this.categoryName = categoryName;
+        this.imagePath = imagePath;
     }
 
-    public Category(String categoryName, Long parentCategoryID) {
+    public Category(String categoryName, Long parentCategoryID, String imagePath) {
         this.categoryName = categoryName;
         this.parentCategoryID = parentCategoryID;
+        this.imagePath = imagePath;
     }
 
-    public Category(Long categoryID, String categoryName, Long parentCategoryID) {
+    public Category(Long categoryID, String categoryName, Long parentCategoryID, String imagePath) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.parentCategoryID = parentCategoryID;
+        this.imagePath = imagePath;
     }
 
     public Long getCategoryID() {

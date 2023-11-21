@@ -57,6 +57,9 @@ public class CategoryController {
         this.productQuantityRepository = productQuantityRepository;
     }
 
+    @Autowired
+    private Config config;
+
     @PostMapping("/admin/add-category")
     public ResponseEntity<?> addCategory(HttpServletRequest request) {
         String categoryName = request.getParameter("categoryName");
@@ -71,8 +74,8 @@ public class CategoryController {
 
         try {
             Category category;
-            if (parentCategoryID == 0) category = new Category(categoryName);
-            else category = new Category(categoryName, parentCategoryID);
+            if (parentCategoryID == 0) category = new Category(categoryName, config.getImageCategoryDefault());
+            else category = new Category(categoryName, parentCategoryID, config.getImageCategoryDefault());
             categoryRepository.save(category);
             ResponseObject responseObject = new ResponseObject("Đã thêm danh mục mới thành công");
             return ResponseEntity.ok(responseObject);
