@@ -3,9 +3,12 @@ import "./style.scss"
 
 import ProductDetails from "../components/ProductDetails/ProductDetails";
 import {toast} from "react-toastify";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 
 const AddProductPage = () => {
+  const location = useLocation();
+  const category = location.state;
+
   const { productID } = useParams();
   const [productImages, setProductImages] = useState([]);
 
@@ -16,8 +19,8 @@ const AddProductPage = () => {
     productDescription: "",
     productQuantities: [],
     productSizes: [],
-    category:{},
-    parentCategory:{},
+    category: location.state?.subCategory ?? {},
+    parentCategory:location.state?.category ?? {},
   });
 
   async function addProduct() {

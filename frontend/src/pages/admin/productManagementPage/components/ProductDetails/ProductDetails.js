@@ -6,7 +6,7 @@ import SizeField from "./SizeField/SizeField";
 import {toast} from "react-toastify";
 import {generateUniqueId} from "../../../../../utils";
 
-const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages }) => {
+const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages}) => {
   const MAX_IMAGES = 8;
   const MAX_SIZE_FIELDS = 8;
   const MAX_LENGTH_PRODUCT_NAME= 100;

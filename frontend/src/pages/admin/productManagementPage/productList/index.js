@@ -519,6 +519,11 @@ const ProductListPage  = () => {
                                         <div style={{display:"flex"}}>
                                           <div className="btn-category"
                                                style={{marginRight:"20px", fontSize:"25px"}}
+                                               onClick={() => {
+                                                 navigate(`/admin/product-management-page/add-product`, {
+                                                   state: { category: category, subCategory: subCategory  },
+                                                 });
+                                               }}
                                           >
                                             <IoAdd/>
                                           </div>
