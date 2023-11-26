@@ -14,6 +14,7 @@ import {isSubstringIgnoreCaseAndAccents} from "../../../../utils";
 import {CATEGORY, SEARCH} from "../utils/const";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
+import {Popover} from "antd";
 
 const ProductListPage  = () => {
   const navigate = useNavigate();;
@@ -534,6 +535,7 @@ const ProductListPage  = () => {
                                         </div>
 
                                         <div style={{display:"flex"}}>
+
                                           <div className="btn-category"
                                                style={{marginRight:"20px", fontSize:"25px"}}
                                                onClick={() => {
@@ -731,7 +733,7 @@ const ProductListPage  = () => {
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
               <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý sản phẩm</span>
+              &gt; <span>Quản lý danh mục và sản phẩm</span>
             </div>
           </div>
 
@@ -739,10 +741,14 @@ const ProductListPage  = () => {
             <div style={{margin:"0 70px 0 40px"}}>
               <p className="category-title">
                 DANH MỤC SẢN PHẨM
-                <MdLibraryAdd className="pointer-cursor"
-                              style={{margin:"0 0 8px 8px", fontSize:"27px"}}
-                              onClick={(e) => handleBtnAddCategoryClick(e, 0)}
-                />
+
+                <Popover placement="top" content={<div style={{fontWeight:"600"}}>Thêm danh mục lớn</div>}>
+                  <MdLibraryAdd className="pointer-cursor"
+                                style={{margin:"0 0 8px 8px", fontSize:"27px"}}
+                                onClick={(e) => handleBtnAddCategoryClick(e, 0)}
+                  />
+                </Popover>
+
               </p>
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
                 borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
