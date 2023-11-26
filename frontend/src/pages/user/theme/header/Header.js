@@ -8,7 +8,7 @@ import './style.scss';
 import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
 import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
 import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
-import {DIALOGS} from "../../components/dialogs/utils";
+import {DIALOGS} from "../../components/dialogs/utils/const";
 import {Cookies, useCookies} from "react-cookie";
 import {useLogout} from "../../components/dialogs/utils/logout";
 import {formatter} from "../../../../utils/formatter";

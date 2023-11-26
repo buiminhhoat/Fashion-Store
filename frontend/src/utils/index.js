@@ -13,3 +13,8 @@ export function isStartWithLetter(str) {
   const firstChar = newStr.charAt(0);
   return /^[a-zA-Z]/.test(firstChar);
 }
+
+export const generateUniqueId = () => {
+  const timestamp = Date.now();
+  return timestamp.toString() + Math.floor(Math.random() * 1000);
+}

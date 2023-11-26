@@ -3,7 +3,7 @@ import "./style.scss";
 
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
-import { DIALOGS } from "../utils";
+import { DIALOGS } from "../utils/const";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {
   const [fullName, setFullName] = useState("");

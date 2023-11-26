@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
-import { DIALOGS } from "../utils";
+import { DIALOGS } from "../utils/const";
 import { Cookies } from 'react-cookie';
 
 const LoginDialog = ({ onClose, onSwitch }) => {

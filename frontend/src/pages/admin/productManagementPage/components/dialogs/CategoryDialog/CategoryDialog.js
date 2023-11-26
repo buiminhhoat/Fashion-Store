@@ -8,11 +8,7 @@ import {useCookies} from "react-cookie";
 import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
 import {isStartWithLetter} from "../../../../../../utils";
-
-const CATEGORY = {
-  SUB_CATEGORY: "SUB_CATEGORY",
-  PARENT_CATEGORY: "PARENT_CATEGORY",
-}
+import {CATEGORY} from "../utils/const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);

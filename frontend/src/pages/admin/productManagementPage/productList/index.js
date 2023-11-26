@@ -11,17 +11,8 @@ import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {useNavigate} from "react-router-dom";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../utils";
-
-const SEARCH = {
-  CATEGORY: "",
-  SUB_CATEGORY: "sub-category",
-  PRODUCT: "product"
-}
-
-const CATEGORY = {
-  SUB_CATEGORY: "SUB_CATEGORY",
-  PARENT_CATEGORY: "PARENT_CATEGORY",
-}
+import {CATEGORY, SEARCH} from "../utils/const";
+import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 
 const ProductListPage  = () => {
   const navigate = useNavigate();;
@@ -31,6 +22,8 @@ const ProductListPage  = () => {
 
   const [deletedCategory, setDeletedCategory] = useState(null);
   const [deletedProduct, setDeletedProduct] = useState(null);
+
+  const [addingCategory, setAddingCategory] = useState(null);
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -383,6 +376,18 @@ const ProductListPage  = () => {
     }
   };
 
+  const handleBtnAddCategoryClick = (e, parentCategoryID) => {
+    e.stopPropagation();
+    setAddingCategory({
+      parentCategoryID: parentCategoryID,
+    })
+  }
+
+  const handleAcceptAddCategory = () => {
+    fetchData().then(r => {});
+    setAddingCategory(null);
+  }
+
   const ListCategorySection = () => {
     return (
         <div>
@@ -420,7 +425,9 @@ const ProductListPage  = () => {
                                 </div>
                                 <div style={{display:"flex"}}>
                                   <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
-                                       style={{marginRight:"20px", fontSize:"25px"}}>
+                                       style={{marginRight:"20px", fontSize:"25px"}}
+                                       onClick={(e) => handleBtnAddCategoryClick(e, category.categoryID)}
+                                  >
                                     <IoAdd/>
                                   </div>
 
@@ -495,7 +502,9 @@ const ProductListPage  = () => {
 
                                         <div style={{display:"flex"}}>
                                           <div className="btn-category"
-                                               style={{marginRight:"20px", fontSize:"25px"}}>
+                                               style={{marginRight:"20px", fontSize:"25px"}}
+                                               onClick={(e) => handleBtnAddCategoryClick(e, category.categoryID)}
+                                          >
                                             <IoAdd/>
                                           </div>
 
@@ -695,7 +704,7 @@ const ProductListPage  = () => {
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
                       <input
                           className="placeholder-color"
-                          style={{width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}
+                          style={{fontSize:"15px", width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}
                           type="text"
                           value={searchInputValue}
                           placeholder="Nhập từ khóa"
@@ -760,6 +769,14 @@ const ProductListPage  = () => {
                              titleBtnCancel={"Hủy bỏ"}
                              onAccept={deleteProduct}
                              onCancel={() => {setDeletedProduct(null)}}/>
+            </div>
+        )}
+
+        {addingCategory && (
+            <div className="modal-overlay">
+              <AddCategoryDialog parentCategoryID={addingCategory.parentCategoryID}
+                                 onAccept={handleAcceptAddCategory}
+                                 onClose={() => {setAddingCategory(null)}}/>
             </div>
         )}
 
