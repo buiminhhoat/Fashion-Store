@@ -57,7 +57,18 @@ const ProductListPage  = () => {
         console.log("apiGetCategory");
         console.log(data);
 
-        setCategories(data);
+        let newData = data.map(category => ({
+          ...category,
+          subCategories: category.subCategories.map(subCategory => {
+            const matchedSubCategory = categories
+                .flatMap(cat => cat.subCategories)
+                .find(cat => cat.categoryID === subCategory.categoryID);
+
+            return matchedSubCategory || subCategory;
+          }),
+        }));
+
+        setCategories(newData);
 
         const fetchImagePromises = data.flatMap(category =>
             category.subCategories.map(subCategory => {
@@ -73,7 +84,6 @@ const ProductListPage  = () => {
             .catch(error => {
               console.error("Error loading images:", error);
             });
-
 
       } else {
         const data = await response.json();
@@ -484,8 +494,8 @@ const ProductListPage  = () => {
                                               />
                                             </div>
                                             { selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
-                                                subCategory.products &&
-                                                subCategory.products.length > 0 &&
+                                                // subCategory.products &&
+                                                // subCategory.products.length > 0 &&
                                                 <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
                                                   height:"51%", borderRight:"3px solid #a30000",
                                                   marginLeft:"25px"}}/>
@@ -503,7 +513,6 @@ const ProductListPage  = () => {
                                         <div style={{display:"flex"}}>
                                           <div className="btn-category"
                                                style={{marginRight:"20px", fontSize:"25px"}}
-                                               onClick={(e) => handleBtnAddCategoryClick(e, category.categoryID)}
                                           >
                                             <IoAdd/>
                                           </div>
@@ -524,62 +533,87 @@ const ProductListPage  = () => {
 
                                       <div>
                                         {
-                                            selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
-                                            subCategory.products &&
-                                            subCategory.products.map((product, productIndex) => (
-                                                <div key={productIndex}>
+                                          selectedCategoriesID.find((id) => id === subCategory.categoryID) &&
+                                          (
+                                            subCategory.products && subCategory.products.length > 0 ?
+                                            (
+                                              subCategory.products.map((product, productIndex) => (
+                                                  <div key={productIndex}>
+                                                    <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
+                                                      <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+                                                        <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
+                                                          borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
+
+                                                        <div style={{alignSelf: "flex-start", width:"25px",
+                                                          height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
+                                                          marginLeft:"25px"}}/>
+
+                                                        <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+
+                                                        <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                                                          <img
+                                                              className="img-subCategory"
+                                                              src={product.productImages.length > 0 ?
+                                                                  "/storage/images/" + product.productImages[0].imagePath : ""}
+                                                              alt=""
+                                                          />
+                                                        </div>
+
+                                                        <a href={`/product?productID=${product.productID}`}
+                                                           className="cursor-point hover-underline-animation"
+                                                           style={{marginLeft:"15px", fontSize:"15", fontWeight:"600", color:"#9D9D9D"}}
+                                                            // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
+                                                        >
+                                                          {product.productName}
+                                                        </a>
+                                                      </div>
+
+                                                      <div style={{display:"flex"}}>
+                                                        <div className="pointer-cursor btn-category"
+                                                             style={{marginRight:"20px"}}
+                                                             onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
+                                                        >
+                                                          <HiOutlineTrash />
+                                                        </div>
+                                                        <a
+                                                            // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
+                                                        >
+                                                          <div className="pointer-cursor btn-category"
+                                                               style={{marginRight:"0"}}
+                                                               onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
+                                                          >
+                                                            <BiSolidEdit />
+                                                          </div>
+                                                        </a>
+
+                                                      </div>
+
+                                                    </div>
+                                                  </div>
+                                              ))
+                                            )
+                                            :
+                                            (
+                                                <div>
                                                   <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
                                                     <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
+
                                                       <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
                                                         borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
 
                                                       <div style={{alignSelf: "flex-start", width:"25px",
-                                                        height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
-                                                        marginLeft:"25px"}}/>
+                                                        height:"51%", borderRight:"3px solid #a30000", marginLeft:"25px"}}/>
 
-                                                      <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
-
-                                                      <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
-                                                        <img
-                                                            className="img-subCategory"
-                                                            src={product.productImages.length > 0 ?
-                                                                "/storage/images/" + product.productImages[0].imagePath : ""}
-                                                            alt=""
-                                                        />
-                                                      </div>
-
-                                                      <a href={`/product?productID=${product.productID}`}
-                                                         className="cursor-point hover-underline-animation"
-                                                         style={{marginLeft:"15px", fontSize:"15", fontWeight:"600", color:"#9D9D9D"}}
-                                                          // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
-                                                      >
-                                                        {product.productName}
+                                                      <div style={{width:"30px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+                                                      <a style={{cursor: "default", marginLeft:"15px", fontSize:"15", fontWeight:"600", color:"#bd0000"}}>
+                                                        Không có sản phẩm
                                                       </a>
                                                     </div>
-
-                                                    <div style={{display:"flex"}}>
-                                                      <div className="pointer-cursor btn-category"
-                                                           style={{marginRight:"20px"}}
-                                                           onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
-                                                      >
-                                                        <HiOutlineTrash />
-                                                      </div>
-                                                      <a
-                                                          // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
-                                                      >
-                                                        <div className="pointer-cursor btn-category"
-                                                             style={{marginRight:"0"}}
-                                                             onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
-                                                        >
-                                                          <BiSolidEdit />
-                                                        </div>
-                                                      </a>
-
-                                                    </div>
-
                                                   </div>
                                                 </div>
-                                            ))
+                                            )
+                                          )
+
                                         }
                                       </div>
                                     </div>
@@ -675,7 +709,10 @@ const ProductListPage  = () => {
             <div style={{margin:"0 70px 0 40px"}}>
               <p className="category-title">
                 DANH MỤC SẢN PHẨM
-                <MdLibraryAdd style={{margin:"0 0 8px 8px", fontSize:"27px"}}/>
+                <MdLibraryAdd className="pointer-cursor"
+                              style={{margin:"0 0 8px 8px", fontSize:"27px"}}
+                              onClick={(e) => handleBtnAddCategoryClick(e, 0)}
+                />
               </p>
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
                 borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
