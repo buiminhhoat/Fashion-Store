@@ -6,7 +6,7 @@ import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
 import {MdArrowDropDown, MdArrowRight, MdLibraryAdd} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
-import {IoSearch} from "react-icons/io5";
+import {IoAdd, IoSearch} from "react-icons/io5";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {useNavigate} from "react-router-dom";
@@ -399,17 +399,18 @@ const ProductListPage  = () => {
                                    style={{borderTop: `${index !== 0 ? "2px solid #E4E4E4" : "none"}`}}
                                    onClick={() => handleCategoryClick(category.categoryID, CATEGORY.PARENT_CATEGORY)}
                               >
-                                <div>
-                                  <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`, fontSize:"17px", fontWeight:"600", marginTop:"7px"}}>
+                                <div style={{maxWidth:"70%"}}>
+                                  <div style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`,
+                                              fontSize:"16px", fontWeight:"600", marginTop:"7px", display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
                                     {
                                       selectedCategoriesID.find((id) => id === category.categoryID) ?
-                                          <MdArrowDropDown style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                          <MdArrowDropDown style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"10px"}}/>
                                           :
-                                          <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"5px"}}/>
+                                          <MdArrowRight style={{padding:"0px 0 5px", fontSize:"37px", marginRight:"10px"}}/>
                                     }
                                     <a className="hover-underline-animation"
                                        href={`/category?categoryID=${category.categoryID}`}
-                                       style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`,}}
+                                       style={{color:`${selectedCategoriesID.find((id) => id === category.categoryID)?"#E4E4E4":"#9D9D9D"}`}}
                                     >
                                       {category.categoryName}
                                     </a>
@@ -418,13 +419,18 @@ const ProductListPage  = () => {
 
                                 </div>
                                 <div style={{display:"flex"}}>
-                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
+                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
+                                       style={{marginRight:"20px", fontSize:"25px"}}>
+                                    <IoAdd/>
+                                  </div>
+
+                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
                                        style={{marginRight:"20px"}}
                                        onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, CATEGORY.PARENT_CATEGORY)}
                                   >
                                     <HiOutlineTrash />
                                   </div>
-                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-edit-category" : "btn-edit-category"}`}
+                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
                                        style={{marginRight:"0"}}>
                                     <BiSolidEdit />
                                   </div>
@@ -481,20 +487,25 @@ const ProductListPage  = () => {
 
                                           <a className="hover-underline-animation"
                                              href={`/category?categoryID=${subCategory.categoryID}`}
-                                             style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                             style={{marginLeft:"15px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}
                                           >
                                             {subCategory.categoryName}
                                           </a>
                                         </div>
 
                                         <div style={{display:"flex"}}>
-                                          <div className="btn-edit-category"
+                                          <div className="btn-category"
+                                               style={{marginRight:"20px", fontSize:"25px"}}>
+                                            <IoAdd/>
+                                          </div>
+
+                                          <div className="btn-category"
                                                style={{marginRight:"20px"}}
                                                onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, CATEGORY.SUB_CATEGORY)}
                                           >
                                             <HiOutlineTrash />
                                           </div>
-                                          <div className="btn-edit-category"
+                                          <div className="btn-category"
                                                style={{marginRight:"0"}}>
                                             <BiSolidEdit />
                                           </div>
@@ -530,7 +541,7 @@ const ProductListPage  = () => {
 
                                                       <a href={`/product?productID=${product.productID}`}
                                                          className="cursor-point hover-underline-animation"
-                                                         style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                                                         style={{marginLeft:"15px", fontSize:"15", fontWeight:"600", color:"#9D9D9D"}}
                                                           // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
                                                       >
                                                         {product.productName}
@@ -538,7 +549,7 @@ const ProductListPage  = () => {
                                                     </div>
 
                                                     <div style={{display:"flex"}}>
-                                                      <div className="pointer-cursor btn-edit-category"
+                                                      <div className="pointer-cursor btn-category"
                                                            style={{marginRight:"20px"}}
                                                            onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
                                                       >
@@ -547,7 +558,7 @@ const ProductListPage  = () => {
                                                       <a
                                                           // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
                                                       >
-                                                        <div className="pointer-cursor btn-edit-category"
+                                                        <div className="pointer-cursor btn-category"
                                                              style={{marginRight:"0"}}
                                                              onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
                                                         >
@@ -603,7 +614,7 @@ const ProductListPage  = () => {
 
                           <a href={`/product?productID=${product.productID}`}
                              className="cursor-point hover-underline-animation"
-                             style={{marginLeft:"15px", fontSize:"17px", fontWeight:"600", color:"#9D9D9D"}}
+                             style={{marginLeft:"15px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}
                               // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
                           >
                             {product.productName}
@@ -611,7 +622,7 @@ const ProductListPage  = () => {
                         </div>
 
                         <div style={{display:"flex"}}>
-                          <div className="pointer-cursor btn-edit-category"
+                          <div className="pointer-cursor btn-category"
                                style={{marginRight:"20px"}}
                                onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
                           >
@@ -620,7 +631,7 @@ const ProductListPage  = () => {
                           <a
                               // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
                           >
-                            <div className="pointer-cursor btn-edit-category"
+                            <div className="pointer-cursor btn-category"
                                  style={{marginRight:"0"}}
                                  onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
                             >

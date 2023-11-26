@@ -9,7 +9,7 @@ import {toast} from "react-toastify";
 const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages }) => {
   const MAX_IMAGES = 8;
   const MAX_SIZE_FIELDS = 8;
-  const MAX_LENGTH_PRODUCT_NAME= 120;
+  const MAX_LENGTH_PRODUCT_NAME= 100;
   const MAX_LENGTH_PRODUCT_DESCRIPTION = 2000;
   const [openDialog, setOpenDialog] = useState(null);
 
