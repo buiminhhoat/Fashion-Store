@@ -64,7 +64,11 @@ const ProductListPage  = () => {
                 .flatMap(cat => cat.subCategories)
                 .find(cat => cat.categoryID === subCategory.categoryID);
 
-            return matchedSubCategory || subCategory;
+            return {
+              ...subCategory,
+              products: matchedSubCategory && matchedSubCategory.products && matchedSubCategory.products.length > 0
+                  ? matchedSubCategory.products : subCategory.products,
+            };
           }),
         }));
 
@@ -239,6 +243,8 @@ const ProductListPage  = () => {
     const formData = new FormData();
     formData.append('categoryID', deletedCategory.categoryID);
 
+    console.log("deletedCategory.categoryID");
+    console.log(deletedCategory.categoryID);
     let apiDeleteCategoryUrl = "/api/admin/delete-category";
     try {
       const response = await fetch(apiDeleteCategoryUrl, {
@@ -773,7 +779,7 @@ const ProductListPage  = () => {
         {deletedCategory && (
             <div className="modal-overlay">
               <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
-                             subTitle={deletedCategory.type === "category" ?
+                             subTitle={deletedCategory.type === CATEGORY.PARENT_CATEGORY ?
                                  (
                                      <>
                                        Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> không? <br />
