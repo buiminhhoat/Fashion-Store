@@ -274,11 +274,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   }
 
   const editCategory = async (categoryID, categoryName) => {
-    if (inputValue === "") {
+    if (categoryName === "") {
       toast.warn("Tên danh mục không được để trống");
       return;
     }
-    if (!isStartWithLetter(inputValue)) {
+    if (!isStartWithLetter(categoryName)) {
       toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
       return;
     }

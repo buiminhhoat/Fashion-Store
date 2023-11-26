@@ -13,6 +13,7 @@ import {useNavigate} from "react-router-dom";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../utils";
 import {CATEGORY, SEARCH} from "../utils/const";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
+import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
 
 const ProductListPage  = () => {
   const navigate = useNavigate();;
@@ -24,6 +25,7 @@ const ProductListPage  = () => {
   const [deletedProduct, setDeletedProduct] = useState(null);
 
   const [addingCategory, setAddingCategory] = useState(null);
+  const [editingCategory, setEditingCategory] = useState(null);
 
   const [selectedCategoriesID, setSelectedCategoriesID] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -399,9 +401,22 @@ const ProductListPage  = () => {
     })
   }
 
+  const handleBtnEditCategoryClick = (e, categoryID, categoryName) => {
+    e.stopPropagation();
+    setEditingCategory({
+      categoryID: categoryID,
+      categoryName: categoryName,
+    })
+  }
+
   const handleAcceptAddCategory = () => {
     fetchData().then(r => {});
     setAddingCategory(null);
+  }
+
+  const handleAcceptEditCategory = () => {
+    fetchData().then(r => {});
+    setEditingCategory(null);
   }
 
   const ListCategorySection = () => {
@@ -454,7 +469,9 @@ const ProductListPage  = () => {
                                     <HiOutlineTrash />
                                   </div>
                                   <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
-                                       style={{marginRight:"0"}}>
+                                       style={{marginRight:"0"}}
+                                       onClick={(e) => handleBtnEditCategoryClick(e, category.categoryID, category.categoryName)}
+                                  >
                                     <BiSolidEdit />
                                   </div>
                                 </div>
@@ -535,7 +552,9 @@ const ProductListPage  = () => {
                                             <HiOutlineTrash />
                                           </div>
                                           <div className="btn-category"
-                                               style={{marginRight:"0"}}>
+                                               style={{marginRight:"0"}}
+                                               onClick={(e) => handleBtnEditCategoryClick(e, subCategory.categoryID, subCategory.categoryName)}
+                                          >
                                             <BiSolidEdit />
                                           </div>
                                         </div>
@@ -825,6 +844,15 @@ const ProductListPage  = () => {
               <AddCategoryDialog parentCategoryID={addingCategory.parentCategoryID}
                                  onAccept={handleAcceptAddCategory}
                                  onClose={() => {setAddingCategory(null)}}/>
+            </div>
+        )}
+
+        {editingCategory && (
+            <div className="modal-overlay">
+              <EditCategoryDialog categoryID={editingCategory.categoryID}
+                                  categoryName={editingCategory.categoryName}
+                                  onAccept={handleAcceptEditCategory}
+                                  onClose={() => {setEditingCategory(null)}}/>
             </div>
         )}
 
