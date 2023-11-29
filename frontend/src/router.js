@@ -15,6 +15,8 @@ import CheckoutPage from "./pages/user/checkoutPage";
 import CategoryPage from "./pages/user/categoryPage";
 import CartPage from "./pages/user/cartPage";
 import DoNotHavePermissionPage from "./pages/error/doNotHavePermissionPage";
+import {toast} from "react-toastify";
+import {useCookies} from "react-cookie";
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -105,10 +107,46 @@ const renderAdminCustom = () => {
     )
 }
 
-const RouterCustom = () => {
-    const [isAdmin, setIsAdmin] = useState(false);
+const renderLoadingCustom = () => {
+    return (
+        <MasterLayout>
+            <ScrollToTop />
+        </MasterLayout>
+    )
+}
 
-    return isAdmin ? renderAdminCustom() : renderUserCustom();
+const RouterCustom = () => {
+    const [cookies] = useCookies(['access_token']);
+    const accessToken = cookies.access_token;
+
+    const [isAdmin, setIsAdmin] = useState(null);
+
+    const fetchData = async () => {
+        const apiIsAdmin = "/api/public/isAdmin";
+        try {
+            const response = await fetch(apiIsAdmin, {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+            });
+
+            const data = await response.json();
+            setIsAdmin(data.message === "true");
+
+        } catch (error) {
+            console.log(error);
+            toast.error("Không thể kết nối được với database");
+        }
+    }
+
+    useEffect(() => {
+        fetchData().then(r => {});
+    }, []);
+
+    return (isAdmin === null && renderLoadingCustom()) ||
+           (isAdmin === true && renderAdminCustom()) ||
+           (isAdmin === false && renderUserCustom());
 }
 
 export default RouterCustom;
