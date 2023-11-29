@@ -12,6 +12,11 @@ public class ResponseObject {
         this.message = message;
     }
 
+    public ResponseObject(String status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
     public ResponseObject(String message, Object data) {
         this.message = message;
         this.data = data;

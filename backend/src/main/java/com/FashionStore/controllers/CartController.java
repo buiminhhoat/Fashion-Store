@@ -112,7 +112,7 @@ public class CartController {
         Category category = categoryRepository.findCategoriesByCategoryID(productCategory.getCategoryID());
         product.setCategory(category);
 
-        Category parentCategory = categoryRepository.findCategoriesByCategoryID(productCategory.getParentCategoryID());
+        Category parentCategory = categoryRepository.findCategoriesByCategoryID(category.getParentCategoryID());
         product.setParentCategory(parentCategory);
         return product;
     }
