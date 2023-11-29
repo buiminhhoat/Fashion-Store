@@ -16,16 +16,12 @@ public class ProductCategory {
     @Column(name = "CategoryID")
     private Long categoryID;
 
-    @Column(name = "ParentCategoryID")
-    private Long parentCategoryID;
-
     public ProductCategory() {
     }
 
-    public ProductCategory(Long productID, Long categoryID, Long parentCategoryID) {
+    public ProductCategory(Long productID, Long categoryID) {
         this.productID = productID;
         this.categoryID = categoryID;
-        this.parentCategoryID = parentCategoryID;
     }
 
     public Long getProductCategoryID() {
@@ -52,21 +48,12 @@ public class ProductCategory {
         this.categoryID = categoryID;
     }
 
-    public Long getParentCategoryID() {
-        return parentCategoryID;
-    }
-
-    public void setParentCategoryID(Long parentCategoryID) {
-        this.parentCategoryID = parentCategoryID;
-    }
-
     @Override
     public String toString() {
         return "ProductCategory{" +
                 "productCategoryID=" + productCategoryID +
                 ", productID=" + productID +
                 ", categoryID=" + categoryID +
-                ", parentCategoryID=" + parentCategoryID +
                 '}';
     }
 }
