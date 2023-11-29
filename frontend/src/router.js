@@ -1,5 +1,5 @@
 import {ROUTERS} from "./utils/router";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Route, Routes, useLocation} from "react-router-dom";
 
 import HomePage from "./pages/user/homePage";
@@ -14,6 +14,7 @@ import NotFoundPage from "./pages/error/notFoundPage";
 import CheckoutPage from "./pages/user/checkoutPage";
 import CategoryPage from "./pages/user/categoryPage";
 import CartPage from "./pages/user/cartPage";
+import DoNotHavePermissionPage from "./pages/error/doNotHavePermissionPage";
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -81,6 +82,8 @@ const renderUserCustom = () => {
                         <Route key={key} path={item.path} element={item.component} />
                     ))
                 }
+                <Route path='/admin/*' element={<DoNotHavePermissionPage />} />
+                <Route path='*' element={<NotFoundPage />} />
             </Routes>
         </MasterLayout>
     )
@@ -103,7 +106,9 @@ const renderAdminCustom = () => {
 }
 
 const RouterCustom = () => {
-    return renderAdminCustom();
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    return isAdmin ? renderAdminCustom() : renderUserCustom();
 }
 
 export default RouterCustom;
