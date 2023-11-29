@@ -166,22 +166,21 @@ INSERT INTO `Product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescr
 CREATE TABLE `ProductCategory` (
   `ProductCategoryID` bigint(20) NOT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
-  `CategoryID` bigint(20) DEFAULT NULL,
-  `ParentCategoryID` bigint(20) DEFAULT NULL
+  `CategoryID` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Đang đổ dữ liệu cho bảng `ProductCategory`
 --
 
-INSERT INTO `ProductCategory` (`ProductCategoryID`, `ProductID`, `CategoryID`, `ParentCategoryID`) VALUES
-(1, 1, 2, 1),
-(2, 2, 2, 1),
-(3, 3, 3, 1),
-(4, 4, 3, 1),
-(5, 5, 4, 1),
-(6, 6, 6, 5),
-(7, 7, 7, 5);
+INSERT INTO `ProductCategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) VALUES
+(1, 1, 2),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 3),
+(5, 5, 4),
+(6, 6, 6),
+(7, 7, 7);
 
 -- --------------------------------------------------------
 
@@ -387,8 +386,7 @@ ALTER TABLE `Product`
 ALTER TABLE `ProductCategory`
   ADD PRIMARY KEY (`ProductCategoryID`),
   ADD KEY `ProductID` (`ProductID`),
-  ADD KEY `CategoryID` (`CategoryID`),
-  ADD KEY `ParentCategoryID` (`ParentCategoryID`);
+  ADD KEY `CategoryID` (`CategoryID`);
 
 --
 -- Chỉ mục cho bảng `ProductImage`
@@ -544,8 +542,7 @@ ALTER TABLE `Orders`
 --
 ALTER TABLE `ProductCategory`
   ADD CONSTRAINT `productcategory_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `productcategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Category` (`CategoryID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `productcategory_ibfk_3` FOREIGN KEY (`ParentCategoryID`) REFERENCES `Category` (`ParentCategoryID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `productcategory_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `Category` (`CategoryID`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `ProductImage`
