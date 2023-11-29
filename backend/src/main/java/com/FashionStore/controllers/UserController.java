@@ -62,6 +62,23 @@ public class UserController {
         }
     }
 
+    @PostMapping("/public/isAdmin")
+    public ResponseEntity<?> isAdmin(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        if (jwtTokenUtil.isTokenValid(accessToken)) {
+            String email = jwtTokenUtil.getSubjectFromToken(accessToken);
+            Users findByEmail = usersRepository.findUsersByEmail(email);
+            if (findByEmail == null || !findByEmail.getIsAdmin()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), "false"));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(),"true"));
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), "false"));
+        }
+    }
+
     @GetMapping("/admin/get-all-users")
     public ResponseEntity<?> getAllUsers() {
         List<Users> users = usersRepository.findAll();
