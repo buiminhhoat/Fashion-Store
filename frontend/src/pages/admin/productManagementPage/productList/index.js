@@ -769,14 +769,14 @@ const ProductListPage  = () => {
   return (
       <div id="app">
         <main id="main">
-          <div className="container profile-wrap">
-            <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý danh mục và sản phẩm</span>
-            </div>
-          </div>
+          {/*<div className="container profile-wrap">*/}
+          {/*  <div className="breadcrumb-wrap">*/}
+          {/*    <a href="/">Trang chủ</a>*/}
+          {/*    &gt; <span>Quản lý danh mục và sản phẩm</span>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
-          <div className="container pe-0 ps-0" style={{marginTop: "10px", paddingBottom: "40px"}}>
+          <div className="container pe-0 ps-0" style={{marginTop: "30px", paddingBottom: "150px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
               <p className="category-title">
                 DANH MỤC SẢN PHẨM
