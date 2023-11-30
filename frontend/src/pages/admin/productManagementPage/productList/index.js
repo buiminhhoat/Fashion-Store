@@ -166,6 +166,36 @@ const ProductListPage  = () => {
     }
   };
 
+  // const fetchRandom12Products = async () => {
+  //   const apiGetRandom12Products = "/api/public/all-categories/get-random-12-products";
+  //
+  //   try {
+  //     const response = await fetch(apiGetRandom12Products, {
+  //       method: 'GET',
+  //     });
+  //
+  //     if (response.status === 404) {
+  //       toast.error("Không thể kết nối được với database");
+  //       console.error('API endpoint not found:', apiGetRandom12Products);
+  //       return;
+  //     }
+  //
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log("apiGetRandom12Products");
+  //       console.log(data);
+  //       setProductsData(data);
+  //
+  //     } else {
+  //       const data = await response.json();
+  //       toast.error(data.message);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Không thể kết nối được với database");
+  //   }
+  // }
+
   const fetchProductDataByCategoryID = async (categoryID) => {
     const apiProductByCategoryID = "/api/public/category/" + categoryID;
     try {
@@ -198,6 +228,10 @@ const ProductListPage  = () => {
 
   const fetchProductDataBySearch = async (encodedSearchString) => {
     const decodedSearchString = decodeURIComponent(encodedSearchString);
+    // if (decodedSearchString === "") {
+    //   fetchRandom12Products().then(r => {});
+    //   return;
+    // }
     const apiProductBySearch = "/api/public/search/" + decodedSearchString;
 
     try {
@@ -226,7 +260,6 @@ const ProductListPage  = () => {
       toast.error("Không thể kết nối được với database");
     }
   }
-
 
   const handleCategoryClick = (categoryID, type) => {
     if (selectedCategoriesID.includes(categoryID)) {
@@ -320,6 +353,11 @@ const ProductListPage  = () => {
               })),
             }))
         );
+
+        setProductsData((newProductsData) =>
+            productsData.filter((product) => product.productID !== deletedProduct.productID)
+        );
+
         setDeletedProduct(null);
         // fetchData();
       } else {
@@ -360,6 +398,7 @@ const ProductListPage  = () => {
     setSearchInputValue("");
     setSelectedCategoriesID([]);
     setProductsData([]);
+    // fetchRandom12Products().then(r => {});
     fetchData().then(r => {});
   };
 

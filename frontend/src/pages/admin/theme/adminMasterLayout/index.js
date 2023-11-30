@@ -43,7 +43,7 @@ const ButtonBackToTop = () => {
 
 export const CartContext = createContext(); // Exporting the context
 
-const MasterLayout = ({children, ...props}) => {
+const AdminMasterLayout = ({children, ...props}) => {
     const [amountInCart, setAmountInCart] = useState(0);
     // const amountInCart = useRef(0);
     const divStyle = {
@@ -83,7 +83,7 @@ const MasterLayout = ({children, ...props}) => {
     };
 
     useEffect(() => {
-        getAmountInCart();
+        getAmountInCart().then(r => {});
     }, [])
 
     // if (loading === true) {
@@ -118,4 +118,4 @@ const MasterLayout = ({children, ...props}) => {
     );
 }
 
-export default MasterLayout;
+export default AdminMasterLayout;

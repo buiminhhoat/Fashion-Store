@@ -5,7 +5,7 @@ import {Route, Routes, useLocation} from "react-router-dom";
 import HomePage from "./pages/user/homePage";
 import ProfilePage from "./pages/user/profilePage";
 import LoginPage from "./pages/user/loginPage";
-import MasterLayout from "./pages/user/theme/masterLayout";
+import UserMasterLayout from "./pages/user/theme/userMasterLayout";
 import ProductManagementPage from "./pages/admin/productManagementPage";
 import AccountManagementPage from "./pages/admin/accountManagementPage";
 import SearchProductPage from "./pages/user/searchProductPage";
@@ -17,6 +17,7 @@ import CartPage from "./pages/user/cartPage";
 import DoNotHavePermissionPage from "./pages/error/doNotHavePermissionPage";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
+import AdminMasterLayout from "./pages/admin/theme/adminMasterLayout";
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -77,7 +78,7 @@ const adminRouters =  [
 
 const renderUserCustom = () => {
     return (
-        <MasterLayout>
+        <UserMasterLayout>
             <Routes>
                 {
                     userRouters.map((item, key) => (
@@ -87,13 +88,13 @@ const renderUserCustom = () => {
                 <Route path='/admin/*' element={<DoNotHavePermissionPage />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
-        </MasterLayout>
+        </UserMasterLayout>
     )
 }
 
 const renderAdminCustom = () => {
        return (
-        <MasterLayout>
+        <AdminMasterLayout>
             <ScrollToTop />
             <Routes>
                 {
@@ -103,15 +104,7 @@ const renderAdminCustom = () => {
                 }
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
-        </MasterLayout>
-    )
-}
-
-const renderLoadingCustom = () => {
-    return (
-        <MasterLayout>
-            <ScrollToTop />
-        </MasterLayout>
+        </AdminMasterLayout>
     )
 }
 
@@ -144,9 +137,7 @@ const RouterCustom = () => {
         fetchData().then(r => {});
     }, []);
 
-    return (isAdmin === null && renderLoadingCustom()) ||
-           (isAdmin === true && renderAdminCustom()) ||
-           (isAdmin === false && renderUserCustom());
+    return (isAdmin === true && renderAdminCustom()) || (isAdmin === false && renderUserCustom());
 }
 
 export default RouterCustom;

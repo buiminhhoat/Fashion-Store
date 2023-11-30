@@ -9,7 +9,7 @@ import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import logo_fashion_store from "./images/logo_fashion_store.png";
 
-import {CartContext} from "../userMasterLayout";
+import {CartContext} from "../adminMasterLayout";
 import {DIALOGS} from "../../../../components/dialogs/utils/const";
 import {formatter} from "../../../../utils/formatter";
 import {useLogout} from "../../../../components/dialogs/utils/logout";

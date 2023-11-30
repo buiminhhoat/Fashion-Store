@@ -6,7 +6,7 @@ import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
 import queryString from "query-string";
-import {CartContext} from "../theme/masterLayout";
+import {CartContext} from "../theme/userMasterLayout";
 
 const ProductDetailPage = () => {
   const cartContext = useContext(CartContext);
