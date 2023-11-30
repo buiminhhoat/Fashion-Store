@@ -18,6 +18,7 @@ import DoNotHavePermissionPage from "./pages/error/doNotHavePermissionPage";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import AdminMasterLayout from "./pages/admin/theme/adminMasterLayout";
+import ManagementPage from "./pages/admin/managementPage";
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -73,6 +74,10 @@ const adminRouters =  [
     {
         path: ROUTERS.ADMIN.ACCOUNT_MANAGEMENT,
         component: <AccountManagementPage />
+    },
+    {
+        path: ROUTERS.ADMIN.MANAGEMENT,
+        component: <ManagementPage />
     },
 ]
 

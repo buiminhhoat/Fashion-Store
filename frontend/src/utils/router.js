@@ -11,6 +11,7 @@ export const ROUTERS = {
     },
     ADMIN: {
         PRODUCT_MANAGEMENT: "/admin/product-management-page/*",
-        ACCOUNT_MANAGEMENT: "/admin/account-management-page/*"
+        ACCOUNT_MANAGEMENT: "/admin/account-management-page/*",
+        MANAGEMENT: "/admin/management-page/*"
     }
 }
