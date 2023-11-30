@@ -769,16 +769,16 @@ const ProductListPage  = () => {
   return (
       <div id="app">
         <main id="main">
-          {/*<div className="container profile-wrap">*/}
-          {/*  <div className="breadcrumb-wrap">*/}
-          {/*    <a href="/">Trang chủ</a>*/}
-          {/*    &gt; <span>Quản lý danh mục và sản phẩm</span>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          <div className="container profile-wrap">
+            <div className="breadcrumb-wrap">
+              <a href="/">Quản lý sản phẩm</a>
+              &gt; <span>Danh sách sản phẩm</span>
+            </div>
+          </div>
 
-          <div className="container pe-0 ps-0" style={{marginTop: "30px", paddingBottom: "150px"}}>
+          <div className="container pe-0 ps-0" style={{paddingBottom: "150px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
-              <p className="category-title">
+              <p className="category-title" style={{paddingTop: "30px"}}>
                 DANH MỤC SẢN PHẨM
 
                 <Popover placement="top" content={<div style={{fontWeight:"600"}}>Thêm danh mục lớn</div>}>
