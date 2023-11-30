@@ -771,7 +771,8 @@ const ProductListPage  = () => {
         <main id="main">
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
-              <a href="/">Quản lý sản phẩm</a>
+              <a href="/">Trang chủ</a>
+              &gt; <span>Quản lý sản phẩm</span>
               &gt; <span>Danh sách sản phẩm</span>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { Menu } from 'antd';
 import {AiOutlineShop} from "react-icons/ai";
 import {TbShoppingBag} from "react-icons/tb";
 import {FaRegUser} from "react-icons/fa";
+import {PAGE} from "../../Utils/const";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -36,22 +37,23 @@ const items = [
   //   getItem('Option 12', '12'),
   // ]),
   getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Thêm sản phẩm', 'add-product'),
-    getItem('Danh sách sản phẩm', 'product-list'),
+    getItem('Thêm sản phẩm', PAGE.ADD_PRODUCT),
+    getItem('Danh sách sản phẩm', PAGE.PRODUCT_LIST),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Chỉnh sửa banner', 'edit-banner'),
+    getItem('Chỉnh sửa banner', PAGE.EDIT_BANNER),
   ]),
 
   getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
-    getItem('Thêm người dùng', 'add-account'),
-    getItem('Danh sách người dùng', 'account-list')
+    getItem('Thêm người dùng', PAGE.ADD_ACCOUNT),
+    getItem('Danh sách người dùng', PAGE.ACCOUNT_LIST)
   ]),
 ];
 
-const NavigationMenu = () => {
+const NavigationMenu = ({setTypePage}) => {
   const onClick = (e) => {
     console.log('click ', e);
+    setTypePage(e.key);
   };
   return (
       <Menu
@@ -63,7 +65,7 @@ const NavigationMenu = () => {
             fontWeight:600,
 
           }}
-          defaultSelectedKeys={['product-list']}
+          defaultSelectedKeys={[PAGE.PRODUCT_LIST]}
           defaultOpenKeys={['product-management']}
           mode="inline"
           items={items}
