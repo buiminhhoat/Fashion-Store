@@ -11,7 +11,7 @@ const ManagementPage = () => {
   return (
       <div style={{display:"flex", justifyContent:"flex-start"}}>
         <NavigationMenu setTypePage={setTypePage}/>
-        <div style={{width:"100%", paddingLeft:"30px",backgroundColor: "#f5f5f5"}}>
+        <div style={{width:"100%", minHeight:"630px", paddingLeft:"30px",backgroundColor: "#f5f5f5"}}>
           {typePage === PAGE.PRODUCT_LIST && <ProductListPage />}
           {typePage === PAGE.ADD_PRODUCT && <AddProductPage />}
 

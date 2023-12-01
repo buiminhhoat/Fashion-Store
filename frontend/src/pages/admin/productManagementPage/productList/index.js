@@ -777,7 +777,7 @@ const ProductListPage  = () => {
             </div>
           </div>
 
-          <div className="container pe-0 ps-0" style={{paddingBottom: "150px"}}>
+          <div className="container pe-0 ps-0" style={{paddingBottom: "100px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
               <p className="category-title" style={{paddingTop: "30px"}}>
                 DANH MỤC SẢN PHẨM
