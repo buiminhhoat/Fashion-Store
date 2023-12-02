@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from "react";
 import "./style.scss"
 
+import {useCookies} from "react-cookie";
+import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
-import {MdArrowDropDown, MdArrowRight, MdLibraryAdd} from "react-icons/md";
 import {TbListSearch} from "react-icons/tb";
 import {IoAdd, IoSearch} from "react-icons/io5";
-import {useCookies} from "react-cookie";
-import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {useNavigate} from "react-router-dom";
+import {MdArrowDropDown, MdArrowRight, MdLibraryAdd} from "react-icons/md";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
-import {CATEGORY, SEARCH} from "../utils/const";
+import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
-import {Popover} from "antd";
+import {Tooltip} from "antd";
+import {CATEGORY, SEARCH} from "../utils/const";
 
 const ProductListPage  = () => {
   const navigate = useNavigate();;
@@ -782,12 +782,12 @@ const ProductListPage  = () => {
               <p className="category-title" style={{paddingTop: "30px"}}>
                 DANH MỤC SẢN PHẨM
 
-                <Popover placement="top" content={<div style={{fontWeight:"600"}}>Thêm danh mục lớn</div>}>
+                <Tooltip title={<div style={{color:"#333333", fontWeight:"600"}}>Thêm danh mục lớn</div>} color={"white"}>
                   <MdLibraryAdd className="pointer-cursor"
                                 style={{margin:"0 0 8px 8px", fontSize:"27px"}}
                                 onClick={(e) => handleBtnAddCategoryClick(e, 0)}
                   />
-                </Popover>
+                </Tooltip>
 
               </p>
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
