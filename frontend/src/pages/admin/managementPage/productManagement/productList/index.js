@@ -381,8 +381,8 @@ const ProductListPage  = () => {
 
   // const handleBtnEditProductClick = (e, productID) => {
   //   e.stopPropagation();
-  //   // window.open(`/admin/product-management-page/edit-product?productID=${productID}`, '_blank');
-  //   navigate(`/admin/product-management-page/edit-product?productID=${productID}`);
+  //   // window.open(`/admin/management-page/edit-product?productID=${productID}`, '_blank');
+  //   navigate(`/admin/management-page/edit-product?productID=${productID}`);
   // }
 
   const handleBtnDeleteProductClick = (e, productID, productName) => {
@@ -578,7 +578,7 @@ const ProductListPage  = () => {
                                           <div className="btn-category"
                                                style={{marginRight:"20px", fontSize:"25px"}}
                                                onClick={() => {
-                                                 navigate(`/admin/product-management-page/add-product`, {
+                                                 navigate(`/admin/management-page/add-product`, {
                                                    state: { category: category, subCategory: subCategory  },
                                                  });
                                                }}
@@ -647,11 +647,11 @@ const ProductListPage  = () => {
                                                           <HiOutlineTrash />
                                                         </div>
                                                         <a
-                                                            // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
+                                                            // href={`/admin/management-page/edit-product?productID=${product.productID}`}
                                                         >
                                                           <div className="pointer-cursor btn-category"
                                                                style={{marginRight:"0"}}
-                                                               onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
+                                                               onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
                                                           >
                                                             <BiSolidEdit />
                                                           </div>
@@ -743,11 +743,11 @@ const ProductListPage  = () => {
                             <HiOutlineTrash />
                           </div>
                           <a
-                              // href={`/admin/product-management-page/edit-product?productID=${product.productID}`}
+                              // href={`/admin/management-page/edit-product?productID=${product.productID}`}
                           >
                             <div className="pointer-cursor btn-category"
                                  style={{marginRight:"0"}}
-                                 onClick={() => {navigate(`/admin/product-management-page/edit-product?productID=${product.productID}`)}}
+                                 onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
                             >
                               <BiSolidEdit />
                             </div>

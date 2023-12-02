@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss'
 
 import { Menu } from 'antd';
@@ -49,28 +49,57 @@ const NavigationMenu = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const parts = location.pathname.split('/');
-  const pageName = parts.length === 4 ? parts[parts.length - 1] : "";
+  const [selectedKeys, setSelectedKeys] = useState([]);
+  const [openKeys, setOpenKeys] = useState([]);
 
   const findParentKey = (targetKey) => {
     const findItem = items.find(
         (item) => item.children && item.children.some((child) => child.key === targetKey)
     );
-
     return findItem ? findItem.key : null;
   };
 
+  useEffect(() => {
+    const parts = location.pathname.split('/');
+    const pageName = parts.length === 4 ? parts[parts.length - 1] : "";
+
+    if (findParentKey(pageName) === null) {
+      setSelectedKeys([]);
+      return;
+    }
+    setSelectedKeys([pageName]);
+
+    setOpenKeys((prevOpenKeys) => {
+      if (!prevOpenKeys.includes(pageName)) {
+        return [...prevOpenKeys, findParentKey(pageName)];
+      }
+    });
+
+  }, [location]);
+
+  const onClick = (e) => {
+    navigate('/admin/management-page/' + e.key);
+  }
+
+  const onOpenChange = (e) => {
+    setOpenKeys(e);
+  }
+  
   return (
       <Menu
-          onClick={(e) => {navigate('/admin/management-page/' + e.key)}}
+          onClick={(e) => onClick(e)}
+          onOpenChange={(e) => onOpenChange(e)}
           style={{
             width: 300,
             marginTop:20,
             marginBottom:15,
             fontWeight:600,
           }}
-          defaultSelectedKeys={[pageName]}
-          defaultOpenKeys={[findParentKey(pageName)]}
+          selectedKeys={selectedKeys}
+          // defaultSelectedKeys={[pageName]}
+          // openKeys={[findParentKey(pageName)]}
+          // openKeys={openKeys}
+          openKeys={openKeys}
           mode="inline"
           items={items}
       />
