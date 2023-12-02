@@ -4,7 +4,7 @@ import CategoryDialog from "../dialogs/CategoryDialog/CategoryDialog";
 import {useCookies} from "react-cookie";
 import SizeField from "./SizeField/SizeField";
 import {toast} from "react-toastify";
-import {generateUniqueId} from "../../../../../utils";
+import {generateUniqueId} from "../../../../../../utils";
 
 const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages}) => {
   const MAX_IMAGES = 8;

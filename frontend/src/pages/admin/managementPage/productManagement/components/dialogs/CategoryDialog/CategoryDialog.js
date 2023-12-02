@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
-import {isStartWithLetter} from "../../../../../../utils";
+import {isStartWithLetter} from "../../../../../../../utils";
 import {CATEGORY} from "../utils/const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {

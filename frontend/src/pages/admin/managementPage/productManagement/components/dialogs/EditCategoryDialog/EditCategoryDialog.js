@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./style.scss"
 import {MdOutlineEditNote, MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
-import {isStartWithLetter} from "../../../../../../utils";
+import {isStartWithLetter} from "../../../../../../../utils";
 import {useCookies} from "react-cookie";
 
 const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {

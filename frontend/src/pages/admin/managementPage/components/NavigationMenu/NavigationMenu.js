@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './style.scss'
 
 import { Menu } from 'antd';
 import {AiOutlineShop} from "react-icons/ai";
 import {TbShoppingBag} from "react-icons/tb";
 import {FaRegUser} from "react-icons/fa";
-import {PAGE} from "../../Utils/const";
+import {useLocation, useNavigate} from "react-router-dom";
+import {ROUTERS} from "../../utils/router";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -30,34 +31,38 @@ const items = [
   // {
   //   type: 'divider',
   // },
-  // getItem('Navigation Three', 'sub4', <AiTwotoneSmile />, [
-  //   getItem('Option 9', '9'),
-  //   getItem('Option 10', '10'),
-  //   getItem('Option 11', '11'),
-  //   getItem('Option 12', '12'),
-  // ]),
   getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Thêm sản phẩm', PAGE.ADD_PRODUCT),
-    getItem('Danh sách sản phẩm', PAGE.PRODUCT_LIST),
+    getItem('Thêm sản phẩm', ROUTERS.ADMIN.ADD_PRODUCT),
+    getItem('Danh sách sản phẩm', ROUTERS.ADMIN.PRODUCT_LIST),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Chỉnh sửa banner', PAGE.EDIT_BANNER),
+    getItem('Chỉnh sửa banner',  ROUTERS.ADMIN.EDIT_BANNER),
   ]),
 
   getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
-    getItem('Thêm người dùng', PAGE.ADD_ACCOUNT),
-    getItem('Danh sách người dùng', PAGE.ACCOUNT_LIST)
+    getItem('Thêm người dùng',  ROUTERS.ADMIN.ADD_ACCOUNT),
+    getItem('Danh sách người dùng',  ROUTERS.ADMIN.ACCOUNT_LIST)
   ]),
 ];
 
-const NavigationMenu = ({setTypePage}) => {
-  const onClick = (e) => {
-    console.log('click ', e);
-    setTypePage(e.key);
+const NavigationMenu = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const parts = location.pathname.split('/');
+  const pageName = parts.length === 4 ? parts[parts.length - 1] : "";
+
+  const findParentKey = (targetKey) => {
+    const findItem = items.find(
+        (item) => item.children && item.children.some((child) => child.key === targetKey)
+    );
+
+    return findItem ? findItem.key : null;
   };
+
   return (
       <Menu
-          onClick={onClick}
+          onClick={(e) => {navigate('/admin/management-page/' + e.key)}}
           style={{
             width: 300,
             marginTop:20,
@@ -65,8 +70,8 @@ const NavigationMenu = ({setTypePage}) => {
             fontWeight:600,
 
           }}
-          defaultSelectedKeys={[PAGE.PRODUCT_LIST]}
-          defaultOpenKeys={['product-management']}
+          defaultSelectedKeys={[pageName]}
+          defaultOpenKeys={[findParentKey(pageName)]}
           mode="inline"
           items={items}
       />

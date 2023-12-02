@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./style.scss"
 import {MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
-import {isStartWithLetter} from "../../../../../../utils";
+import {isStartWithLetter} from "../../../../../../../utils";
 import {useCookies} from "react-cookie";
 
 const AddCategoryDialog = ({parentCategoryID, onAccept, onClose}) => {

@@ -10,8 +10,6 @@ export const ROUTERS = {
         CART: "/cart",
     },
     ADMIN: {
-        PRODUCT_MANAGEMENT: "/admin/product-management-page/*",
-        ACCOUNT_MANAGEMENT: "/admin/account-management-page/*",
         MANAGEMENT: "/admin/management-page/*"
     }
 }

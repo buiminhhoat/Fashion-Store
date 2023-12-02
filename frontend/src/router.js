@@ -6,8 +6,6 @@ import HomePage from "./pages/user/homePage";
 import ProfilePage from "./pages/user/profilePage";
 import LoginPage from "./pages/user/loginPage";
 import UserMasterLayout from "./pages/user/theme/userMasterLayout";
-import ProductManagementPage from "./pages/admin/productManagementPage";
-import AccountManagementPage from "./pages/admin/accountManagementPage";
 import SearchProductPage from "./pages/user/searchProductPage";
 import ProductDetailPage from "./pages/user/productDetailPage";
 import NotFoundPage from "./pages/error/notFoundPage";
@@ -67,14 +65,6 @@ const userRouters =  [
 
 const adminRouters =  [
     ...userRouters,
-    {
-        path: ROUTERS.ADMIN.PRODUCT_MANAGEMENT,
-        component: <ProductManagementPage />
-    },
-    {
-        path: ROUTERS.ADMIN.ACCOUNT_MANAGEMENT,
-        component: <AccountManagementPage />
-    },
     {
         path: ROUTERS.ADMIN.MANAGEMENT,
         component: <ManagementPage />
