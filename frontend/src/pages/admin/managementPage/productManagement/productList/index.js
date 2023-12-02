@@ -773,7 +773,7 @@ const ProductListPage  = () => {
             <div className="breadcrumb-wrap">
               <a href="/">Trang chủ</a>
               &gt; <span>Quản lý sản phẩm</span>
-              &gt; <span>Danh sách sản phẩm</span>
+              &gt; <span>Danh mục sản phẩm</span>
             </div>
           </div>
 

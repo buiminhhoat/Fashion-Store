@@ -33,7 +33,7 @@ const items = [
   // },
   getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
     getItem('Thêm sản phẩm', ROUTERS.ADMIN.ADD_PRODUCT),
-    getItem('Danh sách sản phẩm', ROUTERS.ADMIN.PRODUCT_LIST),
+    getItem('Danh mục sản phẩm', ROUTERS.ADMIN.PRODUCT_LIST),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
     getItem('Chỉnh sửa banner',  ROUTERS.ADMIN.EDIT_BANNER),
@@ -64,11 +64,10 @@ const NavigationMenu = () => {
       <Menu
           onClick={(e) => {navigate('/admin/management-page/' + e.key)}}
           style={{
-            width: 300,
+            width: 250,
             marginTop:20,
             marginBottom:15,
             fontWeight:600,
-
           }}
           defaultSelectedKeys={[pageName]}
           defaultOpenKeys={[findParentKey(pageName)]}
