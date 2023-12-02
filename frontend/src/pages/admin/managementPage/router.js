@@ -4,6 +4,7 @@ import NotFoundPage from "../../error/notFoundPage";
 import AddProductPage from "./productManagement/addProduct";
 import EditProductPage from "./productManagement/editProduct";
 import ProductListPage from "./productManagement/productList";
+import EditBannerPage from "./webpageManagement/editBanner";
 
 const renderCustom = () => {
     const routers =  [
@@ -18,6 +19,10 @@ const renderCustom = () => {
         {
             path: ROUTERS.ADMIN.PRODUCT_LIST,
             component: <ProductListPage />
+        },
+        {
+            path: ROUTERS.ADMIN.EDIT_BANNER,
+            component: <EditBannerPage />
         }
     ]
 
