@@ -12,3 +12,7 @@
 :where(.css-dev-only-do-not-override-2i2tap).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):active, :where(.css-dev-only-do-not-override-2i2tap).ant-menu-light>.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):active {
     background-color: #fbe9e9;
 }
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-submenu-title:active, :where(.css-dev-only-do-not-override-2i2tap).ant-menu-light>.ant-menu:not(.ant-menu-horizontal) .ant-menu-submenu-title:active {
+    background-color: #fbe9e9;
+}
