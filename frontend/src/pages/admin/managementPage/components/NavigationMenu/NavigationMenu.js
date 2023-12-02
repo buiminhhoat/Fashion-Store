@@ -64,7 +64,7 @@ const NavigationMenu = () => {
       <Menu
           onClick={(e) => {navigate('/admin/management-page/' + e.key)}}
           style={{
-            width: 250,
+            width: 300,
             marginTop:20,
             marginBottom:15,
             fontWeight:600,
