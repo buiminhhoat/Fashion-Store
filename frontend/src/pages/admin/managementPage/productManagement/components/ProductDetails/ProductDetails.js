@@ -176,7 +176,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
           <section data-v-03749d40="" className="product-edit__section">
             <div data-v-2250a4e1="" data-v-54a51dd8="" data-v-03749d40="" className="product-detail-panel product-basic-info" >
 
-              <div style={{color: "#bd0000", fontSize: "20px", fontWeight: "700", lineHeight: "25px", marginBottom: "20px"}}>
+              <div style={{color: "#bd0000", fontSize: "23px", fontWeight: "700", lineHeight: "25px", margin: "10px 0 35px 0"}}>
                 <div data-v-2250a4e1="" className="header__wrap">
                   <div data-v-54a51dd8="" data-v-2250a4e1="" className="title">
                     Thông tin sản phẩm
