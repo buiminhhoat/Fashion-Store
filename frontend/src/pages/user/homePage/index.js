@@ -37,8 +37,8 @@ const HomePage = () => {
       <main id="main">
         <ScrollToTop />
         <SlideBanner />
-        <SubBanner />
-        <section className="home-content">
+        {/*<SubBanner />*/}
+        <section className="home-content" style={{marginTop:"50px"}}>
           <CategorySection />
           {
             collections.map((collectionData, index) => (
