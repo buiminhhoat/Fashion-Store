@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import NotFoundPage from "../../error/notFoundPage";
 import AddProductPage from "./productManagement/addProduct";
 import EditProductPage from "./productManagement/editProduct";
-import ProductListPage from "./productManagement/productList";
+import ListOfProductsAndCategoriesPage from "./productManagement/listOfProductsAndCategories";
 import EditBannerPage from "./webpageManagement/editBanner";
 
 const renderCustom = () => {
@@ -17,8 +17,8 @@ const renderCustom = () => {
             component: <EditProductPage />
         },
         {
-            path: ROUTERS.ADMIN.PRODUCT_LIST,
-            component: <ProductListPage />
+            path: ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES,
+            component: <ListOfProductsAndCategoriesPage />
         },
         {
             path: ROUTERS.ADMIN.EDIT_BANNER,

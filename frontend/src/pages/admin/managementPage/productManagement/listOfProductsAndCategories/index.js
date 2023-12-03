@@ -16,7 +16,7 @@ import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCat
 import {Tooltip} from "antd";
 import {CATEGORY, SEARCH} from "../utils/const";
 
-const ProductListPage  = () => {
+const ListOfProductsAndCategoriesPage  = () => {
   const navigate = useNavigate();;
 
   const [cookies] = useCookies(['access_token']);
@@ -773,7 +773,7 @@ const ProductListPage  = () => {
             <div className="breadcrumb-wrap">
               <a href="/">Trang chủ</a>
               &gt; <span>Quản lý sản phẩm</span>
-              &gt; <span>Danh mục sản phẩm</span>
+              &gt; <span>Danh mục và sản phẩm</span>
             </div>
           </div>
 
@@ -906,4 +906,4 @@ const ProductListPage  = () => {
   );
 }
 
-export default ProductListPage;
+export default ListOfProductsAndCategoriesPage;

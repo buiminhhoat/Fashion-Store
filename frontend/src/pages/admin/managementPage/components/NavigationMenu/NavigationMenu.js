@@ -33,7 +33,7 @@ const items = [
   // },
   getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
     getItem('Thêm sản phẩm', ROUTERS.ADMIN.ADD_PRODUCT),
-    getItem('Danh mục sản phẩm', ROUTERS.ADMIN.PRODUCT_LIST),
+    getItem('Danh mục và sản phẩm', ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
     getItem('Chỉnh sửa banner',  ROUTERS.ADMIN.EDIT_BANNER),
