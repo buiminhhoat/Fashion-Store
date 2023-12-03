@@ -17,7 +17,7 @@ import {Tooltip} from "antd";
 import {CATEGORY, SEARCH} from "../utils/const";
 
 const ListOfProductsAndCategoriesPage  = () => {
-  const navigate = useNavigate();;
+  const navigate = useNavigate();
 
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
@@ -495,25 +495,34 @@ const ListOfProductsAndCategoriesPage  = () => {
 
                                 </div>
                                 <div style={{display:"flex"}}>
-                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
-                                       style={{marginRight:"20px", fontSize:"25px"}}
-                                       onClick={(e) => handleBtnAddCategoryClick(e, category.categoryID)}
-                                  >
-                                    <IoAdd/>
-                                  </div>
 
-                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
-                                       style={{marginRight:"20px"}}
-                                       onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, CATEGORY.PARENT_CATEGORY)}
-                                  >
-                                    <HiOutlineTrash />
-                                  </div>
-                                  <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
-                                       style={{marginRight:"0"}}
-                                       onClick={(e) => handleBtnEditCategoryClick(e, category.categoryID, category.categoryName)}
-                                  >
-                                    <BiSolidEdit />
-                                  </div>
+                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm danh mục con</div>} color={"#4A4444"}>
+                                    <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
+                                         style={{marginRight:"20px", fontSize:"25px"}}
+                                         onClick={(e) => handleBtnAddCategoryClick(e, category.categoryID)}
+                                    >
+                                      <IoAdd/>
+                                    </div>
+                                  </Tooltip>
+
+                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa danh mục</div>} color={"#4A4444"}>
+                                    <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
+                                         style={{marginRight:"20px"}}
+                                         onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, CATEGORY.PARENT_CATEGORY)}
+                                    >
+                                      <HiOutlineTrash />
+                                    </div>
+                                  </Tooltip>
+
+                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chỉnh sửa danh mục</div>} color={"#4A4444"}>
+                                    <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
+                                         style={{marginRight:"0"}}
+                                         onClick={(e) => handleBtnEditCategoryClick(e, category.categoryID, category.categoryName)}
+                                    >
+                                      <BiSolidEdit />
+                                    </div>
+                                  </Tooltip>
+
                                 </div>
                               </div>
                           }
@@ -575,29 +584,35 @@ const ListOfProductsAndCategoriesPage  = () => {
 
                                         <div style={{display:"flex"}}>
 
-                                          <div className="btn-category"
-                                               style={{marginRight:"20px", fontSize:"25px"}}
-                                               onClick={() => {
-                                                 navigate(`/admin/management-page/add-product`, {
-                                                   state: { category: category, subCategory: subCategory  },
-                                                 });
-                                               }}
-                                          >
-                                            <IoAdd/>
-                                          </div>
+                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm sản phẩm</div>} color={"#4A4444"}>
+                                            <div className="btn-category"
+                                                 style={{marginRight:"20px", fontSize:"25px"}}
+                                                 onClick={() => {
+                                                   navigate(`/admin/management-page/add-product`, {
+                                                     state: { category: category, subCategory: subCategory  },
+                                                   });
+                                                 }}
+                                            >
+                                              <IoAdd/>
+                                            </div>
+                                          </Tooltip>
+                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa danh mục</div>} color={"#4A4444"}>
+                                            <div className="btn-category"
+                                                 style={{marginRight:"20px"}}
+                                                 onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, CATEGORY.SUB_CATEGORY)}
+                                            >
+                                              <HiOutlineTrash />
+                                            </div>
+                                          </Tooltip>
 
-                                          <div className="btn-category"
-                                               style={{marginRight:"20px"}}
-                                               onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, CATEGORY.SUB_CATEGORY)}
-                                          >
-                                            <HiOutlineTrash />
-                                          </div>
-                                          <div className="btn-category"
-                                               style={{marginRight:"0"}}
-                                               onClick={(e) => handleBtnEditCategoryClick(e, subCategory.categoryID, subCategory.categoryName)}
-                                          >
-                                            <BiSolidEdit />
-                                          </div>
+                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chỉnh sửa danh mục</div>} color={"#4A4444"}>
+                                            <div className="btn-category"
+                                                 style={{marginRight:"0"}}
+                                                 onClick={(e) => handleBtnEditCategoryClick(e, subCategory.categoryID, subCategory.categoryName)}
+                                            >
+                                              <BiSolidEdit />
+                                            </div>
+                                          </Tooltip>
                                         </div>
 
                                       </div>
@@ -640,22 +655,25 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                       </div>
 
                                                       <div style={{display:"flex"}}>
-                                                        <div className="pointer-cursor btn-category"
-                                                             style={{marginRight:"20px"}}
-                                                             onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
-                                                        >
-                                                          <HiOutlineTrash />
-                                                        </div>
-                                                        <a
-                                                            // href={`/admin/management-page/edit-product?productID=${product.productID}`}
-                                                        >
+                                                        <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa sản phẩm</div>} color={"#4A4444"}>
                                                           <div className="pointer-cursor btn-category"
-                                                               style={{marginRight:"0"}}
-                                                               onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
+                                                               style={{marginRight:"20px"}}
+                                                               onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
                                                           >
-                                                            <BiSolidEdit />
+                                                            <HiOutlineTrash />
                                                           </div>
-                                                        </a>
+                                                        </Tooltip>
+
+                                                        <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chỉnh sửa sản phẩm</div>} color={"#4A4444"}>
+                                                          <a>
+                                                            <div className="pointer-cursor btn-category"
+                                                                 style={{marginRight:"0"}}
+                                                                 onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
+                                                            >
+                                                              <BiSolidEdit />
+                                                            </div>
+                                                          </a>
+                                                        </Tooltip>
 
                                                       </div>
 
@@ -782,7 +800,7 @@ const ListOfProductsAndCategoriesPage  = () => {
               <p className="category-title" style={{paddingTop: "30px"}}>
                 DANH MỤC SẢN PHẨM
 
-                <Tooltip title={<div style={{color:"#333333", fontWeight:"600"}}>Thêm danh mục lớn</div>} color={"white"}>
+                <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm danh mục lớn</div>} color={"#4A4444"}>
                   <MdLibraryAdd className="pointer-cursor"
                                 style={{margin:"0 0 8px 8px", fontSize:"27px"}}
                                 onClick={(e) => handleBtnAddCategoryClick(e, 0)}

@@ -461,21 +461,21 @@ const Header = () => {
                   </div>
 
 
-                  <div className="menu-header p-0 d-flex align-items-center position-relative h-100">
-                    <Link to={"/admin/management-page"} className="menu-header-text d-flex align-items-center text-center position-relative">
-                     Quản lý
-                    </Link>
-                  </div>
+                  {/*<div className="menu-header p-0 d-flex align-items-center position-relative h-100">*/}
+                  {/*  <Link to={"/admin/management-page"} className="menu-header-text d-flex align-items-center text-center position-relative">*/}
+                  {/*   Quản lý*/}
+                  {/*  </Link>*/}
+                  {/*</div>*/}
 
 
-                  {/*{menuItems.map((menuItem, index) => (*/}
-                  {/*    <MenuItem*/}
-                  {/*        key={index}*/}
-                  {/*        categoryID={menuItem.categoryID}*/}
-                  {/*        categoryName={menuItem.categoryName}*/}
-                  {/*        subCategories={menuItem.subCategories}*/}
-                  {/*    />*/}
-                  {/*))}*/}
+                  {menuItems.map((menuItem, index) => (
+                      <MenuItem
+                          key={index}
+                          categoryID={menuItem.categoryID}
+                          categoryName={menuItem.categoryName}
+                          subCategories={menuItem.subCategories}
+                      />
+                  ))}
                 </div>
                 <div className="col-3 content-right d-flex justify-content-end align-items-center ps-0 pe-0">
                   <SearchBar/>
