@@ -1,45 +1,12 @@
-import React, {createContext, useEffect, useRef, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import './style.scss'
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import btnUp from "./images/up.svg"
 import {useCookies} from "react-cookie";
-
-const ButtonBackToTop = () => {
-    const [scrollY, setScrollY] = useState(0);
-
-    const handleClickBtnBackToTop = () => {
-        document.querySelector('body').scrollTop = 0;
-    }
-
-    const handleScroll = () => {
-        const scrollTop = document.querySelector('body').scrollTop;
-        setScrollY(scrollTop);
-    };
-
-    useEffect(() => {
-        handleScroll();
-        document.querySelector('body').addEventListener('scroll', handleScroll);
-    }, []);
-
-    return (
-        <div>
-            <button
-                type="button"
-                className={`${scrollY === 0 ? "hideBtn" : "showBtn"}`}
-                id="btn-back-to-top"
-                style={{display: 'block', right: '25px', left: 'auto'}}
-                onClick={handleClickBtnBackToTop}
-            >
-                <img src={btnUp} alt="icon back to top"/>
-            </button>
-        </div>
-
-    );
-}
+import BackToTopButton from "../../../../components/buttons/BackToTopButton/BackToTopButton";
 
 export const CartContext = createContext(); // Exporting the context
 
@@ -100,7 +67,7 @@ const AdminMasterLayout = ({children, ...props}) => {
                 <Footer/>
             </CartContext.Provider>
 
-            <ButtonBackToTop/>
+            <BackToTopButton/>
             <ToastContainer
                 position="bottom-left"
                 autoClose={5000}

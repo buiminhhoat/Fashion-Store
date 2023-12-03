@@ -13,6 +13,7 @@ import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import {useCookies} from "react-cookie";
 import AddressSection from "../components/AddressSection/AddressSection";
+import {ScrollToTop} from "../../../utils";
 
 const openModalCreateAddress = () => {
   return 1;
@@ -160,6 +161,7 @@ function CheckoutPage() {
 
   return (
       <main id ="main-checkout">
+        <ScrollToTop />
         <section className="cart__wrapper container">
           <nav style={{"--bs-breadcrumb-divider": "none"}} aria-label="breadcrumb">
             <ol className="breadcrumb">

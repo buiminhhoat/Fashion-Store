@@ -1,6 +1,6 @@
 import {ROUTERS} from "./utils/router";
 import {useEffect, useState} from "react";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 
 import HomePage from "./pages/user/homePage";
 import ProfilePage from "./pages/user/profilePage";
@@ -17,16 +17,6 @@ import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import AdminMasterLayout from "./pages/admin/theme/adminMasterLayout";
 import ManagementPage from "./pages/admin/managementPage";
-
-const ScrollToTop = () => {
-    const { pathname } = useLocation();
-
-    useEffect(() => {
-        document.querySelector('body').scrollTo(0, 0);
-    }, [pathname]);
-
-    return null;
-};
 
 const userRouters =  [
     {
@@ -64,7 +54,6 @@ const userRouters =  [
 ];
 
 const adminRouters =  [
-    ...userRouters,
     {
         path: ROUTERS.ADMIN.MANAGEMENT,
         component: <ManagementPage />
@@ -90,8 +79,12 @@ const renderUserCustom = () => {
 const renderAdminCustom = () => {
        return (
         <AdminMasterLayout>
-            <ScrollToTop />
             <Routes>
+                {
+                    userRouters.map((item, key) => (
+                        <Route key={key} path={item.path} element={item.component} />
+                    ))
+                }
                 {
                     adminRouters.map((item, key) => (
                         <Route key={key} path={item.path} element={item.component} />

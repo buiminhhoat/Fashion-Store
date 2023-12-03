@@ -2,6 +2,7 @@ import React from "react";
 import "./style.scss"
 
 import LoginDialog from "../../../components/dialogs/LoginDialog/LoginDialog";
+import {ScrollToTop} from "../../../utils";
 
 const LoginPage = () => {
   const handleDialogSwitch = (dialogName) => {
@@ -12,6 +13,7 @@ const LoginPage = () => {
 
   return (
       <div>
+        <ScrollToTop />
         <LoginDialog onClose={handleDialogClose} onSwitch={handleDialogSwitch} />
       </div>
   );

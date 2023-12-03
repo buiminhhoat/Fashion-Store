@@ -5,6 +5,7 @@ import SubBanner from "./SubBanner/SubBanner";
 import CategorySection from "./CategorySection/CategorySection";
 import CollectionSection from "./CollectionSection/CollectionSection";
 import {toast} from "react-toastify";
+import {ScrollToTop} from "../../../utils";
 
 const HomePage = () => {
   const [collections, setCollections] = useState([]);
@@ -34,6 +35,7 @@ const HomePage = () => {
 
   return (
       <main id="main">
+        <ScrollToTop />
         <SlideBanner />
         <SubBanner />
         <section className="home-content">

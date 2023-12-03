@@ -6,6 +6,7 @@ import ProductsSection from "./ProductsSection/ProductsSection";
 import {useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import fillterIcon from "../categoryPage/images/bars-filter.svg";
+import {ScrollToTop} from "../../../utils";
 
 // const productsData = [
 //   {
@@ -100,6 +101,7 @@ const SearchProductPage = () => {
 
   return (
       <main id="main">
+        <ScrollToTop />
         <section className="search-page">
           <section className="container search-wrapper">
             <section className="box-filter">
