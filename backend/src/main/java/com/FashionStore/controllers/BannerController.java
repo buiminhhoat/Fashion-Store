@@ -114,7 +114,7 @@ public class BannerController {
             banner.setImagePath(paths.get(i));
             bannerRepository.save(banner);
         }
-        ResponseObject responseObject = new ResponseObject("Đã thêm banner thành công");
+        ResponseObject responseObject = new ResponseObject("Đã lưu banner thành công");
         return ResponseEntity.ok(responseObject);
     }
 }
