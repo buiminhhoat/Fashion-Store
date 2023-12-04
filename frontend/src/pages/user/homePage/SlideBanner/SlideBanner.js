@@ -1,25 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.scss';
-import defaultBanner from "./images/default-banner.png";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import {Carousel} from "react-responsive-carousel";
+
 import {toast} from "react-toastify";
+import {Carousel} from "react-responsive-carousel";
+
+import defaultBanner from "./images/default-banner.png";
 
 const SlideBanner = () => {
   const navigate = useNavigate();
   const [banners, setBanners] = useState([]);
-
-  // const banners = [
-  //   {
-  //     imageSrc: "https://5sfashion.vn/storage/upload/images/banners/JIgU46SGxh4D7PYVbhBAAMJY2jlMg87OvldmWs07.jpg",
-  //     link: '/profile/orders'
-  //   },
-  //   {
-  //     imageSrc: "https://5sfashion.vn/storage/upload/images/banners/7vi4rOkItOstIFAeG8zNcQyp2sO9fTzgbjBpdkYp.png",
-  //     link: '/profile/login'
-  //   },
-  // ];
 
   const fetchData = async () => {
     const apiGetAllBanners = "/api/public/get-all-banners";
@@ -64,13 +55,21 @@ const SlideBanner = () => {
                     showThumbs={false}
                 >
                   { banners.map((banner, index) => (
-                      <a key={index} href={banner.bannerLinkTo}>
-                        <div className="pointer-cursor" >
+                    <>
+                      { banner.bannerLinkTo === null || banner.bannerLinkTo === "" ?
+                        <div key={index}>
+                          <img src={"/storage/images/" + banner.imagePath} alt={`banner ${index + 1}`}
+                               style={{ width: "1290px", height: "554px", objectFit: "contain", backgroundColor:"#fff"}} />
+                        </div>
+                        :
+                        <a key={index} href={banner.bannerLinkTo}>
+                          <div className="pointer-cursor" >
                             <img src={"/storage/images/" + banner.imagePath} alt={`banner ${index + 1}`}
                                  style={{ width: "1290px", height: "554px", objectFit: "contain", backgroundColor:"#fff"}} />
-
-                        </div>
-                      </a>
+                          </div>
+                        </a>
+                      }
+                    </>
                   ))}
                 </Carousel>
               </div>
