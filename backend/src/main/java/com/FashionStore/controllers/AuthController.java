@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.*;
+import java.util.*;
 
 
 @CrossOrigin(origins = "*")
@@ -28,6 +32,11 @@ import java.util.Map;
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final UsersRepository usersRepository;
+
+    @Value("${upload_image.dir}")
+    String UPLOAD_DIR;
+
+    private final String appRoot = System.getProperty("user.dir") + File.separator;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -144,11 +153,30 @@ public class AuthController {
                 // Bạn có thể truy cập dữ liệu từ JsonNode và làm gì đó với nó
                 String email = resultNode.path("email").asText();
                 String name = resultNode.path("name").asText();
-
+                String avatarUrl = resultNode.path("picture").asText();
                 Users findByEmail = usersRepository.findUsersByEmail(email);
                 if (findByEmail == null) {
                     Users users = new Users(name, email, jwtTokenUtil.generateAccessToken(email), "", false);
-                    usersRepository.save(users);
+
+                    try {
+                        // Mở kết nối đến URL
+                        URL url = new URL(avatarUrl);
+                        try (InputStream in = url.openStream()) {
+                            String fileName = UUID.randomUUID().toString() + ".png";
+
+                            String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
+                            Path filePath = Paths.get(imagePath);
+
+                            Files.copy(in, filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                            String downloadedFilePath = filePath.toString();
+
+                            users.setAvatarPath(fileName);
+                            usersRepository.save(users);
+                        }
+                    } catch (IOException e) {
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to download avatar.");
+                    }
                 }
 
                 String accessToken = jwtTokenUtil.generateAccessToken(email);
@@ -157,17 +185,13 @@ public class AuthController {
                 Map<String, String> tokens = new HashMap<>();
                 tokens.put("access_token", accessToken);
                 tokens.put("refresh_token", refreshToken);
-//                return ResponseEntity.ok("hello");
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), "Đăng nhập thành công", tokens));
             } else {
-                // Trạng thái không phải 200 OK
                 return ResponseEntity.status(responseEntity.getStatusCode()).body("Error: " + responseEntity.getStatusCodeValue());
             }
         } catch (HttpStatusCodeException e) {
-            // Xử lý exception nếu có lỗi HTTP
             return ResponseEntity.status(e.getStatusCode()).body("Error: " + e.getStatusCode().value());
         } catch (Exception e) {
-            // Xử lý các exception khác
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing request");
         }
     }
