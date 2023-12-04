@@ -4,6 +4,8 @@ import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
 import { DIALOGS } from "../utils/const";
 import { Cookies } from 'react-cookie';
+import {GoogleLogin} from "@react-oauth/google";
+import {toast} from "react-toastify";
 
 const LoginDialog = ({ onClose, onSwitch }) => {
   const handleButtonCloseClick = () => {
@@ -90,6 +92,51 @@ const LoginDialog = ({ onClose, onSwitch }) => {
     }
   };
 
+  const responseMessage = async (response) => {
+    console.log("Success");
+    const token = response.credential;
+    const apiGetUserInfo = "/api/login-with-google";
+    try {
+      const response = await fetch(apiGetUserInfo, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        // Đăng nhập thành công, bạn có thể thực hiện các hành động sau khi đăng nhập ở đây
+
+        let jsonResponse = await response.json();
+
+        let access_token = jsonResponse.data.access_token;
+        let refresh_token = jsonResponse.data.refresh_token;
+
+        const cookies = new Cookies();
+
+        if (!cookies['access_token']) {
+          cookies.set('access_token', access_token, { path: '/' });
+        }
+
+        if (!cookies['refresh_token']) {
+          cookies.set('refresh_token', refresh_token, { path: '/' });
+        }
+
+        window.location.reload();
+      } else {
+        const data = await response.json();
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+
+    }
+  };
+  const errorMessage = (error) => {
+    console.log("Failed");
+    console.log(error);
+  };
+
   return (
       <div className="modal fade show" id="modal-auth" tabIndex="-1" aria-labelledby="exampleModalLabel"
            style={{ display: 'block', paddingLeft: '0px' }} aria-modal="true" role="dialog">
@@ -145,10 +192,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                     <img className="img-logo" src={fb} alt="icon logo facebook" />
                   </div>
                   <div className="box-btn-wrap">
-                    <a href="https://5sfashion.vn/redirect/google">
-                      <button type="button" className="btn btn-primary">Đăng nhập qua Google</button>
-                    </a>
-                    <img className="img-logo logo-google" src={gg} alt="icon logo google" />
+                    <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
                   </div>
                 </div>
               </div>
