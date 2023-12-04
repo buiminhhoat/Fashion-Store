@@ -32,16 +32,16 @@ const items = [
   //   type: 'divider',
   // },
   getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Thêm sản phẩm', ROUTERS.ADMIN.ADD_PRODUCT),
     getItem('Danh mục và sản phẩm', ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
+    getItem('Thêm sản phẩm', ROUTERS.ADMIN.ADD_PRODUCT),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
     getItem('Chỉnh sửa banner',  ROUTERS.ADMIN.EDIT_BANNER),
   ]),
 
   getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
-    getItem('Thêm người dùng',  ROUTERS.ADMIN.ADD_ACCOUNT),
-    getItem('Danh sách người dùng',  ROUTERS.ADMIN.ACCOUNT_LIST)
+    getItem('Danh sách người dùng',  ROUTERS.ADMIN.ACCOUNT_LIST),
+    getItem('Thêm người dùng',  ROUTERS.ADMIN.ADD_ACCOUNT)
   ]),
 ];
 

@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import "./style.scss"
+import "./style.scss";
 import {Carousel} from "react-responsive-carousel";
 
 import defaultBanner from "./images/default-banner.png";
 import {toast} from "react-toastify";
-import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
+import BannerImageField from "./BannerImageField/BannerImageField";
+import {useCookies} from "react-cookie";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -15,7 +16,10 @@ const defaultBannerImages = [
 const EditBannerPage = () => {
   const MAX_BANNER_IMAGES = 8;
 
-  const [bannerImages, setBannerImages] = useState([]);
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
+  const [banners, setBanners] = useState([]);
 
   const handleUploadImageBtnClick = () => {
     document.getElementById(`img-banner-input`).click();
@@ -25,17 +29,57 @@ const EditBannerPage = () => {
     if (e.target.files.length === 0) return;
     const files = e.target.files;
     if (files) {
+      let newBanners = [];
+
       for (let i = 0; i < files.length; ++i) {
-        if (bannerImages.length === MAX_BANNER_IMAGES) {
+        if (banners.length === MAX_BANNER_IMAGES) {
           toast.warn("Chỉ được tải lên tối đa " + MAX_BANNER_IMAGES + " ảnh.");
           break;
         }
-        // console.log(files[i]);
-        // console.log(URL.createObjectURL(files[i]));
-        setBannerImages([...bannerImages, {imageFile: files[i], imageURL: URL.createObjectURL(files[i])}]);
+        newBanners.push({imageFile: files[i], imageURL: URL.createObjectURL(files[i]), bannerLinkTo:""});
       }
+      setBanners([...banners, ...newBanners]);
     }
   };
+
+  const handleBtnSaveBannerClick = async () => {
+    const formData = new FormData();
+
+    for (const banner of banners) { formData.append('bannerImages', banner.imageFile); }
+
+    let newBanners = [];
+    for (let i = 0; i < banners.length; ++i) {
+      newBanners.push({
+        displayOrder: i,
+        bannerLinkTo: banners[i].bannerLinkTo,
+      });
+    }
+
+    console.log(newBanners);
+    formData.append('banners', JSON.stringify(newBanners));
+
+    const apiSaveBanner = "/api/admin/save-banner";
+    try {
+      const response = await fetch(apiSaveBanner, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+    }
+  }
 
   return (
       <div id="app">
@@ -64,7 +108,7 @@ const EditBannerPage = () => {
                     </div>
 
                     <div style={{display:"flex", justifyContent:"center", width:"100%"}}>
-                      { bannerImages && bannerImages.length > 0 ?
+                      { banners && banners.length > 0 ?
                         <div key={0} style={{width:"900px", border:"1px solid #E5E5E5"}}>
                           <Carousel
                               autoPlay
@@ -72,9 +116,9 @@ const EditBannerPage = () => {
                               showStatus={false}
                               showThumbs={false}
                           >
-                            { bannerImages.map((slide, index) => (
+                            { banners.map((banner, index) => (
                               <div key={index}>
-                                <img src={slide.imageURL} alt={`banner ${index + 1}`}
+                                <img src={banner.imageURL} alt={`banner ${index + 1}`}
                                      style={{ width: "900px", height: "384px", objectFit: "contain", backgroundColor:"#fff"}} />
                               </div>
                             ))}
@@ -88,9 +132,9 @@ const EditBannerPage = () => {
                               showStatus={false}
                               showThumbs={false}
                           >
-                            { defaultBannerImages.map((slide, index) => (
+                            { defaultBannerImages.map((banner, index) => (
                               <div key={index}>
-                                <img src={slide.defaultImage} alt={`banner ${index + 1}`} />
+                                <img src={banner.defaultImage} alt={`banner ${index + 1}`} />
                               </div>
                             ))}
                           </Carousel>
@@ -117,7 +161,7 @@ const EditBannerPage = () => {
                             <path fillRule="evenodd" d="M8.48176704,1.5 C8.75790942,1.5 8.98176704,1.72385763 8.98176704,2 L8.981,7.997 L15 7.99797574 C15.2761424,7.99797574 15.5,8.22183336 15.5,8.49797574 C15.5,8.77411811 15.2761424,8.99797574 15,8.99797574 L8.981,8.997 L8.98176704,15 C8.98176704,15.2761424 8.75790942,15.5 8.48176704,15.5 C8.20562467,15.5 7.98176704,15.2761424 7.98176704,15 L7.981,8.997 L2 8.99797574 C1.72385763,8.99797574 1.5,8.77411811 1.5,8.49797574 C1.5,8.22183336 1.72385763,7.99797574 2,7.99797574 L7.981,7.997 L7.98176704,2 C7.98176704,1.72385763 8.20562467,1.5 8.48176704,1.5 Z"></path>
                           </svg>
                         </i>
-                        <span> Tải lên hình ảnh (0/8)</span>
+                        <span> Tải lên hình ảnh ({banners.length}/{MAX_BANNER_IMAGES})</span>
                       </button>
                       <input
                           type="file"
@@ -129,73 +173,11 @@ const EditBannerPage = () => {
                       />
                     </div>
 
-                    {bannerImages.map((slide, index) => (
-
-                      <div data-v-389929d8="" className="edit-row-right-full variation-edit-item"
-                           style={{margin:"0 0 20px 0", width:"100%", maxWidth:"100%"}}
-                      >
-                        <span data-v-389929d8="" className="options-close-btn">
-                          <div className="btn-close pointer-cursor" style={{fontSize: "10px"}} aria-label="Close"/>
-                        </span>
-
-                        <div data-v-05032044="" data-v-54a51dd8="" className="edit-main fashion-store-image-manager"
-                             data-education-trigger-key="images" data-v-2250a4e1=""
-                             data-product-edit-field-unique-id="images" style={{display:"flex"}}>
-
-                          <div style={{margin:"0 15px 0 0", width:"20px", display:"flex", flexDirection: "column", justifyContent: "space-around"}}>
-                            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                              <TbArrowBigUpFilled style={{color:"#999999", fontSize:"20px"}}/>
-                            </div>
-                            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                              <TbArrowBigDownFilled style={{color:"#999999", fontSize:"20px"}}/>
-                            </div>
-                          </div>
-
-                          <div>
-                            <div key={index} className="image-box"
-                                 style={{ maxWidth: "400px", maxHeight: "171px", width: "800px", height: "341px",
-                                   objectFit: "contain", backgroundColor:"#fff", border:"0px solid #E5E5E5", margin:"0 0 0 0"}}
-                            >
-                              <img className="image-itembox" key={index} src={slide.imageURL} alt={`Image ${index}`} />
-                              <div data-v-05032044="" data-v-1190c12e="" className="fashion-store-image-manager__tools">
-                              <span data-v-05032044="" data-v-1190c12e=""
-                                    className="fashion-store-image-manager__icon fashion-store-image-manager__icon--delete"
-                                  // onClick={() => handleDeleteImage(index)}
-                              >
-                                  <i data-v-05032044="" className="fashion-store-icon" data-v-1190c12e="">
-                                     <svg viewBox="0 0 16 16">
-                                        <g>
-                                           <path d="M14.516 3.016h-4v-1a.998.998 0 00-.703-.955.99.99 0 00-.297-.045h-3a.998.998 0 00-.955.703.99.99 0 00-.045.297v1h-4a.5.5 0 100 1h1v10a.998.998 0 00.703.955.99.99 0 00.297.045h9a.998.998 0 00.955-.703.99.99 0 00.045-.297v-10h1a.5.5 0 100-1zm-8-1h3v1h-3v-1zm6 12h-9v-10h9v10z"></path>
-                                           <path d="M5.516 12.016a.5.5 0 00.5-.5v-4a.5.5 0 10-1 0v4a.5.5 0 00.5.5zM8.016 12.016a.5.5 0 00.5-.5v-5a.5.5 0 10-1 0v5a.5.5 0 00.5.5zM10.516 12.016a.5.5 0 00.5-.5v-4a.5.5 0 10-1 0v4a.5.5 0 00.5.5z"></path>
-                                        </g>
-                                     </svg>
-                                  </i>
-                               </span>
-                              </div>
-                            </div>
-
-                            <div data-v-389929d8="" className="variation-edit-right" style={{margin:"10px 0 0 0"}}>
-                              <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item" style={{width:"400px"}}>
-                                <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
-                                     className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
-                                     data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
-                                  <div className="fashion-store-input__inner fashion-store-input__inner--normal">
-                                    <input
-                                        // onChange = {handleSizeNameChange}
-                                        // value={informationProduct.productSizes.find((size) => size.sizeID === id).sizeName}
-                                        type="text" placeholder="Nhập đường dẫn khi bấm vào hình ảnh" resize="none"
-                                        rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
-                                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                          </div>
+                    {banners.map((banner, index) => (
+                        <div key={index}>
+                          <BannerImageField index = {index} banners={banners} setBanners={setBanners}/>
                         </div>
-                      </div>
                     ))}
-
 
                   </div>
                 </section>
@@ -207,7 +189,7 @@ const EditBannerPage = () => {
               <div data-v-03749d40="" className="product-edit">
                 <section style={{ marginBottom:"50px" }}>
                   <div className="button-container">
-                    <button type="button" className="product-details-btn">
+                    <button type="button" className="product-details-btn" onClick={handleBtnSaveBannerClick}>
                       Lưu lại
                     </button>
                     <button type="button" className="product-details-btn product-details-btn-danger">

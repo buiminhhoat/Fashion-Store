@@ -4,8 +4,12 @@ import "./style.scss"
 import ProductDetails from "../components/ProductDetails/ProductDetails";
 import {toast} from "react-toastify";
 import {useLocation, useParams} from "react-router-dom";
+import {useCookies} from "react-cookie";
 
 const AddProductPage = () => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const location = useLocation();
   const category = location.state;
 
@@ -64,6 +68,9 @@ const AddProductPage = () => {
     let apiAddProductUrl = "/api/admin/add-product";
     fetch(apiAddProductUrl, {
       method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+      },
       body: formData,
     })
     .then((response) => {
