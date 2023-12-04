@@ -1,6 +1,4 @@
 import React from "react";
-import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
-import {toast} from "react-toastify";
 
 const BannerImageField = ({index, banners, setBanners}) => {
   const handleBannerLinkToChange = (e) => {
@@ -21,17 +19,23 @@ const BannerImageField = ({index, banners, setBanners}) => {
     }
   };
 
+  const handleDeleteBanner = () => {
+    const indexToRemove = index;
+    const newBanners = banners.filter((item, index) => index !== indexToRemove);
+    setBanners(newBanners);
+  };
+
   return (
       <div key={index} data-v-389929d8="" className="edit-row-right-full variation-edit-item"
            style={{margin:"0 0 20px 0", width:"560px", maxWidth:"560px"}}
       >
-        <span data-v-389929d8="" className="options-close-btn">
+        <span data-v-389929d8="" className="options-close-btn" onClick={handleDeleteBanner}>
           <div className="btn-close pointer-cursor" style={{fontSize: "10px"}} aria-label="Close"/>
         </span>
 
         <div data-v-05032044="" data-v-54a51dd8="" className="edit-main fashion-store-image-manager"
              data-education-trigger-key="images" data-v-2250a4e1=""
-             data-product-edit-field-unique-id="images" style={{display:"flex"}}>
+             data-product-edit-field-unique-id="images" style={{display:"flex", maxWidth:"500px"}}>
 
           <div style={{margin:"0 0 0 3px", color:"#333333", width:"35px"}}>{index + 1}. </div>
 
