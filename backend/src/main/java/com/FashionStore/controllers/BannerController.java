@@ -119,7 +119,7 @@ public class BannerController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/public/get-all-banners")
+    @GetMapping("/public/get-all-banners")
     public ResponseEntity<?> getAllBanners(HttpServletRequest request) {
         List<Banner> banners = bannerRepository.findAll();
         return ResponseEntity.ok(banners);

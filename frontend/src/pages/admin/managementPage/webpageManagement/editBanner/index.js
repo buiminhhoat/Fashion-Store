@@ -7,7 +7,6 @@ import {toast} from "react-toastify";
 import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
-import {generateUniqueId} from "../../../../../utils";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -111,7 +110,7 @@ const EditBannerPage = () => {
 
                     <div style={{display:"flex", justifyContent:"center", width:"100%"}}>
                       { banners && banners.length > 0 ?
-                        <div key={0} style={{width:"900px", border:"1px solid #E5E5E5"}}>
+                        <div key={banners.length} style={{width:"900px", border:"1px solid #E5E5E5"}}>
                           <Carousel
                               autoPlay
                               infiniteLoop
@@ -127,7 +126,7 @@ const EditBannerPage = () => {
                           </Carousel>
                         </div>
                         :
-                        <div key={banners.length} style={{width:"900px", border:"1px solid #E5E5E5"}}>
+                        <div key={0} style={{width:"900px", border:"1px solid #E5E5E5"}}>
                           <Carousel
                               autoPlay
                               infiniteLoop
