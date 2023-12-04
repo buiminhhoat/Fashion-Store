@@ -183,11 +183,23 @@ const EditBannerPage = () => {
                               <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                                 <TbArrowBigUpFilled
                                     style={{color:`${index?"#999999":"D8D8D8"}`, cursor:`${index?"pointer":"not-allowed"}`, fontSize:"20px"}}
+                                    onClick={() => {
+                                      if (!index) return;
+                                      let newBanners = [...banners];
+                                      [newBanners[index], newBanners[index - 1]] = [newBanners[index - 1], newBanners[index]];
+                                      setBanners(newBanners);
+                                    }}
                                 />
                               </div>
                               <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                                 <TbArrowBigDownFilled
                                     style={{color:`${index!==banners.length-1?"#999999":"D8D8D8"}`, cursor:`${index!==banners.length-1?"pointer":"not-allowed"}`, fontSize:"20px"}}
+                                    onClick={() => {
+                                      if (index===banners.length-1) return;
+                                      let newBanners = [...banners];
+                                      [newBanners[index], newBanners[index + 1]] = [newBanners[index + 1], newBanners[index]];
+                                      setBanners(newBanners);
+                                    }}
                                 />
                               </div>
                             </div>
