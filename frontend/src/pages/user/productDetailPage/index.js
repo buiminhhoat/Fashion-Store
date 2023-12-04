@@ -6,7 +6,8 @@ import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
 import queryString from "query-string";
-import {CartContext} from "../theme/masterLayout";
+import {CartContext} from "../theme/userMasterLayout";
+import {ScrollToTop} from "../../../utils";
 
 const ProductDetailPage = () => {
   const cartContext = useContext(CartContext);
@@ -127,6 +128,7 @@ const ProductDetailPage = () => {
 
   return (
       <div id="app" style={{paddingBottom:"30px"}}>
+        <ScrollToTop />
         <main id="main" >
           <div className="product-detail-section" id="product--content" data-id="64a37a5143b0542a360991d2">
             <BreadcrumbProduct />

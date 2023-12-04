@@ -6,6 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import fillterIcon from "./images/bars-filter.svg"
 import queryString from "query-string";
+import {ScrollToTop} from "../../../utils";
 
 const productsData = {
   "categoryID": 2,
@@ -142,6 +143,7 @@ const CategoryPage = ({keyword}) => {
 
   return (
       <main id="main">
+        <ScrollToTop />
         <section className="category-wrapper">
           <section className="container container-category">
             {/*<CategorySection/>*/}

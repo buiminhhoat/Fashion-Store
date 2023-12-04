@@ -9,7 +9,7 @@ import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import logo_fashion_store from "./images/logo_fashion_store.png";
 
-import {CartContext} from "../userMasterLayout";
+import {CartContext} from "../adminMasterLayout";
 import {DIALOGS} from "../../../../components/dialogs/utils/const";
 import {formatter} from "../../../../utils/formatter";
 import {useLogout} from "../../../../components/dialogs/utils/logout";
@@ -44,28 +44,15 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
         {subCategories && (
             <div className={`mega-menu position-absolute ${megaMenuVisible ? "show" : ""}`} id="mega-menu-box">
               <div className="mega-menu-content d-flex">
-                {/*{subCategories.map((subCategory, subIndex) => (*/}
-                {/*    <div key={subIndex} className="menu-col">*/}
-                {/*      <div className="menu-parent d-flex align-items-center">*/}
-                {/*        <div className="menu-parent-title d-flex align-items-center">*/}
-                {/*          <Link to={"category?categoryID=" + subCategory.categoryID}>{subCategory.categoryName}</Link>*/}
-                {/*        </div>*/}
-                {/*        {subCategory.subCategories && (*/}
-                {/*            <img src={arrowDown} className="menu-icon" alt="icon arrow down"/>*/}
-                {/*        )}*/}
-                {/*      </div>*/}
-                {/*      {subCategory.subCategories && (*/}
                 <div className="menu-col">
-                          <ul className="menu-children ps-0">
-                            {subCategories.map((subCategory, subSubMenuIndex) => (
-                                <li key={subSubMenuIndex} className="d-flex align-items-center">
-                                  <Link to={"/category?categoryID=" + subCategory.categoryID}>{subCategory.categoryName}</Link>
-                                </li>
-                            ))}
-                          </ul>
-                      {/*)}*/}
-                    </div>
-                {/*))}*/}
+                  <ul className="menu-children ps-0">
+                    {subCategories.map((subCategory, subSubMenuIndex) => (
+                        <li key={subSubMenuIndex} className="d-flex align-items-center">
+                          <Link to={"/category?categoryID=" + subCategory.categoryID}>{subCategory.categoryName}</Link>
+                        </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
         )}
@@ -472,6 +459,15 @@ const Header = () => {
                       <img className="logo" src={logo_fashion_store} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
+
+
+                  {/*<div className="menu-header p-0 d-flex align-items-center position-relative h-100">*/}
+                  {/*  <Link to={"/admin/management-page"} className="menu-header-text d-flex align-items-center text-center position-relative">*/}
+                  {/*   Quản lý*/}
+                  {/*  </Link>*/}
+                  {/*</div>*/}
+
+
                   {menuItems.map((menuItem, index) => (
                       <MenuItem
                           key={index}

@@ -1,3 +1,6 @@
+import {useLocation} from "react-router-dom";
+import {useEffect} from "react";
+
 export function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu từ chuỗi
 }
@@ -18,3 +21,27 @@ export const generateUniqueId = () => {
   const timestamp = Date.now();
   return timestamp.toString() + Math.floor(Math.random() * 1000);
 }
+
+export const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.querySelector('body').scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
+export const ScrollToTopSmooth = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const bodyElement = document.querySelector('body');
+    bodyElement.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [pathname]);
+
+  return null;
+};

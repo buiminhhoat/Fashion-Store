@@ -1,13 +1,11 @@
 import {ROUTERS} from "./utils/router";
 import {useEffect, useState} from "react";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 
 import HomePage from "./pages/user/homePage";
 import ProfilePage from "./pages/user/profilePage";
 import LoginPage from "./pages/user/loginPage";
-import MasterLayout from "./pages/user/theme/masterLayout";
-import ProductManagementPage from "./pages/admin/productManagementPage";
-import AccountManagementPage from "./pages/admin/accountManagementPage";
+import UserMasterLayout from "./pages/user/theme/userMasterLayout";
 import SearchProductPage from "./pages/user/searchProductPage";
 import ProductDetailPage from "./pages/user/productDetailPage";
 import NotFoundPage from "./pages/error/notFoundPage";
@@ -17,16 +15,8 @@ import CartPage from "./pages/user/cartPage";
 import DoNotHavePermissionPage from "./pages/error/doNotHavePermissionPage";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
-
-const ScrollToTop = () => {
-    const { pathname } = useLocation();
-
-    useEffect(() => {
-        document.querySelector('body').scrollTo(0, 0);
-    }, [pathname]);
-
-    return null;
-};
+import AdminMasterLayout from "./pages/admin/theme/adminMasterLayout";
+import ManagementPage from "./pages/admin/managementPage";
 
 const userRouters =  [
     {
@@ -64,20 +54,15 @@ const userRouters =  [
 ];
 
 const adminRouters =  [
-    ...userRouters,
     {
-        path: ROUTERS.ADMIN.PRODUCT_MANAGEMENT,
-        component: <ProductManagementPage />
-    },
-    {
-        path: ROUTERS.ADMIN.ACCOUNT_MANAGEMENT,
-        component: <AccountManagementPage />
+        path: ROUTERS.ADMIN.MANAGEMENT,
+        component: <ManagementPage />
     },
 ]
 
 const renderUserCustom = () => {
     return (
-        <MasterLayout>
+        <UserMasterLayout>
             <Routes>
                 {
                     userRouters.map((item, key) => (
@@ -87,15 +72,19 @@ const renderUserCustom = () => {
                 <Route path='/admin/*' element={<DoNotHavePermissionPage />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
-        </MasterLayout>
+        </UserMasterLayout>
     )
 }
 
 const renderAdminCustom = () => {
        return (
-        <MasterLayout>
-            <ScrollToTop />
+        <AdminMasterLayout>
             <Routes>
+                {
+                    userRouters.map((item, key) => (
+                        <Route key={key} path={item.path} element={item.component} />
+                    ))
+                }
                 {
                     adminRouters.map((item, key) => (
                         <Route key={key} path={item.path} element={item.component} />
@@ -103,15 +92,7 @@ const renderAdminCustom = () => {
                 }
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
-        </MasterLayout>
-    )
-}
-
-const renderLoadingCustom = () => {
-    return (
-        <MasterLayout>
-            <ScrollToTop />
-        </MasterLayout>
+        </AdminMasterLayout>
     )
 }
 
@@ -144,9 +125,7 @@ const RouterCustom = () => {
         fetchData().then(r => {});
     }, []);
 
-    return (isAdmin === null && renderLoadingCustom()) ||
-           (isAdmin === true && renderAdminCustom()) ||
-           (isAdmin === false && renderUserCustom());
+    return (isAdmin === true && renderAdminCustom()) || (isAdmin === false && renderUserCustom());
 }
 
 export default RouterCustom;

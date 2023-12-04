@@ -14,7 +14,8 @@ import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
-import {CartContext} from "../theme/masterLayout";
+import {CartContext} from "../theme/userMasterLayout";
+import {ScrollToTop} from "../../../utils";
 const openModalCreateAddress = () => {
   return 1;
 }
@@ -331,6 +332,7 @@ function CartPage() {
 
   return (
       <main id ="main-checkout">
+        <ScrollToTop />
         <section className="cart__wrapper container">
           <nav style={{"--bs-breadcrumb-divider": "none"}} aria-label="breadcrumb">
             <ol className="breadcrumb">
