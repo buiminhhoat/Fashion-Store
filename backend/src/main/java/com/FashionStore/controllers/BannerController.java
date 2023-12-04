@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -116,6 +117,12 @@ public class BannerController {
         }
         ResponseObject responseObject = new ResponseObject("Đã lưu banner thành công");
         return ResponseEntity.ok(responseObject);
+    }
+
+    @PostMapping("/public/get-all-banners")
+    public ResponseEntity<?> getAllBanners(HttpServletRequest request) {
+        List<Banner> banners = bannerRepository.findAll();
+        return ResponseEntity.ok(banners);
     }
 }
 
