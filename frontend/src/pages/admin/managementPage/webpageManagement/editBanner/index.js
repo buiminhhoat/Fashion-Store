@@ -6,6 +6,7 @@ import defaultBanner from "./images/default-banner.png";
 import {toast} from "react-toastify";
 import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
+import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -150,7 +151,7 @@ const EditBannerPage = () => {
                       <li>Định dạng hình ảnh: JPG, JPEG, PNG</li>
                     </div>
 
-                    <div style={{margin:"0 0 30px"}} className="popover-wrap">
+                    <div style={{margin:"0 0 25px"}} className="popover-wrap">
                       <button
                           onClick={handleUploadImageBtnClick}
                           type="button"
@@ -174,7 +175,23 @@ const EditBannerPage = () => {
                     </div>
 
                     {banners.map((banner, index) => (
-                        <div key={index}>
+                        <div key={index} style={{display:"flex"}}>
+                          <div key={index} data-v-389929d8="" className="edit-row-right-full variation-edit-item"
+                               style={{margin:"0 5px 20px 0", width:"40px", maxWidth:"40px", display:"flex", justifyContent:"center", alignItems:"center"}}
+                          >
+                            <div style={{margin:"0 0 0 0", width:"20px", height:"100%", display:"flex", flexDirection: "column", justifyContent: "space-around",}}>
+                              <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                                <TbArrowBigUpFilled
+                                    style={{color:`${index?"#999999":"D8D8D8"}`, cursor:`${index?"pointer":"not-allowed"}`, fontSize:"20px"}}
+                                />
+                              </div>
+                              <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                                <TbArrowBigDownFilled
+                                    style={{color:`${index!==banners.length-1?"#999999":"D8D8D8"}`, cursor:`${index!==banners.length-1?"pointer":"not-allowed"}`, fontSize:"20px"}}
+                                />
+                              </div>
+                            </div>
+                          </div>
                           <BannerImageField index = {index} banners={banners} setBanners={setBanners}/>
                         </div>
                     ))}

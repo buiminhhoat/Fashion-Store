@@ -23,7 +23,7 @@ const BannerImageField = ({index, banners, setBanners}) => {
 
   return (
       <div key={index} data-v-389929d8="" className="edit-row-right-full variation-edit-item"
-           style={{margin:"0 0 20px 0", width:"100%", maxWidth:"100%"}}
+           style={{margin:"0 0 20px 0", width:"560px", maxWidth:"560px"}}
       >
         <span data-v-389929d8="" className="options-close-btn">
           <div className="btn-close pointer-cursor" style={{fontSize: "10px"}} aria-label="Close"/>
@@ -33,14 +33,7 @@ const BannerImageField = ({index, banners, setBanners}) => {
              data-education-trigger-key="images" data-v-2250a4e1=""
              data-product-edit-field-unique-id="images" style={{display:"flex"}}>
 
-          <div style={{margin:"0 15px 0 0", width:"20px", display:"flex", flexDirection: "column", justifyContent: "space-around"}}>
-            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-              <TbArrowBigUpFilled style={{color:"#999999", fontSize:"20px"}}/>
-            </div>
-            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-              <TbArrowBigDownFilled style={{color:"#999999", fontSize:"20px"}}/>
-            </div>
-          </div>
+          <div style={{margin:"0 0 0 3px", color:"#333333", width:"35px"}}>{index + 1}. </div>
 
           <div>
             <div key={index} className="image-box"
