@@ -1,5 +1,6 @@
 import React from "react";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
+import {toast} from "react-toastify";
 
 const BannerImageField = ({index, banners, setBanners}) => {
   const handleBannerLinkToChange = (e) => {
@@ -7,6 +8,17 @@ const BannerImageField = ({index, banners, setBanners}) => {
     let newBanners = [...banners];
     newBanners[index].bannerLinkTo = newLink;
     setBanners(newBanners);
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    if (file) {
+      let newBanners = [...banners];
+      newBanners[index].imageFile = file;
+      newBanners[index].imageURL = URL.createObjectURL(file);
+      setBanners(newBanners);
+    }
   };
 
   return (
@@ -37,20 +49,28 @@ const BannerImageField = ({index, banners, setBanners}) => {
             >
               <img className="image-itembox" key={index} src={banners[index].imageURL} alt={`Image ${index}`} />
               <div data-v-05032044="" data-v-1190c12e="" className="fashion-store-image-manager__tools">
-                              <span data-v-05032044="" data-v-1190c12e=""
-                                    className="fashion-store-image-manager__icon fashion-store-image-manager__icon--delete"
-                                  // onClick={() => handleDeleteImage(index)}
-                              >
-                                  <i data-v-05032044="" className="fashion-store-icon" data-v-1190c12e="">
-                                     <svg viewBox="0 0 16 16">
-                                        <g>
-                                           <path d="M14.516 3.016h-4v-1a.998.998 0 00-.703-.955.99.99 0 00-.297-.045h-3a.998.998 0 00-.955.703.99.99 0 00-.045.297v1h-4a.5.5 0 100 1h1v10a.998.998 0 00.703.955.99.99 0 00.297.045h9a.998.998 0 00.955-.703.99.99 0 00.045-.297v-10h1a.5.5 0 100-1zm-8-1h3v1h-3v-1zm6 12h-9v-10h9v10z"></path>
-                                           <path d="M5.516 12.016a.5.5 0 00.5-.5v-4a.5.5 0 10-1 0v4a.5.5 0 00.5.5zM8.016 12.016a.5.5 0 00.5-.5v-5a.5.5 0 10-1 0v5a.5.5 0 00.5.5zM10.516 12.016a.5.5 0 00.5-.5v-4a.5.5 0 10-1 0v4a.5.5 0 00.5.5z"></path>
-                                        </g>
-                                     </svg>
-                                  </i>
-                               </span>
+                <span data-v-05032044="" data-v-1190c12e=""
+                      className="fashion-store-image-manager__icon fashion-store-image-manager__icon--delete"
+                    onClick={() => {
+                      document.getElementById(`img-banner-input` + index).click();
+                    }}
+                >
+                  <i data-v-05032044="" className="fashion-store-icon" data-v-1190c12e="">
+                    <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" style={{margin:"0 0 2px 0"}}>
+                      <path d="m12.77 3.535-2.121-2.12-2.122 2.12 2.122 2.122 2.12-2.122ZM9.94 6.364l-2.12-2.121-6.109 6.108-.212 2.333 2.333-.212 6.108-6.108ZM11.356.707l2.12 2.121a1 1 0 0 1 0 1.415l-8.935 8.936a1 1 0 0 1-.617.289l-2.333.212a1 1 0 0 1-1.087-1.086l.212-2.334a1 1 0 0 1 .289-.617L9.941.707a1 1 0 0 1 1.415 0Z"></path>
+                    </svg>
+                  </i>
+                  <span style={{fontWeight:"400", margin:"0 0 0 5px", color:"white"}}>Chỉnh sửa</span>
+                 </span>
               </div>
+              <input
+                  type="file"
+                  id={`img-banner-input` + index}
+                  accept="image/*"
+                  multiple="multiple"
+                  style={{ display: 'none' }}
+                  onChange={(e) => handleFileChange(e)}
+              />
             </div>
 
             <div data-v-389929d8="" className="variation-edit-right" style={{margin:"10px 0 0 0"}}>
