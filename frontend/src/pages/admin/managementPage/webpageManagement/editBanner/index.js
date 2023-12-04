@@ -4,6 +4,7 @@ import {Carousel} from "react-responsive-carousel";
 
 import defaultBanner from "./images/default-banner.png";
 import {toast} from "react-toastify";
+import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -51,7 +52,7 @@ const EditBannerPage = () => {
             <div data-v-03749d40="" className="product-edit__container">
               <div data-v-03749d40="" className="product-edit">
                 <section data-v-03749d40="" className="product-edit__section">
-                  <div data-v-2250a4e1="" data-v-54a51dd8="" data-v-03749d40="" style={{paddingBottom:"70px"}}
+                  <div data-v-2250a4e1="" data-v-54a51dd8="" data-v-03749d40="" style={{padding:"40px 80px 70px 90px"}}
                        className="product-detail-panel product-basic-info" >
 
                     <div style={{color: "#bd0000", fontSize: "23px", fontWeight: "700", lineHeight: "25px", margin: "10px 0 40px 0"}}>
@@ -63,36 +64,39 @@ const EditBannerPage = () => {
                     </div>
 
                     <div style={{display:"flex", justifyContent:"center", width:"100%"}}>
-                      <div style={{width:"900px", border:"1px solid #E5E5E5"}}>
-                        { bannerImages && bannerImages.length > 0 ?
-                            <Carousel
-                                autoPlay
-                                infiniteLoop
-                                showStatus={false}
-                                showThumbs={false}
-                            >
-                              { bannerImages.map((slide, index) => (
-                                  <div key={index}>
-                                    <img src={slide.imageURL} alt={`banner ${index + 1}`}
-                                         style={{ width: "900px", height: "384px", objectFit: "contain", backgroundColor:"#fff"}} />
-                                  </div>
-                              ))}
-                            </Carousel>
-                            :
-                            <Carousel
-                                autoPlay
-                                infiniteLoop
-                                showStatus={false}
-                                showThumbs={false}
-                            >
-                              { defaultBannerImages.map((slide, index) => (
-                                  <div key={index}>
-                                    <img src={slide.defaultImage} alt={`banner ${index + 1}`} />
-                                  </div>
-                              ))}
-                            </Carousel>
-                        }
-                      </div>
+                      { bannerImages && bannerImages.length > 0 ?
+                        <div key={0} style={{width:"900px", border:"1px solid #E5E5E5"}}>
+                          <Carousel
+                              autoPlay
+                              infiniteLoop
+                              showStatus={false}
+                              showThumbs={false}
+                          >
+                            { bannerImages.map((slide, index) => (
+                              <div key={index}>
+                                <img src={slide.imageURL} alt={`banner ${index + 1}`}
+                                     style={{ width: "900px", height: "384px", objectFit: "contain", backgroundColor:"#fff"}} />
+                              </div>
+                            ))}
+                          </Carousel>
+                        </div>
+                        :
+                        <div key={1} style={{width:"900px", border:"1px solid #E5E5E5"}}>
+                          <Carousel
+                              autoPlay
+                              infiniteLoop
+                              showStatus={false}
+                              showThumbs={false}
+                          >
+                            { defaultBannerImages.map((slide, index) => (
+                              <div key={index}>
+                                <img src={slide.defaultImage} alt={`banner ${index + 1}`} />
+                              </div>
+                            ))}
+                          </Carousel>
+                        </div>
+                      }
+
                     </div>
 
                     <div style={{margin:"50px 0 30px"}}>
@@ -125,18 +129,38 @@ const EditBannerPage = () => {
                       />
                     </div>
 
-                    <div data-v-05032044="" data-v-54a51dd8="" className="edit-main fashion-store-image-manager"
-                         data-education-trigger-key="images" data-v-2250a4e1=""
-                         data-product-edit-field-unique-id="images" style={{display:"flex"}}>
-                      {bannerImages.map((slide, index) => (
-                          <div key={index} className="image-box"
-                               // style={{ width: "800px", height: "341px", objectFit: "contain", backgroundColor:"#fff", border:"1px solid #E5E5E5"}}
-                          >
-                            <img className="image-itembox" key={index} src={slide.imageURL} alt={`Image ${index}`} />
-                            <div data-v-05032044="" data-v-1190c12e="" className="fashion-store-image-manager__tools">
+                    {bannerImages.map((slide, index) => (
+
+                      <div data-v-389929d8="" className="edit-row-right-full variation-edit-item"
+                           style={{margin:"0 0 20px 0", width:"100%", maxWidth:"100%"}}
+                      >
+                        <span data-v-389929d8="" className="options-close-btn">
+                          <div className="btn-close pointer-cursor" style={{fontSize: "10px"}} aria-label="Close"/>
+                        </span>
+
+                        <div data-v-05032044="" data-v-54a51dd8="" className="edit-main fashion-store-image-manager"
+                             data-education-trigger-key="images" data-v-2250a4e1=""
+                             data-product-edit-field-unique-id="images" style={{display:"flex"}}>
+
+                          <div style={{margin:"0 15px 0 0", width:"20px", display:"flex", flexDirection: "column", justifyContent: "space-around"}}>
+                            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                              <TbArrowBigUpFilled style={{color:"#999999", fontSize:"20px"}}/>
+                            </div>
+                            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                              <TbArrowBigDownFilled style={{color:"#999999", fontSize:"20px"}}/>
+                            </div>
+                          </div>
+
+                          <div>
+                            <div key={index} className="image-box"
+                                 style={{ maxWidth: "400px", maxHeight: "171px", width: "800px", height: "341px",
+                                   objectFit: "contain", backgroundColor:"#fff", border:"0px solid #E5E5E5", margin:"0 0 0 0"}}
+                            >
+                              <img className="image-itembox" key={index} src={slide.imageURL} alt={`Image ${index}`} />
+                              <div data-v-05032044="" data-v-1190c12e="" className="fashion-store-image-manager__tools">
                               <span data-v-05032044="" data-v-1190c12e=""
                                     className="fashion-store-image-manager__icon fashion-store-image-manager__icon--delete"
-                                    // onClick={() => handleDeleteImage(index)}
+                                  // onClick={() => handleDeleteImage(index)}
                               >
                                   <i data-v-05032044="" className="fashion-store-icon" data-v-1190c12e="">
                                      <svg viewBox="0 0 16 16">
@@ -147,10 +171,30 @@ const EditBannerPage = () => {
                                      </svg>
                                   </i>
                                </span>
+                              </div>
                             </div>
+
+                            <div data-v-389929d8="" className="variation-edit-right" style={{margin:"10px 0 0 0"}}>
+                              <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item" style={{width:"400px"}}>
+                                <div data-v-f872a002="" data-v-1c124603="" data-v-389929d8=""
+                                     className="custom-len-calc-input product-edit-form-item" data-education-trigger-key="variations"
+                                     data-v-1190c12e="" data-product-edit-field-unique-id="variationName_0">
+                                  <div className="fashion-store-input__inner fashion-store-input__inner--normal">
+                                    <input
+                                        // onChange = {handleSizeNameChange}
+                                        // value={informationProduct.productSizes.find((size) => size.sizeID === id).sizeName}
+                                        type="text" placeholder="Nhập đường dẫn khi bấm vào hình ảnh" resize="none"
+                                        rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
+                                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                           </div>
-                      ))}
-                    </div>
+                        </div>
+                      </div>
+                    ))}
 
 
                   </div>
