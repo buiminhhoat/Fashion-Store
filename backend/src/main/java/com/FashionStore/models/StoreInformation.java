@@ -8,8 +8,8 @@ public class StoreInformation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "StoreID")
-    private Long storeID;
+    @Column(name = "StoreInformationID")
+    private Long storeInformationID;
 
     @Column(name = "Address")
     private String address;
@@ -32,12 +32,12 @@ public class StoreInformation {
     public StoreInformation() {
     }
 
-    public Long getStoreID() {
-        return storeID;
+    public Long getStoreInformationID() {
+        return storeInformationID;
     }
 
-    public void setStoreID(Long storeID) {
-        this.storeID = storeID;
+    public void setStoreInformationID(Long storeInformationID) {
+        this.storeInformationID = storeInformationID;
     }
 
     public String getAddress() {
