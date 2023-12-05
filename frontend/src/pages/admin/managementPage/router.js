@@ -5,6 +5,7 @@ import AddProductPage from "./productManagement/addProduct";
 import EditProductPage from "./productManagement/editProduct";
 import ListOfProductsAndCategoriesPage from "./productManagement/listOfProductsAndCategories";
 import EditBannerPage from "./webpageManagement/editBanner";
+import AccountListPage from "./accountManagement/accountList";
 
 const renderCustom = () => {
     const routers =  [
@@ -23,6 +24,10 @@ const renderCustom = () => {
         {
             path: ROUTERS.ADMIN.EDIT_BANNER,
             component: <EditBannerPage />
+        },
+        {
+            path: ROUTERS.ADMIN.ACCOUNT_LIST,
+            component: <AccountListPage />
         }
     ]
 
