@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 04, 2023 lúc 02:03 PM
+-- Thời gian đã tạo: Th12 05, 2023 lúc 06:19 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -313,6 +313,22 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `storeinformation`
+--
+
+CREATE TABLE `storeinformation` (
+  `StoreID` bigint(20) NOT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Hotline` varchar(20) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `OpeningHours` varchar(255) DEFAULT NULL,
+  `ClosingHours` varchar(255) DEFAULT NULL,
+  `Facebook` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `users`
 --
 
@@ -430,6 +446,12 @@ ALTER TABLE `productsize`
   ADD KEY `ProductID` (`ProductID`);
 
 --
+-- Chỉ mục cho bảng `storeinformation`
+--
+ALTER TABLE `storeinformation`
+  ADD PRIMARY KEY (`StoreID`);
+
+--
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
@@ -511,6 +533,12 @@ ALTER TABLE `productquantity`
 --
 ALTER TABLE `productsize`
   MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT cho bảng `storeinformation`
+--
+ALTER TABLE `storeinformation`
+  MODIFY `StoreID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
