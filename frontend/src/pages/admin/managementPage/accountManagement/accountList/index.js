@@ -4,7 +4,15 @@ import "./style.scss"
 const AccountListPage = () => {
   return (
       <div id="app">
-        AccountList
+        <main id="main">
+          <div className="container profile-wrap">
+            <div className="breadcrumb-wrap">
+              <a href="/">Trang chủ</a>
+              &gt; <span>Quản lý người dùng</span>
+              &gt; <span>Danh sách người dùng</span>
+            </div>
+          </div>
+        </main>
       </div>
   );
 }
