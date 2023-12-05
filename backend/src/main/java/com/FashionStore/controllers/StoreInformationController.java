@@ -99,5 +99,19 @@ public class StoreInformationController {
         ResponseObject responseObject = new ResponseObject("Đã cập nhật thông tin cửa hàng thành công");
         return ResponseEntity.ok(responseObject);
     }
+
+    @GetMapping("/public/get-store-information")
+    public ResponseEntity<?> getStoreInformation(HttpServletRequest request) {
+        List<StoreInformation> storeInformations = storeInformationRepository.findAll();
+        StoreInformation storeInformation = storeInformations.getFirst();
+        if (storeInformation != null) {
+            ResponseObject responseObject = new ResponseObject("Đã lấy thông tin cửa hàng thành công", storeInformation);
+            return ResponseEntity.ok(responseObject);
+        }
+        else {
+            ResponseObject responseObject = new ResponseObject("Vui lòng tạo thông tin cửa hàng");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+    }
 }
 
