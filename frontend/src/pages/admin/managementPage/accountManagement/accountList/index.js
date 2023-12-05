@@ -10,8 +10,10 @@ import {SEARCH_USER} from "../../productManagement/utils/const";
 import {HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
+import {useNavigate} from "react-router-dom";
 
 const AccountListPage = () => {
+  const navigate = useNavigate();
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
@@ -205,7 +207,7 @@ const AccountListPage = () => {
                 <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm người dùng</div>} color={"#4A4444"}>
                   <MdLibraryAdd className="pointer-cursor"
                                 style={{margin:"0 0 8px 8px", fontSize:"27px"}}
-                                // onClick={(e) => handleBtnAddCategoryClick(e, 0)}
+                                onClick={() => {navigate('/admin/management-page/add-account')}}
                   />
                 </Tooltip>
 
