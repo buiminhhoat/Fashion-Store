@@ -1,7 +1,13 @@
 export const SEARCH = {
   CATEGORY: "",
   SUB_CATEGORY: "sub-category",
-  PRODUCT: "product"
+  PRODUCT: "product",
+}
+
+export const SEARCH_USER = {
+  FULL_NAME: "",
+  PHONE_NUMBER: "phone-number",
+  EMAIL: "email",
 }
 
 export const CATEGORY = {
