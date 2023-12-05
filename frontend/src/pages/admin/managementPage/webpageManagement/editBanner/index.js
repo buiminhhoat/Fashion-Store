@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./style.scss";
 import {Carousel} from "react-responsive-carousel";
 
@@ -21,6 +21,57 @@ const EditBannerPage = () => {
   const accessToken = cookies.access_token;
 
   const [banners, setBanners] = useState([]);
+
+  async function fetchImageAsFile(imageUrl, imageName) {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return new File([blob], imageName, {type: blob.type});
+  }
+
+  const fetchData = async () => {
+    const apiGetAllBanners = "/api/public/get-all-banners";
+    try {
+      const response = await fetch(apiGetAllBanners, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        const fetchImagePromises = data.map(imageData => {
+          const imageUrl = "/storage/images/" + imageData.imagePath;
+          return fetchImageAsFile(imageUrl, imageData.imagePath);
+        });
+
+        Promise.all(fetchImagePromises)
+            .then(files => {
+              let newBanners = [];
+              for (let i = 0; i < data.length; ++i) {
+                  newBanners.push({
+                    imageFile: files[i],
+                    imageURL: URL.createObjectURL(files[i]),
+                    bannerLinkTo:data[i].bannerLinkTo
+                  });
+              }
+              setBanners(newBanners);
+            })
+            .catch(error => {
+              console.error("Error loading images:", error);
+            });
+
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
+  useEffect(() => {
+    fetchData().then(r => {});
+  }, []);
 
   const handleUploadImageBtnClick = () => {
     document.getElementById(`img-banner-input`).click();
