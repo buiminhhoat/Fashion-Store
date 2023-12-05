@@ -88,6 +88,39 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @PostMapping("/admin/add-user")
+    public ResponseEntity<String> addUser(HttpServletRequest request) {
+        try {
+            String fullName = request.getParameter("fullName");
+            String email = request.getParameter("email");
+            String phoneNumber = request.getParameter("phoneNumber");
+            String plainPassword = request.getParameter("hashedPassword");
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(plainPassword);
+
+            Users findByEmail = usersRepository.findUsersByEmail(email);
+            List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumber(phoneNumber);
+
+            if (findByEmail == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Email đã tồn tại trên hệ thống. Thêm người dùng không thành công! ");
+            }
+
+            if (!findByPhoneNumber.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Số điện thoại đã tồn tại trên hệ thống. Thêm người dùng không thành công!");
+            }
+
+            Users users = new Users(fullName, email, hashedPassword, phoneNumber, false);
+            usersRepository.save(users);
+            return ResponseEntity.ok("Thêm người dùng thành công");
+        }
+        catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Thêm người dùng không thành công");
+        }
+    }
+
     @PostMapping("/admin/edit-user")
     public ResponseEntity<?> editUser(HttpServletRequest request) {
         Long userID = Long.valueOf(request.getParameter("userID"));
@@ -154,15 +187,6 @@ public class UserController {
         String phoneNumber = request.getParameter("phoneNumber");
 
         List<Users> users = usersRepository.findUsersByPhoneNumber(phoneNumber);
-        return ResponseEntity.ok(users);
-    }
-
-    @PostMapping("/admin/get-all-users")
-    public ResponseEntity<?> getAllUsers(HttpServletRequest request) {
-        List<Users> users = usersRepository.findAll();
-        for (Users user: users) {
-            user.setHashedPassword(null);
-        }
         return ResponseEntity.ok(users);
     }
 
