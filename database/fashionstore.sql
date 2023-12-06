@@ -317,7 +317,7 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 --
 
 CREATE TABLE `storeinformation` (
-  `StoreID` bigint(20) NOT NULL,
+  `StoreInformationID` bigint(20) NOT NULL,
   `Address` varchar(255) DEFAULT NULL,
   `Hotline` varchar(20) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
