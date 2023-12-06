@@ -161,11 +161,11 @@ const AccountListPage = () => {
                             </div>
 
                             <MdOutlineEmail style={{fontSize:"18px", margin:"0 7px 0 15px", color:"#9D9D9D"}}/>
-                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}>
+                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word"}}>
                               {user.email}
                             </span>
                             <HiOutlinePhone style={{fontSize:"18px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
-                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}>
+                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word"}}>
                               {user.phoneNumber}
                             </span>
                           </div>
