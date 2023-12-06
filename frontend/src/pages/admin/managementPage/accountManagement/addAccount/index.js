@@ -12,6 +12,22 @@ const AddAccountPage = () => {
               &gt; <span>Thêm người dùng</span>
             </div>
           </div>
+
+
+          <div className="container pe-0 ps-0" style={{marginTop: "10px"}}>
+            <div data-v-03749d40="" className="product-edit__container">
+              <div data-v-03749d40="" className="product-edit">
+                <section data-v-03749d40="" className="product-edit__section">
+                  <div data-v-2250a4e1="" data-v-54a51dd8="" data-v-03749d40="" style={{padding:"40px 80px 70px 90px"}}
+                       className="product-detail-panel product-basic-info" >
+
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+
+
         </main>
       </div>
   );
