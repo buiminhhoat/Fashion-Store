@@ -1,28 +1,23 @@
 import { useEffect, useState} from "react";
 import './style.scss';
-import iconOrder from '../images/order.svg';
-import likeProduct from '../images/likeProduct.svg'
-import view from '../images/view.svg'
-import edit from '../images/edit.svg'
-import address from '../images/address.svg'
-import unlocked from '../images/unlocked.svg'
-import logout from '../images/logout.svg'
-import emptyProduct from '../images/empty-product.png'
-import {Cookies, useCookies} from 'react-cookie';
+
+import {useCookies} from 'react-cookie';
+
 import Menu from "../utils/menu";
+import {toast} from "react-toastify";
 
 const ProfilePersonalInformationPage = () => {
-    const [userData, setUserData] = useState(null);
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
+
+    const [userData, setUserData] = useState(null);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [gender, setGender] = useState("");
     const [dateBirthday, setDateBirthday] = useState({ day: '', month: '', year: '' });
-    console.log(accessToken);
 
-    const handleSaveInformation = () => {
+    const handleSaveInformation = async () => {
         const formData = new FormData();
         formData.append('fullName', name);
         formData.append('email', email);
@@ -39,90 +34,90 @@ const ProfilePersonalInformationPage = () => {
         }
         const apiEditProfile = "/api/public/edit-profile";
 
-        // Tạo yêu cầu HTTP POST
-        fetch(apiEditProfile, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-            body: formData,
-        })
-            .then(response => {
-                if (!response.ok) {
-                    const errorText = document.querySelector(".error--message.error-save");
-                    errorText.innerHTML = 'Lỗi khi gửi yêu cầu cập nhật thông tin.';
-                    throw new Error('Lỗi khi gửi yêu cầu cập nhật thông tin.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Xử lý dữ liệu phản hồi từ máy chủ (nếu cần)
-                const errorText = document.querySelector(".error--message.error-save");
-                errorText.innerHTML = 'Dữ liệu cập nhật thành công';
-                console.log('Dữ liệu cập nhật thành công:', data);
-            })
-            .catch(error => {
-                const errorText = document.querySelector(".error--message.error-save");
-                errorText.innerHTML = 'Lỗi khi cập nhật thông tin: ' + error;
-                console.error('Lỗi khi cập nhật thông tin:', error);
+        const errorText = document.querySelector(".error--message.error-save");
+
+        try {
+            const response = await fetch(apiEditProfile, {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                body: formData,
             });
+
+            if (response.status === 404) {
+                toast.error("Không thể kết nối được với database");
+                console.error('API endpoint not found:', apiEditProfile);
+                return;
+            }
+
+            if (response.ok) {
+                const data = await response.json();
+                toast.success(data.message);
+
+            } else {
+                const data = await response.json();
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error("Không thể kết nối được với database");
+        }
+    }
+
+    const fetchUserData = async () => {
+        try {
+            if (!accessToken) {
+                throw new Error("Không có refresh token.");
+            }
+
+            const apiFetchUserData = "/api/public/get-user-data";
+
+            const response = await fetch(apiFetchUserData, {
+                method: "GET",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization: `Bearer ${accessToken}`
+                },
+            });
+
+            if (!response.ok) {
+                toast.error("Không thể kết nối được với database");;
+                throw new Error("Lỗi khi gửi refresh token.");
+            }
+
+            const data = await response.json();
+            let dateParts = [];
+            let year = "";
+            let month = "";
+            let day = "";
+            try {
+                dateParts = data.dateBirthday.split("-");
+                year = dateParts[0].toString();
+                month = dateParts[1].toString();
+                day = dateParts[2].toString();
+                if (day[0] === "0") day = day[1];
+                if (month[0] === "0") month = month[1];
+            } catch (error) {}
+
+            setUserData(data);
+            setName(data.fullName);
+            setEmail(data.email);
+            setPhoneNumber(data.phoneNumber);
+            setGender(data.gender);
+            setDateBirthday({ day, month, year });
+            // console.log(dateBirthday);
+        } catch (error) {
+            toast.error("Không thể kết nối được với database");
+            // const errorText = document.querySelector(".error--message.error-save");
+            // errorText.innerHTML = 'Lỗi khi fetch dữ liệu: ' + error.toString();
+            // console.error("Lỗi khi fetch dữ liệu:", error);
+        }
     }
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                if (!accessToken) {
-                    throw new Error("Không có refresh token.");
-                }
-
-                const apiFetchUserData = "/api/public/get-user-data";
-
-                const response = await fetch(apiFetchUserData, {
-                    method: "GET",
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        Authorization: `Bearer ${accessToken}`
-                    },
-                });
-
-                if (!response.ok) {
-                    const errorText = document.querySelector(".error--message.error-save");
-                    errorText.innerHTML = 'Lỗi khi gửi refresh token.';
-                    throw new Error("Lỗi khi gửi refresh token.");
-                }
-
-                const data = await response.json();
-                let dateParts = [];
-                let year = "";
-                let month = "";
-                let day = "";
-                try {
-                    dateParts = data.dateBirthday.split("-");
-                    year = dateParts[0].toString();
-                    month = dateParts[1].toString();
-                    day = dateParts[2].toString();
-                    if (day[0] === "0") day = day[1];
-                    if (month[0] === "0") month = month[1];
-                } catch (error) {
-
-                }
-
-                setUserData(data);
-                setName(data.fullName);
-                setEmail(data.email);
-                setPhoneNumber(data.phoneNumber);
-                setGender(data.gender);
-                setDateBirthday({ day, month, year });
-                console.log(dateBirthday);
-            } catch (error) {
-                const errorText = document.querySelector(".error--message.error-save");
-                errorText.innerHTML = 'Lỗi khi fetch dữ liệu: ' + error.toString();
-                console.error("Lỗi khi fetch dữ liệu:", error);
-            }
-        }
-
-        fetchUserData();
+        fetchUserData().then(r => {});
     }, []);
+
     return (
         <div id="app">
             <main id="main">
@@ -135,7 +130,7 @@ const ProfilePersonalInformationPage = () => {
                         <Menu/>
 
                         <div className="col-8 content-children item-row">
-                            <div className="information-wrap">
+                            <div className="information-wrap" style={{margin:"0 0 5 0px 0"}}>
                                 <div className="header-wrap">
                                     <span className="title">Chỉnh sửa thông tin cá nhân</span>
                                 </div>
