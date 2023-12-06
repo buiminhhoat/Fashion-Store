@@ -3,11 +3,11 @@ import "./style.scss"
 import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
 import {Tooltip} from "antd";
-import {MdLibraryAdd} from "react-icons/md";
+import {MdLibraryAdd, MdOutlineEmail} from "react-icons/md";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {SEARCH_USER} from "../../productManagement/utils/const";
-import {HiOutlineTrash} from "react-icons/hi";
+import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import {useNavigate} from "react-router-dom";
@@ -138,27 +138,38 @@ const AccountListPage = () => {
                   usersData && usersData.map((user, index) => (
                       user.isShow &&
                       <div key={index}>
-                        <div className={`product-field`}>
-                          <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                            <div style={{alignSelf: "flex-start", width:"25px", height:"100%", borderRight:"3px"}}/>
+                        <table className={`user-field`}>
 
-                            {/*<div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>*/}
-                            {/*  <img*/}
-                            {/*      className="img-subCategory"*/}
-                            {/*      src={"/storage/images/" + usersData.imageURL}*/}
-                            {/*      alt=""*/}
-                            {/*  />*/}
-                            {/*</div>*/}
+                          <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%",height:"100%"}}>
 
-                            <a
-                              // href={`/product?productID=${product.productID}`}
-                              className="cursor-point hover-underline-animation"
-                              style={{marginLeft:"15px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}
-                              // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
-                            >
-                              {user.fullName}
-                            </a>
+                            <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                              <img
+                                  className="img-subCategory"
+                                  src={"/storage/images/" + usersData.imageURL}
+                                  alt=""
+                              />
+                            </div>
+                            <div style={{flex:"1"}}>
+                              <a
+                                  // href={`/product?productID=${product.productID}`}
+                                  className="cursor-point hover-underline-animation"
+                                  style={{marginLeft:"15px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}
+                                  // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
+                              >
+                                {user.fullName}
+                              </a>
+                            </div>
+
+                            <MdOutlineEmail style={{fontSize:"18px", margin:"0 7px 0 15px", color:"#9D9D9D"}}/>
+                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}>
+                              {user.email}
+                            </span>
+                            <HiOutlinePhone style={{fontSize:"18px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
+                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}>
+                              {user.phoneNumber}
+                            </span>
                           </div>
+
 
                           <div style={{display:"flex"}}>
                             <div className="pointer-cursor btn-category"
@@ -176,7 +187,7 @@ const AccountListPage = () => {
 
                           </div>
 
-                        </div>
+                        </table>
                       </div>
                   ))
               }
