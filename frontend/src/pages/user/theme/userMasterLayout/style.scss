@@ -1,0 +1,25 @@
+.div_block {
+    width: 100%;
+    height: 300px;
+}
+
+@keyframes showBtn {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#btn-back-to-top.showBtn {
+    animation: showBtn 0.5s ease-in-out !important;
+}
+
+#btn-back-to-top:hover {
+    background-color: #A80000 !important;
+}
+
+#btn-back-to-top.hideBtn {
+    opacity: 0;
+}

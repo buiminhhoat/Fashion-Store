@@ -1,0 +1,46 @@
+.category-dialog-btn-close {
+    position: absolute;
+    right: 0;
+    top:0;
+    padding: 20px;
+    font-size: 10px;
+}
+
+.btn-add {
+    font-size: 16px;
+    color: #7F7F7F;
+}
+
+.btn-delete {
+    font-size: 18px;
+    color: #7F7F7F;
+}
+
+.input-category {
+    height: 100%;
+    color: #333;
+    caret-color: rgb(200, 29, 49);
+    border: 0;
+    border-bottom: 1px solid #CFCFCF;
+}
+
+.selected-category {
+    font-weight: 600 !important;
+    color: #bd0000 !important;
+}
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-btn-primary {
+    color: #fff;
+    background-color: #bd0000;
+    box-shadow: 0 2px 0 rgba(255, 5, 5, 0.1);
+}
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+    color: #fff;
+    background-color: #e13b3b;
+}
+
+:where(.css-dev-only-do-not-override-2i2tap).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    color: #bd0000;
+    border-color: #bd0000;
+}

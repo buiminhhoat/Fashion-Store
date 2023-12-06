@@ -1,0 +1,36 @@
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.add-category-dialog-btn {
+    cursor: pointer;
+    background: #bd0000;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 0;
+    width: 140px;
+    height: 35px;
+    border: 0;
+    color: white;
+    -webkit-appearance: button;
+    font-family: Manrope !important;
+}
+
+.add-category-dialog-btn-cancel {
+    background: none;
+    color: #bd0000;
+    border: 1px solid #bd0000;
+    font-weight: normal;
+}
+
+.input-add-category {
+    height: 35px;
+    width: 100%;
+    color: #333;
+    font-size: 16px;
+    caret-color: rgb(200, 29, 49);
+    border: 0;
+    border-bottom: 2px solid #BD0000;
+}
