@@ -3,7 +3,7 @@ package com.FashionStore.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ProductQuantity")
+@Table(name = "productquantity")
 public class ProductQuantity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
