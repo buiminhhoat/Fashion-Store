@@ -6,6 +6,7 @@ import EditProductPage from "./productManagement/editProduct";
 import ListOfProductsAndCategoriesPage from "./productManagement/listOfProductsAndCategories";
 import EditBannerPage from "./webpageManagement/editBanner";
 import AccountListPage from "./accountManagement/accountList";
+import AddAccountPage from "./accountManagement/addAccount";
 
 const renderCustom = () => {
     const routers =  [
@@ -24,6 +25,10 @@ const renderCustom = () => {
         {
             path: ROUTERS.ADMIN.EDIT_BANNER,
             component: <EditBannerPage />
+        },
+        {
+            path: ROUTERS.ADMIN.ADD_ACCOUNT,
+            component: <AddAccountPage />
         },
         {
             path: ROUTERS.ADMIN.ACCOUNT_LIST,
