@@ -449,7 +449,7 @@ ALTER TABLE `productsize`
 -- Chỉ mục cho bảng `storeinformation`
 --
 ALTER TABLE `storeinformation`
-  ADD PRIMARY KEY (`StoreID`);
+  ADD PRIMARY KEY (`StoreInformationID`);
 
 --
 -- Chỉ mục cho bảng `users`
@@ -538,7 +538,7 @@ ALTER TABLE `productsize`
 -- AUTO_INCREMENT cho bảng `storeinformation`
 --
 ALTER TABLE `storeinformation`
-  MODIFY `StoreID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `StoreInformationID` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
