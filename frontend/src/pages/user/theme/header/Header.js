@@ -1,22 +1,26 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {toast} from "react-toastify";
+import {Cookies, useCookies} from "react-cookie";
 import { Link } from "react-router-dom";
+import './style.scss';
+
+import {toast} from "react-toastify";
+
 import arrowDown from "./images/arrow-down.svg";
 import search from "./images/search.svg";
 import logo_fashion_store from "./images/logo_fashion_store.png";
-import './style.scss';
-import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
-import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
-import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
-import {DIALOGS} from "../../components/dialogs/utils";
-import {Cookies, useCookies} from "react-cookie";
-import {useLogout} from "../../components/dialogs/utils/logout";
+
+import {CartContext} from "../userMasterLayout";
+import {DIALOGS} from "../../../../components/dialogs/utils/const";
 import {formatter} from "../../../../utils/formatter";
-import {CartContext} from "../masterLayout";
+import {useLogout} from "../../../../components/dialogs/utils/logout";
+
+import LoginDialog from "../../../../components/dialogs/LoginDialog/LoginDialog";
+import RegisterDialog from "../../../../components/dialogs/RegisterDialog/RegisterDialog";
+import ForgotPasswordDialog from "../../../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
 
 const MenuItem = ({ categoryID, categoryName, subCategories }) => {
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
-
+  console.log(categoryID)
   const handleMouseEnter = () => {
     setMegaMenuVisible(true);
   };
@@ -31,7 +35,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
       >
-        <Link to={"category/" + categoryID} className="menu-header-text d-flex align-items-center text-center position-relative">
+        <Link to={"/category?categoryID=" + categoryID} className="menu-header-text d-flex align-items-center text-center position-relative">
           {categoryName && categoryName.toUpperCase()}
           {subCategories && (
               <img src={arrowDown} alt="icon arrow down" className="position-absolute"/>
@@ -55,7 +59,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
                           <ul className="menu-children ps-0">
                             {subCategories.map((subCategory, subSubMenuIndex) => (
                                 <li key={subSubMenuIndex} className="d-flex align-items-center">
-                                  <Link to={"category/" + subCategory.categoryID}>{subCategory.categoryName}</Link>
+                                  <Link to={"/category?categoryID=" + subCategory.categoryID}>{subCategory.categoryName}</Link>
                                 </li>
                             ))}
                           </ul>
@@ -78,7 +82,7 @@ const ProfileMenu = ({openModal}) => {
   const logout = useLogout(); // Use the useLogout custom Hook
 
   const handleLogout = () => {
-    logout(); // Call the logout function returned by the custom Hook
+    logout().then(r => {}); // Call the logout function returned by the custom Hook
   };
 
   const handleMouseEnter = () => {
@@ -114,7 +118,7 @@ const ProfileMenu = ({openModal}) => {
         }
       }
     };
-    fetchUserData();
+    fetchUserData().then(r => {});
 
   }, [accessToken]);
 
@@ -249,7 +253,7 @@ const SearchDialog = ({keyword}) => {
             </div>
         ))}
         <div className="view_all_search">
-          <Link to={"/search/" + keyword}>
+          <Link to={"/search/" + keyword} id = {keyword}>
             <div title="Xem tất cả">Xem tất cả</div>
           </Link>
         </div>
@@ -413,8 +417,10 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
+  const apiGetAllCategories = "/api/public/get-all-categories" ///api/public/get-cart";
+
   const [loading, setLoading] = useState(true)
-  // const [productInCart, setProductIncart] = useState(0);
+  // const [productInCart, setProductIncart] = useState(0)
 
   const fetchData = async () => {
     const apiGetAllCategories = "/api/public/get-all-categories";

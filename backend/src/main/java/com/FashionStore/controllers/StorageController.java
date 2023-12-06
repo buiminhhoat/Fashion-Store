@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -30,8 +31,10 @@ public class StorageController {
             Resource resource = new UrlResource(imagePath.toUri());
 
             if (resource.exists() && resource.isReadable()) {
-                byte[] imageBytes = resource.getInputStream().readAllBytes();
-                return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+                try (InputStream inputStream = resource.getInputStream()) {
+                    byte[] imageBytes = inputStream.readAllBytes();
+                    return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+                }
             } else {
                 return ResponseEntity.notFound().build();
             }

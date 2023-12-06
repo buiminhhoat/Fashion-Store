@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.be3cdd2e.css",
-    "main.js": "/static/js/main.4736bb99.js",
+    "main.css": "/static/css/main.231d971a.css",
+    "main.js": "/static/js/main.6e937867.js",
     "static/js/787.44c26954.chunk.js": "/static/js/787.44c26954.chunk.js",
     "static/media/logo_fashion_store.png": "/static/media/logo_fashion_store.5797645c055ae9386184.png",
     "static/media/zalo.svg": "/static/media/zalo.c63e607f5f4180498ce1557d495f0aae.svg",
     "static/media/logoSaleNoti.png": "/static/media/logoSaleNoti.cb85045e8b81c0a8dd5f.png",
     "static/media/lazada.svg": "/static/media/lazada.2e5957f03af2b89a9a90d564cf2c82c4.svg",
+    "static/media/default-banner.png": "/static/media/default-banner.a4097086d2dc6df22846.png",
     "static/media/shopee.svg": "/static/media/shopee.630d80e320b24b432008a11ed14fea3e.svg",
+    "static/media/security.png": "/static/media/security.64b9b5cfbb30fa6c2b29.png",
     "static/media/facebook.svg": "/static/media/facebook.579438e055a71ac60f5ae95bbbe40623.svg",
     "static/media/empty-product.png": "/static/media/empty-product.ebee625853103d4be8c2.png",
     "static/media/tiki.svg": "/static/media/tiki.bf1062882855123dbfc51b3c63ecfac3.svg",
@@ -38,12 +40,12 @@
     "static/media/card.svg": "/static/media/card.79c6c21d949cd294c8769e42311519ca.svg",
     "static/media/unlocked.svg": "/static/media/unlocked.446d7940bb94b6e3a7a962997ef85ba7.svg",
     "static/media/plus.svg": "/static/media/plus.f2715396a53c70b447cc8e205d4241d2.svg",
-    "main.be3cdd2e.css.map": "/static/css/main.be3cdd2e.css.map",
-    "main.4736bb99.js.map": "/static/js/main.4736bb99.js.map",
+    "main.231d971a.css.map": "/static/css/main.231d971a.css.map",
+    "main.6e937867.js.map": "/static/js/main.6e937867.js.map",
     "787.44c26954.chunk.js.map": "/static/js/787.44c26954.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.be3cdd2e.css",
-    "static/js/main.4736bb99.js"
+    "static/css/main.231d971a.css",
+    "static/js/main.6e937867.js"
   ]
 }
