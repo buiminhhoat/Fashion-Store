@@ -3,7 +3,6 @@ import './style.scss';
 
 import {useCookies} from 'react-cookie';
 
-import Menu from "../components/Menu/Menu";
 import {toast} from "react-toastify";
 
 const ProfilePersonalInformationPage = () => {
@@ -54,6 +53,9 @@ const ProfilePersonalInformationPage = () => {
       if (response.ok) {
         const data = await response.json();
         toast.success(data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
 
       } else {
         const data = await response.json();
