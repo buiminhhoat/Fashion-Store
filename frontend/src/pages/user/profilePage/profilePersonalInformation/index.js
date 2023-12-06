@@ -3,7 +3,7 @@ import './style.scss';
 
 import {useCookies} from 'react-cookie';
 
-import Menu from "../utils/menu";
+import Menu from "../components/Menu/Menu";
 import {toast} from "react-toastify";
 
 const ProfilePersonalInformationPage = () => {
@@ -120,7 +120,7 @@ const ProfilePersonalInformationPage = () => {
 
   return (
       <div className="col-8 content-children item-row">
-        <div className="information-wrap" style={{margin:"0 0 5 0px 0"}}>
+        <div className="information-wrap">
           <div className="header-wrap">
             <span className="title">Chỉnh sửa thông tin cá nhân</span>
           </div>
