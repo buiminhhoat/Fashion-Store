@@ -91,7 +91,7 @@ function AddressList() {
             // formData.append("addressDetails", addresses[id].addressDetails)
             // formData.append("isDefault", addresses[id].isDefault)
 
-            const response = await fetch(`/api/delete-address`, {
+            const response = await fetch(`/api/public/delete-address`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
