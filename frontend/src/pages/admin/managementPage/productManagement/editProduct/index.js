@@ -83,6 +83,9 @@ const EditProductPage = () => {
     .then((data) => {
       toast.success("Chỉnh sửa thông tin sản phẩm thành công");
       console.log('Upload successful:', data);
+      navigate(`/admin/management-page/categories-and-products`, {
+        state: { scrolling: SCROLLING.SMOOTH },
+      });
     })
     .catch((error) => {
       toast.error("Có lỗi xảy ra! Vui lòng thử lại");
@@ -96,42 +99,43 @@ const EditProductPage = () => {
     return new File([blob], imageName, {type: blob.type});
   }
 
-  useEffect(() => {
+  const fetchData = async () => {
     const apiProductDetailByID = "/api/public/product/" + productID;
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiProductDetailByID, {
-          method: 'GET',
+    try {
+      const response = await fetch(apiProductDetailByID, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // console.log(data);
+        setInformationProduct(data);
+
+        const fetchImagePromises = data.productImages.map(imageData => {
+          const imageUrl = "/storage/images/" + imageData.imagePath;
+          return fetchImageAsFile(imageUrl, imageData.imagePath);
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          // console.log(data);
-          setInformationProduct(data);
+        Promise.all(fetchImagePromises)
+            .then(files => {
+              setProductImages(files);
+            })
+            .catch(error => {
+              console.error("Error loading images:", error);
+            });
 
-          const fetchImagePromises = data.productImages.map(imageData => {
-            const imageUrl = "/storage/images/" + imageData.imagePath;
-            return fetchImageAsFile(imageUrl, imageData.imagePath);
-          });
-
-          Promise.all(fetchImagePromises)
-              .then(files => {
-                setProductImages(files);
-              })
-              .catch(error => {
-                console.error("Error loading images:", error);
-              });
-
-        } else {
-          const data = await response.json();
-          console.log(data.message);
-          navigate(`/error`);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error('Không thể kết nối được với database');
+      } else {
+        const data = await response.json();
+        console.log(data.message);
+        navigate(`/error`);
       }
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
     }
+  }
+
+  useEffect(() => {
     fetchData().then(r => {});
   }, []);
 
@@ -178,16 +182,13 @@ const EditProductPage = () => {
               <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
                              subTitle={
                                <>
-                                 Bạn có chắc chắn muốn hủy?
+                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.
                                </>
                              }
                              titleBtnAccept={"Có"}
                              titleBtnCancel={"Không"}
                              onAccept={() => {
-                               setIsShowConfirmDialog(false);
-                               navigate(`/admin/management-page/categories-and-products`, {
-                                 state: { scrolling: SCROLLING.SMOOTH },
-                               });
+                               fetchData().then(r => {setIsShowConfirmDialog(false)});
                              }}
                              onCancel={() => {setIsShowConfirmDialog(false)}}/>
             </div>
