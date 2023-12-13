@@ -4,7 +4,6 @@ import "./style.scss";
 import {toast} from "react-toastify";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {CATEGORY} from "../../productManagement/utils/const";
 
 const AddAccountPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);

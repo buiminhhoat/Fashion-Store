@@ -204,23 +204,29 @@ const AccountListPage = () => {
 
 
                           <div style={{display:"flex"}}>
-                            <div className="pointer-cursor btn-category"
-                                 style={{marginRight:"20px"}}
-                                 onClick={() => {
-                                   setDeletedUser({
-                                     userID: user.userID,
-                                     fullName: user.fullName,
-                                   })
-                                 }}
-                            >
-                              <HiOutlineTrash />
-                            </div>
-                            <div className="pointer-cursor btn-category"
-                                 style={{marginRight:"0"}}
-                                 // onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
-                            >
-                              <BiSolidEdit />
-                            </div>
+
+                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa người dùng</div>} color={"#4A4444"}>
+                              <div className="pointer-cursor btn-category"
+                                   style={{marginRight:"20px"}}
+                                   onClick={() => {
+                                     setDeletedUser({
+                                       userID: user.userID,
+                                       fullName: user.fullName,
+                                     })
+                                   }}
+                              >
+                                <HiOutlineTrash />
+                              </div>
+                            </Tooltip>
+
+                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chi tiết người dùng</div>} color={"#4A4444"}>
+                              <div className="pointer-cursor btn-category"
+                                   style={{marginRight:"0"}}
+                                   // onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
+                              >
+                                <BiSolidEdit />
+                              </div>
+                            </Tooltip>
 
                           </div>
 
@@ -234,7 +240,7 @@ const AccountListPage = () => {
         </section>
     );
   }
-  
+
   return (
       <div id="app">
         <main id="main">
@@ -301,9 +307,9 @@ const AccountListPage = () => {
 
                 </div>
               </div>
-              
+
               <ListUserSection />
-              
+
             </div>
           </div>
         </main>
