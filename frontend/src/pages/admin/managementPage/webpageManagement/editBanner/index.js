@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
+import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -19,6 +20,8 @@ const EditBannerPage = () => {
 
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+
+  const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
 
   const [banners, setBanners] = useState([]);
 
@@ -271,7 +274,9 @@ const EditBannerPage = () => {
                     <button type="button" className="product-details-btn" onClick={handleBtnSaveBannerClick}>
                       Lưu lại
                     </button>
-                    <button type="button" className="product-details-btn product-details-btn-danger">
+                    <button type="button" className="product-details-btn product-details-btn-danger"
+                            onClick={() => {setIsShowConfirmDialog(true)}}
+                    >
                       Hủy thay đổi
                     </button>
                   </div>
@@ -281,6 +286,23 @@ const EditBannerPage = () => {
           </div>
 
         </main>
+
+        {isShowConfirmDialog && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={
+                               <>
+                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.
+                               </>
+                             }
+                             titleBtnAccept={"Có"}
+                             titleBtnCancel={"Không"}
+                             onAccept={() => {
+                               fetchData().then(r => {setIsShowConfirmDialog(false)})
+                             }}
+                             onCancel={() => {setIsShowConfirmDialog(false)}}/>
+            </div>
+        )}
       </div>
   );
 }
