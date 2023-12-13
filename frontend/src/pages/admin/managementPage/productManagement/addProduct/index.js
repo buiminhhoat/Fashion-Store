@@ -5,6 +5,7 @@ import ProductDetails from "../components/ProductDetails/ProductDetails";
 import {toast} from "react-toastify";
 import {useLocation, useParams} from "react-router-dom";
 import {useCookies} from "react-cookie";
+import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const AddProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -15,6 +16,8 @@ const AddProductPage = () => {
 
   const { productID } = useParams();
   const [productImages, setProductImages] = useState([]);
+
+  const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
 
   const [informationProduct, setInformationProduct] = useState({
     productID: productID,
@@ -114,14 +117,44 @@ const AddProductPage = () => {
                     <button type="button" className="product-details-btn" onClick={addProduct}>
                       Lưu lại
                     </button>
-                    <button type="button" className="product-details-btn product-details-btn-danger">
-                      Hủy thay đổi
+                    <button type="button" className="product-details-btn product-details-btn-danger"
+                            onClick={() => {setIsShowConfirmDialog(true)}}
+                    >
+                      Hủy Bỏ
                     </button>
                   </div>
                 </section>
               </div>
             </div>
           </div>
+
+          {isShowConfirmDialog && (
+              <div className="modal-overlay">
+                <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                               subTitle={
+                                 <>
+                                   Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.
+                                 </>
+                               }
+                               titleBtnAccept={"Có"}
+                               titleBtnCancel={"Không"}
+                               onAccept={() => {
+                                 setInformationProduct({
+                                     productID: productID,
+                                     productName: "",
+                                     productPrice: "",
+                                     productDescription: "",
+                                     productQuantities: [],
+                                     productSizes: [],
+                                     category: location.state?.subCategory ?? {},
+                                     parentCategory:location.state?.category ?? {},
+                                 });
+                                 setProductImages([]);
+                                 setIsShowConfirmDialog(false);
+                               }}
+                               onCancel={() => {setIsShowConfirmDialog(false)}}/>
+              </div>
+          )}
 
         </main>
       </div>
