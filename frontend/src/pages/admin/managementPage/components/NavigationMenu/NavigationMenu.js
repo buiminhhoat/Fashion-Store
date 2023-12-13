@@ -7,6 +7,7 @@ import {TbShoppingBag} from "react-icons/tb";
 import {FaRegUser} from "react-icons/fa";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ROUTERS} from "../../utils/router";
+import {SCROLLING} from "../../../../../utils/const";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -78,13 +79,15 @@ const NavigationMenu = () => {
   }, [location]);
 
   const onClick = (e) => {
-    navigate('/admin/management-page/' + e.key);
+    navigate('/admin/management-page/' + e.key, {
+      state: { scrolling: SCROLLING.SMOOTH },
+    });
   }
 
   const onOpenChange = (e) => {
     setOpenKeys(e);
   }
-  
+
   return (
       <Menu
           onClick={(e) => onClick(e)}

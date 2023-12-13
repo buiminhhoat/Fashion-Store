@@ -6,6 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {SCROLLING} from "../../../../../utils/const";
 
 const EditProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -184,7 +185,9 @@ const EditProductPage = () => {
                              titleBtnCancel={"Không"}
                              onAccept={() => {
                                setIsShowConfirmDialog(false);
-                               navigate("/admin/management-page/categories-and-products");
+                               navigate(`/admin/management-page/categories-and-products`, {
+                                 state: { scrolling: SCROLLING.SMOOTH },
+                               });
                              }}
                              onCancel={() => {setIsShowConfirmDialog(false)}}/>
             </div>
