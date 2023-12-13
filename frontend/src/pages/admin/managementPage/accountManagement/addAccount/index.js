@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import "./style.scss";
 
 import {toast} from "react-toastify";
@@ -8,6 +8,8 @@ import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/Confi
 const AddAccountPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
+
+  const btnSubmitRef = useRef(null);
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,7 +45,10 @@ const AddAccountPage = () => {
       } else {
         console.error("Đăng ký thất bại");
         response.text().then(data => {
-          toast.error(data);
+          if (data === "Đăng ký không thành công") {
+            toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+          }
+          else toast.error(data);
         });
       }
     } catch (error) {
@@ -175,7 +180,7 @@ const AddAccountPage = () => {
                           </div>
                         </div>
                       </div>
-                      <button type="submit" id="btn-submit" style={{display:"none"}}></button>
+                      <button ref={btnSubmitRef} type="submit" style={{display:"none"}}></button>
                     </form>
 
                   </div>
@@ -190,9 +195,7 @@ const AddAccountPage = () => {
                 <div className="button-container">
                   <button type="button"
                           className="product-details-btn"
-                          onClick={() => {
-                            document.getElementById(`btn-submit`).click();
-                          }}
+                          onClick={() => {btnSubmitRef.current.click()}}
                   >
                     Thêm
                   </button>
