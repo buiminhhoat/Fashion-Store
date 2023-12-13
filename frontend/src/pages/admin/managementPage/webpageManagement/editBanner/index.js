@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./style.scss";
 import {Carousel} from "react-responsive-carousel";
 
@@ -21,6 +21,7 @@ const EditBannerPage = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
+  const inputRef = useRef(null);
   const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
 
   const [banners, setBanners] = useState([]);
@@ -76,10 +77,6 @@ const EditBannerPage = () => {
     fetchData().then(r => {});
   }, []);
 
-  const handleUploadImageBtnClick = () => {
-    document.getElementById(`img-banner-input`).click();
-  };
-
   const handleFileChange = (e) => {
     if (e.target.files.length === 0) return;
     const files = e.target.files;
@@ -95,6 +92,7 @@ const EditBannerPage = () => {
       }
       setBanners([...banners, ...newBanners]);
     }
+    inputRef.current.value = null;
   };
 
   const handleBtnSaveBannerClick = async () => {
@@ -207,7 +205,7 @@ const EditBannerPage = () => {
 
                     <div style={{margin:"0 0 25px"}} className="popover-wrap">
                       <button
-                          onClick={handleUploadImageBtnClick}
+                          onClick={() => {inputRef.current.click()}}
                           type="button"
                           className="primary-dash-button fashion-store-button fashion-store-button--primary fashion-store-button--large fashion-store-button--outline"
                           data-education-trigger-key="variations">
@@ -220,7 +218,7 @@ const EditBannerPage = () => {
                       </button>
                       <input
                           type="file"
-                          id={`img-banner-input`}
+                          ref={inputRef}
                           accept="image/*"
                           multiple="multiple"
                           style={{ display: 'none' }}

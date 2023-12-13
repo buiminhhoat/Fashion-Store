@@ -12,7 +12,6 @@ const AddProductPage = () => {
   const accessToken = cookies.access_token;
 
   const location = useLocation();
-  const category = location.state;
 
   const { productID } = useParams();
   const [productImages, setProductImages] = useState([]);

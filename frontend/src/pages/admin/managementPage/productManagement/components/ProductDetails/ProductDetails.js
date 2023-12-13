@@ -30,6 +30,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
       toast.warn("Chỉ được tải lên tối đa " + MAX_IMAGES + " ảnh.");
     }
     setProductImages(totalFiles);
+    inputRef.current.value = null;
   };
 
   const handleInputImagesClick = () => {
