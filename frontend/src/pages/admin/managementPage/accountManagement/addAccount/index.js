@@ -3,9 +3,12 @@ import "./style.scss";
 
 import {toast} from "react-toastify";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
+import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {CATEGORY} from "../../productManagement/utils/const";
 
 const AddAccountPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,10 +42,9 @@ const AddAccountPage = () => {
       if (response.ok) {
         toast.error("Đã thêm người dùng");
       } else {
-        toast.error("Có lỗi xảy ra! Vui lòng thử lại");
         console.error("Đăng ký thất bại");
         response.text().then(data => {
-          console.log(data);
+          toast.error(data);
         });
       }
     } catch (error) {
@@ -195,8 +197,10 @@ const AddAccountPage = () => {
                   >
                     Thêm
                   </button>
-                  <button type="button" className="product-details-btn product-details-btn-danger">
-                    Nhập lại
+                  <button type="button" className="product-details-btn product-details-btn-danger"
+                          onClick={() => {setIsShowConfirmDialog(true)}}
+                  >
+                    Hủy Bỏ
                   </button>
                 </div>
               </section>
@@ -204,6 +208,28 @@ const AddAccountPage = () => {
           </div>
 
         </main>
+
+        {isShowConfirmDialog && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={
+                               <>
+                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.
+                               </>
+                             }
+                             titleBtnAccept={"Có"}
+                             titleBtnCancel={"Không"}
+                             onAccept={() => {
+                               setFullName("");
+                               setEmail("");
+                               setPhoneNumber("");
+                               setHashedPassword("");
+                               setIsShowConfirmDialog(false);
+                             }}
+                             onCancel={() => {setIsShowConfirmDialog(false)}}/>
+            </div>
+        )}
+
       </div>
   );
 };
