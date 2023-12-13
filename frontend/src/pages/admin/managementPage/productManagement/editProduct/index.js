@@ -5,15 +5,20 @@ import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {useCookies} from "react-cookie";
+import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const EditProductPage = () => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
   const productID = queryParams.productID;
+
+  const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
+
   const [productImages, setProductImages] = useState([]);
-  const [cookies] = useCookies(['access_token']);
-  const accessToken = cookies.access_token;
   const [informationProduct, setInformationProduct] = useState({
     productID: productID,
     productName: "",
@@ -154,7 +159,9 @@ const EditProductPage = () => {
                     <button type="button" className="product-details-btn" onClick={editProduct}>
                       Lưu lại
                     </button>
-                    <button type="button" className="product-details-btn product-details-btn-danger">
+                    <button type="button" className="product-details-btn product-details-btn-danger"
+                            onClick={() => {setIsShowConfirmDialog(true)}}
+                    >
                       Hủy thay đổi
                     </button>
                   </div>
@@ -164,6 +171,24 @@ const EditProductPage = () => {
           </div>
 
         </main>
+
+        {isShowConfirmDialog && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={
+                               <>
+                                 Bạn có chắc chắn muốn hủy?
+                               </>
+                             }
+                             titleBtnAccept={"Có"}
+                             titleBtnCancel={"Không"}
+                             onAccept={() => {
+                               setIsShowConfirmDialog(false);
+                               navigate("/admin/management-page/categories-and-products");
+                             }}
+                             onCancel={() => {setIsShowConfirmDialog(false)}}/>
+            </div>
+        )}
       </div>
   );
 }
