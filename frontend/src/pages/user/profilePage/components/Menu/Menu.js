@@ -109,7 +109,6 @@ const Menu = () => {
                    onClick = {() => {
                        if (menuItem.text === "Đăng xuất") {
                           handleLogout();
-                          navigate(menuItem.link);
                           return;
                        }
                        navigate(menuItem.link, {
