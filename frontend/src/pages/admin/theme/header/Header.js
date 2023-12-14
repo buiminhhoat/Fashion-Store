@@ -1,9 +1,6 @@
-import React, {useContext, useEffect, useState} from "react";
-import {useCookies} from "react-cookie";
+import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import './style.scss';
-
-import {toast} from "react-toastify";
 
 import logo_fashion_store from "./images/logo_fashion_store.png";
 
@@ -18,9 +15,7 @@ import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
 
-
 const Header = () => {
-  const [menuItems, setMenuItems] = useState([{}])
   const cartContext = useContext(CartContext);
 
   const [openDialog, setOpenDialog] = useState(null);
@@ -41,47 +36,6 @@ const Header = () => {
     closeModal();
   };
 
-  const [cookies] = useCookies(['access_token']);
-  const accessToken = cookies.access_token;
-
-  const [loading, setLoading] = useState(true)
-
-  const fetchData = async () => {
-    const apiGetAllCategories = "/api/public/get-all-categories";
-    try {
-      const response = await fetch(apiGetAllCategories, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        setMenuItems(data);
-      } else {
-        const data = await response.json();
-        console.log(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error('Không thể kết nối được với database');
-    } finally {
-      // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData().then(r => {});
-  }, []);
-
-  if (loading) {
-    // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
-    return <div></div>;
-  }
-
   return (
       <header id="header">
         <div className="header position-fixed">
@@ -94,14 +48,24 @@ const Header = () => {
                       <img className="logo" src={logo_fashion_store} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
-                  {menuItems.slice(0, 6).map((menuItem, index) => (
-                      <MenuItem
-                          key={index}
-                          categoryID={menuItem.categoryID}
-                          categoryName={menuItem.categoryName}
-                          subCategories={menuItem.subCategories}
-                      />
-                  ))}
+
+                  <MenuItem
+                      name="Danh mục và sản phẩm"
+                      url="/admin/management-page/categories-and-products"
+                  />
+                  <MenuItem
+                      name="Thêm sản phẩm"
+                      url="/admin/management-page/add-product"
+                  />
+                  <MenuItem
+                      name="Chỉnh sửa Banner"
+                      url="/admin/management-page/edit-banner"
+                  />
+                  <MenuItem
+                      name="Danh sách người dùng"
+                      url="/admin/management-page/account-list"
+                  />
+
                 </div>
                 <div className="col-3 content-right d-flex justify-content-end align-items-center ps-0 pe-0">
                   <SearchBar />

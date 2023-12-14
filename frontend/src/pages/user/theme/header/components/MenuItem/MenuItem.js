@@ -22,7 +22,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
       >
         <Link to={"/category?categoryID=" + categoryID}
               className="menu-header-text d-flex align-items-center text-center position-relative"
-              style={{width:"60px", margin:"10px 0 10px 0"}}
+              style={{width:"60px", margin:"10px 0 10px 0", lineHeight:"1.5"}}
         >
           {categoryName && categoryName.toUpperCase()}
           {subCategories && subCategories.length > 0 && (
