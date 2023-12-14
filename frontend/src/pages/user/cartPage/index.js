@@ -5,11 +5,8 @@ import {toast} from "react-toastify";
 import "./style.scss"
 import "./css/cart.css";
 import {Link, useNavigate} from "react-router-dom";
-import closeButton from "./images/close.svg";
-import locationDot from "./images/location-dot.svg"
 import cardIcon from "./images/card.svg"
 import cod from "./images/cod.svg"
-import arrowDown from "../theme/header/images/arrow-down.svg"
 import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 import CartProduct from "./CartProductSection/CartProductSection"

@@ -4,10 +4,12 @@ import './style.scss';
 import {useCookies} from 'react-cookie';
 
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 const ProfilePersonalInformationPage = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState(null);
   const [name, setName] = useState("");
@@ -83,7 +85,7 @@ const ProfilePersonalInformationPage = () => {
       });
 
       if (!response.ok) {
-        toast.error("Không thể kết nối được với database");;
+        toast.error("Không thể kết nối được với database");
         throw new Error("Lỗi khi gửi refresh token.");
       }
 
