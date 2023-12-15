@@ -12,9 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @CrossOrigin(origins = "*")
@@ -43,6 +40,8 @@ public class AddressController {
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
 
+        boolean isAdmin = usersRepository.findUsersByEmail(email).getIsAdmin();
+
         Long addressID = Long.valueOf(request.getParameter("addressID"));
 
         Address address = addressRepository.findAddressByAddressID(addressID);
@@ -51,7 +50,7 @@ public class AddressController {
         }
 
         Users users = usersRepository.findUsersByUserID(address.getUsersID());
-        if (!Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
+        if (!isAdmin && !Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
@@ -74,13 +73,22 @@ public class AddressController {
         String addressDetails = request.getParameter("addressDetails");
         boolean isDefault = Boolean.parseBoolean(request.getParameter("isDefault"));
 
+        Long userID = Long.valueOf(request.getParameter("userID"));
 
-        Users findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail == null) {
+
+        Users usersByEmail = usersRepository.findUsersByEmail(email);
+
+        if (usersByEmail == null) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
-        Long userID = findByEmail.getUserID();
+        boolean isAdmin = usersByEmail.getIsAdmin();;
+//        Long userID = usersByEmail.getUserID();
+
+        if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
         try {
             if (isDefault) {
                 Address currentAddressDefault = addressRepository.findAddressByUsersIDAndIsDefault(userID, true);
@@ -111,13 +119,16 @@ public class AddressController {
 
         Long addressID = Long.valueOf(request.getParameter("addressID"));
 
+        boolean isAdmin = usersRepository.findUsersByEmail(email).getIsAdmin();
+
         Address address = addressRepository.findAddressByAddressID(addressID);
+
         if (address == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         Users users = usersRepository.findUsersByUserID(address.getUsersID());
-        if (!Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
+        if (!isAdmin && !Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
@@ -162,6 +173,8 @@ public class AddressController {
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
 
+        boolean isAdmin = usersRepository.findUsersByEmail(email).getIsAdmin();
+
         Long addressID = Long.valueOf(request.getParameter("addressID"));
 
         Address address = addressRepository.findAddressByAddressID(addressID);
@@ -170,7 +183,7 @@ public class AddressController {
         }
 
         Users users = usersRepository.findUsersByUserID(address.getUsersID());
-        if (!Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
+        if (!isAdmin && !Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
@@ -190,6 +203,8 @@ public class AddressController {
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
 
+        boolean isAdmin = usersRepository.findUsersByEmail(email).getIsAdmin();
+
         Long addressID = Long.valueOf(request.getParameter("addressID"));
 
         Address address = addressRepository.findAddressByAddressID(addressID);
@@ -198,7 +213,7 @@ public class AddressController {
         }
 
         Users users = usersRepository.findUsersByUserID(address.getUsersID());
-        if (!Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
+        if (!isAdmin && !Objects.equals(users.getEmail(), jwtTokenUtil.getEmailFromToken(accessToken))) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
@@ -225,18 +240,26 @@ public class AddressController {
     public ResponseEntity<?> getAllAddresses(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
+        Long userID = Long.valueOf(request.getParameter("userID"));
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        Users findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail == null) {
+        Users usersByEmail = usersRepository.findUsersByEmail(email);
+
+
+        if (usersByEmail == null) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
-        Long userID = findByEmail.getUserID();
 
+        boolean isAdmin = usersByEmail.getIsAdmin();
+
+        if (!Objects.equals(usersByEmail.getUserID(), userID) && !isAdmin) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
         return ResponseEntity.ok(addressRepository.findAddressByUsersID(userID));
     }
 }
