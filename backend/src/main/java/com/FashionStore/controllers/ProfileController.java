@@ -6,19 +6,16 @@ import com.FashionStore.repositories.UsersRepository;
 import com.FashionStore.security.JwtTokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -45,6 +42,7 @@ public class ProfileController {
         }
 
         String email = request.getParameter("email");
+        Long userID = Long.valueOf(request.getParameter("userID"));
 
         if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(accessToken))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -65,14 +63,22 @@ public class ProfileController {
         }
 
 
-        Users findByEmail = usersRepository.findUsersByEmail(email);
-        Users user = findByEmail;
-        user.setFullName(fullName);
-        user.setGender(gender);
-        user.setDateBirthday(new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day)));
-        usersRepository.save(user);
-        ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
-        return ResponseEntity.ok(responseObject);
+        Users usersByEmail = usersRepository.findUsersByEmail(email);
+
+        boolean isAdmin = usersByEmail.getIsAdmin();
+
+        if (isAdmin || Objects.equals(usersByEmail.getUserID(), userID)) {
+            Users usersByUserID = usersRepository.findUsersByUserID(userID);
+            usersByUserID.setFullName(fullName);
+            usersByUserID.setGender(gender);
+            usersByUserID.setDateBirthday(new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day)));
+            usersRepository.save(usersByUserID);
+            ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
+            return ResponseEntity.ok(responseObject);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping("/public/change-password")
@@ -87,15 +93,25 @@ public class ProfileController {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
 
-        Users user = usersRepository.findUsersByEmail(email);
+        Long userID = Long.valueOf(request.getParameter("userID"));
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (!passwordEncoder.matches(oldPassword, user.getHashedPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
+        Users usersByEmail = usersRepository.findUsersByEmail(email);
+
+        boolean isAdmin = usersByEmail.getIsAdmin();
+
+        if (isAdmin || Objects.equals(usersByEmail.getUserID(), userID)) {
+            Users usersByUserID = usersRepository.findUsersByUserID(userID);
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if (!passwordEncoder.matches(oldPassword, usersByUserID.getHashedPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
+            }
+
+            usersByUserID.setHashedPassword(passwordEncoder.encode(newPassword));
+            usersRepository.save(usersByUserID);
+            return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công!");
         }
-
-        user.setHashedPassword(passwordEncoder.encode(newPassword));
-        usersRepository.save(user);
-        return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công!");
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }
