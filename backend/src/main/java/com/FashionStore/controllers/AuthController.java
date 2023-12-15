@@ -109,7 +109,7 @@ public class AuthController {
             Users findByEmail = usersRepository.findUsersByEmail(email);
             List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumber(phoneNumber);
 
-            if (findByEmail == null) {
+            if (findByEmail != null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email đã tồn tại trên hệ thống. Đăng ký không thành công! ");
             }
 
