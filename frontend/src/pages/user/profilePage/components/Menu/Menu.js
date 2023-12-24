@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./style.scss"
 
 import {useCookies} from "react-cookie";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import {ROUTERS} from "../../utils/router";
 import {SCROLLING} from "../../../../../utils/const";
@@ -14,6 +14,8 @@ import unlocked from "../../images/unlocked.svg";
 import logout from "../../images/logout.svg";
 
 import {useLogout} from "../../../../../components/dialogs/utils/logout";
+import queryString from "query-string";
+import {toast} from "react-toastify";
 
 const menuItemsProfile = [
   {
@@ -43,26 +45,23 @@ const menuItemsProfile = [
   },
 ];
 
-// Tạo một component Menu từ dữ liệu menuItems
 const Menu = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const navigate = useNavigate();
-  const [avatar, setAvatar] = useState(null);
-  const [userData, setUserData] = useState({}); // State để lưu dữ liệu từ máy chủ
-  const logout = useLogout(); // Use the useLogout custom Hook
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const [userID, setUserID] = useState(queryParams.userID);
 
-  const handleLogout = () => {
-    logout().then(r => {}); // Call the logout function returned by the custom Hook
-  };
+  const logout = useLogout();
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState({});
 
   const fetchUserData = async () => {
     if (accessToken) {
       try {
-        const serverUrl = "/api/public";
-        const response = await fetch(`${serverUrl}/get-user-data`, {
+        const apiFetchUserData = "/api/public/get-user-data";
+        const response = await fetch(apiFetchUserData, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
@@ -78,22 +77,13 @@ const Menu = () => {
         }
       } catch (error) {
         console.error("Error:", error);
-      } finally {
-        setLoading(false)
       }
     }
   };
 
   useEffect(() => {
-    // getAvatar();
     fetchUserData().then(r => {});
   }, []);
-
-  // if (loading) {
-  //   // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
-  //   return <div></div>;
-  //
-  // }
 
   function renderMenu(menuItemsProfile) {
     const menuItemsJSX = [];
@@ -108,7 +98,7 @@ const Menu = () => {
               <div className="text navigate-text pointer-cursor"
                    onClick = {() => {
                        if (menuItem.text === "Đăng xuất") {
-                          handleLogout();
+                          logout().then(r => {});
                           return;
                        }
                        navigate(menuItem.link, {
@@ -146,23 +136,12 @@ const Menu = () => {
           })
     }
     finally {
-      // setLoading(false);
     }
   };
 
-  // if (loading === true) {
-  //     return <div></div>
-  // }
   return (
       <div className="col-4 menu-wrap item-row">
         <div className="header-wrap">
-          {/*<div className="image-wrap">*/}
-          {/*    <img src="https://5sfashion.vn/storage/upload/images/avatars/ACg8ocIjjYucFlxGwpZiWeuGjAa_J1_enybmg_gTtmBS5btHOg=s96-c.jpg" alt={userData.fullName} id="action-upload"/>*/}
-          {/*    /!*<input type="text" id="csrf-token" className="d-none" value="uiVnTci47zPg07HJemD14vWIYvpvhP4BZzAgAKkx"/>*!/*/}
-          {/*    <input type="file" id="upload-file" className="d-none"/>*/}
-
-          {/*</div>*/}
-
           <div className="image-wrap">
             <img style={{width:"64px", height:"64px"}}
                 src={(userData.avatarPath !== undefined && userData.avatarPath !== null) ?

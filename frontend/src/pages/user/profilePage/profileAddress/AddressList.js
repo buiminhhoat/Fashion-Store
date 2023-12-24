@@ -1,41 +1,21 @@
 import React, { useState, useEffect } from "react";
-import {Cookies, useCookies} from "react-cookie";
-import {Link} from "react-router-dom";
-import async from "async";
-
-const addressesNew = [
-    {
-        "addressID": 3,
-        "usersID": 3,
-        "recipientName": "Dzung Tien",
-        "recipientPhone": "3123",
-        "addressDetails": "Ha Noi",
-        "default": false
-    },
-    {
-        "addressID": 4,
-        "usersID": 3,
-        "recipientName": "Cope",
-        "recipientPhone": "",
-        "addressDetails": "",
-        "default": false
-    },
-    {
-        "addressID": 5,
-        "usersID": 3,
-        "recipientName": "Kiki",
-        "recipientPhone": "0123",
-        "addressDetails": "456",
-        "default": true
-    }
-]
+import {useCookies} from "react-cookie";
+import {Link, useLocation} from "react-router-dom";
+import queryString from "query-string";
+import {toast} from "react-toastify";
 
 function AddressList() {
     const [cookies] = useCookies(['access_token']);
+
+    const location = useLocation();
+    const queryParams = queryString.parse(location.search);
+    const [userID, setUserID] = useState(queryParams.userID);
+
     const accessToken = cookies.access_token;
-    const [addresses, setAddresses] = useState([{}, {}]);
+    const [addresses, setAddresses] = useState([]);
 
     const updateData = () => {
+
         fetch("/api/public/get-all-addresses", {
             method: "POST",
             headers: {
@@ -44,7 +24,6 @@ function AddressList() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 const sortedAddresses = data.sort((a, b) => (b.isDefault || 0) - (a.isDefault || 0));
                 setAddresses(sortedAddresses);
             })
@@ -52,9 +31,8 @@ function AddressList() {
                 console.error("Error:", error);
             });
     }
-    // console.log(accessToken)
+
     useEffect(() => {
-        // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
         updateData();
     }, []);
 
@@ -72,9 +50,7 @@ function AddressList() {
 
             if (response.ok) {
                 updateData();
-                // Hoặc thực hiện các thao tác cần thiết khác
             } else {
-                // Xử lý lỗi nếu có
                 console.error("Error:", response);
             }
         } catch (error) {
@@ -86,10 +62,6 @@ function AddressList() {
         try {
             const formData = new FormData()
             formData.append("addressID", addresses[id].addressID)
-            // formData.append("recipientName", addresses[id].recipientName)
-            // formData.append("recipientPhone", addresses[id].recipientPhone)
-            // formData.append("addressDetails", addresses[id].addressDetails)
-            // formData.append("isDefault", addresses[id].isDefault)
 
             const response = await fetch(`/api/public/delete-address`, {
                 method: "POST",
@@ -101,9 +73,7 @@ function AddressList() {
 
             if (response.ok) {
                 updateData();
-                // Hoặc thực hiện các thao tác cần thiết khác
             } else {
-                // Xử lý lỗi nếu có
                 console.error("Error:", response);
             }
         } catch (error) {

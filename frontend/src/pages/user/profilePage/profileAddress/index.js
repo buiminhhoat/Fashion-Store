@@ -6,7 +6,6 @@ import './style.scss';
 import plus from '../images/plus.svg'
 
 import AddressList from './AddressList'
-import Menu from "../components/Menu/Menu.js"
 
 const ProfileAddress = () => {
   return (

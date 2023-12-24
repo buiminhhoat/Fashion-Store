@@ -4,11 +4,17 @@ import './style.scss';
 import {useCookies} from 'react-cookie';
 
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import queryString from "query-string";
 
 const ProfilePersonalInformationPage = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const [userID, setUserID] = useState(queryParams.userID);
+
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState(null);
@@ -20,12 +26,12 @@ const ProfilePersonalInformationPage = () => {
 
   const handleSaveInformation = async () => {
     const formData = new FormData();
+    // formData.append('userID', userID);
     formData.append('fullName', name);
     formData.append('email', email);
     formData.append('phoneNumber', phoneNumber);
     formData.append('gender', gender);
     formData.append('dateBirthday', JSON.stringify(dateBirthday));
-
 
     if (name === "" || email === "" || phoneNumber === "" || gender === "" || dateBirthday.day === ""
         || dateBirthday.month === "" || dateBirthday.year === "") {
@@ -34,8 +40,6 @@ const ProfilePersonalInformationPage = () => {
       return;
     }
     const apiEditProfile = "/api/public/edit-profile";
-
-    const errorText = document.querySelector(".error--message.error-save");
 
     try {
       const response = await fetch(apiEditProfile, {
@@ -73,9 +77,7 @@ const ProfilePersonalInformationPage = () => {
       if (!accessToken) {
         throw new Error("Không có refresh token.");
       }
-
       const apiFetchUserData = "/api/public/get-user-data";
-
       const response = await fetch(apiFetchUserData, {
         method: "GET",
         headers: {
@@ -109,12 +111,8 @@ const ProfilePersonalInformationPage = () => {
       setPhoneNumber(data.phoneNumber);
       setGender(data.gender);
       setDateBirthday({ day, month, year });
-      // console.log(dateBirthday);
     } catch (error) {
       toast.error("Không thể kết nối được với database");
-      // const errorText = document.querySelector(".error--message.error-save");
-      // errorText.innerHTML = 'Lỗi khi fetch dữ liệu: ' + error.toString();
-      // console.error("Lỗi khi fetch dữ liệu:", error);
     }
   }
 
