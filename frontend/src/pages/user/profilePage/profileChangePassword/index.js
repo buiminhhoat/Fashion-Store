@@ -1,26 +1,36 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import './style.scss';
 
 import {useCookies} from "react-cookie";
 
 import eyeOn from '../images/eye_on.svg'
 import eyeOff from '../images/eye_off.svg'
+import {useLocation} from "react-router-dom";
+import queryString from "query-string";
+import {toast} from "react-toastify";
 
 const ProfileChangePassword = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const [userID, setUserID] = useState(queryParams.userID);
+
+  const [isOwner, setIsOwner] = useState(null);
+
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+
   const handleChangePassword = async () => {
-    const errorText = document.querySelector(".error--message.error-change-password");
     if (newPassword !== confirmNewPassword) {
-      errorText.innerHTML = 'Nhập lại mật khẩu không khớp.';
+      toast.warn('Nhập lại mật khẩu không khớp');
       return;
     }
 
     const formData = new FormData();
+    formData.append('userID', userID);
     formData.append('newPassword', newPassword);
     formData.append('oldPassword', oldPassword);
 
@@ -36,22 +46,46 @@ const ProfileChangePassword = () => {
 
       if (!response.ok) {
         response.text().then(data => {
-          console.log(data);
-          errorText.innerHTML = 'Lỗi khi cập nhật thông tin: ' + data;
+          toast.error(data);
           console.error('Lỗi khi cập nhật thông tin: ' + data);
         });
       }
       else {
         response.text().then(data => {
-          errorText.innerHTML = data;
+          toast.success(data);
           console.log(data);
         });
       }
     } catch (error) {
-      errorText.innerHTML = 'Lỗi khi cập nhật thông tin: ' + error;
+      toast.error(error);
       console.log(error);
     }
   }
+
+  const fetchUserID = async () => {
+    const apiGetUserID = "/api/public/get-user-id";
+    try {
+      const response = await fetch(apiGetUserID, {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsOwner(userID == data);
+      }
+
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
+  useEffect(() => {
+    fetchUserID().then(r => {});
+  }, []);
+
   return (
       <div className="col-8 content-children item-row">
         <section className="change__password__wrap">
@@ -59,63 +93,69 @@ const ProfileChangePassword = () => {
             <span className="title">Đổi mật khẩu</span>
           </section>
 
-          <form id="change-password-form" method="POST" action="https://5sfashion.vn/profile/update-password">
-            <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
-            <section className="content__wrap">
-              <article>
-                <div className="info__item">
-                  <label className="form-label">Mật khẩu cũ</label>
-                  <div className="input__wrap">
-                    <span className="error--message"></span>
-                    <input type="password" name="old_password"
-                           className="form-control input--password"
-                           placeholder="Nhập mật khẩu cũ"
-                           value={oldPassword}
-                           onChange={(e) => setOldPassword(e.target.value)}
-                    />
-                    <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                    <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
-                  </div>
-                </div>
-                <div className="info__item">
-                  <label className="form-label">Mật khẩu mới</label>
-                  <div className="input__wrap">
-                    <span className="error--message"></span>
-                    <input type="password"
-                           name="new_password"
-                           className="form-control input--password"
-                           placeholder="Nhập mật khẩu mới"
-                           value={newPassword}
-                           onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                    <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                    <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
-                  </div>
-                </div>
-                <div className="info__item">
-                  <label className="form-label">Nhập lại mật khẩu mới</label>
-                  <div className="input__wrap">
-                    <span className="error--message"></span>
-                    <input type="password"
-                           name="confirm_password"
-                           className="form-control input--password"
-                           placeholder="Nhập lại mật khẩu mới"
-                           value={confirmNewPassword}
-                           onChange={(e) => setConfirmNewPassword(e.target.value)}
-                    />
-                    <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                    <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
-                  </div>
-                </div>
-              </article>
-            </section>
+          <form id="change-password-form" method="POST">
+            { isOwner != null &&
+              <>
+                <section className="content__wrap">
+                  <article>
 
-            <span className="error--message error-change-password"></span>
+                    { isOwner &&
+                        <div className="info__item">
+                          <label className="form-label">Mật khẩu cũ</label>
+                          <div className="input__wrap">
+                            <span className="error--message"></span>
+                            <input type="password" name="old_password"
+                                   className="form-control input--password"
+                                   placeholder="Nhập mật khẩu cũ"
+                                   value={oldPassword}
+                                   onChange={(e) => setOldPassword(e.target.value)}
+                            />
+                            <img src={eyeOn} alt="icon show password" className="show__password d-none" />
+                            <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
+                          </div>
+                        </div>
+                    }
 
-            <section className="footer__wrap">
-              <button type="button" className="btn__action btn btn-danger" id="submit-form" onClick={handleChangePassword}>Lưu lại</button>
-              <a href="#huy" type="button" className="btn__action btn btn-outline-danger">Hủy bỏ</a>
-            </section>
+                    <div className="info__item">
+                      <label className="form-label">Mật khẩu mới</label>
+                      <div className="input__wrap">
+                        <span className="error--message"></span>
+                        <input type="password"
+                               name="new_password"
+                               className="form-control input--password"
+                               placeholder="Nhập mật khẩu mới"
+                               value={newPassword}
+                               onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                        <img src={eyeOn} alt="icon show password" className="show__password d-none" />
+                        <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
+                      </div>
+                    </div>
+                    <div className="info__item">
+                      <label className="form-label">Nhập lại mật khẩu mới</label>
+                      <div className="input__wrap">
+                        <span className="error--message"></span>
+                        <input type="password"
+                               name="confirm_password"
+                               className="form-control input--password"
+                               placeholder="Nhập lại mật khẩu mới"
+                               value={confirmNewPassword}
+                               onChange={(e) => setConfirmNewPassword(e.target.value)}
+                        />
+                        <img src={eyeOn} alt="icon show password" className="show__password d-none" />
+                        <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
+                      </div>
+                    </div>
+                  </article>
+
+                </section>
+                <section className="footer__wrap" style={{position:"static"}}>
+                  <button type="button" className="btn__action btn btn-danger" id="submit-form" onClick={handleChangePassword}>Lưu lại</button>
+                  <a href="#huy" type="button" className="btn__action btn btn-outline-danger">Hủy bỏ</a>
+                </section>
+              </>
+            }
+
           </form>
         </section>
       </div>

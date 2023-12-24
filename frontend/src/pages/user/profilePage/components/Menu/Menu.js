@@ -33,18 +33,22 @@ const Menu = () => {
     {
       icon: iconOrder,
       text: "Đơn hàng",
+      link: "/profile" + ROUTERS.USER.ORDERS_PAGE + "?userID=" + userID,
     },
     {
       icon: iconEdit,
       text: "Chỉnh sửa thông tin cá nhân",
+      link: "/profile" + ROUTERS.USER.PERSONAL_INFORMATION + "?userID=" + userID,
     },
     {
       icon: iconAddress,
       text: "Sổ địa chỉ",
+      link: "/profile" + ROUTERS.USER.ADDRESS + "?userID=" + userID,
     },
     {
       icon: iconUnlocked,
       text: "Đổi mật khẩu",
+      link: "/profile" + ROUTERS.USER.CHANGE_PASSWORD + "?userID=" + userID,
     },
     {
       icon: iconLogout,
@@ -52,25 +56,6 @@ const Menu = () => {
       link: "/",
     },
   ]);
-
-  const fetchUserID = async () => {
-    const apiGetUserID = "/api/public/get-user-id";
-    try {
-      const response = await fetch(apiGetUserID, {
-        method: 'GET',
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUserID(data);
-      }
-    } catch (error) {
-      toast.error("Không thể kết nối được với database");
-    }
-  }
 
   const fetchUserData = async () => {
     if (accessToken) {
@@ -100,42 +85,8 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    fetchUserID().then(r => {});
+    fetchUserData().then(r => {});
   }, []);
-
-  useEffect(() => {
-    if (userID) {
-      fetchUserData().then(r => {});
-
-      setMenuItemsProfile([
-        {
-          icon: iconOrder,
-          text: "Đơn hàng",
-          link: "/profile" + ROUTERS.USER.ORDERS_PAGE + "?userID=" + userID,
-        },
-        {
-          icon: iconEdit,
-          text: "Chỉnh sửa thông tin cá nhân",
-          link: "/profile" + ROUTERS.USER.PERSONAL_INFORMATION + "?userID=" + userID,
-        },
-        {
-          icon: iconAddress,
-          text: "Sổ địa chỉ",
-          link: "/profile" + ROUTERS.USER.ADDRESS + "?userID=" + userID,
-        },
-        {
-          icon: iconUnlocked,
-          text: "Đổi mật khẩu",
-          link: "/profile" + ROUTERS.USER.CHANGE_PASSWORD + "?userID=" + userID,
-        },
-        {
-          icon: iconLogout,
-          text: "Đăng xuất",
-          link: "/",
-        },
-      ]);
-    }
-  }, [userID]);
 
   const renderMenu = (menuItemsProfile) => {
     const menuItemsJSX = [];
