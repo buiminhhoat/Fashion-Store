@@ -6,7 +6,7 @@ import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
 import queryString from "query-string";
-import {CartContext} from "../theme/userMasterLayout";
+import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
 
 const ProductDetailPage = () => {

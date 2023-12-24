@@ -2,10 +2,10 @@ import {ROUTERS} from "./utils/router";
 import {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 
+import MasterLayout from "./theme/masterLayout";
 import HomePage from "./pages/user/homePage";
 import ProfilePage from "./pages/user/profilePage";
 import LoginPage from "./pages/user/loginPage";
-import UserMasterLayout from "./pages/user/theme/userMasterLayout";
 import SearchProductPage from "./pages/user/searchProductPage";
 import ProductDetailPage from "./pages/user/productDetailPage";
 import NotFoundPage from "./pages/error/notFoundPage";
@@ -15,7 +15,6 @@ import CartPage from "./pages/user/cartPage";
 import DoNotHavePermissionPage from "./pages/error/doNotHavePermissionPage";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
-import AdminMasterLayout from "./pages/admin/theme/adminMasterLayout";
 import ManagementPage from "./pages/admin/managementPage";
 
 const userRouters =  [
@@ -62,7 +61,7 @@ const adminRouters =  [
 
 const renderUserCustom = () => {
     return (
-        <UserMasterLayout>
+        <MasterLayout>
             <Routes>
                 {
                     userRouters.map((item, key) => (
@@ -72,13 +71,13 @@ const renderUserCustom = () => {
                 <Route path='/admin/*' element={<DoNotHavePermissionPage />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
-        </UserMasterLayout>
+        </MasterLayout>
     )
 }
 
 const renderAdminCustom = () => {
        return (
-        <AdminMasterLayout>
+        <MasterLayout>
             <Routes>
                 {
                     userRouters.map((item, key) => (
@@ -92,7 +91,7 @@ const renderAdminCustom = () => {
                 }
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
-        </AdminMasterLayout>
+        </MasterLayout>
     )
 }
 

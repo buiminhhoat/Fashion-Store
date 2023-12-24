@@ -7,12 +7,12 @@ import {toast} from "react-toastify";
 
 import logo_fashion_store from "./images/logo_fashion_store.png";
 
-import {CartContext} from "../userMasterLayout";
-import {DIALOGS} from "../../../../components/dialogs/utils/const";
+import {CartContext} from "../masterLayout";
+import {DIALOGS} from "../../components/dialogs/utils/const";
 
-import LoginDialog from "../../../../components/dialogs/LoginDialog/LoginDialog";
-import RegisterDialog from "../../../../components/dialogs/RegisterDialog/RegisterDialog";
-import ForgotPasswordDialog from "../../../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
+import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
+import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
+import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
 
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";

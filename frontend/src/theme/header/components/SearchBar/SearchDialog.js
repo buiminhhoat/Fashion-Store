@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
-import {formatter} from "../../../../../../utils/formatter";
+import {formatter} from "../../../../utils/formatter";
 
 const SearchDialog = ({keyword}) => {
   const apiProductBySearch = "/api/public/search/" + keyword;

@@ -1,0 +1,23 @@
+@import "./css/all.min.css";
+@import "./css/app.css";
+@import "./css/auth.css";
+@import "./css/bootstrap.min.css";
+@import "./css/main.e8c5978f.css";
+@import "./css/notification.css";
+@import "./css/owl.carousel.min.css";
+@import "./css/profile.css";
+@import "./css/_home.css";
+@import "bootstrap";
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền đục */
+    z-index: 1000; /* Đảm bảo nằm trên các phần tử khác */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

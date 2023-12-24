@@ -6,11 +6,11 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import {useCookies} from "react-cookie";
-import BackToTopButton from "../../../../components/buttons/BackToTopButton/BackToTopButton";
+import BackToTopButton from "../../components/buttons/BackToTopButton/BackToTopButton";
 
 export const CartContext = createContext(); // Exporting the context
 
-const UserMasterLayout = ({children, ...props}) => {
+const MasterLayout = ({children, ...props}) => {
     const [amountInCart, setAmountInCart] = useState(0);
     // const amountInCart = useRef(0);
     const divStyle = {
@@ -85,4 +85,4 @@ const UserMasterLayout = ({children, ...props}) => {
     );
 }
 
-export default UserMasterLayout;
+export default MasterLayout;
