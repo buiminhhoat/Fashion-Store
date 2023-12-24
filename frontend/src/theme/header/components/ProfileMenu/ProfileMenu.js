@@ -14,15 +14,18 @@ const ProfileMenu = ({openModal}) => {
   const [isAdmin, setIsAdmin] = useState(null);
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
 
-  const fetchUserData = async () => {
+  const fetchUserData = async (userID) => {
     if (accessToken) {
       try {
+        const formData = new FormData();
+        formData.append('userID', userID);
         const apiFetchUserData = "/api/public/get-user-data";
         const response = await fetch(apiFetchUserData, {
-          method: "GET",
+          method: "POST",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
           },
+          body: formData,
         });
 
         if (response.status === 200) {
@@ -55,9 +58,29 @@ const ProfileMenu = ({openModal}) => {
     }
   }
 
+  const fetchUserID = async () => {
+    const apiGetUserID = "/api/public/get-user-id";
+    try {
+      const response = await fetch(apiGetUserID, {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        fetchUserData(data).then(r => {});
+      }
+
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
   useEffect(() => {
+    fetchUserID().then(r => {});
     fetchIsAdmin().then(r => {});
-    fetchUserData().then(r => {});
   }, []);
 
   return (

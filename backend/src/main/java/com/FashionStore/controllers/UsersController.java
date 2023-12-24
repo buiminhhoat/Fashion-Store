@@ -43,27 +43,8 @@ public class UsersController {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping("/public/get-user-data")
+    @PostMapping("/public/get-user-data")
     public ResponseEntity<Users> getUserData(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        accessToken = accessToken.replace("Bearer ", "");
-        if (jwtTokenUtil.isTokenValid(accessToken)) {
-            String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-            Users findByEmail = usersRepository.findUsersByEmail(email);
-            if (findByEmail == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
-            Users users = findByEmail;
-            users.setHashedPassword(null);
-            return ResponseEntity.ok(users);
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    }
-
-    @PostMapping("/admin/get-user-data")
-    public ResponseEntity<Users> getUserDataByID(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
 
@@ -75,9 +56,15 @@ public class UsersController {
             if (usersByEmail == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-            Users usersByUserID = usersRepository.findUsersByUserID(userID);
-            usersByUserID.setHashedPassword(null);
-            return ResponseEntity.ok(usersByUserID);
+            boolean isAdmin = usersByEmail.getIsAdmin();
+            if (isAdmin || Objects.equals(usersByEmail.getUserID(), userID)) {
+                Users usersByUserID = usersRepository.findUsersByUserID(userID);
+                usersByUserID.setHashedPassword(null);
+                return ResponseEntity.ok(usersByUserID);
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
         }
         else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -238,49 +225,6 @@ public class UsersController {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("profileImage");
-
-        if (!jwtTokenUtil.isTokenValid(accessToken)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
-        }
-        String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        Users findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        List<String> paths = new ArrayList<>();
-        for (MultipartFile image : images) {
-            String originalFilename = image.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFilename != null) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-            }
-            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
-
-            try {
-                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                Path path = Paths.get(imagePath);
-                image.transferTo(path.toFile());
-                paths.add(fileName);
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
-            }
-        }
-
-        Users users = findByEmail;
-        users.setAvatarPath(paths.get(0));
-        usersRepository.save(users);
-
-        ResponseObject responseObject = new ResponseObject("Cập nhật ảnh đại diện thành công");
-        return ResponseEntity.ok(responseObject);
-    }
-
-    @PostMapping("/admin/upload-profile-image")
-    public ResponseEntity<?> uploadProfileImageByID(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        accessToken = accessToken.replace("Bearer ", "");
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("profileImage");
         Long userID = Long.valueOf(request.getParameter("userID"));
 
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
@@ -293,31 +237,36 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        List<String> paths = new ArrayList<>();
-        for (MultipartFile image : images) {
-            String originalFilename = image.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFilename != null) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-            }
-            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
+        boolean isAdmin = usersByEmail.getIsAdmin();
+        if (isAdmin || Objects.equals(usersByEmail.getUserID(), userID)) {
+            List<String> paths = new ArrayList<>();
+            for (MultipartFile image : images) {
+                String originalFilename = image.getOriginalFilename();
+                String fileExtension = "";
+                if (originalFilename != null) {
+                    fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+                }
+                String fileName = UUID.randomUUID().toString() + "." + fileExtension;
 
-            try {
-                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                Path path = Paths.get(imagePath);
-                image.transferTo(path.toFile());
-                paths.add(fileName);
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
+                try {
+                    String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
+                    Path path = Paths.get(imagePath);
+                    image.transferTo(path.toFile());
+                    paths.add(fileName);
+                } catch (IOException e) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
+                }
             }
+
+            Users usersByUserID = usersRepository.findUsersByUserID(userID);
+            usersByUserID.setAvatarPath(paths.get(0));
+            usersRepository.save(usersByUserID);
+
+            ResponseObject responseObject = new ResponseObject("Cập nhật ảnh đại diện thành công");
+            return ResponseEntity.ok(responseObject);
         }
-
-        Users usersByUserID = usersRepository.findUsersByUserID(userID);
-        usersByUserID.setAvatarPath(paths.get(0));
-        usersRepository.save(usersByUserID);
-
-        ResponseObject responseObject = new ResponseObject("Cập nhật ảnh đại diện thành công");
-        return ResponseEntity.ok(responseObject);
-
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }
