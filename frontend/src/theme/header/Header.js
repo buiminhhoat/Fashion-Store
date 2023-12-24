@@ -44,8 +44,6 @@ const Header = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const [loading, setLoading] = useState(true)
-
   const fetchData = async () => {
     const apiGetAllCategories = "/api/public/get-all-categories";
     try {
@@ -68,19 +66,12 @@ const Header = () => {
       console.log(error);
       toast.error('Không thể kết nối được với database');
     } finally {
-      // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData().then(r => {});
   }, []);
-
-  if (loading) {
-    // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
-    return <div></div>;
-  }
 
   return (
       <header id="header">

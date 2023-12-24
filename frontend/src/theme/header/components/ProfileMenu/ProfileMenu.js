@@ -12,9 +12,10 @@ const ProfileMenu = ({openModal}) => {
 
   const [userData, setUserData] = useState({});
   const [isAdmin, setIsAdmin] = useState(null);
+  const [userID, setUserID] = useState(null);
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
 
-  const fetchUserData = async (userID) => {
+  const fetchUserData = async () => {
     if (accessToken) {
       try {
         const formData = new FormData();
@@ -70,7 +71,7 @@ const ProfileMenu = ({openModal}) => {
 
       if (response.ok) {
         const data = await response.json();
-        fetchUserData(data).then(r => {});
+        setUserID(data);
       }
 
     } catch (error) {
@@ -83,6 +84,10 @@ const ProfileMenu = ({openModal}) => {
     fetchIsAdmin().then(r => {});
   }, []);
 
+  useEffect(() => {
+    if (userID) fetchUserData().then(r => {});
+  }, [userID]);
+
   return (
       <div className="user-drop h-100 position-relative d-flex align-items-center justify-content-end" id="user-drop"
            onMouseEnter={() => {setProfileMenuVisible(true)}}
@@ -90,7 +95,7 @@ const ProfileMenu = ({openModal}) => {
       >
         { accessToken ?
             <>
-              <Link to = {'/profile/orders'}>
+              <Link to = {userID ? `/profile/orders?userID=${userID}` : ''}>
                 <div className="pointer-cursor">
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -103,7 +108,7 @@ const ProfileMenu = ({openModal}) => {
               <div className={`account_header position-absolute ${profileMenuVisible ? "show" : ""}`} style={{textDecoration: "none"}}>
                 <ul className="p-0 m-0">
                   <li>
-                    <a href="/profile/orders" style={{ wordBreak: "break-word", textAlign: "left", whiteSpace: "normal"}}>
+                    <a href={`/profile/orders?userID=${userID}`} style={{ wordBreak: "break-word", textAlign: "left", whiteSpace: "normal"}}>
                       {userData.fullName}
                     </a>
                   </li>
@@ -114,7 +119,7 @@ const ProfileMenu = ({openModal}) => {
                     </li>
                   }
                   <li>
-                    <a href="/profile/orders">Đơn hàng của tôi</a>
+                    <a href={`/profile/orders?userID=${userID}`}>Đơn hàng của tôi</a>
                   </li>
                   <li>
                     <a href="/profile/personal-information">Thông tin cá nhân</a>
