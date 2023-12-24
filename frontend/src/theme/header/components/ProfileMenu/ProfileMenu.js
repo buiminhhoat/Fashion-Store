@@ -2,13 +2,16 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import {useLogout} from "../../../../components/dialogs/utils/logout";
+import {toast} from "react-toastify";
 
 const ProfileMenu = ({openModal}) => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
   const logout = useLogout();
+
   const [userData, setUserData] = useState({});
+  const [isAdmin, setIsAdmin] = useState(null);
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
 
   const fetchUserData = async () => {
@@ -34,7 +37,26 @@ const ProfileMenu = ({openModal}) => {
     }
   };
 
+  const fetchIsAdmin = async () => {
+    const apiIsAdmin = "/api/public/isAdmin";
+    try {
+      const response = await fetch(apiIsAdmin, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+
+      const data = await response.json();
+      setIsAdmin(data.message === "true");
+    } catch (error) {
+      console.log(error);
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
   useEffect(() => {
+    fetchIsAdmin().then(r => {});
     fetchUserData().then(r => {});
   }, []);
 
@@ -62,6 +84,12 @@ const ProfileMenu = ({openModal}) => {
                       {userData.fullName}
                     </a>
                   </li>
+
+                  { isAdmin &&
+                    <li>
+                      <a href="/admin/management-page/categories-and-products">Bảng điều khiển</a>
+                    </li>
+                  }
                   <li>
                     <a href="/profile/orders">Đơn hàng của tôi</a>
                   </li>
