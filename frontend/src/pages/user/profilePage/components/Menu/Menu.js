@@ -8,42 +8,14 @@ import {ROUTERS} from "../../utils/router";
 import {SCROLLING} from "../../../../../utils/const";
 
 import iconOrder from "../../images/order.svg";
-import edit from "../../images/edit.svg";
-import address from "../../images/address.svg";
-import unlocked from "../../images/unlocked.svg";
-import logout from "../../images/logout.svg";
+import iconEdit from "../../images/edit.svg";
+import iconAddress from "../../images/address.svg";
+import iconUnlocked from "../../images/unlocked.svg";
+import iconLogout from "../../images/logout.svg";
 
 import {useLogout} from "../../../../../components/dialogs/utils/logout";
 import queryString from "query-string";
 import {toast} from "react-toastify";
-
-const menuItemsProfile = [
-  {
-    icon: iconOrder,
-    text: "Đơn hàng",
-    link: "/profile" + ROUTERS.USER.ORDERS_PAGE
-  },
-  {
-    icon: edit,
-    text: "Chỉnh sửa thông tin cá nhân",
-    link: "/profile" + ROUTERS.USER.PERSONAL_INFORMATION
-  },
-  {
-    icon: address,
-    text: "Sổ địa chỉ",
-    link: "/profile" + ROUTERS.USER.ADDRESS
-  },
-  {
-    icon: unlocked,
-    text: "Đổi mật khẩu",
-    link: "/profile" + ROUTERS.USER.CHANGE_PASSWORD,
-  },
-  {
-    icon: logout,
-    text: "Đăng xuất",
-    link: "/",
-  },
-];
 
 const Menu = () => {
   const [cookies] = useCookies(['access_token']);
@@ -56,6 +28,49 @@ const Menu = () => {
   const logout = useLogout();
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
+
+  const [menuItemsProfile, setMenuItemsProfile] = useState([
+    {
+      icon: iconOrder,
+      text: "Đơn hàng",
+    },
+    {
+      icon: iconEdit,
+      text: "Chỉnh sửa thông tin cá nhân",
+    },
+    {
+      icon: iconAddress,
+      text: "Sổ địa chỉ",
+    },
+    {
+      icon: iconUnlocked,
+      text: "Đổi mật khẩu",
+    },
+    {
+      icon: iconLogout,
+      text: "Đăng xuất",
+      link: "/",
+    },
+  ]);
+
+  const fetchUserID = async () => {
+    const apiGetUserID = "/api/public/get-user-id";
+    try {
+      const response = await fetch(apiGetUserID, {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserID(data);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+    }
+  }
 
   const fetchUserData = async () => {
     if (accessToken) {
@@ -82,10 +97,44 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    fetchUserData().then(r => {});
+    fetchUserID().then(r => {});
   }, []);
 
-  function renderMenu(menuItemsProfile) {
+  useEffect(() => {
+    if (userID) {
+      fetchUserData().then(r => {});
+
+      setMenuItemsProfile([
+        {
+          icon: iconOrder,
+          text: "Đơn hàng",
+          link: "/profile" + ROUTERS.USER.ORDERS_PAGE + "?userID=" + userID,
+        },
+        {
+          icon: iconEdit,
+          text: "Chỉnh sửa thông tin cá nhân",
+          link: "/profile" + ROUTERS.USER.PERSONAL_INFORMATION + "?userID=" + userID,
+        },
+        {
+          icon: iconAddress,
+          text: "Sổ địa chỉ",
+          link: "/profile" + ROUTERS.USER.ADDRESS + "?userID=" + userID,
+        },
+        {
+          icon: iconUnlocked,
+          text: "Đổi mật khẩu",
+          link: "/profile" + ROUTERS.USER.CHANGE_PASSWORD + "?userID=" + userID,
+        },
+        {
+          icon: iconLogout,
+          text: "Đăng xuất",
+          link: "/",
+        },
+      ]);
+    }
+  }, [userID]);
+
+  const renderMenu = (menuItemsProfile) => {
     const menuItemsJSX = [];
     for (let i = 0; i < menuItemsProfile.length; i++) {
       const menuItem = menuItemsProfile[i];
@@ -114,6 +163,7 @@ const Menu = () => {
     }
     return menuItemsJSX;
   }
+
   const uploadAvatar = (e) => {
     const file = e.target.files[0];
 
