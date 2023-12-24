@@ -23,7 +23,9 @@ const ProfileChangePassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  const handleChangePassword = async () => {
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+
     if (newPassword !== confirmNewPassword) {
       toast.warn('Nhập lại mật khẩu không khớp');
       return;
@@ -93,7 +95,7 @@ const ProfileChangePassword = () => {
             <span className="title">Đổi mật khẩu</span>
           </section>
 
-          <form id="change-password-form" method="POST">
+          <form onSubmit={handleChangePassword}>
             { isOwner != null &&
               <>
                 <section className="content__wrap">
@@ -105,13 +107,13 @@ const ProfileChangePassword = () => {
                           <div className="input__wrap">
                             <span className="error--message"></span>
                             <input type="password" name="old_password"
-                                   className="form-control input--password"
+                                   className="form-control input--password input_focus"
                                    placeholder="Nhập mật khẩu cũ"
+                                   minLength={6}
+                                   required
                                    value={oldPassword}
                                    onChange={(e) => setOldPassword(e.target.value)}
                             />
-                            <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                            <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
                           </div>
                         </div>
                     }
@@ -122,13 +124,13 @@ const ProfileChangePassword = () => {
                         <span className="error--message"></span>
                         <input type="password"
                                name="new_password"
-                               className="form-control input--password"
+                               className="form-control input--password input_focus"
                                placeholder="Nhập mật khẩu mới"
+                               minLength={6}
+                               required
                                value={newPassword}
                                onChange={(e) => setNewPassword(e.target.value)}
                         />
-                        <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                        <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
                       </div>
                     </div>
                     <div className="info__item">
@@ -137,20 +139,20 @@ const ProfileChangePassword = () => {
                         <span className="error--message"></span>
                         <input type="password"
                                name="confirm_password"
-                               className="form-control input--password"
+                               className="form-control input--password input_focus"
                                placeholder="Nhập lại mật khẩu mới"
+                               minLength={6}
+                               required
                                value={confirmNewPassword}
                                onChange={(e) => setConfirmNewPassword(e.target.value)}
                         />
-                        <img src={eyeOn} alt="icon show password" className="show__password d-none" />
-                        <img src={eyeOff} alt="icon hide password" className="hide__password d-none" />
                       </div>
                     </div>
                   </article>
 
                 </section>
                 <section className="footer__wrap" style={{position:"static"}}>
-                  <button type="button" className="btn__action btn btn-danger" id="submit-form" onClick={handleChangePassword}>Lưu lại</button>
+                  <button type="submit" className="btn__action btn btn-danger" id="submit-form">Lưu lại</button>
                   <a href="#huy" type="button" className="btn__action btn btn-outline-danger">Hủy bỏ</a>
                 </section>
               </>
