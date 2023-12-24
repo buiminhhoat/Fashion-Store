@@ -42,7 +42,6 @@ public class ProfileController {
         }
 
         String email = request.getParameter("email");
-        Long userID = Long.valueOf(request.getParameter("userID"));
 
         if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(accessToken))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -63,22 +62,52 @@ public class ProfileController {
         }
 
 
-        Users usersByEmail = usersRepository.findUsersByEmail(email);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        Users user = findByEmail;
+        user.setFullName(fullName);
+        user.setGender(gender);
+        user.setDateBirthday(new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day)));
+        usersRepository.save(user);
+        ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
+        return ResponseEntity.ok(responseObject);
+    }
 
-        boolean isAdmin = usersByEmail.getIsAdmin();
-
-        if (isAdmin || Objects.equals(usersByEmail.getUserID(), userID)) {
-            Users usersByUserID = usersRepository.findUsersByUserID(userID);
-            usersByUserID.setFullName(fullName);
-            usersByUserID.setGender(gender);
-            usersByUserID.setDateBirthday(new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day)));
-            usersRepository.save(usersByUserID);
-            ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
-            return ResponseEntity.ok(responseObject);
-        }
-        else {
+    @PostMapping("/admin/edit-profile")
+    public ResponseEntity<?> editProfileByID(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
+        String email = request.getParameter("email");
+        Long userID = Long.valueOf(request.getParameter("userID"));
+
+        if (!Objects.equals(email, jwtTokenUtil.getEmailFromToken(accessToken))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        String fullName = request.getParameter("fullName");
+        String gender = request.getParameter("gender");
+        Map<String, Object> jsonData = new HashMap<>();
+        String day = "", month = "", year = "";
+        // Sử dụng ObjectMapper để chuyển đổi chuỗi JSON thành Map
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            jsonData = objectMapper.readValue(request.getParameter("dateBirthday"), new TypeReference<Map<String, Object>>() {});
+            day = (String) jsonData.get("day");
+            month = (String) jsonData.get("month");
+            year = (String) jsonData.get("year");
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        Users usersByUserID = usersRepository.findUsersByUserID(userID);
+        usersByUserID.setFullName(fullName);
+        usersByUserID.setGender(gender);
+        usersByUserID.setDateBirthday(new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1, Integer.parseInt(day)));
+        usersRepository.save(usersByUserID);
+        ResponseObject responseObject = new ResponseObject("Thông tin đã được cập nhật");
+        return ResponseEntity.ok(responseObject);
     }
 
     @PostMapping("/public/change-password")
@@ -93,25 +122,39 @@ public class ProfileController {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
 
-        Long userID = Long.valueOf(request.getParameter("userID"));
+        Users user = usersRepository.findUsersByEmail(email);
 
-        Users usersByEmail = usersRepository.findUsersByEmail(email);
-
-        boolean isAdmin = usersByEmail.getIsAdmin();
-
-        if (isAdmin || Objects.equals(usersByEmail.getUserID(), userID)) {
-            Users usersByUserID = usersRepository.findUsersByUserID(userID);
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            if (!passwordEncoder.matches(oldPassword, usersByUserID.getHashedPassword())) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
-            }
-
-            usersByUserID.setHashedPassword(passwordEncoder.encode(newPassword));
-            usersRepository.save(usersByUserID);
-            return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công!");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(oldPassword, user.getHashedPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
         }
-        else {
+
+        user.setHashedPassword(passwordEncoder.encode(newPassword));
+        usersRepository.save(user);
+        return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công!");
+    }
+
+    @PostMapping("/admin/change-password")
+    public ResponseEntity<?> changePasswordByID(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
+        String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
+
+        Long userID = Long.valueOf(request.getParameter("userID"));
+
+        Users usersByUserID = usersRepository.findUsersByUserID(userID);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(oldPassword, usersByUserID.getHashedPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu cũ không chính xác");
+        }
+
+        usersByUserID.setHashedPassword(passwordEncoder.encode(newPassword));
+        usersRepository.save(usersByUserID);
+        return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công!");
     }
 }

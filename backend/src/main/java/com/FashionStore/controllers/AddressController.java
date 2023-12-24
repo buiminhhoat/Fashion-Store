@@ -73,8 +73,47 @@ public class AddressController {
         String addressDetails = request.getParameter("addressDetails");
         boolean isDefault = Boolean.parseBoolean(request.getParameter("isDefault"));
 
-        Long userID = Long.valueOf(request.getParameter("userID"));
 
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        Long userID = findByEmail.getUserID();
+        try {
+            if (isDefault) {
+                Address currentAddressDefault = addressRepository.findAddressByUsersIDAndIsDefault(userID, true);
+                if (currentAddressDefault != null) {
+                    currentAddressDefault.setIsDefault(false);
+                    addressRepository.save(currentAddressDefault);
+                }
+            }
+            Address address = new Address(userID, recipientName, recipientPhone, addressDetails, isDefault);
+            addressRepository.save(address);
+            ResponseObject responseObject = new ResponseObject("Thêm địa chỉ mới thành công");
+            return ResponseEntity.ok(responseObject);
+        } catch (Error error) {
+            ResponseObject responseObject = new ResponseObject("Đã có lỗi xảy ra");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+    }
+
+    @PostMapping("/admin/new-address")
+    public ResponseEntity<?> newAddressByUserID(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+
+        String recipientName = String.valueOf(request.getParameter("recipientName"));
+        String recipientPhone = request.getParameter("recipientPhone");
+        String addressDetails = request.getParameter("addressDetails");
+        boolean isDefault = Boolean.parseBoolean(request.getParameter("isDefault"));
+
+        Long userID = Long.valueOf(request.getParameter("userID"));
 
         Users usersByEmail = usersRepository.findUsersByEmail(email);
 
@@ -82,13 +121,7 @@ public class AddressController {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
-        boolean isAdmin = usersByEmail.getIsAdmin();;
-//        Long userID = usersByEmail.getUserID();
 
-        if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
-        }
         try {
             if (isDefault) {
                 Address currentAddressDefault = addressRepository.findAddressByUsersIDAndIsDefault(userID, true);
@@ -240,6 +273,25 @@ public class AddressController {
     public ResponseEntity<?> getAllAddresses(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
+        if (!jwtTokenUtil.isTokenValid(accessToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(accessToken);
+        Users findByEmail = usersRepository.findUsersByEmail(email);
+        if (findByEmail == null) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+        Long userID = findByEmail.getUserID();
+
+        return ResponseEntity.ok(addressRepository.findAddressByUsersID(userID));
+    }
+
+    @PostMapping("/admin/get-all-addresses")
+    public ResponseEntity<?> getAllAddressesByUserID(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.replace("Bearer ", "");
         Long userID = Long.valueOf(request.getParameter("userID"));
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -248,18 +300,11 @@ public class AddressController {
         String email = jwtTokenUtil.getEmailFromToken(accessToken);
         Users usersByEmail = usersRepository.findUsersByEmail(email);
 
-
         if (usersByEmail == null) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
-        boolean isAdmin = usersByEmail.getIsAdmin();
-
-        if (!Objects.equals(usersByEmail.getUserID(), userID) && !isAdmin) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
-        }
         return ResponseEntity.ok(addressRepository.findAddressByUsersID(userID));
     }
 }
