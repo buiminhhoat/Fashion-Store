@@ -75,18 +75,21 @@ const Menu = () => {
   const fetchUserData = async () => {
     if (accessToken) {
       try {
+        const formData = new FormData();
+        formData.append('userID', userID);
+
         const apiFetchUserData = "/api/public/get-user-data";
         const response = await fetch(apiFetchUserData, {
-          method: "GET",
+          method: "POST",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
           },
+          body: formData,
         });
 
         if (response.status === 200) {
           const data = await response.json();
           setUserData(data);
-          console.log(data);
         } else {
           throw new Error("Unauthorized");
         }
@@ -164,28 +167,38 @@ const Menu = () => {
     return menuItemsJSX;
   }
 
-  const uploadAvatar = (e) => {
+  const uploadAvatar = async (e) => {
     const file = e.target.files[0];
 
     const formData = new FormData();
+    formData.append('userID', userID);
     formData.append('profileImage', file);
+
+    const urlUploadProfileImage = "/api/public/upload-profile-image";
     try {
-      fetch("/api/public/upload-profile-image", {
+      const response = await fetch(urlUploadProfileImage, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
         },
         body: formData,
-      })
-          .then((response) => response.json())
-          .then((data) => {
-            fetchUserData().then(r => {});
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          })
-    }
-    finally {
+      });
+
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', response);
+        return;
+      }
+
+      if (response.status === 200) {
+        toast.success("Cập nhật ảnh đại diện thành công");
+        fetchUserData().then(r => {});
+      } else {
+        toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };
 
@@ -197,7 +210,7 @@ const Menu = () => {
                 src={(userData.avatarPath !== undefined && userData.avatarPath !== null) ?
                     "/storage/images/" + userData.avatarPath :
                     "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
-                alt={userData.fullName}
+                alt={''}
                 id="action-upload"
                 onClick={() => document.getElementById('upload-file').click()}
             />
@@ -205,6 +218,7 @@ const Menu = () => {
                 type="file"
                 id="upload-file"
                 className="d-none"
+                accept="image/*"
                 onChange={(e) => uploadAvatar(e)}
             />
           </div>
