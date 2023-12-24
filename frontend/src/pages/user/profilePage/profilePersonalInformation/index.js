@@ -26,7 +26,7 @@ const ProfilePersonalInformationPage = () => {
 
   const handleSaveInformation = async () => {
     const formData = new FormData();
-    // formData.append('userID', userID);
+    formData.append('userID', userID);
     formData.append('fullName', name);
     formData.append('email', email);
     formData.append('phoneNumber', phoneNumber);
@@ -77,13 +77,17 @@ const ProfilePersonalInformationPage = () => {
       if (!accessToken) {
         throw new Error("Không có refresh token.");
       }
+      const formData = new FormData();
+      formData.append('userID', userID);
+
       const apiFetchUserData = "/api/public/get-user-data";
       const response = await fetch(apiFetchUserData, {
-        method: "GET",
+        method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
           Authorization: `Bearer ${accessToken}`
         },
+        body: formData,
       });
 
       if (!response.ok) {
