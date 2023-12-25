@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import './style.scss';
 
 import {useCookies} from "react-cookie";
-
-import eyeOn from '../images/eye_on.svg'
-import eyeOff from '../images/eye_off.svg'
 import {useLocation} from "react-router-dom";
-import queryString from "query-string";
+
 import {toast} from "react-toastify";
+import queryString from "query-string";
+import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {VscEye, VscEyeClosed} from "react-icons/vsc";
 
 const ProfileChangePassword = () => {
   const [cookies] = useCookies(['access_token']);
@@ -17,7 +17,12 @@ const ProfileChangePassword = () => {
   const queryParams = queryString.parse(location.search);
   const [userID, setUserID] = useState(queryParams.userID);
 
+  const [isShowOldPassword, setIsShowOldPassword] = useState(false);
+  const [isShowNewPassword, setIsShowNewPassword] = useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
+
   const [isOwner, setIsOwner] = useState(null);
+  const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -99,14 +104,14 @@ const ProfileChangePassword = () => {
             { isOwner != null &&
               <>
                 <section className="content__wrap">
-                  <article>
+                  <article style={{width:"335px"}}>
 
                     { isOwner &&
                         <div className="info__item">
                           <label className="form-label">Mật khẩu cũ</label>
-                          <div className="input__wrap">
-                            <span className="error--message"></span>
-                            <input type="password" name="old_password"
+                          <div className="input__wrap" style={{display:"flex"}}>
+                            <input type={isShowOldPassword ? 'text' : 'password'}
+                                   name="old_password"
                                    className="form-control input--password input_focus"
                                    placeholder="Nhập mật khẩu cũ"
                                    minLength={6}
@@ -114,15 +119,20 @@ const ProfileChangePassword = () => {
                                    value={oldPassword}
                                    onChange={(e) => setOldPassword(e.target.value)}
                             />
+                            <div style={{display:"flex", alignItems:"center", cursor:"pointer",
+                              margin:"3px 0 0 15px", fontSize:"20px", color:"#7e7e7e"}}
+                                 onClick={() => setIsShowOldPassword(!isShowOldPassword)}
+                            >
+                              { isShowOldPassword ? <VscEye /> : <VscEyeClosed /> }
+                            </div>
                           </div>
                         </div>
                     }
 
                     <div className="info__item">
                       <label className="form-label">Mật khẩu mới</label>
-                      <div className="input__wrap">
-                        <span className="error--message"></span>
-                        <input type="password"
+                      <div className="input__wrap" style={{display:"flex"}}>
+                        <input type={isShowNewPassword ? 'text' : 'password'}
                                name="new_password"
                                className="form-control input--password input_focus"
                                placeholder="Nhập mật khẩu mới"
@@ -131,13 +141,19 @@ const ProfileChangePassword = () => {
                                value={newPassword}
                                onChange={(e) => setNewPassword(e.target.value)}
                         />
+                        <div style={{display:"flex", alignItems:"center", cursor:"pointer",
+                          margin:"3px 0 0 15px", fontSize:"20px", color:"#7e7e7e"}}
+                             onClick={() => setIsShowNewPassword(!isShowNewPassword)}
+                        >
+                          { isShowNewPassword ? <VscEye /> : <VscEyeClosed /> }
+                        </div>
                       </div>
                     </div>
+
                     <div className="info__item">
                       <label className="form-label">Nhập lại mật khẩu mới</label>
-                      <div className="input__wrap">
-                        <span className="error--message"></span>
-                        <input type="password"
+                      <div className="input__wrap" style={{display:"flex"}}>
+                        <input type={isShowConfirmPassword ? 'text' : 'password'}
                                name="confirm_password"
                                className="form-control input--password input_focus"
                                placeholder="Nhập lại mật khẩu mới"
@@ -146,6 +162,12 @@ const ProfileChangePassword = () => {
                                value={confirmNewPassword}
                                onChange={(e) => setConfirmNewPassword(e.target.value)}
                         />
+                        <div style={{display:"flex", alignItems:"center", cursor:"pointer",
+                          margin:"3px 0 0 15px", fontSize:"20px", color:"#7e7e7e"}}
+                             onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
+                        >
+                          { isShowConfirmPassword ? <VscEye /> : <VscEyeClosed /> }
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -153,13 +175,32 @@ const ProfileChangePassword = () => {
                 </section>
                 <section className="footer__wrap" style={{position:"static"}}>
                   <button type="submit" className="btn__action btn btn-danger" id="submit-form">Lưu lại</button>
-                  <a href="#huy" type="button" className="btn__action btn btn-outline-danger">Hủy bỏ</a>
+                  <a className="btn__action btn btn-outline-danger" onClick={() => {setIsShowConfirmDialog(true)}}>Hủy bỏ</a>
                 </section>
               </>
             }
 
           </form>
         </section>
+        {isShowConfirmDialog && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={
+                               <>
+                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.
+                               </>
+                             }
+                             titleBtnAccept={"Có"}
+                             titleBtnCancel={"Không"}
+                             onAccept={() => {
+                               setOldPassword("");
+                               setNewPassword("");
+                               setConfirmNewPassword("");
+                               setIsShowConfirmDialog(false);
+                             }}
+                             onCancel={() => {setIsShowConfirmDialog(false)}}/>
+            </div>
+        )}
       </div>
   );
 }
