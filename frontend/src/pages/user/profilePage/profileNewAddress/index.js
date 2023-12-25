@@ -2,14 +2,19 @@ import {useEffect, useState} from "react";
 import './style.scss';
 
 import {useCookies} from "react-cookie";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import {toast} from "react-toastify";
 
 import arrowLeft1 from '../images/arrow_left_1.svg'
+import queryString from "query-string";
 
 const ProfileNewAddress = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const [userID, setUserID] = useState(queryParams.userID);
 
   const [recipientName, setRecipientName] = useState("");
   const [recipientPhone, setRecipientPhone] = useState("");
@@ -21,17 +26,19 @@ const ProfileNewAddress = () => {
 
   const getAddresses = () => {
     try {
+      const formData = new FormData();
+      formData.append('userID', userID);
+
       fetch("/api/public/get-all-addresses", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
         },
+        body: formData,
       })
           .then((response) => response.json())
           .then((data) => {
-            // console.log(data);
             setIsDefault(data.length == 0);
-            // console.log(isDefault)
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -48,6 +55,7 @@ const ProfileNewAddress = () => {
 
   const handleSave = async () => {
     const formData = new FormData();
+    formData.append('userID', userID);
     formData.append('recipientName', recipientName);
     formData.append('recipientPhone', recipientPhone);
     formData.append('addressDetails', addressDetails);
@@ -66,12 +74,11 @@ const ProfileNewAddress = () => {
       if (response.status === 200) {
         let jsonResponse = await response.json();
         toast.success(jsonResponse.message);
-        navigate("/profile/address");
+        navigate(`/profile/address?userID=${userID}`);
       }
       else {
         let jsonResponse = await response.json();
-        alert(jsonResponse.message);
-        navigate("/profile/address");
+        toast.error(jsonResponse.message);
       }
     } catch (error) {
       toast.error("Không thể kết nối được với database");
@@ -79,8 +86,9 @@ const ProfileNewAddress = () => {
   }
 
   const handleCancel = () => {
-    navigate("/profile/address");
+    navigate(`/profile/address?userID=${userID}`);
   }
+
   return (
       <div className="col-8 content-children item-row">
         <section className="new__address__wrap" style={{minHeight: "438px"}}>
