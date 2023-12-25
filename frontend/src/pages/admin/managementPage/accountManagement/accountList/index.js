@@ -222,7 +222,7 @@ const AccountListPage = () => {
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chi tiết người dùng</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-category"
                                    style={{marginRight:"0"}}
-                                   onClick={() => {navigate(`/admin/profile/orders?userID=${user.userID}`)}}
+                                   onClick={() => {navigate(`/profile/orders?userID=${user.userID}`)}}
                               >
                                 <BiSolidEdit />
                               </div>
