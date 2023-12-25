@@ -94,7 +94,7 @@ const ProfileNewAddress = () => {
         <section className="new__address__wrap" style={{minHeight: "438px"}}>
           <section className="header__wrap">
             <button className="btn__back">
-              <Link to={"/profile/address"}>
+              <Link to={`/profile/address?userID=${userID}`}>
                 <img src={arrowLeft1} alt="icon arrow left" />
               </Link>
             </button>

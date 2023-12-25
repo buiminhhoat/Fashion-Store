@@ -2,13 +2,19 @@ import React, {useEffect, useState} from "react";
 import './style.scss';
 
 import {useCookies} from "react-cookie";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 
 import {toast} from "react-toastify";
 import arrowLeft1 from '../images/arrow_left_1.svg'
+import queryString from "query-string";
 
 const ProfileEditAddress = () => {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const [userID, setUserID] = useState(queryParams.userID);
+  const [addressID, setAddressID] = useState(queryParams.addressID);
 
   const [cookies] = useCookies(['access_token']);
   const [address, setAddress] = useState({});
@@ -16,9 +22,7 @@ const ProfileEditAddress = () => {
   const [recipientPhone, setRecipientPhone] = useState("");
   const [addressDetails, setAddressDetails] = useState("");
   const [isDefault, setIsDefault] = useState(false);
-  const { addressID } = useParams();
   const accessToken = cookies.access_token;
-  // const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
 
   const getData = () => {
     const formData = new FormData();
@@ -54,7 +58,6 @@ const ProfileEditAddress = () => {
   const handleSave = async () => {
     const formData = new FormData();
 
-    console.log(recipientName);
     formData.append('addressID', addressID);
     formData.append('recipientName', recipientName);
     formData.append('recipientPhone', recipientPhone);
@@ -73,14 +76,12 @@ const ProfileEditAddress = () => {
 
       if (response.status === 200) {
         let jsonResponse = await response.json();
-        // alert(jsonResponse.message);
         toast.success(jsonResponse.message)
-        navigate("/profile/address");
+        navigate(`/profile/address?userID=${userID}`);
       }
       else {
         let jsonResponse = await response.json();
-        toast.warn(jsonResponse.message);
-        navigate("/profile/address");
+        toast.error(jsonResponse.message);
       }
     } catch (error) {
       toast.error("Không thể kết nối được với database");
@@ -88,7 +89,7 @@ const ProfileEditAddress = () => {
   }
 
   const handleCancel = () => {
-    navigate("/profile/address");
+    navigate(`/profile/address?userID=${userID}`);
   }
 
   // if (loading) {
@@ -101,7 +102,7 @@ const ProfileEditAddress = () => {
         <section className="new__address__wrap" style={{minHeight: "438px"}}>
           <section className="header__wrap">
             <button className="btn__back">
-              <Link to={"/profile/address"}>
+              <Link to={`/profile/address?userID=${userID}`}>
                 <img src={arrowLeft1} alt="icon arrow left" />
               </Link>
             </button>

@@ -3,10 +3,7 @@ import {useCookies} from "react-cookie";
 import {Link, useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import queryString from "query-string";
-import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {ConfigProvider, Popconfirm} from "antd";
-import {CATEGORY} from "../../../admin/managementPage/productManagement/components/dialogs/utils/const";
-import {HiOutlineTrash} from "react-icons/hi";
 
 function AddressList() {
   const [cookies] = useCookies(['access_token']);
@@ -126,7 +123,7 @@ function AddressList() {
                 </div>
                 <div className="box-btn-wrap">
                   <div className="btn-wrap-item">
-                    <Link to = {"/profile/edit-address/" + address.addressID}>
+                    <Link to = {`/profile/edit-address?userID=${userID}&addressID=${address.addressID}`}>
                       <div className="edit">Sửa</div>
                     </Link>
                     { !address.isDefault &&
