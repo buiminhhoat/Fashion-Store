@@ -8,7 +8,7 @@ export function useLogout() {
         // console.log('Access Token:', document.cookie);
         removeAccessTokenCookie('access_token');
         removeRefreshTokenCookie('refresh_token');
-
+        window.location.reload();
         window.location.href = '/';
     };
 }

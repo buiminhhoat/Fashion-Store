@@ -122,13 +122,13 @@ const ProfileMenu = ({openModal}) => {
                     <a href={`/profile/orders?userID=${userID}`}>Đơn hàng của tôi</a>
                   </li>
                   <li>
-                    <a href="/profile/personal-information?userID=${userID}">Thông tin cá nhân</a>
+                    <a href={`/profile/personal-information?userID=${userID}`}>Thông tin cá nhân</a>
                   </li>
                   <li>
-                    <a href="/profile/address?userID=${userID}"> Sổ địa chỉ </a>
+                    <a href={`/profile/address?userID=${userID}`}> Sổ địa chỉ </a>
                   </li>
                   <li>
-                    <a href="/profile/change-password?userID=${userID}">Đổi mật khẩu</a>
+                    <a href={`/profile/change-password?userID=${userID}`}>Đổi mật khẩu</a>
                   </li>
                   <li className="logout">
                     <a onClick={() => {logout().then(r => {})}}> Đăng xuất </a>
