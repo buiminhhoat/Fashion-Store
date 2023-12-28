@@ -23,7 +23,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
   const [recipientPhone, setRecipientPhone] = useState("");
   const [addressDetails, setAddressDetails] = useState("");
   const [isDefault, setIsDefault] = useState(false);
-  const [addressList, setAddressList] = useState([{}]);
+  const [addressList, setAddressList] = useState([]);
   const [idSelected, setIdSelected] = useState(selectedAddress.addressID);
 
   const updateData = () => {
@@ -76,10 +76,6 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
       console.error("Error:", error);
     }
   };
-
-  const updateAddressSelected = (addressID) => {
-    setIdSelected(addressID);
-  }
 
   const handleConfirmCreateAddress = async () => {
     const formData = new FormData();
@@ -181,7 +177,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
 
   return (
       <>
-        {openModal === MODAL.LIST_ADDRESS && (
+        {openModal === MODAL.LIST_ADDRESS &&
             <div className="modal-create-address visible">
               <div className="modal-create-address__backdrop"></div>
               <div className="modal-create-address__content-wrap">
@@ -192,20 +188,23 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
                       Địa chỉ nhận hàng
                     </div>
                     <div className="list-address">
-                      {addressList.map((address, index) => (
-                          <div className="item-address d-flex align-items-center justify-content-between" key={index}>
+                      { addressList.map((address, index) => (
+                          <div className="item-address d-flex align-items-center justify-content-between"
+                               key={index}
+                               onClick={() => {setIdSelected(address.addressID)}}
+                          >
                             <div className="address-detail d-flex">
                               <input
                                   type="radio"
                                   name="address"
-                                  onChange={() => updateAddressSelected(address.addressID)}
+                                  onChange={() => {setIdSelected(address.addressID)}}
                                   id={address.addressID}
                                   value={address.addressID}
                                   checked={address.addressID === idSelected}
                               />
 
                               <div className="center-content">
-                                <label onClick={() => updateAddressSelected(address.addressID)}>
+                                <label>
                                   <div className="cart__address__description">
                                     <div className="d-flex justify-content-between">
                                       <div className="fw-bold">{address.recipientName} | {address.recipientPhone}</div>
@@ -225,12 +224,20 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
                             </div>
 
                             <div className="action-address">
-                              <span className="text-edit" onClick={() => switchModal(MODAL.UPDATE_ADDRESS, address.addressID)}>Sửa</span>
+                              <span className="text-edit"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      switchModal(MODAL.UPDATE_ADDRESS, address.addressID)
+                                    }}
+                              >Sửa
+                              </span>
                             </div>
                           </div>
                       ))}
 
-                      <div className="item-address d-flex justify-content-between align-items-center cursor-point" onClick={() => switchModal(MODAL.CREATE_ADDRESS)}>
+                      <div className="item-address d-flex justify-content-between align-items-center cursor-point"
+                           onClick={() => switchModal(MODAL.CREATE_ADDRESS)}
+                      >
                         <div className="cart__address__description pdr-76px pdl-25_17">
                           <div className="fw-bold mb-6px">Thêm địa chỉ mới</div>
                         </div>
@@ -246,10 +253,9 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
                 </div>
               </div>
             </div>
-        )
         }
 
-        {openModal === MODAL.CREATE_ADDRESS && (
+        {openModal === MODAL.CREATE_ADDRESS &&
             <div className="modal-create-address visible">
               <div className="modal-create-address__backdrop"></div>
               <div className="modal-create-address__content-wrap">
@@ -311,7 +317,6 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
                 </div>
               </div>
             </div>
-        )
         }
 
         {openModal === MODAL.UPDATE_ADDRESS &&
@@ -380,7 +385,6 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
               </div>
             </div>
         }
-
       </>
   );
 }
