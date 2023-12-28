@@ -105,7 +105,6 @@ function convertDateTimeFormat(dateTimeString) {
   return `${formattedHour}:${minute} ${date}`;
 }
 
-
 const RenderTabList = (openTab, setOpenTab) => {
   const handleSwitchTab = (tab) => {
     setOpenTab(tab);

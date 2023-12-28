@@ -36,7 +36,6 @@ const productListFake = [
 
 function CartPage() {
   const cartContext = useContext(CartContext);
-  // product = productList;
   const navigate = useNavigate();
 
   const [numberProduct, setNumberProduct] = useState(0)
@@ -45,9 +44,8 @@ function CartPage() {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
-  const apiGetCart = "/api/public/get-cart";
-
   const [product, setProduct] = useState({});
+
   const handleIncreaseAmount = (id) => {
     // Lấy số lượng sản phẩm hiện tại trong giỏ hàng
     let productQuantities = 1;
@@ -93,7 +91,6 @@ function CartPage() {
     }
   };
 
-
   const handleDecreaseAmount = (id) => {
     // Tạo một bản sao mới để tránh thay đổi trực tiếp
     const updatedProduct = [...product];
@@ -103,7 +100,6 @@ function CartPage() {
       handleCloseButton(id);
       return;
     }
-
 
     // Cập nhật trạng thái sản phẩm
     setProduct(updatedProduct);
@@ -140,7 +136,6 @@ function CartPage() {
           // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   };
-
 
   const handleCloseButton = (id) => {
     // Gửi yêu cầu xóa sản phẩm khỏi giỏ hàng lên server
@@ -225,63 +220,57 @@ function CartPage() {
     })
     return total;
   }
-  // console.log("Reload!");
 
-
-  // const [cookies] = useCookies(['access_token']);
-  // const accessToken = cookies.access_token;
-  //
-  // const apiGetCart = "/api/get-cart?accessToken=Bearer " + accessToken;
-  // console.log(apiGetCart)
   const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiGetCart, {
-          method: 'GET',
-          headers: {"Authorization" : "Bearer " + accessToken},
+  const fetchData = async () => {
+    try {
+      const apiGetCart = "/api/public/get-cart";
+      const response = await fetch(apiGetCart, {
+        method: 'GET',
+        headers: {"Authorization" : "Bearer " + accessToken},
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const cartItems = data.data.cartItems;
+
+        // Tạo một mảng promises để fetch thông tin informationProduct cho từng sản phẩm.
+        const productPromises = cartItems.map(async (cartItem) => {
+          const productID = cartItem.productID;
+
+          // Fetch thông tin product theo productID
+          const productResponse = await fetch(`/api/public/product/${productID}`);
+          if (productResponse.ok) {
+            const productData = await productResponse.json();
+            const productInformation = productData;
+
+            // Kết hợp thông tin product và cartItem
+            return { ...cartItem, informationProduct: productInformation };
+          } else {
+            // Xử lý lỗi nếu cần
+          }
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          const cartItems = data.data.cartItems;
-
-          // Tạo một mảng promises để fetch thông tin informationProduct cho từng sản phẩm.
-          const productPromises = cartItems.map(async (cartItem) => {
-            const productID = cartItem.productID;
-
-            // Fetch thông tin product theo productID
-            const productResponse = await fetch(`/api/public/product/${productID}`);
-            if (productResponse.ok) {
-              const productData = await productResponse.json();
-              const productInformation = productData;
-
-              // Kết hợp thông tin product và cartItem
-              return { ...cartItem, informationProduct: productInformation };
-            } else {
-              // Xử lý lỗi nếu cần
-            }
-          });
-
-          // Chờ tất cả các promises hoàn thành và cập nhật state product
-          const updatedProduct = await Promise.all(productPromises);
-          setProduct(updatedProduct);
-          setNumberProduct(updatedProduct.length);
-          console.log(updatedProduct)
-        } else {
-          const data = await response.json();
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error('Không thể kết nối được với database');
-      } finally {
-        setLoading(false);
+        // Chờ tất cả các promises hoàn thành và cập nhật state product
+        const updatedProduct = await Promise.all(productPromises);
+        setProduct(updatedProduct);
+        setNumberProduct(updatedProduct.length);
+        console.log(updatedProduct)
+      } else {
+        const data = await response.json();
+        console.log(data.message);
       }
-    };
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
+  useEffect(() => {
+    fetchData().then(r => {});
   }, [numberProduct]);
 
   const handlePurchase = () => {
@@ -290,9 +279,7 @@ function CartPage() {
 
     formData.append('addressID', selectedAddress.addressID)
     formData.append('totalAmount', calcTotalPrice());
-    // formData.append('productID', productID);
-    // formData.append('sizeID', sizeID);
-    // formData.append('quantityPurchase', amount);
+
 
     fetch(apiAddToCartByCart, {
       method: 'POST',
@@ -422,9 +409,9 @@ function CartPage() {
                               </div>
                             </div>
                             <span onClick={handlePurchase}>
-                                            <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
-                                                <span className="text-checkout">Thanh toán:  {formatter(calcTotalPrice())} <span>COD</span></span>
-                                            </button>
+                              <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
+                                  <span className="text-checkout">Thanh toán:  {formatter(calcTotalPrice())} <span>COD</span></span>
+                              </button>
                             </span>
                           </div>
                         </div>

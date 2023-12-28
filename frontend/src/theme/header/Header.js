@@ -56,7 +56,7 @@ const Header = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setMenuItems(data);
       } else {
         const data = await response.json();
