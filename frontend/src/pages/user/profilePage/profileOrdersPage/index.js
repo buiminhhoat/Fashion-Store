@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {formatter} from "../../../../utils/formatter";
 
 import emptyProduct from '../images/empty-product.png'
+import {convertDateTimeFormat} from "../../../../utils";
 
 const orderListFake = [
   {
@@ -70,74 +71,40 @@ const orderListFake = [
   },
 ];
 
-const tabItems = [
-  { id: "tab-all", text: "Tất cả"},
-  { id: "tab1", text: "Chờ xác nhận"},
-  { id: "tab5", text: "Đã xác nhận"},
-  { id: "tab2", text: "Đang giao hàng"},
-  { id: "tab3", text: "Hoàn thành"},
-  { id: "tab4", text: "Đã hủy"}
-];
-
-function convertDateTimeFormat(dateTimeString) {
-  const options = {
-    hour: 'numeric',
-    minute: 'numeric',
-    day: 'numeric',
-    month: 'numeric',
-    year: 'numeric',
-    hour12: false, // Đặt giờ theo định dạng 24 giờ
-  };
-
-  const dateTime = new Date(dateTimeString);
-  const formattedDateTime = dateTime.toLocaleDateString('vi-VN', options);
-
-  // Tách giờ và phút từ chuỗi định dạng
-  const [time, date] = formattedDateTime.split(' ');
-
-  // Chia giờ và phút
-  const [hour, minute] = time.split(':');
-
-  // Định dạng lại giờ với số 0 phía trước khi cần thiết
-  const formattedHour = hour.padStart(2, '0');
-
-  // Kết hợp lại và trả về kết quả cuối cùng
-  return `${formattedHour}:${minute} ${date}`;
-}
-
-const RenderTabList = (openTab, setOpenTab) => {
-  const handleSwitchTab = (tab) => {
-    setOpenTab(tab);
-  }
-  const renderTabList = () => {
-    return tabItems.map((tab, index) => (
-        <button
-            key={tab.text}
-            className={`nav-link ${openTab === tab.text ? "active" : ""}`}
-            // data-bs-toggle="tab"
-            // data-bs-target={`#${tab.id}`}
-            role="tab"
-            aria-selected={tab.isActive}
-            tabIndex={(openTab === tab.text) ? 0 : -1}
-            onClick={() => handleSwitchTab(tab.text)}
-        >
-          {tab.text}
-        </button>
-    ));
-  };
+const TabList = ({openTab, setOpenTab}) => {
+  const tabItems = [
+    { id: "tab-all", text: "Tất cả"},
+    { id: "tab1", text: "Chờ xác nhận"},
+    { id: "tab5", text: "Đã xác nhận"},
+    { id: "tab2", text: "Đang giao hàng"},
+    { id: "tab3", text: "Hoàn thành"},
+    { id: "tab4", text: "Đã hủy"}
+  ];
 
   return (
       <div className="nav nav-tabs menu-tab" id="myTab" role="tablist">
-        {renderTabList()}
+        {
+          tabItems.map((tab, index) => (
+              <button
+                  key={tab.text}
+                  className={`nav-link ${openTab === tab.text ? "active" : ""}`}
+                  role="tab"
+                  tabIndex={(openTab === tab.text) ? 0 : -1}
+                  onClick={() => setOpenTab(tab.text)}
+              >
+                {tab.text}
+              </button>
+          ))
+        }
       </div>
   );
 }
 
-const RenderTabContent = (openTab, setOpenTab) => {
-  const [orderList, setOrderList] = useState([{}])
-
+const TabContent = ({openTab, setOpenTab}) => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+
+  const [orderList, setOrderList] = useState([])
   const [loading, setLoading] = useState(true);
 
   const getData = () => {
@@ -153,7 +120,6 @@ const RenderTabContent = (openTab, setOpenTab) => {
     })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           setOrderList(data);
         })
         .catch((error) => {
@@ -163,15 +129,10 @@ const RenderTabContent = (openTab, setOpenTab) => {
           setLoading(false);
         });
   }
-  // console.log(accessToken)
+
   useEffect(() => {
-    // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
     getData();
   }, [openTab]);
-
-  if (loading) {
-    return (<div></div>);
-  }
 
   function handleCancelOrder(orderID) {
     const formData = new FormData();
@@ -199,113 +160,98 @@ const RenderTabContent = (openTab, setOpenTab) => {
   }
 
   return (
-      orderList.length ? (
-          orderList.map((order, index) => (
-              <div key = {index} className="order-item-wrap show-detail">
-                <div className="header-wrap">
-                  <div className="code-wrap">
-                    Mã đơn hàng <span className="code">{order.orderID}</span>
-                  </div>
-                  <div className="status-wrap">
-                    <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
-                    <div className="status status-un-paid">
-                      <span>{order.orderStatus}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="content-wrap">
-                  {
-                    order.orderDetails.map((orderDetail, index) => (
-                        <div key = {index} className="product-wrap">
-                          <div className="img-wrap">
-                            <img
-                                src={"/storage/images/" + orderDetail.imagePath}
-                                alt={orderDetail.productName}/>
+      <>
+        { orderList && orderList.length ?
+            <>
+              { orderList.map((order, index) => (
+                    <div key = {index} className="order-item-wrap show-detail">
+                      <div className="header-wrap">
+                        <div className="code-wrap">
+                          Mã đơn hàng <span className="code">{order.orderID}</span>
+                        </div>
+                        <div className="status-wrap">
+                          <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
+                          <div className="status status-un-paid">
+                            <span>{order.orderStatus}</span>
                           </div>
-                          <div className="info-wrap">
-                            <Link to={"/product?productID=" + orderDetail.productID}>
-                              <div className="name">
-                                {orderDetail.productName}
+                        </div>
+                      </div>
+                      <div className="content-wrap">
+                        { order.orderDetails &&
+                            order.orderDetails.map((orderDetail, index) => (
+                                <div key = {index} className="product-wrap">
+                                  <div className="img-wrap">
+                                    <img
+                                        src={"/storage/images/" + orderDetail.imagePath}
+                                        alt={orderDetail.productName}/>
+                                  </div>
+                                  <div className="info-wrap">
+                                    <Link to={"/product?productID=" + orderDetail.productID}>
+                                      <div className="name">{orderDetail.productName}</div>
+                                    </Link>
+                                    <div className="property-wrap">
+                                      <span>Size {orderDetail.sizeName}</span>
+                                    </div>
+                                    <div className="property-wrap">
+                                      <span>Số lượng: {orderDetail.quantity}</span>
+                                    </div>
+                                    <div className="money-wrap">
+                                      <span>{formatter(orderDetail.totalPrice)}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                            ))
+                        }
+
+                      </div>
+                      <div className="total-wrap">
+                        <div className="total-money">
+                          Thành tiền:
+                          <span className="money">&nbsp; {formatter(order.totalAmount)}</span>
+                        </div>
+                        { order.orderStatus === "Chờ xác nhận" &&
+                          <button className="cancel-order" onClick={() => handleCancelOrder(order.orderID)}>
+                            Huỷ đơn hàng
+                          </button>
+                        }
+
+                      </div>
+                      <div className="detail-wrap show-detail">
+                        <div className="content-detail-wrap">
+                          <div className="info-order-wrap">
+                            <div className="row item-info">
+                              <div className="col-3 label-wrap">Hình thức thanh toán:</div>
+                              <div className="col-9 text-wrap">Thanh toán khi nhận hàng</div>
+                            </div>
+                            <div className="row item-info">
+                              <div className="col-3 label-wrap">Địa chỉ nhận hàng:</div>
+                              <div className="col-9 text-wrap">
+                                <div className="information">
+                                  <span className="name">{order.recipientName}</span>
+                                  <div className="break-item">|</div>
+                                  <span className="phone">{order.recipientPhone}</span>
+                                </div>
+                                <div>
+                                  <span>{order.addressDetails}</span>
+                                </div>
                               </div>
-                            </Link>
-                            <div className="property-wrap">
-                              {/*<span>Chì</span>&nbsp;*/}
-                              {/*<p className="break-item">|</p>&nbsp;*/}
-                              <span>Size {orderDetail.sizeName}</span>
                             </div>
-                            <div className="property-wrap">
-                              Số lượng: <span>{orderDetail.quantity}</span>
-                              {/*<p className="break-item">|</p>&nbsp;*/}
-                              {/*<span>Size {orderDetail.sizeName}</span>*/}
-                            </div>
-                            <div className="money-wrap">
-                              <span>{formatter(orderDetail.totalPrice)}</span>
-                            </div>
-                          </div>
-                        </div>
-                    ))
-                  }
-
-                </div>
-                <div className="total-wrap">
-                  <div className="total-money">
-                    Thành tiền:
-                    <span className="money">
-                                            &nbsp; {formatter(order.totalAmount)}
-                                        </span>
-                  </div>
-                  {
-                    ((order.orderStatus === "Chờ xác nhận") && (
-                            <button className="cancel-order" onClick={() => handleCancelOrder(order.orderID)}>
-                              Huỷ đơn hàng
-                            </button>
-                        )
-                    )
-                  }
-
-                </div>
-                <div className="detail-wrap show-detail">
-                  <div className="content-detail-wrap">
-                    <div className="info-order-wrap">
-                      <div className="row item-info">
-                        <div className="col-3 label-wrap">
-                          Hình thức thanh toán:
-                        </div>
-                        <div className="col-9 text-wrap">
-                          Thanh toán khi nhận hàng
-                        </div>
-                      </div>
-                      <div className="row item-info">
-                        <div className="col-3 label-wrap">
-                          Địa chỉ nhận hàng:
-                        </div>
-                        <div className="col-9 text-wrap">
-                          <div className="information">
-                            <span className="name">{order.recipientName}</span>
-                            <div className="break-item">|</div>
-                            <span className="phone">{order.recipientPhone}</span>
-                          </div>
-                          <div>
-                            <span>{order.addressDetails}</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                ))
+              }
+            </>
+            :
+            <div className={`tab-pane show`} role="tabpanel">
+              <div className="empty-content">
+                <img src={emptyProduct} alt="no data"/>
+                <p>Không có đơn hàng nào</p>
               </div>
-          ))
-      ) : (
-          <div
-              className={`tab-pane show`}
-              role="tabpanel"
-          >
-            <div className="empty-content">
-              <img src={emptyProduct} alt="no data"/>
-              <p>Không có đơn hàng nào</p>
             </div>
-          </div>
-      )
+        }
+      </>
   );
 }
 
@@ -315,11 +261,11 @@ const ProfileOrdersPage = () => {
   return (
       <div className="col-8 content-children item-row">
         <div className="order-wrap">
-          {RenderTabList(openTab, setOpenTab)}
+          <TabList openTab={openTab} setOpenTab={setOpenTab} />
 
           <div className="order-list">
             <div className="tab-content clearfix" id="nav-tabContent">
-              {RenderTabContent(openTab, setOpenTab)}
+              <TabContent openTab={openTab} setOpenTab={setOpenTab} />
             </div>
           </div>
         </div>
