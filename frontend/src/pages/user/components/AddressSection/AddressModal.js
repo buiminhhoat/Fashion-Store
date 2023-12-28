@@ -82,7 +82,6 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
   }
 
   const handleConfirmCreateAddress = async () => {
-
     const formData = new FormData();
 
     console.log(recipientName);
@@ -119,15 +118,11 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
 
   const handleConfirmUpdateAddress = async (addressID) => {
     const formData = new FormData();
-
-    console.log(addressID);
     formData.append('addressID', addressID);
     formData.append('recipientName', recipientName);
     formData.append('recipientPhone', recipientPhone);
     formData.append('addressDetails', addressDetails);
     formData.append('isDefault', addressList.find((address) => address.addressID === addressID).isDefault);
-
-    console.log(formData);
 
     try {
       const response = await fetch("/api/public/edit-address", {
@@ -184,7 +179,6 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
     }
   }
 
-
   return (
       <>
         {openModal === MODAL.LIST_ADDRESS && (
@@ -220,13 +214,12 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
                                     <div className="address">{address.addressDetails}</div>
                                   </div>
                                 </label>
-                                {address.isDefault ? (
-                                    <div className="text_default active">Mặc định</div>
-                                ):(
-                                    <div className="text_default" onClick={() => handleSetAddressDefault(index)}>
-                                      Thiết lập mặc định
-                                    </div>
-                                )
+                                {address.isDefault ?
+                                  <div className="text_default active">Mặc định</div>
+                                :
+                                  <div className="text_default" onClick={() => handleSetAddressDefault(index)}>
+                                    Thiết lập mặc định
+                                  </div>
                                 }
                               </div>
                             </div>
@@ -321,7 +314,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
         )
         }
 
-        {openModal === MODAL.UPDATE_ADDRESS && (
+        {openModal === MODAL.UPDATE_ADDRESS &&
             <div className="modal-create-address visible">
               <div className="modal-create-address__backdrop"></div>
               <div className="modal-create-address__content-wrap">
@@ -386,7 +379,6 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
                 </div>
               </div>
             </div>
-        )
         }
 
       </>
