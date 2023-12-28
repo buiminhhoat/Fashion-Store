@@ -7,6 +7,7 @@ import ListOfProductsAndCategoriesPage from "./productManagement/listOfProductsA
 import EditBannerPage from "./webpageManagement/editBanner";
 import AccountListPage from "./accountManagement/accountList";
 import AddAccountPage from "./accountManagement/addAccount";
+import OrderListPage from "./salesManagement/orderList";
 
 const renderCustom = () => {
     const routers =  [
@@ -33,6 +34,10 @@ const renderCustom = () => {
         {
             path: ROUTERS.ADMIN.ACCOUNT_LIST,
             component: <AccountListPage />
+        },
+        {
+            path: ROUTERS.ADMIN.ORDER_LIST,
+            component: <OrderListPage />
         }
     ]
 

@@ -8,6 +8,7 @@ import {FaRegUser} from "react-icons/fa";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ROUTERS} from "../../utils/router";
 import {SCROLLING} from "../../../../../utils/const";
+import {RiShoppingCart2Line} from "react-icons/ri";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -38,6 +39,9 @@ const items = [
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
     getItem('Chỉnh sửa banner',  ROUTERS.ADMIN.EDIT_BANNER),
+  ]),
+  getItem('Quản lý bán hàng', 'sales-management', <RiShoppingCart2Line style={{fontSize:"20px", marginBottom:"1px"}}/>, [
+    getItem('Danh sách đơn hàng',  ROUTERS.ADMIN.ORDER_LIST),
   ]),
 
   getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
