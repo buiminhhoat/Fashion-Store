@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,8 +25,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.*;
-import java.util.*;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -34,53 +38,117 @@ public class AuthController {
     private final UsersRepository usersRepository;
 
     @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
+    private String UPLOAD_DIR;
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
+
+    private String LOGIN_FAILED;
+
+    @Value("${response.token.access}")
+    private String TOKEN_ACCESS;
+
+    @Value("${response.token.refresh}")
+    private String TOKEN_REFRESH;
+
+    private final String LOGIN_SUCCESS;
+
+    @Value("${endpoint.public.login}")
+    private String ENDPOINT_LOGIN;
+
+
+    @Value("${endpoint.google.token-info}")
+    private String ENDPOINT_GOOGLE_TOKEN_INFO;
+
+    @Value("${param.email}")
+    private String PARAM_EMAIL;
+
+    @Value("${param.phoneNumber}")
+    private String PARAM_PHONE_NUMBER;
+
+    @Value("${param.password}")
+    private String PARAM_PASSWORD;
+
+    private final String REGISTER_EMAIL_EXISTS;
+
+    private final String REGISTER_PHONE_EXISTS;
+
+    private final String REGISTER_SUCCESS;
+
+    private final String REGISTER_FAILED;
+
+    @Value("${header.authorization}")
+    private String HEADER_AUTHORIZATION;
+
+    @Value("${authorization.bearer}")
+    private String AUTHORIZATION_BEARER;
+
+    private String JSON_ERROR;
+
+    @Value("${json.email}")
+    private String JSON_EMAIL;
+
+    @Value("${json.name}")
+    private String JSON_NAME;
+
+    @Value("${json.picture}")
+    private String JSON_PICTURE;
+
+    private final String AVATAR_DOWNLOAD_FAILED;
+
+    private final String REQUEST_ERROR;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public AuthController(UsersRepository usersRepository) {
+    public AuthController(UsersRepository usersRepository, MessageSource messageSource) {
         this.usersRepository = usersRepository;
+        this.LOGIN_FAILED = messageSource.getMessage("response.login.failed", null, LocaleContextHolder.getLocale());
+        this.LOGIN_SUCCESS = messageSource.getMessage("response.login.success", null, LocaleContextHolder.getLocale());
+        this.REGISTER_EMAIL_EXISTS = messageSource.getMessage("response.register.email.exists", null, LocaleContextHolder.getLocale());
+        this.REGISTER_PHONE_EXISTS = messageSource.getMessage("response.register.phone.exists", null, LocaleContextHolder.getLocale());
+        this.REGISTER_SUCCESS = messageSource.getMessage("response.register.success", null, LocaleContextHolder.getLocale());
+        this.REGISTER_FAILED = messageSource.getMessage("response.register.failed", null, LocaleContextHolder.getLocale());
+        this.AVATAR_DOWNLOAD_FAILED = messageSource.getMessage("response.avatar.download.failed", null, LocaleContextHolder.getLocale());
+        this.REQUEST_ERROR = messageSource.getMessage("response.request.error", null, LocaleContextHolder.getLocale());
+        this.JSON_ERROR = messageSource.getMessage("response.json.error", null, LocaleContextHolder.getLocale());
     }
 
-    @PostMapping("/public/login")
+    @PostMapping("${endpoint.public.login}")
     public ResponseEntity<?> login(HttpServletRequest request) {
-        String email = request.getParameter("email");
-        String phoneNumber = request.getParameter("email");
+        String email = request.getParameter(PARAM_EMAIL);
+        String phoneNumber = request.getParameter(PARAM_PHONE_NUMBER);
 
-        String plainPassword = request.getParameter("password");
+        String plainPassword = request.getParameter(PARAM_PASSWORD);
 
         Users findByEmail = usersRepository.findUsersByEmail(email);
         Users findByPhoneNumber = usersRepository.findUsersByEmail(phoneNumber);
 
         if (findByEmail == null && findByPhoneNumber == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập của bạn.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(LOGIN_FAILED);
         }
 
         Users user = (findByEmail != null) ? findByEmail : findByPhoneNumber;
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(plainPassword, user.getHashedPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập của bạn.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(LOGIN_FAILED);
         }
 
         String accessToken = jwtTokenUtil.generateAccessToken(email);
         String refreshToken = jwtTokenUtil.generateRefreshToken(email);
 
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", accessToken);
-        tokens.put("refresh_token", refreshToken);
+        tokens.put(TOKEN_ACCESS, accessToken);
+        tokens.put(TOKEN_REFRESH, refreshToken);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), "Đăng nhập thành công", tokens));
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), LOGIN_SUCCESS, tokens));
     }
 
-    @PostMapping("/public/refresh")
+    @PostMapping("${endpoint.public.refresh}")
     public ResponseEntity<?> refresh(HttpServletRequest request) {
-        String refreshToken = request.getHeader("Authorization");
-        refreshToken = refreshToken.replace("Bearer ", "");
+        String refreshToken = request.getHeader(HEADER_AUTHORIZATION);
+        refreshToken = refreshToken.replace(AUTHORIZATION_BEARER, "");
 
         if (jwtTokenUtil.isTokenExpired(refreshToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -90,18 +158,18 @@ public class AuthController {
         String newAccessToken = jwtTokenUtil.generateAccessToken(username);
 
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", newAccessToken);
+        tokens.put(TOKEN_ACCESS, newAccessToken);
 
         return ResponseEntity.ok(tokens);
     }
 
-    @PostMapping("/public/register")
+    @PostMapping("${endpoint.public.register}")
     public ResponseEntity<String> registerUser(HttpServletRequest request) {
         try {
-            String fullName = request.getParameter("fullName");
-            String email = request.getParameter("email");
-            String phoneNumber = request.getParameter("phoneNumber");
-            String plainPassword = request.getParameter("hashedPassword");
+            String fullName = request.getParameter("${param.fullName}");
+            String email = request.getParameter(PARAM_EMAIL);
+            String phoneNumber = request.getParameter(PARAM_PHONE_NUMBER);
+            String plainPassword = request.getParameter("${param.hashedPassword}");
 
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String hashedPassword = passwordEncoder.encode(plainPassword);
@@ -110,56 +178,50 @@ public class AuthController {
             List<Users> findByPhoneNumber = usersRepository.findUsersByPhoneNumber(phoneNumber);
 
             if (findByEmail != null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email đã tồn tại trên hệ thống. Đăng ký không thành công! ");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(REGISTER_EMAIL_EXISTS);
             }
 
             if (!findByPhoneNumber.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Số điện thoại đã tồn tại trên hệ thống. Đăng ký không thành công!");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(REGISTER_PHONE_EXISTS);
             }
 
             Users users = new Users(fullName, email, hashedPassword, phoneNumber, false);
             usersRepository.save(users);
-            return ResponseEntity.ok("Đăng ký thành công");
-        }
-        catch (Exception exception) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Đăng ký không thành công");
+            return ResponseEntity.ok(REGISTER_SUCCESS);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(REGISTER_FAILED);
         }
     }
 
-    @GetMapping("/login-with-google")
+    @GetMapping("${endpoint.public.login-with-google}")
     public ResponseEntity<?> loginWithGoogle(HttpServletRequest request) {
-        String idToken = request.getHeader("Authorization");
-        idToken = idToken.replace("Bearer ", "");
-        String uri = "https://oauth2.googleapis.com/tokeninfo?id_token=" + idToken;
+        String idToken = request.getHeader(HEADER_AUTHORIZATION);
+        idToken = idToken.replace(AUTHORIZATION_BEARER, "");
+        String uri = ENDPOINT_GOOGLE_TOKEN_INFO + idToken;
         RestTemplate restTemplate = new RestTemplate();
 
         try {
-            // Thực hiện yêu cầu và nhận ResponseEntity
             ResponseEntity<String> responseEntity = restTemplate.getForEntity(uri, String.class);
 
-            // Kiểm tra trạng thái HTTP
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 String resultJson = restTemplate.getForObject(uri, String.class);
 
-                // Sử dụng ObjectMapper để chuyển đổi JSON thành JsonNode
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode resultNode;
                 try {
                     resultNode = objectMapper.readTree(resultJson);
                 } catch (Exception e) {
-                    return ResponseEntity.status(500).body("Error processing JSON");
+                    return ResponseEntity.status(500).body(JSON_ERROR);
                 }
 
-                // Bạn có thể truy cập dữ liệu từ JsonNode và làm gì đó với nó
-                String email = resultNode.path("email").asText();
-                String name = resultNode.path("name").asText();
-                String avatarUrl = resultNode.path("picture").asText();
+                String email = resultNode.path(JSON_EMAIL).asText();
+                String name = resultNode.path(JSON_NAME).asText();
+                String avatarUrl = resultNode.path(JSON_PICTURE).asText();
                 Users findByEmail = usersRepository.findUsersByEmail(email);
                 if (findByEmail == null) {
                     Users users = new Users(name, email, jwtTokenUtil.generateAccessToken(email), "", false);
 
                     try {
-                        // Mở kết nối đến URL
                         URL url = new URL(avatarUrl);
                         try (InputStream in = url.openStream()) {
                             String fileName = UUID.randomUUID().toString() + ".png";
@@ -175,7 +237,7 @@ public class AuthController {
                             usersRepository.save(users);
                         }
                     } catch (IOException e) {
-                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to download avatar.");
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(AVATAR_DOWNLOAD_FAILED);
                     }
                 }
 
@@ -183,16 +245,16 @@ public class AuthController {
                 String refreshToken = jwtTokenUtil.generateRefreshToken(email);
 
                 Map<String, String> tokens = new HashMap<>();
-                tokens.put("access_token", accessToken);
-                tokens.put("refresh_token", refreshToken);
-                return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), "Đăng nhập thành công", tokens));
+                tokens.put(TOKEN_ACCESS, accessToken);
+                tokens.put(TOKEN_REFRESH, refreshToken);
+                return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), LOGIN_SUCCESS, tokens));
             } else {
-                return ResponseEntity.status(responseEntity.getStatusCode()).body("Error: " + responseEntity.getStatusCodeValue());
+                return ResponseEntity.status(responseEntity.getStatusCode()).body("${response.error}: " + responseEntity.getStatusCodeValue());
             }
         } catch (HttpStatusCodeException e) {
-            return ResponseEntity.status(e.getStatusCode()).body("Error: " + e.getStatusCode().value());
+            return ResponseEntity.status(e.getStatusCode()).body("${response.error}: " + e.getStatusCode().value());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing request");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(REQUEST_ERROR);
         }
     }
 }
