@@ -3,14 +3,13 @@ package com.FashionStore.controllers;
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,36 +20,87 @@ import java.util.*;
 @RestController
 @RequestMapping("/api")
 public class OrdersController {
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
-
     private final ProductCategoryRepository productCategoryRepository;
-
     private final ProductSizeRepository productSizeRepository;
-
     private final ProductQuantityRepository productQuantityRepository;
-
     private final CategoryRepository categoryRepository;
-
     private final OrdersRepository ordersRepository;
-
     private final OrderDetailsRepository orderDetailsRepository;
-
     private final UsersRepository usersRepository;
-
     private final AddressRepository addressRepository;
-
     private final CartRepository cartRepository;
-
     private final CartItemRepository cartItemRepository;
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
+
+    @Value("${order.status.pending}")
+    private String ORDER_STATUS_PENDING;
+
+    @Value("${order.status.cancelled}")
+    private String ORDER_STATUS_CANCELLED;
+
+    @Value("${response.token.invalid}")
+    private String RESPONSE_TOKEN_INVALID;
+
+    @Value("${response.cart.empty}")
+    private String RESPONSE_CART_EMPTY;
+
+    @Value("${response.invalid.token}")
+    private String RESPONSE_INVALID_TOKEN;
+
+    @Value("${response.invalid.token.admin}")
+    private String RESPONSE_INVALID_TOKEN_ADMIN;
+
+    @Value("${response.invalid.token.message}")
+    private String RESPONSE_INVALID_TOKEN_MESSAGE;
+
+    @Value("${response.order.cancel}")
+    private String RESPONSE_ORDER_CANCEL;
+
+    @Value("${response.order.cancel.message}")
+    private String RESPONSE_ORDER_CANCEL_MESSAGE;
+
+    @Value("${order.param.orderID}")
+    private String ORDER_PARAM_ORDER_ID;
+
+    @Value("${order.param.addressID}")
+    private String ORDER_PARAM_ADDRESS_ID;
+
+    @Value("${order.param.totalAmount}")
+    private String ORDER_PARAM_TOTAL_AMOUNT;
+
+    @Value("${order.param.productID}")
+    private String ORDER_PARAM_PRODUCT_ID;
+
+    @Value("${order.param.sizeID}")
+    private String ORDER_PARAM_SIZE_ID;
+
+    @Value("${order.param.quantityPurchase}")
+    private String ORDER_PARAM_QUANTITY_PURCHASE;
+
+    @Value("${order.param.orderStatus}")
+    private String ORDER_PARAM_ORDER_STATUS;
+
+    @Value("${order.param.userID}")
+    private String ORDER_PARAM_USER_ID;
+
+    @Value("${header.authorization}")
+    private String HEADER_AUTHORIZATION;
+
+    @Value("${authorization.bearer}")
+    private String AUTHORIZATION_BEARER;
+
+    @Value("${order.status.all}")
+    private String ORDER_STATUS_ALL;
 
     @Autowired
     public OrdersController(ProductRepository productRepository,
@@ -79,27 +129,25 @@ public class OrdersController {
         this.cartItemRepository = cartItemRepository;
     }
 
-    @PostMapping("/public/orders")
+    @PostMapping("${mapping.public.orders}")
     public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request) {
-        Long orderID = Long.valueOf(request.getParameter("orderID"));
+        Long orderID = Long.valueOf(request.getParameter(ORDER_PARAM_ORDER_ID));
         Orders orders = getOrderDetails(orderID);
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/public/add-orders-by-cart")
+    @PostMapping("${mapping.public.add-orders-by-cart}")
     public ResponseEntity<?> addOrdersByCart(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        accessToken = accessToken.replace("Bearer ", "");
-        Long addressID = Long.valueOf(request.getParameter("addressID"));
-        Long totalAmount = Long.valueOf(request.getParameter("totalAmount"));
+        String accessToken = request.getHeader(HEADER_AUTHORIZATION);
+        accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
+        Long addressID = Long.valueOf(request.getParameter(ORDER_PARAM_ADDRESS_ID));
+        Long totalAmount = Long.valueOf(request.getParameter(ORDER_PARAM_TOTAL_AMOUNT));
 
         Date orderDate = new Date();
         orderDate.setTime(orderDate.getTime());
 
-        String orderStatus = "Chờ xác nhận";
-
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
@@ -111,25 +159,22 @@ public class OrdersController {
         Long userID = users.getUserID();
 
         Address address = addressRepository.findAddressByAddressID(addressID);
-        Orders orders = new Orders(orderDate, totalAmount, orderStatus, userID, addressID,
+        Orders orders = new Orders(orderDate, totalAmount, ORDER_STATUS_PENDING, userID, addressID,
                 address.getRecipientName(), address.getRecipientPhone(), address.getAddressDetails());
 
         ordersRepository.save(orders);
 
-        /*
-            Xử lý giỏ hàng
-        */
-
+        // Xử lý giỏ hàng
         Cart cart = cartRepository.findCartByUserID(userID);
 
         if (cart == null) {
-            ResponseObject responseObject = new ResponseObject("Giỏ hàng đang trống!");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CART_EMPTY);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         List<CartItem> cartItems = cartItemRepository.findCartItemByCartID(cart.getCartID());
 
         if (cartItems.isEmpty()) {
-            ResponseObject responseObject = new ResponseObject("Giỏ hàng đang trống!");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CART_EMPTY);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
@@ -143,7 +188,6 @@ public class OrdersController {
 
             // Đường dẫn đến tệp gốc
             String filePathToCopy = appRoot + UPLOAD_DIR + File.separator + fileNameToCopy;
-
 
             // Đường dẫn đến tệp mới
             String fileExtension = "";
@@ -175,23 +219,21 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/public/add-orders-by-checkout")
+    @PostMapping("${mapping.public.add-orders-by-checkout}")
     public ResponseEntity<?> addOrdersByCheckout(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        accessToken = accessToken.replace("Bearer ", "");
-        Long addressID = Long.valueOf(request.getParameter("addressID"));
-        Long totalAmount = Long.valueOf(request.getParameter("totalAmount"));
-        Long productID = Long.valueOf(request.getParameter("productID"));
-        Long sizeID = Long.valueOf(request.getParameter("sizeID"));
-        Long quantityPurchase = Long.valueOf(request.getParameter("quantityPurchase"));
+        String accessToken = request.getHeader(HEADER_AUTHORIZATION);
+        accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
+        Long addressID = Long.valueOf(request.getParameter(ORDER_PARAM_ADDRESS_ID));
+        Long totalAmount = Long.valueOf(request.getParameter(ORDER_PARAM_TOTAL_AMOUNT));
+        Long productID = Long.valueOf(request.getParameter(ORDER_PARAM_PRODUCT_ID));
+        Long sizeID = Long.valueOf(request.getParameter(ORDER_PARAM_SIZE_ID));
+        Long quantityPurchase = Long.valueOf(request.getParameter(ORDER_PARAM_QUANTITY_PURCHASE));
 
         Date orderDate = new Date();
         orderDate.setTime(orderDate.getTime());
 
-        String orderStatus = "Chờ xác nhận";
-
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
@@ -203,17 +245,16 @@ public class OrdersController {
         Long userID = users.getUserID();
 
         Address address = addressRepository.findAddressByAddressID(addressID);
-        Orders orders = new Orders(orderDate, totalAmount, orderStatus, userID, addressID,
+        Orders orders = new Orders(orderDate, totalAmount, ORDER_STATUS_PENDING, userID, addressID,
                 address.getRecipientName(), address.getRecipientPhone(), address.getAddressDetails());
 
         ordersRepository.save(orders);
-
 
         List<OrderDetails> orderDetailsList = new ArrayList<>();
         Product product = getProductDetails(productID);
         ProductSize productSize = productSizeRepository.findProductSizeBySizeID(sizeID);
 
-        String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).getFirst().getImagePath();
+        String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).get(0).getImagePath();
 
         OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(),
                 product.getProductName(),
@@ -226,19 +267,19 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("/public/orders/get-all-orders-by-order-status")
+    @PostMapping("${mapping.public.orders.get-all-orders-by-order-status}")
     public ResponseEntity<?> getAllOrdersByStatus(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        accessToken = accessToken.replace("Bearer ", "");
+        String accessToken = request.getHeader(HEADER_AUTHORIZATION);
+        accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
 
         List<Orders> allOrdersByOrderStatus = new ArrayList<>();
 
-        String orderStatus = request.getParameter("orderStatus");
+        String orderStatus = request.getParameter(ORDER_PARAM_ORDER_STATUS);
 
-        Long userID = Long.valueOf(request.getParameter("userID"));
+        Long userID = Long.valueOf(request.getParameter(ORDER_PARAM_USER_ID));
 
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
@@ -249,11 +290,11 @@ public class OrdersController {
 
         boolean isAdmin = usersByEmail.getIsAdmin();
         if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_INVALID_TOKEN_ADMIN);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         else {
-            if (Objects.equals(orderStatus, "Tất cả")) {
+            if (Objects.equals(orderStatus, ORDER_STATUS_ALL)) {
                 allOrdersByOrderStatus = ordersRepository.findOrdersByUserID(userID);
             } else {
                 allOrdersByOrderStatus = ordersRepository.findOrdersByUserIDAndOrderStatus(userID, orderStatus);
@@ -267,15 +308,15 @@ public class OrdersController {
         }
     }
 
-    @PostMapping("/public/orders/cancel-order")
+    @PostMapping("${mapping.public.orders.cancel-order}")
     public ResponseEntity<?> cancelOrder(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        accessToken = accessToken.replace("Bearer ", "");
+        String accessToken = request.getHeader(HEADER_AUTHORIZATION);
+        accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
 
-        Long orderID = Long.valueOf(request.getParameter("orderID"));
+        Long orderID = Long.valueOf(request.getParameter(ORDER_PARAM_ORDER_ID));
 
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
@@ -285,20 +326,20 @@ public class OrdersController {
         }
 
         Orders orders = getOrderDetails(orderID);
-        orders.setOrderStatus("Đã hủy");
+        orders.setOrderStatus(ORDER_STATUS_CANCELLED);
         ordersRepository.save(orders);
 
         return ResponseEntity.ok(orders);
     }
 
     /* Admin */
-    @PostMapping("/admin/orders/set-order-status")
+    @PostMapping("${mapping.admin.orders.set-order-status}")
     public ResponseEntity<?> setOrderStatus(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        accessToken = accessToken.replace("Bearer ", "");
+        String accessToken = request.getHeader(HEADER_AUTHORIZATION);
+        accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
 
-        Long orderID = Long.valueOf(request.getParameter("orderID"));
-        String orderStatus = request.getParameter("orderStatus");
+        Long orderID = Long.valueOf(request.getParameter(ORDER_PARAM_ORDER_ID));
+        String orderStatus = request.getParameter(ORDER_PARAM_ORDER_STATUS);
 
         Orders orders = getOrderDetails(orderID);
         orders.setOrderStatus(orderStatus);
@@ -335,4 +376,3 @@ public class OrdersController {
         return orders;
     }
 }
-
