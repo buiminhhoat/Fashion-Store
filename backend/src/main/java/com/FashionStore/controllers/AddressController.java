@@ -82,7 +82,7 @@ public class AddressController {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
-        boolean isAdmin = usersByEmail.getIsAdmin();;
+        boolean isAdmin = usersByEmail.getIsAdmin();
 //        Long userID = usersByEmail.getUserID();
 
         if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
