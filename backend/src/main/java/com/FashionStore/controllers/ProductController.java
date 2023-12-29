@@ -1,6 +1,6 @@
 package com.FashionStore.controllers;
 
-import com.FashionStore.imgBB.ImgBBService;
+import com.FashionStore.freeimage.FreeImageService;
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
@@ -52,7 +52,7 @@ public class ProductController {
     String UPLOAD_DIR;
 
     @Autowired
-    private ImgBBService imgBBService;
+    private FreeImageService freeImageService;
 
     @Autowired
     public ProductController(ProductRepository productRepository,
@@ -109,7 +109,7 @@ public class ProductController {
         List<String> paths = new ArrayList<>();
         for (MultipartFile image : images) {
             String base64Image = convertToBase64(image);
-            String url = imgBBService.uploadImageToImgBB(image.getBytes());
+            String url = freeImageService.uploadImageToFreeImage(image.getBytes());
             paths.add(url);
         }
 
