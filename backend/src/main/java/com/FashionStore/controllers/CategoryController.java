@@ -1,5 +1,6 @@
 package com.FashionStore.controllers;
 
+import com.FashionStore.freeimage.FreeImageService;
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
@@ -39,6 +40,9 @@ public class CategoryController {
     private final ProductQuantityRepository productQuantityRepository;
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
+
+    @Autowired
+    private FreeImageService freeImageService;
 
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
@@ -130,7 +134,7 @@ public class CategoryController {
     }
 
     @PostMapping("/admin/upload-category-image")
-    public ResponseEntity<?> uploadCategoryImage(HttpServletRequest request) {
+    public ResponseEntity<?> uploadCategoryImage(HttpServletRequest request) throws IOException {
         Long categoryID = Long.valueOf(request.getParameter("categoryID"));
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("categoryImage");
 
@@ -143,21 +147,8 @@ public class CategoryController {
 
         List<String> paths = new ArrayList<>();
         for (MultipartFile image : images) {
-            String originalFilename = image.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFilename != null) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-            }
-            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
-
-            try {
-                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                Path path = Paths.get(imagePath);
-                image.transferTo(path.toFile());
-                paths.add(fileName);
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
-            }
+            String url = freeImageService.uploadImageToFreeImage(image.getBytes());
+            paths.add(url);
         }
 
         category.setImagePath(paths.get(0));
