@@ -1,5 +1,6 @@
 package com.FashionStore.controllers;
 
+import com.FashionStore.freeimage.FreeImageService;
 import com.FashionStore.models.ResponseObject;
 import com.FashionStore.models.Users;
 import com.FashionStore.repositories.UsersRepository;
@@ -34,6 +35,9 @@ public class UsersController {
     private final UsersRepository usersRepository;
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
+
+    @Autowired
+    private FreeImageService freeImageService;
 
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
@@ -221,7 +225,7 @@ public class UsersController {
     }
 
     @PostMapping("/public/upload-profile-image")
-    public ResponseEntity<?> uploadProfileImage(HttpServletRequest request) {
+    public ResponseEntity<?> uploadProfileImage(HttpServletRequest request) throws IOException {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("profileImage");
@@ -241,21 +245,8 @@ public class UsersController {
         if (isAdmin || Objects.equals(usersByEmail.getUserID(), userID)) {
             List<String> paths = new ArrayList<>();
             for (MultipartFile image : images) {
-                String originalFilename = image.getOriginalFilename();
-                String fileExtension = "";
-                if (originalFilename != null) {
-                    fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-                }
-                String fileName = UUID.randomUUID().toString() + "." + fileExtension;
-
-                try {
-                    String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                    Path path = Paths.get(imagePath);
-                    image.transferTo(path.toFile());
-                    paths.add(fileName);
-                } catch (IOException e) {
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
-                }
+                String url = freeImageService.uploadImageToFreeImage(image.getBytes());
+                paths.add(url);
             }
 
             Users usersByUserID = usersRepository.findUsersByUserID(userID);
