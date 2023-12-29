@@ -88,6 +88,7 @@ const TabList = ({openTab, setOpenTab}) => {
               <button
                   key={tab.text}
                   className={`nav-link ${openTab === tab.text ? "active" : ""}`}
+                  style={{marginBottom:"0px"}}
                   role="tab"
                   tabIndex={(openTab === tab.text) ? 0 : -1}
                   onClick={() => setOpenTab(tab.text)}
