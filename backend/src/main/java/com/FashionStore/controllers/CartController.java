@@ -122,7 +122,7 @@ public class CartController {
         String accessToken = request.getHeader("Authorization");
         accessToken = accessToken.replace("Bearer ", "");
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
-            ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
+            ResponseObject responseObject = new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), "Vui lòng đăng nhập lại!", null);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
