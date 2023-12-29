@@ -221,58 +221,58 @@ const OrderListPage = () => {
             </div>
           </div>
 
-          <div style={{padding:"0 47px 0 47px", width:"100%"}}>
-            <div style={{boxShadow: "0px 1px 4px 0 rgba(0, 0, 0, 0.102)", marginBottom:"10px",
-              borderRadius:"3px", padding:"0", backgroundColor:"#fff", height:"75px"}}
-            >
-                {/*<Search*/}
-                {/*    addonBefore={selectBefore}*/}
-                {/*    placeholder="input search text"*/}
-                {/*    allowClear*/}
-                {/*    onSearch={onSearch}*/}
-                {/*    style={{ width: 304 }}*/}
-                {/*/>*/}
+          {/*<div style={{padding:"0 47px 0 47px", width:"100%"}}>*/}
+          {/*  <div style={{boxShadow: "0px 1px 4px 0 rgba(0, 0, 0, 0.102)", marginBottom:"10px",*/}
+          {/*    borderRadius:"3px", padding:"0", backgroundColor:"#fff", height:"75px"}}*/}
+          {/*  >*/}
+          {/*      <Search*/}
+          {/*          addonBefore={selectBefore}*/}
+          {/*          placeholder="input search text"*/}
+          {/*          allowClear*/}
+          {/*          onSearch={onSearch}*/}
+          {/*          style={{ width: 304 }}*/}
+          {/*      />*/}
 
 
-              {/*<div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>*/}
-              {/*  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>*/}
-              {/*    <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>*/}
-              {/*    Tìm kiếm theo:*/}
-              {/*    <div style={{paddingTop:"2px"}}>*/}
-              {/*      <select className="select-search sort-item"*/}
-              {/*          // onChange={(e) => {setSelectedSearch(e.target.value)}}*/}
-              {/*      >*/}
-              {/*        <option value={SEARCH_USER.FULL_NAME}>*/}
-              {/*          Họ tên*/}
-              {/*        </option>*/}
-              {/*        <option value={SEARCH_USER.PHONE_NUMBER} >*/}
-              {/*          Số điện thoại*/}
-              {/*        </option>*/}
-              {/*        <option value={SEARCH_USER.EMAIL} >*/}
-              {/*          Địa chỉ email*/}
-              {/*        </option>*/}
-              {/*      </select>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*  <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>*/}
-              {/*    <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>*/}
-              {/*      <input*/}
-              {/*          className="placeholder-color"*/}
-              {/*          style={{fontSize:"15px", width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}*/}
-              {/*          type="text"*/}
-              {/*          // value={searchInputValue}*/}
-              {/*          placeholder="Nhập từ khóa"*/}
-              {/*          // onChange={(e) => setSearchInputValue(e.target.value)}*/}
-              {/*      />*/}
-              {/*      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}*/}
-              {/*          // onClick={handleBtnSearchClick}*/}
-              {/*                className="pointer-cursor"/>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
+          {/*    <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>*/}
+          {/*      <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>*/}
+          {/*        <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>*/}
+          {/*        Tìm kiếm theo:*/}
+          {/*        <div style={{paddingTop:"2px"}}>*/}
+          {/*          <select className="select-search sort-item"*/}
+          {/*              // onChange={(e) => {setSelectedSearch(e.target.value)}}*/}
+          {/*          >*/}
+          {/*            <option value={SEARCH_USER.FULL_NAME}>*/}
+          {/*              Họ tên*/}
+          {/*            </option>*/}
+          {/*            <option value={SEARCH_USER.PHONE_NUMBER} >*/}
+          {/*              Số điện thoại*/}
+          {/*            </option>*/}
+          {/*            <option value={SEARCH_USER.EMAIL} >*/}
+          {/*              Địa chỉ email*/}
+          {/*            </option>*/}
+          {/*          </select>*/}
+          {/*        </div>*/}
+          {/*      </div>*/}
+          {/*      <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>*/}
+          {/*        <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>*/}
+          {/*          <input*/}
+          {/*              className="placeholder-color"*/}
+          {/*              style={{fontSize:"15px", width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}*/}
+          {/*              type="text"*/}
+          {/*              // value={searchInputValue}*/}
+          {/*              placeholder="Nhập từ khóa"*/}
+          {/*              // onChange={(e) => setSearchInputValue(e.target.value)}*/}
+          {/*          />*/}
+          {/*          <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}*/}
+          {/*              // onClick={handleBtnSearchClick}*/}
+          {/*                    className="pointer-cursor"/>*/}
+          {/*        </div>*/}
+          {/*      </div>*/}
 
-              {/*</div>*/}
-            </div>
-          </div>
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
 
           <div className="col-8 content-children item-row"

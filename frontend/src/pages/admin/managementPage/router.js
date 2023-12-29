@@ -8,6 +8,7 @@ import EditBannerPage from "./webpageManagement/editBanner";
 import AccountListPage from "./accountManagement/accountList";
 import AddAccountPage from "./accountManagement/addAccount";
 import OrderListPage from "./salesManagement/orderList";
+import InformationStorePage from "./webpageManagement/informationStore";
 
 const renderCustom = () => {
     const routers =  [
@@ -38,6 +39,10 @@ const renderCustom = () => {
         {
             path: ROUTERS.ADMIN.ORDER_LIST,
             component: <OrderListPage />
+        },
+        {
+            path: ROUTERS.ADMIN.INFO_STORE,
+            component: <InformationStorePage />
         }
     ]
 
