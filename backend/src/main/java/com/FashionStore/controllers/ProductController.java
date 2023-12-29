@@ -108,7 +108,6 @@ public class ProductController {
 
         List<String> paths = new ArrayList<>();
         for (MultipartFile image : images) {
-            String base64Image = convertToBase64(image);
             String url = freeImageService.uploadImageToFreeImage(image.getBytes());
             paths.add(url);
         }
