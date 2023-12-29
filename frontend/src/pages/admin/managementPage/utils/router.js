@@ -7,6 +7,6 @@ export const ROUTERS = {
         ADD_ACCOUNT: "add-account",
         ACCOUNT_LIST: "account-list",
         ORDER_LIST: "order-list",
-        INFO_STORE: "information-store",
+        STORE_INFORMATION: "store-information",
     }
 }

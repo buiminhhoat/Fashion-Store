@@ -8,7 +8,7 @@ import EditBannerPage from "./webpageManagement/editBanner";
 import AccountListPage from "./accountManagement/accountList";
 import AddAccountPage from "./accountManagement/addAccount";
 import OrderListPage from "./salesManagement/orderList";
-import InformationStorePage from "./webpageManagement/informationStore";
+import StoreInformationPage from "./webpageManagement/storeInformation";
 
 const renderCustom = () => {
     const routers =  [
@@ -41,8 +41,8 @@ const renderCustom = () => {
             component: <OrderListPage />
         },
         {
-            path: ROUTERS.ADMIN.INFO_STORE,
-            component: <InformationStorePage />
+            path: ROUTERS.ADMIN.STORE_INFORMATION,
+            component: <StoreInformationPage />
         }
     ]
 
