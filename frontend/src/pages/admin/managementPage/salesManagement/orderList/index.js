@@ -258,7 +258,7 @@ const OrderListPage = () => {
           {/*        <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>*/}
           {/*          <input*/}
           {/*              className="placeholder-color"*/}
-          {/*              style={{fontSize:"15px", width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}*/}
+          {/*              style={{fontSize:"15px", width:"250px",backgroundColor:"#FAFAFA", border:"none", margin:"0 5px 0 5px"}}*/}
           {/*              type="text"*/}
           {/*              // value={searchInputValue}*/}
           {/*              placeholder="Nhập từ khóa"*/}
