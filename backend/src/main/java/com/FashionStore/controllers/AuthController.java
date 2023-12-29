@@ -52,6 +52,8 @@ public class AuthController {
 
     private final String LOGIN_SUCCESS;
 
+    private final String RESPONSE_ERROR;
+
     @Value("${endpoint.public.login}")
     private String ENDPOINT_LOGIN;
 
@@ -112,6 +114,7 @@ public class AuthController {
         this.AVATAR_DOWNLOAD_FAILED = messageSource.getMessage("response.avatar.download.failed", null, LocaleContextHolder.getLocale());
         this.REQUEST_ERROR = messageSource.getMessage("response.request.error", null, LocaleContextHolder.getLocale());
         this.JSON_ERROR = messageSource.getMessage("response.json.error", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_ERROR = messageSource.getMessage("response.error", null, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("${endpoint.public.login}")
@@ -249,10 +252,10 @@ public class AuthController {
                 tokens.put(TOKEN_REFRESH, refreshToken);
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), LOGIN_SUCCESS, tokens));
             } else {
-                return ResponseEntity.status(responseEntity.getStatusCode()).body("${response.error}: " + responseEntity.getStatusCodeValue());
+                return ResponseEntity.status(responseEntity.getStatusCode()).body(RESPONSE_ERROR + ": " + responseEntity.getStatusCodeValue());
             }
         } catch (HttpStatusCodeException e) {
-            return ResponseEntity.status(e.getStatusCode()).body("${response.error}: " + e.getStatusCode().value());
+            return ResponseEntity.status(e.getStatusCode()).body(RESPONSE_ERROR + ": " + e.getStatusCode().value());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(REQUEST_ERROR);
         }
