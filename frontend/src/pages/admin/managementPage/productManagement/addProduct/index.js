@@ -3,13 +3,16 @@ import "./style.scss"
 
 import ProductDetails from "../components/ProductDetails/ProductDetails";
 import {toast} from "react-toastify";
-import {useLocation, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {SCROLLING} from "../../../../../utils/const";
 
 const AddProductPage = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -55,7 +58,7 @@ const AddProductPage = () => {
     }
 
     for (let i = 0; i < informationProduct.productQuantities.length; ++i) {
-      if (!informationProduct.productQuantities[i].sizeName) {
+      if (!informationProduct.productQuantities[i].quantity) {
         toast.warn("Số lượng không được để trống");
         return;
       }
@@ -101,12 +104,15 @@ const AddProductPage = () => {
     })
     .then((data) => {
       toast.success("Thêm sản phẩm thành công");
-      console.log('Upload successful:', data);
+      navigate(`/admin/management-page/categories-and-products`, {
+        state: { scrolling: SCROLLING.SMOOTH },
+      });
+      // console.log('Upload successful:', data);
       // window.localion.reload();
     })
     .catch((error) => {
       toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-      console.error('Upload failed:', error);
+      // console.error('Upload failed:', error);
     });
   }
 

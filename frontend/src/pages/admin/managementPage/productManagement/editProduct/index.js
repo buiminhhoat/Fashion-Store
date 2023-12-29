@@ -57,7 +57,7 @@ const EditProductPage = () => {
     }
 
     for (let i = 0; i < informationProduct.productQuantities.length; ++i) {
-      if (!informationProduct.productQuantities[i].sizeName) {
+      if (!informationProduct.productQuantities[i].quantity) {
         toast.warn("Số lượng không được để trống");
         return;
       }
@@ -105,14 +105,14 @@ const EditProductPage = () => {
     })
     .then((data) => {
       toast.success("Chỉnh sửa thông tin sản phẩm thành công");
-      console.log('Upload successful:', data);
+      // console.log('Upload successful:', data);
       navigate(`/admin/management-page/categories-and-products`, {
         state: { scrolling: SCROLLING.SMOOTH },
       });
     })
     .catch((error) => {
       toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-      console.error('Upload failed:', error);
+      // console.error('Upload failed:', error);
     });
   }
 
