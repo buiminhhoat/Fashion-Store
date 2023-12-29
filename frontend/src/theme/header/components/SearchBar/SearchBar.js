@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import search from "../../images/search.svg";
+import search from "../../../images/search.svg";
 import SearchDialog from "./SearchDialog";
 
 const SearchBar = () => {
