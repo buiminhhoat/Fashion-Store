@@ -112,7 +112,7 @@ const EditProductPage = () => {
         setInformationProduct(data);
 
         const fetchImagePromises = data.productImages.map(imageData => {
-          const imageUrl = "/storage/images/" + imageData.imagePath;
+          const imageUrl = imageData.imagePath;
           return fetchImageAsFile(imageUrl, imageData.imagePath);
         });
 

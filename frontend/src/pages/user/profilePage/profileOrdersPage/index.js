@@ -183,7 +183,7 @@ const TabContent = ({openTab, setOpenTab}) => {
                                 <div key = {index} className="product-wrap">
                                   <div className="img-wrap">
                                     <img
-                                        src={"/storage/images/" + orderDetail.imagePath}
+                                        src={orderDetail.imagePath}
                                         alt={orderDetail.productName}/>
                                   </div>
                                   <div className="info-wrap">

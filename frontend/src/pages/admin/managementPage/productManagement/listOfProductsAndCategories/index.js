@@ -640,7 +640,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                           <img
                                                               className="img-subCategory"
                                                               src={product.productImages.length > 0 ?
-                                                                  "/storage/images/" + product.productImages[0].imagePath : ""}
+                                                                  product.productImages[0].imagePath : ""}
                                                               alt=""
                                                           />
                                                         </div>

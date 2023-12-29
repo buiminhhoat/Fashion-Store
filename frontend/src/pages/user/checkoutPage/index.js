@@ -190,7 +190,7 @@ function CheckoutPage() {
                     <div className="card-product d-flex">
                       <div className="image-product">
                         <Link to ={"/product?productID=" + product.productID}>
-                          <img src={"/storage/images/" + product.productImages[0].imagePath} alt={product.productName} />
+                          <img src={product.productImages[0].imagePath} alt={product.productName} />
                         </Link>
                       </div>
                       <div className="product__info">
