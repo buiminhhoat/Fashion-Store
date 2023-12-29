@@ -220,6 +220,11 @@ function CartPage() {
   }
 
   const handlePurchase = () => {
+    if (selectedAddress.addressID === undefined) {
+      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+      return;
+    }
+
     const formData = new FormData()
 
     formData.append('addressID', selectedAddress.addressID)
