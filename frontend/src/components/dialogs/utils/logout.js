@@ -1,5 +1,6 @@
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 export function useLogout() {
     const navigate = useNavigate();
@@ -15,6 +16,8 @@ export function useLogout() {
         // Redirect về trang chính của bạn (localhost:3000)
         // window.location.href = '/';
         navigate('/');
+        // history.replace('/');
+
     };
 
     return logout;
