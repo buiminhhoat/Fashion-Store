@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import {useCookies} from "react-cookie";
 import {toast} from "react-toastify";
 
@@ -13,9 +13,6 @@ import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
-const openModalCreateAddress = () => {
-  return 1;
-}
 
 const productListFake = [
   {
@@ -221,7 +218,7 @@ function CartPage() {
     return total;
   }
 
-  const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -315,7 +312,7 @@ function CartPage() {
   }
 
   return (
-      <main id ="main-checkout">
+      <main id ="main-checkout" style={{paddingBottom:"30px"}}>
         <ScrollToTop />
         <section className="cart__wrapper container">
           <nav style={{"--bs-breadcrumb-divider": "none"}} aria-label="breadcrumb">
@@ -326,99 +323,96 @@ function CartPage() {
             </ol>
           </nav>
 
-          {!product.length ?
-              (
-                  <div className="cart-empty">
-                    <div className="cart-empty__img">
-                      <img src={emptyIcon} alt="no data"/>
-                      <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-                    </div>
-                    <div className="cart-empty__action">
-                      <a href="/" type="button" className="btn btn-danger cart__bill__total">
-                        <span>Mua ngay</span>
-                      </a>
-                    </div>
+          { !product.length ?
+              <div className="cart-empty" style={{minHeight:"450px", margin:"0"}}>
+                <div className="cart-empty__img">
+                  <img src={emptyIcon} alt="no data"/>
+                  <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+                </div>
+                <div className="cart-empty__action">
+                  <a href="/" type="button" className="btn btn-danger cart__bill__total">
+                    <span>Mua ngay</span>
+                  </a>
+                </div>
+              </div>
+              :
+              <div className="content-page">
+                <div className="row">
+                  <div className="left-content col-xl-8 col-lg-8 col-md-6 col-12">
+                    {product.map((product, index) => (
+                        <CartProduct
+                            key={index}
+                            product={product}
+                            handleDecreaseAmount={() => handleDecreaseAmount(index)}
+                            handleIncreaseAmount={() => handleIncreaseAmount(index)}
+                            handleChooseSize={(sizeID) => handleChooseSize(sizeID, index)}
+                            handleCloseButton={() => handleCloseButton(index)}
+                        />
+                    ))}
+
                   </div>
-              ):
-              (
-                  <div className="content-page">
-                    <div className="row">
-                      <div className="left-content col-xl-8 col-lg-8 col-md-6 col-12">
-                        {product.map((product, index) => (
-                            <CartProduct
-                                key={index}
-                                product={product}
-                                handleDecreaseAmount={() => handleDecreaseAmount(index)}
-                                handleIncreaseAmount={() => handleIncreaseAmount(index)}
-                                handleChooseSize={(sizeID) => handleChooseSize(sizeID, index)}
-                                handleCloseButton={() => handleCloseButton(index)}
-                            />
-                        ))}
+                  <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
+                    <AddressSection selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>
 
+                    <div className="cart__address">
+                      <div className="cart__address__title d-flex align-items-center justify-content-between">
+                        <div className="cart__address__title__left mb-20px">
+                          <img src={cardIcon} alt="icon payment method" />
+                          <h5 className="mb-0">Phương thức thanh toán</h5>
+                        </div>
                       </div>
-                      <div className="right-content col-xl-4 col-lg-4 col-md-6 col-12">
-                        <AddressSection selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress}/>
-
-                        <div className="cart__address">
-                          <div className="cart__address__title d-flex align-items-center justify-content-between">
-                            <div className="cart__address__title__left mb-20px">
-                              <img src={cardIcon} alt="icon payment method" />
-                              <h5 className="mb-0">Phương thức thanh toán</h5>
+                      <div className="list-payment-method">
+                        <div className="item-method d-flex justify-content-start align-items-center" style={{cursor:"default"}}>
+                          {/*<input type="radio" name="payment" value="1" checked onChange={() => 1}/>*/}
+                          <div className="image-method" style={{marginLeft:"20px"}}>
+                            <img src={cod} width="24" height="22" alt="icon payment method cod" />
+                          </div>
+                          <div className="cart__address__description pdr-76px">
+                            <div className="fw-bold">COD</div>
+                            <div className="font-12 "> Thanh toán khi nhận hàng </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="cart__bill position-relative">
+                        <div className="row me-0 ms-0">
+                          <div className="col-6 cart__bill--mb">
+                            <div className="cart__bill__ml cart__bill__title"> Tạm tính </div>
+                          </div>
+                          <div className="col-6 cart__bill--mb">
+                            <div className="cart__bill__value">
+                              <div className="cart__bill__title text-end">{formatter(calcTotalPrice())}</div>
+                              {/*<div className="bill__price__save text-end">(tiết kiệm 269k)</div>*/}
                             </div>
                           </div>
-                          <div className="list-payment-method">
-                            <div className="item-method d-flex justify-content-start align-items-center">
-                              <input type="radio" name="payment" value="1" checked onChange={() => 1}/>
-                              <div className="image-method">
-                                <img src={cod} width="24" height="22" alt="icon payment method cod" />
-                              </div>
-                              <div className="cart__address__description pdr-76px">
-                                <div className="fw-bold">COD</div>
-                                <div className="font-12 "> Thanh toán khi nhận hàng </div>
+                          <div className="col-6 cart__bill--mb">
+                            <div className="cart__bill__ml cart__bill__title">Phí giao hàng</div>
+                          </div>
+                          <div className="col-6 cart__bill--mb">
+                            <div className="cart__bill__value">
+                              <div className="cart__bill__title text-end">
+                                <span>Miễn phí</span>
                               </div>
                             </div>
                           </div>
-                          <div className="cart__bill position-relative">
-                            <div className="row me-0 ms-0">
-                              <div className="col-6 cart__bill--mb">
-                                <div className="cart__bill__ml cart__bill__title"> Tạm tính </div>
-                              </div>
-                              <div className="col-6 cart__bill--mb">
-                                <div className="cart__bill__value">
-                                  <div className="cart__bill__title text-end">{formatter(calcTotalPrice())}</div>
-                                  {/*<div className="bill__price__save text-end">(tiết kiệm 269k)</div>*/}
-                                </div>
-                              </div>
-                              <div className="col-6 cart__bill--mb">
-                                <div className="cart__bill__ml cart__bill__title">Phí giao hàng</div>
-                              </div>
-                              <div className="col-6 cart__bill--mb">
-                                <div className="cart__bill__value">
-                                  <div className="cart__bill__title text-end">
-                                    <span>Miễn phí</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-6 cart__bill--mb row-sum">
-                                <div className="cart__bill__ml cart__bill__title"> TỔNG </div>
-                              </div>
-                              <div className="col-6 cart__bill--mb  row-sum">
-                                <div className="cart__bill__value">
-                                  <div className="cart__bill__title text-end text-red">{formatter(calcTotalPrice())}</div>
-                                </div>
-                              </div>
+                          <div className="col-6 cart__bill--mb row-sum">
+                            <div className="cart__bill__ml cart__bill__title"> TỔNG </div>
+                          </div>
+                          <div className="col-6 cart__bill--mb  row-sum">
+                            <div className="cart__bill__value">
+                              <div className="cart__bill__title text-end text-red">{formatter(calcTotalPrice())}</div>
                             </div>
-                            <span onClick={handlePurchase}>
+                          </div>
+                        </div>
+                        <span onClick={handlePurchase}>
                               <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
                                   <span className="text-checkout">Thanh toán:  {formatter(calcTotalPrice())} <span>COD</span></span>
                               </button>
                             </span>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
-              )
+                </div>
+              </div>
           }
         </section>
       </main>
