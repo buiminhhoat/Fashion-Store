@@ -142,7 +142,7 @@ public class ProductController {
     }
 
     @PostMapping("/admin/edit-product")
-    public ResponseEntity<?> editProduct(HttpServletRequest request) {
+    public ResponseEntity<?> editProduct(HttpServletRequest request) throws IOException {
         Long productID = Long.valueOf(request.getParameter("productID"));
         String productName = request.getParameter("productName");
         Long productPrice = Long.valueOf(request.getParameter("productPrice"));
@@ -183,22 +183,8 @@ public class ProductController {
 
         List<String> paths = new ArrayList<>();
         for (MultipartFile image : images) {
-            String originalFilename = image.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFilename != null) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-            }
-            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
-
-            try {
-                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                Path path = Paths.get(imagePath);
-                image.transferTo(path.toFile());
-                paths.add(fileName);
-                // Lưu đường dẫn của ảnh vào database (thực hiện thao tác lưu vào database tại đây)
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
-            }
+            String url = freeImageService.uploadImageToFreeImage(image.getBytes());
+            paths.add(url);
         }
 
 //        Product product = new Product(productID, productName, productPrice, productDescription);
