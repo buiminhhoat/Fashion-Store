@@ -1104,7 +1104,7 @@ label {
 }
 .collection .collection-wrap .title {
     border-bottom: 1px solid #f5f5f5;
-    margin: 0;
+    margin: 0 0 40px 0;
 }
 .collection .collection-wrap .title p {
     color: #4f525d;
