@@ -6,8 +6,10 @@ import com.FashionStore.security.JwtTokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,17 +46,15 @@ public class OrdersController {
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
-    private final String ORDER_STATUS_PENDING = "Chờ xác nhận";
+    private final String ORDER_STATUS_PENDING;
 
-    private final String ORDER_STATUS_CANCELLED = "Đã hủy";
+    private final String ORDER_STATUS_CANCELLED;
 
-    private final String RESPONSE_TOKEN_INVALID = "Token không hợp lệ, vui lòng đăng nhập lại";
+    private final String RESPONSE_TOKEN_INVALID;
 
-    private String RESPONSE_CART_EMPTY = "Giỏ hàng đang trống!";
+    private final String RESPONSE_CART_EMPTY;
 
-    private String RESPONSE_INVALID_TOKEN_MESSAGE = "Token không hợp lệ";
-
-    private String ORDER_STATUS_ALL = "Tất cả";
+    private final String ORDER_STATUS_ALL;
 
     @Value("${order.param.orderID}")
     private String ORDER_PARAM_ORDER_ID;
@@ -99,7 +99,7 @@ public class OrdersController {
                             AddressRepository addressRepository,
                             CartRepository cartRepository,
                             OrderDetailsRepository orderDetailsRepository,
-                            CartItemRepository cartItemRepository) {
+                            CartItemRepository cartItemRepository, MessageSource messageSource) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
@@ -112,6 +112,12 @@ public class OrdersController {
         this.cartRepository = cartRepository;
         this.orderDetailsRepository = orderDetailsRepository;
         this.cartItemRepository = cartItemRepository;
+
+        this.ORDER_STATUS_PENDING = messageSource.getMessage("order.status.pending", null, LocaleContextHolder.getLocale());
+        this.ORDER_STATUS_CANCELLED = messageSource.getMessage("order.status.cancelled", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_TOKEN_INVALID = messageSource.getMessage("response.token.invalid", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CART_EMPTY = messageSource.getMessage("response.cart.empty", null, LocaleContextHolder.getLocale());
+        this.ORDER_STATUS_ALL = messageSource.getMessage("order.status.all", null, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("${mapping.public.orders}")
@@ -275,7 +281,7 @@ public class OrdersController {
 
         boolean isAdmin = usersByEmail.getIsAdmin();
         if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
-            ResponseObject responseObject = new ResponseObject(RESPONSE_INVALID_TOKEN_MESSAGE);
+            ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         else {
