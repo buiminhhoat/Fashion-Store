@@ -209,6 +209,7 @@ const StoreInformationPage = () => {
                                       storeInfo.openingHours && dayjs(storeInfo.openingHours, 'HH:mm:ss'),
                                       storeInfo.closingHours && dayjs(storeInfo.closingHours, 'HH:mm:ss')
                                     ]}
+                                    placeholder={["Bắt đầu", "Kết thúc"]}
                                     onChange={onChange}
                                 />
                               </div>
