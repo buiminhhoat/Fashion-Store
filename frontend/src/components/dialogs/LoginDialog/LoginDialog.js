@@ -143,7 +143,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-body">
-              <div className="title-header-wrap">
+              <div className="title-header-wrap"  style={{marginTop:"5px"}}>
                 <span className="title">Đăng nhập</span>
                 <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
@@ -170,7 +170,10 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                   </div>
                   <span className="text-danger error-text password-error"></span>
                   <div className="tool-wrap">
-                    <span className="title btn-open-fotgot-password" onClick={() => handleSwitchToOtherDialog(DIALOGS.FORGOT_PASSWORD)}>Quên mật khẩu?</span>
+                    <span className="title btn-open-fotgot-password"
+                          style={{fontSize:"13px", color:"#bd0000"}}
+                          onClick={() => handleSwitchToOtherDialog(DIALOGS.FORGOT_PASSWORD)}
+                    >Quên mật khẩu?</span>
                   </div>
                   <div className="btn-wrap">
                     <button type="submit" className="btn btn-primary btn-login">
@@ -180,23 +183,23 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                   </div>
                 </form>
               </div>
-              <div className="other-social-networks-wrap">
-                <div className="title-wrap">
-                  <span className="title">hoặc</span>
-                </div>
-                <div className="btn-wrap">
-                  <div className="box-btn-wrap">
-                    <a href="https://5sfashion.vn/redirect/facebook">
-                      <button type="button" className="btn btn-primary">Đăng nhập qua Facebook</button>
-                    </a>
-                    <img className="img-logo" src={fb} alt="icon logo facebook" />
-                  </div>
-                  <div className="box-btn-wrap">
-                    <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-                  </div>
-                </div>
-              </div>
-              <div className="register-wrap">
+              {/*<div className="other-social-networks-wrap">*/}
+              {/*  <div className="title-wrap">*/}
+              {/*    <span className="title">hoặc</span>*/}
+              {/*  </div>*/}
+              {/*  <div className="btn-wrap">*/}
+              {/*    <div className="box-btn-wrap">*/}
+              {/*      <a href="https://5sfashion.vn/redirect/facebook">*/}
+              {/*        <button type="button" className="btn btn-primary">Đăng nhập qua Facebook</button>*/}
+              {/*      </a>*/}
+              {/*      <img className="img-logo" src={fb} alt="icon logo facebook" />*/}
+              {/*    </div>*/}
+              {/*    <div className="box-btn-wrap">*/}
+              {/*      <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              <div className="register-wrap" style={{margin:"50px 0 20px 0"}}>
               <span className="title">
                 Chưa có tài khoản?
                 <span className="btn-register" onClick={() => handleSwitchToOtherDialog(DIALOGS.REGISTER)} > Đăng ký tại đây</span>
