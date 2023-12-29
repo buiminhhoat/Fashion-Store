@@ -192,7 +192,7 @@ const CheckoutPage = () => {
                     <div className="card-product d-flex">
                       <div className="image-product">
                         <Link to ={"/product?productID=" + product.productID}>
-                          <img src={product.productImages && product.productImages[0].imagePath} alt={product.productName} />
+                          <img src={product.productImages && product.productImages[0].imagePath} alt={""} />
                         </Link>
                       </div>
                       <div className="product__info">
