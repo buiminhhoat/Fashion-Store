@@ -83,7 +83,7 @@ const SORT = {
   DECS: "2",
 }
 
-const NUMBER_PRODUCT = 1;
+const NUMBER_PRODUCT = 6;
 
 const CategoryPage = ({keyword}) => {
   const navigate = useNavigate();
