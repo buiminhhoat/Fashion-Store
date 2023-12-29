@@ -71,7 +71,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-body">
-              <div className="title-header-wrap">
+              <div className="title-header-wrap" style={{marginTop:"5px"}}>
                 <span className="title">Đăng ký</span>
                 <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
@@ -94,7 +94,10 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                   <div className="input-wrap">
                     <label className="title">Số điện thoại</label>
                     <input id="phone-register" name="phone" type="text" placeholder="Nhập số điện thoại" required
-                           onChange={(e) => setPhoneNumber(e.target.value)}
+                           value={phoneNumber}
+                           onChange={(e) => {
+                             if (!isNaN(e.target.value)) setPhoneNumber(e.target.value)
+                           }}
                     />
                   </div>
                   <span className="text-danger error-text phone-register-error"></span>
@@ -106,37 +109,37 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                     />
                   </div>
                   <span className="text-danger error-text password-register-error"></span>
-                  <div className="btn-wrap">
+                  <div className="btn-wrap"  style={{marginTop:"50px"}}>
                     <button type="submit" className="btn btn-primary btn-login">
                       <i id="loading-register" className="fa-solid fa-spinner icon-loading"></i>Đăng Ký
                     </button>
                   </div>
                 </form>
               </div>
-              <div className="other-social-networks-wrap">
-                <div className="title-wrap">
-                  <span className="title">hoặc</span>
-                </div>
-                <div className="btn-wrap">
-                  <div className="box-btn-wrap">
-                    <a href="https://5sfashion.vn/redirect/facebook">
-                      <button type="button" className="btn btn-primary">Đăng nhập qua Facebook</button>
-                    </a>
-                    <img className="img-logo" src={fb} alt="icon logo facebook" />
-                  </div>
-                  <div className="box-btn-wrap">
-                    <a href="https://5sfashion.vn/redirect/google">
-                      <button type="button" className="btn btn-primary">Đăng nhập qua Google</button>
-                    </a>
-                    <img className="img-logo logo-google" src={gg} alt="icon logo google" />
-                  </div>
-                </div>
-              </div>
-              <div className="register-wrap">
-              <span className="title">
-                Đã có tài khoản?
-                <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> Đăng nhập tại đây</span>
-              </span>
+              {/*<div className="other-social-networks-wrap">*/}
+              {/*  <div className="title-wrap">*/}
+              {/*    <span className="title">hoặc</span>*/}
+              {/*  </div>*/}
+              {/*  <div className="btn-wrap">*/}
+              {/*    <div className="box-btn-wrap">*/}
+              {/*      <a href="https://5sfashion.vn/redirect/facebook">*/}
+              {/*        <button type="button" className="btn btn-primary">Đăng nhập qua Facebook</button>*/}
+              {/*      </a>*/}
+              {/*      <img className="img-logo" src={fb} alt="icon logo facebook" />*/}
+              {/*    </div>*/}
+              {/*    <div className="box-btn-wrap">*/}
+              {/*      <a href="https://5sfashion.vn/redirect/google">*/}
+              {/*        <button type="button" className="btn btn-primary">Đăng nhập qua Google</button>*/}
+              {/*      </a>*/}
+              {/*      <img className="img-logo logo-google" src={gg} alt="icon logo google" />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              <div className="register-wrap" style={{margin:"50px 0 20px 0"}}>
+                <span className="title">
+                  Đã có tài khoản?
+                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> Đăng nhập tại đây</span>
+                </span>
               </div>
             </div>
           </div>
