@@ -5,7 +5,7 @@ import './style.scss';
 
 import {toast} from "react-toastify";
 
-import logo_fashion_store from "./images/logo_fashion_store.png";
+import logo_fashion_store from "../images/logo_fashion_store.png";
 
 import {CartContext} from "../masterLayout";
 import {DIALOGS} from "../../components/dialogs/utils/const";
