@@ -74,7 +74,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
                     <div className="menu-col" style={{width:"130px"}}>
                       <ul className="menu-children ps-0">
                         {subCategories.map((subCategory, subSubMenuIndex) => (
-                            <div style={{display:"flex"}}>
+                            <div style={{display:"flex"}} key={subSubMenuIndex}>
                               <div style={{display:"flex", width:"16px", height:"16px", marginRight:"5px", color:"#afafaf"}}>
                                 <TiStarFullOutline/>
                               </div>
