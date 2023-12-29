@@ -58,13 +58,13 @@ const SlideBanner = () => {
                     <>
                       { banner.bannerLinkTo === null || banner.bannerLinkTo === "" ?
                         <div key={index}>
-                          <img src={"/storage/images/" + banner.imagePath} alt={`banner ${index + 1}`}
+                          <img src={banner.imagePath} alt={`banner ${index + 1}`}
                                style={{ width: "1290px", height: "554px", objectFit: "contain", backgroundColor:"#fff"}} />
                         </div>
                         :
                         <a key={index} href={banner.bannerLinkTo}>
                           <div className="pointer-cursor" >
-                            <img src={"/storage/images/" + banner.imagePath} alt={`banner ${index + 1}`}
+                            <img src={banner.imagePath} alt={`banner ${index + 1}`}
                                  style={{ width: "1290px", height: "554px", objectFit: "contain", backgroundColor:"#fff"}} />
                           </div>
                         </a>

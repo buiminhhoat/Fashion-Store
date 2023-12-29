@@ -44,7 +44,7 @@ const EditBannerPage = () => {
         console.log(data);
 
         const fetchImagePromises = data.map(imageData => {
-          const imageUrl = "/storage/images/" + imageData.imagePath;
+          const imageUrl = imageData.imagePath;
           return fetchImageAsFile(imageUrl, imageData.imagePath);
         });
 

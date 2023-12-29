@@ -159,7 +159,7 @@ const Menu = () => {
           <div className="image-wrap">
             <img style={{width:"64px", height:"64px"}}
                 src={(userData.avatarPath !== undefined && userData.avatarPath !== null) ?
-                    "/storage/images/" + userData.avatarPath :
+                    + userData.avatarPath :
                     "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
                 alt={''}
                 id="action-upload"

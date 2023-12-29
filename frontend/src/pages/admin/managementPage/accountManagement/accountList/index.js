@@ -52,7 +52,7 @@ const AccountListPage = () => {
           if (!item.avatarPath) {
             return null;
           }
-          const imageUrl = "/storage/images/" + item.avatarPath;
+          const imageUrl = item.avatarPath;
           return fetchImageAsFile(imageUrl, item.avatarPath);
         });
 

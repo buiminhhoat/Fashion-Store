@@ -79,7 +79,7 @@ const ListOfProductsAndCategoriesPage  = () => {
 
         const fetchImagePromises = data.flatMap(category =>
             category.subCategories.map(subCategory => {
-              const imageUrl = "/storage/images/" + subCategory.imagePath;
+              const imageUrl = subCategory.imagePath;
               return fetchImageAsFile(imageUrl, subCategory.imagePath, subCategory.categoryID);
             })
         );
@@ -739,7 +739,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                             <img
                                 className="img-subCategory"
                                 src={product.productImages.length > 0 ?
-                                    "/storage/images/" + product.productImages[0].imagePath : ""}
+                                    product.productImages[0].imagePath : ""}
                                 alt=""
                             />
                           </div>
