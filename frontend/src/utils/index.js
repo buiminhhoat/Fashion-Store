@@ -12,9 +12,11 @@ export function isSubstringIgnoreCaseAndAccents(keyword, str) {
 }
 
 export function isStartWithLetter(str) {
-  const newStr = removeAccents(str);
-  const firstChar = newStr.charAt(0);
-  return /^[a-zA-Z]/.test(firstChar);
+  if (str.length > 0) {
+    const firstChar = str.charAt(0);
+    return /^[A-Za-zÀ-ỹ]/.test(firstChar);
+  }
+  return false;
 }
 
 export const generateUniqueId = () => {

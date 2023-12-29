@@ -84,6 +84,7 @@ const AddProductPage = () => {
     .then((data) => {
       toast.success("Thêm sản phẩm thành công");
       console.log('Upload successful:', data);
+      // window.localion.reload();
     })
     .catch((error) => {
       toast.error("Có lỗi xảy ra! Vui lòng thử lại");
