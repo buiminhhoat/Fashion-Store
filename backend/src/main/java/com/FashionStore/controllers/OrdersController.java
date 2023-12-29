@@ -213,30 +213,7 @@ public class OrdersController {
         Product product = getProductDetails(productID);
         ProductSize productSize = productSizeRepository.findProductSizeBySizeID(sizeID);
 
-        // Đặt tên tệp ảnh cần sao chép
-        String fileNameToCopy = productImageRepository.findProductImageByProductID(product.getProductID()).get(0).getImagePath();
-
-        // Đường dẫn đến tệp gốc
-        String filePathToCopy = appRoot + UPLOAD_DIR + File.separator + fileNameToCopy;
-
-
-        // Đường dẫn đến tệp mới
-        String fileExtension = "";
-        if (fileNameToCopy != null) {
-            fileExtension = fileNameToCopy.substring(fileNameToCopy.lastIndexOf(".") + 1);
-        }
-        String imagePath = UUID.randomUUID().toString() + "." + fileExtension;
-        String newFilePath = appRoot + UPLOAD_DIR + File.separator + imagePath;
-
-        try {
-            // Đọc dữ liệu từ tệp gốc
-            byte[] imageData = Files.readAllBytes(Paths.get(filePathToCopy));
-
-            // Ghi dữ liệu vào tệp mới
-            Files.write(Paths.get(newFilePath), imageData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).getFirst().getImagePath();
 
         OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(),
                 product.getProductName(),
@@ -258,30 +235,36 @@ public class OrdersController {
 
         String orderStatus = request.getParameter("orderStatus");
 
+        Long userID = Long.valueOf(request.getParameter("userID"));
+
         if (!jwtTokenUtil.isTokenValid(accessToken)) {
             ResponseObject responseObject = new ResponseObject("Token không hợp lệ, vui lòng đăng nhập lại");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
-        Users findByEmail = usersRepository.findUsersByEmail(email);
-        if (findByEmail == null) {
+        Users usersByEmail = usersRepository.findUsersByEmail(email);
+        if (usersByEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Users users = findByEmail;
-        Long userID = users.getUserID();
 
-        if (Objects.equals(orderStatus, "Tất cả")) {
-            allOrdersByOrderStatus = ordersRepository.findOrdersByUserID(userID);
+        boolean isAdmin = usersByEmail.getIsAdmin();
+        if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
+            ResponseObject responseObject = new ResponseObject("Token không hợp lệ");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         else {
-            allOrdersByOrderStatus = ordersRepository.findOrdersByUserIDAndOrderStatus(userID, orderStatus);
-        }
+            if (Objects.equals(orderStatus, "Tất cả")) {
+                allOrdersByOrderStatus = ordersRepository.findOrdersByUserID(userID);
+            } else {
+                allOrdersByOrderStatus = ordersRepository.findOrdersByUserIDAndOrderStatus(userID, orderStatus);
+            }
 
-        List<Orders> orders = new ArrayList<>();
-        for (Orders o: allOrdersByOrderStatus) {
-            orders.add(getOrderDetails(o.getOrderID()));
+            List<Orders> orders = new ArrayList<>();
+            for (Orders o : allOrdersByOrderStatus) {
+                orders.add(getOrderDetails(o.getOrderID()));
+            }
+            return ResponseEntity.ok(orders);
         }
-        return ResponseEntity.ok(orders);
     }
 
     @PostMapping("/public/orders/cancel-order")
