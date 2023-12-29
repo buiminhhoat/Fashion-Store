@@ -3,13 +3,17 @@ package com.FashionStore.controllers;
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,32 +46,15 @@ public class OrdersController {
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
-    @Value("${order.status.pending}")
-    private String ORDER_STATUS_PENDING;
+    private final String ORDER_STATUS_PENDING;
 
-    @Value("${order.status.cancelled}")
-    private String ORDER_STATUS_CANCELLED;
+    private final String ORDER_STATUS_CANCELLED;
 
-    @Value("${response.token.invalid}")
-    private String RESPONSE_TOKEN_INVALID;
+    private final String RESPONSE_TOKEN_INVALID;
 
-    @Value("${response.cart.empty}")
-    private String RESPONSE_CART_EMPTY;
+    private final String RESPONSE_CART_EMPTY;
 
-    @Value("${response.invalid.token}")
-    private String RESPONSE_INVALID_TOKEN;
-
-    @Value("${response.invalid.token.admin}")
-    private String RESPONSE_INVALID_TOKEN_ADMIN;
-
-    @Value("${response.invalid.token.message}")
-    private String RESPONSE_INVALID_TOKEN_MESSAGE;
-
-    @Value("${response.order.cancel}")
-    private String RESPONSE_ORDER_CANCEL;
-
-    @Value("${response.order.cancel.message}")
-    private String RESPONSE_ORDER_CANCEL_MESSAGE;
+    private final String ORDER_STATUS_ALL;
 
     @Value("${order.param.orderID}")
     private String ORDER_PARAM_ORDER_ID;
@@ -99,8 +86,6 @@ public class OrdersController {
     @Value("${authorization.bearer}")
     private String AUTHORIZATION_BEARER;
 
-    @Value("${order.status.all}")
-    private String ORDER_STATUS_ALL;
 
     @Autowired
     public OrdersController(ProductRepository productRepository,
@@ -114,7 +99,7 @@ public class OrdersController {
                             AddressRepository addressRepository,
                             CartRepository cartRepository,
                             OrderDetailsRepository orderDetailsRepository,
-                            CartItemRepository cartItemRepository) {
+                            CartItemRepository cartItemRepository, MessageSource messageSource) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
@@ -127,6 +112,12 @@ public class OrdersController {
         this.cartRepository = cartRepository;
         this.orderDetailsRepository = orderDetailsRepository;
         this.cartItemRepository = cartItemRepository;
+
+        this.ORDER_STATUS_PENDING = messageSource.getMessage("order.status.pending", null, LocaleContextHolder.getLocale());
+        this.ORDER_STATUS_CANCELLED = messageSource.getMessage("order.status.cancelled", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_TOKEN_INVALID = messageSource.getMessage("response.token.invalid", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CART_EMPTY = messageSource.getMessage("response.cart.empty", null, LocaleContextHolder.getLocale());
+        this.ORDER_STATUS_ALL = messageSource.getMessage("order.status.all", null, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("${mapping.public.orders}")
@@ -290,7 +281,7 @@ public class OrdersController {
 
         boolean isAdmin = usersByEmail.getIsAdmin();
         if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
-            ResponseObject responseObject = new ResponseObject(RESPONSE_INVALID_TOKEN_ADMIN);
+            ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         else {
