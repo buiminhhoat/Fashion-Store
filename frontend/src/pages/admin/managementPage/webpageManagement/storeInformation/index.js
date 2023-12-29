@@ -3,24 +3,41 @@ import "./style.scss";
 
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {toast} from "react-toastify";
+import {useCookies} from "react-cookie";
+import {TimePicker} from "antd";
+import dayjs from "dayjs";
 
 const StoreInformationPage = () => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
   const btnSubmitRef = useRef(null);
 
-  const [StoreInformation, setStoreInformation] = useState(false);
+  const [storeInfo, setStoreInfo] = useState({
+    address: "",
+    closingHours: "",
+    email: "",
+    facebook: "",
+    hotline: "",
+    openingHours: "",
+    storeInformationID: "",
+  });
 
   const fetchData = async () => {
     const apiStoreInformation = "/api/public/get-store-information";
     try {
       const response = await fetch(apiStoreInformation, {
         method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-
+        console.log(data.data)
+        setStoreInfo(data.data);
       } else {
         const data = await response.json();
         toast.error(data.message);
@@ -36,7 +53,36 @@ const StoreInformationPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+
+    const formData = new FormData();
+    formData.append('storeInformation', JSON.stringify(storeInfo));
+
+    const apiUpdateStoreInformation = "/api/admin/update-store-information";
+    try {
+      const response = await fetch(apiUpdateStoreInformation, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        toast.success(data.message);
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error("Lỗi kết nối máy chủ: " + error.message);
+    }
+  };
+
+  const onChange = (time, timeString) => {
+    setStoreInfo({ ...storeInfo, openingHours: timeString[0], closingHours: timeString[1] });
+  };
 
   return (
       <div id="app">
@@ -71,24 +117,102 @@ const StoreInformationPage = () => {
 
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
-                                <div className="mandatory"><span className="mandatory-icon">*</span></div>
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Họ và tên</span>
+                                {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Địa chỉ</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
-                                  <input type="text" placeholder="Nhập họ và tên"
-                                         style={{padding:" 0 12px 0 12px", borderRadius:"3px", height:"100%"}}
-                                         className="fashion-store-input__input"
-                                         maxLength={50}
-                                         name="name"
-                                         required
-                                         // value={fullName}
-                                         // onChange={(e) => setFullName(e.target.value)}
+                                  <input
+                                      type="text" placeholder="Nhập địa chỉ cửa hàng"
+                                      style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
+                                      className="fashion-store-input__input"
+                                      value={storeInfo.address}
+                                      onChange={(e) => {
+                                        setStoreInfo({ ...storeInfo, address: e.target.value });
+                                      }}
                                   />
                                 </div>
                               </div>
                             </div>
 
+                            <div className="edit-row">
+                              <div className="edit-label label-add-account">
+                                {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Hotline</span>
+                              </div>
+                              <div className="input-add-account">
+                                <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
+                                  <input
+                                      type="text" placeholder="Nhập số điện thoại liên hệ"
+                                      style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
+                                      className="fashion-store-input__input"
+                                      maxLength={20}
+                                      value={storeInfo.hotline}
+                                      onChange={(e) => {
+                                        if (!isNaN(e.target.value))  setStoreInfo({ ...storeInfo, hotline: e.target.value });
+                                      }}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="edit-row">
+                              <div className="edit-label label-add-account">
+                                {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>E-mail</span>
+                              </div>
+                              <div className="input-add-account">
+                                <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
+                                  <input
+                                      type="email" placeholder="Nhập địa chỉ e-mail"
+                                      style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
+                                      className="fashion-store-input__input"
+                                      value={storeInfo.email}
+                                      onChange={(e) => {
+                                        setStoreInfo({ ...storeInfo, email: e.target.value });
+                                      }}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="edit-row">
+                              <div className="edit-label label-add-account">
+                                {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Facebook</span>
+                              </div>
+                              <div className="input-add-account">
+                                <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
+                                  <input
+                                      type="text" placeholder="Nhập đường dẫn tới trang chủ facebook"
+                                      style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
+                                      className="fashion-store-input__input"
+                                      value={storeInfo.facebook}
+                                      onChange={(e) => {
+                                        setStoreInfo({ ...storeInfo, facebook: e.target.value });
+                                      }}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="edit-row">
+                              <div className="edit-label label-add-account">
+                                {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Giờ mở cửa</span>
+                              </div>
+
+                              <div className="input-add-account">
+                                <TimePicker.RangePicker
+                                    size="large"
+                                    value={[
+                                      storeInfo.openingHours && dayjs(storeInfo.openingHours, 'HH:mm:ss'),
+                                      storeInfo.closingHours && dayjs(storeInfo.closingHours, 'HH:mm:ss')
+                                    ]}
+                                    onChange={onChange}
+                                />
+                              </div>
+                            </div>
 
                           </div>
                         </div>

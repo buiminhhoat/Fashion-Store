@@ -41,7 +41,7 @@ const AddAccountPage = () => {
       }
 
       if (response.ok) {
-        toast.error("Đã thêm người dùng");
+        toast.success("Đã thêm người dùng");
       } else {
         console.error("Đăng ký thất bại");
         response.text().then(data => {
