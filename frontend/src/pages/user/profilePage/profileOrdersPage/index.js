@@ -2,12 +2,16 @@ import React, {useEffect, useState} from 'react';
 import './style.scss';
 
 import {useCookies} from "react-cookie";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import {formatter} from "../../../../utils/formatter";
 
 import emptyProduct from '../images/empty-product.png'
 import {convertDateTimeFormat} from "../../../../utils";
+import queryString from "query-string";
+import {ConfigProvider, Popconfirm} from "antd";
+import {CATEGORY} from "../../../admin/managementPage/productManagement/components/dialogs/utils/const";
+import {HiOutlineTrash} from "react-icons/hi";
 
 const orderListFake = [
   {
@@ -105,11 +109,16 @@ const TabContent = ({openTab, setOpenTab}) => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const [userID, setUserID] = useState(queryParams.userID);
+
   const [orderList, setOrderList] = useState([])
   const [loading, setLoading] = useState(true);
 
   const getData = () => {
     const formData = new FormData();
+    formData.append('userID', userID);
     formData.append('orderStatus', openTab);
 
     fetch("/api/public/orders/get-all-orders-by-order-status", {
@@ -184,7 +193,7 @@ const TabContent = ({openTab, setOpenTab}) => {
                                   <div className="img-wrap">
                                     <img
                                         src={orderDetail.imagePath}
-                                        alt={orderDetail.productName}/>
+                                        alt={""}/>
                                   </div>
                                   <div className="info-wrap">
                                     <Link to={"/product?productID=" + orderDetail.productID}>
@@ -211,9 +220,21 @@ const TabContent = ({openTab, setOpenTab}) => {
                           <span className="money">&nbsp; {formatter(order.totalAmount)}</span>
                         </div>
                         { order.orderStatus === "Chờ xác nhận" &&
-                          <button className="cancel-order" onClick={() => handleCancelOrder(order.orderID)}>
-                            Huỷ đơn hàng
-                          </button>
+                          <ConfigProvider
+                              button={{
+                                style: { width: 70, margin: 4 },
+                              }}
+                          >
+                            <Popconfirm
+                                placement="top"
+                                title={'Chắc chắn hủy đơn?'}
+                                okText={<div>Có</div>}
+                                cancelText={<div>Không</div>}
+                                onConfirm={() => handleCancelOrder(order.orderID)}
+                            >
+                              <button className="cancel-order">Huỷ đơn hàng</button>
+                            </Popconfirm>
+                          </ConfigProvider>
                         }
 
                       </div>

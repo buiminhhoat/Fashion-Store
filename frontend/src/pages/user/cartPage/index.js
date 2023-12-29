@@ -32,16 +32,18 @@ const productListFake = [
 ]
 
 function CartPage() {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const cartContext = useContext(CartContext);
   const navigate = useNavigate();
 
   const [numberProduct, setNumberProduct] = useState(0)
   const [selectedAddress, setSelectedAddress] = useState({a:1})
 
-  const [cookies] = useCookies(['access_token']);
-  const accessToken = cookies.access_token;
-
+  const [userID, setUserID] = useState(null);
   const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const handleIncreaseAmount = (id) => {
     // Lấy số lượng sản phẩm hiện tại trong giỏ hàng
@@ -164,7 +166,7 @@ function CartPage() {
   };
 
   const handleChooseSize = (sizeID, id) => {
-    const updatedProduct = [...product]; // Tạo một bản sao mới để tránh thay đổi trực tiếp
+    const updatedProduct = [...product];
 
     updatedProduct[id].sizeID = sizeID
 
@@ -186,7 +188,6 @@ function CartPage() {
     // Gửi yêu cầu cập nhật lên server
     const updateCartURL = `/api/public/edit-product-in-cart?`;
     const formData = new FormData()
-    //=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}
     formData.append('cartItemID', product[id].cartItemID)
     formData.append('productID', productID);
     formData.append('sizeID', sizeID);
@@ -218,7 +219,40 @@ function CartPage() {
     return total;
   }
 
-  const [loading, setLoading] = useState(true);
+  const handlePurchase = () => {
+    if (selectedAddress.addressID === undefined) {
+      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+      return;
+    }
+
+    const formData = new FormData()
+
+    formData.append('addressID', selectedAddress.addressID)
+    formData.append('totalAmount', calcTotalPrice());
+
+    const apiAddToCartByCart = `/api/public/add-orders-by-cart`;
+    fetch(apiAddToCartByCart, {
+      method: 'POST',
+      headers: {"Authorization": "Bearer " + accessToken},
+      body: formData,
+    })
+        .then((response) => {
+          if (response.ok) {
+            cartContext.getAmountInCart().then(r => r);
+            toast.success("Đặt hàng thành công!");
+            navigateOrdersWithUserID().then(r => {});
+            return response.json();
+          } else {
+            throw new Error('Lỗi khi đặt hàng.');
+          }
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error('Lỗi:', error);
+        });
+  }
 
   const fetchData = async () => {
     try {
@@ -266,50 +300,29 @@ function CartPage() {
     }
   };
 
+  const navigateOrdersWithUserID = async () => {
+    const apiGetUserID = "/api/public/get-user-id";
+    try {
+      const response = await fetch(apiGetUserID, {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        navigate(`/profile/orders?userID=${data}`)
+      }
+
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+    }
+  }
+
   useEffect(() => {
     fetchData().then(r => {});
   }, [numberProduct]);
-
-  const handlePurchase = () => {
-    const apiAddToCartByCart = `/api/public/add-orders-by-cart`;
-    const formData = new FormData()
-
-    formData.append('addressID', selectedAddress.addressID)
-    formData.append('totalAmount', calcTotalPrice());
-
-
-    fetch(apiAddToCartByCart, {
-      method: 'POST',
-      headers: {"Authorization": "Bearer " + accessToken},
-      body: formData,
-    })
-        .then((response) => {
-          if (response.ok) {
-            // Sử dụng phương thức .json() để đọc dữ liệu JSON từ response
-            cartContext.getAmountInCart().then(r => r);
-            toast.success("Đặt hàng thành công!");
-            navigate('/profile/orders');
-            return response.json();
-          } else {
-            throw new Error('Lỗi khi đặt hàng.');
-          }
-        })
-        .then((data) => {
-          // In ra object trong data
-          console.log(data);
-          // Bạn có thể thực hiện các thao tác khác với dữ liệu ở đây
-        })
-        .catch((error) => {
-          console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
-        });
-  }
-
-  if (loading) {
-    // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
-    return <div></div>;
-
-  }
 
   return (
       <main id ="main-checkout" style={{paddingBottom:"30px"}}>

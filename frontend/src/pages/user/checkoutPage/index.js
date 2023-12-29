@@ -1,39 +1,35 @@
-import React, {useEffect, useRef, useState} from "react"
-import {toast} from "react-toastify";
-import queryString from 'query-string';
-import {useLocation, useNavigate} from "react-router-dom";
-
-import "./style.scss"
+import React, {useEffect, useState} from "react";
+import "./style.scss";
 import "./css/cart.css";
+
+import {useCookies} from "react-cookie";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
+
+import queryString from 'query-string';
+
 import closeButton from "./images/close.svg";
 import cardIcon from "./images/card.svg"
 import cod from "./images/cod.svg"
 import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
-import {useCookies} from "react-cookie";
+
 import AddressSection from "../components/AddressSection/AddressSection";
 import {ScrollToTop} from "../../../utils";
 
-const openModalCreateAddress = () => {
-  return 1;
-}
+const CheckoutPage = () => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
 
-function CheckoutPage() {
-
-  // product = productList;
   const navigate = useNavigate();
 
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
 
   const productID = queryParams.productID;
-  // console.log(productID)
   const sizeID = parseInt(queryParams.sizeID, 10);
   const currentQuantity = parseInt(queryParams.quantity, 10);
-
-  // const [cookies] = useCookies(['access_token']);
-  // const accessToken = cookies.access_token;
 
   const apiProductDetailByID = "/api/public/product/" + productID;
 
@@ -41,9 +37,9 @@ function CheckoutPage() {
   const [amount, setAmount] = useState(currentQuantity)
   const [product, setProduct] = useState({})
   const [selectedAddress, setSelectedAddress] = useState({a:1})
+  const [userID, setUserID] = useState(null);
 
-  const [loading, setLoading] = useState(true); // Thêm biến state để kiểm soát trạng thái fetching.
-
+  const [loading, setLoading] = useState(true);
 
   const handleIncreaseAmount = () => {
     let productQuantities = 1;
@@ -80,36 +76,6 @@ function CheckoutPage() {
     setAmount(Math.min(amount, productQuantities));
   }
 
-  const [cookies] = useCookies(['access_token']);
-  const accessToken = cookies.access_token;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiProductDetailByID, {
-          method: 'GET',
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setProduct(data);
-        } else {
-          const data = await response.json();
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error('Không thể kết nối được với database');
-      } finally {
-        // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
-        setLoading(false);
-      }
-    };
-    fetchData();
-
-  }, []);
-
   const handlePurchase = () => {
     if (selectedAddress.addressID === undefined) {
       toast.warn("Vui lòng chọn địa chỉ nhận hàng");
@@ -133,31 +99,67 @@ function CheckoutPage() {
     })
         .then((response) => {
           if (response.ok) {
-            // Sử dụng phương thức .json() để đọc dữ liệu JSON từ response
             toast.success("Đặt hàng thành công!");
-            navigate('/profile/orders');
+            navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
             throw new Error('Lỗi khi đặt hàng.');
           }
         })
         .then((data) => {
-          // In ra object trong data
           console.log(data);
-          // Bạn có thể thực hiện các thao tác khác với dữ liệu ở đây
         })
         .catch((error) => {
           console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   }
 
-  if (loading) {
-    // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
-    return <div></div>;
+  const fetchData = async () => {
+    try {
+      const response = await fetch(apiProductDetailByID, {
+        method: 'GET',
+      });
 
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setProduct(data);
+      } else {
+        const data = await response.json();
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    } finally {
+      // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
+      setLoading(false);
+    }
+  };
+
+  const navigateOrdersWithUserID = async () => {
+    const apiGetUserID = "/api/public/get-user-id";
+    try {
+      const response = await fetch(apiGetUserID, {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        navigate(`/profile/orders?userID=${data}`)
+      }
+
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+    }
   }
-  console.log("Reload!");
+
+  useEffect(() => {
+    fetchData().then(r => {});
+  }, []);
 
   return (
       <main id ="main-checkout" style={{paddingBottom:"30px"}}>
@@ -190,7 +192,7 @@ function CheckoutPage() {
                     <div className="card-product d-flex">
                       <div className="image-product">
                         <Link to ={"/product?productID=" + product.productID}>
-                          <img src={product.productImages[0].imagePath} alt={product.productName} />
+                          <img src={product.productImages && product.productImages[0].imagePath} alt={""} />
                         </Link>
                       </div>
                       <div className="product__info">
@@ -302,7 +304,6 @@ function CheckoutPage() {
           }
         </section>
       </main>
-
   );
 }
 
