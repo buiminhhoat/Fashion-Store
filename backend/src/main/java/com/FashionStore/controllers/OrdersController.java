@@ -3,13 +3,15 @@ package com.FashionStore.controllers;
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,32 +44,17 @@ public class OrdersController {
     @Value("${upload_image.dir}")
     String UPLOAD_DIR;
 
-    @Value("${order.status.pending}")
-    private String ORDER_STATUS_PENDING;
+    private final String ORDER_STATUS_PENDING = "Chờ xác nhận";
 
-    @Value("${order.status.cancelled}")
-    private String ORDER_STATUS_CANCELLED;
+    private final String ORDER_STATUS_CANCELLED = "Đã hủy";
 
-    @Value("${response.token.invalid}")
-    private String RESPONSE_TOKEN_INVALID;
+    private final String RESPONSE_TOKEN_INVALID = "Token không hợp lệ, vui lòng đăng nhập lại";
 
-    @Value("${response.cart.empty}")
-    private String RESPONSE_CART_EMPTY;
+    private String RESPONSE_CART_EMPTY = "Giỏ hàng đang trống!";
 
-    @Value("${response.invalid.token}")
-    private String RESPONSE_INVALID_TOKEN;
+    private String RESPONSE_INVALID_TOKEN_MESSAGE = "Token không hợp lệ";
 
-    @Value("${response.invalid.token.admin}")
-    private String RESPONSE_INVALID_TOKEN_ADMIN;
-
-    @Value("${response.invalid.token.message}")
-    private String RESPONSE_INVALID_TOKEN_MESSAGE;
-
-    @Value("${response.order.cancel}")
-    private String RESPONSE_ORDER_CANCEL;
-
-    @Value("${response.order.cancel.message}")
-    private String RESPONSE_ORDER_CANCEL_MESSAGE;
+    private String ORDER_STATUS_ALL = "Tất cả";
 
     @Value("${order.param.orderID}")
     private String ORDER_PARAM_ORDER_ID;
@@ -99,8 +86,6 @@ public class OrdersController {
     @Value("${authorization.bearer}")
     private String AUTHORIZATION_BEARER;
 
-    @Value("${order.status.all}")
-    private String ORDER_STATUS_ALL;
 
     @Autowired
     public OrdersController(ProductRepository productRepository,
@@ -290,7 +275,7 @@ public class OrdersController {
 
         boolean isAdmin = usersByEmail.getIsAdmin();
         if (!isAdmin && !Objects.equals(usersByEmail.getUserID(), userID)) {
-            ResponseObject responseObject = new ResponseObject(RESPONSE_INVALID_TOKEN_ADMIN);
+            ResponseObject responseObject = new ResponseObject(RESPONSE_INVALID_TOKEN_MESSAGE);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
         else {
