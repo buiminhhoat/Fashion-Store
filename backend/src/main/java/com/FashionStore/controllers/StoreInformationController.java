@@ -52,9 +52,6 @@ public class StoreInformationController {
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     public StoreInformationController(ProductRepository productRepository,
                                       ProductImageRepository productImageRepository,
@@ -86,11 +83,6 @@ public class StoreInformationController {
             storeInformation = objectMapper.readValue(storeInformationJson, new TypeReference<StoreInformation>(){});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
-
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
         }
 
         storeInformationRepository.deleteAll();;

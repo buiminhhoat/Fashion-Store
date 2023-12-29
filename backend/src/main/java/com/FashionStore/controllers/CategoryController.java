@@ -44,9 +44,6 @@ public class CategoryController {
     @Autowired
     private FreeImageService freeImageService;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     public CategoryController(CategoryRepository categoryRepository, ProductRepository productRepository,
                               ProductCategoryRepository productCategoryRepository,

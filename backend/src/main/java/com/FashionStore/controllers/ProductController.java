@@ -48,9 +48,6 @@ public class ProductController {
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     private FreeImageService freeImageService;
 
@@ -99,11 +96,6 @@ public class ProductController {
             productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>(){});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
-
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
         }
 
         List<String> paths = new ArrayList<>();
@@ -166,11 +158,6 @@ public class ProductController {
             productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>(){});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
-
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
         }
 
         try {
@@ -299,14 +286,6 @@ public class ProductController {
         /* Dọn rác */
         /* Dọn ảnh có trong database và storage - product Image */
         for (ProductImage productImage: productImageRepository.findProductImageByProductID(productID)) {
-            String fileName = productImage.getImagePath();
-            String filePathToDelete = appRoot + UPLOAD_DIR + File.separator + fileName;
-            try {
-                Path pathToDelete = Paths.get(filePathToDelete);
-                Files.deleteIfExists(pathToDelete);
-            } catch (IOException e) {
-                throw e;
-            }
             productImageRepository.delete(productImage);
         }
 

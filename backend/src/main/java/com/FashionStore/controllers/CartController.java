@@ -37,10 +37,6 @@ public class CartController {
 
     private final CategoryRepository categoryRepository;
 
-
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     public CartController(ProductRepository productRepository, ProductImageRepository productImageRepository,
                           ProductCategoryRepository productCategoryRepository,

@@ -50,9 +50,6 @@ public class BannerController {
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     private FreeImageService freeImageService;
 
@@ -86,11 +83,6 @@ public class BannerController {
             banners = objectMapper.readValue(bannersJson, new TypeReference<List<Banner>>(){});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
-
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
         }
 
         List<String> paths = new ArrayList<>();

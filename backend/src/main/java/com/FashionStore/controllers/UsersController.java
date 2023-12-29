@@ -39,9 +39,6 @@ public class UsersController {
     @Autowired
     private FreeImageService freeImageService;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     public UsersController(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;

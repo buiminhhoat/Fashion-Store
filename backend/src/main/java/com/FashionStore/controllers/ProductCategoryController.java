@@ -23,9 +23,6 @@ public class ProductCategoryController {
 
     private final ProductCategoryRepository productCategoryRepository;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     public ProductCategoryController(ProductCategoryRepository productCategoryRepository) {
         this.productCategoryRepository = productCategoryRepository;

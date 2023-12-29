@@ -153,6 +153,8 @@ const Menu = () => {
     }
   };
 
+  console.log(userData.avatarPath);
+
   return (
       <div className="col-4 menu-wrap item-row">
         <div className="header-wrap">

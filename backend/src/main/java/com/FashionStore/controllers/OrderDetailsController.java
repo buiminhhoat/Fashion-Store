@@ -30,9 +30,6 @@ public class OrderDetailsController {
 
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     @Autowired
     public OrderDetailsController(ProductRepository productRepository, ProductImageRepository productImageRepository,
                                   ProductCategoryRepository productCategoryRepository,
