@@ -18,6 +18,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const getAddresses = () => {
     const formData = new FormData();
     formData.append('userID', userID);
+    console.log("userID = " + userID);
     try {
       fetch("/api/public/get-all-addresses", {
         method: "POST",
@@ -72,7 +73,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
   }, [userID]);
 
   useEffect(() => {
-    getAddresses();
+    if (userID) getAddresses();
   }, [openModal]);
 
   const openModalListAddress = () => {

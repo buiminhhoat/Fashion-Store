@@ -50,7 +50,7 @@ const ProfileNewAddress = () => {
   }
 
   useEffect(() => {
-    getAddresses();
+    if (userID) getAddresses();
   }, []);
 
   const handleSave = async () => {
