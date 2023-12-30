@@ -37,9 +37,6 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final UsersRepository usersRepository;
 
-    @Value("${upload_image.dir}")
-    private String UPLOAD_DIR;
-
     private final String appRoot = System.getProperty("user.dir") + File.separator;
 
     private String LOGIN_FAILED;
@@ -223,25 +220,8 @@ public class AuthController {
                 Users findByEmail = usersRepository.findUsersByEmail(email);
                 if (findByEmail == null) {
                     Users users = new Users(name, email, jwtTokenUtil.generateAccessToken(email), "", false);
-
-                    try {
-                        URL url = new URL(avatarUrl);
-                        try (InputStream in = url.openStream()) {
-                            String fileName = UUID.randomUUID().toString() + ".png";
-
-                            String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                            Path filePath = Paths.get(imagePath);
-
-                            Files.copy(in, filePath, StandardCopyOption.REPLACE_EXISTING);
-
-                            String downloadedFilePath = filePath.toString();
-
-                            users.setAvatarPath(fileName);
-                            usersRepository.save(users);
-                        }
-                    } catch (IOException e) {
-                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(AVATAR_DOWNLOAD_FAILED);
-                    }
+                    users.setAvatarPath(avatarUrl);
+                    usersRepository.save(users);
                 }
 
                 String accessToken = jwtTokenUtil.generateAccessToken(email);
