@@ -74,7 +74,7 @@ const SearchProductPage = () => {
             data = data.sort((a, b) => b.productPrice - a.productPrice);
           }
           setProductsData(data);
-          setNumberProduct(data.length);
+          setNumberProduct(Math.min(data.length, NUMBER_PRODUCT));
         } else {
           const data = await response.json();
           console.log(data.message);

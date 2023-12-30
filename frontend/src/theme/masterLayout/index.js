@@ -35,7 +35,7 @@ const MasterLayout = ({children, ...props}) => {
             if (response.ok) {
                 const data = await response.json();
                 setAmountInCart(data.data.cartItems.length);
-                console.log(amountInCart.current);
+                // console.log(amountInCart.current);
             } else {
                 const data = await response.json();
                 console.log(data.message);

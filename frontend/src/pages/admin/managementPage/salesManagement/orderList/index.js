@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss";
-import {ConfigProvider, Input, Select} from "antd";
 import {useCookies} from "react-cookie";
-import {convertDateTimeFormat} from "../../../../../utils";
 import {Link} from "react-router-dom";
+import {ConfigProvider, Select} from "antd";
+import {convertDateTimeFormat} from "../../../../../utils";
 import {formatter} from "../../../../../utils/formatter";
-import emptyProduct from "../../../../user/profilePage/images/empty-product.png";
 import {TbListSearch} from "react-icons/tb";
-import {IoSearch} from "react-icons/io5";
+
+import empty_product_img from "../../../../user/profilePage/images/empty-product.png";
 
 import locale from 'antd/locale/vi_VN';
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import localeData from 'dayjs/plugin/localeData'
+import weekday from 'dayjs/plugin/weekday'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
+import weekYear from 'dayjs/plugin/weekYear'
+
 import viLocale from 'dayjs/locale/vi';
 
 import { DatePicker } from 'antd';
@@ -198,7 +204,7 @@ const TabContent = ({openTab, setOpenTab}) => {
             :
             <div className={`tab-pane show`} role="tabpanel">
               <div className="empty-content">
-                <img src={emptyProduct} alt="no data"/>
+                <img src={empty_product_img} alt="no data"/>
                 <p>Không có đơn hàng nào</p>
               </div>
             </div>
@@ -216,6 +222,7 @@ const OrderListPage = () => {
 
   const [openTab, setOpenTab] = useState("Tất cả");
   const [selectedSearch, setSelectedSearch] = useState(OPTION_SEARCH[0].value);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const [dates, setDates] = useState(null);
   const [value, setValue] = useState(null);
@@ -238,12 +245,20 @@ const OrderListPage = () => {
   }
 
   useEffect(() => {
-    dayjs.extend(customParseFormat);
+    dayjs.extend(customParseFormat)
+    dayjs.extend(advancedFormat)
+    dayjs.extend(weekday)
+    dayjs.extend(localeData)
+    dayjs.extend(weekOfYear)
+    dayjs.extend(weekYear)
     dayjs.locale(viLocale);
-    console.log("dates");
-    console.log(dates);
-    console.log(value);
-  }, [dates]);
+
+    setValue([dayjs(currentDate), dayjs(currentDate)]);
+  }, []);
+
+  useEffect(() => {
+    setValue([dayjs(currentDate), dayjs(currentDate)]);
+  }, [selectedSearch]);
 
   return (
       <div id="app">
@@ -284,9 +299,14 @@ const OrderListPage = () => {
                               size="large"
                               disabledDate={disabledDate}
                               onCalendarChange={(val) => {
+                                console.log("date");
+                                console.log(val);
+                                console.log(value);
                                 setDates(val);
                               }}
-                                onChange={(val) => {
+                              onChange={(val) => {
+                                console.log("val");
+                                console.log(val);
                                 setValue(val);
                               }}
                               onOpenChange={onOpenChange}
