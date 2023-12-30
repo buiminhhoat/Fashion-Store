@@ -174,29 +174,7 @@ public class OrdersController {
             Product product = getProductDetails(cartItem.getProductID());
             ProductSize productSize = productSizeRepository.findProductSizeBySizeID(cartItem.getSizeID());
 
-            // Đặt tên tệp ảnh cần sao chép
-            String fileNameToCopy = productImageRepository.findProductImageByProductID(product.getProductID()).get(0).getImagePath();
-
-            // Đường dẫn đến tệp gốc
-            String filePathToCopy = appRoot + UPLOAD_DIR + File.separator + fileNameToCopy;
-
-            // Đường dẫn đến tệp mới
-            String fileExtension = "";
-            if (fileNameToCopy != null) {
-                fileExtension = fileNameToCopy.substring(fileNameToCopy.lastIndexOf(".") + 1);
-            }
-            String imagePath = UUID.randomUUID().toString() + "." + fileExtension;
-            String newFilePath = appRoot + UPLOAD_DIR + File.separator + imagePath;
-
-            try {
-                // Đọc dữ liệu từ tệp gốc
-                byte[] imageData = Files.readAllBytes(Paths.get(filePathToCopy));
-
-                // Ghi dữ liệu vào tệp mới
-                Files.write(Paths.get(newFilePath), imageData);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).getFirst().getImagePath();
 
             OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(), product.getProductName(),
                     imagePath, productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
