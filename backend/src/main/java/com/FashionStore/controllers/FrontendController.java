@@ -1,21 +1,23 @@
 package com.FashionStore.controllers;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class FrontendController {
-    @GetMapping(
-            {
-                    "/admin/**",
-                    "/category/**",
-                    "/product/**",
-                    "/profile/**",
-                    "/cart/**",
-                    "/checkout/**",
-            })
+    @Value("${frontend.index-page}")
+    private String indexPage;
+
+    @GetMapping({
+            "${frontend.admin-url}",
+            "${frontend.category-url}",
+            "${frontend.product-url}",
+            "${frontend.profile-url}",
+            "${frontend.cart-url}",
+            "${frontend.checkout-url}"
+    })
     public String frontend() {
-        return "index";
+        return indexPage;
     }
 }
-
