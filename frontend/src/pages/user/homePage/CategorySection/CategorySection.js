@@ -81,10 +81,10 @@ const productCategories = [
 
 // Hàm render danh mục sản phẩm
 const renderProductCategories = (productCategories) => {
-  const SEARCH_LINK = 'http://localhost:3000/category?categoryID='
+  const SEARCH_LINK = 'category?categoryID='
   return productCategories.map((category, index) => (
       <div className="owl-item active" key={index} style={{ width: '119px' }}>
-        <a href={SEARCH_LINK + category.categoryID}>
+        <Link to={SEARCH_LINK + category.categoryID}>
           <div className="category-box">
             <div className="image-wrap position-relative w-100">
               <div className="image-wrap__img position-absolute w-100">
@@ -114,7 +114,7 @@ const renderProductCategories = (productCategories) => {
               <p>{category.categoryName}</p>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
   ));
 };
