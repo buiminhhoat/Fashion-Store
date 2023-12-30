@@ -116,7 +116,7 @@ const CategoryPage = ({keyword}) => {
             data.products = data.products.sort((a, b) => b.productPrice - a.productPrice);
           }
           setProductsData(data);
-          // setNumberProduct(Math.min(data.length, NUMBER_PRODUCT));
+          setNumberProduct(Math.min(data.products.length, NUMBER_PRODUCT));
 
         } else {
           const data = await response.json();
@@ -198,11 +198,7 @@ const CategoryPage = ({keyword}) => {
                               Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
                             </button>
                           </a>) : (
-                              <div className="btn btn-vm" style={{"marginBottom":"34px"}}
-
-                              >
-                                {/*Cuối danh sách*/}
-                              </div>
+                              <div className="btn btn-vm" style={{"marginBottom":"34px"}}> </div>
                         )
                       }
                     </div>
