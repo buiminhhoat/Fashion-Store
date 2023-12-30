@@ -70,7 +70,7 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
 
   return (
       <>
-        { orderList && orderList.length ?
+        { orderList && orderList.filter((order) => openTab === "Tất cả" || order.orderStatus === openTab).length ?
             <>
               { orderList.map((order, index) => (
                   <div key = {index}>
