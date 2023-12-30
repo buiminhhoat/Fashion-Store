@@ -250,7 +250,7 @@ const OrderListPage = () => {
               <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
                 <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                   <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
-                  <span >Tìm kiếm theo:</span>
+                  <span>Tìm kiếm theo:</span>
                   <Select
                       defaultValue={OPTION_SEARCH[0].value}
                       style={{ width: 230 }}
