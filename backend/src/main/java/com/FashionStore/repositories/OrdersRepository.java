@@ -14,7 +14,4 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findOrdersByUserIDAndOrderStatus(Long userID, String orderStatus);
 
     List<Orders> findOrdersByRecipientPhone(String recipientPhone);
-
-    List<Orders> findOrdersByOrderDateGreaterThanEqualAndOrderDateLessThanEqual(Date startDate, Date endDate);
-    List<Orders> findOrdersByOrderDate(Date orderDate);
 }
