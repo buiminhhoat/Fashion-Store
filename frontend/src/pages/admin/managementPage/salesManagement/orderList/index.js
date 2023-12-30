@@ -21,58 +21,8 @@ import weekYear from 'dayjs/plugin/weekYear'
 import viLocale from 'dayjs/locale/vi';
 
 import { DatePicker } from 'antd';
+import {toast} from "react-toastify";
 const { RangePicker } = DatePicker;
-
-const orderListFake = [
-  {
-    "orderID": 1,
-    "orderDate": "2023-12-28T16:51:45.273+00:00",
-    "totalAmount": 585000,
-    "orderStatus": "Đã hủy",
-    "userID": 2,
-    "addressID": 3,
-    "recipientName": "Nguyễn Châu Khanh",
-    "recipientPhone": "0944252960qsás",
-    "addressDetails": "Tp. Việt Trì",
-    "orderDetails": [
-      {
-        "orderDetailID": 1,
-        "orderID": 1,
-        "productID": 2,
-        "productName": "Áo Thun Dài Tay Nam, Thiết Kế Basic ATO23014",
-        "imagePath": "a981b3f6-55b1-4bf0-83a7-a02d35976fae.jpg",
-        "sizeName": "S",
-        "productPrice": 195000,
-        "quantity": 3,
-        "totalPrice": 585000
-      }
-    ]
-  },
-  {
-    "orderID": 2,
-    "orderDate": "2023-12-28T16:52:32.279+00:00",
-    "totalAmount": 348000222,
-    "orderStatus": "Chờ xác nhận",
-    "userID": 2,
-    "addressID": 3,
-    "recipientName": "Nguyễn Châu Khanh",
-    "recipientPhone": "0944252960qsás",
-    "addressDetails": "Tp. Việt Trì",
-    "orderDetails": [
-      {
-        "orderDetailID": 2,
-        "orderID": 2,
-        "productID": 9,
-        "productName": "Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí ATO23008",
-        "imagePath": "025f7f88-8003-4104-99b0-5bfe59074b6b.jpg",
-        "sizeName": "M",
-        "productPrice": 174000111,
-        "quantity": 2,
-        "totalPrice": 348000222
-      }
-    ]
-  }
-];
 
 const TabList = ({openTab, setOpenTab}) => {
   const tabItems = [
@@ -106,100 +56,98 @@ const TabList = ({openTab, setOpenTab}) => {
   );
 }
 
-const TabContent = ({openTab, setOpenTab}) => {
-  const [cookies] = useCookies(['access_token']);
-  const accessToken = cookies.access_token;
-
-  const [orderList, setOrderList] = useState(orderListFake)
-
+const TabContent = ({openTab, setOpenTab, orderList}) => {
   return (
       <>
         { orderList && orderList.length ?
             <>
               { orderList.map((order, index) => (
-                  <div key = {index}
-                       className="order-item-wrap show-detail"
-                       style={{boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.102)", borderRadius:"3px"}}
-                  >
-                    <div className="header-wrap">
-                      <div className="code-wrap">
-                        Mã đơn hàng <span className="code">{order.orderID}</span>
-                      </div>
-                      <div className="status-wrap">
-                        <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
-                        <div className="status status-un-paid">
-                          <span>{order.orderStatus}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="content-wrap">
-                      { order.orderDetails &&
-                          order.orderDetails.map((orderDetail, index) => (
-                              <div key = {index} className="product-wrap">
-                                <div className="img-wrap">
-                                  <img
-                                      src={orderDetail.imagePath}
-                                      alt={orderDetail.productName}/>
-                                </div>
-                                <div className="info-wrap">
-                                  <Link to={"/product?productID=" + orderDetail.productID}>
-                                    <div className="name">{orderDetail.productName}</div>
-                                  </Link>
-                                  <div className="property-wrap">
-                                    <span>Size {orderDetail.sizeName}</span>
-                                  </div>
-                                  <div className="property-wrap">
-                                    <span>Số lượng: {orderDetail.quantity}</span>
-                                  </div>
-                                  <div className="money-wrap">
-                                    <span>{formatter(orderDetail.totalPrice)}</span>
-                                  </div>
-                                </div>
-                              </div>
-                          ))
-                      }
-
-                    </div>
-                    <div className="total-wrap">
-                      <div className="total-money">
-                        Thành tiền:
-                        <span className="money">&nbsp; {formatter(order.totalAmount)}</span>
-                      </div>
-                      { order.orderStatus === "Chờ xác nhận" &&
-                          <button className="cancel-order"
-                                  // onClick={() => handleCancelOrder(order.orderID)}
-                          >
-                            Huỷ đơn hàng
-                          </button>
-                      }
-
-                    </div>
-                    <div className="detail-wrap show-detail">
-                      <div className="content-detail-wrap">
-                        <div className="info-order-wrap">
-                          <div className="row item-info">
-                            <div className="col-3 label-wrap">Hình thức thanh toán:</div>
-                            <div className="col-9 text-wrap">Thanh toán khi nhận hàng</div>
+                  <>
+                    { (openTab === "Tất cả" || order.orderStatus === openTab) &&
+                      <div key = {index}
+                           className="order-item-wrap show-detail"
+                           style={{boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.102)", borderRadius:"3px"}}
+                      >
+                        <div className="header-wrap">
+                          <div className="code-wrap">
+                            Mã đơn hàng <span className="code">{order.orderID}</span>
                           </div>
-                          <div className="row item-info">
-                            <div className="col-3 label-wrap">Địa chỉ nhận hàng:</div>
-                            <div className="col-9 text-wrap">
-                              <div className="information">
-                                <span className="name">{order.recipientName}</span>
-                                <div className="break-item">|</div>
-                                <span className="phone">{order.recipientPhone}</span>
+                          <div className="status-wrap">
+                            <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
+                            <div className="status status-un-paid">
+                              <span>{order.orderStatus}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="content-wrap">
+                          { order.orderDetails &&
+                              order.orderDetails.map((orderDetail, index) => (
+                                  <div key = {index} className="product-wrap">
+                                    <div className="img-wrap">
+                                      <img
+                                          src={orderDetail.imagePath}
+                                          alt={orderDetail.productName}/>
+                                    </div>
+                                    <div className="info-wrap">
+                                      <Link to={"/product?productID=" + orderDetail.productID}>
+                                        <div className="name">{orderDetail.productName}</div>
+                                      </Link>
+                                      <div className="property-wrap">
+                                        <span>Size {orderDetail.sizeName}</span>
+                                      </div>
+                                      <div className="property-wrap">
+                                        <span>Số lượng: {orderDetail.quantity}</span>
+                                      </div>
+                                      <div className="money-wrap">
+                                        <span>{formatter(orderDetail.totalPrice)}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                              ))
+                          }
+
+                        </div>
+                        <div className="total-wrap">
+                          <div className="total-money">
+                            Thành tiền:
+                            <span className="money">&nbsp; {formatter(order.totalAmount)}</span>
+                          </div>
+                          { order.orderStatus === "Chờ xác nhận" &&
+                              <button className="cancel-order"
+                                  // onClick={() => handleCancelOrder(order.orderID)}
+                              >
+                                Huỷ đơn hàng
+                              </button>
+                          }
+
+                        </div>
+                        <div className="detail-wrap show-detail">
+                          <div className="content-detail-wrap">
+                            <div className="info-order-wrap">
+                              <div className="row item-info">
+                                <div className="col-3 label-wrap">Hình thức thanh toán:</div>
+                                <div className="col-9 text-wrap">Thanh toán khi nhận hàng</div>
                               </div>
-                              <div>
-                                <span>{order.addressDetails}</span>
+                              <div className="row item-info">
+                                <div className="col-3 label-wrap">Địa chỉ nhận hàng:</div>
+                                <div className="col-9 text-wrap">
+                                  <div className="information">
+                                    <span className="name">{order.recipientName}</span>
+                                    <div className="break-item">|</div>
+                                    <span className="phone">{order.recipientPhone}</span>
+                                  </div>
+                                  <div>
+                                    <span>{order.addressDetails}</span>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-              ))
-              }
+                    }
+                  </>
+              ))}
             </>
             :
             <div className={`tab-pane show`} role="tabpanel">
@@ -214,15 +162,21 @@ const TabContent = ({openTab, setOpenTab}) => {
 }
 
 const OrderListPage = () => {
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
   const OPTION_SEARCH = [
     { value: 'order-date', label: 'Ngày đặt hàng' },
     { value: 'phone-number', label: 'Số điện thoại đặt hàng' },
     { value: 'order-id', label: 'Mã đơn hàng' },
   ];
 
+  const [orderList, setOrderList] = useState([])
+
   const [openTab, setOpenTab] = useState("Tất cả");
   const [selectedSearch, setSelectedSearch] = useState(OPTION_SEARCH[0].value);
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [phoneNumberValue, setPhoneNumberValue] = useState("");
+  const [orderIDValue, setOrderIDValue] = useState("");
 
   const [dates, setDates] = useState(null);
   const [value, setValue] = useState(null);
@@ -244,6 +198,45 @@ const OrderListPage = () => {
     }
   }
 
+  const fetchOrdersByOrderId = async () => {
+    const formData = new FormData();
+    formData.append('orderID', orderIDValue);
+
+    const apiSearchOrdersByOrderId = "/api/admin/orders/search-orders-by-order-id";
+    try {
+      const response = await fetch(apiSearchOrdersByOrderId, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        setOrderList([data]);
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    }
+  }
+
+  const handleBtnSearchClick = () => {
+    switch (selectedSearch) {
+      case OPTION_SEARCH[0].value:
+
+        break;
+      case OPTION_SEARCH[1].value:
+        break;
+      case OPTION_SEARCH[2].value:
+        fetchOrdersByOrderId().then(r => {});
+        break;
+    }
+  }
+
   useEffect(() => {
     dayjs.extend(customParseFormat)
     dayjs.extend(advancedFormat)
@@ -253,10 +246,12 @@ const OrderListPage = () => {
     dayjs.extend(weekYear)
     dayjs.locale(viLocale);
 
+    const currentDate = new Date();
     setValue([dayjs(currentDate), dayjs(currentDate)]);
   }, []);
 
   useEffect(() => {
+    const currentDate = new Date();
     setValue([dayjs(currentDate), dayjs(currentDate)]);
   }, [selectedSearch]);
 
@@ -322,10 +317,10 @@ const OrderListPage = () => {
                               type="text" placeholder="Nhập số điện thoại"
                               style={{ padding: "0 12px 0 12px", borderRadius: "3px" }}
                               className="fashion-store-input__input"
-                              // value={storeInfo.hotline}
-                              // onChange={(e) => {
-                              //   if (!isNaN(e.target.value))  setStoreInfo({ ...storeInfo, hotline: e.target.value });
-                              // }}
+                              value={phoneNumberValue}
+                              onChange={(e) => {
+                                if (!isNaN(e.target.value)) setPhoneNumberValue(e.target.value);
+                              }}
                           />
                         </div>
                     }
@@ -337,28 +332,15 @@ const OrderListPage = () => {
                               type="text" placeholder="Nhập mã đơn hàng"
                               style={{ padding: "0 12px 0 12px", borderRadius: "3px" }}
                               className="fashion-store-input__input"
-                              // value={storeInfo.hotline}
-                              // onChange={(e) => {
-                              //   if (!isNaN(e.target.value))  setStoreInfo({ ...storeInfo, hotline: e.target.value });
-                              // }}
+                              value={orderIDValue}
+                              onChange={(e) => {
+                                if (!isNaN(e.target.value)) setOrderIDValue(e.target.value);
+                              }}
                           />
                         </div>
                     }
                   </div>
-                  <button type="button" className="search-btn">Tìm kiếm</button>
-
-                  {/*  <input*/}
-                  {/*      className="placeholder-color"*/}
-                  {/*      style={{fontSize:"15px", width:"250px",backgroundColor:"#fff", border:"none", margin:"0 5px 0 5px"}}*/}
-                  {/*      type="text"*/}
-                  {/*      // value={searchInputValue}*/}
-                  {/*      placeholder="Nhập từ khóa"*/}
-                  {/*      // onChange={(e) => setSearchInputValue(e.target.value)}*/}
-                  {/*  />*/}
-                  {/*  <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}*/}
-                  {/*      // onClick={handleBtnSearchClick}*/}
-                  {/*            className="pointer-cursor"/>*/}
-
+                  <button type="button" className="search-btn" onClick={handleBtnSearchClick}>Tìm kiếm</button>
                 </div>
 
               </div>
@@ -373,7 +355,7 @@ const OrderListPage = () => {
               <TabList openTab={openTab} setOpenTab={setOpenTab} />
               <div className="order-list">
                 <div className="tab-content clearfix" id="nav-tabContent">
-                  <TabContent openTab={openTab} setOpenTab={setOpenTab} />
+                  <TabContent openTab={openTab} setOpenTab={setOpenTab} orderList={orderList}/>
                 </div>
               </div>
             </div>
