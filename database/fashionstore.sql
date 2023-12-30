@@ -130,8 +130,8 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `Image
 (10, 'Quần Short Kaki', 5, 'https://iili.io/JR4gFGs.md.png'),
 (11, 'Quần Short Tây', 5, 'https://iili.io/JR4gFGs.md.png'),
 (12, 'Quần Lót Nam', NULL, 'https://iili.io/JR4gFGs.md.png'),
-(13, 'Quần Lót Brief', 12, 'https://iili.io/JR4gFGs.md.png'),
-(14, 'Quần Lót Boxer', 12, 'https://iili.io/JR4gFGs.md.png'),
+(13, 'Quần Lót Boxer', 12, 'https://iili.io/JR4gFGs.md.png'),
+(14, 'Quần Lót Brief', 12, 'https://iili.io/JR4gFGs.md.png'),
 (15, 'Phụ Kiện', NULL, 'https://iili.io/JR4gFGs.md.png'),
 (16, 'Tất Nam', 15, 'https://iili.io/JR4gFGs.md.png');
 
@@ -390,12 +390,12 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) V
 (136, 136, 8),
 (138, 138, 8),
 (139, 139, 8),
-(140, 140, 13),
-(141, 141, 13),
-(142, 142, 14),
-(146, 146, 14),
-(147, 147, 14),
-(148, 148, 14);
+(140, 140, 14),
+(141, 141, 14),
+(142, 142, 13),
+(146, 146, 13),
+(147, 147, 13),
+(148, 148, 13);
 
 -- --------------------------------------------------------
 
