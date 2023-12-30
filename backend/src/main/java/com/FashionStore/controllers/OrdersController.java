@@ -80,6 +80,9 @@ public class OrdersController {
     @Value("${order.param.userID}")
     private String ORDER_PARAM_USER_ID;
 
+    @Value("${order.param.recipientPhone}")
+    private String ORDER_PARAM_RECIPIENT_PHONE;
+
     @Value("${header.authorization}")
     private String HEADER_AUTHORIZATION;
 
@@ -320,6 +323,16 @@ public class OrdersController {
     public ResponseEntity<?> searchOrdersByOrderID(HttpServletRequest request) {
         Long orderID = Long.valueOf(request.getParameter(ORDER_PARAM_ORDER_ID));
         Orders orders = getOrderDetails(orderID);
+        return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("${endpoint.admin.orders.search-orders-by-recipient-phone}")
+    public ResponseEntity<?> searchOrdersByRecipientPhone(HttpServletRequest request) {
+        String recipientPhone = request.getParameter(ORDER_PARAM_RECIPIENT_PHONE);
+        List<Orders> orders = ordersRepository.findOrdersByRecipientPhone(recipientPhone);
+        for (Orders order: orders) {
+            order = getOrderDetails(order.getOrderID());
+        }
         return ResponseEntity.ok(orders);
     }
 
