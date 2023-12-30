@@ -63,8 +63,11 @@ const AddProductPage = () => {
         return;
       }
     }
+    function isEmpty(obj) {
+      return Object.keys(obj).length === 0 && obj.constructor === Object;
+    }
 
-    if (informationProduct.category === {} && informationProduct.parentCategory === {}) {
+    if (isEmpty(informationProduct.category) && isEmpty(informationProduct.parentCategory)) {
       toast.warn("Vui lòng chọn danh mục sản phẩm");
       return;
     }
@@ -72,6 +75,8 @@ const AddProductPage = () => {
       toast.warn("Vui lòng nhập mô tả sản phẩm");
       return;
     }
+
+    // console.log(informationProduct.category==={});
 
     const formData = new FormData();
 
