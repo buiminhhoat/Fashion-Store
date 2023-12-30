@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import search from "../../../images/search.svg";
 import SearchDialog from "./SearchDialog";
 
 const SearchBar = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchDialog, setShowSearchDialog] = useState(false);
 
@@ -26,10 +27,6 @@ const SearchBar = () => {
     }
   };
 
-  const handleButton = e => {
-    setShowSearchDialog(false)
-  }
-
   const searchBarRef = useRef(null);
 
   useEffect(() => {
@@ -51,7 +48,7 @@ const SearchBar = () => {
 
   return (
       <div className="search-box position-relative">
-        <form>
+        <div>
           <input
               id="search-product"
               name="query"
@@ -66,21 +63,21 @@ const SearchBar = () => {
               onKeyDown={handleInputKeyDown}
               ref={searchBarRef}
           />
-          <Link to={"/search/" + searchQuery}>
-            <button
-                className="btn btn-search position-absolute d-flex align-items-center justify-content-center"
-                type="submit"
-                onClick={handleButton}
-            >
-              <img src={search} className="icon-search" alt="icon search" />
-            </button>
-          </Link>
+          <button
+              className="btn btn-search position-absolute d-flex align-items-center justify-content-center"
+              onClick={() => {
+                setShowSearchDialog(false);
+                if (searchQuery) navigate("/search/" + searchQuery);
+              }}
+          >
+            <img src={search} className="icon-search" alt="icon search" />
+          </button>
           {searchQuery && showSearchDialog && (
               <div>
                 <SearchDialog keyword={searchQuery}/>
               </div>
           )}
-        </form>
+        </div>
       </div>
   );
 }
