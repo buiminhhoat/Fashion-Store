@@ -171,8 +171,9 @@ const OrderListPage = () => {
     { value: 'order-id', label: 'Mã đơn hàng' },
   ];
 
-  const [orderList, setOrderList] = useState([])
+  const [isStart, setIsStart] = useState(true);
 
+  const [orderList, setOrderList] = useState([])
   const [openTab, setOpenTab] = useState("Tất cả");
   const [selectedSearch, setSelectedSearch] = useState(OPTION_SEARCH[0].value);
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
@@ -230,7 +231,7 @@ const OrderListPage = () => {
   }
 
   const fetchOrdersByRecipientPhone = async () => {
-    if (!orderIDValue) {
+    if (!phoneNumberValue) {
       toast.warn("Vui lòng nhập số điện thoại đặt hàng");
       return;
     }
@@ -332,9 +333,11 @@ const OrderListPage = () => {
   }, []);
 
   useEffect(() => {
-    const currentDate = new Date();
-    setValue([dayjs(currentDate), dayjs(currentDate)]);
-  }, [selectedSearch]);
+    if (value && isStart) {
+      setIsStart(false);
+      fetchOrdersByOrderDate().then(r => {});
+    }
+  }, [value]);
 
   return (
       <div id="app">
@@ -361,7 +364,12 @@ const OrderListPage = () => {
                       bordered={false}
                       size={"large"}
                       options={OPTION_SEARCH}
-                      onChange={(value) => {setSelectedSearch(value)}}
+                      onChange={(value) => {
+                        setSelectedSearch(value);
+                        setValue(null);
+                        setPhoneNumberValue("");
+                        setOrderIDValue("");
+                      }}
                   />
                 </div>
 
@@ -375,14 +383,9 @@ const OrderListPage = () => {
                               size="large"
                               disabledDate={disabledDate}
                               onCalendarChange={(val) => {
-                                console.log("date");
-                                console.log(val);
-                                console.log(value);
                                 setDates(val);
                               }}
                               onChange={(val) => {
-                                console.log("val");
-                                console.log(val);
                                 setValue(val);
                               }}
                               onOpenChange={onOpenChange}
