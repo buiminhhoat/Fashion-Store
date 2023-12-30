@@ -7,6 +7,8 @@ import com.FashionStore.security.JwtTokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +17,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,117 +27,156 @@ public class CategoryController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-    private final ProductCategoryRepository productCategoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-    private final ProductImageRepository productImageRepository;
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
 
-    private final ProductSizeRepository productSizeRepository;
+    @Autowired
+    private ProductImageRepository productImageRepository;
 
-    private final ProductQuantityRepository productQuantityRepository;
+    @Autowired
+    private ProductSizeRepository productSizeRepository;
 
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
+    @Autowired
+    private ProductQuantityRepository productQuantityRepository;
 
     @Autowired
     private FreeImageService freeImageService;
 
+    private final String appRoot = System.getProperty("user.dir") + File.separator;
+
+    private final String RESPONSE_CATEGORY_NEW_EXISTS;
+
+    private final String RESPONSE_CATEGORY_SAVE_SUCCESS;
+
+    private final String RESPONSE_CATEGORY_SAVE_ERROR;
+
+    private final String RESPONSE_CATEGORY_EDIT_NOTFOUND;
+
+    private final String RESPONSE_CATEGORY_EDIT_SUCCESS;
+
+    private final String RESPONSE_CATEGORY_EDIT_ERROR;
+
+    private final String RESPONSE_CATEGORY_DELETE_NOTFOUND;
+
+    private final String RESPONSE_CATEGORY_DELETE_SUCCESS;
+
+    private final String RESPONSE_CATEGORY_DELETE_ERROR;
+
+    private final String RESPONSE_CATEGORY_IMAGE_SUCCESS;
+
+    private final String RESPONSE_CATEGORY_IMAGE_ERROR;
+
+    @Value("${param.categoryName}")
+    private String PARAM_CATEGORY_NAME;
+
+    @Value("${param.parentCategoryID}")
+    private String PARAM_PARENT_CATEGORY_ID;
+
+    @Value("${param.categoryID}")
+    private String PARAM_CATEGORY_ID;
+
+    @Value("${param.categoryImage}")
+    private String PARAM_CATEGORY_IMAGE;
     @Autowired
-    public CategoryController(CategoryRepository categoryRepository, ProductRepository productRepository,
-                              ProductCategoryRepository productCategoryRepository,
-                              ProductImageRepository productImageRepository,
-                              ProductSizeRepository productSizeRepository,
-                              ProductQuantityRepository productQuantityRepository) {
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-        this.productCategoryRepository = productCategoryRepository;
-        this.productImageRepository = productImageRepository;
-        this.productSizeRepository = productSizeRepository;
-        this.productQuantityRepository = productQuantityRepository;
+    public CategoryController(MessageSource messageSource) {
+        this.RESPONSE_CATEGORY_NEW_EXISTS = messageSource.getMessage("response.category.new.exists", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_SAVE_SUCCESS = messageSource.getMessage("response.category.save.success", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_SAVE_ERROR = messageSource.getMessage("response.category.save.error", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_EDIT_NOTFOUND = messageSource.getMessage("response.category.edit.notfound", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_EDIT_SUCCESS = messageSource.getMessage("response.category.edit.success", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_EDIT_ERROR = messageSource.getMessage("response.category.edit.error", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_DELETE_NOTFOUND = messageSource.getMessage("response.category.delete.notfound", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_DELETE_SUCCESS = messageSource.getMessage("response.category.delete.success", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_DELETE_ERROR = messageSource.getMessage("response.category.delete.error", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_IMAGE_SUCCESS = messageSource.getMessage("response.category.image.success", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_CATEGORY_IMAGE_ERROR = messageSource.getMessage("response.category.image.error", null, LocaleContextHolder.getLocale());
     }
 
-    @Autowired
-    private Config config;
 
-    @PostMapping("/admin/add-category")
+    @PostMapping("${endpoint.admin.add-category}")
     public ResponseEntity<?> addCategory(HttpServletRequest request) {
-        String categoryName = request.getParameter("categoryName");
-        Long parentCategoryID = Long.valueOf(request.getParameter("parentCategoryID"));
+        String categoryName = request.getParameter(PARAM_CATEGORY_NAME);
+        Long parentCategoryID = Long.valueOf(request.getParameter(PARAM_PARENT_CATEGORY_ID));
 
         List<Category> categoryList = categoryRepository.findCategoriesByCategoryName(categoryName);
 
         if (!categoryList.isEmpty()) {
-            ResponseObject responseObject = new ResponseObject("Danh mục mới đã tồn tại!");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_NEW_EXISTS);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
         try {
             Category category;
-            if (parentCategoryID == 0) category = new Category(categoryName, config.getImageCategoryDefault());
-            else category = new Category(categoryName, parentCategoryID, config.getImageCategoryDefault());
+            if (parentCategoryID == 0) category = new Category(categoryName, appRoot);
+            else category = new Category(categoryName, parentCategoryID, appRoot);
             categoryRepository.save(category);
-            ResponseObject responseObject = new ResponseObject("Đã thêm danh mục mới thành công");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_SAVE_SUCCESS);
             return ResponseEntity.ok(responseObject);
         } catch (Error error) {
-            ResponseObject responseObject = new ResponseObject("Không thể lưu danh mục vào database");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_SAVE_ERROR);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
     }
 
-    @PostMapping("/admin/edit-category")
+    @PostMapping("${endpoint.admin.edit-category}")
     public ResponseEntity<?> editCategory(HttpServletRequest request) {
-        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
-        String categoryName = request.getParameter("categoryName");
+        Long categoryID = Long.valueOf(request.getParameter(PARAM_CATEGORY_ID));
+        String categoryName = request.getParameter(PARAM_CATEGORY_NAME);
 
         Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
 
         if (category == null) {
-            ResponseObject responseObject = new ResponseObject("Danh mục không tồn tại!");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_EDIT_NOTFOUND);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
         try {
             category.setCategoryName(categoryName);
             categoryRepository.save(category);
-            ResponseObject responseObject = new ResponseObject("Chỉnh sửa danh mục thành công");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_EDIT_SUCCESS);
             return ResponseEntity.ok(responseObject);
         } catch (Error error) {
-            ResponseObject responseObject = new ResponseObject("Không thể chỉnh sửa danh mục trong database");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_EDIT_ERROR);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
     }
 
-    @PostMapping("/admin/delete-category")
+    @PostMapping("${endpoint.admin.delete-category}")
     public ResponseEntity<?> deleteCategory(HttpServletRequest request) {
-        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
+        Long categoryID = Long.valueOf(request.getParameter(PARAM_CATEGORY_ID));
 
         Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
 
         if (category == null) {
-            ResponseObject responseObject = new ResponseObject("Danh mục không tồn tại!");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_DELETE_NOTFOUND);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
         try {
             categoryRepository.delete(category);
-            ResponseObject responseObject = new ResponseObject("Xóa danh mục thành công");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_DELETE_SUCCESS);
             return ResponseEntity.ok(responseObject);
         } catch (Error error) {
-            ResponseObject responseObject = new ResponseObject("Không thể xóa danh mục trong database");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_DELETE_ERROR);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
     }
 
-    @PostMapping("/admin/upload-category-image")
+    @PostMapping("${endpoint.admin.upload-category-image}")
     public ResponseEntity<?> uploadCategoryImage(HttpServletRequest request) throws IOException {
-        Long categoryID = Long.valueOf(request.getParameter("categoryID"));
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("categoryImage");
+        Long categoryID = Long.valueOf(request.getParameter(PARAM_CATEGORY_ID));
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles(PARAM_CATEGORY_IMAGE);
 
         Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
 
         if (category == null) {
-            ResponseObject responseObject = new ResponseObject("Danh mục không tồn tại!");
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_IMAGE_ERROR);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
@@ -150,11 +188,11 @@ public class CategoryController {
 
         category.setImagePath(paths.get(0));
         categoryRepository.save(category);
-        ResponseObject responseObject = new ResponseObject("Cập nhật ảnh danh mục thành công");
+        ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_IMAGE_SUCCESS);
         return ResponseEntity.ok(responseObject);
     }
 
-    @GetMapping("/public/get-all-categories")
+    @GetMapping("${endpoint.public.get-all-categories}")
     public ResponseEntity<List<Category>> getCategory() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
@@ -171,14 +209,14 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
-    @PostMapping("/public/category/{categoryID}")
+    @PostMapping("${endpoint.public.category-by-id}")
     public ResponseEntity<?> getCategoryByCategoryID(HttpServletRequest request, @PathVariable Long categoryID) {
         Category category = categoryRepository.findCategoriesByCategoryID(categoryID);
         category.setProducts(getProductsInCategory(categoryID));
         return ResponseEntity.ok(category);
     }
 
-    @GetMapping("/public/all-categories/get-random-12-products")
+    @GetMapping("${endpoint.public.random-12-products}")
     public ResponseEntity<?> getAllCategoriesRandom12() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
@@ -242,9 +280,9 @@ public class CategoryController {
         return products;
     }
 
-    @GetMapping("/public/search/category")
+    @GetMapping("${endpoint.public.search-category}")
     public ResponseEntity<?> searchCategory(HttpServletRequest request) {
-        String categoryName = request.getParameter("categoryName");
+        String categoryName = request.getParameter(PARAM_CATEGORY_NAME);
         List<Category> categories = categoryRepository.findCategoriesByParentCategoryID(null);
         List<Category> result = new ArrayList<>();
         for (Category category: categories) {
