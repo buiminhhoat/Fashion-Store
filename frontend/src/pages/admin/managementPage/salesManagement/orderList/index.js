@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss";
 import {Select} from "antd";
-import Search from "antd/lib/input/Search";
 import {useCookies} from "react-cookie";
 import {convertDateTimeFormat} from "../../../../../utils";
 import {Link} from "react-router-dom";
 import {formatter} from "../../../../../utils/formatter";
 import emptyProduct from "../../../../user/profilePage/images/empty-product.png";
+import {TbListSearch} from "react-icons/tb";
+import {IoSearch} from "react-icons/io5";
+
+import { DatePicker } from 'antd';
+const { RangePicker } = DatePicker;
 
 const orderListFake = [
   {
@@ -199,16 +203,34 @@ const TabContent = ({openTab, setOpenTab}) => {
 }
 
 const OrderListPage = () => {
+  const OPTION_SEARCH = [
+    { value: 'order-date', label: 'Ngày đặt hàng' },
+    { value: 'phone-number', label: 'Số điện thoại đặt hàng' },
+    { value: 'order-id', label: 'Mã đơn hàng' },
+  ];
+
   const [openTab, setOpenTab] = useState("Tất cả");
+  const [selectedSearch, setSelectedSearch] = useState(OPTION_SEARCH[0].value);
 
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [dates, setDates] = useState(null);
+  const [value, setValue] = useState(null);
 
-  const selectBefore = (
-      <Select defaultValue="http://">
-        <div value="http://">http://</div>
-        <div value="https://">https://</div>
-      </Select>
-  );
+  const disabledDate = (current) => {
+    if (!dates) {
+      return false;
+    }
+    const tooLate = dates[0] && current.diff(dates[0], 'days') >= 7;
+    const tooEarly = dates[1] && dates[1].diff(current, 'days') >= 7;
+    return !!tooEarly || !!tooLate;
+  };
+
+  const onOpenChange = (open) => {
+    if (open) {
+      setDates([null, null]);
+    } else {
+      setDates(null);
+    }
+  };
 
   return (
       <div id="app">
@@ -221,58 +243,62 @@ const OrderListPage = () => {
             </div>
           </div>
 
-          {/*<div style={{padding:"0 47px 0 47px", width:"100%"}}>*/}
-          {/*  <div style={{boxShadow: "0px 1px 4px 0 rgba(0, 0, 0, 0.102)", marginBottom:"10px",*/}
-          {/*    borderRadius:"3px", padding:"0", backgroundColor:"#fff", height:"75px"}}*/}
-          {/*  >*/}
-          {/*      <Search*/}
-          {/*          addonBefore={selectBefore}*/}
-          {/*          placeholder="input search text"*/}
-          {/*          allowClear*/}
-          {/*          onSearch={onSearch}*/}
-          {/*          style={{ width: 304 }}*/}
-          {/*      />*/}
+          <div style={{padding:"0 47px 0 47px", width:"100%"}}>
+            <div style={{boxShadow: "0px 1px 4px 0 rgba(0, 0, 0, 0.102)", marginBottom:"10px",
+              borderRadius:"3px", padding:"0", backgroundColor:"#fff", height:"75px"}}
+            >
+              <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
+                <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
+                  <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
+                  <span >Tìm kiếm theo:</span>
+                  <Select
+                      defaultValue={OPTION_SEARCH[0].value}
+                      style={{ width: 230 }}
+                      bordered={false}
+                      size={"large"}
+                      options={OPTION_SEARCH}
+                      onChange={(value) => {setSelectedSearch(value)}}
+                  />
 
+                </div>
 
-          {/*    <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>*/}
-          {/*      <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>*/}
-          {/*        <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>*/}
-          {/*        Tìm kiếm theo:*/}
-          {/*        <div style={{paddingTop:"2px"}}>*/}
-          {/*          <select className="select-search sort-item"*/}
-          {/*              // onChange={(e) => {setSelectedSearch(e.target.value)}}*/}
-          {/*          >*/}
-          {/*            <option value={SEARCH_USER.FULL_NAME}>*/}
-          {/*              Họ tên*/}
-          {/*            </option>*/}
-          {/*            <option value={SEARCH_USER.PHONE_NUMBER} >*/}
-          {/*              Số điện thoại*/}
-          {/*            </option>*/}
-          {/*            <option value={SEARCH_USER.EMAIL} >*/}
-          {/*              Địa chỉ email*/}
-          {/*            </option>*/}
-          {/*          </select>*/}
-          {/*        </div>*/}
-          {/*      </div>*/}
-          {/*      <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>*/}
-          {/*        <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>*/}
-          {/*          <input*/}
-          {/*              className="placeholder-color"*/}
-          {/*              style={{fontSize:"15px", width:"250px",backgroundColor:"#FAFAFA", border:"none", margin:"0 5px 0 5px"}}*/}
-          {/*              type="text"*/}
-          {/*              // value={searchInputValue}*/}
-          {/*              placeholder="Nhập từ khóa"*/}
-          {/*              // onChange={(e) => setSearchInputValue(e.target.value)}*/}
-          {/*          />*/}
-          {/*          <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}*/}
-          {/*              // onClick={handleBtnSearchClick}*/}
-          {/*                    className="pointer-cursor"/>*/}
-          {/*        </div>*/}
-          {/*      </div>*/}
+                <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
+                  <div style={{display:"flex", alignItems:"center", height:"35px", width:"400px"}}>
+                    { selectedSearch === OPTION_SEARCH[0].value &&
+                        <RangePicker
+                            value={dates || value}
+                            disabledDate={disabledDate}
+                            onCalendarChange={(val) => {
+                              setDates(val);
+                            }}
 
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+                            onChange={(val) => {
+                              setValue(val);
+                            }}
+                            onOpenChange={onOpenChange}
+                            changeOnBlur
+                        />
+                    }
+                  </div>
+                  <button type="button" className="search-btn">Tìm kiếm</button>
+
+                  {/*  <input*/}
+                  {/*      className="placeholder-color"*/}
+                  {/*      style={{fontSize:"15px", width:"250px",backgroundColor:"#fff", border:"none", margin:"0 5px 0 5px"}}*/}
+                  {/*      type="text"*/}
+                  {/*      // value={searchInputValue}*/}
+                  {/*      placeholder="Nhập từ khóa"*/}
+                  {/*      // onChange={(e) => setSearchInputValue(e.target.value)}*/}
+                  {/*  />*/}
+                  {/*  <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}*/}
+                  {/*      // onClick={handleBtnSearchClick}*/}
+                  {/*            className="pointer-cursor"/>*/}
+
+                </div>
+
+              </div>
+            </div>
+          </div>
 
 
           <div className="col-8 content-children item-row"
