@@ -13,8 +13,8 @@ import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
-import {Tooltip} from "antd";
-import {CATEGORY, SEARCH} from "../utils/const";
+import {Select, Tooltip} from "antd";
+import {CATEGORY, SEARCH, SEARCH_USER} from "../utils/const";
 
 const ListOfProductsAndCategoriesPage  = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const ListOfProductsAndCategoriesPage  = () => {
   const [productsData, setProductsData] = useState([]);
   const [categoriesImgID, setCategoriesImgID] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [selectedSearch, setSelectedSearch] = useState("");
+  const [selectedSearch, setSelectedSearch] = useState(SEARCH.CATEGORY);
 
   const  fetchImageAsFile = async (imageUrl, imageName, categoryID) => {
     const response = await fetch(imageUrl);
@@ -393,8 +393,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     })
   }
 
-  const handleSelectChange = (event) => {
-    setSelectedSearch(event.target.value);
+  const handleSelectChange = (value) => {
+    setSelectedSearch(value);
     setSearchInputValue("");
     setSelectedCategoriesID([]);
     setProductsData([]);
@@ -811,25 +811,21 @@ const ListOfProductsAndCategoriesPage  = () => {
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
                 borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
-                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
-                    <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
-                    Tìm kiếm theo:
-                    <div style={{paddingTop:"2px"}}>
-                      <select className="select-search sort-item" onChange={handleSelectChange}>
-                        {/*<option value="">*/}
-                        {/*  Chọn điều kiện tìm kiếm*/}
-                        {/*</option>*/}
-                        <option value={SEARCH.CATEGORY}>
-                          Danh mục lớn
-                        </option>
-                        <option value={SEARCH.SUB_CATEGORY} >
-                          Danh mục con
-                        </option>
-                        <option value={SEARCH.PRODUCT} >
-                          Sản phẩm
-                        </option>
-                      </select>
-                    </div>
+                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
+                    <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
+                    <span>Tìm kiếm theo:</span>
+                    <Select
+                        defaultValue={SEARCH.CATEGORY}
+                        style={{ width: 170 }}
+                        bordered={false}
+                        size={"large"}
+                        options={[
+                          { value: SEARCH.CATEGORY, label: 'Danh mục lớn' },
+                          { value: SEARCH.SUB_CATEGORY, label: 'Danh mục con' },
+                          { value: SEARCH.PRODUCT, label: 'Sản phẩm' },
+                        ]}
+                        onChange={(value) => {handleSelectChange(value)}}
+                    />
                   </div>
                   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
