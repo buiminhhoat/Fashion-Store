@@ -1,8 +1,9 @@
 package com.FashionStore.controllers;
 
 import com.FashionStore.freeimage.FreeImageService;
-import com.FashionStore.models.*;
-import com.FashionStore.repositories.*;
+import com.FashionStore.models.Banner;
+import com.FashionStore.models.ResponseObject;
+import com.FashionStore.repositories.BannerRepository;
 import com.FashionStore.security.JwtTokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -10,21 +11,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.Normalizer;
-import java.util.*;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -33,54 +29,40 @@ public class BannerController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    private final ProductRepository productRepository;
-    private final ProductImageRepository productImageRepository;
-
-    private final ProductCategoryRepository productCategoryRepository;
-
-    private final ProductSizeRepository productSizeRepository;
-
-    private final ProductQuantityRepository productQuantityRepository;
-
-    private final CategoryRepository categoryRepository;
-
-    private final CartItemRepository cartItemRepository;
-
-    private final BannerRepository bannerRepository;
-
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
+    @Autowired
+    private BannerRepository bannerRepository;
 
     @Autowired
     private FreeImageService freeImageService;
 
+    @Value("${multipart.banner-images}")
+    private String MULTIPART_BANNER_IMAGES;
+
+    @Value("${param.banners}")
+    private String PARAM_BANNERS;
+
+    private final String RESPONSE_BANNER_SAVE_SUCCESS;
+
     @Autowired
-    public BannerController(ProductRepository productRepository,
-                            ProductImageRepository productImageRepository,
-                            ProductCategoryRepository productCategoryRepository,
-                            ProductSizeRepository productSizeRepository,
-                            ProductQuantityRepository productQuantityRepository,
-                            CategoryRepository categoryRepository,
-                            CartItemRepository cartItemRepository,
-                            BannerRepository bannerRepository) {
-        this.productRepository = productRepository;
-        this.productImageRepository = productImageRepository;
-        this.productCategoryRepository = productCategoryRepository;
-        this.productSizeRepository = productSizeRepository;
-        this.productQuantityRepository = productQuantityRepository;
-        this.categoryRepository = categoryRepository;
-        this.cartItemRepository = cartItemRepository;
-        this.bannerRepository = bannerRepository;
+    public BannerController(MessageSource messageSource) {
+        this.RESPONSE_BANNER_SAVE_SUCCESS = messageSource.getMessage("response.banner.save-success", null, LocaleContextHolder.getLocale());
     }
 
-    @PostMapping("/admin/save-banner")
+    @GetMapping("${endpoint.public.get-all-banners}")
+    public ResponseEntity<?> getAllBanners(HttpServletRequest request) {
+        List<Banner> banners = bannerRepository.findAll();
+        return ResponseEntity.ok(banners);
+    }
+
+    @PostMapping("${endpoint.admin.save-banner}")
     public ResponseEntity<?> saveBanner(HttpServletRequest request) throws IOException {
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("bannerImages");
-        String bannersJson = request.getParameter("banners");
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles(MULTIPART_BANNER_IMAGES);
+        String bannersJson = request.getParameter(PARAM_BANNERS);
         ObjectMapper objectMapper = new ObjectMapper();
 
         List<Banner> banners;
         try {
-            banners = objectMapper.readValue(bannersJson, new TypeReference<List<Banner>>(){});
+            banners = objectMapper.readValue(bannersJson, new TypeReference<List<Banner>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -91,21 +73,14 @@ public class BannerController {
             paths.add(url);
         }
 
-        bannerRepository.deleteAll();;
+        bannerRepository.deleteAll();
 
         for (int i = 0; i < banners.size(); ++i) {
             Banner banner = banners.get(i);
             banner.setImagePath(paths.get(i));
             bannerRepository.save(banner);
         }
-        ResponseObject responseObject = new ResponseObject("Đã lưu banner thành công");
+        ResponseObject responseObject = new ResponseObject(RESPONSE_BANNER_SAVE_SUCCESS);
         return ResponseEntity.ok(responseObject);
     }
-
-    @GetMapping("/public/get-all-banners")
-    public ResponseEntity<?> getAllBanners(HttpServletRequest request) {
-        List<Banner> banners = bannerRepository.findAll();
-        return ResponseEntity.ok(banners);
-    }
 }
-
