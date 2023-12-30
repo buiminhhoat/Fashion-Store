@@ -47,7 +47,7 @@ const SlideBanner = () => {
         <section className="slide-banner w-100 d-flex justify-content-center" >
 
           { banners && banners.length > 0 ?
-              <div key={banners.length} style={{border:"1px solid #E5E5E5"}}>
+              <div style={{border:"1px solid #E5E5E5"}}>
                 <Carousel
                     autoPlay
                     infiniteLoop
@@ -55,26 +55,26 @@ const SlideBanner = () => {
                     showThumbs={false}
                 >
                   { banners.map((banner, index) => (
-                    <>
+                    <div key={index}>
                       { banner.bannerLinkTo === null || banner.bannerLinkTo === "" ?
-                        <div key={index}>
+                        <div>
                           <img src={banner.imagePath} alt={`banner ${index + 1}`}
                                style={{ width: "1290px", height: "554px", objectFit: "contain", backgroundColor:"#fff"}} />
                         </div>
                         :
-                        <a key={index} href={banner.bannerLinkTo}>
+                        <a href={banner.bannerLinkTo}>
                           <div className="pointer-cursor" >
                             <img src={banner.imagePath} alt={`banner ${index + 1}`}
                                  style={{ width: "1290px", height: "554px", objectFit: "contain", backgroundColor:"#fff"}} />
                           </div>
                         </a>
                       }
-                    </>
+                    </div>
                   ))}
                 </Carousel>
               </div>
               :
-              <div key={banners.length} style={{border:"1px solid #E5E5E5"}}>
+              <div style={{border:"1px solid #E5E5E5"}}>
                 <Carousel
                     autoPlay
                     infiniteLoop
