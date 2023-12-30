@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./style.scss";
 import {Carousel} from "react-responsive-carousel";
 
@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
+import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -19,6 +20,9 @@ const EditBannerPage = () => {
 
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
+
+  const inputRef = useRef(null);
+  const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
 
   const [banners, setBanners] = useState([]);
 
@@ -40,7 +44,7 @@ const EditBannerPage = () => {
         console.log(data);
 
         const fetchImagePromises = data.map(imageData => {
-          const imageUrl = "/storage/images/" + imageData.imagePath;
+          const imageUrl = imageData.imagePath;
           return fetchImageAsFile(imageUrl, imageData.imagePath);
         });
 
@@ -73,10 +77,6 @@ const EditBannerPage = () => {
     fetchData().then(r => {});
   }, []);
 
-  const handleUploadImageBtnClick = () => {
-    document.getElementById(`img-banner-input`).click();
-  };
-
   const handleFileChange = (e) => {
     if (e.target.files.length === 0) return;
     const files = e.target.files;
@@ -92,6 +92,7 @@ const EditBannerPage = () => {
       }
       setBanners([...banners, ...newBanners]);
     }
+    inputRef.current.value = null;
   };
 
   const handleBtnSaveBannerClick = async () => {
@@ -204,7 +205,7 @@ const EditBannerPage = () => {
 
                     <div style={{margin:"0 0 25px"}} className="popover-wrap">
                       <button
-                          onClick={handleUploadImageBtnClick}
+                          onClick={() => {inputRef.current.click()}}
                           type="button"
                           className="primary-dash-button fashion-store-button fashion-store-button--primary fashion-store-button--large fashion-store-button--outline"
                           data-education-trigger-key="variations">
@@ -217,7 +218,7 @@ const EditBannerPage = () => {
                       </button>
                       <input
                           type="file"
-                          id={`img-banner-input`}
+                          ref={inputRef}
                           accept="image/*"
                           multiple="multiple"
                           style={{ display: 'none' }}
@@ -271,7 +272,9 @@ const EditBannerPage = () => {
                     <button type="button" className="product-details-btn" onClick={handleBtnSaveBannerClick}>
                       Lưu lại
                     </button>
-                    <button type="button" className="product-details-btn product-details-btn-danger">
+                    <button type="button" className="product-details-btn product-details-btn-danger"
+                            onClick={() => {setIsShowConfirmDialog(true)}}
+                    >
                       Hủy thay đổi
                     </button>
                   </div>
@@ -281,6 +284,23 @@ const EditBannerPage = () => {
           </div>
 
         </main>
+
+        {isShowConfirmDialog && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={
+                               <>
+                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.
+                               </>
+                             }
+                             titleBtnAccept={"Có"}
+                             titleBtnCancel={"Không"}
+                             onAccept={() => {
+                               fetchData().then(r => {setIsShowConfirmDialog(false)})
+                             }}
+                             onCancel={() => {setIsShowConfirmDialog(false)}}/>
+            </div>
+        )}
       </div>
   );
 }

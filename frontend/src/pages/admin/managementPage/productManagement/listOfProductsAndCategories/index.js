@@ -79,7 +79,7 @@ const ListOfProductsAndCategoriesPage  = () => {
 
         const fetchImagePromises = data.flatMap(category =>
             category.subCategories.map(subCategory => {
-              const imageUrl = "/storage/images/" + subCategory.imagePath;
+              const imageUrl = subCategory.imagePath;
               return fetchImageAsFile(imageUrl, subCategory.imagePath, subCategory.categoryID);
             })
         );
@@ -105,7 +105,7 @@ const ListOfProductsAndCategoriesPage  = () => {
   useEffect(() => {
     fetchData().then(r => {});
   }, []);
-  
+
   const changeImageCategory = async (imageFile, categoryID) => {
     const formData = new FormData();
     formData.append('categoryID', categoryID);
@@ -465,7 +465,7 @@ const ListOfProductsAndCategoriesPage  = () => {
           {
               <section>
                 <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
-                  borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
+                  borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA"}}>
 
                   {
                     categories.map((category, index) => (
@@ -640,7 +640,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                           <img
                                                               className="img-subCategory"
                                                               src={product.productImages.length > 0 ?
-                                                                  "/storage/images/" + product.productImages[0].imagePath : ""}
+                                                                  product.productImages[0].imagePath : ""}
                                                               alt=""
                                                           />
                                                         </div>
@@ -724,7 +724,7 @@ const ListOfProductsAndCategoriesPage  = () => {
     return (
       <section>
         <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
-          borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
+          borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA"}}>
 
           <div>
             {
@@ -739,7 +739,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                             <img
                                 className="img-subCategory"
                                 src={product.productImages.length > 0 ?
-                                    "/storage/images/" + product.productImages[0].imagePath : ""}
+                                    product.productImages[0].imagePath : ""}
                                 alt=""
                             />
                           </div>
@@ -809,7 +809,7 @@ const ListOfProductsAndCategoriesPage  = () => {
 
               </p>
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
-                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
+                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
                     <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
@@ -835,7 +835,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
                       <input
                           className="placeholder-color"
-                          style={{fontSize:"15px", width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}
+                          style={{fontSize:"15px", width:"250px",backgroundColor:"#FAFAFA", border:"none", margin:"0 5px 0 5px"}}
                           type="text"
                           value={searchInputValue}
                           placeholder="Nhập từ khóa"

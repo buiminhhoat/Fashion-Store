@@ -12,15 +12,44 @@ export function isSubstringIgnoreCaseAndAccents(keyword, str) {
 }
 
 export function isStartWithLetter(str) {
-  const newStr = removeAccents(str);
-  const firstChar = newStr.charAt(0);
-  return /^[a-zA-Z]/.test(firstChar);
+  if (str.length > 0) {
+    const firstChar = str.charAt(0);
+    return /^[A-Za-zÀ-ỹ]/.test(firstChar);
+  }
+  return false;
 }
 
 export const generateUniqueId = () => {
   const timestamp = Date.now();
   return timestamp.toString() + Math.floor(Math.random() * 1000);
 }
+
+export function convertDateTimeFormat(dateTimeString) {
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+    hour12: false, // Đặt giờ theo định dạng 24 giờ
+  };
+
+  const dateTime = new Date(dateTimeString);
+  const formattedDateTime = dateTime.toLocaleDateString('vi-VN', options);
+
+  // Tách giờ và phút từ chuỗi định dạng
+  const [time, date] = formattedDateTime.split(' ');
+
+  // Chia giờ và phút
+  const [hour, minute] = time.split(':');
+
+  // Định dạng lại giờ với số 0 phía trước khi cần thiết
+  const formattedHour = hour.padStart(2, '0');
+
+  // Kết hợp lại và trả về kết quả cuối cùng
+  return `${formattedHour}:${minute} ${date}`;
+}
+
 
 export const ScrollToTop = () => {
   const { pathname } = useLocation();

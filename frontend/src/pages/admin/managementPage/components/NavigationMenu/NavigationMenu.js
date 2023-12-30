@@ -7,6 +7,8 @@ import {TbShoppingBag} from "react-icons/tb";
 import {FaRegUser} from "react-icons/fa";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ROUTERS} from "../../utils/router";
+import {SCROLLING} from "../../../../../utils/const";
+import {RiShoppingCart2Line} from "react-icons/ri";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -36,7 +38,11 @@ const items = [
     getItem('Thêm sản phẩm', ROUTERS.ADMIN.ADD_PRODUCT),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
+    getItem('Thông tin cửa hàng',  ROUTERS.ADMIN.STORE_INFORMATION),
     getItem('Chỉnh sửa banner',  ROUTERS.ADMIN.EDIT_BANNER),
+  ]),
+  getItem('Quản lý bán hàng', 'sales-management', <RiShoppingCart2Line style={{fontSize:"20px", marginBottom:"1px"}}/>, [
+    getItem('Danh sách đơn hàng',  ROUTERS.ADMIN.ORDER_LIST),
   ]),
 
   getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
@@ -78,13 +84,15 @@ const NavigationMenu = () => {
   }, [location]);
 
   const onClick = (e) => {
-    navigate('/admin/management-page/' + e.key);
+    navigate('/admin/management-page/' + e.key, {
+      state: { scrolling: SCROLLING.SMOOTH },
+    });
   }
 
   const onOpenChange = (e) => {
     setOpenKeys(e);
   }
-  
+
   return (
       <Menu
           onClick={(e) => onClick(e)}

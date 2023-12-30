@@ -1,5 +1,6 @@
 package com.FashionStore.controllers;
 
+import com.FashionStore.freeimage.FreeImageService;
 import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
@@ -9,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,21 +37,47 @@ public class ProductController {
 
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
-
     private final ProductCategoryRepository productCategoryRepository;
-
     private final ProductSizeRepository productSizeRepository;
-
     private final ProductQuantityRepository productQuantityRepository;
-
     private final CategoryRepository categoryRepository;
-
     private final CartItemRepository cartItemRepository;
 
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
+    @Autowired
+    private FreeImageService freeImageService;
 
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
+    @Value("${param.productID}")
+    private String PARAM_PRODUCT_ID;
+
+    @Value("${param.productName}")
+    private String PARAM_PRODUCT_NAME;
+
+    @Value("${param.productPrice}")
+    private String PARAM_PRODUCT_PRICE;
+
+    @Value("${param.productDescription}")
+    private String PARAM_PRODUCT_DESCRIPTION;
+
+    @Value("${param.product-images}")
+    private String PARAM_PRODUCT_IMAGES;
+
+    @Value("${param.parentCategoryID}")
+    private String PARAM_PARENT_CATEGORY_ID;
+
+    @Value("${param.categoryID}")
+    private String PARAM_CATEGORY_ID;
+
+    @Value("${param.productSizes}")
+    private String PARAM_PRODUCT_SIZES;
+
+    @Value("${param.productQuantities}")
+    private String PARAM_PRODUCT_QUANTITIES;
+
+    private final String MESSAGE_SUCCESS_ADD_PRODUCT;
+
+    private final String MESSAGE_SUCCESS_EDIT_PRODUCT;
+
+    private final String MESSAGE_SUCCESS_DELETE_PRODUCT;
 
     @Autowired
     public ProductController(ProductRepository productRepository,
@@ -57,7 +86,8 @@ public class ProductController {
                              ProductSizeRepository productSizeRepository,
                              ProductQuantityRepository productQuantityRepository,
                              CategoryRepository categoryRepository,
-                             CartItemRepository cartItemRepository) {
+                             CartItemRepository cartItemRepository,
+                             MessageSource messageSource) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productCategoryRepository = productCategoryRepository;
@@ -65,59 +95,42 @@ public class ProductController {
         this.productQuantityRepository = productQuantityRepository;
         this.categoryRepository = categoryRepository;
         this.cartItemRepository = cartItemRepository;
+        this.MESSAGE_SUCCESS_ADD_PRODUCT = messageSource.getMessage("response.success.add-product", null, LocaleContextHolder.getLocale());
+        this.MESSAGE_SUCCESS_EDIT_PRODUCT = messageSource.getMessage("response.success.edit-product", null, LocaleContextHolder.getLocale());
+        this.MESSAGE_SUCCESS_DELETE_PRODUCT = messageSource.getMessage("response.success.delete-product", null, LocaleContextHolder.getLocale());
     }
 
-    @PostMapping("/admin/add-product")
-    public ResponseEntity<?> addProduct(HttpServletRequest request) {
-        String productName = request.getParameter("productName");
-        Long productPrice = Long.valueOf(request.getParameter("productPrice"));
-        String productDescription = request.getParameter("productDescription");
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
-        Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
-        Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
-        String productSizesJson = request.getParameter("productSizes");
-        String productQuantitiesJson = request.getParameter("productQuantities");
+    @PostMapping("${endpoint.admin.add-product}")
+    public ResponseEntity<?> addProduct(HttpServletRequest request) throws IOException {
+        String productName = request.getParameter(PARAM_PRODUCT_NAME);
+        Long productPrice = Long.valueOf(request.getParameter(PARAM_PRODUCT_PRICE));
+        String productDescription = request.getParameter(PARAM_PRODUCT_DESCRIPTION);
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles(PARAM_PRODUCT_IMAGES);
+        Long parentCategoryID = Long.valueOf(request.getParameter(PARAM_PARENT_CATEGORY_ID));
+        Long categoryID = Long.valueOf(request.getParameter(PARAM_CATEGORY_ID));
+        String productSizesJson = request.getParameter(PARAM_PRODUCT_SIZES);
+        String productQuantitiesJson = request.getParameter(PARAM_PRODUCT_QUANTITIES);
         ObjectMapper objectMapper = new ObjectMapper();
 
         List<ProductSize> productSizes;
         try {
-            productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>(){});
+            productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
         List<ProductQuantity> productQuantities;
         try {
-            productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>(){});
+            productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
-        }
-
         List<String> paths = new ArrayList<>();
         for (MultipartFile image : images) {
-            String originalFilename = image.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFilename != null) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-            }
-            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
-
-            try {
-                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                Path path = Paths.get(imagePath);
-                image.transferTo(path.toFile());
-                paths.add(fileName);
-                // Lưu đường dẫn của ảnh vào database (thực hiện thao tác lưu vào database tại đây)
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
-            }
+            String url = freeImageService.uploadImageToFreeImage(image.getBytes());
+            paths.add(url);
         }
-
 
         Product product = new Product(productName, productPrice, productDescription);
         productRepository.save(product);
@@ -143,40 +156,35 @@ public class ProductController {
             productQuantityRepository.save(productQuantity);
         }
 
-        ResponseObject responseObject = new ResponseObject("Đã thêm sản phẩm thành công");
+        ResponseObject responseObject = new ResponseObject(MESSAGE_SUCCESS_ADD_PRODUCT);
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/admin/edit-product")
-    public ResponseEntity<?> editProduct(HttpServletRequest request) {
-        Long productID = Long.valueOf(request.getParameter("productID"));
-        String productName = request.getParameter("productName");
-        Long productPrice = Long.valueOf(request.getParameter("productPrice"));
-        String productDescription = request.getParameter("productDescription");
-        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("productImages");
-        Long parentCategoryID = Long.valueOf(request.getParameter("ParentCategoryID"));
-        Long categoryID = Long.valueOf(request.getParameter("CategoryID"));
-        String productSizesJson = request.getParameter("productSizes");
-        String productQuantitiesJson = request.getParameter("productQuantities");
+    @PostMapping("${endpoint.admin.edit-product}")
+    public ResponseEntity<?> editProduct(HttpServletRequest request) throws IOException {
+        Long productID = Long.valueOf(request.getParameter(PARAM_PRODUCT_ID));
+        String productName = request.getParameter(PARAM_PRODUCT_NAME);
+        Long productPrice = Long.valueOf(request.getParameter(PARAM_PRODUCT_PRICE));
+        String productDescription = request.getParameter(PARAM_PRODUCT_DESCRIPTION);
+        List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles(PARAM_PRODUCT_IMAGES);
+        Long parentCategoryID = Long.valueOf(request.getParameter(PARAM_PARENT_CATEGORY_ID));
+        Long categoryID = Long.valueOf(request.getParameter(PARAM_CATEGORY_ID));
+        String productSizesJson = request.getParameter(PARAM_PRODUCT_SIZES);
+        String productQuantitiesJson = request.getParameter(PARAM_PRODUCT_QUANTITIES);
         ObjectMapper objectMapper = new ObjectMapper();
 
         List<ProductSize> productSizes;
         try {
-            productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>(){});
+            productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
         List<ProductQuantity> productQuantities;
         try {
-            productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>(){});
+            productQuantities = objectMapper.readValue(productQuantitiesJson, new TypeReference<List<ProductQuantity>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
-
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
         }
 
         try {
@@ -189,25 +197,10 @@ public class ProductController {
 
         List<String> paths = new ArrayList<>();
         for (MultipartFile image : images) {
-            String originalFilename = image.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFilename != null) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-            }
-            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
-
-            try {
-                String imagePath = appRoot + UPLOAD_DIR + File.separator + fileName;
-                Path path = Paths.get(imagePath);
-                image.transferTo(path.toFile());
-                paths.add(fileName);
-                // Lưu đường dẫn của ảnh vào database (thực hiện thao tác lưu vào database tại đây)
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
-            }
+            String url = freeImageService.uploadImageToFreeImage(image.getBytes());
+            paths.add(url);
         }
 
-//        Product product = new Product(productID, productName, productPrice, productDescription);
         productRepository.save(product);
         Long productId = product.getProductID();
 
@@ -231,13 +224,13 @@ public class ProductController {
             productQuantityRepository.save(productQuantity);
         }
 
-        ResponseObject responseObject = new ResponseObject("Đã chỉnh sửa sản phẩm thành công");
+        ResponseObject responseObject = new ResponseObject(MESSAGE_SUCCESS_EDIT_PRODUCT);
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("/admin/delete-product")
+    @PostMapping("${endpoint.admin.delete-product}")
     public ResponseEntity<?> deleteProduct(HttpServletRequest request) {
-        Long productID = Long.valueOf(request.getParameter("productID"));
+        Long productID = Long.valueOf(request.getParameter(PARAM_PRODUCT_ID));
 
         try {
             cleanProduct(productID);
@@ -245,13 +238,11 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
         }
 
-//        productRepository.delete(product);
-
-        ResponseObject responseObject = new ResponseObject("Đã xóa sản phẩm thành công");
+        ResponseObject responseObject = new ResponseObject(MESSAGE_SUCCESS_DELETE_PRODUCT);
         return ResponseEntity.ok(responseObject);
     }
 
-    @GetMapping("/public/search/{productName}")
+    @GetMapping("${endpoint.public.search-product}")
     public ResponseEntity<?> searchProductByProductName(HttpServletRequest request, @PathVariable String productName) {
         List<Product> allProducts = productRepository.findAll();
         List<Product> products = new ArrayList<>();
@@ -264,7 +255,6 @@ public class ProductController {
             int count = 0;
             for (String word: productName.split(" ")) {
                 if (replaceVietnameseChars(product.getProductName().toLowerCase()).contains(word.toLowerCase())) {
-//                    matchingProducts.add(getProductDetails(product.getProductID()));
                     ++count;
                 }
             }
@@ -286,7 +276,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/public/product/{productID}")
+    @GetMapping("${endpoint.public.get-product}")
     public ResponseEntity<?> getProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
         Product product = productRepository.findProductByProductID(productID);
         product = getProductDetails(product.getProductID());
@@ -319,14 +309,6 @@ public class ProductController {
         /* Dọn rác */
         /* Dọn ảnh có trong database và storage - product Image */
         for (ProductImage productImage: productImageRepository.findProductImageByProductID(productID)) {
-            String fileName = productImage.getImagePath();
-            String filePathToDelete = appRoot + UPLOAD_DIR + File.separator + fileName;
-            try {
-                Path pathToDelete = Paths.get(filePathToDelete);
-                Files.deleteIfExists(pathToDelete);
-            } catch (IOException e) {
-                throw e;
-            }
             productImageRepository.delete(productImage);
         }
 

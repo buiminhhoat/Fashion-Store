@@ -6,5 +6,7 @@ export const ROUTERS = {
         EDIT_BANNER: "edit-banner",
         ADD_ACCOUNT: "add-account",
         ACCOUNT_LIST: "account-list",
+        ORDER_LIST: "order-list",
+        STORE_INFORMATION: "store-information",
     }
 }

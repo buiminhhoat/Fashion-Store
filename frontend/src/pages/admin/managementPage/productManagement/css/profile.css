@@ -1661,7 +1661,7 @@ input:disabled,textarea:disabled {
 
 .change__password__wrap {
     background: #fff;
-    min-height: 575px;
+    min-height: 439px;
     padding: 20px 32px 34px;
     position: relative
 }
@@ -1691,7 +1691,7 @@ input:disabled,textarea:disabled {
 
 .change__password__wrap .content__wrap {
     display: flex;
-    margin-bottom: 70px
+    margin-bottom: 30px
 }
 
 .change__password__wrap .content__wrap article {
@@ -1726,7 +1726,7 @@ input:disabled,textarea:disabled {
 }
 
 .change__password__wrap .content__wrap article .info__item .input__wrap .form-control[type=password] {
-    color: #d3d4d6
+    color: #333333
 }
 
 .change__password__wrap .content__wrap article .info__item .input__wrap .error--message {

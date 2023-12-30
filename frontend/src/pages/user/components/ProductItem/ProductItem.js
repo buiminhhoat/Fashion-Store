@@ -16,8 +16,8 @@ function ProductItem({ product }) {
               {
                 product.productImages.length > 0 ?
                   <img className="show-product-image"
-                       lazy-src={"/storage/images/" + product.productImages[0].imagePath}
-                       src={"/storage/images/" + product.productImages[0].imagePath}
+                       lazy-src={product.productImages[0].imagePath}
+                       src={product.productImages[0].imagePath}
                        loading="lazy"
                        alt={product.productName}
                   />

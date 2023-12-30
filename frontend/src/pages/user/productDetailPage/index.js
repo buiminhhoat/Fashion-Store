@@ -6,7 +6,7 @@ import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
 import queryString from "query-string";
-import {CartContext} from "../theme/userMasterLayout";
+import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
 
 const ProductDetailPage = () => {
@@ -40,18 +40,15 @@ const ProductDetailPage = () => {
         const data = await response.json();
         cartContext.getAmountInCart();
         toast.success("Đã thêm vào giỏ hàng thành công");
-        console.log('Upload successful:', data);
       } else if (response.status === 401) {
-        // Xử lý khi số lượng hàng trong kho không đủ
-        toast.warn("Số lượng hàng trong kho không đủ. Vui lòng giảm số lượng mua hoặc chọn kích thước khác.");
+        const data = await response.json();
+        toast.warn(data.message);
       } else {
-        // Xử lý các trường hợp lỗi khác
         toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
       }
     } catch (error) {
-      // Xử lý lỗi kết nối hoặc lỗi khác
       toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
-      console.error('Upload failed:', error);
+      console.error('Error:', error);
     }
   }
 

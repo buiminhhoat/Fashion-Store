@@ -83,7 +83,7 @@ const SORT = {
   DECS: "2",
 }
 
-const NUMBER_PRODUCT = 1;
+const NUMBER_PRODUCT = 6;
 
 const CategoryPage = ({keyword}) => {
   const navigate = useNavigate();
@@ -131,7 +131,7 @@ const CategoryPage = ({keyword}) => {
   }, [categoryID, selectedSort]);
 
   useEffect(() => {
-    setNumberProduct(1);
+    setNumberProduct(NUMBER_PRODUCT);
   }, [categoryID]);
 
   const hasResult = productsData.categoryID > 0;

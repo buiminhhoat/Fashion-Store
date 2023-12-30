@@ -24,7 +24,7 @@ const ImagesProductSection = ({informationProduct}) => {
   };
 
   const handleClickImage = (imagePath, index) => {
-    setMainImageURL("/storage/images/" + imagePath);
+    setMainImageURL(imagePath);
     setMainImageIndex(index);
   };
 
@@ -154,10 +154,10 @@ const ImagesProductSection = ({informationProduct}) => {
             >
               <img
                   style={{objectFit:"contain", maxWidth: "100%", maxHeight:"100%", width:"auto", height:"auto"}}
-                  lazy-src={"/storage/images/" + image.imagePath}
+                  lazy-src={image.imagePath}
                   alt='product-image'
                   loading="lazy"
-                  src={"/storage/images/" + image.imagePath}
+                  src={image.imagePath}
               />
             </div>
           </div>

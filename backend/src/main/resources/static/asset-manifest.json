@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.231d971a.css",
-    "main.js": "/static/js/main.6e937867.js",
+    "main.css": "/static/css/main.711c64a6.css",
+    "main.js": "/static/js/main.c438ffd7.js",
     "static/js/787.44c26954.chunk.js": "/static/js/787.44c26954.chunk.js",
     "static/media/logo_fashion_store.png": "/static/media/logo_fashion_store.5797645c055ae9386184.png",
+    "static/media/forgot-password.jpg": "/static/media/forgot-password.767a2d19a846baf55738.jpg",
     "static/media/zalo.svg": "/static/media/zalo.c63e607f5f4180498ce1557d495f0aae.svg",
     "static/media/logoSaleNoti.png": "/static/media/logoSaleNoti.cb85045e8b81c0a8dd5f.png",
     "static/media/lazada.svg": "/static/media/lazada.2e5957f03af2b89a9a90d564cf2c82c4.svg",
@@ -18,19 +19,14 @@
     "static/media/logout.svg": "/static/media/logout.627bfde4263bdfe24003bd58e4765c5c.svg",
     "static/media/store.svg": "/static/media/store.cc100dc83fe7576d846de3347ed1e043.svg",
     "static/media/up.svg": "/static/media/up.a66e5a5e91898c8e1bb0c5f790145364.svg",
-    "static/media/eye_off.svg": "/static/media/eye_off.728def544a14f3856f520be2ad203a24.svg",
     "static/media/bars-filter.svg": "/static/media/bars-filter.a17890db1c8db9edb8d0f5f44fec2783.svg",
     "static/media/gg.svg": "/static/media/gg.8618dda0a4f7c5b0592e3a4b93ed87f2.svg",
     "static/media/arrow_left_1.svg": "/static/media/arrow_left_1.1dba6efb0394e644498bf0578ae1c079.svg",
     "static/media/close.svg": "/static/media/close.4d6858151723cf769dcafeb7d899f964.svg",
-    "static/media/view.svg": "/static/media/view.85f590bab985e32291c1fc09b98ba230.svg",
-    "static/media/likeProduct.svg": "/static/media/likeProduct.3ceb643b60656b06f4ae9f896fbd02ef.svg",
     "static/media/angle-right.svg": "/static/media/angle-right.dae3701155d3b511e72f042d5fe74c38.svg",
-    "static/media/arrow-down.svg": "/static/media/arrow-down.d7b3ffde4ea11a2204bda65f8f5921fe.svg",
     "static/media/phone.svg": "/static/media/phone.ff09814ef5b14b0b198adbee9ec284c3.svg",
     "static/media/search.svg": "/static/media/search.16048bc2d0844da587e1189480d5626f.svg",
     "static/media/cod.svg": "/static/media/cod.ca8079ea08db6b411e912a55567c22c2.svg",
-    "static/media/eye_on.svg": "/static/media/eye_on.d50354a9699a331e5a1c01d5dc8ef1c4.svg",
     "static/media/address.svg": "/static/media/address.995c4f8bb4120c465dbd0a49136c5e21.svg",
     "static/media/edit.svg": "/static/media/edit.825646683d6761ddd3371978b6ab5cef.svg",
     "static/media/mail.svg": "/static/media/mail.e5f47d2750afe043ab511937dfdcd739.svg",
@@ -40,12 +36,12 @@
     "static/media/card.svg": "/static/media/card.79c6c21d949cd294c8769e42311519ca.svg",
     "static/media/unlocked.svg": "/static/media/unlocked.446d7940bb94b6e3a7a962997ef85ba7.svg",
     "static/media/plus.svg": "/static/media/plus.f2715396a53c70b447cc8e205d4241d2.svg",
-    "main.231d971a.css.map": "/static/css/main.231d971a.css.map",
-    "main.6e937867.js.map": "/static/js/main.6e937867.js.map",
+    "main.711c64a6.css.map": "/static/css/main.711c64a6.css.map",
+    "main.c438ffd7.js.map": "/static/js/main.c438ffd7.js.map",
     "787.44c26954.chunk.js.map": "/static/js/787.44c26954.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.231d971a.css",
-    "static/js/main.6e937867.js"
+    "static/css/main.711c64a6.css",
+    "static/js/main.c438ffd7.js"
   ]
 }

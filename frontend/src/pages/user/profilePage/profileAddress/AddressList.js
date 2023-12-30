@@ -1,156 +1,158 @@
 import React, { useState, useEffect } from "react";
-import {Cookies, useCookies} from "react-cookie";
-import {Link} from "react-router-dom";
-import async from "async";
-
-const addressesNew = [
-    {
-        "addressID": 3,
-        "usersID": 3,
-        "recipientName": "Dzung Tien",
-        "recipientPhone": "3123",
-        "addressDetails": "Ha Noi",
-        "default": false
-    },
-    {
-        "addressID": 4,
-        "usersID": 3,
-        "recipientName": "Cope",
-        "recipientPhone": "",
-        "addressDetails": "",
-        "default": false
-    },
-    {
-        "addressID": 5,
-        "usersID": 3,
-        "recipientName": "Kiki",
-        "recipientPhone": "0123",
-        "addressDetails": "456",
-        "default": true
-    }
-]
+import {useCookies} from "react-cookie";
+import {Link, useLocation} from "react-router-dom";
+import {toast} from "react-toastify";
+import queryString from "query-string";
+import {ConfigProvider, Popconfirm} from "antd";
 
 function AddressList() {
-    const [cookies] = useCookies(['access_token']);
-    const accessToken = cookies.access_token;
-    const [addresses, setAddresses] = useState([{}, {}]);
+  const [cookies] = useCookies(['access_token']);
 
-    const updateData = () => {
-        fetch("/api/public/get-all-addresses", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${accessToken}`,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                const sortedAddresses = data.sort((a, b) => (b.isDefault || 0) - (a.isDefault || 0));
-                setAddresses(sortedAddresses);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const [userID, setUserID] = useState(queryParams.userID);
+  const accessToken = cookies.access_token;
+  const [addresses, setAddresses] = useState([]);
+
+  const fetchData = async () => {
+    const formData = new FormData();
+    formData.append('userID', userID);
+
+    const apiGetAllAddresses = "/api/public/get-all-addresses";
+    try {
+      const response = await fetch(apiGetAllAddresses, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const sortedAddresses = data.sort((a, b) => (b.isDefault || 0) - (a.isDefault || 0));
+        setAddresses(sortedAddresses);
+
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
     }
-    // console.log(accessToken)
-    useEffect(() => {
-        // Thực hiện HTTP request để lấy danh sách địa chỉ từ backend
-        updateData();
-    }, []);
+  }
 
-    const handleSetDefault = async (id) => {
-        try {
-            const formData = new FormData()
-            formData.append("addressID", addresses[id].addressID)
-            const response = await fetch(`/api/public/set-default-address`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`,
-                },
-                body: formData,
-            });
+  useEffect(() => {
+    fetchData().then(r => {});
+  }, []);
 
-            if (response.ok) {
-                updateData();
-                // Hoặc thực hiện các thao tác cần thiết khác
-            } else {
-                // Xử lý lỗi nếu có
-                console.error("Error:", response);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    };
+  const handleSetDefault = async (id) => {
+    try {
+      const formData = new FormData()
+      formData.append("addressID", addresses[id].addressID)
+      const response = await fetch(`/api/public/set-default-address`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
 
-    const handleDelete = async (id) => {
-        try {
-            const formData = new FormData()
-            formData.append("addressID", addresses[id].addressID)
-            // formData.append("recipientName", addresses[id].recipientName)
-            // formData.append("recipientPhone", addresses[id].recipientPhone)
-            // formData.append("addressDetails", addresses[id].addressDetails)
-            // formData.append("isDefault", addresses[id].isDefault)
-
-            const response = await fetch(`/api/delete-address`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`,
-                },
-                body: formData,
-            });
-
-            if (response.ok) {
-                updateData();
-                // Hoặc thực hiện các thao tác cần thiết khác
-            } else {
-                // Xử lý lỗi nếu có
-                console.error("Error:", response);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
+      if (response.ok) {
+        fetchData().then(r => {});
+      } else {
+        console.error("Error:", response);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
+  };
 
-    return (
-        <div>
-            {addresses.map((address, index) => (
-                <div className="box-address" key={index}>
-                    <div className="item-address-wrap" data-item-address-id={index}>
-                        <div className="information">
-                            <span className="name">{address.recipientName}</span>
-                            <div className="break-item">|</div>
-                            <span className="phone">{address.recipientPhone}</span>
-                            {address.isDefault ?
-                                (<div className="default-address">Mặc định</div>) :
-                                (<button className="btn-set-default pointer" data-address-id="652c63418a828b4b6e095526" onClick={() => handleSetDefault(index)}>
-                                    <span className="set-default">
-                                        Thiết lập mặc định
-                                    </span>
-                                 </button>)
-                            }
-                        </div>
-                        <div className="address">
-                            <span>{address.addressDetails}</span>
-                        </div>
-                        <div className="box-btn-wrap">
-                            <div className="btn-wrap-item">
-                                <Link to = {"/profile/edit-address/" + address.addressID}>
-                                    <div className="edit">Sửa</div>
-                                </Link>
-                                {!address.isDefault && (
-                                        <>
-                                            <div className="break-item">|</div>
-                                            <span className="delete delete-address" onClick={() => handleDelete(index)}> Xóa </span>
-                                        </>
-                                    )
-                                }
-                            </div>
-                        </div>
-                    </div>
+  const handleDelete = async (id) => {
+    try {
+      const formData = new FormData()
+      formData.append("addressID", addresses[id].addressID)
+
+      const response = await fetch(`/api/public/delete-address`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        fetchData().then(r => {
+          toast.success("Xóa địa chỉ thành công");
+        });
+      } else {
+        toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+        console.error("Error:", response);
+      }
+    } catch (error) {
+      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      console.error("Error:", error);
+    }
+  }
+
+  return (
+      <div>
+        {addresses.map((address, index) => (
+            <div className="box-address" key={index}>
+              <div className="item-address-wrap" data-item-address-id={index}>
+                <div className="information">
+                  <span className="name">{address.recipientName}</span>
+                  <div className="break-item">|</div>
+                  <span className="phone">{address.recipientPhone}</span>
+                  { address.isDefault ?
+                    <div className="default-address">Mặc định</div>
+                    :
+                    <button className="btn-set-default pointer"
+                            data-address-id="652c63418a828b4b6e095526"
+                            onClick={() => handleSetDefault(index)}
+                    >
+                      <span className="set-default">
+                        Thiết lập mặc định
+                      </span>
+                    </button>
+                  }
                 </div>
-            ))}
-        </div>
-    );
+                <div className="address">
+                  <span>{address.addressDetails}</span>
+                </div>
+                <div className="box-btn-wrap">
+                  <div className="btn-wrap-item">
+                    <Link to = {`/profile/edit-address?userID=${userID}&addressID=${address.addressID}`}>
+                      <div className="edit">Sửa</div>
+                    </Link>
+                    { !address.isDefault &&
+                      <>
+                        <div className="break-item">|</div>
+
+                        <ConfigProvider
+                            button={{
+                              style: { width: 70, margin: 4 },
+                            }}
+                        >
+                          <Popconfirm
+                              placement="top"
+                              title={<div>Chắc chắn xóa địa chỉ này?</div>}
+                              okText={<div>Xóa</div>}
+                              cancelText={<div>Hủy</div>}
+                              onConfirm={() => handleDelete(index)}
+                          >
+                            <span className="delete delete-address"> Xóa </span>
+                          </Popconfirm>
+                        </ConfigProvider>
+                      </>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+        ))}
+      </div>
+  );
 }
 
 export default AddressList;

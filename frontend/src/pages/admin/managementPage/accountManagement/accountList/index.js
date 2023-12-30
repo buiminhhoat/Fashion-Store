@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from "react";
 import "./style.scss"
-import {TbListSearch} from "react-icons/tb";
-import {IoSearch} from "react-icons/io5";
-import {Tooltip} from "antd";
-import {MdLibraryAdd} from "react-icons/md";
-import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
-import {SEARCH_USER} from "../../productManagement/utils/const";
-import {HiOutlineTrash} from "react-icons/hi";
-import {BiSolidEdit} from "react-icons/bi";
-import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import {useNavigate} from "react-router-dom";
+
+import {toast} from "react-toastify";
+
+import {IoSearch} from "react-icons/io5";
+import {BiSolidEdit} from "react-icons/bi";
+import {TbListSearch} from "react-icons/tb";
+import {MdLibraryAdd, MdOutlineEmail} from "react-icons/md";
+import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
+
+import {Tooltip} from "antd";
+import {SEARCH_USER} from "../../productManagement/utils/const";
+
+import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
+import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -18,6 +23,7 @@ const AccountListPage = () => {
   const accessToken = cookies.access_token;
 
   const [usersData, setUsersData] = useState([]);
+  const [deletedUser, setDeletedUser] = useState(null);
 
   const [searchInputValue, setSearchInputValue] = useState("");
   const [selectedSearch, setSelectedSearch] = useState("");
@@ -42,35 +48,30 @@ const AccountListPage = () => {
         const data = await response.json();
         console.log(data);
 
-        let newUsers = [];
-        for (let i = 0; i < data.length; ++i) {
-          newUsers.push({
-            ...data[i],
-            isShow:true,
-          });
-        }
-        setUsersData(newUsers);
+        const fetchImagePromises = data.map(item => {
+          if (!item.avatarPath) {
+            return null;
+          }
+          const imageUrl = item.avatarPath;
+          return fetchImageAsFile(imageUrl, item.avatarPath);
+        });
 
-        // const fetchImagePromises = data.map(item => {
-        //   const imageUrl = "/storage/images/" + item.avatarPath;
-        //   return fetchImageAsFile(imageUrl, item.avatarPath);
-        // });
-        //
-        // Promise.all(fetchImagePromises)
-        //     .then(files => {
-        //       let newUsers = [];
-        //       for (let i = 0; i < data.length; ++i) {
-        //         newUsers.push({
-        //           ...data[i],
-        //           imageFile: files[i],
-        //           imageURL: URL.createObjectURL(files[i]),
-        //         });
-        //       }
-        //       setUsersData(newUsers);
-        //     })
-        //     .catch(error => {
-        //       console.error("Error loading images:", error);
-        //     });
+        Promise.all(fetchImagePromises)
+            .then(files => {
+              let newUsers = [];
+              for (let i = 0; i < data.length; ++i) {
+                newUsers.push({
+                  ...data[i],
+                  isShow:true,
+                  imageFile: files[i],
+                  imageURL: files[i]?URL.createObjectURL(files[i]):null,
+                });
+              }
+              setUsersData(newUsers);
+            })
+            .catch(error => {
+              console.error("Error loading images:", error);
+            });
 
       } else {
         const data = await response.json();
@@ -84,6 +85,44 @@ const AccountListPage = () => {
   useEffect(() => {
     fetchData().then(r => {});
   }, []);
+
+  const deleteUser = async () => {
+    const formData = new FormData();
+    formData.append('userID', deletedUser.userID);
+
+    let apiDeleteUserUrl = "/api/admin/delete-user";
+    try {
+      const response = await fetch(apiDeleteUserUrl, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 404) {
+        toast.error("Không thể kết nối được với database");
+        console.error('API endpoint not found:', apiDeleteUserUrl);
+        return;
+      }
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success("Đã xóa người dùng");
+        setUsersData((newUsersData) =>
+            usersData.filter((user) => user.userID !== deletedUser.userID)
+        );
+
+        setDeletedUser(null);
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối được với database");
+      console.error('Failed:', error);
+    }
+  };
 
   const handleBtnSearchClick = () => {
     if (!searchInputValue || searchInputValue === "") {
@@ -131,48 +170,63 @@ const AccountListPage = () => {
     return (
         <section>
           <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
-            borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9"}}>
+            borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA"}}>
 
             <div>
               {
                   usersData && usersData.map((user, index) => (
                       user.isShow &&
                       <div key={index}>
-                        <div className={`product-field`}>
-                          <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                            <div style={{alignSelf: "flex-start", width:"25px", height:"100%", borderRight:"3px"}}/>
+                        <div className={`user-field`}>
 
-                            {/*<div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>*/}
-                            {/*  <img*/}
-                            {/*      className="img-subCategory"*/}
-                            {/*      src={"/storage/images/" + usersData.imageURL}*/}
-                            {/*      alt=""*/}
-                            {/*  />*/}
-                            {/*</div>*/}
+                          <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%",height:"100%"}}>
 
-                            <a
-                              // href={`/product?productID=${product.productID}`}
-                              className="cursor-point hover-underline-animation"
-                              style={{marginLeft:"15px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D"}}
-                              // onClick={() => {navigate(`/product?productID=${product.productID}`)}}
-                            >
+                            <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
+                              <img
+                                  className="img-subCategory"
+                                  src={user.imageURL?user.imageURL:"https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
+                                  alt=""
+                              />
+                            </div>
+                            <span style={{flex:"1", marginLeft:"15px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", cursor:"default"}}>
                               {user.fullName}
-                            </a>
+                            </span>
+
+                            <MdOutlineEmail style={{fontSize:"18px", margin:"0 7px 0 15px", color:"#9D9D9D"}}/>
+                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word", cursor:"default"}}>
+                              {user.email}
+                            </span>
+                            <HiOutlinePhone style={{fontSize:"18px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
+                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word", cursor:"default"}}>
+                              {user.phoneNumber}
+                            </span>
                           </div>
 
+
                           <div style={{display:"flex"}}>
-                            <div className="pointer-cursor btn-category"
-                                 style={{marginRight:"20px"}}
-                                 // onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
-                            >
-                              <HiOutlineTrash />
-                            </div>
-                            <div className="pointer-cursor btn-category"
-                                 style={{marginRight:"0"}}
-                                 // onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
-                            >
-                              <BiSolidEdit />
-                            </div>
+
+                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa người dùng</div>} color={"#4A4444"}>
+                              <div className="pointer-cursor btn-category"
+                                   style={{marginRight:"20px"}}
+                                   onClick={() => {
+                                     setDeletedUser({
+                                       userID: user.userID,
+                                       fullName: user.fullName,
+                                     })
+                                   }}
+                              >
+                                <HiOutlineTrash />
+                              </div>
+                            </Tooltip>
+
+                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chi tiết người dùng</div>} color={"#4A4444"}>
+                              <div className="pointer-cursor btn-category"
+                                   style={{marginRight:"0"}}
+                                   onClick={() => {navigate(`/profile/orders?userID=${user.userID}`)}}
+                              >
+                                <BiSolidEdit />
+                              </div>
+                            </Tooltip>
 
                           </div>
 
@@ -186,7 +240,7 @@ const AccountListPage = () => {
         </section>
     );
   }
-  
+
   return (
       <div id="app">
         <main id="main">
@@ -214,7 +268,7 @@ const AccountListPage = () => {
               </p>
 
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
-                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#f9f9f9", height:"75px"}}>
+                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
                     <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
@@ -239,7 +293,7 @@ const AccountListPage = () => {
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
                       <input
                           className="placeholder-color"
-                          style={{fontSize:"15px", width:"250px",backgroundColor:"#f9f9f9", border:"none", margin:"0 5px 0 5px"}}
+                          style={{fontSize:"15px", width:"250px",backgroundColor:"#FAFAFA", border:"none", margin:"0 5px 0 5px"}}
                           type="text"
                           value={searchInputValue}
                           placeholder="Nhập từ khóa"
@@ -253,12 +307,25 @@ const AccountListPage = () => {
 
                 </div>
               </div>
-              
+
               <ListUserSection />
-              
+
             </div>
           </div>
         </main>
+        {deletedUser && (
+            <div className="modal-overlay">
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                             subTitle={ <>
+                               Bạn có chắc chắn xóa người dùng <span style={{color:"#bd0000"}}>{deletedUser.fullName}</span> không? <br />
+                             </>
+                             }
+                             titleBtnAccept={"Xóa"}
+                             titleBtnCancel={"Hủy bỏ"}
+                             onAccept={deleteUser}
+                             onCancel={() => {setDeletedUser(null)}}/>
+            </div>
+        )}
       </div>
   );
 }

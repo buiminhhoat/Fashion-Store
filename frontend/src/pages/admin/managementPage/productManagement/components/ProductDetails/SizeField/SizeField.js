@@ -9,7 +9,7 @@ const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuanti
 
     const handleQuantityChange = (e) => {
       const newQuantity = e.target.value;
-      onQuantityChange(id, newQuantity);
+      if (!isNaN(e.target.value)) onQuantityChange(id, newQuantity);
     };
 
     return (
@@ -49,7 +49,7 @@ const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuanti
           <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
             <span data-v-36db20dc="" className="mandatory-icon">*</span>
           </div>
-          Kho hàng
+          Số lượng
         </div>
         <div data-v-389929d8="" className="variation-edit-right">
           <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">

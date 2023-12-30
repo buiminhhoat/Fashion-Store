@@ -36,7 +36,7 @@ import {ScrollToTop} from "../../../utils";
 //     "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
 //   }
 // ]
-const NUMBER_PRODUCT = 1;
+const NUMBER_PRODUCT = 6;
 
 const SORT = {
   ASC: "1",

@@ -8,7 +8,7 @@ function CartProduct({ product, handleDecreaseAmount, handleIncreaseAmount, hand
         <div className="card-product d-flex">
             <div className="image-product">
                 <Link to={"/product?productID=" + product.productID}>
-                    <img src={"/storage/images/" + product.informationProduct.productImages[0].imagePath} alt={product.informationProduct.productName} />
+                    <img src={product.informationProduct.productImages[0].imagePath} alt={""} />
                 </Link>
             </div>
             <div className="product__info">
