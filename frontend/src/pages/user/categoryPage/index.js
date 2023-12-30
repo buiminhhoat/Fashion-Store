@@ -131,7 +131,7 @@ const CategoryPage = ({keyword}) => {
   }, [categoryID, selectedSort]);
 
   useEffect(() => {
-    setNumberProduct(1);
+    setNumberProduct(NUMBER_PRODUCT);
   }, [categoryID]);
 
   const hasResult = productsData.categoryID > 0;
