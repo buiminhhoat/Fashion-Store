@@ -12,7 +12,7 @@ import java.io.File;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class OrderDetailsController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

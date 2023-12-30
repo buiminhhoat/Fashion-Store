@@ -22,7 +22,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class CategoryController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

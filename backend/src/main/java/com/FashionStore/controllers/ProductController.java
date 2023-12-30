@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class ProductController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

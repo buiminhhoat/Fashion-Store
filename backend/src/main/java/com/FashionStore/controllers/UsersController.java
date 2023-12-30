@@ -26,7 +26,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class UsersController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

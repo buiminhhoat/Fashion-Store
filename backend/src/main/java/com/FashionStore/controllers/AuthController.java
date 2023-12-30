@@ -32,7 +32,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final UsersRepository usersRepository;

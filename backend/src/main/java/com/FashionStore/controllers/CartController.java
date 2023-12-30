@@ -17,7 +17,7 @@ import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class CartController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

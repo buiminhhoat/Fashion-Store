@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class ProductCategoryController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
