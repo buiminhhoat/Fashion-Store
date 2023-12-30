@@ -28,8 +28,6 @@ public class OrderDetailsController {
 
     private final CategoryRepository categoryRepository;
 
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
-
     @Autowired
     public OrderDetailsController(ProductRepository productRepository, ProductImageRepository productImageRepository,
                                   ProductCategoryRepository productCategoryRepository,
