@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss";
-import {Select} from "antd";
+import {ConfigProvider, Input, Select} from "antd";
 import {useCookies} from "react-cookie";
 import {convertDateTimeFormat} from "../../../../../utils";
 import {Link} from "react-router-dom";
@@ -8,6 +8,10 @@ import {formatter} from "../../../../../utils/formatter";
 import emptyProduct from "../../../../user/profilePage/images/empty-product.png";
 import {TbListSearch} from "react-icons/tb";
 import {IoSearch} from "react-icons/io5";
+
+import locale from 'antd/locale/vi_VN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
 
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
@@ -230,7 +234,14 @@ const OrderListPage = () => {
     } else {
       setDates(null);
     }
-  };
+  }
+
+  useEffect(() => {
+    console.log("dates");
+    console.log(dates);
+    console.log(value);
+    dayjs.locale('vi');
+  }, [dates]);
 
   return (
       <div id="app">
@@ -259,25 +270,58 @@ const OrderListPage = () => {
                       options={OPTION_SEARCH}
                       onChange={(value) => {setSelectedSearch(value)}}
                   />
-
                 </div>
 
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                   <div style={{display:"flex", alignItems:"center", height:"35px", width:"400px"}}>
                     { selectedSearch === OPTION_SEARCH[0].value &&
-                        <RangePicker
-                            value={dates || value}
-                            disabledDate={disabledDate}
-                            onCalendarChange={(val) => {
-                              setDates(val);
-                            }}
-
-                            onChange={(val) => {
-                              setValue(val);
-                            }}
-                            onOpenChange={onOpenChange}
-                            changeOnBlur
-                        />
+                        <ConfigProvider locale={locale}>
+                          <RangePicker
+                              // defaultValue={[dayjs('23-01-2023', 'DD-MM-YYYY'),dayjs('12-01-2023', 'DD-MM-YYYY')]}
+                              value={dates || value}
+                              format="DD-MM-YYYY"
+                              size="large"
+                              disabledDate={disabledDate}
+                              onCalendarChange={(val) => {
+                                setDates(val);
+                              }}
+                                onChange={(val) => {
+                                setValue(val);
+                              }}
+                              onOpenChange={onOpenChange}
+                              changeOnBlur
+                          />
+                        </ConfigProvider>
+                    }
+                    { selectedSearch === OPTION_SEARCH[1].value &&
+                        <div style={{padding:"0", width:"100%", height: "35px", display:"flex", alignItems:"center"}}
+                             className="fashion-store-input__inner "
+                        >
+                          <input
+                              type="text" placeholder="Nhập số điện thoại"
+                              style={{ padding: "0 12px 0 12px", borderRadius: "3px" }}
+                              className="fashion-store-input__input"
+                              // value={storeInfo.hotline}
+                              // onChange={(e) => {
+                              //   if (!isNaN(e.target.value))  setStoreInfo({ ...storeInfo, hotline: e.target.value });
+                              // }}
+                          />
+                        </div>
+                    }
+                    { selectedSearch === OPTION_SEARCH[2].value &&
+                        <div style={{padding:"0", width:"100%", height: "35px", display:"flex", alignItems:"center"}}
+                             className="fashion-store-input__inner "
+                        >
+                          <input
+                              type="text" placeholder="Nhập mã đơn hàng"
+                              style={{ padding: "0 12px 0 12px", borderRadius: "3px" }}
+                              className="fashion-store-input__input"
+                              // value={storeInfo.hotline}
+                              // onChange={(e) => {
+                              //   if (!isNaN(e.target.value))  setStoreInfo({ ...storeInfo, hotline: e.target.value });
+                              // }}
+                          />
+                        </div>
                     }
                   </div>
                   <button type="button" className="search-btn">Tìm kiếm</button>
