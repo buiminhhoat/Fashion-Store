@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,61 +25,56 @@ public class FreeImageService {
     private FreeImageConfig freeImageConfig;
 
     @Value("${freeimage.host.api-endpoint}")
-    private String apiEndpoint;
+    private String API_ENDPOINT;
 
-    public String uploadImage(byte[] imageData) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/x-www-form-urlencoded");
+    @Value("${freeimage.api-key}")
+    private String API_KEY;
 
-        String url = apiEndpoint + "?key=" + freeImageConfig.getApiKey();
+    @Value("${freeimage.content-type-multipart-form-data}")
+    private String CONTENT_TYPE_MULTIPART_FORM_DATA;
 
-        HttpEntity<byte[]> requestEntity = new HttpEntity<>(imageData, headers);
+    @Value("${freeimage.api-key-param}")
+    private String API_KEY_PARAM;
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+    @Value("${freeimage.source-param}")
+    private String SOURCE_PARAM;
 
-        // Xử lý response, bạn có thể trích xuất URL của hình ảnh đã tải lên từ response
-        String imageUrl = responseEntity.getBody();
-        return imageUrl;
-    }
+    @Value("${freeimage.image-node}")
+    private String IMAGE_NODE;
 
-    // Đọc dữ liệu hình ảnh thành mảng byte
-    private static byte[] readImageAsByteArray(String imagePath) throws Exception {
-        Path path = Paths.get(imagePath);
-        return Files.readAllBytes(path);
-    }
+    @Value("${freeimage.url-node}")
+    private String URL_NODE;
 
-    // Chuyển mảng byte thành chuỗi Base64
+    @Value("${freeimage.error-message}")
+    private String ERROR_MESSAGE;
+
     private static String convertToBase64(byte[] imageData) {
         return Base64.getEncoder().encodeToString(imageData);
     }
 
     public String uploadImageToFreeImage(byte[] imageData) {
-        String apiUrl = apiEndpoint + "?key=" + freeImageConfig.getApiKey();
+        String apiUrl = API_ENDPOINT + "?" + API_KEY_PARAM + "=" + API_KEY;
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setContentType(MediaType.valueOf(CONTENT_TYPE_MULTIPART_FORM_DATA));
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("source", convertToBase64(imageData));
+        body.add(SOURCE_PARAM, convertToBase64(imageData));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
 
-        String responseBody = responseEntity.getBody();
-        String resultJson = responseBody;
+        String resultJson = responseEntity.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode resultNode;
         try {
             resultNode = objectMapper.readTree(resultJson);
         } catch (Exception e) {
-            return "Error";
+            return ERROR_MESSAGE;
         }
 
-        // Bạn có thể truy cập dữ liệu từ JsonNode và làm gì đó với nó
-        String url = resultNode.path("image").path("url").asText();
-        return url;
+        return resultNode.path(IMAGE_NODE).path(URL_NODE).asText();
     }
 }
-
