@@ -107,6 +107,8 @@ const AddProductPage = () => {
       navigate(`/admin/management-page/categories-and-products`, {
         state: { scrolling: SCROLLING.SMOOTH },
       });
+
+
       // console.log('Upload successful:', data);
       // window.localion.reload();
     })
