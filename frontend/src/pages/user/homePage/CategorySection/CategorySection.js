@@ -193,7 +193,7 @@ const CategorySection = () => {
             <div className="owl-stage-outer">
               <div className="owl-stage"
                    style={{ transform: `translate3d(-${currentSlide * 119}px, 0px, 0px)`, transition: 'all 0.3s ease 0s', width: '50000px' }}>
-                {renderProductCategories(productCategories)}
+                {renderProductCategories(categoryItem)}
               </div>
             </div>
             <div className="owl-nav">

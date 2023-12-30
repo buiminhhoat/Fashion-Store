@@ -48,8 +48,6 @@ public class CategoryController {
     @Autowired
     private FreeImageService freeImageService;
 
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
-
     private final String RESPONSE_CATEGORY_NEW_EXISTS;
 
     private final String RESPONSE_CATEGORY_SAVE_SUCCESS;
@@ -83,6 +81,10 @@ public class CategoryController {
 
     @Value("${param.categoryImage}")
     private String PARAM_CATEGORY_IMAGE;
+
+    @Value("${param.categoryImageDefault}")
+    private String PARAM_CATEGORY_IMAGE_CATEGORY_DEFAULT;
+
     @Autowired
     public CategoryController(MessageSource messageSource) {
         this.RESPONSE_CATEGORY_NEW_EXISTS = messageSource.getMessage("response.category.new.exists", null, LocaleContextHolder.getLocale());
@@ -113,8 +115,8 @@ public class CategoryController {
 
         try {
             Category category;
-            if (parentCategoryID == 0) category = new Category(categoryName, appRoot);
-            else category = new Category(categoryName, parentCategoryID, appRoot);
+            if (parentCategoryID == 0) category = new Category(categoryName, PARAM_CATEGORY_IMAGE_CATEGORY_DEFAULT);
+            else category = new Category(categoryName, parentCategoryID, PARAM_CATEGORY_IMAGE_CATEGORY_DEFAULT);
             categoryRepository.save(category);
             ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_SAVE_SUCCESS);
             return ResponseEntity.ok(responseObject);
