@@ -5,7 +5,10 @@ import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/Confi
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {TimePicker} from "antd";
-import dayjs from "dayjs";
+
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import viLocale from 'dayjs/locale/vi';
 
 const StoreInformationPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -36,6 +39,7 @@ const StoreInformationPage = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log("storeInfo")
         console.log(data.data)
         setStoreInfo(data.data);
       } else {
@@ -48,6 +52,9 @@ const StoreInformationPage = () => {
   }
 
   useEffect(() => {
+    dayjs.extend(customParseFormat);
+    dayjs.locale(viLocale);
+
     fetchData().then(r => {});
   }, []);
 

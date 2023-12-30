@@ -11,7 +11,8 @@ import {IoSearch} from "react-icons/io5";
 
 import locale from 'antd/locale/vi_VN';
 import dayjs from 'dayjs';
-import 'dayjs/locale/vi';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import viLocale from 'dayjs/locale/vi';
 
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
@@ -237,10 +238,11 @@ const OrderListPage = () => {
   }
 
   useEffect(() => {
+    dayjs.extend(customParseFormat);
+    dayjs.locale(viLocale);
     console.log("dates");
     console.log(dates);
     console.log(value);
-    dayjs.locale('vi');
   }, [dates]);
 
   return (
@@ -277,7 +279,6 @@ const OrderListPage = () => {
                     { selectedSearch === OPTION_SEARCH[0].value &&
                         <ConfigProvider locale={locale}>
                           <RangePicker
-                              // defaultValue={[dayjs('23-01-2023', 'DD-MM-YYYY'),dayjs('12-01-2023', 'DD-MM-YYYY')]}
                               value={dates || value}
                               format="DD-MM-YYYY"
                               size="large"
