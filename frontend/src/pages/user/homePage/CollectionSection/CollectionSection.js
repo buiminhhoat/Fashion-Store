@@ -58,7 +58,7 @@ const CollectionSection = ({collectionData}) => {
           </div>
 
           <div className="load-more-wrap text-center">
-            <Link to={"/category?categoryID=" + collectionData.categoryID}>
+            <Link to={"/category?categoryID=" + activeTab}>
               <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product">
                 Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
               </button>
