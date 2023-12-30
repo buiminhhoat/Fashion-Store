@@ -97,8 +97,9 @@ public class StoreInformationController {
     public ResponseEntity<?> getStoreInformation(HttpServletRequest request) {
         List<StoreInformation> storeInformations = storeInformationRepository.findAll();
         if (storeInformations.isEmpty()) {
-            ResponseObject responseObject = new ResponseObject(RESPONSE_CREATE_STORE_INFORMATION);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+            StoreInformation storeInformation = new StoreInformation();
+            ResponseObject responseObject = new ResponseObject(RESPONSE_CREATE_STORE_INFORMATION, storeInformation);
+            return ResponseEntity.ok(responseObject);
         }
         StoreInformation storeInformation = storeInformations.getFirst();
         if (storeInformation != null) {
