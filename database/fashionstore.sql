@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 30, 2023 at 01:36 PM
+-- Generation Time: Dec 30, 2023 at 01:54 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -250,7 +250,19 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescr
 INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescription`) VALUES
 (120, 'Quần Short Kaki Nam, Chất Vải Bamboo Tự Nhiên', 429000, 'Quần Short Kaki Nam, Chất Vải Bamboo Tự Nhiên có kiểu dáng Slim fit ôm sát vừa vặn, phù hợp với mọi dáng người giúp che đi tối đa khuyết điểm trên cơ thể nam giới. Quần short kaki được thiết kế basic, dễ dàng kết hợp với nhiều kiểu áo khác nhau: áo T-shirt, áo Polo, tanktop hay  sơ mi cộc... Với mỗi cách phối kết hợp sẽ mang đến một diện mạo khác nhau như thanh lịch, tinh tế hay khỏe khoắn, cá tính. '),
 (122, 'Áo Polo Nam, Phong Cách Thể Thao, Trẻ Trung', 479000, 'Áo Polo Nam, Phong Cách Thể Thao, Trẻ Trung nổi bật với kiểu dáng Slim fit ôm vừa vặn, tôn dáng nhưng vẫn đảm bảo thoải mái khi mặc. Thiết kế phối vải khỏe khoắn kết hợp cùng đường line chạy dọc cổ áo và vai áo, mang đến phong cách thể thao, nam tính cho người mặc. Logo Perfect Life ở ngực trái của áo bền đẹp, tỉ mỉ, đảm bảo không bong tróc trong quá trình sử dụng hay giặt là. Cổ áo và tay áo được dệt bo đứng phom, thanh lịch để nam giới tự tin mặc đi học, đi làm hay đi chơi đều phù hợp. \r\n\r\nSự kết hợp của các thành phần chất liệu là Viscose, Freezing Nylon và Spandex mang tới trải nghiệm mềm mại, thoáng mát tối đa cho chiếc áo Polo. Chất vải này cũng tăng tốc độ hút ẩm, bay hơi nhanh chóng, thấm hút mồ hôi tốt, phù hợp với cả những ngày thời tiết oi nóng, cơ thể đổ nhiều mồ hôi mà không lo bí bách hay có mùi khó chịu khi mặc. '),
-(123, 'Áo Polo Nam, Kiểu Dáng Regular Fit Thoải Mái', 489000, 'Áo Polo Nam, Kiểu Dáng Regular Fit Thoải Mái suông nhẹ nhưng vẫn ôm vừa đủ, mang tới vẻ ngoài trẻ trung, lịch lãm mà vẫn thoải mái cho người mặc. Áo Polo nổi bật với hiết kế basic, cổ và tay áo cùng màu với vải chính, màu sắc trung tính, hoạt tiết dệt Jaccquard thời trrang tạo điểm nhấn sang trọng, lịch lãm cho nam giới. Đây được xem là item bán chạy nhất hiện nay.\r\n\r\nChất liệu Freezing Nylon hay còn được biết đến với tên gọi khác là thun lạnh siêu mềm, co giãn cực tốt giúp hạn chế tối đa nhăn nhàu khi mặc. Công nghệ Freezing Nylon tối ưu nhiệt, giảm ngay từ 5-7 độ khi mặc trong thời tiết oi bức của mùa hè. Ngoài ra, khi kết hợp thêm thành phần Polyester và Spandex giúp vải có những hiệu ứng melange đẹp mắt cùng với đó là những tính năng mà Polyester có thể bổ trợ cho Freezing Nylon như: Tăng độ bền vải, tăng khả năng thấm hút mồ hôi và giúp sản phẩm nhanh khô.\r\n\r\nVới bàng màu lạ mắt, vừa nhã nhặn, vừa tinh tế, chiếc áo Polo nam này xứng đáng là item \"cần có\" trong tủ đồ của các quý ông để diện trong bất kỳ hoàn cảnh nào, mang tới cho nam giới vẻ ngoài chỉn chu và thu hút. ');
+(123, 'Áo Polo Nam, Kiểu Dáng Regular Fit Thoải Mái', 489000, 'Áo Polo Nam, Kiểu Dáng Regular Fit Thoải Mái suông nhẹ nhưng vẫn ôm vừa đủ, mang tới vẻ ngoài trẻ trung, lịch lãm mà vẫn thoải mái cho người mặc. Áo Polo nổi bật với hiết kế basic, cổ và tay áo cùng màu với vải chính, màu sắc trung tính, hoạt tiết dệt Jaccquard thời trrang tạo điểm nhấn sang trọng, lịch lãm cho nam giới. Đây được xem là item bán chạy nhất hiện nay.\r\n\r\nChất liệu Freezing Nylon hay còn được biết đến với tên gọi khác là thun lạnh siêu mềm, co giãn cực tốt giúp hạn chế tối đa nhăn nhàu khi mặc. Công nghệ Freezing Nylon tối ưu nhiệt, giảm ngay từ 5-7 độ khi mặc trong thời tiết oi bức của mùa hè. Ngoài ra, khi kết hợp thêm thành phần Polyester và Spandex giúp vải có những hiệu ứng melange đẹp mắt cùng với đó là những tính năng mà Polyester có thể bổ trợ cho Freezing Nylon như: Tăng độ bền vải, tăng khả năng thấm hút mồ hôi và giúp sản phẩm nhanh khô.\r\n\r\nVới bàng màu lạ mắt, vừa nhã nhặn, vừa tinh tế, chiếc áo Polo nam này xứng đáng là item \"cần có\" trong tủ đồ của các quý ông để diện trong bất kỳ hoàn cảnh nào, mang tới cho nam giới vẻ ngoài chỉn chu và thu hút. '),
+(124, 'Áo Sơ Mi Nam Dài Tay, Vải Bamboom Kháng Khuẩn Tự Nhiên', 629000, 'Áo Sơ Mi Nam Dài Tay, Vải Bamboom Kháng Khuẩn Tự Nhiên sở hữu thiết kế phom Slim fit ôm nhẹ vừa vặn, tôn dáng mà vẫn thoải mái trong từng hoạt động. Thiết kế vạt lượn chỉn chu kết hợp cùng công nghệ vải không nhăn giúp nam giới tiết kiệm thời gian là ủi mà vẫn giữ được dáng vẻ thanh lịch suốt cả ngày dài.\r\n\r\nÁo sơ mi dài tay được nâng cấp từ phiên bản Bamboo sợi tre được nghiên cứu và ứng dụng với tính nắng chống nhăn tự nhiên. Việc bổ sung thêm sợi Microfiber có cấu trúc siêu mảnh, độ mịn gấp đôi so với sợi tơ. Đây là một trong những chất liệu đặc biệt an toàn, thân thiên với môi trường và làn da người dùng. \r\n\r\nKhi kết hợp Bamboo và Microfiber sẽ đem lại cảm giác mềm mại tuyệt vời, thoải mái hơn cho người mặc, khả năng kháng khuẩn cao đến 90% và chống ẩm mốc vượt trội hơn so với các chất liệu thông thường. '),
+(125, 'Áo Sơ Mi Ngắn Tay Nam, Phom Dáng Casual Fit Thoải Mái', 609000, 'Áo Sơ Mi Ngắn Tay Nam, Phom Dáng Casual Fit Thoải Mái suông nhẹ, vừa vặn, đảm bảo cảm giác thoải mái trong mọi hoạt động. Thiết kế đơn giản, tà lượn, không túi cùng màu xanh phối với các đường kẻ line thời thượng. Logo Premium vừa mang tới diện mạo thanh lịch, tinh tế, cho các quý ông, vừa đảm bảo đây là mẫu thiết kế độc quyền chính hãng. Điểm nhấn của mẫu áo này nằm ở phần cổ áo với 2 cúc cài lạ mắt được thiết kế song song, vừa trẻ trung, vừa thanh lịch.\r\n\r\nÁo sơ mi Bamboo vải sợi tre đã không còn quá xa lạ, nay được cải tiến hơn với phiên bản nâng cấp thành phần chất liệu: 50% Bamboo & 50% Microfiber. Sợi Microfiber có cấu trúc siêu mảnh, độ mịn gấp đôi so với sợi tơ. Đây là một trong những chất liệu đặc biệt an toàn và thân thiện với người dùng. Sự kết hợp hoàn hảo giữa sợi tre Bamboo và sợi Microfiber sẽ đem lại cảm giác mềm mại tuyệt vời, thoải mái hơn cho người mặc, khả năng kháng khuẩn cao đến 90% và chống ẩm mốc vượt trội hơn chất liệu thông thường.'),
+(126, 'Áo Sơ Mi Ngắn Tay Nam, Vải Bamboo, Thoáng Khí', 619000, 'Áo Sơ Mi Nam Ngắn Tay, Vải Bamboo, Thoáng Khí có kiểu dáng Slim fit ôm vừa vặn, tôn dáng mà vẫn đảm bảo cảm giác thoải mái khi mặc. Áo sơ mi được thiết kế basic, dễ mặc, dễ phối, phù hợp với nhiều hoàn cảnh, sự kiện khác nhau. Họa tiết kẻ caro xanh phối trắng trẻ trung, nam tính mà vẫn đảm bảo dáng vẻ thanh lịch, sang trọng cho các quý ông.\r\n\r\nChất vải Bamboo là loại sợi tổng hợp được tạo nên bởi cellulose tách từ cây tre. Vải bamboo có đặc tính thoáng khí mát mẻ, chống tia cực tím, kháng khuẩn, khử mùi tốt và vô cùng thân thiện với môi trường bởi được tạo bởi chất liệu tre không sử dụng hóa chất, an toàn cho người sử dụng. Bổ sung tỉ lệ Microfiber và Spandex mang lại ưu điểm: Giảm độ nhăn, tăng độ bền của vải, màu sắc bắt mắt hơn cho chiếc áo sơ mi.'),
+(127, 'Áo Sơ Mi Ngắn Tay Nam, Vải Bamboo, Kháng Khuẩn', 619000, 'Sơ Mi Cộc Tay Nam, Vải Bamboo, Kháng Khuẩn, Thoáng Mát nổi bật với kiểu dáng Slim fit ôm sát vừa vặn mà không gây cảm giác gò bó khi mặc. Thiết kế basic, cổ áo đứng phom với họa tiết kẻ caro xanh biển tươi mát, trẻ trung, là item không thể thiếu trong tủ đồ của nam giới trong mùa hè này. \r\n\r\nÁo sơ mi được làm từ chất liệu Bamboo được dệt từ 100% sợi tre nhự nhiên, vô cùng mềm mại, chống nhăn nhau, lành tính với làn da, đem tới cảm giác thoải mái, mềm mát khi mặc. Đặc biệt, việc bổ sung thêm thành phần Mirofiber - một loại sợi gốc Polyester/Polyamide với tỉ lệ 80/20 có kích thước nhỏ cỡ micro mét tạo cảm giác mềm mịn thoải mái. Do các sợi nhỏ cỡ micro nên mật độ sợi dày hơn giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể.'),
+(128, 'Họa Tiết Trắng Kẻ Xanh Biển', 509000, 'Áo Sơ Mi Nam Cộc Tay, Họa Tiết Trắng Kẻ Xanh Biển là thiết kế mới nhất trong bộ sưu tập Công sở Xuân Hè của 5S Fashion với kiểu dáng Slim fit vừa vặn, tôn dáng. Thiết kế đơn giản, vạt lượn, không túi cùng cổ áo đứng lịch sự. Màu sắc trắng kẻ xanh biển lịch lãm, thời thượng tạo nên dấu ấn thanh lịch, nam tính cho quý ông.\r\n\r\nÁo sơ mi được làm từ chất liệu Bamboo được dệt từ các sợi Cenlulose đến từ cây Tre tự nhiên sở hữu những ưu điểm vượt trội như kháng khuẩn, thấm hút mồ hôi tốt, chống tia UV và ngăn ngừa sự xuất hiện của vi khuẩn, nấm mốc trên quần áo, mềm mại nên rất an toàn với làn da người mặc. Vệc kết hợp thêm với Mirofiber - một loại sợi gốc Polyester/Polyamide với tỉ lệ 80/20 có kích thước nhỏ cỡ micro mét tạo cảm giác mềm mịn thoải mái. Do các sợi nhỏ cỡ micro nên mật độ sợi dày hơn giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể.'),
+(129, 'Áo Sơ Mi Nam Ngắn Tay, Vải Bamboo, Chống Tia Cực Tím', 519000, 'Áo Sơ Mi Nam Ngắn Tay, Vải Bamboo, Chống Tia Cực Tím có kiểu dáng Slim fit vừa vặn, tôn dáng mà vẫn đảm bảo cảm giác thoải mái trong mọi hoạt động. Áo được thiết kế basic với tà lượn, không túi cùng cổ áo đứng phom lịch sự. Điểm nhấn nằm ở họa tiết trắng kẻ xanh lịch lãm, thời thượng, mang đến diện mạo sang trọng và nam tính cho các quý ông. \r\n\r\nÁo được làm từ chất vải Bamboo sở hữu hàng loạt các ưu điểm như thấm hút tốt hơn sợi Cotton tới 60%, mềm mượt nhưng vẫn giữ được phom dáng, chống nhăn hiệu quả, kháng khuẩn tự nhiên, khử mùi, chống tia UV và tăng cường khả năng bảo vệ da. Có thể nói đây là chiếc áo sơ mi giúp giải quyết nỗi lo về sự gò bò, tạo cảm giác thoải mái mà vẫn đảm bảo vẻ ngoài chỉn chu, lịch sự cho các quý ông. '),
+(130, 'Áo Sơ Mi Nam Ngắn Tay, Vải Bamboo, Kháng Khuẩn', 579000, 'Áo Sơ Mi Ngắn Tay Nam, Vải Bamboo, Kháng khuẩn, Khử Mùi sở hữu kiểu dáng Slim fit ôm vừa vặn, tôn dáng, đảm bảo cảm giác thoải mái, dễ dàng trong mọi hoạt động. Với thiết kế chỉn chu đến từng chi tiết như cổ áo đứng phom, tà lượn, không túi tạo cảm giác thoải mái, phù hợp với nhiều sự kiện và hoàn cảnh. Điểm nhấn của áo sơ mi nằm ở họa tiết chấm in trên nền vải trắng tạo hiệu ứng nổi bật, mang đến phong cách thời trang lịch lãm, thời thượng cho các quý ông. Đây là item áo sơ mi họa tiết luôn nằm trong top bán chạy của 5S Fashion.\r\n\r\nChất liệu Bamboo được dệt từ các sợi Tre tự nhiên sở hữu hàng loạt những ưu điểm như thoáng khí mát mẻ, chống tia cực tím, kháng khuẩn, khử mùi tốt và vô cùng thân thiện với môi trường... Việc kết hợp với Mirofiber - một loại sợi gốc Polyester/Polyamide với tỉ lệ 80/20 có kích thước nhỏ cỡ micro mét tạo cảm giác mềm mịn thoải mái. Do các sợi nhỏ cỡ micro nên mật độ sợi dày hơn giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể.'),
+(134, 'Áo Sơ Mi Cộc Tay, Vải Bamboo Kháng Khuẩn, Không Nhăn', 559000, 'Áo Sơ Mi Cộc Tay, Vải Bamboo Kháng Khuẩn, Không Nhăn được thiết kế theo form dáng Slim fit với kiểu dáng ôm vừa vặn, tôn dáng mà vẫn đảm bảo trải nghiệm thoải mái khi vận động. Điểm nhấn của mẫu áo này nằm ở họa tiết kẻ sọc trắng xanh trẻ trung, thanh lịch, phù hợp với các quý ông công sở. Bên cạnh đó, item áo sơ mi cộc tay này cũng không quá kén dáng khi có thể phối được với hầu hết các trang phuc có trong tủ đồ của bạn nam.\r\n\r\nÁo được làm từ chất liệu Tre tự nhiên với các ưu điểm như thoáng khí mát mẻ, chống tia cực tím, kháng khuẩn, khử mùi tốt và đặc biệt thân thiên với môi trường khi được tạo nên từ các sợi Cellulose tách từ cây tre tự, không dùng hóa chất nên an toàn với cả làn da người mặc. Khi kết hợp với Mirofiber - một loại sợi gốc Polyester/Polyamide với tỉ lệ 80/20 có kích thước nhỏ cỡ micro mét tạo cảm giác mềm mịn thoải mái. Do các sợi nhỏ cỡ micro nên mật độ sợi dày hơn giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể.'),
+(135, 'Áo Sơ Mi Nam Ngắn Tay, Vải Modal, Thoáng Khí, Chống Nhăn', 569000, 'Áo Sơ Mi Nam Ngắn Tay, Vải Modal, Thoáng Khí, Chống Nhăn là mẫu áo sở hữu kiểu áo Casual fit thoải mái, dễ mặc, phù hợp với mọi dáng người và mọi độ tuổi. Áo được thiết kế basic với tà bằng trẻ trung mà không kém phần chỉn chu, thanh lịch. \r\n\r\nÁo được làm từ chất liệu Microfiber với cấu trúc sợi siêu mảnh, độ mịn gấp đôi so với sợi tơi, là một trong những chất vải an toàn, thân thiện với môi trường và làn da người mặc. Trong khi đó, Modal là loại vải có nguồn gốc từ gỗ của cây sồi, an toàn với người sử dụng và thân thiện với môi trường. Chất liệu vải Modal có đặc tính mềm mịn, chống nhăn, đàn hồi tốt và hút ẩm cao hơn cotton đến 48%. Kết hợp Modal với Mirofiber giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể.\r\n\r\nThêm vào đó, sự góp mặt của Cotton giúp vải thành phẩm có giá tối ưu hơn mà vẫn giữ được các tính năng thấm hút, thoáng mát của vải & tạo hiệu ứng bề mặt khô hơn giống như những chiếc sơ mi Cotton phong cách casual nhưng vẫn giữ được độ sang trọng cao cấp của vải Modal. '),
+(136, 'Áo Sơ Mi Cộc Tay Nam, Vải Bamboo Kháng Khuẩn', 609000, 'Áo Sơ Mi Cộc Tay Nam, Vải Bamboo Kháng Khuẩn nổi bật với kiểu dáng Slim fit ôm vừa vặn, tôn dáng mà vẫn thoải mái trong mọi hoạt động. Sự kết hợp giữa các đường kẻ tạo nên thiết kế áo sơ mi vừa lịch lãm, vừa trẻ trung, nam tính. Áo sơ mi có tone màu xanh blue tươi mát trên nền chất liệu Bamboo mềm mại, thoáng khí mang tới trải nghiệm thoải mái tối đa cho quý ông công sở.\r\n\r\nÁo được làm từ chất liệu Bamboo tự nhiên - một loại sợi tổng hợp được tạo nên bởi cellulose tách từ cây tre. Vải bamboo có đặc tính thoáng khí mát mẻ, chống tia cực tím, kháng khuẩn, khử mùi tốt và vô cùng thân thiện với môi trường bởi được tạo bởi chất liệu tre không sử dụng hóa chất, an toàn cho người sử dụng. Loại vải này rất mềm và mướt nên có thể giảm thiểu độ ma sát với làn da, không gây kích ứng và phù hợp với làn da nhạy cảm.\r\n\r\nKết hợp với Mirofiber - một loại sợi gốc Polyester/Polyamide với tỉ lệ 80/20 có kích thước nhỏ cỡ micro mét tạo cảm giác mềm mịn thoải mái. Do các sợi nhỏ cỡ micro nên mật độ sợi dày hơn giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể. Bổ sung thêm thành phần Spandex giúp cho áo có độ co giãn nhẹ để người mặc thoải mái hơn trong mọi hoạt động. '),
+(138, 'Áo Sơ Mi Cộc Tay Nam, Vải Bamboo Kháng Khuẩn', 539000, 'Áo Sơ Mi Cộc Tay Nam, Vải Modal, Mềm Mịn, Co Giãn, Thoáng Mát là mẫu áo sở hữu kiểu dáng Slim fit tôn dáng, dễ mặc cùng màu trắng basic chưa bao giờ lỗi mốt. Với form áo hơi ôm, vạt bằng thoải mái, áo mang tới diện mạo thanh lịch, khỏe khoắn mà không kém phần trẻ trung cho nam giới, phù hợp với mọi dáng người và mọi độ tuổi. Đây là item mà các chàng trai công sở nhất định phải sở hữu ít nhất một chiếc trong tủ đồ của mình. \r\n\r\nVới thành phần 100% Cotton được dệt từ các sợi bông tự nhiên, sờ vào mịn tay, thoáng mát, thấm hút mồ hôi tốt nên đặc biệt phù hợp với thời tiết mùa hè oi bức, giúp nam giới tự tin suốt cả ngày dài. Chất liệu thiên nhiên nên mẫu áo này rất an toàn với người sử dụng và thân thiện với môi trường. '),
+(139, 'Áo Sơ Mi Ngắn Tay Nam, Chống Nhăn, Kháng Khuẩn', 479000, 'Áo Sơ Mi Ngắn Tay Nam, Chống Nhăn, Kháng Khuẩn với kiểu dáng Slimfit ôm nhẹ, vừa vặn mà vẫn đảm bảo cảm giác thoải mái khi vận động. Áo được thiết kế basic với tà bằng không túi, tone màu trắng đơn giản nhưng tinh tế, ấn tượng mang đến phong thái chuyên nghiệp, nam tính và lịch lãm cho các quý ông. \r\n\r\nChất vải 50% Bamboo + 50% Polyester có đặc tính thoáng khí mát mẻ, kháng khuẩn, khử mùi cực tốt nên rất thích hợp mặc trong những ngày hè oi nóng. Sợi Polyester có kích thước siêu nhỏ tạo cảm giác mềm mịn, đồng thời, giúp áo sơ mi bền đẹp, giảm co rút và chống nhăn hiệu quả');
 
 -- --------------------------------------------------------
 
@@ -344,7 +356,19 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) V
 (119, 119, 10),
 (120, 120, 10),
 (122, 122, 4),
-(123, 123, 4);
+(123, 123, 4),
+(124, 124, 8),
+(125, 125, 8),
+(126, 126, 8),
+(127, 127, 8),
+(128, 128, 8),
+(129, 129, 8),
+(130, 130, 8),
+(134, 134, 8),
+(135, 135, 8),
+(136, 136, 8),
+(138, 138, 8),
+(139, 139, 8);
 
 -- --------------------------------------------------------
 
@@ -780,7 +804,53 @@ INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 (623, 123, 'https://iili.io/JR6qnB1.jpg'),
 (624, 123, 'https://iili.io/JR6qoEF.jpg'),
 (625, 123, 'https://iili.io/JR6qI2a.jpg'),
-(626, 123, 'https://iili.io/JR6qTYJ.jpg');
+(626, 123, 'https://iili.io/JR6qTYJ.jpg'),
+(627, 124, 'https://iili.io/JRs15yG.jpg'),
+(628, 124, 'https://iili.io/JRs1Yuf.jpg'),
+(629, 124, 'https://iili.io/JRs1aj4.jpg'),
+(630, 125, 'https://iili.io/JRs133F.jpg'),
+(631, 125, 'https://iili.io/JRs1Kva.jpg'),
+(632, 125, 'https://iili.io/JRs1fyJ.jpg'),
+(633, 126, 'https://iili.io/JRQOa4a.jpg'),
+(634, 126, 'https://iili.io/JRQOl3J.jpg'),
+(635, 126, 'https://iili.io/JRQO0Yv.jpg'),
+(636, 126, 'https://iili.io/JRQO1vR.jpg'),
+(637, 127, 'https://iili.io/JRQOVjI.jpg'),
+(638, 127, 'https://iili.io/JRQOWQt.jpg'),
+(639, 127, 'https://iili.io/JRQOhCX.jpg'),
+(640, 127, 'https://iili.io/JRQOjGn.jpg'),
+(641, 128, 'https://iili.io/JRQO4n9.jpg'),
+(642, 128, 'https://iili.io/JRL3nbR.jpg'),
+(643, 128, 'https://iili.io/JRL3xxp.jpg'),
+(644, 128, 'https://iili.io/JRL3zWN.jpg'),
+(645, 129, 'https://iili.io/JRQObwB.jpg'),
+(646, 129, 'https://iili.io/JRLqj6B.jpg'),
+(647, 129, 'https://iili.io/JRLqN3P.jpg'),
+(648, 130, 'https://iili.io/JRQedFa.jpg'),
+(649, 130, 'https://iili.io/JRQe2cJ.jpg'),
+(650, 130, 'https://iili.io/JRQe38v.jpg'),
+(651, 130, 'https://iili.io/JRQefup.jpg'),
+(652, 130, 'https://iili.io/JRQeBtI.jpg'),
+(662, 134, 'https://iili.io/JRQeIFs.jpg'),
+(663, 134, 'https://iili.io/JRQeTcG.jpg'),
+(664, 134, 'https://iili.io/JRQeuSf.jpg'),
+(665, 135, 'https://iili.io/JRQegHv.jpg'),
+(666, 135, 'https://iili.io/JRQerRR.jpg'),
+(667, 135, 'https://iili.io/JRQe4Np.jpg'),
+(668, 135, 'https://iili.io/JRQe6DN.jpg'),
+(669, 135, 'https://iili.io/JRQeixI.jpg'),
+(670, 136, 'https://iili.io/JRQemJf.jpg'),
+(671, 136, 'https://iili.io/JRQepR4.jpg'),
+(672, 136, 'https://iili.io/JRQeyOl.jpg'),
+(673, 136, 'https://iili.io/JRQk9b2.jpg'),
+(678, 138, 'https://iili.io/JRQkC5x.jpg'),
+(679, 138, 'https://iili.io/JRQknOQ.jpg'),
+(680, 138, 'https://iili.io/JRQkobV.jpg'),
+(681, 138, 'https://iili.io/JRQkIWP.jpg'),
+(682, 139, 'https://iili.io/JRQkXgs.jpg'),
+(683, 139, 'https://iili.io/JRQkjdG.jpg'),
+(684, 139, 'https://iili.io/JRQkw7f.jpg'),
+(685, 139, 'https://iili.io/JRQkNe4.jpg');
 
 -- --------------------------------------------------------
 
@@ -1105,7 +1175,55 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (454, 122, 454, 12),
 (455, 123, 455, 83),
 (456, 123, 456, 49),
-(457, 123, 457, 12);
+(457, 123, 457, 12),
+(458, 124, 458, 93),
+(459, 124, 459, 48),
+(460, 124, 460, 49),
+(461, 124, 461, 51),
+(462, 125, 462, 59),
+(463, 125, 463, 84),
+(464, 125, 464, 42),
+(465, 125, 465, 85),
+(466, 126, 466, 58),
+(467, 126, 467, 34),
+(468, 126, 468, 83),
+(469, 126, 469, 49),
+(470, 127, 470, 58),
+(471, 127, 471, 34),
+(472, 127, 472, 83),
+(473, 127, 473, 49),
+(474, 128, 474, 51),
+(475, 128, 475, 47),
+(476, 128, 476, 84),
+(477, 128, 477, 49),
+(478, 129, 478, 48),
+(479, 129, 479, 43),
+(480, 129, 480, 81),
+(481, 129, 481, 83),
+(482, 130, 482, 41),
+(483, 130, 483, 43),
+(484, 130, 484, 85),
+(485, 130, 485, 83),
+(498, 134, 498, 14),
+(499, 134, 499, 43),
+(500, 134, 500, 21),
+(501, 134, 501, 30),
+(502, 135, 502, 43),
+(503, 135, 503, 31),
+(504, 135, 504, 51),
+(505, 135, 505, 49),
+(506, 136, 506, 43),
+(507, 136, 507, 31),
+(508, 136, 508, 51),
+(509, 136, 509, 49),
+(514, 138, 514, 43),
+(515, 138, 515, 31),
+(516, 138, 516, 51),
+(517, 138, 517, 49),
+(518, 139, 518, 81),
+(519, 139, 519, 31),
+(520, 139, 520, 28),
+(521, 139, 521, 48);
 
 -- --------------------------------------------------------
 
@@ -1429,7 +1547,55 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 (454, 122, 'XL'),
 (455, 123, 'S'),
 (456, 123, 'M'),
-(457, 123, 'L');
+(457, 123, 'L'),
+(458, 124, 'S'),
+(459, 124, 'M'),
+(460, 124, 'L'),
+(461, 124, 'XL'),
+(462, 125, 'S'),
+(463, 125, 'M'),
+(464, 125, 'L'),
+(465, 125, 'XL'),
+(466, 126, 'S'),
+(467, 126, 'M'),
+(468, 126, 'L'),
+(469, 126, 'XL'),
+(470, 127, 'S'),
+(471, 127, 'M'),
+(472, 127, 'L'),
+(473, 127, 'XL'),
+(474, 128, 'S'),
+(475, 128, 'M'),
+(476, 128, 'L'),
+(477, 128, 'XL'),
+(478, 129, 'S'),
+(479, 129, 'M'),
+(480, 129, 'L'),
+(481, 129, 'XL'),
+(482, 130, 'S'),
+(483, 130, 'M'),
+(484, 130, 'L'),
+(485, 130, 'XL'),
+(498, 134, 'S'),
+(499, 134, 'M'),
+(500, 134, 'L'),
+(501, 134, 'XL'),
+(502, 135, 'S'),
+(503, 135, 'M'),
+(504, 135, 'L'),
+(505, 135, 'XL'),
+(506, 136, 'S'),
+(507, 136, 'M'),
+(508, 136, 'L'),
+(509, 136, 'XL'),
+(514, 138, 'S'),
+(515, 138, 'M'),
+(516, 138, 'L'),
+(517, 138, 'XL'),
+(518, 139, 'S'),
+(519, 139, 'M'),
+(520, 139, 'L'),
+(521, 139, 'XL');
 
 -- --------------------------------------------------------
 
@@ -1629,31 +1795,31 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `productimage`
 --
 ALTER TABLE `productimage`
-  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=627;
+  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=686;
 
 --
 -- AUTO_INCREMENT for table `productquantity`
 --
 ALTER TABLE `productquantity`
-  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=458;
+  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=522;
 
 --
 -- AUTO_INCREMENT for table `productsize`
 --
 ALTER TABLE `productsize`
-  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=458;
+  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=522;
 
 --
 -- AUTO_INCREMENT for table `storeinformation`
