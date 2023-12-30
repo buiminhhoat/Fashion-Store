@@ -32,14 +32,37 @@ const EditProductPage = () => {
   });
 
   async function editProduct() {
+    if (productImages.length === 0) {
+      toast.warn("Vui lòng thêm hình ảnh sản phẩm");
+      return;
+    }
     if (informationProduct.productName === "") {
-      toast.warn("Vui lòng nhập thông tin tên sản phẩm");
+      toast.warn("Vui lòng nhập tên sản phẩm");
       return;
     }
     if (informationProduct.productPrice === "") {
       toast.warn("Vui lòng nhập giá sản phẩm");
       return;
     }
+    if (informationProduct.productSizes.length === 0 || informationProduct.productQuantities.length === 0) {
+      toast.warn("Vui lòng thêm kích cỡ sản phẩm");
+      return;
+    }
+
+    for (let i = 0; i < informationProduct.productSizes.length; ++i) {
+      if (!informationProduct.productSizes[i].sizeName) {
+        toast.warn("Tên kích cỡ không được để trống");
+        return;
+      }
+    }
+
+    for (let i = 0; i < informationProduct.productQuantities.length; ++i) {
+      if (!informationProduct.productQuantities[i].quantity) {
+        toast.warn("Số lượng không được để trống");
+        return;
+      }
+    }
+
     if (informationProduct.category === {} && informationProduct.parentCategory === {}) {
       toast.warn("Vui lòng chọn danh mục sản phẩm");
       return;
@@ -82,14 +105,14 @@ const EditProductPage = () => {
     })
     .then((data) => {
       toast.success("Chỉnh sửa thông tin sản phẩm thành công");
-      console.log('Upload successful:', data);
+      // console.log('Upload successful:', data);
       navigate(`/admin/management-page/categories-and-products`, {
         state: { scrolling: SCROLLING.SMOOTH },
       });
     })
     .catch((error) => {
       toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-      console.error('Upload failed:', error);
+      // console.error('Upload failed:', error);
     });
   }
 
