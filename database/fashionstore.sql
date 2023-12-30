@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 30, 2023 at 01:54 PM
+-- Generation Time: Dec 30, 2023 at 07:19 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -56,6 +56,16 @@ CREATE TABLE `banner` (
   `ImagePath` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `BannerLinkTo` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `banner`
+--
+
+INSERT INTO `banner` (`BannerID`, `DisplayOrder`, `ImagePath`, `BannerLinkTo`) VALUES
+(1, 0, 'https://iili.io/JRDfz1R.webp', ''),
+(2, 1, 'https://iili.io/JRDfIgp.webp', ''),
+(3, 2, 'https://iili.io/JRDfudN.webp', ''),
+(4, 3, 'https://iili.io/JRDfA7I.webp', '');
 
 -- --------------------------------------------------------
 
@@ -1759,7 +1769,7 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `banner`
 --
 ALTER TABLE `banner`
-  MODIFY `BannerID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `BannerID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cart`
