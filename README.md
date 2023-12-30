@@ -2,8 +2,10 @@
 
 ## Run in https://int3306.freeddns.org/
 
-**Run** jovyan@jupyter-fall2324w3g14:~$ ```./run.sh```
-
+**Run application** 
+```bash
+./run.sh
+```
 **Please wait 1 - 2 minutes**
 
 **Open website:** http://fall2324w3g14.int3306.freeddns.org/ 
