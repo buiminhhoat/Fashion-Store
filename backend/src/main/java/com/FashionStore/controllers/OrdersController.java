@@ -4,6 +4,7 @@ import com.FashionStore.models.*;
 import com.FashionStore.repositories.*;
 import com.FashionStore.security.JwtTokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -18,6 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @CrossOrigin(origins = "*")
@@ -79,6 +83,15 @@ public class OrdersController {
 
     @Value("${order.param.userID}")
     private String ORDER_PARAM_USER_ID;
+
+    @Value("${order.param.recipientPhone}")
+    private String ORDER_PARAM_RECIPIENT_PHONE;
+
+    @Value("${order.param.startOrderDate}")
+    private String ORDER_PARAM_START_ORDER_DATE;
+
+    @Value("${order.param.endOrderDate}")
+    private String ORDER_PARAM_END_ORDER_DATE;
 
     @Value("${header.authorization}")
     private String HEADER_AUTHORIZATION;
@@ -301,7 +314,6 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    /* Admin */
     @PostMapping("${endpoint.admin.orders.set-order-status}")
     public ResponseEntity<?> setOrderStatus(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
@@ -316,6 +328,60 @@ public class OrdersController {
 
         return ResponseEntity.ok(orders);
     }
+
+    @PostMapping("${endpoint.admin.orders.search-orders-by-order-id}")
+    public ResponseEntity<?> searchOrdersByOrderID(HttpServletRequest request) {
+        Long orderID = Long.valueOf(request.getParameter(ORDER_PARAM_ORDER_ID));
+        Orders orders = getOrderDetails(orderID);
+        return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("${endpoint.admin.orders.search-orders-by-recipient-phone}")
+    public ResponseEntity<?> searchOrdersByRecipientPhone(HttpServletRequest request) {
+        String recipientPhone = request.getParameter(ORDER_PARAM_RECIPIENT_PHONE);
+        List<Orders> orders = ordersRepository.findOrdersByRecipientPhone(recipientPhone);
+        for (Orders order: orders) {
+            order = getOrderDetails(order.getOrderID());
+        }
+        return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("${endpoint.admin.orders.search-orders-by-order-date}")
+    public ResponseEntity<?> searchOrdersByOrderDate(HttpServletRequest request) {
+        String startOrderDateString = request.getParameter(ORDER_PARAM_START_ORDER_DATE);
+        String endOrderDateString = request.getParameter(ORDER_PARAM_END_ORDER_DATE);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate startOrderDate = null, endOrderDate = null;
+
+        try {
+            if (startOrderDateString != null && endOrderDateString != null) {
+                startOrderDate = dateFormat.parse(startOrderDateString).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();;
+                endOrderDate = dateFormat.parse(endOrderDateString).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();;
+
+//                List<Orders> orders = ordersRepository.findOrdersByOrderDateGreaterThanEqualAndOrderDateLessThanEqual(startOrderDate, endOrderDate);
+                List<Orders> ordersAll = ordersRepository.findAll();
+                List<Orders> orders = new ArrayList<>();
+                for (Orders order: ordersAll) {
+                    LocalDate orderDate = order.getOrderDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();;
+                    if ((startOrderDate.compareTo(orderDate) <= 0) && (orderDate.compareTo(endOrderDate) <= 0)) {
+                        orders.add(order);
+                    }
+                }
+                for (Orders order : orders) {
+                    // Thực hiện các thao tác cập nhật trực tiếp trên đối tượng order ở đây
+                    order = getOrderDetails(order.getOrderID());
+                }
+                return ResponseEntity.ok(orders);
+            } else {
+                // Xử lý trường hợp ngày không hợp lệ
+                return ResponseEntity.badRequest().body("Invalid date parameters");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing dates");
+        }
+    }
+
 
     public Product getProductDetails(Long productID) {
         Product product = productRepository.findProductByProductID(productID);

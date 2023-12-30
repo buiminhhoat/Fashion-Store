@@ -82,8 +82,8 @@ const AddProductPage = () => {
 
     for (const file of productImages) { formData.append('productImages', file);}
 
-    formData.append('CategoryID', informationProduct.category.categoryID);
-    formData.append('ParentCategoryID', informationProduct.parentCategory.categoryID);
+    formData.append('categoryID', informationProduct.category.categoryID);
+    formData.append('parentCategoryID', informationProduct.parentCategory.categoryID);
 
     formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
     formData.append('productSizes', JSON.stringify(informationProduct.productSizes));

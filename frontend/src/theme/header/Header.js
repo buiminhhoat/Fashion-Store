@@ -49,9 +49,9 @@ const Header = () => {
     try {
       const response = await fetch(apiGetAllCategories, {
         method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-        },
+        // headers: {
+        //   'Authorization': `Bearer ${accessToken}`,
+        // },
       });
 
       if (response.ok) {

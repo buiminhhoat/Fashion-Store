@@ -1,5 +1,8 @@
-import {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import './style.scss';
+import {useCookies} from "react-cookie";
+import { Link } from "react-router-dom";
+import {toast} from "react-toastify";
 
 const productCategories = [
   {
@@ -32,69 +35,84 @@ const productCategories = [
         'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
     link: '/category/ao-polo-nam',
   },
-  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: '/category/ao-polo-nam',
-  },
-  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: '/category/ao-polo-nam',
-  },
-  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: '/category/ao-polo-nam',
-  },
-  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: '/category/ao-polo-nam',
-  },
-  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: '/category/ao-polo-nam',
-  },
-  {
-    name: 'Áo Polo Nam',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: '/category/ao-polo-nam',
-  },
-  {
-    name: 'Áo Polo Nam1',
-    imageUrl:
-        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-    link: '/category/ao-polo-nam',
-  },
+  // {
+  //   name: 'Áo Polo Nam',
+  //   imageUrl:
+  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+  //   link: '/category/ao-polo-nam',
+  // },
+  // {
+  //   name: 'Áo Polo Nam',
+  //   imageUrl:
+  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+  //   link: '/category/ao-polo-nam',
+  // },
+  // {
+  //   name: 'Áo Polo Nam',
+  //   imageUrl:
+  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+  //   link: '/category/ao-polo-nam',
+  // },
+  // {
+  //   name: 'Áo Polo Nam',
+  //   imageUrl:
+  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+  //   link: '/category/ao-polo-nam',
+  // },
+  // {
+  //   name: 'Áo Polo Nam',
+  //   imageUrl:
+  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+  //   link: '/category/ao-polo-nam',
+  // },
+  // {
+  //   name: 'Áo Polo Nam',
+  //   imageUrl:
+  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+  //   link: '/category/ao-polo-nam',
+  // },
+  // {
+  //   name: 'Áo Polo Nam1',
+  //   imageUrl:
+  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+  //   link: '/category/ao-polo-nam',
+  // },
   // Thêm các danh mục sản phẩm khác vào đây
 ];
 
 // Hàm render danh mục sản phẩm
-const renderProductCategories = () => {
+const renderProductCategories = (productCategories) => {
+  const SEARCH_LINK = 'http://localhost:3000/category?categoryID='
   return productCategories.map((category, index) => (
       <div className="owl-item active" key={index} style={{ width: '119px' }}>
-        <a href={category.link}>
+        <a href={SEARCH_LINK + category.categoryID}>
           <div className="category-box">
             <div className="image-wrap position-relative w-100">
               <div className="image-wrap__img position-absolute w-100">
+                {/*<img*/}
+                {/*    lazy-src={category.imagePath}*/}
+                {/*    alt={`Icon danh mục SP 400 x 400 px_${category.categoryName}`}*/}
+                {/*    loading="lazy"*/}
+                {/*    src={category.imagePath}*/}
+                {/*/>*/}
+
                 <img
-                    lazy-src={category.imageUrl}
-                    alt={`Icon danh mục SP 400 x 400 px_${category.name}`}
+                    style={{
+                      borderRadius: '50%',
+                      width: '400px', /* Thay đổi kích thước mong muốn */
+                      height: '400-x', /* Thay đổi kích thước mong muốn */
+                      objectFit: 'cover', /* Đảm bảo hình ảnh được hiển thị đúng tỷ lệ */
+                    }}
+                    lazy-src={category.imagePath}
+                    alt={`Icon danh mục SP 400 x 400 px_${category.categoryName}`}
                     loading="lazy"
-                    src={category.imageUrl}
+                    src={category.imagePath}
                 />
+
               </div>
             </div>
             <div className="text text-center">
-              <p>{category.name}</p>
+              <p>{category.categoryName}</p>
             </div>
           </div>
         </a>
@@ -105,6 +123,57 @@ const renderProductCategories = () => {
 const CategorySection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const maxCategoriesPerPage = 11;
+  const [categoryItem, setCategoryItem] = useState([{}])
+
+  const [cookies] = useCookies(['access_token']);
+  const accessToken = cookies.access_token;
+
+  const fetchData = async () => {
+    const apiGetAllCategories = "/api/public/get-all-categories";
+    try {
+      const response = await fetch(apiGetAllCategories, {
+        method: 'GET',
+        // headers: {
+        //   'Authorization': `Bearer ${accessToken}`,
+        // },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // console.log(data);
+        // Mảng chứa tất cả các subCategories
+        const allSubCategories = [];
+
+        // Hàm đệ quy để duyệt và ghép các subCategories
+        const flattenCategories = (categories) => {
+          categories.forEach((category) => {
+            allSubCategories.push(category); // Thêm category hiện tại vào mảng allSubCategories
+            if (category.subCategories && category.subCategories.length > 0) {
+              flattenCategories(category.subCategories); // Gọi đệ quy nếu category có subCategories
+            }
+          });
+        };
+
+        // Gọi hàm flattenCategories với mảng gốc chứa categories
+        flattenCategories(data);
+
+        console.log(allSubCategories);
+
+        setCategoryItem(allSubCategories);
+      } else {
+        const data = await response.json();
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    } finally {
+    }
+  };
+
+  useEffect(() => {
+    fetchData().then(r => {});
+  }, []);
 
   const handlePrevClick = () => {
       setCurrentSlide(Math.max(0, currentSlide - maxCategoriesPerPage));
@@ -124,7 +193,7 @@ const CategorySection = () => {
             <div className="owl-stage-outer">
               <div className="owl-stage"
                    style={{ transform: `translate3d(-${currentSlide * 119}px, 0px, 0px)`, transition: 'all 0.3s ease 0s', width: '50000px' }}>
-                {renderProductCategories()}
+                {renderProductCategories(categoryItem)}
               </div>
             </div>
             <div className="owl-nav">
