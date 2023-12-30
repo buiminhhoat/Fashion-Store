@@ -11,7 +11,6 @@ function AddressList() {
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
   const [userID, setUserID] = useState(queryParams.userID);
-
   const accessToken = cookies.access_token;
   const [addresses, setAddresses] = useState([]);
 
