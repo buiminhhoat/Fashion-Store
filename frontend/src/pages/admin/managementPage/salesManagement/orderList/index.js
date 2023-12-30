@@ -260,10 +260,54 @@ const OrderListPage = () => {
     }
   }
 
+  const fetchOrdersByOrderDate = async () => {
+    if (!value) {
+      toast.warn("Vui lòng chọn ngày đặt hàng");
+      return;
+    }
+    if (value.length < 2) {
+      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      return;
+    }
+
+    const startOrderDate = value[0].format('YYYY-MM-DD');
+    const endOrderDate = value[1].format('YYYY-MM-DD');
+
+    if (!startOrderDate || !endOrderDate) {
+      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('startOrderDate', startOrderDate);
+    formData.append('endOrderDate', endOrderDate);
+
+    const apiSearchOrdersByOrderDate = "/api/admin/orders/search-orders-by-order-date";
+    try {
+      const response = await fetch(apiSearchOrdersByOrderDate, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        setOrderList(data);
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    }
+  }
+
   const handleBtnSearchClick = () => {
     switch (selectedSearch) {
       case OPTION_SEARCH[0].value:
-
+        fetchOrdersByOrderDate().then(r => {});
         break;
       case OPTION_SEARCH[1].value:
         fetchOrdersByRecipientPhone().then(r => {});
