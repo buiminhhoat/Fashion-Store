@@ -116,6 +116,7 @@ const CategoryPage = ({keyword}) => {
             data.products = data.products.sort((a, b) => b.productPrice - a.productPrice);
           }
           setProductsData(data);
+          setNumberProduct(data.length);
 
         } else {
           const data = await response.json();
@@ -189,14 +190,20 @@ const CategoryPage = ({keyword}) => {
                     <ProductsSection productsData={productsData.products.slice(0, numberProduct)} />
                   {/*</div>*/}
                     <div className="load-more-wrap text-center">
-                      {productsData.products.length !== numberProduct &&
+                      {productsData.products.length !== numberProduct ?
                           (<a href="#">
                             <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}
                                     onClick={() => setNumberProduct(Math.min(numberProduct + NUMBER_PRODUCT, productsData.products.length))}
                             >
                               Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
                             </button>
-                          </a>)
+                          </a>) : (
+                              <div className="btn btn-vm" style={{"marginBottom":"34px"}}
+
+                              >
+                                {/*Cuối danh sách*/}
+                              </div>
+                        )
                       }
                     </div>
                   </>
