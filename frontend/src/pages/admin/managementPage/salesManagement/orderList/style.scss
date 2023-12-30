@@ -13,6 +13,14 @@
     font-family: Manrope !important;
 }
 
+.search-btn:hover {
+    background: #cc1111;
+}
+
+.search-btn:active {
+    background: #bd0000;
+}
+
 :where(.css-dev-only-do-not-override-2i2tap).ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
     position: absolute;
     top: 0;
