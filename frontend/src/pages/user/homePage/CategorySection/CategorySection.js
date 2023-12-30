@@ -35,49 +35,48 @@ const productCategories = [
         'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
     link: '/category/ao-polo-nam',
   },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam1',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // Thêm các danh mục sản phẩm khác vào đây
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam1',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
 ];
 
 // Hàm render danh mục sản phẩm
@@ -158,6 +157,7 @@ const CategorySection = () => {
         flattenCategories(data);
 
         console.log(allSubCategories);
+        console.log(productCategories);
 
         setCategoryItem(allSubCategories);
       } else {
@@ -193,7 +193,7 @@ const CategorySection = () => {
             <div className="owl-stage-outer">
               <div className="owl-stage"
                    style={{ transform: `translate3d(-${currentSlide * 119}px, 0px, 0px)`, transition: 'all 0.3s ease 0s', width: '50000px' }}>
-                {renderProductCategories(categoryItem)}
+                {renderProductCategories(productCategories)}
               </div>
             </div>
             <div className="owl-nav">

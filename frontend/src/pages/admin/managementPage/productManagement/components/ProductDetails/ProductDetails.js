@@ -168,7 +168,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
       parentCategory: selectedParentCategory,
     }
     setInformationProduct(newInformationProduct);
-    closeModal();
+    // closeModal();
   };
 
   return (
