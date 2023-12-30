@@ -18,13 +18,7 @@ public class Database {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-//                Users users1 = new Users("Bùi Minh Hoạt", "official.buiminhhoat@gmail.com", "06092003", "0945405xxx");
-//                Users users2 = new Users("Nguyễn Tiến Dũng", "tiendung05082003@gmail.com", "05082003", "0903481xxx");
-//                logger.info("insert data: " + usersRepository.save(users1));
-//                logger.info("insert data: " + usersRepository.save(users2));
-//                Address address = new Address(1L, "Bùi Minh Hoạt", "0945405238",
-//                        "144 Xuân Thủy, Cầu Giấy, Hà Nội");
-//                addressRepository.save(address);
+
             }
         };
     }
