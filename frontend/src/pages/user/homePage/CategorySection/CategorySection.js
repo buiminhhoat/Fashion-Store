@@ -89,12 +89,26 @@ const renderProductCategories = (productCategories) => {
           <div className="category-box">
             <div className="image-wrap position-relative w-100">
               <div className="image-wrap__img position-absolute w-100">
+                {/*<img*/}
+                {/*    lazy-src={category.imagePath}*/}
+                {/*    alt={`Icon danh mục SP 400 x 400 px_${category.categoryName}`}*/}
+                {/*    loading="lazy"*/}
+                {/*    src={category.imagePath}*/}
+                {/*/>*/}
+
                 <img
+                    style={{
+                      borderRadius: '50%',
+                      width: '400px', /* Thay đổi kích thước mong muốn */
+                      height: '400-x', /* Thay đổi kích thước mong muốn */
+                      objectFit: 'cover', /* Đảm bảo hình ảnh được hiển thị đúng tỷ lệ */
+                    }}
                     lazy-src={category.imagePath}
                     alt={`Icon danh mục SP 400 x 400 px_${category.categoryName}`}
                     loading="lazy"
                     src={category.imagePath}
                 />
+
               </div>
             </div>
             <div className="text text-center">
