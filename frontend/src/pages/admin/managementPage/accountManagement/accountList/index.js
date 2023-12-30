@@ -5,15 +5,15 @@ import {useNavigate} from "react-router-dom";
 
 import {toast} from "react-toastify";
 
+import {PiUserListBold} from "react-icons/pi";
 import {IoSearch} from "react-icons/io5";
-import {BiSolidEdit} from "react-icons/bi";
 import {TbListSearch} from "react-icons/tb";
 import {MdLibraryAdd, MdOutlineEmail} from "react-icons/md";
 import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
 
 import {Select, Tooltip} from "antd";
-import {SEARCH_USER} from "../../productManagement/utils/const";
 
+import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 
@@ -221,10 +221,10 @@ const AccountListPage = () => {
 
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chi tiết người dùng</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-category"
-                                   style={{marginRight:"0"}}
+                                   style={{marginRight:"0", fontSize:"22px"}}
                                    onClick={() => {navigate(`/profile/orders?userID=${user.userID}`)}}
                               >
-                                <BiSolidEdit />
+                                <PiUserListBold  style={{marginLeft:"4px"}}/>
                               </div>
                             </Tooltip>
 
