@@ -150,7 +150,7 @@ const TabContent = ({openTab, setOpenTab, orderList}) => {
               ))}
             </>
             :
-            <div className={`tab-pane show`} role="tabpanel">
+            <div className={`tab-pane show`} role="tabpanel" style={{boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.102)", borderRadius:"3px"}}>
               <div className="empty-content">
                 <img src={empty_product_img} alt="no data"/>
                 <p>Không có đơn hàng nào</p>
