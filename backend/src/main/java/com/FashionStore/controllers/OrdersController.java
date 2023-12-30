@@ -57,6 +57,7 @@ public class OrdersController {
     private final String RESPONSE_TOKEN_INVALID;
 
     private final String RESPONSE_CART_EMPTY;
+    private final String RESPONSE_QUANTITY_PURCHASE_LIMIT;
 
     private final String ORDER_STATUS_ALL;
 
@@ -131,6 +132,7 @@ public class OrdersController {
         this.RESPONSE_TOKEN_INVALID = messageSource.getMessage("response.token.invalid", null, LocaleContextHolder.getLocale());
         this.RESPONSE_CART_EMPTY = messageSource.getMessage("response.cart.empty", null, LocaleContextHolder.getLocale());
         this.ORDER_STATUS_ALL = messageSource.getMessage("order.status.all", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_QUANTITY_PURCHASE_LIMIT = messageSource.getMessage("response.orders.quantity.purchase.limit", null, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("${endpoint.public.orders}")
@@ -218,6 +220,14 @@ public class OrdersController {
             ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
+
+        ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(productID, sizeID);
+        if (quantityPurchase > productQuantity.getQuantity()) {
+            ResponseObject responseObject = new ResponseObject(RESPONSE_QUANTITY_PURCHASE_LIMIT);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        productQuantity.setQuantity(productQuantity.getQuantity() - quantityPurchase);
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
         Users findByEmail = usersRepository.findUsersByEmail(email);
         if (findByEmail == null) {
@@ -246,6 +256,7 @@ public class OrdersController {
         orderDetailsRepository.save(orderDetails);
 
         orders.setOrderDetails(orderDetailsList);
+
         return ResponseEntity.ok(orders);
     }
 
