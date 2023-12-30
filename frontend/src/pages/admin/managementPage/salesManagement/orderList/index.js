@@ -62,7 +62,7 @@ const TabContent = ({openTab, setOpenTab, orderList}) => {
         { orderList && orderList.length ?
             <>
               { orderList.map((order, index) => (
-                  <>
+                  <div key = {index}>
                     { (openTab === "Tất cả" || order.orderStatus === openTab) &&
                       <div key = {index}
                            className="order-item-wrap show-detail"
@@ -146,7 +146,7 @@ const TabContent = ({openTab, setOpenTab, orderList}) => {
                         </div>
                       </div>
                     }
-                  </>
+                  </div>
               ))}
             </>
             :
@@ -199,6 +199,11 @@ const OrderListPage = () => {
   }
 
   const fetchOrdersByOrderId = async () => {
+    if (!orderIDValue) {
+      toast.warn("Vui lòng nhập mã đơn hàng");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('orderID', orderIDValue);
 
@@ -224,12 +229,44 @@ const OrderListPage = () => {
     }
   }
 
+  const fetchOrdersByRecipientPhone = async () => {
+    if (!orderIDValue) {
+      toast.warn("Vui lòng nhập số điện thoại đặt hàng");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('recipientPhone', phoneNumberValue);
+
+    const apiSearchOrdersByRecipientPhone = "/api/admin/orders/search-orders-by-recipient-phone";
+    try {
+      const response = await fetch(apiSearchOrdersByRecipientPhone, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        setOrderList(data);
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Không thể kết nối được với database');
+    }
+  }
+
   const handleBtnSearchClick = () => {
     switch (selectedSearch) {
       case OPTION_SEARCH[0].value:
 
         break;
       case OPTION_SEARCH[1].value:
+        fetchOrdersByRecipientPhone().then(r => {});
         break;
       case OPTION_SEARCH[2].value:
         fetchOrdersByOrderId().then(r => {});
