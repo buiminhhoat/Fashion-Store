@@ -301,7 +301,6 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    /* Admin */
     @PostMapping("${endpoint.admin.orders.set-order-status}")
     public ResponseEntity<?> setOrderStatus(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
@@ -314,6 +313,13 @@ public class OrdersController {
         orders.setOrderStatus(orderStatus);
         ordersRepository.save(orders);
 
+        return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("${endpoint.admin.orders.search-orders-by-order-id}")
+    public ResponseEntity<?> searchOrdersByOrderID(HttpServletRequest request) {
+        Long orderID = Long.valueOf(request.getParameter(ORDER_PARAM_ORDER_ID));
+        Orders orders = getOrderDetails(orderID);
         return ResponseEntity.ok(orders);
     }
 
