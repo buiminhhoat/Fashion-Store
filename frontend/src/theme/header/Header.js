@@ -20,6 +20,7 @@ import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
 
 
 const Header = () => {
+  const LOGO_FASHION_STORE = "https://iili.io/JRLCZQf.md.png";
   const [menuItems, setMenuItems] = useState([{}])
   const cartContext = useContext(CartContext);
 
@@ -82,7 +83,7 @@ const Header = () => {
                 <div className="col-9 content-left d-flex align-items-center ps-0 pe-0">
                   <div className="logo-box">
                     <Link to="/">
-                      <img className="logo" src={logo_fashion_store} style={{height:"35px"}} alt="Logo"/>
+                      <img className="logo" src={LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
                   {menuItems.slice(0, 6).map((menuItem, index) => (
