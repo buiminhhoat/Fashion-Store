@@ -120,14 +120,14 @@ public class OrdersController {
         this.ORDER_STATUS_ALL = messageSource.getMessage("order.status.all", null, LocaleContextHolder.getLocale());
     }
 
-    @PostMapping("${mapping.public.orders}")
+    @PostMapping("${endpoint.public.orders}")
     public ResponseEntity<?> getOrdersByOrderID(HttpServletRequest request) {
         Long orderID = Long.valueOf(request.getParameter(ORDER_PARAM_ORDER_ID));
         Orders orders = getOrderDetails(orderID);
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("${mapping.public.add-orders-by-cart}")
+    @PostMapping("${endpoint.public.add-orders-by-cart}")
     public ResponseEntity<?> addOrdersByCart(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -188,7 +188,7 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("${mapping.public.add-orders-by-checkout}")
+    @PostMapping("${endpoint.public.add-orders-by-checkout}")
     public ResponseEntity<?> addOrdersByCheckout(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -236,7 +236,7 @@ public class OrdersController {
         return ResponseEntity.ok(orders);
     }
 
-    @PostMapping("${mapping.public.orders.get-all-orders-by-order-status}")
+    @PostMapping("${endpoint.public.orders.get-all-orders-by-order-status}")
     public ResponseEntity<?> getAllOrdersByStatus(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -277,7 +277,7 @@ public class OrdersController {
         }
     }
 
-    @PostMapping("${mapping.public.orders.cancel-order}")
+    @PostMapping("${endpoint.public.orders.cancel-order}")
     public ResponseEntity<?> cancelOrder(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -302,7 +302,7 @@ public class OrdersController {
     }
 
     /* Admin */
-    @PostMapping("${mapping.admin.orders.set-order-status}")
+    @PostMapping("${endpoint.admin.orders.set-order-status}")
     public ResponseEntity<?> setOrderStatus(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");

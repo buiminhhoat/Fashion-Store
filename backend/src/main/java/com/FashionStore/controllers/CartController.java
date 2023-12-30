@@ -93,7 +93,7 @@ public class CartController {
         this.RESPONSE_CART_QUANTITY_LIMIT = messageSource.getMessage("response.cart.quantity.limit", null, LocaleContextHolder.getLocale());
         this.RESPONSE_CART_PRODUCT = messageSource.getMessage("response.cart.product", null, LocaleContextHolder.getLocale());
     }
-    @GetMapping("${mapping.public.get-cart}")
+    @GetMapping("${endpoint.public.get-cart}")
     public ResponseEntity<?> getCart(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -127,7 +127,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 
-    @PostMapping("${mapping.public.add-product-to-cart}")
+    @PostMapping("${endpoint.public.add-product-to-cart}")
     public ResponseEntity<?> addProductToCart(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -174,7 +174,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 
-    @PostMapping("${mapping.public.edit-product-in-cart}")
+    @PostMapping("${endpoint.public.edit-product-in-cart}")
     public ResponseEntity<?> editProductInCart(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -216,7 +216,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 
-    @PostMapping("${mapping.public.delete-product-in-cart}")
+    @PostMapping("${endpoint.public.delete-product-in-cart}")
     public ResponseEntity<?> deleteProductInCart(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -244,7 +244,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 
-    @PostMapping("${mapping.public.delete-all-product-in-cart}")
+    @PostMapping("${endpoint.public.delete-all-product-in-cart}")
     public ResponseEntity<?> deleteAllProductInCart(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
