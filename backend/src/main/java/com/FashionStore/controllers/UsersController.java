@@ -26,7 +26,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class UsersController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -104,7 +104,7 @@ public class UsersController {
         this.RESPONSE_INVALID_TOKEN = messageSource.getMessage("response.token.invalid", null, LocaleContextHolder.getLocale());
     }
 
-    @PostMapping("${endpoint.public.getuserdata}")
+    @PostMapping("${endpoint.public.get-user-data}")
     public ResponseEntity<Users> getUserData(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -147,7 +147,7 @@ public class UsersController {
         }
     }
 
-    @GetMapping("${endpoint.public.getuserid}")
+    @GetMapping("${endpoint.public.get-user-id}")
     public ResponseEntity<?> getUserID(HttpServletRequest request) {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
@@ -167,7 +167,7 @@ public class UsersController {
         }
     }
 
-    @GetMapping("${endpoint.admin.getallusers}")
+    @GetMapping("${endpoint.admin.get-all-users}")
     public ResponseEntity<?> getAllUsers() {
         List<Users> users = usersRepository.findAll();
         for (Users user : users) {
@@ -176,7 +176,7 @@ public class UsersController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("${endpoint.admin.adduser}")
+    @PostMapping("${endpoint.admin.add-user}")
     public ResponseEntity<String> addUser(HttpServletRequest request) {
         try {
             String fullName = request.getParameter(PARAM_FULL_NAME);
@@ -208,7 +208,7 @@ public class UsersController {
         }
     }
 
-    @PostMapping("${endpoint.admin.edituser}")
+    @PostMapping("${endpoint.admin.edit-user}")
     public ResponseEntity<?> editUser(HttpServletRequest request) {
         Long userID = Long.valueOf(request.getParameter(PARAM_USER_ID));
         String email = request.getParameter(PARAM_EMAIL);
@@ -250,7 +250,7 @@ public class UsersController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @PostMapping("${endpoint.admin.deleteuser}")
+    @PostMapping("${endpoint.admin.delete-user}")
     public ResponseEntity<?> deleteUser(HttpServletRequest request) {
         Long userID = Long.valueOf(request.getParameter(PARAM_USER_ID));
 
@@ -262,7 +262,7 @@ public class UsersController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @GetMapping("${endpoint.admin.searchuserbyemail}")
+    @GetMapping("${endpoint.admin.search-user-by-email}")
     public ResponseEntity<?> searchUserByEmail(HttpServletRequest request) {
         String email = request.getParameter(PARAM_EMAIL);
 
@@ -270,7 +270,7 @@ public class UsersController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("${endpoint.admin.searchuserbyphonenumber}")
+    @GetMapping("${endpoint.admin.search-user-by-phone-number}")
     public ResponseEntity<?> searchUserByPhoneNumber(HttpServletRequest request) {
         String phoneNumber = request.getParameter(PARAM_PHONE_NUMBER);
 
@@ -278,7 +278,7 @@ public class UsersController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("${endpoint.public.uploadprofileimage}")
+    @PostMapping("${endpoint.admin.upload-profile-image}")
     public ResponseEntity<?> uploadProfileImage(HttpServletRequest request) throws IOException {
         String accessToken = request.getHeader(HEADER_AUTHORIZATION);
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");

@@ -24,7 +24,7 @@ import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class ProfileController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

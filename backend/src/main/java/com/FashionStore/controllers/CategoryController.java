@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class CategoryController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -46,9 +45,10 @@ public class CategoryController {
     private ProductQuantityRepository productQuantityRepository;
 
     @Autowired
-    private FreeImageService freeImageService;
+    private OrderDetailsRepository orderDetailsRepository;
 
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
+    @Autowired
+    private FreeImageService freeImageService;
 
     private final String RESPONSE_CATEGORY_NEW_EXISTS;
 
@@ -83,6 +83,10 @@ public class CategoryController {
 
     @Value("${param.categoryImage}")
     private String PARAM_CATEGORY_IMAGE;
+
+    @Value("${param.categoryImageDefault}")
+    private String PARAM_CATEGORY_IMAGE_CATEGORY_DEFAULT;
+
     @Autowired
     public CategoryController(MessageSource messageSource) {
         this.RESPONSE_CATEGORY_NEW_EXISTS = messageSource.getMessage("response.category.new.exists", null, LocaleContextHolder.getLocale());
@@ -113,8 +117,8 @@ public class CategoryController {
 
         try {
             Category category;
-            if (parentCategoryID == 0) category = new Category(categoryName, appRoot);
-            else category = new Category(categoryName, parentCategoryID, appRoot);
+            if (parentCategoryID == 0) category = new Category(categoryName, PARAM_CATEGORY_IMAGE_CATEGORY_DEFAULT);
+            else category = new Category(categoryName, parentCategoryID, PARAM_CATEGORY_IMAGE_CATEGORY_DEFAULT);
             categoryRepository.save(category);
             ResponseObject responseObject = new ResponseObject(RESPONSE_CATEGORY_SAVE_SUCCESS);
             return ResponseEntity.ok(responseObject);
@@ -216,7 +220,7 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
-    @GetMapping("${endpoint.public.random-12-products}")
+    @GetMapping("${endpoint.public.get-random-12-products}")
     public ResponseEntity<?> getAllCategoriesRandom12() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
@@ -232,7 +236,7 @@ public class CategoryController {
                 List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
                 List<Product> products = new ArrayList<>();
                 for (ProductCategory productCategory: productCategoryList) {
-                    products.add(getProduct(productCategory.getProductID()));
+                    products.add(getProductDetails(productCategory.getProductID()));
                 }
                 subCategory.setProducts(products);
             }
@@ -242,7 +246,7 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
-    public Product getProduct(Long productID) {
+    public Product getProductDetails(Long productID) {
         Product product = productRepository.findProductByProductID(productID);
 
         List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
@@ -254,6 +258,14 @@ public class CategoryController {
         List<ProductQuantity> productQuantities = productQuantityRepository.findProductQuantitiesByProductID(productID);
         product.setProductQuantities(productQuantities);
 
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(productID);
+
+        Long quantitySold = 0L;
+        for (OrderDetails o: orderDetails) {
+            quantitySold += o.getQuantity();
+        }
+
+        product.setQuantitySold(quantitySold);
         return product;
     }
 
@@ -266,7 +278,7 @@ public class CategoryController {
                 List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(subCategory.getCategoryID());
                 for (ProductCategory productCategory : productCategoryList) {
                     Long productID = productCategory.getProductID();
-                    products.add(getProduct(productID));
+                    products.add(getProductDetails(productID));
                 }
             }
         }
@@ -274,7 +286,7 @@ public class CategoryController {
             List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
             for (ProductCategory productCategory : productCategoryList) {
                 Long productID = productCategory.getProductID();
-                products.add(getProduct(productID));
+                products.add(getProductDetails(productID));
             }
         }
         return products;

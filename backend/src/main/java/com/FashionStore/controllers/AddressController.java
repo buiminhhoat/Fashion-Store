@@ -19,7 +19,7 @@ import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class AddressController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

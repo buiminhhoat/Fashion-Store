@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class ProductController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -42,6 +42,9 @@ public class ProductController {
     private final ProductQuantityRepository productQuantityRepository;
     private final CategoryRepository categoryRepository;
     private final CartItemRepository cartItemRepository;
+
+    private final OrderDetailsRepository orderDetailsRepository;
+
 
     @Autowired
     private FreeImageService freeImageService;
@@ -78,6 +81,7 @@ public class ProductController {
     private final String MESSAGE_SUCCESS_EDIT_PRODUCT;
 
     private final String MESSAGE_SUCCESS_DELETE_PRODUCT;
+    private final String RESPONSE_WITHOUT_CATEGORY;
 
     @Autowired
     public ProductController(ProductRepository productRepository,
@@ -87,6 +91,7 @@ public class ProductController {
                              ProductQuantityRepository productQuantityRepository,
                              CategoryRepository categoryRepository,
                              CartItemRepository cartItemRepository,
+                             OrderDetailsRepository orderDetailsRepository,
                              MessageSource messageSource) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
@@ -95,9 +100,11 @@ public class ProductController {
         this.productQuantityRepository = productQuantityRepository;
         this.categoryRepository = categoryRepository;
         this.cartItemRepository = cartItemRepository;
+        this.orderDetailsRepository = orderDetailsRepository;
         this.MESSAGE_SUCCESS_ADD_PRODUCT = messageSource.getMessage("response.success.add-product", null, LocaleContextHolder.getLocale());
         this.MESSAGE_SUCCESS_EDIT_PRODUCT = messageSource.getMessage("response.success.edit-product", null, LocaleContextHolder.getLocale());
         this.MESSAGE_SUCCESS_DELETE_PRODUCT = messageSource.getMessage("response.success.delete-product", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_WITHOUT_CATEGORY = messageSource.getMessage("response.without.category", null, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("${endpoint.admin.add-product}")
@@ -106,12 +113,21 @@ public class ProductController {
         Long productPrice = Long.valueOf(request.getParameter(PARAM_PRODUCT_PRICE));
         String productDescription = request.getParameter(PARAM_PRODUCT_DESCRIPTION);
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles(PARAM_PRODUCT_IMAGES);
-        Long parentCategoryID = Long.valueOf(request.getParameter(PARAM_PARENT_CATEGORY_ID));
-        Long categoryID = Long.valueOf(request.getParameter(PARAM_CATEGORY_ID));
+        Long categoryID;
+        try {
+            categoryID = Long.valueOf(request.getParameter(PARAM_CATEGORY_ID));
+        }
+        catch (Exception e) {
+            ResponseObject responseObject = new ResponseObject(RESPONSE_WITHOUT_CATEGORY);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
         String productSizesJson = request.getParameter(PARAM_PRODUCT_SIZES);
         String productQuantitiesJson = request.getParameter(PARAM_PRODUCT_QUANTITIES);
         ObjectMapper objectMapper = new ObjectMapper();
-
+        if (categoryID == 0) {
+            ResponseObject responseObject = new ResponseObject(RESPONSE_WITHOUT_CATEGORY);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
         List<ProductSize> productSizes;
         try {
             productSizes = objectMapper.readValue(productSizesJson, new TypeReference<List<ProductSize>>() {});
@@ -302,6 +318,15 @@ public class ProductController {
 
         Category parentCategory = categoryRepository.findCategoriesByCategoryID(category.getParentCategoryID());
         product.setParentCategory(parentCategory);
+
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(productID);
+
+        Long quantitySold = 0L;
+        for (OrderDetails o: orderDetails) {
+            quantitySold += o.getQuantity();
+        }
+
+        product.setQuantitySold(quantitySold);
         return product;
     }
 

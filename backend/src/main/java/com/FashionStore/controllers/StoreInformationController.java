@@ -28,7 +28,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class StoreInformationController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

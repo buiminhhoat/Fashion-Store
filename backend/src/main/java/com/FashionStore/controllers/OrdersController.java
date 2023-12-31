@@ -26,7 +26,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("${api.base-path}")
 public class OrdersController {
 
     @Autowired
@@ -57,6 +57,7 @@ public class OrdersController {
     private final String RESPONSE_TOKEN_INVALID;
 
     private final String RESPONSE_CART_EMPTY;
+    private final String RESPONSE_QUANTITY_PURCHASE_LIMIT;
 
     private final String ORDER_STATUS_ALL;
 
@@ -131,6 +132,7 @@ public class OrdersController {
         this.RESPONSE_TOKEN_INVALID = messageSource.getMessage("response.token.invalid", null, LocaleContextHolder.getLocale());
         this.RESPONSE_CART_EMPTY = messageSource.getMessage("response.cart.empty", null, LocaleContextHolder.getLocale());
         this.ORDER_STATUS_ALL = messageSource.getMessage("order.status.all", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_QUANTITY_PURCHASE_LIMIT = messageSource.getMessage("response.orders.quantity.purchase.limit", null, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("${endpoint.public.orders}")
@@ -146,7 +148,6 @@ public class OrdersController {
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
         Long addressID = Long.valueOf(request.getParameter(ORDER_PARAM_ADDRESS_ID));
         Long totalAmount = Long.valueOf(request.getParameter(ORDER_PARAM_TOTAL_AMOUNT));
-
         Date orderDate = new Date();
         orderDate.setTime(orderDate.getTime());
 
@@ -190,7 +191,7 @@ public class OrdersController {
             String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).getFirst().getImagePath();
 
             OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(), product.getProductName(),
-                    imagePath, productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
+                    imagePath, cartItem.getSizeID(), productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
                     product.getProductPrice() * cartItem.getQuantityPurchase());
             orderDetailsList.add(orderDetails);
             orderDetailsRepository.save(orderDetails);
@@ -218,6 +219,14 @@ public class OrdersController {
             ResponseObject responseObject = new ResponseObject(RESPONSE_TOKEN_INVALID);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
+
+        ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(productID, sizeID);
+        if (quantityPurchase > productQuantity.getQuantity()) {
+            ResponseObject responseObject = new ResponseObject(RESPONSE_QUANTITY_PURCHASE_LIMIT);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+        }
+
+        productQuantity.setQuantity(productQuantity.getQuantity() - quantityPurchase);
         String email = jwtTokenUtil.getSubjectFromToken(accessToken);
         Users findByEmail = usersRepository.findUsersByEmail(email);
         if (findByEmail == null) {
@@ -240,12 +249,13 @@ public class OrdersController {
 
         OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(),
                 product.getProductName(),
-                imagePath, productSize.getSizeName(), product.getProductPrice(), quantityPurchase,
+                imagePath, sizeID, productSize.getSizeName(), product.getProductPrice(), quantityPurchase,
                 product.getProductPrice() * quantityPurchase);
         orderDetailsList.add(orderDetails);
         orderDetailsRepository.save(orderDetails);
 
         orders.setOrderDetails(orderDetailsList);
+
         return ResponseEntity.ok(orders);
     }
 
@@ -326,6 +336,14 @@ public class OrdersController {
         orders.setOrderStatus(orderStatus);
         ordersRepository.save(orders);
 
+
+        if (Objects.equals(orderStatus, ORDER_STATUS_CANCELLED)) {
+            List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByOrderID(orderID);
+            for (OrderDetails od: orderDetails) {
+                ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(od.getProductID(), od.getSizeID());
+                productQuantity.setQuantity(productQuantity.getQuantity() + od.getQuantity());
+            }
+        }
         return ResponseEntity.ok(orders);
     }
 
@@ -402,12 +420,24 @@ public class OrdersController {
 
         Category parentCategory = categoryRepository.findCategoriesByCategoryID(category.getParentCategoryID());
         product.setParentCategory(parentCategory);
+
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(productID);
+
+        Long quantitySold = 0L;
+        for (OrderDetails o: orderDetails) {
+            quantitySold += o.getQuantity();
+        }
+
+        product.setQuantitySold(quantitySold);
         return product;
     }
 
     public Orders getOrderDetails(Long orderID) {
         Orders orders = ordersRepository.findOrdersByOrderID(orderID);
         orders.setOrderDetails(orderDetailsRepository.findOrderDetailsByOrderID(orderID));
+        Users users = usersRepository.findUsersByUserID(orders.getUserID());
+        orders.setFullName(users.getFullName());
+        orders.setAvatarPath(users.getAvatarPath());
         return orders;
     }
 }

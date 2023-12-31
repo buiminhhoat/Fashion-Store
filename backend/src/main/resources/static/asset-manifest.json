@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.711c64a6.css",
-    "main.js": "/static/js/main.c438ffd7.js",
+    "main.css": "/static/css/main.6975ae92.css",
+    "main.js": "/static/js/main.b34fdada.js",
     "static/js/787.44c26954.chunk.js": "/static/js/787.44c26954.chunk.js",
     "static/media/logo_fashion_store.png": "/static/media/logo_fashion_store.5797645c055ae9386184.png",
     "static/media/forgot-password.jpg": "/static/media/forgot-password.767a2d19a846baf55738.jpg",
@@ -36,12 +36,12 @@
     "static/media/card.svg": "/static/media/card.79c6c21d949cd294c8769e42311519ca.svg",
     "static/media/unlocked.svg": "/static/media/unlocked.446d7940bb94b6e3a7a962997ef85ba7.svg",
     "static/media/plus.svg": "/static/media/plus.f2715396a53c70b447cc8e205d4241d2.svg",
-    "main.711c64a6.css.map": "/static/css/main.711c64a6.css.map",
-    "main.c438ffd7.js.map": "/static/js/main.c438ffd7.js.map",
+    "main.6975ae92.css.map": "/static/css/main.6975ae92.css.map",
+    "main.b34fdada.js.map": "/static/js/main.b34fdada.js.map",
     "787.44c26954.chunk.js.map": "/static/js/787.44c26954.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.711c64a6.css",
-    "static/js/main.c438ffd7.js"
+    "static/css/main.6975ae92.css",
+    "static/js/main.b34fdada.js"
   ]
 }
