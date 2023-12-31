@@ -19,6 +19,7 @@ export const MESSAGE = {
   MISSING_PRODUCT_NAME: "Vui lòng nhập tên sản phẩm",
   MISSING_PRODUCT_PRICE: "Vui lòng nhập giá sản phẩm",
   MISSING_PRODUCT_SIZE: "Vui lòng thêm kích cỡ sản phẩm",
+  MISSING_INFORMATION: "Vui lòng nhập đầy đủ thông tin",
   EMPTY_SIZE_NAME: "Tên kích cỡ không được để trống",
   EMPTY_QUANTITY: "Số lượng không được để trống",
   MISSING_PRODUCT_CATEGORY: "Vui lòng chọn danh mục sản phẩm",
@@ -50,6 +51,20 @@ export const API = {
     GET_CART_ENDPOINT: "/api/public/get-cart",
     GET_USER_ID_ENDPOINT: "/api/public/get-user-id",
     GET_ADDRESS_ENDPOINT: "/api/public/get-address",
+    ADD_PRODUCT_TO_CART_ENDPOINT: "/api/public/add-product-to-cart",
+    SET_DEFAULT_ADDRESS_ENDPOINT: "/api/public/set-default-address",
+    CHANGE_PASSWORD_ENDPOINT: "/api/public/change-password",
+    CANCEL_ORDER_ENDPOINT: "/api/public/orders/cancel-order",
+    EDIT_PROFILE_ENDPOINT: "/api/public/edit-profile",
+    DELETE_ADDRESS_ENDPOINT: "/api/public/delete-address",
+    GET_ALL_ORDERS_BY_ORDER_STATUS_ENDPOINT: "/api/public/orders/get-all-orders-by-order-status",
+    GET_RANDOM_12_PRODUCTS_ENDPOINT: "/api/public/all-categories/get-random-12-products",
+    CATEGORY_ENDPOINT: "/api/public/category/",
+    PRODUCT_ENDPOINT: "/api/public/product/",
+    SEARCH_ENDPOINT: "/api/public/search/"
+  },
+  ADMIN: {
+    EDIT_BANNER_ENDPOINT: "/api/admin/edit-banner",
   }
 
 }

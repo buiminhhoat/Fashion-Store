@@ -213,21 +213,21 @@ function CartPage() {
     //   setReview(false);
     // }
 
-    let re = false;
+    let review = false;
 
     product.map((product, index) => {
           if (product.informationProduct.productSizes) {
               let stockQuantity = product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID).quantity;
               if (stockQuantity < product.quantityPurchase) {
                 handleDecreaseAmount(index, product.quantityPurchase - stockQuantity);
-                re = true;
+                review = true;
                 // console.log("cuu");
               }
           }
       }
     )
 
-    if (re === true) {
+    if (review === true) {
       toast.warn(MESSAGE.REVIEW_CART);
       return;
     }
@@ -277,7 +277,7 @@ function CartPage() {
           const productID = cartItem.productID;
 
           // Fetch thông tin product theo productID
-          const productResponse = await fetch(`/api/public/product/${productID}`);
+          const productResponse = await fetch(API.PUBLIC.PRODUCT_ENDPOINT + productID);
           if (productResponse.ok) {
             const productData = await productResponse.json();
             const productInformation = productData;

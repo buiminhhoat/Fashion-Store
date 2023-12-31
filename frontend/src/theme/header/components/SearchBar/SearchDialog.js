@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 import {formatter} from "../../../../utils/formatter";
-import {MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const SearchDialog = ({keyword}) => {
-  const apiProductBySearch = "/api/public/search/" + keyword;
+  const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + keyword;
   const [searchItem, setSearchItem] = useState({});
 
   useEffect(() => {

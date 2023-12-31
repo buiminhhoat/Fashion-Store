@@ -66,7 +66,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
     try {
       const formData = new FormData()
       formData.append("addressID", addressList[id].addressID)
-      const response = await fetch(`/api/public/set-default-address`, {
+      const response = await fetch(API.PUBLIC.SET_DEFAULT_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,

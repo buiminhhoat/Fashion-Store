@@ -7,7 +7,7 @@ import {useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import fillterIcon from "../categoryPage/images/bars-filter.svg";
 import {ScrollToTop} from "../../../utils";
-import {MESSAGE} from "../../../utils/const";
+import {API, MESSAGE} from "../../../utils/const";
 
 // const productsData = [
 //   {
@@ -48,7 +48,7 @@ const SearchProductPage = () => {
   const location = useLocation().pathname;
   const encodedSearchString = location.substring("/search/".length);
   const decodedSearchString = decodeURIComponent(encodedSearchString);
-  const apiProductBySearch = "/api/public/search/" + decodedSearchString;
+  const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + decodedSearchString;
 
   const [productsData, setProductsData] = useState({});
   const [numberProduct, setNumberProduct] = useState(NUMBER_PRODUCT);
