@@ -231,9 +231,6 @@ public class CartController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
         }
 
-        String email = jwtTokenUtil.getEmailFromToken(accessToken);
-        Users findByEmail = usersRepository.findUsersByEmail(email);
-
         Long cartItemID = Long.valueOf(request.getParameter(PARAM_CART_ITEM_ID));
 
         CartItem cartItem = cartItemRepository.findCartItemByCartItemID(cartItemID);

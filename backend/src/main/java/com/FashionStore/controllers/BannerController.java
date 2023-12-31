@@ -54,8 +54,8 @@ public class BannerController {
         return ResponseEntity.ok(banners);
     }
 
-    @PostMapping("${endpoint.admin.save-banner}")
-    public ResponseEntity<?> saveBanner(HttpServletRequest request) throws IOException {
+    @PostMapping("${endpoint.admin.edit-banner}")
+    public ResponseEntity<?> editBanner(HttpServletRequest request) throws IOException {
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles(MULTIPART_BANNER_IMAGES);
         String bannersJson = request.getParameter(PARAM_BANNERS);
         ObjectMapper objectMapper = new ObjectMapper();
