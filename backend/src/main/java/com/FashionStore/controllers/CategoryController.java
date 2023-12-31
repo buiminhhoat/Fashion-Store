@@ -221,7 +221,7 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
-    @GetMapping("${endpoint.public.random-12-products}")
+    @GetMapping("${endpoint.public.get-random-12-products}")
     public ResponseEntity<?> getAllCategoriesRandom12() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
