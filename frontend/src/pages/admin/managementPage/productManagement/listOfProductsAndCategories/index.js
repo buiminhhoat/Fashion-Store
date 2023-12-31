@@ -51,7 +51,7 @@ const ListOfProductsAndCategoriesPage  = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(API.GET_ALL_CATEGORIES_ENDPOINT, {
+      const response = await fetch(API.PUBLIC.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
       });
 

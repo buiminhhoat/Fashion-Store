@@ -81,7 +81,7 @@ const ProfilePersonalInformationPage = () => {
       const formData = new FormData();
       formData.append('userID', userID);
 
-      const response = await fetch(API.GET_USER_DATA_ENDPOINT, {
+      const response = await fetch(API.PUBLIC.GET_USER_DATA_ENDPOINT, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",

@@ -13,7 +13,7 @@ import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
-import {MESSAGE} from "../../../utils/const";
+import {API, MESSAGE} from "../../../utils/const";
 
 const productListFake = [
   {
@@ -138,31 +138,24 @@ function CartPage() {
   };
 
   const handleCloseButton = (id) => {
-    // Gửi yêu cầu xóa sản phẩm khỏi giỏ hàng lên server
-    const deleteCartItemURL = `/api/public/delete-product-in-cart`;
-        // ?accessToken=${accessToken}&cartItemID=${product[id].cartItemID}
-    const formData = new FormData()
-    //=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}
-    formData.append('cartItemID', product[id].cartItemID)
-    fetch(deleteCartItemURL, {
+    const formData = new FormData();
+    formData.append('cartItemID', product[id].cartItemID);
+
+    fetch(API.PUBLIC.DELETE_PRODUCT_IN_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization" : "Bearer " + accessToken},
       body: formData,
     })
         .then((response) => {
           if (response.ok) {
-            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
-            // Nếu bạn muốn cập nhật lại trạng thái giỏ hàng sau khi xóa sản phẩm, hãy thực hiện ở đây
             setNumberProduct(numberProduct-1);
             cartContext.getAmountInCart().then(r => r);
-            // console.log(numberProduct)
           } else {
             throw new Error('Lỗi khi xóa sản phẩm khỏi giỏ hàng.');
           }
         })
         .catch((error) => {
           console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   };
 

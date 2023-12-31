@@ -30,9 +30,15 @@ export const MESSAGE = {
 }
 
 export const API = {
-  GET_USER_DATA_ENDPOINT: "/api/public/get-user-data",
-  LOGIN_ENDPOINT: "/api/public/login",
-  GET_ALL_CATEGORIES_ENDPOINT: "/api/public/get-all-categories",
-  UPLOAD_PROFILE_IMAGE_ENDPOINT: "/api/public/upload-profile-image",
-  GET_STORE_INFORMATION_ENDPOINT: "/api/public/get-store-information",
+  PUBLIC: {
+    GET_USER_DATA_ENDPOINT: "/api/public/get-user-data",
+    LOGIN_ENDPOINT: "/api/public/login",
+    REGISTER_ENDPOINT: "/api/public/register",
+    GET_ALL_CATEGORIES_ENDPOINT: "/api/public/get-all-categories",
+    UPLOAD_PROFILE_IMAGE_ENDPOINT: "/api/public/upload-profile-image",
+    GET_STORE_INFORMATION_ENDPOINT: "/api/public/get-store-information",
+    GET_ALL_BANNERS_ENDPOINT: "/api/public/get-all-banners",
+    DELETE_PRODUCT_IN_CART_ENDPOINT: "/api/public/delete-product-in-cart"
+  }
+
 }

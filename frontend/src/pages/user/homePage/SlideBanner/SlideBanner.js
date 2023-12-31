@@ -7,16 +7,15 @@ import {toast} from "react-toastify";
 import {Carousel} from "react-responsive-carousel";
 
 import defaultBanner from "./images/default-banner.png";
-import {MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const SlideBanner = () => {
   const navigate = useNavigate();
   const [banners, setBanners] = useState([]);
 
   const fetchData = async () => {
-    const apiGetAllBanners = "/api/public/get-all-banners";
     try {
-      const response = await fetch(apiGetAllBanners, {
+      const response = await fetch(API.PUBLIC.GET_ALL_BANNERS_ENDPOINT, {
         method: 'GET',
       });
 
