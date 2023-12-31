@@ -4,7 +4,7 @@ import {MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {useCookies} from "react-cookie";
-import {MESSAGE} from "../../../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../../../utils/const";
 
 const AddCategoryDialog = ({parentCategoryID, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);
@@ -26,9 +26,8 @@ const AddCategoryDialog = ({parentCategoryID, onAccept, onClose}) => {
     formData.append('categoryName', inputValue);
     formData.append('parentCategoryID', parentCategoryID);
 
-    const apiAddCategoryUrl = "/api/admin/add-category";
     try {
-      const response = await fetch(apiAddCategoryUrl, {
+      const response = await fetch(API.ADMIN.ADD_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

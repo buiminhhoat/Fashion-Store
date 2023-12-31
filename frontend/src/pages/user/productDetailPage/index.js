@@ -88,7 +88,6 @@ const ProductDetailPage = () => {
           navigate(`/error`);
         }
       } catch (error) {
-        console.log(error);
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }

@@ -65,6 +65,9 @@ export const API = {
   },
   ADMIN: {
     EDIT_BANNER_ENDPOINT: "/api/admin/edit-banner",
+    UPDATE_STORE_INFORMATION_ENDPOINT: "/api/admin/update-store-information",
+    GET_ALL_USERS_ENDPOINT: "/api/admin/get-all-users",
+    ADD_CATEGORY_ENDPOINT: "/api/admin/add-category",
   }
 
 }

@@ -16,7 +16,7 @@ import {Select, Tooltip} from "antd";
 import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {MESSAGE} from "../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -36,9 +36,8 @@ const AccountListPage = () => {
   }
 
   const fetchData = async () => {
-    const apiGetAllUsers = "/api/admin/get-all-users";
     try {
-      const response = await fetch(apiGetAllUsers, {
+      const response = await fetch(API.ADMIN.GET_ALL_USERS_ENDPOINT, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${accessToken}`,

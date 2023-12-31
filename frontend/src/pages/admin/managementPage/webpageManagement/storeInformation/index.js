@@ -64,9 +64,8 @@ const StoreInformationPage = () => {
     const formData = new FormData();
     formData.append('storeInformation', JSON.stringify(storeInfo));
 
-    const apiUpdateStoreInformation = "/api/admin/update-store-information";
     try {
-      const response = await fetch(apiUpdateStoreInformation, {
+      const response = await fetch(API.ADMIN.UPDATE_STORE_INFORMATION_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,

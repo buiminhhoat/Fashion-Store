@@ -142,9 +142,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     formData.append('categoryName', inputValue);
     formData.append('parentCategoryID', parentCategoryID);
 
-    const apiAddCategoryUrl = "/api/admin/add-category";
     try {
-      const response = await fetch(apiAddCategoryUrl, {
+      const response = await fetch(API.ADMIN.ADD_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -189,9 +188,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     formData.append('parentCategoryID', parentCategoryID);
     formData.append('categoryName', categoryName);
 
-    const apiAddCategoryUrl = "/api/admin/add-category";
     try {
-      const response = await fetch(apiAddCategoryUrl, {
+      const response = await fetch(API.ADMIN.ADD_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
