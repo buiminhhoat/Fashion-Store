@@ -342,6 +342,7 @@ public class OrdersController {
             List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByOrderID(orderID);
             for (OrderDetails od: orderDetails) {
                 ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(od.getProductID(), od.getSizeID());
+                productQuantity.setQuantity(productQuantity.getQuantity() + od.getQuantity());
             }
         }
         return ResponseEntity.ok(orders);
