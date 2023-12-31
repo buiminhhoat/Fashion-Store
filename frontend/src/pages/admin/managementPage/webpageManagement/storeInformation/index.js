@@ -5,7 +5,11 @@ import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/Confi
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {TimePicker} from "antd";
-import dayjs from "dayjs";
+
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import viLocale from 'dayjs/locale/vi';
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const StoreInformationPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -25,9 +29,8 @@ const StoreInformationPage = () => {
   });
 
   const fetchData = async () => {
-    const apiStoreInformation = "/api/public/get-store-information";
     try {
-      const response = await fetch(apiStoreInformation, {
+      const response = await fetch(API.PUBLIC.GET_STORE_INFORMATION_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -36,6 +39,7 @@ const StoreInformationPage = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log("storeInfo")
         console.log(data.data)
         setStoreInfo(data.data);
       } else {
@@ -43,11 +47,14 @@ const StoreInformationPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
   useEffect(() => {
+    dayjs.extend(customParseFormat);
+    dayjs.locale(viLocale);
+
     fetchData().then(r => {});
   }, []);
 
@@ -57,9 +64,8 @@ const StoreInformationPage = () => {
     const formData = new FormData();
     formData.append('storeInformation', JSON.stringify(storeInfo));
 
-    const apiUpdateStoreInformation = "/api/admin/update-store-information";
     try {
-      const response = await fetch(apiUpdateStoreInformation, {
+      const response = await fetch(API.ADMIN.UPDATE_STORE_INFORMATION_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -75,7 +81,7 @@ const StoreInformationPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };
@@ -110,7 +116,7 @@ const StoreInformationPage = () => {
                       </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} method="POST" action="/api/public/register" className="form" id="form-register">
+                    <form onSubmit={handleSubmit} method="POST" action={API.PUBLIC.REGISTER_ENDPOINT} className="form" id="form-register">
                       <div data-v-2250a4e1="" className="panel-content-wrapper">
                         <div data-v-2250a4e1="" className="panel-content">
                           <div data-v-54a51dd8="" data-v-2250a4e1="" className="container">
@@ -126,7 +132,7 @@ const StoreInformationPage = () => {
                                       type="text" placeholder="Nhập địa chỉ cửa hàng"
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
-                                      value={storeInfo.address}
+                                      value={storeInfo.address ? storeInfo.address : ""}
                                       onChange={(e) => {
                                         setStoreInfo({ ...storeInfo, address: e.target.value });
                                       }}
@@ -147,7 +153,7 @@ const StoreInformationPage = () => {
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
                                       maxLength={20}
-                                      value={storeInfo.hotline}
+                                      value={storeInfo.hotline ? storeInfo.hotline : ""}
                                       onChange={(e) => {
                                         if (!isNaN(e.target.value))  setStoreInfo({ ...storeInfo, hotline: e.target.value });
                                       }}
@@ -167,7 +173,7 @@ const StoreInformationPage = () => {
                                       type="email" placeholder="Nhập địa chỉ e-mail"
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
-                                      value={storeInfo.email}
+                                      value={storeInfo.email ? storeInfo.email : ""}
                                       onChange={(e) => {
                                         setStoreInfo({ ...storeInfo, email: e.target.value });
                                       }}
@@ -187,7 +193,7 @@ const StoreInformationPage = () => {
                                       type="text" placeholder="Nhập đường dẫn tới trang chủ facebook"
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
-                                      value={storeInfo.facebook}
+                                      value={storeInfo.facebook ? storeInfo.facebook : ""}
                                       onChange={(e) => {
                                         setStoreInfo({ ...storeInfo, facebook: e.target.value });
                                       }}

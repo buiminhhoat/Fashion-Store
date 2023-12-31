@@ -17,9 +17,11 @@ import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
+import {API, MESSAGE} from "../../utils/const";
 
 
 const Header = () => {
+  const LOGO_FASHION_STORE = "https://iili.io/JRLCZQf.md.png";
   const [menuItems, setMenuItems] = useState([{}])
   const cartContext = useContext(CartContext);
 
@@ -45,9 +47,8 @@ const Header = () => {
   const accessToken = cookies.access_token;
 
   const fetchData = async () => {
-    const apiGetAllCategories = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetAllCategories, {
+      const response = await fetch(API.PUBLIC.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
         // headers: {
         //   'Authorization': `Bearer ${accessToken}`,
@@ -64,7 +65,7 @@ const Header = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
     }
   };
@@ -82,7 +83,7 @@ const Header = () => {
                 <div className="col-9 content-left d-flex align-items-center ps-0 pe-0">
                   <div className="logo-box">
                     <Link to="/">
-                      <img className="logo" src={logo_fashion_store} style={{height:"35px"}} alt="Logo"/>
+                      <img className="logo" src={LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
                   {menuItems.slice(0, 6).map((menuItem, index) => (

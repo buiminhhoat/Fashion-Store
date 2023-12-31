@@ -6,6 +6,7 @@ import {useCookies} from 'react-cookie';
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const ProfilePersonalInformationPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -36,10 +37,10 @@ const ProfilePersonalInformationPage = () => {
     if (name === "" || email === "" || phoneNumber === "" || gender === "" || dateBirthday.day === ""
         || dateBirthday.month === "" || dateBirthday.year === "") {
       const errorText = document.querySelector(".error--message.error-save");
-      errorText.innerHTML = 'Vui lòng nhập đầy đủ thông tin';
+      errorText.innerHTML = MESSAGE.MISSING_INFORMATION;
       return;
     }
-    const apiEditProfile = "/api/public/edit-profile";
+    const apiEditProfile = API.PUBLIC.EDIT_PROFILE_ENDPOINT;
 
     try {
       const response = await fetch(apiEditProfile, {
@@ -51,7 +52,7 @@ const ProfilePersonalInformationPage = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiEditProfile);
         return;
       }
@@ -68,7 +69,7 @@ const ProfilePersonalInformationPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -80,8 +81,7 @@ const ProfilePersonalInformationPage = () => {
       const formData = new FormData();
       formData.append('userID', userID);
 
-      const apiFetchUserData = "/api/public/get-user-data";
-      const response = await fetch(apiFetchUserData, {
+      const response = await fetch(API.PUBLIC.GET_USER_DATA_ENDPOINT, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -91,7 +91,7 @@ const ProfilePersonalInformationPage = () => {
       });
 
       if (!response.ok) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         throw new Error("Lỗi khi gửi refresh token.");
       }
 
@@ -116,7 +116,7 @@ const ProfilePersonalInformationPage = () => {
       setGender(data.gender);
       setDateBirthday({ day, month, year });
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

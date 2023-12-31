@@ -8,6 +8,7 @@ import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -33,9 +34,8 @@ const EditBannerPage = () => {
   }
 
   const fetchData = async () => {
-    const apiGetAllBanners = "/api/public/get-all-banners";
     try {
-      const response = await fetch(apiGetAllBanners, {
+      const response = await fetch(API.PUBLIC.GET_ALL_BANNERS_ENDPOINT, {
         method: 'GET',
       });
 
@@ -69,7 +69,7 @@ const EditBannerPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -111,9 +111,8 @@ const EditBannerPage = () => {
     console.log(newBanners);
     formData.append('banners', JSON.stringify(newBanners));
 
-    const apiSaveBanner = "/api/admin/save-banner";
     try {
-      const response = await fetch(apiSaveBanner, {
+      const response = await fetch(API.ADMIN.EDIT_BANNER_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -130,7 +129,7 @@ const EditBannerPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

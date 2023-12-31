@@ -3,7 +3,8 @@ import locationDot from "../../cartPage/images/location-dot.svg";
 import arrowRight from "../../checkoutPage/images/angle-right.svg";
 import {useCookies} from "react-cookie";
 import AddressModal from "./AddressModal";
-import {toast} from "react-toastify"; // Assuming you have an arrow-right image
+import {toast} from "react-toastify";
+import {API, MESSAGE} from "../../../../utils/const"; // Assuming you have an arrow-right image
 
 function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const [cookies] = useCookies(['access_token']);
@@ -18,8 +19,9 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const getAddresses = () => {
     const formData = new FormData();
     formData.append('userID', userID);
+    console.log("userID = " + userID);
     try {
-      fetch("/api/public/get-all-addresses", {
+      fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -44,9 +46,8 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
   }
 
   const fetchUserID = async () => {
-    const apiGetUserID = "/api/public/get-user-id";
     try {
-      const response = await fetch(apiGetUserID, {
+      const response = await fetch(API.PUBLIC.GET_USER_ID_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -59,7 +60,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
       }
 
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -72,7 +73,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
   }, [userID]);
 
   useEffect(() => {
-    getAddresses();
+    if (userID) getAddresses();
   }, [openModal]);
 
   const openModalListAddress = () => {

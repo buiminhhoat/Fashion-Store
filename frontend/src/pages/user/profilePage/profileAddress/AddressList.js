@@ -4,6 +4,7 @@ import {Link, useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
+import {API, MESSAGE} from "../../../../utils/const";
 
 function AddressList() {
   const [cookies] = useCookies(['access_token']);
@@ -18,9 +19,8 @@ function AddressList() {
     const formData = new FormData();
     formData.append('userID', userID);
 
-    const apiGetAllAddresses = "/api/public/get-all-addresses";
     try {
-      const response = await fetch(apiGetAllAddresses, {
+      const response = await fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -38,7 +38,7 @@ function AddressList() {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -50,7 +50,7 @@ function AddressList() {
     try {
       const formData = new FormData()
       formData.append("addressID", addresses[id].addressID)
-      const response = await fetch(`/api/public/set-default-address`, {
+      const response = await fetch(API.PUBLIC.SET_DEFAULT_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -73,7 +73,7 @@ function AddressList() {
       const formData = new FormData()
       formData.append("addressID", addresses[id].addressID)
 
-      const response = await fetch(`/api/public/delete-address`, {
+      const response = await fetch(API.PUBLIC.DELETE_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -86,11 +86,11 @@ function AddressList() {
           toast.success("Xóa địa chỉ thành công");
         });
       } else {
-        toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+        toast.error(MESSAGE.GENERIC_ERROR);
         console.error("Error:", response);
       }
     } catch (error) {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      toast.error(MESSAGE.GENERIC_ERROR);
       console.error("Error:", error);
     }
   }

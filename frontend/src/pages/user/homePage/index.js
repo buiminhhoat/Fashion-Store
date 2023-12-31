@@ -6,15 +6,15 @@ import CategorySection from "./CategorySection/CategorySection";
 import CollectionSection from "./CollectionSection/CollectionSection";
 import {toast} from "react-toastify";
 import {ScrollToTop} from "../../../utils";
+import {API, MESSAGE} from "../../../utils/const";
 
 const HomePage = () => {
   const [collections, setCollections] = useState([]);
-  const apiAllCategoriesGetRandom12Products = "/api/public/all-categories/get-random-12-products";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiAllCategoriesGetRandom12Products, {
+        const response = await fetch(API.PUBLIC.GET_RANDOM_12_PRODUCTS_ENDPOINT, {
           method: 'GET',
         });
 
@@ -27,7 +27,7 @@ const HomePage = () => {
         }
       } catch (error) {
         console.log(error);
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});

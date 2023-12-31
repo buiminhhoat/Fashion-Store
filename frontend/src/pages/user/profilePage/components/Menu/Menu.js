@@ -5,7 +5,7 @@ import {useCookies} from "react-cookie";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import {ROUTERS} from "../../utils/router";
-import {SCROLLING} from "../../../../../utils/const";
+import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 import iconOrder from "../../images/order.svg";
 import iconEdit from "../../images/edit.svg";
@@ -63,8 +63,7 @@ const Menu = () => {
         const formData = new FormData();
         formData.append('userID', userID);
 
-        const apiFetchUserData = "/api/public/get-user-data";
-        const response = await fetch(apiFetchUserData, {
+        const response = await fetch(API.PUBLIC.GET_USER_DATA_ENDPOINT, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
@@ -125,9 +124,8 @@ const Menu = () => {
     formData.append('userID', userID);
     formData.append('profileImage', file);
 
-    const urlUploadProfileImage = "/api/public/upload-profile-image";
     try {
-      const response = await fetch(urlUploadProfileImage, {
+      const response = await fetch(API.PUBLIC.UPLOAD_PROFILE_IMAGE_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -136,7 +134,7 @@ const Menu = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', response);
         return;
       }
@@ -145,10 +143,10 @@ const Menu = () => {
         toast.success("Cập nhật ảnh đại diện thành công");
         fetchUserData().then(r => {});
       } else {
-        toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+        toast.error(MESSAGE.GENERIC_ERROR);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };

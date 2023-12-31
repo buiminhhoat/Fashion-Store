@@ -3,6 +3,7 @@ import './style.scss';
 import {useCookies} from "react-cookie";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const productCategories = [
   {
@@ -35,57 +36,56 @@ const productCategories = [
         'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
     link: '/category/ao-polo-nam',
   },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // {
-  //   name: 'Áo Polo Nam1',
-  //   imageUrl:
-  //       'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
-  //   link: '/category/ao-polo-nam',
-  // },
-  // Thêm các danh mục sản phẩm khác vào đây
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
+  {
+    name: 'Áo Polo Nam1',
+    imageUrl:
+        'https://5sfashion.vn/storage/upload/images/categories/09pCXgFMHH9UeQsMOqISQJgWz4TL213J8BPKKGOj.png',
+    link: '/category/ao-polo-nam',
+  },
 ];
 
 // Hàm render danh mục sản phẩm
 const renderProductCategories = (productCategories) => {
-  const SEARCH_LINK = 'http://localhost:3000/category?categoryID='
+  const SEARCH_LINK = 'category?categoryID='
   return productCategories.map((category, index) => (
       <div className="owl-item active" key={index} style={{ width: '119px' }}>
-        <a href={SEARCH_LINK + category.categoryID}>
+        <Link to={SEARCH_LINK + category.categoryID}>
           <div className="category-box">
             <div className="image-wrap position-relative w-100">
               <div className="image-wrap__img position-absolute w-100">
@@ -115,7 +115,7 @@ const renderProductCategories = (productCategories) => {
               <p>{category.categoryName}</p>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
   ));
 };
@@ -129,9 +129,8 @@ const CategorySection = () => {
   const accessToken = cookies.access_token;
 
   const fetchData = async () => {
-    const apiGetAllCategories = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetAllCategories, {
+      const response = await fetch(API.PUBLIC.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
         // headers: {
         //   'Authorization': `Bearer ${accessToken}`,
@@ -158,6 +157,7 @@ const CategorySection = () => {
         flattenCategories(data);
 
         console.log(allSubCategories);
+        console.log(productCategories);
 
         setCategoryItem(allSubCategories);
       } else {
@@ -166,7 +166,7 @@ const CategorySection = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
     }
   };

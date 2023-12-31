@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {useCookies} from "react-cookie";
 import BackToTopButton from "../../components/buttons/BackToTopButton/BackToTopButton";
+import {API, MESSAGE} from "../../utils/const";
 
 export const CartContext = createContext(); // Exporting the context
 
@@ -21,11 +22,9 @@ const MasterLayout = ({children, ...props}) => {
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
 
-    const apiGetCart = "/api/public/get-cart";
-
     const getAmountInCart = async () => {
         try {
-            const response = await fetch(apiGetCart, {
+            const response = await fetch(API.PUBLIC.GET_CART_ENDPOINT, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -35,14 +34,14 @@ const MasterLayout = ({children, ...props}) => {
             if (response.ok) {
                 const data = await response.json();
                 setAmountInCart(data.data.cartItems.length);
-                console.log(amountInCart.current);
+                // console.log(amountInCart.current);
             } else {
                 const data = await response.json();
                 console.log(data.message);
             }
         } catch (error) {
             console.log(error);
-            toast.error('Không thể kết nối được với database');
+            toast.error(MESSAGE.DB_CONNECTION_ERROR);
         } finally {
             // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
             // setLoading(false);

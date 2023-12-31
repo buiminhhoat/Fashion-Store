@@ -10,11 +10,13 @@ import tiki from '../images/tiki.svg'
 import zalo from '../images/zalo.svg'
 import store from '../images/store.svg'
 import logoSaleNoti from '../images/logoSaleNoti.png'
-import logo_fashion_store from "../images/logo_fashion_store.png";
+// import logo_fashion_store from "../images/logo_fashion_store.png";
 import {IoIosTime, IoMdTime} from "react-icons/io";
 import {RiTimerFill} from "react-icons/ri";
+import {API} from "../../utils/const";
 
 const Footer = () => {
+  const LOGO_FASHION_STORE = "https://iili.io/JRLCZQf.md.png";
   const [storeInfo, setStoreInfo] = useState({
     address: "",
     closingHours: "",
@@ -26,9 +28,8 @@ const Footer = () => {
   });
 
   const fetchData = async () => {
-    const apiStoreInformation = "/api/public/get-store-information";
     try {
-      const response = await fetch(apiStoreInformation, {
+      const response = await fetch(API.PUBLIC.GET_STORE_INFORMATION_ENDPOINT, {
         method: 'GET',
       });
       if (response.ok) {
@@ -52,7 +53,7 @@ const Footer = () => {
                 <div className="col-4 pl-20" style={{width:"45%"}}>
                   <div className="d-flex align-items-center logo">
                     <a href="/">
-                      <img src={logo_fashion_store} style={{height:"35px"}} alt="Logo" loading="lazy" />
+                      <img src={LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo" loading="lazy" />
                     </a>
                   </div>
 

@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {SCROLLING} from "../../../../../utils/const";
+import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const EditProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -33,42 +33,45 @@ const EditProductPage = () => {
 
   async function editProduct() {
     if (productImages.length === 0) {
-      toast.warn("Vui lòng thêm hình ảnh sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_IMAGE);
       return;
     }
     if (informationProduct.productName === "") {
-      toast.warn("Vui lòng nhập tên sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_NAME);
       return;
     }
     if (informationProduct.productPrice === "") {
-      toast.warn("Vui lòng nhập giá sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_PRICE);
       return;
     }
     if (informationProduct.productSizes.length === 0 || informationProduct.productQuantities.length === 0) {
-      toast.warn("Vui lòng thêm kích cỡ sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_SIZE);
       return;
     }
 
     for (let i = 0; i < informationProduct.productSizes.length; ++i) {
       if (!informationProduct.productSizes[i].sizeName) {
-        toast.warn("Tên kích cỡ không được để trống");
+        toast.warn(MESSAGE.EMPTY_SIZE_NAME);
         return;
       }
     }
 
     for (let i = 0; i < informationProduct.productQuantities.length; ++i) {
       if (!informationProduct.productQuantities[i].quantity) {
-        toast.warn("Số lượng không được để trống");
+        toast.warn(MESSAGE.EMPTY_QUANTITY);
         return;
       }
     }
+    function isEmpty(obj) {
+      return Object.keys(obj).length === 0 && obj.constructor === Object;
+    }
 
-    if (informationProduct.category === {} && informationProduct.parentCategory === {}) {
-      toast.warn("Vui lòng chọn danh mục sản phẩm");
+    if (isEmpty(informationProduct.category) && isEmpty(informationProduct.parentCategory)) {
+      toast.warn(MESSAGE.MISSING_PRODUCT_CATEGORY);
       return;
     }
     if (informationProduct.productDescription === "") {
-      toast.warn("Vui lòng nhập mô tả sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_DESCRIPTION);
       return;
     }
 
@@ -81,8 +84,8 @@ const EditProductPage = () => {
 
     for (const file of productImages) { formData.append('productImages', file);}
 
-    formData.append('ParentCategoryID', informationProduct.parentCategory.categoryID);
-    formData.append('CategoryID', informationProduct.category.categoryID);
+    formData.append('parentCategoryID', informationProduct.parentCategory.categoryID);
+    formData.append('categoryID', informationProduct.category.categoryID);
 
     formData.append('productSizes', JSON.stringify(informationProduct.productSizes));
     formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
@@ -104,15 +107,13 @@ const EditProductPage = () => {
       return response.json();
     })
     .then((data) => {
-      toast.success("Chỉnh sửa thông tin sản phẩm thành công");
-      // console.log('Upload successful:', data);
+      toast.success(MESSAGE.EDIT_PRODUCT_SUCCESS);
       navigate(`/admin/management-page/categories-and-products`, {
         state: { scrolling: SCROLLING.SMOOTH },
       });
     })
     .catch((error) => {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
-      // console.error('Upload failed:', error);
+      toast.error(MESSAGE.GENERIC_ERROR);
     });
   }
 
@@ -123,7 +124,7 @@ const EditProductPage = () => {
   }
 
   const fetchData = async () => {
-    const apiProductDetailByID = "/api/public/product/" + productID;
+    const apiProductDetailByID = API.PUBLIC.PRODUCT_ENDPOINT + productID;
     try {
       const response = await fetch(apiProductDetailByID, {
         method: 'GET',
@@ -154,7 +155,7 @@ const EditProductPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

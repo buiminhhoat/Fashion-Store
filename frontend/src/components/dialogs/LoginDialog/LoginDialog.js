@@ -6,6 +6,7 @@ import { DIALOGS } from "../utils/const";
 import { Cookies } from 'react-cookie';
 import {GoogleLogin} from "@react-oauth/google";
 import {toast} from "react-toastify";
+import {API} from "../../../utils/const";
 
 const LoginDialog = ({ onClose, onSwitch }) => {
   const handleButtonCloseClick = () => {
@@ -16,7 +17,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
     onSwitch(dialogName);
   };
 
-  const apiLoginUrl = "/api/public/login";
+  const apiLoginUrl = API.PUBLIC.LOGIN_ENDPOINT;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import fillterIcon from "./images/bars-filter.svg"
 import queryString from "query-string";
 import {ScrollToTop} from "../../../utils";
+import {API, MESSAGE} from "../../../utils/const";
 
 const productsData = {
   "categoryID": 2,
@@ -98,13 +99,10 @@ const CategoryPage = ({keyword}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const formData = new FormData();
-      // formData.append('categoryID', categoryID)
-      const apiProductBySearch = "/api/public/category/" + categoryID;
+         const apiProductBySearch = API.PUBLIC.CATEGORY_ENDPOINT + categoryID;
       try {
         const response = await fetch(apiProductBySearch, {
           method: 'POST',
-          // body: formData,
         });
 
         if (response.ok) {
@@ -116,6 +114,7 @@ const CategoryPage = ({keyword}) => {
             data.products = data.products.sort((a, b) => b.productPrice - a.productPrice);
           }
           setProductsData(data);
+          setNumberProduct(Math.min(data.products.length, NUMBER_PRODUCT));
 
         } else {
           const data = await response.json();
@@ -124,7 +123,7 @@ const CategoryPage = ({keyword}) => {
         }
       } catch (error) {
         console.log(error);
-        toast.error('Không thể kết nối được với database');
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});
@@ -189,14 +188,16 @@ const CategoryPage = ({keyword}) => {
                     <ProductsSection productsData={productsData.products.slice(0, numberProduct)} />
                   {/*</div>*/}
                     <div className="load-more-wrap text-center">
-                      {productsData.products.length !== numberProduct &&
+                      {productsData.products.length !== numberProduct ?
                           (<a href="#">
                             <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product" style={{"marginBottom":"10px"}}
                                     onClick={() => setNumberProduct(Math.min(numberProduct + NUMBER_PRODUCT, productsData.products.length))}
                             >
                               Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
                             </button>
-                          </a>)
+                          </a>) : (
+                              <div className="btn btn-vm" style={{"marginBottom":"34px"}}> </div>
+                        )
                       }
                     </div>
                   </>

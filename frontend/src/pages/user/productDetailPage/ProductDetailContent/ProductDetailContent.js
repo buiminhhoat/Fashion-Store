@@ -7,6 +7,7 @@ import {IoMdPricetag} from "react-icons/io";
 import {formatter} from "../../../../utils/formatter";
 import {toast} from "react-toastify";
 import axios from "axios";
+import {TbShoppingBagCheck} from "react-icons/tb";
 
 const ImagesProductSection = ({informationProduct}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -319,10 +320,22 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
       <div className="product-information-box" style={{marginLeft:"30px", width:"100%"}}>
         <div className="product-name-box">{informationProduct.productName}</div>
 
+
         <div className="price-box" style={{marginTop:"15px"}}>
            <IoMdPricetag style={{fontSize:"25px", color:"#bd0000", marginRight:"5px"}}/>
           <span className="special-price">{formatter(informationProduct.productPrice)}</span>
         </div>
+
+        <div style={{display:"flex", alignItems:"center", marginTop:"15px"}}>
+          <div style={{fontSize:"22px", color:"#888888"}}>
+            <TbShoppingBagCheck />
+          </div>
+
+          <span style={{margin:"8px 0 0 10px", color:"#888888", fontWeight:"600"}}>
+            Đã bán {informationProduct.quantitySold ? informationProduct.quantitySold : 0}
+          </span>
+        </div>
+
 
         <div className="order-action-box">
           <div style={{marginTop:"50px"}} className="wrap-product-detail row me-0 ms-0 mt-12">

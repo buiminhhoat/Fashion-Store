@@ -3,6 +3,7 @@ import "./style.scss"
 import {DIALOGS} from "../utils/const";
 import forgot_password_img from "../images/forgot-password.jpg";
 import {Spin} from "antd";
+import {API} from "../../../utils/const";
 
 const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   const [storeInfo, setStoreInfo] = useState({
@@ -30,9 +31,8 @@ const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   };
 
   const fetchData = async () => {
-    const apiStoreInformation = "/api/public/get-store-information";
     try {
-      const response = await fetch(apiStoreInformation, {
+      const response = await fetch(API.PUBLIC.GET_STORE_INFORMATION_ENDPOINT, {
         method: 'GET',
       });
       if (response.ok) {

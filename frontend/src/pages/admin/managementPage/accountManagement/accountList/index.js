@@ -5,17 +5,18 @@ import {useNavigate} from "react-router-dom";
 
 import {toast} from "react-toastify";
 
+import {PiUserListBold} from "react-icons/pi";
 import {IoSearch} from "react-icons/io5";
-import {BiSolidEdit} from "react-icons/bi";
 import {TbListSearch} from "react-icons/tb";
 import {MdLibraryAdd, MdOutlineEmail} from "react-icons/md";
 import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
 
-import {Tooltip} from "antd";
-import {SEARCH_USER} from "../../productManagement/utils/const";
+import {Select, Tooltip} from "antd";
 
+import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const AccountListPage = () => {
   const [deletedUser, setDeletedUser] = useState(null);
 
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [selectedSearch, setSelectedSearch] = useState("");
+  const [selectedSearch, setSelectedSearch] = useState(SEARCH_USER.FULL_NAME);
 
   async function fetchImageAsFile(imageUrl, imageName) {
     const response = await fetch(imageUrl);
@@ -35,9 +36,8 @@ const AccountListPage = () => {
   }
 
   const fetchData = async () => {
-    const apiGetAllUsers = "/api/admin/get-all-users";
     try {
-      const response = await fetch(apiGetAllUsers, {
+      const response = await fetch(API.ADMIN.GET_ALL_USERS_ENDPOINT, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -78,7 +78,7 @@ const AccountListPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -101,14 +101,14 @@ const AccountListPage = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteUserUrl);
         return;
       }
 
       if (response.ok) {
         const data = await response.json();
-        toast.success("Đã xóa người dùng");
+        toast.success(MESSAGE.USER_DELETED);
         setUsersData((newUsersData) =>
             usersData.filter((user) => user.userID !== deletedUser.userID)
         );
@@ -119,7 +119,7 @@ const AccountListPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   };
@@ -221,10 +221,10 @@ const AccountListPage = () => {
 
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chi tiết người dùng</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-category"
-                                   style={{marginRight:"0"}}
+                                   style={{marginRight:"0", fontSize:"22px"}}
                                    onClick={() => {navigate(`/profile/orders?userID=${user.userID}`)}}
                               >
-                                <BiSolidEdit />
+                                <PiUserListBold  style={{marginLeft:"4px"}}/>
                               </div>
                             </Tooltip>
 
@@ -270,24 +270,21 @@ const AccountListPage = () => {
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
                 borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
-                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
-                    <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
-                    Tìm kiếm theo:
-                    <div style={{paddingTop:"2px"}}>
-                      <select className="select-search sort-item"
-                              onChange={(e) => {setSelectedSearch(e.target.value)}}
-                      >
-                        <option value={SEARCH_USER.FULL_NAME}>
-                          Họ tên
-                        </option>
-                        <option value={SEARCH_USER.PHONE_NUMBER} >
-                          Số điện thoại
-                        </option>
-                        <option value={SEARCH_USER.EMAIL} >
-                          Địa chỉ email
-                        </option>
-                      </select>
-                    </div>
+                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
+                    <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
+                    <span>Tìm kiếm theo:</span>
+                    <Select
+                        defaultValue={SEARCH_USER.FULL_NAME}
+                        style={{ width: 170 }}
+                        bordered={false}
+                        size={"large"}
+                        options={[
+                          { value: SEARCH_USER.FULL_NAME, label: 'Họ tên' },
+                          { value: SEARCH_USER.PHONE_NUMBER, label: 'Số điện thoại' },
+                          { value: SEARCH_USER.EMAIL, label: 'Địa chỉ email' },
+                        ]}
+                        onChange={(value) => {setSelectedSearch(value)}}
+                    />
                   </div>
                   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>

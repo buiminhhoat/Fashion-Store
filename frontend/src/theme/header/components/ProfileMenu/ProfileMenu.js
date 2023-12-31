@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import {useLogout} from "../../../../components/dialogs/utils/logout";
 import {toast} from "react-toastify";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const ProfileMenu = ({openModal}) => {
   const [cookies] = useCookies(['access_token']);
@@ -20,8 +21,8 @@ const ProfileMenu = ({openModal}) => {
       try {
         const formData = new FormData();
         formData.append('userID', userID);
-        const apiFetchUserData = "/api/public/get-user-data";
-        const response = await fetch(apiFetchUserData, {
+
+        const response = await fetch(API.PUBLIC.GET_USER_DATA_ENDPOINT, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
@@ -42,9 +43,8 @@ const ProfileMenu = ({openModal}) => {
   };
 
   const fetchIsAdmin = async () => {
-    const apiIsAdmin = "/api/public/isAdmin";
     try {
-      const response = await fetch(apiIsAdmin, {
+      const response = await fetch(API.PUBLIC.IS_ADMIN_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -55,14 +55,13 @@ const ProfileMenu = ({openModal}) => {
       setIsAdmin(data.message === "true");
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
   const fetchUserID = async () => {
-    const apiGetUserID = "/api/public/get-user-id";
     try {
-      const response = await fetch(apiGetUserID, {
+      const response = await fetch(API.PUBLIC.GET_USER_ID_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -75,7 +74,7 @@ const ProfileMenu = ({openModal}) => {
       }
 
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

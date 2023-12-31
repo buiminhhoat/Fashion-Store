@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import queryString from "query-string";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
+import {API, MESSAGE} from "../../../utils/const";
 
 const ProductDetailPage = () => {
   const cartContext = useContext(CartContext);
@@ -28,9 +29,8 @@ const ProductDetailPage = () => {
     formData.append('sizeID', orderDetails.sizeID);
     formData.append('quantityPurchase', orderDetails.quantityPurchase);
 
-    let apiAddToCart = "/api/public/add-product-to-cart";
     try {
-      const response = await fetch(apiAddToCart, {
+      const response = await fetch(API.PUBLIC.ADD_PRODUCT_TO_CART_ENDPOINT, {
         method: 'POST',
         headers: {"Authorization" : "Bearer " + orderDetails.accessToken},
         body: formData,
@@ -44,10 +44,10 @@ const ProductDetailPage = () => {
         const data = await response.json();
         toast.warn(data.message);
       } else {
-        toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
+        toast.error(MESSAGE.GENERIC_ERROR);
       }
     } catch (error) {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
+      toast.error(MESSAGE.GENERIC_ERROR);
       console.error('Error:', error);
     }
   }
@@ -72,7 +72,7 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiProductDetailByID = "/api/public/product/" + productID;
+      const apiProductDetailByID = API.PUBLIC.PRODUCT_ENDPOINT + productID;
       try {
         const response = await fetch(apiProductDetailByID, {
           method: 'GET',
@@ -88,8 +88,7 @@ const ProductDetailPage = () => {
           navigate(`/error`);
         }
       } catch (error) {
-        console.log(error);
-        toast.error('Không thể kết nối được với database');
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});

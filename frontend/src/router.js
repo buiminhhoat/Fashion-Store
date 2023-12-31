@@ -16,6 +16,7 @@ import DoNotHavePermissionPage from "./pages/error/doNotHavePermissionPage";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import ManagementPage from "./pages/admin/managementPage";
+import {API, MESSAGE} from "./utils/const";
 
 const userRouters =  [
     {
@@ -102,9 +103,8 @@ const RouterCustom = () => {
     const [isAdmin, setIsAdmin] = useState(null);
 
     const fetchData = async () => {
-        const apiIsAdmin = "/api/public/isAdmin";
         try {
-            const response = await fetch(apiIsAdmin, {
+            const response = await fetch(API.PUBLIC.IS_ADMIN_ENDPOINT, {
                 method: 'POST',
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
@@ -116,7 +116,7 @@ const RouterCustom = () => {
 
         } catch (error) {
             console.log(error);
-            toast.error("Không thể kết nối được với database");
+            toast.error(MESSAGE.DB_CONNECTION_ERROR);
         }
     }
 

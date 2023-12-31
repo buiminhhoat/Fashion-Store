@@ -13,8 +13,9 @@ import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
-import {Tooltip} from "antd";
-import {CATEGORY, SEARCH} from "../utils/const";
+import {Select, Tooltip} from "antd";
+import {CATEGORY, SEARCH, SEARCH_USER} from "../utils/const";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const ListOfProductsAndCategoriesPage  = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const ListOfProductsAndCategoriesPage  = () => {
   const [productsData, setProductsData] = useState([]);
   const [categoriesImgID, setCategoriesImgID] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [selectedSearch, setSelectedSearch] = useState("");
+  const [selectedSearch, setSelectedSearch] = useState(SEARCH.CATEGORY);
 
   const  fetchImageAsFile = async (imageUrl, imageName, categoryID) => {
     const response = await fetch(imageUrl);
@@ -49,9 +50,8 @@ const ListOfProductsAndCategoriesPage  = () => {
   }
 
   const fetchData = async () => {
-    const apiGetCategory = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetCategory, {
+      const response = await fetch(API.PUBLIC.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
       });
 
@@ -98,7 +98,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -122,7 +122,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiUploadCategoryImageUrl);
         return;
       }
@@ -142,7 +142,7 @@ const ListOfProductsAndCategoriesPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -166,38 +166,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     }
   };
 
-  // const fetchRandom12Products = async () => {
-  //   const apiGetRandom12Products = "/api/public/all-categories/get-random-12-products";
-  //
-  //   try {
-  //     const response = await fetch(apiGetRandom12Products, {
-  //       method: 'GET',
-  //     });
-  //
-  //     if (response.status === 404) {
-  //       toast.error("Không thể kết nối được với database");
-  //       console.error('API endpoint not found:', apiGetRandom12Products);
-  //       return;
-  //     }
-  //
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("apiGetRandom12Products");
-  //       console.log(data);
-  //       setProductsData(data);
-  //
-  //     } else {
-  //       const data = await response.json();
-  //       toast.error(data.message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Không thể kết nối được với database");
-  //   }
-  // }
-
   const fetchProductDataByCategoryID = async (categoryID) => {
-    const apiProductByCategoryID = "/api/public/category/" + categoryID;
+    const apiProductByCategoryID = API.PUBLIC.CATEGORY_ENDPOINT + categoryID;
     try {
       const response = await fetch(apiProductByCategoryID, {
         method: 'POST',
@@ -222,7 +192,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -232,7 +202,7 @@ const ListOfProductsAndCategoriesPage  = () => {
     //   fetchRandom12Products().then(r => {});
     //   return;
     // }
-    const apiProductBySearch = "/api/public/search/" + decodedSearchString;
+    const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + decodedSearchString;
 
     try {
       const response = await fetch(apiProductBySearch, {
@@ -240,7 +210,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiProductBySearch);
         return;
       }
@@ -257,7 +227,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -292,7 +262,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
@@ -316,7 +286,7 @@ const ListOfProductsAndCategoriesPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -336,7 +306,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteProductUrl);
         return;
       }
@@ -365,7 +335,7 @@ const ListOfProductsAndCategoriesPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -393,8 +363,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     })
   }
 
-  const handleSelectChange = (event) => {
-    setSelectedSearch(event.target.value);
+  const handleSelectChange = (value) => {
+    setSelectedSearch(value);
     setSearchInputValue("");
     setSelectedCategoriesID([]);
     setProductsData([]);
@@ -811,25 +781,21 @@ const ListOfProductsAndCategoriesPage  = () => {
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
                 borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
-                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px"}}>
-                    <TbListSearch style={{padding:"0px 0 5px", fontSize:"30px", marginRight:"10px"}}/>
-                    Tìm kiếm theo:
-                    <div style={{paddingTop:"2px"}}>
-                      <select className="select-search sort-item" onChange={handleSelectChange}>
-                        {/*<option value="">*/}
-                        {/*  Chọn điều kiện tìm kiếm*/}
-                        {/*</option>*/}
-                        <option value={SEARCH.CATEGORY}>
-                          Danh mục lớn
-                        </option>
-                        <option value={SEARCH.SUB_CATEGORY} >
-                          Danh mục con
-                        </option>
-                        <option value={SEARCH.PRODUCT} >
-                          Sản phẩm
-                        </option>
-                      </select>
-                    </div>
+                  <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
+                    <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
+                    <span>Tìm kiếm theo:</span>
+                    <Select
+                        defaultValue={SEARCH.CATEGORY}
+                        style={{ width: 170 }}
+                        bordered={false}
+                        size={"large"}
+                        options={[
+                          { value: SEARCH.CATEGORY, label: 'Danh mục lớn' },
+                          { value: SEARCH.SUB_CATEGORY, label: 'Danh mục con' },
+                          { value: SEARCH.PRODUCT, label: 'Sản phẩm' },
+                        ]}
+                        onChange={(value) => {handleSelectChange(value)}}
+                    />
                   </div>
                   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>

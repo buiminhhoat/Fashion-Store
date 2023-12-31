@@ -4,6 +4,7 @@ import "./style.scss";
 import {toast} from "react-toastify";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const AddAccountPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -26,7 +27,7 @@ const AddAccountPage = () => {
     formData.append('hashedPassword', hashedPassword);
 
     try {
-      const response = await fetch("/api/public/register", {
+      const response = await fetch(API.PUBLIC.REGISTER_ENDPOINT, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -35,25 +36,25 @@ const AddAccountPage = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
-        console.error('API endpoint not found:', response);
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
+        // console.error('API endpoint not found:', response);
         return;
       }
 
       if (response.ok) {
-        toast.success("Đã thêm người dùng");
+        toast.success(MESSAGE.USER_ADDED);
       } else {
-        console.error("Đăng ký thất bại");
+        // console.error("Đăng ký thất bại");
         response.text().then(data => {
-          if (data === "Đăng ký không thành công") {
-            toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+          if (data === MESSAGE.REGISTRATION_FAILED) {
+            toast.error(MESSAGE.GENERIC_ERROR);
           }
           else toast.error(data);
         });
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
-      console.error("Lỗi kết nối máy chủ: " + error.message);
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
+      // console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };
 
@@ -83,7 +84,7 @@ const AddAccountPage = () => {
                       </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} method="POST" action="/api/public/register" className="form" id="form-register">
+                    <form onSubmit={handleSubmit} method="POST" action={API.PUBLIC.REGISTER_ENDPOINT} className="form" id="form-register">
                       <div data-v-2250a4e1="" className="panel-content-wrapper">
                         <div data-v-2250a4e1="" className="panel-content">
                           <div data-v-54a51dd8="" data-v-2250a4e1="" className="container">

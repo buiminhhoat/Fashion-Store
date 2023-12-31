@@ -9,6 +9,7 @@ import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {CATEGORY} from "../utils/const";
+import {API, MESSAGE} from "../../../../../../../utils/const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);
@@ -37,9 +38,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const fetchData = async () => {
-    const apiGetCategory = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetCategory, {
+      const response = await fetch(API.PUBLIC.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
       });
 
@@ -54,7 +54,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -129,11 +129,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSaveCategory = async () => {
     if (inputValue === "") {
-      toast.warn("Tên danh mục không được để trống");
+      toast.warn(MESSAGE.MISSING_CATEGORY_NAME);
       return;
     }
     if (!isStartWithLetter(inputValue)) {
-      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      toast.warn(MESSAGE.CATEGORY_NAME_INVALID);
       return;
     }
 
@@ -142,9 +142,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     formData.append('categoryName', inputValue);
     formData.append('parentCategoryID', parentCategoryID);
 
-    const apiAddCategoryUrl = "/api/admin/add-category";
     try {
-      const response = await fetch(apiAddCategoryUrl, {
+      const response = await fetch(API.ADMIN.ADD_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -168,17 +167,17 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   };
 
   const handleSaveSubCategory = async () => {
     if (inputValue === "") {
-      toast.warn("Tên danh mục không được để trống");
+      toast.warn(MESSAGE.MISSING_CATEGORY_NAME);
       return;
     }
     if (!isStartWithLetter(inputValue)) {
-      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      toast.warn(MESSAGE.CATEGORY_NAME_INVALID);
       return;
     }
 
@@ -189,9 +188,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     formData.append('parentCategoryID', parentCategoryID);
     formData.append('categoryName', categoryName);
 
-    const apiAddCategoryUrl = "/api/admin/add-category";
     try {
-      const response = await fetch(apiAddCategoryUrl, {
+      const response = await fetch(API.ADMIN.ADD_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -214,7 +212,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   };
 
@@ -241,7 +239,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
@@ -264,7 +262,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -275,11 +273,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const editCategory = async (categoryID, categoryName) => {
     if (categoryName === "") {
-      toast.warn("Tên danh mục không được để trống");
+      toast.warn(MESSAGE.MISSING_CATEGORY_NAME);
       return;
     }
     if (!isStartWithLetter(categoryName)) {
-      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      toast.warn(MESSAGE.CATEGORY_NAME_INVALID);
       return;
     }
 
@@ -298,7 +296,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiEditCategoryUrl);
         return;
       }
@@ -312,7 +310,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }

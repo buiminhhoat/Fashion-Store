@@ -13,6 +13,7 @@ import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
+import {API, MESSAGE} from "../../../utils/const";
 
 const productListFake = [
   {
@@ -40,6 +41,7 @@ function CartPage() {
 
   const [numberProduct, setNumberProduct] = useState(0)
   const [selectedAddress, setSelectedAddress] = useState({a:1})
+  // const [review, setReview] = useState(false);
 
   const [userID, setUserID] = useState(null);
   const [product, setProduct] = useState({});
@@ -66,7 +68,7 @@ function CartPage() {
       const sizeID = updatedProduct[id].sizeID;
 
       // Gửi yêu cầu cập nhật lên server
-      const updateCartURL = `/api/public/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+      const updateCartURL = API.PUBLIC.EDIT_PRODUCT_IN_CART_ENDPOINT + `?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
 
       fetch(updateCartURL, {
         method: 'POST',
@@ -86,31 +88,25 @@ function CartPage() {
             // Có thể hiển thị thông báo lỗi cho người dùng ở đây
           });
     } else {
-      toast.warn('Số lượng sẵn có không đủ!');
+      toast.warn(MESSAGE.INSUFFICIENT_QUANTITY);
     }
   };
 
-  const handleDecreaseAmount = (id) => {
-    // Tạo một bản sao mới để tránh thay đổi trực tiếp
+  const handleDecreaseAmount = (id, amount = 1) => {
     const updatedProduct = [...product];
-    updatedProduct[id].quantityPurchase--;
+    updatedProduct[id].quantityPurchase -= amount;
     updatedProduct[id].quantityPurchase = Math.max(0, updatedProduct[id].quantityPurchase);
-    if (updatedProduct[id].quantityPurchase == 0) {
+    if (updatedProduct[id].quantityPurchase === 0) {
       handleCloseButton(id);
       return;
     }
 
-    // Cập nhật trạng thái sản phẩm
     setProduct(updatedProduct);
 
-    // Gửi yêu cầu cập nhật lên cơ sở dữ liệu
     const updatedQuantity = updatedProduct[id].quantityPurchase;
     const productID = updatedProduct[id].informationProduct.productID;
     const sizeID = updatedProduct[id].sizeID;
 
-    // Gửi yêu cầu cập nhật lên server
-    // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `/api/public/edit-product-in-cart?`;
     const formData = new FormData()
 
     formData.append('cartItemID', product[id].cartItemID)
@@ -118,50 +114,41 @@ function CartPage() {
     formData.append('sizeID', sizeID);
     formData.append('quantityPurchase', updatedQuantity);
 
-    fetch(updateCartURL, {
+    fetch(API.PUBLIC.EDIT_PRODUCT_IN_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization" : "Bearer " + accessToken},
       body: formData,
     })
         .then((response) => {
           if (response.ok) {
-            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
           } else {
             throw new Error('Lỗi khi cập nhật giỏ hàng.');
           }
         })
         .catch((error) => {
           console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   };
 
   const handleCloseButton = (id) => {
-    // Gửi yêu cầu xóa sản phẩm khỏi giỏ hàng lên server
-    const deleteCartItemURL = `/api/public/delete-product-in-cart`;
-        // ?accessToken=${accessToken}&cartItemID=${product[id].cartItemID}
-    const formData = new FormData()
-    //=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}
-    formData.append('cartItemID', product[id].cartItemID)
-    fetch(deleteCartItemURL, {
+    const formData = new FormData();
+    formData.append('cartItemID', product[id].cartItemID);
+
+    fetch(API.PUBLIC.DELETE_PRODUCT_IN_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization" : "Bearer " + accessToken},
       body: formData,
     })
         .then((response) => {
           if (response.ok) {
-            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
-            // Nếu bạn muốn cập nhật lại trạng thái giỏ hàng sau khi xóa sản phẩm, hãy thực hiện ở đây
             setNumberProduct(numberProduct-1);
             cartContext.getAmountInCart().then(r => r);
-            // console.log(numberProduct)
           } else {
             throw new Error('Lỗi khi xóa sản phẩm khỏi giỏ hàng.');
           }
         })
         .catch((error) => {
           console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   };
 
@@ -176,38 +163,32 @@ function CartPage() {
     }
 
     updatedProduct[id].quantityPurchase = Math.min(updatedProduct[id].quantityPurchase, productQuantities);
+    // setProduct(updatedProduct);
+
     setProduct(updatedProduct);
 
-    // Cập nhật trạng thái sản phẩm
-    setProduct(updatedProduct);
-
-    // Gửi yêu cầu cập nhật lên cơ sở dữ liệu
     const updatedQuantity = updatedProduct[id].quantityPurchase;
     const productID = updatedProduct[id].informationProduct.productID;
 
-    // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `/api/public/edit-product-in-cart?`;
     const formData = new FormData()
     formData.append('cartItemID', product[id].cartItemID)
     formData.append('productID', productID);
     formData.append('sizeID', sizeID);
     formData.append('quantityPurchase', updatedQuantity);
 
-    fetch(updateCartURL, {
+    fetch(API.PUBLIC.EDIT_PRODUCT_IN_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization" : "Bearer " + accessToken},
       body: formData,
     })
         .then((response) => {
           if (response.ok) {
-            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
           } else {
             throw new Error('Lỗi khi cập nhật giỏ hàng.');
           }
         })
         .catch((error) => {
           console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   }
 
@@ -221,17 +202,43 @@ function CartPage() {
 
   const handlePurchase = () => {
     if (selectedAddress.addressID === undefined) {
-      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+      toast.warn(MESSAGE.MISSING_DELIVERY_ADDRESS);
       return;
     }
 
+    // fetchData();
+
+    // if (review === true) {
+    //   toast.warn(MESSAGE.REVIEW_CART);
+    //   setReview(false);
+    // }
+
+    let review = false;
+
+    product.map((product, index) => {
+          if (product.informationProduct.productSizes) {
+              let stockQuantity = product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID).quantity;
+              if (stockQuantity < product.quantityPurchase) {
+                handleDecreaseAmount(index, product.quantityPurchase - stockQuantity);
+                review = true;
+                // console.log("cuu");
+              }
+          }
+      }
+    )
+
+    if (review === true) {
+      toast.warn(MESSAGE.REVIEW_CART);
+      return;
+    }
+
+
     const formData = new FormData()
 
-    formData.append('addressID', selectedAddress.addressID)
+    formData.append('addressID', selectedAddress.addressID);
     formData.append('totalAmount', calcTotalPrice());
 
-    const apiAddToCartByCart = `/api/public/add-orders-by-cart`;
-    fetch(apiAddToCartByCart, {
+    fetch(API.PUBLIC.ADD_ORDERS_BY_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization": "Bearer " + accessToken},
       body: formData,
@@ -239,11 +246,11 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
             cartContext.getAmountInCart().then(r => r);
-            toast.success("Đặt hàng thành công!");
+            toast.success(MESSAGE.ORDER_PLACED_SUCCESS);
             navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
-            throw new Error('Lỗi khi đặt hàng.');
+            throw new Error(MESSAGE.ORDER_PLACEMENT_ERROR);
           }
         })
         .then((data) => {
@@ -256,8 +263,7 @@ function CartPage() {
 
   const fetchData = async () => {
     try {
-      const apiGetCart = "/api/public/get-cart";
-      const response = await fetch(apiGetCart, {
+      const response = await fetch(API.PUBLIC.GET_CART_ENDPOINT, {
         method: 'GET',
         headers: {"Authorization" : "Bearer " + accessToken},
       });
@@ -271,7 +277,7 @@ function CartPage() {
           const productID = cartItem.productID;
 
           // Fetch thông tin product theo productID
-          const productResponse = await fetch(`/api/public/product/${productID}`);
+          const productResponse = await fetch(API.PUBLIC.PRODUCT_ENDPOINT + productID);
           if (productResponse.ok) {
             const productData = await productResponse.json();
             const productInformation = productData;
@@ -294,16 +300,15 @@ function CartPage() {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
       setLoading(false);
     }
   };
 
   const navigateOrdersWithUserID = async () => {
-    const apiGetUserID = "/api/public/get-user-id";
     try {
-      const response = await fetch(apiGetUserID, {
+      const response = await fetch(API.PUBLIC.GET_USER_ID_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -316,7 +321,7 @@ function CartPage() {
       }
 
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -356,10 +361,11 @@ function CartPage() {
                         <CartProduct
                             key={index}
                             product={product}
-                            handleDecreaseAmount={() => handleDecreaseAmount(index)}
+                            handleDecreaseAmount={(amount) => handleDecreaseAmount(index, amount)}
                             handleIncreaseAmount={() => handleIncreaseAmount(index)}
                             handleChooseSize={(sizeID) => handleChooseSize(sizeID, index)}
                             handleCloseButton={() => handleCloseButton(index)}
+                            // setReview={() => setReview()}
                         />
                     ))}
 
