@@ -122,7 +122,7 @@ const TabContent = ({openTab, setOpenTab}) => {
     formData.append('userID', userID);
     formData.append('orderStatus', openTab);
 
-    fetch("/api/public/orders/get-all-orders-by-order-status", {
+    fetch(API.PUBLIC.GET_ALL_ORDERS_BY_ORDER_STATUS_ENDPOINT, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${accessToken}`,

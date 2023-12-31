@@ -32,7 +32,7 @@ const CheckoutPage = () => {
   const sizeID = parseInt(queryParams.sizeID, 10);
   const currentQuantity = parseInt(queryParams.quantity, 10);
 
-  const apiProductDetailByID = "/api/public/product/" + productID;
+  const apiProductDetailByID = API.PUBLIC.PRODUCT_ENDPOINT + productID;
 
   const [selectedSizeID, setSelectedSizeID] = useState(sizeID)
   const [amount, setAmount] = useState(currentQuantity)

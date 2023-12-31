@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const EditProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -124,7 +124,7 @@ const EditProductPage = () => {
   }
 
   const fetchData = async () => {
-    const apiProductDetailByID = "/api/public/product/" + productID;
+    const apiProductDetailByID = API.PUBLIC.PRODUCT_ENDPOINT + productID;
     try {
       const response = await fetch(apiProductDetailByID, {
         method: 'GET',

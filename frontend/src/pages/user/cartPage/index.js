@@ -277,7 +277,7 @@ function CartPage() {
           const productID = cartItem.productID;
 
           // Fetch thông tin product theo productID
-          const productResponse = await fetch(`/api/public/product/${productID}`);
+          const productResponse = await fetch(API.PUBLIC.PRODUCT_ENDPOINT + productID);
           if (productResponse.ok) {
             const productData = await productResponse.json();
             const productInformation = productData;

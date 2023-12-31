@@ -111,9 +111,8 @@ const EditBannerPage = () => {
     console.log(newBanners);
     formData.append('banners', JSON.stringify(newBanners));
 
-    const apiSaveBanner = "/api/admin/save-banner";
     try {
-      const response = await fetch(apiSaveBanner, {
+      const response = await fetch(API.ADMIN.EDIT_BANNER_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

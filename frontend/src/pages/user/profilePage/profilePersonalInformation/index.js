@@ -37,10 +37,10 @@ const ProfilePersonalInformationPage = () => {
     if (name === "" || email === "" || phoneNumber === "" || gender === "" || dateBirthday.day === ""
         || dateBirthday.month === "" || dateBirthday.year === "") {
       const errorText = document.querySelector(".error--message.error-save");
-      errorText.innerHTML = 'Vui lòng nhập đầy đủ thông tin';
+      errorText.innerHTML = MESSAGE.MISSING_INFORMATION;
       return;
     }
-    const apiEditProfile = "/api/public/edit-profile";
+    const apiEditProfile = API.PUBLIC.EDIT_PROFILE_ENDPOINT;
 
     try {
       const response = await fetch(apiEditProfile, {

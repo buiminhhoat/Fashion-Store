@@ -166,38 +166,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     }
   };
 
-  // const fetchRandom12Products = async () => {
-  //   const apiGetRandom12Products = "/api/public/all-categories/get-random-12-products";
-  //
-  //   try {
-  //     const response = await fetch(apiGetRandom12Products, {
-  //       method: 'GET',
-  //     });
-  //
-  //     if (response.status === 404) {
-  //       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-  //       console.error('API endpoint not found:', apiGetRandom12Products);
-  //       return;
-  //     }
-  //
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("apiGetRandom12Products");
-  //       console.log(data);
-  //       setProductsData(data);
-  //
-  //     } else {
-  //       const data = await response.json();
-  //       toast.error(data.message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error(MESSAGE.DB_CONNECTION_ERROR);
-  //   }
-  // }
-
   const fetchProductDataByCategoryID = async (categoryID) => {
-    const apiProductByCategoryID = "/api/public/category/" + categoryID;
+    const apiProductByCategoryID = API.PUBLIC.CATEGORY_ENDPOINT + categoryID;
     try {
       const response = await fetch(apiProductByCategoryID, {
         method: 'POST',
@@ -232,7 +202,7 @@ const ListOfProductsAndCategoriesPage  = () => {
     //   fetchRandom12Products().then(r => {});
     //   return;
     // }
-    const apiProductBySearch = "/api/public/search/" + decodedSearchString;
+    const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + decodedSearchString;
 
     try {
       const response = await fetch(apiProductBySearch, {

@@ -73,7 +73,7 @@ function AddressList() {
       const formData = new FormData()
       formData.append("addressID", addresses[id].addressID)
 
-      const response = await fetch(`/api/public/delete-address`, {
+      const response = await fetch(API.PUBLIC.DELETE_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,

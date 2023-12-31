@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 import fillterIcon from "./images/bars-filter.svg"
 import queryString from "query-string";
 import {ScrollToTop} from "../../../utils";
-import {MESSAGE} from "../../../utils/const";
+import {API, MESSAGE} from "../../../utils/const";
 
 const productsData = {
   "categoryID": 2,
@@ -99,13 +99,10 @@ const CategoryPage = ({keyword}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const formData = new FormData();
-      // formData.append('categoryID', categoryID)
-      const apiProductBySearch = "/api/public/category/" + categoryID;
+         const apiProductBySearch = API.PUBLIC.CATEGORY_ENDPOINT + categoryID;
       try {
         const response = await fetch(apiProductBySearch, {
           method: 'POST',
-          // body: formData,
         });
 
         if (response.ok) {
