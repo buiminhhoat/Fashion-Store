@@ -17,7 +17,7 @@ import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
-import {MESSAGE} from "../../utils/const";
+import {API, MESSAGE} from "../../utils/const";
 
 
 const Header = () => {
@@ -47,9 +47,8 @@ const Header = () => {
   const accessToken = cookies.access_token;
 
   const fetchData = async () => {
-    const apiGetAllCategories = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetAllCategories, {
+      const response = await fetch(API.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
         // headers: {
         //   'Authorization': `Bearer ${accessToken}`,

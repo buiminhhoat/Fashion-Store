@@ -3,7 +3,7 @@ import './style.scss';
 import {useCookies} from "react-cookie";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
-import {MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const productCategories = [
   {
@@ -129,9 +129,8 @@ const CategorySection = () => {
   const accessToken = cookies.access_token;
 
   const fetchData = async () => {
-    const apiGetAllCategories = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetAllCategories, {
+      const response = await fetch(API.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
         // headers: {
         //   'Authorization': `Bearer ${accessToken}`,
