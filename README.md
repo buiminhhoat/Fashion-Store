@@ -8,7 +8,13 @@
 ```
 **Please wait 1 - 2 minutes**
 
+![Alt text](./demo/demo-1.png)
+
+![Alt text](./demo/demo-2.png)
+
 **Open website:** http://fall2324w3g14.int3306.freeddns.org/ 
+
+![Alt text](./demo/demo-3.png)
 
 ## Thông tin tổng quan về dự án
 
@@ -75,3 +81,7 @@
     - **Link sheet thiết kế:** [Fashion Store Design](https://docs.google.com/spreadsheets/d/1YYDeeYVKbVKDa_3j6xCkp_9q5I_ThpmrQT8ZQVZ_lDg/edit?usp=sharing)
 
     - **Repository source code:** https://github.com/buiminhhoat/Fashion-Store 
+
+- **Database**
+
+    ![Database](./database/ERD_Database.png)
