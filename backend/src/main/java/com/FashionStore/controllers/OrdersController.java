@@ -148,7 +148,6 @@ public class OrdersController {
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
         Long addressID = Long.valueOf(request.getParameter(ORDER_PARAM_ADDRESS_ID));
         Long totalAmount = Long.valueOf(request.getParameter(ORDER_PARAM_TOTAL_AMOUNT));
-        Long sizeID = Long.valueOf(request.getParameter(ORDER_PARAM_SIZE_ID));
         Date orderDate = new Date();
         orderDate.setTime(orderDate.getTime());
 
@@ -192,7 +191,7 @@ public class OrdersController {
             String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).getFirst().getImagePath();
 
             OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(), product.getProductName(),
-                    imagePath, sizeID, productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
+                    imagePath, cartItem.getSizeID(), productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
                     product.getProductPrice() * cartItem.getQuantityPurchase());
             orderDetailsList.add(orderDetails);
             orderDetailsRepository.save(orderDetails);
