@@ -14,11 +14,11 @@ const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
 
   const handleEditCategory = async () => {
     if (inputValue === "") {
-      toast.warn("Tên danh mục không được để trống");
+      toast.warn(MESSAGE.MISSING_CATEGORY_NAME);
       return;
     }
     if (!isStartWithLetter(inputValue)) {
-      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      toast.warn(MESSAGE.CATEGORY_NAME_INVALID);
       return;
     }
 

@@ -33,50 +33,47 @@ const EditProductPage = () => {
 
   async function editProduct() {
     if (productImages.length === 0) {
-      toast.warn("Vui lòng thêm hình ảnh sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_IMAGE);
       return;
     }
     if (informationProduct.productName === "") {
-      toast.warn("Vui lòng nhập tên sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_NAME);
       return;
     }
     if (informationProduct.productPrice === "") {
-      toast.warn("Vui lòng nhập giá sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_PRICE);
       return;
     }
     if (informationProduct.productSizes.length === 0 || informationProduct.productQuantities.length === 0) {
-      toast.warn("Vui lòng thêm kích cỡ sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_SIZE);
       return;
     }
 
     for (let i = 0; i < informationProduct.productSizes.length; ++i) {
       if (!informationProduct.productSizes[i].sizeName) {
-        toast.warn("Tên kích cỡ không được để trống");
+        toast.warn(MESSAGE.EMPTY_SIZE_NAME);
         return;
       }
     }
 
     for (let i = 0; i < informationProduct.productQuantities.length; ++i) {
       if (!informationProduct.productQuantities[i].quantity) {
-        toast.warn("Số lượng không được để trống");
+        toast.warn(MESSAGE.EMPTY_QUANTITY);
         return;
       }
     }
-
     function isEmpty(obj) {
       return Object.keys(obj).length === 0 && obj.constructor === Object;
     }
 
     if (isEmpty(informationProduct.category) && isEmpty(informationProduct.parentCategory)) {
-      toast.warn("Vui lòng chọn danh mục sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_CATEGORY);
       return;
     }
     if (informationProduct.productDescription === "") {
-      toast.warn("Vui lòng nhập mô tả sản phẩm");
+      toast.warn(MESSAGE.MISSING_PRODUCT_DESCRIPTION);
       return;
     }
-
-    // console.log(informationProduct);
 
     const formData = new FormData();
 

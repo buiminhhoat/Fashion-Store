@@ -109,7 +109,7 @@ const AccountListPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        toast.success("Đã xóa người dùng");
+        toast.success(MESSAGE.USER_DELETED);
         setUsersData((newUsersData) =>
             usersData.filter((user) => user.userID !== deletedUser.userID)
         );

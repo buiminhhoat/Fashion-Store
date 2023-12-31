@@ -222,7 +222,7 @@ function CartPage() {
 
   const handlePurchase = () => {
     if (selectedAddress.addressID === undefined) {
-      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+      toast.warn(MESSAGE.MISSING_DELIVERY_ADDRESS);
       return;
     }
 
@@ -240,11 +240,11 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
             cartContext.getAmountInCart().then(r => r);
-            toast.success("Đặt hàng thành công!");
+            toast.success(MESSAGE.ORDER_PLACED_SUCCESS);
             navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
-            throw new Error('Lỗi khi đặt hàng.');
+            throw new Error(MESSAGE.ORDER_PLACEMENT_ERROR);
           }
         })
         .then((data) => {
