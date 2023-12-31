@@ -72,6 +72,9 @@ public class AuthController {
     @Value("${param.hashedPassword}")
     private String PARAM_HASHED_PASSWORD;
 
+    @Value("${param.usersImageDefault}")
+    private String PARAM_USERS_IMAGE_DEFAULT;
+
     private final String REGISTER_EMAIL_EXISTS;
 
     private final String REGISTER_PHONE_EXISTS;
@@ -190,7 +193,7 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(REGISTER_PHONE_EXISTS);
             }
 
-            Users users = new Users(fullName, email, hashedPassword, phoneNumber, false);
+            Users users = new Users(fullName, email, hashedPassword, phoneNumber, false, PARAM_USERS_IMAGE_DEFAULT);
             usersRepository.save(users);
             return ResponseEntity.ok(REGISTER_SUCCESS);
         } catch (Exception exception) {

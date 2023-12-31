@@ -46,6 +46,9 @@ public class CategoryController {
     private ProductQuantityRepository productQuantityRepository;
 
     @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
+
+    @Autowired
     private FreeImageService freeImageService;
 
     private final String RESPONSE_CATEGORY_NEW_EXISTS;
@@ -256,6 +259,14 @@ public class CategoryController {
         List<ProductQuantity> productQuantities = productQuantityRepository.findProductQuantitiesByProductID(productID);
         product.setProductQuantities(productQuantities);
 
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(productID);
+
+        Long quantitySold = 0L;
+        for (OrderDetails o: orderDetails) {
+            quantitySold += o.getQuantity();
+        }
+
+        product.setQuantitySold(quantitySold);
         return product;
     }
 
