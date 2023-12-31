@@ -70,10 +70,11 @@ const CheckoutPage = () => {
     setSelectedSizeID(sizeID);
 
     let productQuantities = 1;
-    if (product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID)) {
-      productQuantities = product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity
+    if (product.productQuantities.find((quantity) => quantity.sizeID === sizeID)) {
+      productQuantities = product.productQuantities.find((quantity) => quantity.sizeID === sizeID).quantity
     }
-
+    // console.log(sizeID);
+    // console.log(productQuantities);
     setAmount(Math.min(amount, productQuantities));
   }
 
