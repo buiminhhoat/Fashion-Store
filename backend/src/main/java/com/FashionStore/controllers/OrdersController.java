@@ -148,7 +148,7 @@ public class OrdersController {
         accessToken = accessToken.replace(AUTHORIZATION_BEARER, "");
         Long addressID = Long.valueOf(request.getParameter(ORDER_PARAM_ADDRESS_ID));
         Long totalAmount = Long.valueOf(request.getParameter(ORDER_PARAM_TOTAL_AMOUNT));
-
+        Long sizeID = Long.valueOf(request.getParameter(ORDER_PARAM_SIZE_ID));
         Date orderDate = new Date();
         orderDate.setTime(orderDate.getTime());
 
@@ -192,7 +192,7 @@ public class OrdersController {
             String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).getFirst().getImagePath();
 
             OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(), product.getProductName(),
-                    imagePath, productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
+                    imagePath, sizeID, productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
                     product.getProductPrice() * cartItem.getQuantityPurchase());
             orderDetailsList.add(orderDetails);
             orderDetailsRepository.save(orderDetails);
@@ -250,7 +250,7 @@ public class OrdersController {
 
         OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(),
                 product.getProductName(),
-                imagePath, productSize.getSizeName(), product.getProductPrice(), quantityPurchase,
+                imagePath, sizeID, productSize.getSizeName(), product.getProductPrice(), quantityPurchase,
                 product.getProductPrice() * quantityPurchase);
         orderDetailsList.add(orderDetails);
         orderDetailsRepository.save(orderDetails);
@@ -341,7 +341,7 @@ public class OrdersController {
         if (Objects.equals(orderStatus, ORDER_STATUS_CANCELLED)) {
             List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByOrderID(orderID);
             for (OrderDetails od: orderDetails) {
-                ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(od.getProductID(), od.getSizeName());
+                ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(od.getProductID(), od.getSizeID());
             }
         }
         return ResponseEntity.ok(orders);
