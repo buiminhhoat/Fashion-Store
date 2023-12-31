@@ -43,6 +43,9 @@ public class ProductController {
     private final CategoryRepository categoryRepository;
     private final CartItemRepository cartItemRepository;
 
+    private final OrderDetailsRepository orderDetailsRepository;
+
+
     @Autowired
     private FreeImageService freeImageService;
 
@@ -88,6 +91,7 @@ public class ProductController {
                              ProductQuantityRepository productQuantityRepository,
                              CategoryRepository categoryRepository,
                              CartItemRepository cartItemRepository,
+                             OrderDetailsRepository orderDetailsRepository,
                              MessageSource messageSource) {
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
@@ -96,6 +100,7 @@ public class ProductController {
         this.productQuantityRepository = productQuantityRepository;
         this.categoryRepository = categoryRepository;
         this.cartItemRepository = cartItemRepository;
+        this.orderDetailsRepository = orderDetailsRepository;
         this.MESSAGE_SUCCESS_ADD_PRODUCT = messageSource.getMessage("response.success.add-product", null, LocaleContextHolder.getLocale());
         this.MESSAGE_SUCCESS_EDIT_PRODUCT = messageSource.getMessage("response.success.edit-product", null, LocaleContextHolder.getLocale());
         this.MESSAGE_SUCCESS_DELETE_PRODUCT = messageSource.getMessage("response.success.delete-product", null, LocaleContextHolder.getLocale());
@@ -313,6 +318,15 @@ public class ProductController {
 
         Category parentCategory = categoryRepository.findCategoriesByCategoryID(category.getParentCategoryID());
         product.setParentCategory(parentCategory);
+
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(productID);
+
+        Long quantitySold = 0L;
+        for (OrderDetails o: orderDetails) {
+            quantitySold += o.getQuantity();
+        }
+
+        product.setQuantitySold(quantitySold);
         return product;
     }
 

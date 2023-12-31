@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -237,7 +236,7 @@ public class CategoryController {
                 List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
                 List<Product> products = new ArrayList<>();
                 for (ProductCategory productCategory: productCategoryList) {
-                    products.add(getProduct(productCategory.getProductID()));
+                    products.add(getProductDetails(productCategory.getProductID()));
                 }
                 subCategory.setProducts(products);
             }
@@ -247,7 +246,7 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
-    public Product getProduct(Long productID) {
+    public Product getProductDetails(Long productID) {
         Product product = productRepository.findProductByProductID(productID);
 
         List<ProductImage> productImages = productImageRepository.findProductImageByProductID(productID);
@@ -279,7 +278,7 @@ public class CategoryController {
                 List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(subCategory.getCategoryID());
                 for (ProductCategory productCategory : productCategoryList) {
                     Long productID = productCategory.getProductID();
-                    products.add(getProduct(productID));
+                    products.add(getProductDetails(productID));
                 }
             }
         }
@@ -287,7 +286,7 @@ public class CategoryController {
             List<ProductCategory> productCategoryList = productCategoryRepository.findProductCategoriesByCategoryID(categoryID);
             for (ProductCategory productCategory : productCategoryList) {
                 Long productID = productCategory.getProductID();
-                products.add(getProduct(productID));
+                products.add(getProductDetails(productID));
             }
         }
         return products;

@@ -41,6 +41,8 @@ const CheckoutPage = () => {
   const [userID, setUserID] = useState(null);
 
   const [loading, setLoading] = useState(true);
+  let new_product;
+
 
   const handleIncreaseAmount = () => {
     let productQuantities = 1;
@@ -78,19 +80,45 @@ const CheckoutPage = () => {
     setAmount(Math.min(amount, productQuantities));
   }
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     if (selectedAddress.addressID === undefined) {
       toast.warn("Vui lòng chọn địa chỉ nhận hàng");
       return;
     }
 
+    await fetchData();
+
+    let shouldMakeOrder = true;
+
+    if (checkQuantity() === true) {
+      toast.warn(MESSAGE.REVIEW_CART);
+      shouldMakeOrder = false;
+    }
+
+    if (shouldMakeOrder) {
+      makeOrder();
+    }
+  }
+
+
+  const checkQuantity = () => {
+    let stockQuantity = new_product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity;
+    console.log("check");
+    console.log(stockQuantity);
+    if (stockQuantity < amount) {
+      setAmount(stockQuantity);
+      return true;
+      console.log("cuu");
+    }
+  }
+  const makeOrder = () => {
     const total = product.productPrice * amount;
     const formData = new FormData();
 
     formData.append('addressID', selectedAddress.addressID)
     formData.append('totalAmount', total);
     formData.append('productID', productID);
-    formData.append('sizeID', sizeID);
+    formData.append('sizeID', selectedSizeID);
     formData.append('quantityPurchase', amount);
 
     fetch(API.PUBLIC.ADD_ORDERS_BY_CHECKOUT_ENDPOINT, {
@@ -101,7 +129,7 @@ const CheckoutPage = () => {
         .then((response) => {
           if (response.ok) {
             toast.success("Đặt hàng thành công!");
-            navigateOrdersWithUserID().then(r => {});
+            // navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
             throw new Error('Lỗi khi đặt hàng.');
@@ -125,8 +153,12 @@ const CheckoutPage = () => {
         const data = await response.json();
         console.log(data);
         setProduct(data);
+        new_product = data;
+        console.log("fecth");
+        console.log(product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity);
       } else {
         const data = await response.json();
+        toast.error(data.message);
         console.log(data.message);
       }
     } catch (error) {
@@ -208,7 +240,7 @@ const CheckoutPage = () => {
                               (
                                 product.productQuantities.find((quantity) => quantity.quantityID === size.sizeID) ?
                                   (
-                                    product.productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity === 0 ?
+                                    product.productQuantities.find((quantity) => quantity.quantityID === size.sizeID).quantity <= 0 ?
                                       <div key={index} className="size-wrap size size-sold-out">{size.sizeName}</div>
                                       :
                                       <div key={index}
