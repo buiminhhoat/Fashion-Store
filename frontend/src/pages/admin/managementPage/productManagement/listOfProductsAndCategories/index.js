@@ -15,7 +15,7 @@ import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCatego
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
 import {Select, Tooltip} from "antd";
 import {CATEGORY, SEARCH, SEARCH_USER} from "../utils/const";
-import {MESSAGE} from "../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const ListOfProductsAndCategoriesPage  = () => {
   const navigate = useNavigate();
@@ -50,9 +50,8 @@ const ListOfProductsAndCategoriesPage  = () => {
   }
 
   const fetchData = async () => {
-    const apiGetCategory = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetCategory, {
+      const response = await fetch(API.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
       });
 

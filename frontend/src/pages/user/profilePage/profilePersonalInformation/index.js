@@ -6,6 +6,7 @@ import {useCookies} from 'react-cookie';
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const ProfilePersonalInformationPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -80,8 +81,7 @@ const ProfilePersonalInformationPage = () => {
       const formData = new FormData();
       formData.append('userID', userID);
 
-      const apiFetchUserData = "/api/public/get-user-data";
-      const response = await fetch(apiFetchUserData, {
+      const response = await fetch(API.GET_USER_DATA_ENDPOINT, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",

@@ -28,3 +28,11 @@ export const MESSAGE = {
   EDIT_PRODUCT_SUCCESS: "Chỉnh sửa thông tin sản phẩm thành công",
   INSUFFICIENT_QUANTITY: "Số lượng sẵn có không đủ!",
 }
+
+export const API = {
+  GET_USER_DATA_ENDPOINT: "/api/public/get-user-data",
+  LOGIN_ENDPOINT: "/api/public/login",
+  GET_ALL_CATEGORIES_ENDPOINT: "/api/public/get-all-categories",
+  UPLOAD_PROFILE_IMAGE_ENDPOINT: "/api/public/upload-profile-image",
+  GET_STORE_INFORMATION_ENDPOINT: "/api/public/get-store-information",
+}

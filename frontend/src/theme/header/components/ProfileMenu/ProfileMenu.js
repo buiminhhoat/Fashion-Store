@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import {useLogout} from "../../../../components/dialogs/utils/logout";
 import {toast} from "react-toastify";
-import {MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const ProfileMenu = ({openModal}) => {
   const [cookies] = useCookies(['access_token']);
@@ -21,8 +21,8 @@ const ProfileMenu = ({openModal}) => {
       try {
         const formData = new FormData();
         formData.append('userID', userID);
-        const apiFetchUserData = "/api/public/get-user-data";
-        const response = await fetch(apiFetchUserData, {
+
+        const response = await fetch(API.GET_USER_DATA_ENDPOINT, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${accessToken}`,

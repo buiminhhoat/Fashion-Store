@@ -9,7 +9,7 @@ import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {CATEGORY} from "../utils/const";
-import {MESSAGE} from "../../../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../../../utils/const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);
@@ -38,9 +38,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
   };
 
   const fetchData = async () => {
-    const apiGetCategory = "/api/public/get-all-categories";
     try {
-      const response = await fetch(apiGetCategory, {
+      const response = await fetch(API.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
       });
 

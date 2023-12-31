@@ -13,6 +13,7 @@ import logoSaleNoti from '../images/logoSaleNoti.png'
 // import logo_fashion_store from "../images/logo_fashion_store.png";
 import {IoIosTime, IoMdTime} from "react-icons/io";
 import {RiTimerFill} from "react-icons/ri";
+import {API} from "../../utils/const";
 
 const Footer = () => {
   const LOGO_FASHION_STORE = "https://iili.io/JRLCZQf.md.png";
@@ -27,9 +28,8 @@ const Footer = () => {
   });
 
   const fetchData = async () => {
-    const apiStoreInformation = "/api/public/get-store-information";
     try {
-      const response = await fetch(apiStoreInformation, {
+      const response = await fetch(API.GET_STORE_INFORMATION_ENDPOINT, {
         method: 'GET',
       });
       if (response.ok) {
