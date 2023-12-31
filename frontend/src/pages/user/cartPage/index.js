@@ -213,21 +213,21 @@ function CartPage() {
     //   setReview(false);
     // }
 
-    let re = false;
+    let review = false;
 
     product.map((product, index) => {
           if (product.informationProduct.productSizes) {
               let stockQuantity = product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID).quantity;
               if (stockQuantity < product.quantityPurchase) {
                 handleDecreaseAmount(index, product.quantityPurchase - stockQuantity);
-                re = true;
+                review = true;
                 // console.log("cuu");
               }
           }
       }
     )
 
-    if (re === true) {
+    if (review === true) {
       toast.warn(MESSAGE.REVIEW_CART);
       return;
     }
