@@ -4,6 +4,19 @@ import closeButton from "../images/close.svg";
 import {formatter} from "../../../../utils/formatter.js"
 
 function CartProduct({ product, handleDecreaseAmount, handleIncreaseAmount, handleChooseSize, handleCloseButton }) {
+
+    const checkQuantity = () => {
+        let stockQuantity = product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID).quantity;
+        // if (stockQuantity < product.quantityPurchase) {
+        //     // handleDecreaseAmount(product.quantityPurchase - stockQuantity);
+        //     // setReview(true);
+        //     // console.log("cuu");
+        // }
+
+        return  Math.min(product.quantityPurchase, stockQuantity)
+    }
+
+
     return (
         <div className="card-product d-flex">
             <div className="image-product">
@@ -44,15 +57,28 @@ function CartProduct({ product, handleDecreaseAmount, handleIncreaseAmount, hand
                             <></>
                         )}
                     </div>
+                    {/*{*/}
+                    {/*    product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID) && (*/}
+                    {/*        <div style={{ marginTop: '10px' }}>*/}
+                    {/*            <span style={{ fontSize: 'smaller' }}>*/}
+                    {/*                Số lượng sản phẩm hiện có: {product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID).quantity}*/}
+                    {/*            </span>*/}
+                    {/*        </div>*/}
+
+
+                    {/*    )*/}
+                    {/*}*/}
                 </div>
                 <div className="product__price d-flex align-items-center">
                     <div className="product__price__sale">{formatter(product.informationProduct.productPrice * product.quantityPurchase)}</div>
                 </div>
                 <div className="product__quantity d-flex">
-                    <button type="button" className="btn btn-light product__quantity__icon d-flex align-items-center justify-content-center" onClick={handleDecreaseAmount}>
+                    <button type="button" className="btn btn-light product__quantity__icon d-flex align-items-center justify-content-center" onClick={() => handleDecreaseAmount(1)}>
                         -
                     </button>
-                    <div className="d-flex align-items-center justify-content-center quantity">{product.quantityPurchase}</div>
+                    <div className="d-flex align-items-center justify-content-center quantity">
+                        {checkQuantity()}
+                    </div>
                     <button type="button" className="btn btn-light product__quantity__icon d-flex align-items-center justify-content-center" onClick={handleIncreaseAmount}>
                         +
                     </button>

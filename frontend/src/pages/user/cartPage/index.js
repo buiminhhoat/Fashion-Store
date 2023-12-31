@@ -41,6 +41,7 @@ function CartPage() {
 
   const [numberProduct, setNumberProduct] = useState(0)
   const [selectedAddress, setSelectedAddress] = useState({a:1})
+  // const [review, setReview] = useState(false);
 
   const [userID, setUserID] = useState(null);
   const [product, setProduct] = useState({});
@@ -91,11 +92,11 @@ function CartPage() {
     }
   };
 
-  const handleDecreaseAmount = (id) => {
+  const handleDecreaseAmount = (id, amount = 1) => {
     const updatedProduct = [...product];
-    updatedProduct[id].quantityPurchase--;
+    updatedProduct[id].quantityPurchase -= amount;
     updatedProduct[id].quantityPurchase = Math.max(0, updatedProduct[id].quantityPurchase);
-    if (updatedProduct[id].quantityPurchase == 0) {
+    if (updatedProduct[id].quantityPurchase === 0) {
       handleCloseButton(id);
       return;
     }
@@ -162,7 +163,7 @@ function CartPage() {
     }
 
     updatedProduct[id].quantityPurchase = Math.min(updatedProduct[id].quantityPurchase, productQuantities);
-    setProduct(updatedProduct);
+    // setProduct(updatedProduct);
 
     setProduct(updatedProduct);
 
@@ -205,9 +206,36 @@ function CartPage() {
       return;
     }
 
+    // fetchData();
+
+    // if (review === true) {
+    //   toast.warn(MESSAGE.REVIEW_CART);
+    //   setReview(false);
+    // }
+
+    let re = false;
+
+    product.map((product, index) => {
+          if (product.informationProduct.productSizes) {
+              let stockQuantity = product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID).quantity;
+              if (stockQuantity < product.quantityPurchase) {
+                handleDecreaseAmount(index, product.quantityPurchase - stockQuantity);
+                re = true;
+                // console.log("cuu");
+              }
+          }
+      }
+    )
+
+    if (re === true) {
+      toast.warn(MESSAGE.REVIEW_CART);
+      return;
+    }
+
+
     const formData = new FormData()
 
-    formData.append('addressID', selectedAddress.addressID)
+    formData.append('addressID', selectedAddress.addressID);
     formData.append('totalAmount', calcTotalPrice());
 
     fetch(API.PUBLIC.ADD_ORDERS_BY_CART_ENDPOINT, {
@@ -333,10 +361,11 @@ function CartPage() {
                         <CartProduct
                             key={index}
                             product={product}
-                            handleDecreaseAmount={() => handleDecreaseAmount(index)}
+                            handleDecreaseAmount={(amount) => handleDecreaseAmount(index, amount)}
                             handleIncreaseAmount={() => handleIncreaseAmount(index)}
                             handleChooseSize={(sizeID) => handleChooseSize(sizeID, index)}
                             handleCloseButton={() => handleCloseButton(index)}
+                            // setReview={() => setReview()}
                         />
                     ))}
 
