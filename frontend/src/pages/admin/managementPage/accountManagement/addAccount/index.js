@@ -4,7 +4,7 @@ import "./style.scss";
 import {toast} from "react-toastify";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {MESSAGE} from "../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const AddAccountPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -27,7 +27,7 @@ const AddAccountPage = () => {
     formData.append('hashedPassword', hashedPassword);
 
     try {
-      const response = await fetch("/api/public/register", {
+      const response = await fetch(API.PUBLIC.REGISTER_ENDPOINT, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -84,7 +84,7 @@ const AddAccountPage = () => {
                       </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} method="POST" action="/api/public/register" className="form" id="form-register">
+                    <form onSubmit={handleSubmit} method="POST" action={API.PUBLIC.REGISTER_ENDPOINT} className="form" id="form-register">
                       <div data-v-2250a4e1="" className="panel-content-wrapper">
                         <div data-v-2250a4e1="" className="panel-content">
                           <div data-v-54a51dd8="" data-v-2250a4e1="" className="container">

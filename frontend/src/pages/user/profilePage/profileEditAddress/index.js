@@ -7,7 +7,7 @@ import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import arrowLeft1 from '../images/arrow_left_1.svg'
 import queryString from "query-string";
-import {MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const ProfileEditAddress = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const ProfileEditAddress = () => {
     const formData = new FormData();
     formData.append('addressID', addressID);
     try {
-      fetch("/api/public/get-address", {
+      fetch(API.PUBLIC.GET_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -65,9 +65,8 @@ const ProfileEditAddress = () => {
     formData.append('addressDetails', addressDetails);
     formData.append('isDefault', address.isDefault);
 
-    const apiEditAddressUrl = "/api/public/edit-address";
     try {
-      const response = await fetch(apiEditAddressUrl, {
+      const response = await fetch(API.PUBLIC.EDIT_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${accessToken}`,

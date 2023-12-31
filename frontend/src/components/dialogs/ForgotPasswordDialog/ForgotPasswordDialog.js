@@ -32,7 +32,7 @@ const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(API.GET_STORE_INFORMATION_ENDPOINT, {
+      const response = await fetch(API.PUBLIC.GET_STORE_INFORMATION_ENDPOINT, {
         method: 'GET',
       });
       if (response.ok) {

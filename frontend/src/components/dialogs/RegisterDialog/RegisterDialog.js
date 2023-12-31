@@ -4,6 +4,7 @@ import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
 import { DIALOGS } from "../utils/const";
+import {API} from "../../../utils/const";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {
   const [fullName, setFullName] = useState("");
@@ -22,7 +23,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
 
     try {
       // Gửi dữ liệu đăng ký đến máy chủ, ví dụ sử dụng fetch hoặc axios
-      const response = await fetch("/api/public/register", {
+      const response = await fetch(API.PUBLIC.REGISTER_ENDPOINT, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -76,7 +77,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                 <button type="button" className="btn-close pointer-cursor" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
               </div>
               <div className="form-wrap">
-                <form onSubmit={handleSubmit} method="POST" action="/api/public/register" className="form" id="form-register">
+                <form onSubmit={handleSubmit} method="POST" action={API.PUBLIC.REGISTER_ENDPOINT} className="form" id="form-register">
                   <div className="input-wrap mt-0">
                     <label className="title">Họ và tên</label>
                     <input id="name-register" name="name" type="text" placeholder="Nhập họ và tên" required

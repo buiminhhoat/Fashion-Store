@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 
 import arrowLeft1 from '../images/arrow_left_1.svg'
 import queryString from "query-string";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const ProfileNewAddress = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const ProfileNewAddress = () => {
       const formData = new FormData();
       formData.append('userID', userID);
 
-      fetch("/api/public/get-all-addresses", {
+      fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -61,9 +62,8 @@ const ProfileNewAddress = () => {
     formData.append('addressDetails', addressDetails);
     formData.append('isDefault', isDefault);
 
-    let apiNewAddressUrl = "/api/public/new-address";
     try {
-      const response = await fetch(apiNewAddressUrl, {
+      const response = await fetch(API.PUBLIC.NEW_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${accessToken}`,

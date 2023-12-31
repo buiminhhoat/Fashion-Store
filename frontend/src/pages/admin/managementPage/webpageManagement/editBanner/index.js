@@ -8,7 +8,7 @@ import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {MESSAGE} from "../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../utils/const";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -34,9 +34,8 @@ const EditBannerPage = () => {
   }
 
   const fetchData = async () => {
-    const apiGetAllBanners = "/api/public/get-all-banners";
     try {
-      const response = await fetch(apiGetAllBanners, {
+      const response = await fetch(API.PUBLIC.GET_ALL_BANNERS_ENDPOINT, {
         method: 'GET',
       });
 

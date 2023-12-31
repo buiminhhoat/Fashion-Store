@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {useCookies} from "react-cookie";
 import BackToTopButton from "../../components/buttons/BackToTopButton/BackToTopButton";
-import {MESSAGE} from "../../utils/const";
+import {API, MESSAGE} from "../../utils/const";
 
 export const CartContext = createContext(); // Exporting the context
 
@@ -22,11 +22,9 @@ const MasterLayout = ({children, ...props}) => {
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
 
-    const apiGetCart = "/api/public/get-cart";
-
     const getAmountInCart = async () => {
         try {
-            const response = await fetch(apiGetCart, {
+            const response = await fetch(API.PUBLIC.GET_CART_ENDPOINT, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,

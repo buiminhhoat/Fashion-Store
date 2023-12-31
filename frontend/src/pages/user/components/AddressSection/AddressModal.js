@@ -4,6 +4,7 @@ import plus from '../../profilePage/images/plus.svg'
 import "../../checkoutPage/style.scss"
 import {useCookies} from "react-cookie";
 import {toast} from "react-toastify";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const MODAL = {
   LIST_ADDRESS: 'LIST_ADDRESS',
@@ -36,7 +37,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
     const formData = new FormData();
     formData.append('userID', userID);
 
-    fetch("/api/public/get-all-addresses", {
+    fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${accessToken}`,
@@ -105,7 +106,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
     formData.append('isDefault', isDefault);
 
     try {
-      const response = await fetch("/api/public/new-address", {
+      const response = await fetch(API.PUBLIC.NEW_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -147,7 +148,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
     formData.append('isDefault', addressList.find((address) => address.addressID === addressID).isDefault);
 
     try {
-      const response = await fetch("/api/public/edit-address", {
+      const response = await fetch(API.PUBLIC.EDIT_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -178,7 +179,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
       const formData = new FormData();
       formData.append('addressID', updateID);
       try {
-        fetch("/api/public/get-address", {
+        fetch(API.PUBLIC.GET_ADDRESS_ENDPOINT, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${accessToken}`,

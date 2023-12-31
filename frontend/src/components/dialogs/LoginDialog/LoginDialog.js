@@ -17,7 +17,7 @@ const LoginDialog = ({ onClose, onSwitch }) => {
     onSwitch(dialogName);
   };
 
-  const apiLoginUrl = API.LOGIN_ENDPOINT;
+  const apiLoginUrl = API.PUBLIC.LOGIN_ENDPOINT;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

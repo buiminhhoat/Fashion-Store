@@ -63,6 +63,8 @@ const TabList = ({openTab, setOpenTab}) => {
 const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
   const [editingOrderStatus, setEditingOrderStatus] = useState(null);
 
+  const navigate = useNavigate();
+
   const handleAcceptEditOrderStatus = () => {
     reloadOrderListPage();
     setEditingOrderStatus(null);
@@ -79,9 +81,26 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
                            className="order-item-wrap show-detail"
                            style={{boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.102)", borderRadius:"3px"}}
                       >
-                        <div className="header-wrap">
-                          <div className="code-wrap">
-                            Mã đơn hàng <span className="code">{order.orderID}</span>
+                        <div className="header-wrap" style={{padding:"10px 17px 10px 17px"}}>
+                          <div className="code-wrap" style={{display:"flex", alignItems:"center"}}>
+                            <span> Mã đơn hàng <span className="code">{order.orderID}</span> </span>
+                          </div>
+                          <div className="avatar-hover pointer-cursor"
+                               style={{display:"flex", alignItems:"center"}}
+                               onClick={() => {
+                                 navigate(`/profile/orders?userID=${order.userID}`)
+                               }}
+                          >
+                            {order.fullName}
+                            <div style={{marginLeft:"5px", border:"1px solid #D9D9D9", borderRadius:"100%"}}>
+                              <img
+                                  className="img-avatar"
+                                  src={order.avatarPath ? order.avatarPath :
+                                      "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"
+                                  }
+                                  alt=""
+                              />
+                            </div>
                           </div>
                         </div>
 
@@ -324,6 +343,7 @@ const OrderListPage = () => {
       });
       if (response.status === 200) {
         const data = await response.json();
+        console.log(data);
         setOrderList(data);
       } else {
         const data = await response.json();

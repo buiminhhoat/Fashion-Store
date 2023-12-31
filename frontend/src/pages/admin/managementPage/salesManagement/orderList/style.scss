@@ -13,6 +13,22 @@
     font-family: Manrope !important;
 }
 
+.avatar-hover {
+    color: #333333;
+}
+
+.avatar-hover:hover {
+    color: #bd0000;
+}
+
+.img-avatar {
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
 .search-btn:hover {
     background: #cc1111;
 }

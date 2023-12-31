@@ -30,7 +30,7 @@ const StoreInformationPage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(API.GET_STORE_INFORMATION_ENDPOINT, {
+      const response = await fetch(API.PUBLIC.GET_STORE_INFORMATION_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -117,7 +117,7 @@ const StoreInformationPage = () => {
                       </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} method="POST" action="/api/public/register" className="form" id="form-register">
+                    <form onSubmit={handleSubmit} method="POST" action={API.PUBLIC.REGISTER_ENDPOINT} className="form" id="form-register">
                       <div data-v-2250a4e1="" className="panel-content-wrapper">
                         <div data-v-2250a4e1="" className="panel-content">
                           <div data-v-54a51dd8="" data-v-2250a4e1="" className="container">

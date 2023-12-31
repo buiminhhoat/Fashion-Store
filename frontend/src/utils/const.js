@@ -27,12 +27,29 @@ export const MESSAGE = {
   CATEGORY_NAME_INVALID: "Tên danh mục phải bắt đầu bằng một chữ cái",
   EDIT_PRODUCT_SUCCESS: "Chỉnh sửa thông tin sản phẩm thành công",
   INSUFFICIENT_QUANTITY: "Số lượng sẵn có không đủ!",
+  REVIEW_CART: "Bạn hãy xem lại số lượng sản phẩm trong giỏ hàng, vì có một số sản phẩm đã có người mua!"
 }
 
 export const API = {
-  GET_USER_DATA_ENDPOINT: "/api/public/get-user-data",
-  LOGIN_ENDPOINT: "/api/public/login",
-  GET_ALL_CATEGORIES_ENDPOINT: "/api/public/get-all-categories",
-  UPLOAD_PROFILE_IMAGE_ENDPOINT: "/api/public/upload-profile-image",
-  GET_STORE_INFORMATION_ENDPOINT: "/api/public/get-store-information",
+  PUBLIC: {
+    GET_USER_DATA_ENDPOINT: "/api/public/get-user-data",
+    LOGIN_ENDPOINT: "/api/public/login",
+    REGISTER_ENDPOINT: "/api/public/register",
+    GET_ALL_CATEGORIES_ENDPOINT: "/api/public/get-all-categories",
+    UPLOAD_PROFILE_IMAGE_ENDPOINT: "/api/public/upload-profile-image",
+    GET_STORE_INFORMATION_ENDPOINT: "/api/public/get-store-information",
+    GET_ALL_BANNERS_ENDPOINT: "/api/public/get-all-banners",
+    DELETE_PRODUCT_IN_CART_ENDPOINT: "/api/public/delete-product-in-cart",
+    EDIT_PRODUCT_IN_CART_ENDPOINT: "/api/public/edit-product-in-cart",
+    GET_ALL_ADDRESSES_ENDPOINT: "/api/public/get-all-addresses",
+    IS_ADMIN_ENDPOINT: "/api/public/isAdmin",
+    ADD_ORDERS_BY_CART_ENDPOINT: "/api/public/add-orders-by-cart",
+    ADD_ORDERS_BY_CHECKOUT_ENDPOINT: "/api/public/add-orders-by-checkout",
+    NEW_ADDRESS_ENDPOINT: "/api/public/new-address",
+    EDIT_ADDRESS_ENDPOINT: "/api/public/edit-address",
+    GET_CART_ENDPOINT: "/api/public/get-cart",
+    GET_USER_ID_ENDPOINT: "/api/public/get-user-id",
+    GET_ADDRESS_ENDPOINT: "/api/public/get-address",
+  }
+
 }
