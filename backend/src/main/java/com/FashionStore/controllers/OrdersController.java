@@ -419,6 +419,9 @@ public class OrdersController {
     public Orders getOrderDetails(Long orderID) {
         Orders orders = ordersRepository.findOrdersByOrderID(orderID);
         orders.setOrderDetails(orderDetailsRepository.findOrderDetailsByOrderID(orderID));
+        Users users = usersRepository.findUsersByUserID(orders.getUserID());
+        orders.setFullName(users.getFullName());
+        orders.setAvatarPath(users.getAvatarPath());
         return orders;
     }
 }
