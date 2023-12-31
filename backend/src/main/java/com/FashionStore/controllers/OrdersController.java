@@ -337,6 +337,13 @@ public class OrdersController {
         orders.setOrderStatus(orderStatus);
         ordersRepository.save(orders);
 
+
+        if (Objects.equals(orderStatus, ORDER_STATUS_CANCELLED)) {
+            List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByOrderID(orderID);
+            for (OrderDetails od: orderDetails) {
+                ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(od.getProductID(), od.getSizeName());
+            }
+        }
         return ResponseEntity.ok(orders);
     }
 
