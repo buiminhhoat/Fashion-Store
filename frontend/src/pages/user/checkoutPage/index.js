@@ -17,6 +17,7 @@ import {formatter} from "../../../utils/formatter.js"
 
 import AddressSection from "../components/AddressSection/AddressSection";
 import {ScrollToTop} from "../../../utils";
+import {MESSAGE} from "../../../utils/const";
 
 const CheckoutPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -130,7 +131,7 @@ const CheckoutPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
       // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
       setLoading(false);

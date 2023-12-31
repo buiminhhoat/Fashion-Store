@@ -87,11 +87,11 @@ function AddressList() {
           toast.success("Xóa địa chỉ thành công");
         });
       } else {
-        toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+        toast.error(MESSAGE.GENERIC_ERROR);
         console.error("Error:", response);
       }
     } catch (error) {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      toast.error(MESSAGE.GENERIC_ERROR);
       console.error("Error:", error);
     }
   }

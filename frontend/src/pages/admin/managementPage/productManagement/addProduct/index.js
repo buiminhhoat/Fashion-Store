@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {SCROLLING} from "../../../../../utils/const";
+import {MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const AddProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -108,7 +108,7 @@ const AddProductPage = () => {
       return response.json();
     })
     .then((data) => {
-      toast.success("Thêm sản phẩm thành công");
+      toast.success(MESSAGE.ADD_PRODUCT_SUCCESS);
       navigate(`/admin/management-page/categories-and-products`, {
         state: { scrolling: SCROLLING.SMOOTH },
       });
@@ -118,7 +118,7 @@ const AddProductPage = () => {
       // window.localion.reload();
     })
     .catch((error) => {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      toast.error(MESSAGE.GENERIC_ERROR);
       // console.error('Upload failed:', error);
     });
   }

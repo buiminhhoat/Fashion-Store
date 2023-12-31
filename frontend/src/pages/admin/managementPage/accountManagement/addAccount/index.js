@@ -37,24 +37,24 @@ const AddAccountPage = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', response);
+        // console.error('API endpoint not found:', response);
         return;
       }
 
       if (response.ok) {
-        toast.success("Đã thêm người dùng");
+        toast.success(MESSAGE.USER_ADDED);
       } else {
-        console.error("Đăng ký thất bại");
+        // console.error("Đăng ký thất bại");
         response.text().then(data => {
-          if (data === "Đăng ký không thành công") {
-            toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+          if (data === MESSAGE.REGISTRATION_FAILED) {
+            toast.error(MESSAGE.GENERIC_ERROR);
           }
           else toast.error(data);
         });
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error("Lỗi kết nối máy chủ: " + error.message);
+      // console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };
 

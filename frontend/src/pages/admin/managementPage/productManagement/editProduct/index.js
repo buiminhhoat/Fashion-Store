@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {SCROLLING} from "../../../../../utils/const";
+import {MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const EditProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -117,7 +117,7 @@ const EditProductPage = () => {
       });
     })
     .catch((error) => {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      toast.error(MESSAGE.GENERIC_ERROR);
       // console.error('Upload failed:', error);
     });
   }
@@ -160,7 +160,7 @@ const EditProductPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

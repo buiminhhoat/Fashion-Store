@@ -24,7 +24,7 @@ import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import viLocale from 'dayjs/locale/vi';
-import {SCROLLING} from "../../../../../utils/const";
+import {MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const { RangePicker } = DatePicker;
 
@@ -256,7 +256,7 @@ const OrderListPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -287,7 +287,7 @@ const OrderListPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -297,7 +297,7 @@ const OrderListPage = () => {
       return;
     }
     if (value.length < 2) {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      toast.error(MESSAGE.GENERIC_ERROR);
       return;
     }
 
@@ -305,7 +305,7 @@ const OrderListPage = () => {
     const endOrderDate = value[1].format('YYYY-MM-DD');
 
     if (!startOrderDate || !endOrderDate) {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại");
+      toast.error(MESSAGE.GENERIC_ERROR);
       return;
     }
 
@@ -331,7 +331,7 @@ const OrderListPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

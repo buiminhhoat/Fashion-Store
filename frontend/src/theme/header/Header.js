@@ -17,6 +17,7 @@ import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
+import {MESSAGE} from "../../utils/const";
 
 
 const Header = () => {
@@ -65,7 +66,7 @@ const Header = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
     }
   };

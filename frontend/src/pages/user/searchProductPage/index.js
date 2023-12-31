@@ -7,6 +7,7 @@ import {useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import fillterIcon from "../categoryPage/images/bars-filter.svg";
 import {ScrollToTop} from "../../../utils";
+import {MESSAGE} from "../../../utils/const";
 
 // const productsData = [
 //   {
@@ -81,7 +82,7 @@ const SearchProductPage = () => {
         }
       } catch (error) {
         console.log(error);
-        toast.error('Không thể kết nối được với database');
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});

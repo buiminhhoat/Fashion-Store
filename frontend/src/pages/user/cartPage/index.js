@@ -13,6 +13,7 @@ import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
+import {MESSAGE} from "../../../utils/const";
 
 const productListFake = [
   {
@@ -294,7 +295,7 @@ function CartPage() {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
       setLoading(false);
     }

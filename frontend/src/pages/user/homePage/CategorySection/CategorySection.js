@@ -3,6 +3,7 @@ import './style.scss';
 import {useCookies} from "react-cookie";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
+import {MESSAGE} from "../../../../utils/const";
 
 const productCategories = [
   {
@@ -166,7 +167,7 @@ const CategorySection = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
     }
   };
