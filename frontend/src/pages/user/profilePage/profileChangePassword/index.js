@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 import queryString from "query-string";
 import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
-import {MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const ProfileChangePassword = () => {
   const [cookies] = useCookies(['access_token']);
@@ -71,9 +71,8 @@ const ProfileChangePassword = () => {
   }
 
   const fetchUserID = async () => {
-    const apiGetUserID = "/api/public/get-user-id";
     try {
-      const response = await fetch(apiGetUserID, {
+      const response = await fetch(API.PUBLIC.GET_USER_ID_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

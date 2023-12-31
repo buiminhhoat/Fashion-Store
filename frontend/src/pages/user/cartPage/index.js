@@ -210,8 +210,7 @@ function CartPage() {
     formData.append('addressID', selectedAddress.addressID)
     formData.append('totalAmount', calcTotalPrice());
 
-    const apiAddToCartByCart = `/api/public/add-orders-by-cart`;
-    fetch(apiAddToCartByCart, {
+    fetch(API.PUBLIC.ADD_ORDERS_BY_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization": "Bearer " + accessToken},
       body: formData,
@@ -236,8 +235,7 @@ function CartPage() {
 
   const fetchData = async () => {
     try {
-      const apiGetCart = "/api/public/get-cart";
-      const response = await fetch(apiGetCart, {
+      const response = await fetch(API.PUBLIC.GET_CART_ENDPOINT, {
         method: 'GET',
         headers: {"Authorization" : "Bearer " + accessToken},
       });
@@ -281,9 +279,8 @@ function CartPage() {
   };
 
   const navigateOrdersWithUserID = async () => {
-    const apiGetUserID = "/api/public/get-user-id";
     try {
-      const response = await fetch(apiGetUserID, {
+      const response = await fetch(API.PUBLIC.GET_USER_ID_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

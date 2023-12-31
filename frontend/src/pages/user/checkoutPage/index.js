@@ -17,7 +17,7 @@ import {formatter} from "../../../utils/formatter.js"
 
 import AddressSection from "../components/AddressSection/AddressSection";
 import {ScrollToTop} from "../../../utils";
-import {MESSAGE} from "../../../utils/const";
+import {API, MESSAGE} from "../../../utils/const";
 
 const CheckoutPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -84,9 +84,8 @@ const CheckoutPage = () => {
       return;
     }
 
-    const total = product.productPrice * amount
-    const apiAddToCartByCheckout = `/api/public/add-orders-by-checkout`;
-    const formData = new FormData()
+    const total = product.productPrice * amount;
+    const formData = new FormData();
 
     formData.append('addressID', selectedAddress.addressID)
     formData.append('totalAmount', total);
@@ -94,7 +93,7 @@ const CheckoutPage = () => {
     formData.append('sizeID', sizeID);
     formData.append('quantityPurchase', amount);
 
-    fetch(apiAddToCartByCheckout, {
+    fetch(API.PUBLIC.ADD_ORDERS_BY_CHECKOUT_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization": "Bearer " + accessToken},
       body: formData,
@@ -140,9 +139,8 @@ const CheckoutPage = () => {
   };
 
   const navigateOrdersWithUserID = async () => {
-    const apiGetUserID = "/api/public/get-user-id";
     try {
-      const response = await fetch(apiGetUserID, {
+      const response = await fetch(API.PUBLIC.GET_USER_ID_ENDPOINT, {
         method: 'GET',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

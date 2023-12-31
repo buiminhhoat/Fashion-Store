@@ -62,9 +62,8 @@ const ProfileNewAddress = () => {
     formData.append('addressDetails', addressDetails);
     formData.append('isDefault', isDefault);
 
-    let apiNewAddressUrl = "/api/public/new-address";
     try {
-      const response = await fetch(apiNewAddressUrl, {
+      const response = await fetch(API.PUBLIC.NEW_ADDRESS_ENDPOINT, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${accessToken}`,

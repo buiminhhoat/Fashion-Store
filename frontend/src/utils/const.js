@@ -41,6 +41,14 @@ export const API = {
     DELETE_PRODUCT_IN_CART_ENDPOINT: "/api/public/delete-product-in-cart",
     EDIT_PRODUCT_IN_CART_ENDPOINT: "/api/public/edit-product-in-cart",
     GET_ALL_ADDRESSES_ENDPOINT: "/api/public/get-all-addresses",
+    IS_ADMIN_ENDPOINT: "/api/public/isAdmin",
+    ADD_ORDERS_BY_CART_ENDPOINT: "/api/public/add-orders-by-cart",
+    ADD_ORDERS_BY_CHECKOUT_ENDPOINT: "/api/public/add-orders-by-checkout",
+    NEW_ADDRESS_ENDPOINT: "/api/public/new-address",
+    EDIT_ADDRESS_ENDPOINT: "/api/public/edit-address",
+    GET_CART_ENDPOINT: "/api/public/get-cart",
+    GET_USER_ID_ENDPOINT: "/api/public/get-user-id",
+    GET_ADDRESS_ENDPOINT: "/api/public/get-address",
   }
 
 }
