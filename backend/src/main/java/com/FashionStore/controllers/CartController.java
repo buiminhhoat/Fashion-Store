@@ -81,6 +81,8 @@ public class CartController {
     private final String RESPONSE_CART_QUANTITY_LIMIT;
     private final String RESPONSE_CART_PRODUCT;
 
+    private final String RESPONSE_QUANTITY_IN_USER_CART;
+
 
     @Autowired
     public CartController(MessageSource messageSource) {
@@ -92,6 +94,7 @@ public class CartController {
         this.RESPONSE_CART_ADD_SUCCESS = messageSource.getMessage("response.cart.add.success", null, LocaleContextHolder.getLocale());
         this.RESPONSE_CART_QUANTITY_LIMIT = messageSource.getMessage("response.cart.quantity.limit", null, LocaleContextHolder.getLocale());
         this.RESPONSE_CART_PRODUCT = messageSource.getMessage("response.cart.product", null, LocaleContextHolder.getLocale());
+        this.RESPONSE_QUANTITY_IN_USER_CART = messageSource.getMessage("response.quantity.in.user.cart", null, LocaleContextHolder.getLocale());
     }
     @GetMapping("${endpoint.public.get-cart}")
     public ResponseEntity<?> getCart(HttpServletRequest request) {
@@ -158,17 +161,20 @@ public class CartController {
 
         if (cartItem == null) {
             cartItem = new CartItem(cartID, productID, sizeID, quantityPurchase);
-            cartItemRepository.save(cartItem);
         } else {
             Long limitQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(productID, sizeID).getQuantity();
             Long oldCartItemQuantity = cartItem.getQuantityPurchase();
+            if (Objects.equals(oldCartItemQuantity, limitQuantity)) {
+                ResponseObject responseObject = new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), RESPONSE_QUANTITY_IN_USER_CART, null);
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
+            }
             if (oldCartItemQuantity + quantityPurchase > limitQuantity) {
                 ResponseObject responseObject = new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), RESPONSE_CART_QUANTITY_LIMIT + " " + limitQuantity + " " + RESPONSE_CART_PRODUCT, null);
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseObject);
             }
             cartItem.setQuantityPurchase(oldCartItemQuantity + quantityPurchase);
-            cartItemRepository.save(cartItem);
         }
+        cartItemRepository.save(cartItem);
 
         ResponseObject responseObject = new ResponseObject(HttpStatus.OK.toString(), RESPONSE_CART_ADD_SUCCESS, cartItem);
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
