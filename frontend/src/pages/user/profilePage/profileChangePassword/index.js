@@ -43,8 +43,7 @@ const ProfileChangePassword = () => {
     formData.append('oldPassword', oldPassword);
 
     try {
-      const apiChangePassword = "/api/public/change-password";
-      const response = await fetch(apiChangePassword, {
+      const response = await fetch(API.PUBLIC.CHANGE_PASSWORD_ENDPOINT, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${accessToken}`,

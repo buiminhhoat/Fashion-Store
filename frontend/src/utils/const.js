@@ -49,6 +49,10 @@ export const API = {
     GET_CART_ENDPOINT: "/api/public/get-cart",
     GET_USER_ID_ENDPOINT: "/api/public/get-user-id",
     GET_ADDRESS_ENDPOINT: "/api/public/get-address",
+    ADD_PRODUCT_TO_CART_ENDPOINT: "/api/public/add-product-to-cart",
+    SET_DEFAULT_ADDRESS_ENDPOINT: "/api/public/set-default-address",
+    CHANGE_PASSWORD_ENDPOINT: "/api/public/change-password",
+    CANCEL_ORDER_ENDPOINT: "/api/public/orders/cancel-order",
   }
 
 }

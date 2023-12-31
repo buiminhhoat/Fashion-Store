@@ -12,6 +12,7 @@ import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
 import {CATEGORY} from "../../../admin/managementPage/productManagement/components/dialogs/utils/const";
 import {HiOutlineTrash} from "react-icons/hi";
+import {API} from "../../../../utils/const";
 
 const orderListFake = [
   {
@@ -149,7 +150,7 @@ const TabContent = ({openTab, setOpenTab}) => {
     formData.append('orderID', orderID);
     // formData.append('orderStatus', "Đã huỷ");
 
-    fetch("/api/public/orders/cancel-order", {
+    fetch(API.PUBLIC.CANCEL_ORDER_ENDPOINT, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${accessToken}`,
