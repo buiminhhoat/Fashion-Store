@@ -51,7 +51,7 @@ const ProfilePersonalInformationPage = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiEditProfile);
         return;
       }
@@ -68,7 +68,7 @@ const ProfilePersonalInformationPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -91,7 +91,7 @@ const ProfilePersonalInformationPage = () => {
       });
 
       if (!response.ok) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         throw new Error("Lỗi khi gửi refresh token.");
       }
 
@@ -116,7 +116,7 @@ const ProfilePersonalInformationPage = () => {
       setGender(data.gender);
       setDateBirthday({ day, month, year });
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

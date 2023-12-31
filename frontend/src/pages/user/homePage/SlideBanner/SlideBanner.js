@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import {Carousel} from "react-responsive-carousel";
 
 import defaultBanner from "./images/default-banner.png";
+import {MESSAGE} from "../../../../utils/const";
 
 const SlideBanner = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const SlideBanner = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

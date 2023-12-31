@@ -4,6 +4,7 @@ import "./style.scss";
 import {toast} from "react-toastify";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {MESSAGE} from "../../../../../utils/const";
 
 const AddAccountPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -35,7 +36,7 @@ const AddAccountPage = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', response);
         return;
       }
@@ -52,7 +53,7 @@ const AddAccountPage = () => {
         });
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };

@@ -4,6 +4,7 @@ import {Link, useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
+import {MESSAGE} from "../../../../utils/const";
 
 function AddressList() {
   const [cookies] = useCookies(['access_token']);
@@ -38,7 +39,7 @@ function AddressList() {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

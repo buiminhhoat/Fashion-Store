@@ -4,6 +4,7 @@ import {MdOutlineEditNote, MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {useCookies} from "react-cookie";
+import {MESSAGE} from "../../../../../../../utils/const";
 
 const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);
@@ -36,7 +37,7 @@ const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiEditCategoryUrl);
         return;
       }
@@ -50,7 +51,7 @@ const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }

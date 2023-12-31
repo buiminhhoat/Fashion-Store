@@ -9,6 +9,7 @@ import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {CATEGORY} from "../utils/const";
+import {MESSAGE} from "../../../../../../../utils/const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);
@@ -54,7 +55,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -168,7 +169,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   };
 
@@ -214,7 +215,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   };
 
@@ -241,7 +242,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
@@ -264,7 +265,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -298,7 +299,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiEditCategoryUrl);
         return;
       }
@@ -312,7 +313,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }

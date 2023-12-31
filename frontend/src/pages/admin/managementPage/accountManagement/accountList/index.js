@@ -16,6 +16,7 @@ import {Select, Tooltip} from "antd";
 import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {MESSAGE} from "../../../../../utils/const";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ const AccountListPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -101,7 +102,7 @@ const AccountListPage = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteUserUrl);
         return;
       }
@@ -119,7 +120,7 @@ const AccountListPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   };

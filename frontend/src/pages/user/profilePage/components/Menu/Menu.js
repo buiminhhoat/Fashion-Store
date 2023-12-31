@@ -136,7 +136,7 @@ const Menu = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', response);
         return;
       }
@@ -148,7 +148,7 @@ const Menu = () => {
         toast.error("Có lỗi xảy ra! Vui lòng thử lại");
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };

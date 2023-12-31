@@ -47,7 +47,7 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }

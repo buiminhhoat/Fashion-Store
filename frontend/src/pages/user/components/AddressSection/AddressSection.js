@@ -60,7 +60,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
       }
 
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
