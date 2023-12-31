@@ -3,12 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 30, 2023 at 07:41 PM
+-- Generation Time: Dec 31, 2023 at 10:47 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
-DROP DATABASE IF EXISTS `fashionstore`;
-CREATE DATABASE IF NOT EXISTS `fashionstore`;
-USE `fashionstore`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -85,7 +83,9 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`CartID`, `UserID`) VALUES
-(1, 1);
+(1, 1),
+(3, 2),
+(2, 3);
 
 -- --------------------------------------------------------
 
@@ -120,20 +120,20 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `ImagePath`) VALUES
 (1, 'Áo Nam', NULL, 'https://iili.io/JR4gFGs.md.png'),
-(2, 'Áo Thun', 1, 'https://iili.io/JR4gFGs.md.png'),
-(3, 'Áo Khoác', 1, 'https://iili.io/JR4gFGs.md.png'),
-(4, 'Áo Polo', 1, 'https://iili.io/JR4gFGs.md.png'),
+(2, 'Áo Thun', 1, 'https://iili.io/J5HXHIj.webp'),
+(3, 'Áo Khoác', 1, 'https://iili.io/J5HXFEB.webp'),
+(4, 'Áo Polo', 1, 'https://iili.io/J5HXq21.webp'),
 (5, 'Quần Nam', NULL, 'https://iili.io/JR4gFGs.md.png'),
-(7, 'Quần Short Thể Thao', 5, 'https://iili.io/JR4gFGs.md.png'),
-(8, 'Áo Sơ Mi', 1, 'https://iili.io/JR4gFGs.md.png'),
-(9, 'Quần Dài Kaki', 5, 'https://iili.io/JR4gFGs.md.png'),
-(10, 'Quần Short Kaki', 5, 'https://iili.io/JR4gFGs.md.png'),
-(11, 'Quần Short Tây', 5, 'https://iili.io/JR4gFGs.md.png'),
+(7, 'Quần Short Thể Thao', 5, 'https://iili.io/J5HXUGV.webp'),
+(8, 'Áo Sơ Mi', 1, 'https://iili.io/J5HXCkg.webp'),
+(9, 'Quần Dài Kaki', 5, 'https://iili.io/J5HXNyu.webp'),
+(10, 'Quần Short Kaki', 5, 'https://iili.io/J5HXUGV.webp'),
+(11, 'Quần Short Tây', 5, 'https://iili.io/J5HXLua.webp'),
 (12, 'Quần Lót Nam', NULL, 'https://iili.io/JR4gFGs.md.png'),
-(13, 'Quần Lót Boxer', 12, 'https://iili.io/JR4gFGs.md.png'),
-(14, 'Quần Lót Brief', 12, 'https://iili.io/JR4gFGs.md.png'),
+(13, 'Quần Lót Boxer', 12, 'https://iili.io/J5HjR5X.webp'),
+(14, 'Quần Lót Brief', 12, 'https://iili.io/J5HjR5X.webp'),
 (15, 'Phụ Kiện', NULL, 'https://iili.io/JR4gFGs.md.png'),
-(16, 'Tất Nam', 15, 'https://iili.io/JR4gFGs.md.png');
+(16, 'Tất Nam', 15, 'https://iili.io/J5HwxTu.jpg');
 
 -- --------------------------------------------------------
 
@@ -146,7 +146,7 @@ CREATE TABLE `orderdetails` (
   `OrderID` bigint(20) DEFAULT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `ProductName` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `SizeName` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+  `SizeID` bigint(20) NOT NULL,
   `ImagePath` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `ProductPrice` bigint(20) NOT NULL,
   `Quantity` bigint(20) NOT NULL,
@@ -283,7 +283,8 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescr
 (142, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả ', 96000, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả là mẫu quần sịp nam dáng boxer ôm sát vừa vặn với cơ thể, nâng đỡ tốt cho vùng nhạy cảm, tạo cảm giác thoáng mát và thoải mái tối đa khi mặc. Quần được thiết kế cạp chun dệt logo với độ co giãn tốt, không gây lằn bụng. \r\n\r\nQuần sịp đùi nam nổi bật với chất liệu thun lạnh Coolmax sở hữu độ dẻo dai, mềm mại và co giãn bền bỉ cho mọi kích cỡ được kết hợp cùng thiết kế với hàng ngàn lỗ thoáng khí giúp phái mạnh tự tin trong mọi hoạt động hằng ngày. \r\n'),
 (146, 'Quần lót nam Modal Air  dáng Trunk', 96000, 'Quần lót nam Modal Air được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
 (147, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk', 96000, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
-(148, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunk', 96000, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunkđược ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài');
+(148, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunk', 96000, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunkđược ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
+(149, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung', 329000, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung là item trẻ trung, mới mẻ mà các anh chắc chắn cần có trong tủ đồ của mùa hè. Kiểu dáng Slim fit vừa vặn, tôn dáng mà không quá ôm sát tạo cảm giác gò bó với người mặc. Cổ áo được dệt bo bền đẹp, giữ phom tốt. Điểm nhấn của thiết kế này nằm ở màu in loang chuyển màu độc đáo, hút mắt với bảng màu đa dạng. \r\n\r\nChất vải Cotton USA được biết đến là loại vải có cấu trúc sợi dai và dài vượt trội. Chất liệu này đã hoàn thiện được những ưu điểm có sẵn của cotton truyền thống. Độ thấm hút cao, chịu nhiệt tốt, giữ màu sắc bền đẹp; đồng thời khắc phục hầu hết nhược điểm cũ như: co rút, dễ nhăn, xù, bạc màu. Kết hợp với Spandex giúp sản phẩm có độ đàn hồi tốt, người mặc sẽ thoải mái vận động. Vải thành phẩm được xử lý qua công nghệ Wash giúp bề mặt mềm hơn, độ cầm màu tốt hơn & giảm độ co rút.');
 
 -- --------------------------------------------------------
 
@@ -395,7 +396,8 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) V
 (142, 142, 13),
 (146, 146, 13),
 (147, 147, 13),
-(148, 148, 13);
+(148, 148, 13),
+(149, 149, 2);
 
 -- --------------------------------------------------------
 
@@ -884,7 +886,11 @@ INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 (689, 142, 'https://iili.io/JRDGkb9.jpg'),
 (693, 146, 'https://iili.io/JRDME7V.jpg'),
 (694, 147, 'https://iili.io/JRDVFYQ.jpg'),
-(695, 148, 'https://iili.io/JRDVUcx.jpg');
+(695, 148, 'https://iili.io/JRDVUcx.jpg'),
+(696, 149, 'https://iili.io/J5HWZ1S.jpg'),
+(697, 149, 'https://iili.io/J5HWtr7.jpg'),
+(698, 149, 'https://iili.io/J5HWb29.jpg'),
+(699, 149, 'https://iili.io/J5HWm7e.jpg');
 
 -- --------------------------------------------------------
 
@@ -1281,7 +1287,11 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (554, 148, 554, 50),
 (555, 148, 555, 50),
 (556, 148, 556, 50),
-(557, 148, 557, 50);
+(557, 148, 557, 50),
+(558, 149, 558, 29),
+(559, 149, 559, 94),
+(560, 149, 560, 45),
+(561, 149, 561, 43);
 
 -- --------------------------------------------------------
 
@@ -1677,7 +1687,11 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 (554, 148, 'S'),
 (555, 148, 'M'),
 (556, 148, 'L'),
-(557, 148, 'XL');
+(557, 148, 'XL'),
+(558, 149, 'S'),
+(559, 149, 'M'),
+(560, 149, 'L'),
+(561, 149, 'XL');
 
 -- --------------------------------------------------------
 
@@ -1718,9 +1732,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `FullName`, `Email`, `PhoneNumber`, `Gender`, `DateBirthday`, `AvatarPath`, `IsAdmin`, `hashedPassword`) VALUES
-(1, 'Bùi Minh Hoạt', 'official.buiminhhoat@gmail.com', '0945405238', 'Nam', '2003-09-06', NULL, 1, '$2a$10$T8MIwYiIinEg1/UTV8Y2UeRrMgCKG7g7O0SS2uiYZHoGCb6UrUWAO'),
-(2, 'Nguyễn Châu Khanh', 'chaukhanh0605@gmail.com', '0944252960', NULL, NULL, NULL, 1, '$2a$10$WlWXmICMXAKm8SJfAHs/W.k4q9GbL/yk1.zkgZhaY6lCGpBU6EwkO'),
-(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, NULL, 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe');
+(1, 'Bùi Minh Hoạt', 'official.buiminhhoat@gmail.com', '0945405238', 'Nam', '2003-09-06', 'https://iili.io/J5HNvHP.jpg', 1, '$2a$10$T8MIwYiIinEg1/UTV8Y2UeRrMgCKG7g7O0SS2uiYZHoGCb6UrUWAO'),
+(2, 'Nguyễn Châu Khanh', 'chaukhanh0605@gmail.com', '0944252960', NULL, NULL, 'https://iili.io/J5HMHIR.jpg', 1, '$2a$10$WlWXmICMXAKm8SJfAHs/W.k4q9GbL/yk1.zkgZhaY6lCGpBU6EwkO'),
+(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, 'https://iili.io/J5HNZJI.jpg', 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe');
 
 --
 -- Indexes for dumped tables
@@ -1847,7 +1861,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `CartID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CartID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cartitem`
@@ -1877,31 +1891,31 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `productimage`
 --
 ALTER TABLE `productimage`
-  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=696;
+  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=700;
 
 --
 -- AUTO_INCREMENT for table `productquantity`
 --
 ALTER TABLE `productquantity`
-  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=558;
+  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=562;
 
 --
 -- AUTO_INCREMENT for table `productsize`
 --
 ALTER TABLE `productsize`
-  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=558;
+  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=562;
 
 --
 -- AUTO_INCREMENT for table `storeinformation`
@@ -1950,7 +1964,8 @@ ALTER TABLE `category`
 --
 ALTER TABLE `orderdetails`
   ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
-  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE SET NULL;
+  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE SET NULL,
+  ADD CONSTRAINT `orderdetail_ibfk_3` FOREIGN KEY (`SizeID`) REFERENCES `productsize` (`SizeID`);
 
 --
 -- Constraints for table `orders`
