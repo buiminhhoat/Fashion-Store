@@ -8,5 +8,6 @@ export const ROUTERS = {
         ACCOUNT_LIST: "account-list",
         ORDER_LIST: "order-list",
         STORE_INFORMATION: "store-information",
+        SALES_PRODUCT_QUANTITY_STATISTICS:"sales-product-quantity-statistics",
     }
 }
