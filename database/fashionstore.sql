@@ -6,6 +6,10 @@
 -- Generation Time: Dec 31, 2023 at 10:47 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
+DROP DATABASE fashionstore;
+CREATE DATABASE fashionstore;
+USE fashionstore;
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
