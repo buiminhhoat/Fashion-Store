@@ -54,7 +54,6 @@ public class AuthController {
     @Value("${endpoint.public.login}")
     private String ENDPOINT_LOGIN;
 
-
     @Value("${endpoint.google.token-info}")
     private String ENDPOINT_GOOGLE_TOKEN_INFO;
 
@@ -66,6 +65,12 @@ public class AuthController {
 
     @Value("${param.password}")
     private String PARAM_PASSWORD;
+
+    @Value("${param.fullName}")
+    private String PARAM_FULL_NAME;
+
+    @Value("${param.hashedPassword}")
+    private String PARAM_HASHED_PASSWORD;
 
     private final String REGISTER_EMAIL_EXISTS;
 
@@ -81,7 +86,7 @@ public class AuthController {
     @Value("${authorization.bearer}")
     private String AUTHORIZATION_BEARER;
 
-    private String JSON_ERROR;
+    private final String JSON_ERROR;
 
     @Value("${json.email}")
     private String JSON_EMAIL;
@@ -166,10 +171,10 @@ public class AuthController {
     @PostMapping("${endpoint.public.register}")
     public ResponseEntity<String> registerUser(HttpServletRequest request) {
         try {
-            String fullName = request.getParameter("${param.fullName}");
+            String fullName = request.getParameter(PARAM_FULL_NAME);
             String email = request.getParameter(PARAM_EMAIL);
             String phoneNumber = request.getParameter(PARAM_PHONE_NUMBER);
-            String plainPassword = request.getParameter("${param.hashedPassword}");
+            String plainPassword = request.getParameter(PARAM_HASHED_PASSWORD);
 
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String hashedPassword = passwordEncoder.encode(plainPassword);
