@@ -19,19 +19,22 @@ public class Product {
     private String productDescription;
 
     @Transient
-    List <ProductImage> productImages;
+    private List <ProductImage> productImages;
 
     @Transient
-    List <ProductSize> productSizes;
+    private List <ProductSize> productSizes;
 
     @Transient
-    List <ProductQuantity> productQuantities;
+    private List <ProductQuantity> productQuantities;
 
     @Transient
-    Category category;
+    private Category category;
 
     @Transient
-    Category parentCategory;
+    private Category parentCategory;
+
+    @Transient
+    private Long quantitySold;
 
     public Product() {
 
@@ -122,6 +125,14 @@ public class Product {
         this.parentCategory = parentCategory;
     }
 
+    public Long getQuantitySold() {
+        return quantitySold;
+    }
+
+    public void setQuantitySold(Long quantitySold) {
+        this.quantitySold = quantitySold;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -132,6 +143,9 @@ public class Product {
                 ", productImages=" + productImages +
                 ", productSizes=" + productSizes +
                 ", productQuantities=" + productQuantities +
+                ", category=" + category +
+                ", parentCategory=" + parentCategory +
+                ", quantitySold=" + quantitySold +
                 '}';
     }
 }

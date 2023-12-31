@@ -40,6 +40,12 @@ public class Orders {
     @Transient
     private List<OrderDetails> orderDetails;
 
+    @Transient
+    private String fullName;
+
+    @Transient
+    private String avatarPath;
+
     public Orders() {
 
     }
@@ -136,5 +142,21 @@ public class Orders {
 
     public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
     }
 }
