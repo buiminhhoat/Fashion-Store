@@ -4,7 +4,7 @@ import {Link, useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
-import {MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "../../../../utils/const";
 
 function AddressList() {
   const [cookies] = useCookies(['access_token']);
@@ -19,9 +19,8 @@ function AddressList() {
     const formData = new FormData();
     formData.append('userID', userID);
 
-    const apiGetAllAddresses = "/api/public/get-all-addresses";
     try {
-      const response = await fetch(apiGetAllAddresses, {
+      const response = await fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,

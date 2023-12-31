@@ -38,7 +38,9 @@ export const API = {
     UPLOAD_PROFILE_IMAGE_ENDPOINT: "/api/public/upload-profile-image",
     GET_STORE_INFORMATION_ENDPOINT: "/api/public/get-store-information",
     GET_ALL_BANNERS_ENDPOINT: "/api/public/get-all-banners",
-    DELETE_PRODUCT_IN_CART_ENDPOINT: "/api/public/delete-product-in-cart"
+    DELETE_PRODUCT_IN_CART_ENDPOINT: "/api/public/delete-product-in-cart",
+    EDIT_PRODUCT_IN_CART_ENDPOINT: "/api/public/edit-product-in-cart",
+    GET_ALL_ADDRESSES_ENDPOINT: "/api/public/get-all-addresses",
   }
 
 }

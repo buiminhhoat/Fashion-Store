@@ -4,6 +4,7 @@ import plus from '../../profilePage/images/plus.svg'
 import "../../checkoutPage/style.scss"
 import {useCookies} from "react-cookie";
 import {toast} from "react-toastify";
+import {API, MESSAGE} from "../../../../utils/const";
 
 const MODAL = {
   LIST_ADDRESS: 'LIST_ADDRESS',
@@ -36,7 +37,7 @@ function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmA
     const formData = new FormData();
     formData.append('userID', userID);
 
-    fetch("/api/public/get-all-addresses", {
+    fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${accessToken}`,

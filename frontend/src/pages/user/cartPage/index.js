@@ -67,7 +67,7 @@ function CartPage() {
       const sizeID = updatedProduct[id].sizeID;
 
       // Gửi yêu cầu cập nhật lên server
-      const updateCartURL = `/api/public/edit-product-in-cart?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
+      const updateCartURL = API.PUBLIC.EDIT_PRODUCT_IN_CART_ENDPOINT + `?accessToken=${accessToken}&productID=${productID}&sizeID=${sizeID}&quantityPurchase=${updatedQuantity}&cartItemID=${product[id].cartItemID}`;
 
       fetch(updateCartURL, {
         method: 'POST',
@@ -92,7 +92,6 @@ function CartPage() {
   };
 
   const handleDecreaseAmount = (id) => {
-    // Tạo một bản sao mới để tránh thay đổi trực tiếp
     const updatedProduct = [...product];
     updatedProduct[id].quantityPurchase--;
     updatedProduct[id].quantityPurchase = Math.max(0, updatedProduct[id].quantityPurchase);
@@ -101,17 +100,12 @@ function CartPage() {
       return;
     }
 
-    // Cập nhật trạng thái sản phẩm
     setProduct(updatedProduct);
 
-    // Gửi yêu cầu cập nhật lên cơ sở dữ liệu
     const updatedQuantity = updatedProduct[id].quantityPurchase;
     const productID = updatedProduct[id].informationProduct.productID;
     const sizeID = updatedProduct[id].sizeID;
 
-    // Gửi yêu cầu cập nhật lên server
-    // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `/api/public/edit-product-in-cart?`;
     const formData = new FormData()
 
     formData.append('cartItemID', product[id].cartItemID)
@@ -119,21 +113,19 @@ function CartPage() {
     formData.append('sizeID', sizeID);
     formData.append('quantityPurchase', updatedQuantity);
 
-    fetch(updateCartURL, {
+    fetch(API.PUBLIC.EDIT_PRODUCT_IN_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization" : "Bearer " + accessToken},
       body: formData,
     })
         .then((response) => {
           if (response.ok) {
-            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
           } else {
             throw new Error('Lỗi khi cập nhật giỏ hàng.');
           }
         })
         .catch((error) => {
           console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   };
 
@@ -172,36 +164,30 @@ function CartPage() {
     updatedProduct[id].quantityPurchase = Math.min(updatedProduct[id].quantityPurchase, productQuantities);
     setProduct(updatedProduct);
 
-    // Cập nhật trạng thái sản phẩm
     setProduct(updatedProduct);
 
-    // Gửi yêu cầu cập nhật lên cơ sở dữ liệu
     const updatedQuantity = updatedProduct[id].quantityPurchase;
     const productID = updatedProduct[id].informationProduct.productID;
 
-    // Gửi yêu cầu cập nhật lên server
-    const updateCartURL = `/api/public/edit-product-in-cart?`;
     const formData = new FormData()
     formData.append('cartItemID', product[id].cartItemID)
     formData.append('productID', productID);
     formData.append('sizeID', sizeID);
     formData.append('quantityPurchase', updatedQuantity);
 
-    fetch(updateCartURL, {
+    fetch(API.PUBLIC.EDIT_PRODUCT_IN_CART_ENDPOINT, {
       method: 'POST',
       headers: {"Authorization" : "Bearer " + accessToken},
       body: formData,
     })
         .then((response) => {
           if (response.ok) {
-            // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
           } else {
             throw new Error('Lỗi khi cập nhật giỏ hàng.');
           }
         })
         .catch((error) => {
           console.error('Lỗi:', error);
-          // Có thể hiển thị thông báo lỗi cho người dùng ở đây
         });
   }
 

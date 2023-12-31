@@ -3,7 +3,8 @@ import locationDot from "../../cartPage/images/location-dot.svg";
 import arrowRight from "../../checkoutPage/images/angle-right.svg";
 import {useCookies} from "react-cookie";
 import AddressModal from "./AddressModal";
-import {toast} from "react-toastify"; // Assuming you have an arrow-right image
+import {toast} from "react-toastify";
+import {API, MESSAGE} from "../../../../utils/const"; // Assuming you have an arrow-right image
 
 function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const [cookies] = useCookies(['access_token']);
@@ -20,7 +21,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
     formData.append('userID', userID);
     console.log("userID = " + userID);
     try {
-      fetch("/api/public/get-all-addresses", {
+      fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
