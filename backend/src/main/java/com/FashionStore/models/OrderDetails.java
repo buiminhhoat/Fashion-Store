@@ -26,8 +26,8 @@ public class OrderDetails {
     @Column(name = "ImagePath")
     private String imagePath;
 
-    @Column(name = "SizeName", nullable = false)
-    private String sizeName;
+    @Column(name = "SizeID", nullable = false)
+    private Long sizeID;
 
     @Column(name = "ProductPrice", nullable = false)
     private Long productPrice;
@@ -38,16 +38,20 @@ public class OrderDetails {
     @Column(name = "TotalPrice", nullable = false)
     private Long totalPrice;
 
+    @Transient
+    private String sizeName;
+
     public OrderDetails() {
 
     }
 
     public OrderDetails(Long orderID, Long productID, String productName,
-                        String imagePath, String sizeName, Long productPrice, Long quantity, Long totalPrice) {
+                        String imagePath, Long sizeID, String sizeName, Long productPrice, Long quantity, Long totalPrice) {
         this.orderID = orderID;
         this.productID = productID;
         this.productName = productName;
         this.imagePath = imagePath;
+        this.sizeID = sizeID;
         this.sizeName = sizeName;
         this.productPrice = productPrice;
         this.quantity = quantity;
@@ -124,5 +128,13 @@ public class OrderDetails {
 
     public void setTotalPrice(Long totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Long getSizeID() {
+        return sizeID;
+    }
+
+    public void setSizeID(Long sizeID) {
+        this.sizeID = sizeID;
     }
 }
