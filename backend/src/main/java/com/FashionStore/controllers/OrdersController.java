@@ -420,6 +420,15 @@ public class OrdersController {
 
         Category parentCategory = categoryRepository.findCategoriesByCategoryID(category.getParentCategoryID());
         product.setParentCategory(parentCategory);
+
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(productID);
+
+        Long quantitySold = 0L;
+        for (OrderDetails o: orderDetails) {
+            quantitySold += o.getQuantity();
+        }
+
+        product.setQuantitySold(quantitySold);
         return product;
     }
 
