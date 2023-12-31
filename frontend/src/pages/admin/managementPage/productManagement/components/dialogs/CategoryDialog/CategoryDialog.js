@@ -9,6 +9,7 @@ import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {CATEGORY} from "../utils/const";
+import {MESSAGE} from "../../../../../../../utils/const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);
@@ -54,7 +55,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -129,11 +130,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleSaveCategory = async () => {
     if (inputValue === "") {
-      toast.warn("Tên danh mục không được để trống");
+      toast.warn(MESSAGE.MISSING_CATEGORY_NAME);
       return;
     }
     if (!isStartWithLetter(inputValue)) {
-      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      toast.warn(MESSAGE.CATEGORY_NAME_INVALID);
       return;
     }
 
@@ -168,17 +169,17 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   };
 
   const handleSaveSubCategory = async () => {
     if (inputValue === "") {
-      toast.warn("Tên danh mục không được để trống");
+      toast.warn(MESSAGE.MISSING_CATEGORY_NAME);
       return;
     }
     if (!isStartWithLetter(inputValue)) {
-      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      toast.warn(MESSAGE.CATEGORY_NAME_INVALID);
       return;
     }
 
@@ -214,7 +215,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   };
 
@@ -241,7 +242,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
@@ -264,7 +265,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -275,11 +276,11 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const editCategory = async (categoryID, categoryName) => {
     if (categoryName === "") {
-      toast.warn("Tên danh mục không được để trống");
+      toast.warn(MESSAGE.MISSING_CATEGORY_NAME);
       return;
     }
     if (!isStartWithLetter(categoryName)) {
-      toast.warn("Tên danh mục phải bắt đầu bằng một chữ cái");
+      toast.warn(MESSAGE.CATEGORY_NAME_INVALID);
       return;
     }
 
@@ -298,7 +299,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiEditCategoryUrl);
         return;
       }
@@ -312,7 +313,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }

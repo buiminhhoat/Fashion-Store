@@ -13,6 +13,7 @@ import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
+import {MESSAGE} from "../../../utils/const";
 
 const productListFake = [
   {
@@ -86,7 +87,7 @@ function CartPage() {
             // Có thể hiển thị thông báo lỗi cho người dùng ở đây
           });
     } else {
-      toast.warn('Số lượng sẵn có không đủ!');
+      toast.warn(MESSAGE.INSUFFICIENT_QUANTITY);
     }
   };
 
@@ -221,7 +222,7 @@ function CartPage() {
 
   const handlePurchase = () => {
     if (selectedAddress.addressID === undefined) {
-      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+      toast.warn(MESSAGE.MISSING_DELIVERY_ADDRESS);
       return;
     }
 
@@ -239,11 +240,11 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
             cartContext.getAmountInCart().then(r => r);
-            toast.success("Đặt hàng thành công!");
+            toast.success(MESSAGE.ORDER_PLACED_SUCCESS);
             navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
-            throw new Error('Lỗi khi đặt hàng.');
+            throw new Error(MESSAGE.ORDER_PLACEMENT_ERROR);
           }
         })
         .then((data) => {
@@ -294,7 +295,7 @@ function CartPage() {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     } finally {
       setLoading(false);
     }
@@ -316,7 +317,7 @@ function CartPage() {
       }
 
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

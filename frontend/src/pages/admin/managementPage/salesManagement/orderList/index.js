@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss";
 import {useCookies} from "react-cookie";
-import {Link} from "react-router-dom";
-import {ConfigProvider, Select} from "antd";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+
+
+import EditOrderStatusDialog from "./dialogs/EditOrderStatusDialog/EditOrderStatusDialog";
 import {convertDateTimeFormat} from "../../../../../utils";
 import {formatter} from "../../../../../utils/formatter";
-import {TbListSearch} from "react-icons/tb";
 
+import {TbListSearch} from "react-icons/tb";
+import {BiSolidEdit} from "react-icons/bi";
 import empty_product_img from "../../../../user/profilePage/images/empty-product.png";
 
+import { DatePicker } from 'antd';
+import {ConfigProvider, Select} from "antd";
 import locale from 'antd/locale/vi_VN';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -17,11 +23,9 @@ import localeData from 'dayjs/plugin/localeData'
 import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
-
 import viLocale from 'dayjs/locale/vi';
+import {MESSAGE, SCROLLING} from "../../../../../utils/const";
 
-import { DatePicker } from 'antd';
-import {toast} from "react-toastify";
 const { RangePicker } = DatePicker;
 
 const TabList = ({openTab, setOpenTab}) => {
@@ -56,10 +60,17 @@ const TabList = ({openTab, setOpenTab}) => {
   );
 }
 
-const TabContent = ({openTab, setOpenTab, orderList}) => {
+const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
+  const [editingOrderStatus, setEditingOrderStatus] = useState(null);
+
+  const handleAcceptEditOrderStatus = () => {
+    reloadOrderListPage();
+    setEditingOrderStatus(null);
+  }
+
   return (
       <>
-        { orderList && orderList.length ?
+        { orderList && orderList.filter((order) => openTab === "Tất cả" || order.orderStatus === openTab).length ?
             <>
               { orderList.map((order, index) => (
                   <div key = {index}>
@@ -72,13 +83,8 @@ const TabContent = ({openTab, setOpenTab, orderList}) => {
                           <div className="code-wrap">
                             Mã đơn hàng <span className="code">{order.orderID}</span>
                           </div>
-                          <div className="status-wrap">
-                            <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
-                            <div className="status status-un-paid">
-                              <span>{order.orderStatus}</span>
-                            </div>
-                          </div>
                         </div>
+
                         <div className="content-wrap">
                           { order.orderDetails &&
                               order.orderDetails.map((orderDetail, index) => (
@@ -112,13 +118,28 @@ const TabContent = ({openTab, setOpenTab, orderList}) => {
                             Thành tiền:
                             <span className="money">&nbsp; {formatter(order.totalAmount)}</span>
                           </div>
-                          { order.orderStatus === "Chờ xác nhận" &&
-                              <button className="cancel-order"
-                                  // onClick={() => handleCancelOrder(order.orderID)}
-                              >
-                                Huỷ đơn hàng
-                              </button>
-                          }
+
+                          <div className="header-wrap" style={{borderBottom:"0", padding:"7px 0 7px 0"}}>
+                            <div className="status-wrap">
+                              <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
+
+                              <div style={{display:"flex", alignItems:"center"}}>
+                                <div className="status status-un-paid">
+                                  <span>{order.orderStatus}</span>
+
+                                </div>
+                                <BiSolidEdit style={{fontSize:"21px", color:"#7B7D85", marginLeft:"7px", cursor:"pointer"}}
+                                             onClick={() => {
+                                               setEditingOrderStatus({
+                                                 orderID: order.orderID,
+                                                 orderStatus: order.orderStatus,
+                                               });
+                                             }}
+                                />
+                              </div>
+
+                            </div>
+                          </div>
 
                         </div>
                         <div className="detail-wrap show-detail">
@@ -148,6 +169,14 @@ const TabContent = ({openTab, setOpenTab, orderList}) => {
                     }
                   </div>
               ))}
+              { editingOrderStatus && (
+                  <div className="modal-overlay">
+                    <EditOrderStatusDialog orderID={editingOrderStatus.orderID}
+                                           orderStatus={editingOrderStatus.orderStatus}
+                                           onAccept={handleAcceptEditOrderStatus}
+                                           onClose={() => {setEditingOrderStatus(null)}}/>
+                  </div>
+              )}
             </>
             :
             <div className={`tab-pane show`} role="tabpanel" style={{boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.102)", borderRadius:"3px"}}>
@@ -171,8 +200,9 @@ const OrderListPage = () => {
     { value: 'order-id', label: 'Mã đơn hàng' },
   ];
 
-  const [orderList, setOrderList] = useState([])
+  const [isStart, setIsStart] = useState(true);
 
+  const [orderList, setOrderList] = useState([])
   const [openTab, setOpenTab] = useState("Tất cả");
   const [selectedSearch, setSelectedSearch] = useState(OPTION_SEARCH[0].value);
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
@@ -218,6 +248,7 @@ const OrderListPage = () => {
       });
       if (response.status === 200) {
         const data = await response.json();
+        console.log(data);
         setOrderList([data]);
       } else {
         const data = await response.json();
@@ -225,12 +256,12 @@ const OrderListPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
   const fetchOrdersByRecipientPhone = async () => {
-    if (!orderIDValue) {
+    if (!phoneNumberValue) {
       toast.warn("Vui lòng nhập số điện thoại đặt hàng");
       return;
     }
@@ -256,14 +287,59 @@ const OrderListPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Không thể kết nối được với database');
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
+    }
+  }
+
+  const fetchOrdersByOrderDate = async () => {
+    if (!value) {
+      toast.warn("Vui lòng chọn ngày đặt hàng");
+      return;
+    }
+    if (value.length < 2) {
+      toast.error(MESSAGE.GENERIC_ERROR);
+      return;
+    }
+
+    const startOrderDate = value[0].format('YYYY-MM-DD');
+    const endOrderDate = value[1].format('YYYY-MM-DD');
+
+    if (!startOrderDate || !endOrderDate) {
+      toast.error(MESSAGE.GENERIC_ERROR);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('startOrderDate', startOrderDate);
+    formData.append('endOrderDate', endOrderDate);
+
+    const apiSearchOrdersByOrderDate = "/api/admin/orders/search-orders-by-order-date";
+    try {
+      const response = await fetch(apiSearchOrdersByOrderDate, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        setOrderList(data);
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
   const handleBtnSearchClick = () => {
+    setOpenTab("Tất cả");
     switch (selectedSearch) {
       case OPTION_SEARCH[0].value:
-
+        fetchOrdersByOrderDate().then(r => {});
         break;
       case OPTION_SEARCH[1].value:
         fetchOrdersByRecipientPhone().then(r => {});
@@ -272,6 +348,17 @@ const OrderListPage = () => {
         fetchOrdersByOrderId().then(r => {});
         break;
     }
+  }
+
+  const reloadOrderListPage = async () => {
+    setIsStart(true);
+    setOpenTab("Tất cả");
+    setSelectedSearch(OPTION_SEARCH[0].value);
+    setPhoneNumberValue("");
+    setOrderIDValue("");
+
+    const currentDate = new Date();
+    setValue([dayjs(currentDate), dayjs(currentDate)]);
   }
 
   useEffect(() => {
@@ -288,9 +375,11 @@ const OrderListPage = () => {
   }, []);
 
   useEffect(() => {
-    const currentDate = new Date();
-    setValue([dayjs(currentDate), dayjs(currentDate)]);
-  }, [selectedSearch]);
+    if (value && isStart) {
+      setIsStart(false);
+      fetchOrdersByOrderDate().then(r => {});
+    }
+  }, [value]);
 
   return (
       <div id="app">
@@ -317,7 +406,12 @@ const OrderListPage = () => {
                       bordered={false}
                       size={"large"}
                       options={OPTION_SEARCH}
-                      onChange={(value) => {setSelectedSearch(value)}}
+                      onChange={(value) => {
+                        setSelectedSearch(value);
+                        setValue(null);
+                        setPhoneNumberValue("");
+                        setOrderIDValue("");
+                      }}
                   />
                 </div>
 
@@ -331,14 +425,9 @@ const OrderListPage = () => {
                               size="large"
                               disabledDate={disabledDate}
                               onCalendarChange={(val) => {
-                                console.log("date");
-                                console.log(val);
-                                console.log(value);
                                 setDates(val);
                               }}
                               onChange={(val) => {
-                                console.log("val");
-                                console.log(val);
                                 setValue(val);
                               }}
                               onOpenChange={onOpenChange}
@@ -384,7 +473,6 @@ const OrderListPage = () => {
             </div>
           </div>
 
-
           <div className="col-8 content-children item-row"
                style={{padding:"0 47px 0 47px", width:"100%"}}
           >
@@ -392,7 +480,11 @@ const OrderListPage = () => {
               <TabList openTab={openTab} setOpenTab={setOpenTab} />
               <div className="order-list">
                 <div className="tab-content clearfix" id="nav-tabContent">
-                  <TabContent openTab={openTab} setOpenTab={setOpenTab} orderList={orderList}/>
+                  <TabContent openTab={openTab}
+                              setOpenTab={setOpenTab}
+                              orderList={orderList}
+                              reloadOrderListPage={reloadOrderListPage}
+                  />
                 </div>
               </div>
             </div>

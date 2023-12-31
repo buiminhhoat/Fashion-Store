@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import queryString from "query-string";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
+import {MESSAGE} from "../../../utils/const";
 
 const ProductDetailPage = () => {
   const cartContext = useContext(CartContext);
@@ -44,10 +45,10 @@ const ProductDetailPage = () => {
         const data = await response.json();
         toast.warn(data.message);
       } else {
-        toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
+        toast.error(MESSAGE.GENERIC_ERROR);
       }
     } catch (error) {
-      toast.error("Có lỗi xảy ra! Vui lòng thử lại.");
+      toast.error(MESSAGE.GENERIC_ERROR);
       console.error('Error:', error);
     }
   }
@@ -89,7 +90,7 @@ const ProductDetailPage = () => {
         }
       } catch (error) {
         console.log(error);
-        toast.error('Không thể kết nối được với database');
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});

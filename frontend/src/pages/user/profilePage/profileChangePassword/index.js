@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import queryString from "query-string";
 import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
+import {MESSAGE} from "../../../../utils/const";
 
 const ProfileChangePassword = () => {
   const [cookies] = useCookies(['access_token']);
@@ -32,7 +33,7 @@ const ProfileChangePassword = () => {
     e.preventDefault();
 
     if (newPassword !== confirmNewPassword) {
-      toast.warn('Nhập lại mật khẩu không khớp');
+      toast.warn(MESSAGE.CONFIRMATION_PASSWORD_MISMATCH);
       return;
     }
 
@@ -85,7 +86,7 @@ const ProfileChangePassword = () => {
       }
 
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

@@ -3,10 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 30, 2023 at 07:19 PM
+-- Generation Time: Dec 30, 2023 at 07:41 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
-
+DROP DATABASE IF EXISTS `fashionstore`;
+CREATE DATABASE IF NOT EXISTS `fashionstore`;
+USE `fashionstore`;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -62,10 +64,10 @@ CREATE TABLE `banner` (
 --
 
 INSERT INTO `banner` (`BannerID`, `DisplayOrder`, `ImagePath`, `BannerLinkTo`) VALUES
-(1, 0, 'https://iili.io/JRDfz1R.webp', ''),
-(2, 1, 'https://iili.io/JRDfIgp.webp', ''),
-(3, 2, 'https://iili.io/JRDfudN.webp', ''),
-(4, 3, 'https://iili.io/JRDfA7I.webp', '');
+(5, 0, 'https://iili.io/JRDfz1R.webp', '/'),
+(6, 1, 'https://iili.io/JRDfIgp.webp', '/'),
+(7, 2, 'https://iili.io/JRDfudN.webp', '/'),
+(8, 3, 'https://iili.io/JRDfA7I.webp', '/');
 
 -- --------------------------------------------------------
 
@@ -126,9 +128,12 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `Image
 (8, 'Áo Sơ Mi', 1, 'https://iili.io/JR4gFGs.md.png'),
 (9, 'Quần Dài Kaki', 5, 'https://iili.io/JR4gFGs.md.png'),
 (10, 'Quần Short Kaki', 5, 'https://iili.io/JR4gFGs.md.png'),
-(11, 'Phụ Kiện', NULL, 'https://iili.io/JR4gFGs.md.png'),
-(12, 'Tất Nam', 11, 'https://iili.io/JR4gFGs.md.png'),
-(13, 'Quần Short Tây', 5, 'https://iili.io/JR4gFGs.md.png');
+(11, 'Quần Short Tây', 5, 'https://iili.io/JR4gFGs.md.png'),
+(12, 'Quần Lót Nam', NULL, 'https://iili.io/JR4gFGs.md.png'),
+(13, 'Quần Lót Boxer', 12, 'https://iili.io/JR4gFGs.md.png'),
+(14, 'Quần Lót Brief', 12, 'https://iili.io/JR4gFGs.md.png'),
+(15, 'Phụ Kiện', NULL, 'https://iili.io/JR4gFGs.md.png'),
+(16, 'Tất Nam', 15, 'https://iili.io/JR4gFGs.md.png');
 
 -- --------------------------------------------------------
 
@@ -272,7 +277,13 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescr
 (135, 'Áo Sơ Mi Nam Ngắn Tay, Vải Modal, Thoáng Khí, Chống Nhăn', 569000, 'Áo Sơ Mi Nam Ngắn Tay, Vải Modal, Thoáng Khí, Chống Nhăn là mẫu áo sở hữu kiểu áo Casual fit thoải mái, dễ mặc, phù hợp với mọi dáng người và mọi độ tuổi. Áo được thiết kế basic với tà bằng trẻ trung mà không kém phần chỉn chu, thanh lịch. \r\n\r\nÁo được làm từ chất liệu Microfiber với cấu trúc sợi siêu mảnh, độ mịn gấp đôi so với sợi tơi, là một trong những chất vải an toàn, thân thiện với môi trường và làn da người mặc. Trong khi đó, Modal là loại vải có nguồn gốc từ gỗ của cây sồi, an toàn với người sử dụng và thân thiện với môi trường. Chất liệu vải Modal có đặc tính mềm mịn, chống nhăn, đàn hồi tốt và hút ẩm cao hơn cotton đến 48%. Kết hợp Modal với Mirofiber giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể.\r\n\r\nThêm vào đó, sự góp mặt của Cotton giúp vải thành phẩm có giá tối ưu hơn mà vẫn giữ được các tính năng thấm hút, thoáng mát của vải & tạo hiệu ứng bề mặt khô hơn giống như những chiếc sơ mi Cotton phong cách casual nhưng vẫn giữ được độ sang trọng cao cấp của vải Modal. '),
 (136, 'Áo Sơ Mi Cộc Tay Nam, Vải Bamboo Kháng Khuẩn', 609000, 'Áo Sơ Mi Cộc Tay Nam, Vải Bamboo Kháng Khuẩn nổi bật với kiểu dáng Slim fit ôm vừa vặn, tôn dáng mà vẫn thoải mái trong mọi hoạt động. Sự kết hợp giữa các đường kẻ tạo nên thiết kế áo sơ mi vừa lịch lãm, vừa trẻ trung, nam tính. Áo sơ mi có tone màu xanh blue tươi mát trên nền chất liệu Bamboo mềm mại, thoáng khí mang tới trải nghiệm thoải mái tối đa cho quý ông công sở.\r\n\r\nÁo được làm từ chất liệu Bamboo tự nhiên - một loại sợi tổng hợp được tạo nên bởi cellulose tách từ cây tre. Vải bamboo có đặc tính thoáng khí mát mẻ, chống tia cực tím, kháng khuẩn, khử mùi tốt và vô cùng thân thiện với môi trường bởi được tạo bởi chất liệu tre không sử dụng hóa chất, an toàn cho người sử dụng. Loại vải này rất mềm và mướt nên có thể giảm thiểu độ ma sát với làn da, không gây kích ứng và phù hợp với làn da nhạy cảm.\r\n\r\nKết hợp với Mirofiber - một loại sợi gốc Polyester/Polyamide với tỉ lệ 80/20 có kích thước nhỏ cỡ micro mét tạo cảm giác mềm mịn thoải mái. Do các sợi nhỏ cỡ micro nên mật độ sợi dày hơn giúp vải thành phẩm bền và ổn định hơn, giảm độ co rút và giảm nhăn đáng kể. Bổ sung thêm thành phần Spandex giúp cho áo có độ co giãn nhẹ để người mặc thoải mái hơn trong mọi hoạt động. '),
 (138, 'Áo Sơ Mi Cộc Tay Nam, Vải Bamboo Kháng Khuẩn', 539000, 'Áo Sơ Mi Cộc Tay Nam, Vải Modal, Mềm Mịn, Co Giãn, Thoáng Mát là mẫu áo sở hữu kiểu dáng Slim fit tôn dáng, dễ mặc cùng màu trắng basic chưa bao giờ lỗi mốt. Với form áo hơi ôm, vạt bằng thoải mái, áo mang tới diện mạo thanh lịch, khỏe khoắn mà không kém phần trẻ trung cho nam giới, phù hợp với mọi dáng người và mọi độ tuổi. Đây là item mà các chàng trai công sở nhất định phải sở hữu ít nhất một chiếc trong tủ đồ của mình. \r\n\r\nVới thành phần 100% Cotton được dệt từ các sợi bông tự nhiên, sờ vào mịn tay, thoáng mát, thấm hút mồ hôi tốt nên đặc biệt phù hợp với thời tiết mùa hè oi bức, giúp nam giới tự tin suốt cả ngày dài. Chất liệu thiên nhiên nên mẫu áo này rất an toàn với người sử dụng và thân thiện với môi trường. '),
-(139, 'Áo Sơ Mi Ngắn Tay Nam, Chống Nhăn, Kháng Khuẩn', 479000, 'Áo Sơ Mi Ngắn Tay Nam, Chống Nhăn, Kháng Khuẩn với kiểu dáng Slimfit ôm nhẹ, vừa vặn mà vẫn đảm bảo cảm giác thoải mái khi vận động. Áo được thiết kế basic với tà bằng không túi, tone màu trắng đơn giản nhưng tinh tế, ấn tượng mang đến phong thái chuyên nghiệp, nam tính và lịch lãm cho các quý ông. \r\n\r\nChất vải 50% Bamboo + 50% Polyester có đặc tính thoáng khí mát mẻ, kháng khuẩn, khử mùi cực tốt nên rất thích hợp mặc trong những ngày hè oi nóng. Sợi Polyester có kích thước siêu nhỏ tạo cảm giác mềm mịn, đồng thời, giúp áo sơ mi bền đẹp, giảm co rút và chống nhăn hiệu quả');
+(139, 'Áo Sơ Mi Ngắn Tay Nam, Chống Nhăn, Kháng Khuẩn', 479000, 'Áo Sơ Mi Ngắn Tay Nam, Chống Nhăn, Kháng Khuẩn với kiểu dáng Slimfit ôm nhẹ, vừa vặn mà vẫn đảm bảo cảm giác thoải mái khi vận động. Áo được thiết kế basic với tà bằng không túi, tone màu trắng đơn giản nhưng tinh tế, ấn tượng mang đến phong thái chuyên nghiệp, nam tính và lịch lãm cho các quý ông. \r\n\r\nChất vải 50% Bamboo + 50% Polyester có đặc tính thoáng khí mát mẻ, kháng khuẩn, khử mùi cực tốt nên rất thích hợp mặc trong những ngày hè oi nóng. Sợi Polyester có kích thước siêu nhỏ tạo cảm giác mềm mịn, đồng thời, giúp áo sơ mi bền đẹp, giảm co rút và chống nhăn hiệu quả'),
+(140, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả', 96000, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả là thiết kế quần sịp nam brief thông hơi với hàng ngàn lỗ thoáng khí cực kỳ thoải mái. Quần sở hữu lớp kháng khuẩn giúp bảo vệ da một cách tối ưu, chống ẩm và hạn chế nấm mốc cực tốt, an toàn với làn da vùng nhạy cảm. Chất liệu Coolmax sở hữu độ dẻo dai, mềm mại và co giãn bền bỉ cho mọi kích cỡ, từ đó giúp nam giới tự tin trong các hoạt động hằng ngày. \r\n\r\n'),
+(141, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả', 96000, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả là thiết kế quần sịp nam brief thông hơi với hàng ngàn lỗ thoáng khí cực kỳ thoải mái. Quần sở hữu lớp kháng khuẩn giúp bảo vệ da một cách tối ưu, chống ẩm và hạn chế nấm mốc cực tốt, an toàn với làn da vùng nhạy cảm. Chất liệu Coolmax sở hữu độ dẻo dai, mềm mại và co giãn bền bỉ cho mọi kích cỡ, từ đó giúp nam giới tự tin trong các hoạt động hằng ngày. \r\n\r\n'),
+(142, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả ', 96000, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả là mẫu quần sịp nam dáng boxer ôm sát vừa vặn với cơ thể, nâng đỡ tốt cho vùng nhạy cảm, tạo cảm giác thoáng mát và thoải mái tối đa khi mặc. Quần được thiết kế cạp chun dệt logo với độ co giãn tốt, không gây lằn bụng. \r\n\r\nQuần sịp đùi nam nổi bật với chất liệu thun lạnh Coolmax sở hữu độ dẻo dai, mềm mại và co giãn bền bỉ cho mọi kích cỡ được kết hợp cùng thiết kế với hàng ngàn lỗ thoáng khí giúp phái mạnh tự tin trong mọi hoạt động hằng ngày. \r\n'),
+(146, 'Quần lót nam Modal Air  dáng Trunk', 96000, 'Quần lót nam Modal Air được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
+(147, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk', 96000, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
+(148, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunk', 96000, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunkđược ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài');
 
 -- --------------------------------------------------------
 
@@ -353,8 +364,8 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) V
 (106, 106, 7),
 (107, 107, 7),
 (108, 108, 9),
-(109, 109, 12),
-(110, 110, 13),
+(109, 109, 16),
+(110, 110, 11),
 (111, 111, 10),
 (112, 112, 10),
 (113, 113, 10),
@@ -378,7 +389,13 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) V
 (135, 135, 8),
 (136, 136, 8),
 (138, 138, 8),
-(139, 139, 8);
+(139, 139, 8),
+(140, 140, 14),
+(141, 141, 14),
+(142, 142, 13),
+(146, 146, 13),
+(147, 147, 13),
+(148, 148, 13);
 
 -- --------------------------------------------------------
 
@@ -860,7 +877,14 @@ INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 (682, 139, 'https://iili.io/JRQkXgs.jpg'),
 (683, 139, 'https://iili.io/JRQkjdG.jpg'),
 (684, 139, 'https://iili.io/JRQkw7f.jpg'),
-(685, 139, 'https://iili.io/JRQkNe4.jpg');
+(685, 139, 'https://iili.io/JRQkNe4.jpg'),
+(686, 140, 'https://iili.io/JRD0hlV.jpg'),
+(687, 141, 'https://iili.io/JRD0DWG.jpg'),
+(688, 141, 'https://iili.io/JRD0bsf.jpg'),
+(689, 142, 'https://iili.io/JRDGkb9.jpg'),
+(693, 146, 'https://iili.io/JRDME7V.jpg'),
+(694, 147, 'https://iili.io/JRDVFYQ.jpg'),
+(695, 148, 'https://iili.io/JRDVUcx.jpg');
 
 -- --------------------------------------------------------
 
@@ -1233,7 +1257,31 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (518, 139, 518, 81),
 (519, 139, 519, 31),
 (520, 139, 520, 28),
-(521, 139, 521, 48);
+(521, 139, 521, 48),
+(522, 140, 522, 40),
+(523, 140, 523, 40),
+(524, 140, 524, 40),
+(525, 140, 525, 20),
+(526, 141, 526, 50),
+(527, 141, 527, 50),
+(528, 141, 528, 50),
+(529, 141, 529, 50),
+(530, 142, 530, 50),
+(531, 142, 531, 50),
+(532, 142, 532, 50),
+(533, 142, 533, 50),
+(546, 146, 546, 50),
+(547, 146, 547, 50),
+(548, 146, 548, 50),
+(549, 146, 549, 50),
+(550, 147, 550, 50),
+(551, 147, 551, 50),
+(552, 147, 552, 50),
+(553, 147, 553, 50),
+(554, 148, 554, 50),
+(555, 148, 555, 50),
+(556, 148, 556, 50),
+(557, 148, 557, 50);
 
 -- --------------------------------------------------------
 
@@ -1605,7 +1653,31 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 (518, 139, 'S'),
 (519, 139, 'M'),
 (520, 139, 'L'),
-(521, 139, 'XL');
+(521, 139, 'XL'),
+(522, 140, 'S'),
+(523, 140, 'M'),
+(524, 140, 'L'),
+(525, 140, 'XL'),
+(526, 141, 'S'),
+(527, 141, 'M'),
+(528, 141, 'L'),
+(529, 141, 'XL'),
+(530, 142, 'S'),
+(531, 142, 'M'),
+(532, 142, 'L'),
+(533, 142, 'XL'),
+(546, 146, 'S'),
+(547, 146, 'M'),
+(548, 146, 'L'),
+(549, 146, 'XL'),
+(550, 147, 'S'),
+(551, 147, 'M'),
+(552, 147, 'L'),
+(553, 147, 'XL'),
+(554, 148, 'S'),
+(555, 148, 'M'),
+(556, 148, 'L'),
+(557, 148, 'XL');
 
 -- --------------------------------------------------------
 
@@ -1769,7 +1841,7 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `banner`
 --
 ALTER TABLE `banner`
-  MODIFY `BannerID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `BannerID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -1787,7 +1859,7 @@ ALTER TABLE `cartitem`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `CategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `CategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
@@ -1805,31 +1877,31 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `productimage`
 --
 ALTER TABLE `productimage`
-  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=686;
+  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=696;
 
 --
 -- AUTO_INCREMENT for table `productquantity`
 --
 ALTER TABLE `productquantity`
-  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=522;
+  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=558;
 
 --
 -- AUTO_INCREMENT for table `productsize`
 --
 ALTER TABLE `productsize`
-  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=522;
+  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=558;
 
 --
 -- AUTO_INCREMENT for table `storeinformation`

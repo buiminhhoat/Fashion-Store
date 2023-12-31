@@ -7,6 +7,7 @@ import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import arrowLeft1 from '../images/arrow_left_1.svg'
 import queryString from "query-string";
+import {MESSAGE} from "../../../../utils/const";
 
 const ProfileEditAddress = () => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const ProfileEditAddress = () => {
         toast.error(jsonResponse.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

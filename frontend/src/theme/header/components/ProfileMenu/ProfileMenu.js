@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import {useLogout} from "../../../../components/dialogs/utils/logout";
 import {toast} from "react-toastify";
+import {MESSAGE} from "../../../../utils/const";
 
 const ProfileMenu = ({openModal}) => {
   const [cookies] = useCookies(['access_token']);
@@ -55,7 +56,7 @@ const ProfileMenu = ({openModal}) => {
       setIsAdmin(data.message === "true");
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -75,7 +76,7 @@ const ProfileMenu = ({openModal}) => {
       }
 
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 

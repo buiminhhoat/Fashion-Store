@@ -6,6 +6,7 @@ import CategorySection from "./CategorySection/CategorySection";
 import CollectionSection from "./CollectionSection/CollectionSection";
 import {toast} from "react-toastify";
 import {ScrollToTop} from "../../../utils";
+import {MESSAGE} from "../../../utils/const";
 
 const HomePage = () => {
   const [collections, setCollections] = useState([]);
@@ -27,7 +28,7 @@ const HomePage = () => {
         }
       } catch (error) {
         console.log(error);
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});

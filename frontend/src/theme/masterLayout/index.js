@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {useCookies} from "react-cookie";
 import BackToTopButton from "../../components/buttons/BackToTopButton/BackToTopButton";
+import {MESSAGE} from "../../utils/const";
 
 export const CartContext = createContext(); // Exporting the context
 
@@ -42,7 +43,7 @@ const MasterLayout = ({children, ...props}) => {
             }
         } catch (error) {
             console.log(error);
-            toast.error('Không thể kết nối được với database');
+            toast.error(MESSAGE.DB_CONNECTION_ERROR);
         } finally {
             // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
             // setLoading(false);

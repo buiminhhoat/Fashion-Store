@@ -15,6 +15,7 @@ import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCatego
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
 import {Select, Tooltip} from "antd";
 import {CATEGORY, SEARCH, SEARCH_USER} from "../utils/const";
+import {MESSAGE} from "../../../../../utils/const";
 
 const ListOfProductsAndCategoriesPage  = () => {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -122,7 +123,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiUploadCategoryImageUrl);
         return;
       }
@@ -142,7 +143,7 @@ const ListOfProductsAndCategoriesPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -175,7 +176,7 @@ const ListOfProductsAndCategoriesPage  = () => {
   //     });
   //
   //     if (response.status === 404) {
-  //       toast.error("Không thể kết nối được với database");
+  //       toast.error(MESSAGE.DB_CONNECTION_ERROR);
   //       console.error('API endpoint not found:', apiGetRandom12Products);
   //       return;
   //     }
@@ -192,7 +193,7 @@ const ListOfProductsAndCategoriesPage  = () => {
   //     }
   //   } catch (error) {
   //     console.log(error);
-  //     toast.error("Không thể kết nối được với database");
+  //     toast.error(MESSAGE.DB_CONNECTION_ERROR);
   //   }
   // }
 
@@ -222,7 +223,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -240,7 +241,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiProductBySearch);
         return;
       }
@@ -257,7 +258,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -292,7 +293,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
@@ -316,7 +317,7 @@ const ListOfProductsAndCategoriesPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }
@@ -336,7 +337,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteProductUrl);
         return;
       }
@@ -365,7 +366,7 @@ const ListOfProductsAndCategoriesPage  = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   }

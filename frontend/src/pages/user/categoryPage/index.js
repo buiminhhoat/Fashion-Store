@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import fillterIcon from "./images/bars-filter.svg"
 import queryString from "query-string";
 import {ScrollToTop} from "../../../utils";
+import {MESSAGE} from "../../../utils/const";
 
 const productsData = {
   "categoryID": 2,
@@ -125,7 +126,7 @@ const CategoryPage = ({keyword}) => {
         }
       } catch (error) {
         console.log(error);
-        toast.error('Không thể kết nối được với database');
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});

@@ -5,17 +5,18 @@ import {useNavigate} from "react-router-dom";
 
 import {toast} from "react-toastify";
 
+import {PiUserListBold} from "react-icons/pi";
 import {IoSearch} from "react-icons/io5";
-import {BiSolidEdit} from "react-icons/bi";
 import {TbListSearch} from "react-icons/tb";
 import {MdLibraryAdd, MdOutlineEmail} from "react-icons/md";
 import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
 
 import {Select, Tooltip} from "antd";
-import {SEARCH_USER} from "../../productManagement/utils/const";
 
+import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import {MESSAGE} from "../../../../../utils/const";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ const AccountListPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
     }
   }
 
@@ -101,14 +102,14 @@ const AccountListPage = () => {
       });
 
       if (response.status === 404) {
-        toast.error("Không thể kết nối được với database");
+        toast.error(MESSAGE.DB_CONNECTION_ERROR);
         console.error('API endpoint not found:', apiDeleteUserUrl);
         return;
       }
 
       if (response.ok) {
         const data = await response.json();
-        toast.success("Đã xóa người dùng");
+        toast.success(MESSAGE.USER_DELETED);
         setUsersData((newUsersData) =>
             usersData.filter((user) => user.userID !== deletedUser.userID)
         );
@@ -119,7 +120,7 @@ const AccountListPage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Không thể kết nối được với database");
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
       console.error('Failed:', error);
     }
   };
@@ -221,10 +222,10 @@ const AccountListPage = () => {
 
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chi tiết người dùng</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-category"
-                                   style={{marginRight:"0"}}
+                                   style={{marginRight:"0", fontSize:"22px"}}
                                    onClick={() => {navigate(`/profile/orders?userID=${user.userID}`)}}
                               >
-                                <BiSolidEdit />
+                                <PiUserListBold  style={{marginLeft:"4px"}}/>
                               </div>
                             </Tooltip>
 
