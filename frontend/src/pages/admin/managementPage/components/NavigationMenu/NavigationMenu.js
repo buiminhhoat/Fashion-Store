@@ -16,38 +16,26 @@ function getItem(label, key, icon, children, type) {
     icon,
     children,
     label,
-    type,
+    type
   };
 }
 
 const items = [
-  // getItem('Navigation One', 'sub1', <AiTwotoneSmile />, [
-  //   getItem('Item 1', 'g1', null, [getItem('Option 1', '1'), getItem('Option 2', '2')], 'group'),
-  //   getItem('Item 2', 'g2', null, [getItem('Option 3', '3'), getItem('Option 4', '4')], 'group'),
-  // ]),
-  // getItem('Navigation Two', 'sub2', <AiTwotoneSmile />, [
-  //   getItem('Option 5', '5'),
-  //   getItem('Option 6', '6'),
-  //   getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-  // ]),
-  // {
-  //   type: 'divider',
-  // },
   getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Danh mục và sản phẩm', ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
-    getItem('Thêm sản phẩm', ROUTERS.ADMIN.ADD_PRODUCT),
+    getItem(<span style={{marginLeft: "7px"}}>Danh mục sản phẩm</span>, ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
+    getItem(<span style={{marginLeft: "7px"}}>Thêm sản phẩm</span>, ROUTERS.ADMIN.ADD_PRODUCT),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Thông tin cửa hàng',  ROUTERS.ADMIN.STORE_INFORMATION),
-    getItem('Chỉnh sửa banner',  ROUTERS.ADMIN.EDIT_BANNER),
+    getItem(<span style={{marginLeft: "7px"}}>Thông tin cửa hàng</span>,  ROUTERS.ADMIN.STORE_INFORMATION),
+    getItem(<span style={{marginLeft: "7px"}}>Chỉnh sửa banner</span>,  ROUTERS.ADMIN.EDIT_BANNER),
   ]),
   getItem('Quản lý bán hàng', 'sales-management', <RiShoppingCart2Line style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem('Danh sách đơn hàng',  ROUTERS.ADMIN.ORDER_LIST),
+    getItem(<span style={{marginLeft: "7px"}}>Danh sách đơn hàng</span>,  ROUTERS.ADMIN.ORDER_LIST),
   ]),
 
   getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
-    getItem('Danh sách người dùng',  ROUTERS.ADMIN.ACCOUNT_LIST),
-    getItem('Thêm người dùng',  ROUTERS.ADMIN.ADD_ACCOUNT)
+    getItem(<span style={{marginLeft: "7px"}}>Danh sách người dùng</span>,  ROUTERS.ADMIN.ACCOUNT_LIST),
+    getItem(<span style={{marginLeft: "7px"}}>Thêm người dùng</span>,  ROUTERS.ADMIN.ADD_ACCOUNT)
   ]),
 ];
 
