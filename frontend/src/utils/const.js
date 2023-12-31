@@ -24,5 +24,7 @@ export const MESSAGE = {
   MISSING_PRODUCT_CATEGORY: "Vui lòng chọn danh mục sản phẩm",
   MISSING_PRODUCT_DESCRIPTION: "Vui lòng nhập mô tả sản phẩm",
   MISSING_CATEGORY_NAME: "Tên danh mục không được để trống",
-  CATEGORY_NAME_INVALID: "Tên danh mục phải bắt đầu bằng một chữ cái"
+  CATEGORY_NAME_INVALID: "Tên danh mục phải bắt đầu bằng một chữ cái",
+  EDIT_PRODUCT_SUCCESS: "Chỉnh sửa thông tin sản phẩm thành công",
+  INSUFFICIENT_QUANTITY: "Số lượng sẵn có không đủ!",
 }

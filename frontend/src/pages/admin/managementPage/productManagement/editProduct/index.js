@@ -107,15 +107,13 @@ const EditProductPage = () => {
       return response.json();
     })
     .then((data) => {
-      toast.success("Chỉnh sửa thông tin sản phẩm thành công");
-      // console.log('Upload successful:', data);
+      toast.success(MESSAGE.EDIT_PRODUCT_SUCCESS);
       navigate(`/admin/management-page/categories-and-products`, {
         state: { scrolling: SCROLLING.SMOOTH },
       });
     })
     .catch((error) => {
       toast.error(MESSAGE.GENERIC_ERROR);
-      // console.error('Upload failed:', error);
     });
   }
 

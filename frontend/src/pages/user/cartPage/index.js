@@ -87,7 +87,7 @@ function CartPage() {
             // Có thể hiển thị thông báo lỗi cho người dùng ở đây
           });
     } else {
-      toast.warn('Số lượng sẵn có không đủ!');
+      toast.warn(MESSAGE.INSUFFICIENT_QUANTITY);
     }
   };
 
