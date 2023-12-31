@@ -8,17 +8,25 @@ export function useLogout() {
     const [, , removeRefreshTokenCookie] = useCookies(['refresh_token']);
 
     const logout = async () => {
-        // navigate('/');
-        console.log('Access Token:', document.cookie);
+        // Xóa cookies
         removeAccessTokenCookie('access_token');
         removeRefreshTokenCookie('refresh_token');
 
-        // Redirect về trang chính của bạn (localhost:3000)
-        // window.location.href = '/';
-        navigate('/');
-        // history.replace('/');
+        // Xóa cache
+        await caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames.filter(function(cacheName) {
+                    return cacheName.startsWith('your-cache-prefix-');
+                }).map(function(cacheName) {
+                    return caches.delete(cacheName);
+                })
+            );
+        });
 
+        // Redirect về trang chính của bạn (localhost:3000)
+        navigate('/');
     };
+
 
     return logout;
 }
