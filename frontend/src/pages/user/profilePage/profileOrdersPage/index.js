@@ -225,6 +225,16 @@ const TabContent = ({openTab, setOpenTab}) => {
                               button={{
                                 style: { width: 70, margin: 4 },
                               }}
+                              theme={{
+                                components: {
+                                  Button: {
+                                    colorPrimary: '#bd0000',
+                                    colorPrimaryHover: '#dc3636',
+                                    colorPrimaryActive: '#b20a0a',
+                                    primaryShadow: '0 2px 0 #ffe6e6',
+                                  },
+                                },
+                              }}
                           >
                             <Popconfirm
                                 placement="top"
