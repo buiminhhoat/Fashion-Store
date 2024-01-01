@@ -19,7 +19,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const getAddresses = () => {
     const formData = new FormData();
     formData.append('userID', userID);
-    console.log("userID = " + userID);
+    // console.log("userID = " + userID);
     try {
       fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
         method: "POST",
@@ -30,7 +30,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
       })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (selectedAddress.addressID === undefined && data.length !== 0) {
               setSelectedAddress(data.find((address) => {return address.isDefault === true}));
             }

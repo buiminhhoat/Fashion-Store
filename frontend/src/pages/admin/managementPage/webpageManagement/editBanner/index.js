@@ -41,7 +41,7 @@ const EditBannerPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         const fetchImagePromises = data.map(imageData => {
           const imageUrl = imageData.imagePath;
@@ -108,7 +108,7 @@ const EditBannerPage = () => {
       });
     }
 
-    console.log(newBanners);
+    // console.log(newBanners);
     formData.append('banners', JSON.stringify(newBanners));
 
     try {

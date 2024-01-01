@@ -156,8 +156,8 @@ const CategorySection = () => {
         // Gọi hàm flattenCategories với mảng gốc chứa categories
         flattenCategories(data);
 
-        console.log(allSubCategories);
-        console.log(productCategories);
+        // console.log(allSubCategories);
+        // console.log(productCategories);
 
         setCategoryItem(allSubCategories);
       } else {

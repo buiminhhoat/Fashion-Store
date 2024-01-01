@@ -254,7 +254,7 @@ function CartPage() {
           }
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
         })
         .catch((error) => {
           console.error('Lỗi:', error);
@@ -293,7 +293,7 @@ function CartPage() {
         const updatedProduct = await Promise.all(productPromises);
         setProduct(updatedProduct);
         setNumberProduct(updatedProduct.length);
-        console.log(updatedProduct)
+        // console.log(updatedProduct)
       } else {
         const data = await response.json();
         console.log(data.message);

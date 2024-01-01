@@ -46,7 +46,7 @@ const AccountListPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         const fetchImagePromises = data.map(item => {
           if (!item.avatarPath) {
@@ -90,9 +90,8 @@ const AccountListPage = () => {
     const formData = new FormData();
     formData.append('userID', deletedUser.userID);
 
-    let apiDeleteUserUrl = "/api/admin/delete-user";
     try {
-      const response = await fetch(apiDeleteUserUrl, {
+      const response = await fetch(API.ADMIN.DELETE_USER_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -102,7 +101,6 @@ const AccountListPage = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiDeleteUserUrl);
         return;
       }
 
@@ -124,7 +122,7 @@ const AccountListPage = () => {
     }
   };
 
-  const handleBtnSearchClick = () => {
+  const handleSearchInputChange = () => {
     if (!searchInputValue || searchInputValue === "") {
       setUsersData((newUsers) =>
           usersData.map((user) => { return { ...user, isShow: true }; })
@@ -165,6 +163,11 @@ const AccountListPage = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    handleSearchInputChange();
+  }, [searchInputValue]);
+
 
   const ListUserSection = () => {
     return (
@@ -296,9 +299,7 @@ const AccountListPage = () => {
                           placeholder="Nhập từ khóa"
                           onChange={(e) => setSearchInputValue(e.target.value)}
                       />
-                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}
-                                onClick={handleBtnSearchClick}
-                                className="pointer-cursor"/>
+                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}/>
                     </div>
                   </div>
 

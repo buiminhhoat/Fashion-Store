@@ -159,7 +159,7 @@ const TabContent = ({openTab, setOpenTab}) => {
     })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           getData();
         })
         .catch((error) => {

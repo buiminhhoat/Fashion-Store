@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.6975ae92.css",
-    "main.js": "/static/js/main.b34fdada.js",
+    "main.js": "/static/js/main.1205f960.js",
     "static/js/787.44c26954.chunk.js": "/static/js/787.44c26954.chunk.js",
     "static/media/logo_fashion_store.png": "/static/media/logo_fashion_store.5797645c055ae9386184.png",
     "static/media/forgot-password.jpg": "/static/media/forgot-password.767a2d19a846baf55738.jpg",
@@ -30,18 +30,18 @@
     "static/media/address.svg": "/static/media/address.995c4f8bb4120c465dbd0a49136c5e21.svg",
     "static/media/edit.svg": "/static/media/edit.825646683d6761ddd3371978b6ab5cef.svg",
     "static/media/mail.svg": "/static/media/mail.e5f47d2750afe043ab511937dfdcd739.svg",
-    "index.html": "/index.html",
     "static/media/fb.svg": "/static/media/fb.7764d40ea643cf12d7326a213cac3b76.svg",
+    "index.html": "/index.html",
     "static/media/location-dot.svg": "/static/media/location-dot.9fcc68a135ba28df99254bb5259d14c4.svg",
     "static/media/card.svg": "/static/media/card.79c6c21d949cd294c8769e42311519ca.svg",
     "static/media/unlocked.svg": "/static/media/unlocked.446d7940bb94b6e3a7a962997ef85ba7.svg",
     "static/media/plus.svg": "/static/media/plus.f2715396a53c70b447cc8e205d4241d2.svg",
     "main.6975ae92.css.map": "/static/css/main.6975ae92.css.map",
-    "main.b34fdada.js.map": "/static/js/main.b34fdada.js.map",
+    "main.1205f960.js.map": "/static/js/main.1205f960.js.map",
     "787.44c26954.chunk.js.map": "/static/js/787.44c26954.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6975ae92.css",
-    "static/js/main.b34fdada.js"
+    "static/js/main.1205f960.js"
   ]
 }

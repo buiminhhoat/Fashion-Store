@@ -37,7 +37,7 @@ import {API, MESSAGE} from "../../../utils/const";
 //     "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
 //   }
 // ]
-const NUMBER_PRODUCT = 6;
+const NUMBER_PRODUCT = 8;
 
 const SORT = {
   ASC: "1",
@@ -57,7 +57,7 @@ const SearchProductPage = () => {
 
 
   useEffect(() => {
-    console.log(apiProductBySearch);
+    // console.log(apiProductBySearch);
     const fetchData = async () => {
       try {
         const response = await fetch(apiProductBySearch, {
@@ -93,7 +93,7 @@ const SearchProductPage = () => {
   // });
 
   const filteredProductsData = productsData;
-  console.log(filteredProductsData)
+  // console.log(filteredProductsData)
   const hasResult = filteredProductsData.length > 0;
 
   const handleSelectChange = (event) => {

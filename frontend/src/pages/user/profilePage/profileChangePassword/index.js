@@ -60,7 +60,7 @@ const ProfileChangePassword = () => {
       else {
         response.text().then(data => {
           toast.success(data);
-          console.log(data);
+          // console.log(data);
         });
       }
     } catch (error) {

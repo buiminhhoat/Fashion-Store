@@ -57,8 +57,8 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiGetCategory");
-        console.log(data);
+        // console.log("apiGetCategory");
+        // console.log(data);
 
         let newData = data.map(category => ({
           ...category,
@@ -111,9 +111,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     formData.append('categoryID', categoryID);
     formData.append('categoryImage', imageFile);
 
-    let apiUploadCategoryImageUrl = "/api/admin/upload-category-image";
     try {
-      const response = await fetch(apiUploadCategoryImageUrl, {
+      const response = await fetch(API.ADMIN.UPLOAD_CATEGORY_IMAGE_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -123,14 +122,13 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiUploadCategoryImageUrl);
         return;
       }
 
       if (response.ok) {
         const data = await response.json();
         toast.success(data.message);
-        console.log('Upload successful:', data);
+        // console.log('Upload successful:', data);
 
         const newCategoriesImgID = categoriesImgID.map(imgID => {
           return (imgID.categoryID === categoryID ? { ...imgID, imageFile: imageFile, imageURL: URL.createObjectURL(imageFile) } : imgID);
@@ -162,7 +160,7 @@ const ListOfProductsAndCategoriesPage  = () => {
     const file = e.target.files[0];
     if (file) {
       changeImageCategory(file, categoryID).then(r => {});
-      console.log('Đã chọn file:', file);
+      // console.log('Đã chọn file:', file);
     }
   };
 
@@ -175,8 +173,8 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiProductByCategoryID");
-        console.log(data);
+        // console.log("apiProductByCategoryID");
+        // console.log(data);
         setCategories((newCategories) =>
             newCategories.map((category) => ({
               ...category,
@@ -198,10 +196,10 @@ const ListOfProductsAndCategoriesPage  = () => {
 
   const fetchProductDataBySearch = async (encodedSearchString) => {
     const decodedSearchString = decodeURIComponent(encodedSearchString);
-    // if (decodedSearchString === "") {
-    //   fetchRandom12Products().then(r => {});
-    //   return;
-    // }
+    if (decodedSearchString === "") {
+      setProductsData([]);
+      return;
+    }
     const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + decodedSearchString;
 
     try {
@@ -217,8 +215,8 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiProductBySearch");
-        console.log(data);
+        // console.log("apiProductBySearch");
+        // console.log(data);
         setProductsData(data);
 
       } else {
@@ -249,11 +247,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     const formData = new FormData();
     formData.append('categoryID', deletedCategory.categoryID);
 
-    console.log("deletedCategory.categoryID");
-    console.log(deletedCategory.categoryID);
-    let apiDeleteCategoryUrl = "/api/admin/delete-category";
     try {
-      const response = await fetch(apiDeleteCategoryUrl, {
+      const response = await fetch(API.ADMIN.DELETE_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -263,7 +258,6 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
 
@@ -279,8 +273,6 @@ const ListOfProductsAndCategoriesPage  = () => {
             })).filter((category) => category.categoryID !== deletedCategory.categoryID)
         );
         setDeletedCategory(null);
-
-        // fetchData();
       } else {
         const data = await response.json();
         toast.error(data.message);
@@ -295,9 +287,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     const formData = new FormData();
     formData.append('productID', deletedProduct.productID);
 
-    let apiDeleteProductUrl = "/api/admin/delete-product";
     try {
-      const response = await fetch(apiDeleteProductUrl, {
+      const response = await fetch(API.ADMIN.DELETE_PRODUCT_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -307,7 +298,6 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiDeleteProductUrl);
         return;
       }
 
@@ -372,9 +362,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     fetchData().then(r => {});
   };
 
-  const handleBtnSearchClick = () => {
+  const handleSearchInputChange = () => {
     setSelectedCategoriesID([]);
-
     switch (selectedSearch) {
       case SEARCH.CATEGORY:
         fetchData().then(r => {
@@ -403,6 +392,10 @@ const ListOfProductsAndCategoriesPage  = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    handleSearchInputChange();
+  }, [searchInputValue]);
 
   const handleBtnAddCategoryClick = (e, parentCategoryID) => {
     e.stopPropagation();
@@ -805,11 +798,11 @@ const ListOfProductsAndCategoriesPage  = () => {
                           type="text"
                           value={searchInputValue}
                           placeholder="Nhập từ khóa"
-                          onChange={(e) => setSearchInputValue(e.target.value)}
+                          onChange={(e) => {
+                            setSearchInputValue(e.target.value);
+                          }}
                       />
-                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}
-                                onClick={handleBtnSearchClick}
-                                className="pointer-cursor"/>
+                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}/>
                     </div>
                   </div>
 

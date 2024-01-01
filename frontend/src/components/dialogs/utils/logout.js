@@ -1,32 +1,32 @@
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-// import { useHistory } from "react-router-dom";
+import {useCookies} from "react-cookie";
+import {useNavigate} from "react-router-dom";
 
 export function useLogout() {
     const navigate = useNavigate();
-    const [, , removeAccessTokenCookie] = useCookies(['access_token']);
-    const [, , removeRefreshTokenCookie] = useCookies(['refresh_token']);
+    const [cookies, , removeCookie] = useCookies();
 
-    const logout = async () => {
-        // Xóa cookies
-        removeAccessTokenCookie('access_token');
-        removeRefreshTokenCookie('refresh_token');
+    return async () => {
+        try {
+            // Xóa tất cả các cookies
+            const cookieNames = Object.keys(cookies);
+            for (const cookieName of cookieNames) {
+                await removeCookie(cookieName, {path: '/'});
+            }
 
-        // Xóa cache
-        await caches.keys().then(function(cacheNames) {
-            return Promise.all(
-                cacheNames.filter(function(cacheName) {
-                    return cacheName.startsWith('your-cache-prefix-');
-                }).map(function(cacheName) {
-                    return caches.delete(cacheName);
-                })
-            );
-        });
+            // Xóa toàn bộ caches
+            if ('caches' in window) {
+                const cacheNames = await caches.keys();
+                await Promise.all(
+                    cacheNames.map(async function (cacheName) {
+                        return await caches.delete(cacheName);
+                    })
+                );
+            }
 
-        // Redirect về trang chính của bạn (localhost:3000)
-        navigate('/');
+            // Redirect về trang chính của bạn (localhost:3000)
+            navigate('/');
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
     };
-
-
-    return logout;
 }

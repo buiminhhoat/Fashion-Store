@@ -22,20 +22,21 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
   getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{marginLeft: "7px"}}>Danh mục sản phẩm</span>, ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
-    getItem(<span style={{marginLeft: "7px"}}>Thêm sản phẩm</span>, ROUTERS.ADMIN.ADD_PRODUCT),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Danh mục sản phẩm</span>, ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Thêm sản phẩm</span>, ROUTERS.ADMIN.ADD_PRODUCT),
   ]),
   getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{marginLeft: "7px"}}>Thông tin cửa hàng</span>,  ROUTERS.ADMIN.STORE_INFORMATION),
-    getItem(<span style={{marginLeft: "7px"}}>Chỉnh sửa banner</span>,  ROUTERS.ADMIN.EDIT_BANNER),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Thông tin cửa hàng</span>,  ROUTERS.ADMIN.STORE_INFORMATION),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Chỉnh sửa banner</span>,  ROUTERS.ADMIN.EDIT_BANNER),
   ]),
   getItem('Quản lý bán hàng', 'sales-management', <RiShoppingCart2Line style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{marginLeft: "7px"}}>Danh sách đơn hàng</span>,  ROUTERS.ADMIN.ORDER_LIST),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Danh sách đơn hàng</span>,  ROUTERS.ADMIN.ORDER_LIST),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Thống kê sản phẩm đã bán</span>,  ROUTERS.ADMIN.SALES_PRODUCT_QUANTITY_STATISTICS),
   ]),
 
   getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{marginLeft: "7px"}}>Danh sách người dùng</span>,  ROUTERS.ADMIN.ACCOUNT_LIST),
-    getItem(<span style={{marginLeft: "7px"}}>Thêm người dùng</span>,  ROUTERS.ADMIN.ADD_ACCOUNT)
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Danh sách người dùng</span>,  ROUTERS.ADMIN.ACCOUNT_LIST),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>Thêm người dùng</span>,  ROUTERS.ADMIN.ADD_ACCOUNT)
   ]),
 ];
 

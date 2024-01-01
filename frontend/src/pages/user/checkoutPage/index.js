@@ -81,8 +81,11 @@ const CheckoutPage = () => {
   }
 
   const handlePurchase = async () => {
-    if (selectedAddress.addressID === undefined) {
-      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+    if (accessToken === undefined) {
+      toast.warn(MESSAGE.PLEASE_LOGIN);
+      return;
+    } else if (selectedAddress.addressID === undefined) {
+      toast.warn(MESSAGE.MISSING_DELIVERY_ADDRESS);
       return;
     }
 
@@ -103,12 +106,12 @@ const CheckoutPage = () => {
 
   const checkQuantity = () => {
     let stockQuantity = new_product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity;
-    console.log("check");
-    console.log(stockQuantity);
+    // console.log("check");
+    // console.log(stockQuantity);
     if (stockQuantity < amount) {
       setAmount(stockQuantity);
       return true;
-      console.log("cuu");
+      // console.log("cuu");
     }
   }
   const makeOrder = () => {
@@ -129,14 +132,14 @@ const CheckoutPage = () => {
         .then((response) => {
           if (response.ok) {
             toast.success("Đặt hàng thành công!");
-            // navigateOrdersWithUserID().then(r => {});
+            navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
             throw new Error('Lỗi khi đặt hàng.');
           }
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
         })
         .catch((error) => {
           console.error('Lỗi:', error);
@@ -151,11 +154,11 @@ const CheckoutPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setProduct(data);
         new_product = data;
-        console.log("fecth");
-        console.log(product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity);
+        // console.log("fecth");
+        // console.log(product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity);
       } else {
         const data = await response.json();
         toast.error(data.message);
@@ -325,7 +328,7 @@ const CheckoutPage = () => {
                         </div>
                         <span onClick={handlePurchase}>
                                             <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
-                                                <span className="text-checkout">Thanh toán:  {formatter(product.productPrice * amount)} <span>COD</span></span>
+                                                <span className="text-checkout">Đặt hàng:  {formatter(product.productPrice * amount)} <span>COD</span></span>
                                             </button>
                             </span>
                       </div>

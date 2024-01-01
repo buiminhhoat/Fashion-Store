@@ -9,6 +9,7 @@ import AccountListPage from "./accountManagement/accountList";
 import AddAccountPage from "./accountManagement/addAccount";
 import OrderListPage from "./salesManagement/orderList";
 import StoreInformationPage from "./webpageManagement/storeInformation";
+import SalesProductQuantityStatisticsPage from "./salesManagement/salesProductQuantityStatistics";
 
 const renderCustom = () => {
     const routers =  [
@@ -43,6 +44,10 @@ const renderCustom = () => {
         {
             path: ROUTERS.ADMIN.STORE_INFORMATION,
             component: <StoreInformationPage />
+        },
+        {
+            path: ROUTERS.ADMIN.SALES_PRODUCT_QUANTITY_STATISTICS,
+            component: <SalesProductQuantityStatisticsPage />
         }
     ]
 

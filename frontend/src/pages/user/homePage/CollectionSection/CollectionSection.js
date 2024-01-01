@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 const CollectionSection = ({collectionData}) => {
   // State để theo dõi tab đang được chọn
   const [activeTab, setActiveTab] = useState(null);
+  const NUMBER_PRODUCT = 8;
 
   // Hàm để chuyển tab
   const changeTab = (tabId) => {
@@ -48,7 +49,7 @@ const CollectionSection = ({collectionData}) => {
                     (collectionData.subCategories.find((subCategory) => subCategory.categoryID === activeTab) ?
                     collectionData.subCategories.find((subCategory) => subCategory.categoryID === activeTab) :
                     collectionData.subCategories[0])
-                        .products.map((product, index) => (<ProductItem key={index} product={product} />))
+                        .products.slice(0,NUMBER_PRODUCT).map((product, index) => (<ProductItem key={index} product={product} />))
                 )
                 :
                 (

@@ -90,10 +90,7 @@ const EditProductPage = () => {
     formData.append('productSizes', JSON.stringify(informationProduct.productSizes));
     formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
 
-    // formData.append('productSizeQuantity', JSON.stringify(productSizeQuantity));
-
-    let apiAddProductUrl = "/api/admin/edit-product";
-    fetch(apiAddProductUrl, {
+    fetch(API.ADMIN.EDIT_PRODUCT_ENDPOINT, {
       method: 'POST',
       body: formData,
       headers: {

@@ -62,6 +62,10 @@ const ProductDetailPage = () => {
   }
 
   const handleBuyNow = (newOrder) => {
+    if (accessToken === undefined) {
+      toast.warn(MESSAGE.PLEASE_LOGIN);
+      return;
+    }
     const orderDetails = {
       accessToken: accessToken,
       productID: informationProduct.productID,
@@ -80,7 +84,7 @@ const ProductDetailPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           setInformationProduct(data);
         } else {
           const data = await response.json();
