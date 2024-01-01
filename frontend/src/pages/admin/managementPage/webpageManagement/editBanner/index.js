@@ -41,7 +41,7 @@ const EditBannerPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         const fetchImagePromises = data.map(imageData => {
           const imageUrl = imageData.imagePath;

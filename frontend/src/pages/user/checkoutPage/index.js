@@ -107,7 +107,7 @@ const CheckoutPage = () => {
   const checkQuantity = () => {
     let stockQuantity = new_product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity;
     // console.log("check");
-    console.log(stockQuantity);
+    // console.log(stockQuantity);
     if (stockQuantity < amount) {
       setAmount(stockQuantity);
       return true;
@@ -139,7 +139,7 @@ const CheckoutPage = () => {
           }
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
         })
         .catch((error) => {
           console.error('Lỗi:', error);
@@ -154,7 +154,7 @@ const CheckoutPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setProduct(data);
         new_product = data;
         // console.log("fecth");

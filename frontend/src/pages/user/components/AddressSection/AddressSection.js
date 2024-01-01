@@ -30,7 +30,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
       })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (selectedAddress.addressID === undefined && data.length !== 0) {
               setSelectedAddress(data.find((address) => {return address.isDefault === true}));
             }

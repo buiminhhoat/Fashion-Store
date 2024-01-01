@@ -57,8 +57,8 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiGetCategory");
-        console.log(data);
+        // console.log("apiGetCategory");
+        // console.log(data);
 
         let newData = data.map(category => ({
           ...category,
@@ -173,8 +173,8 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiProductByCategoryID");
-        console.log(data);
+        // console.log("apiProductByCategoryID");
+        // console.log(data);
         setCategories((newCategories) =>
             newCategories.map((category) => ({
               ...category,
@@ -215,8 +215,8 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiProductBySearch");
-        console.log(data);
+        // console.log("apiProductBySearch");
+        // console.log(data);
         setProductsData(data);
 
       } else {

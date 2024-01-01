@@ -266,7 +266,7 @@ const OrderListPage = () => {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setOrderList([data]);
       } else {
         const data = await response.json();
@@ -340,7 +340,7 @@ const OrderListPage = () => {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setOrderList(data);
       } else {
         const data = await response.json();
