@@ -24,7 +24,7 @@ import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import viLocale from 'dayjs/locale/vi';
-import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, DATE_PICKER, MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const { RangePicker } = DatePicker;
 
@@ -234,8 +234,8 @@ const OrderListPage = () => {
     if (!dates) {
       return false;
     }
-    const tooLate = dates[0] && current.diff(dates[0], 'days') >= 7;
-    const tooEarly = dates[1] && dates[1].diff(current, 'days') >= 7;
+    const tooLate = dates[0] && current.diff(dates[0], 'days') >= DATE_PICKER.MAX_DAY_DISTANCE;
+    const tooEarly = dates[1] && dates[1].diff(current, 'days') >= DATE_PICKER.MAX_DAY_DISTANCE;
     return !!tooEarly || !!tooLate;
   };
 
@@ -435,11 +435,37 @@ const OrderListPage = () => {
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                   <div style={{display:"flex", alignItems:"center", height:"35px", width:"400px"}}>
                     { selectedSearch === OPTION_SEARCH[0].value &&
-                        <ConfigProvider locale={locale}>
+                        <ConfigProvider
+                            locale={locale}
+                            theme={{
+                              components: {
+                                DatePicker: {
+                                  hoverBorderColor: '#B7B7B7',
+                                  activeBorderColor: '#d98c8c',
+                                  colorPrimary: '#c94a4a',
+                                  colorPrimaryBorder: '#d98c8c',
+                                  controlItemBgActive: '#ffe6e6',
+                                  activeShadow: 'none',
+                                  colorBorder: '#E5E5E5',
+                                  borderRadius:'3px',
+                                  fontSize:'14',
+                                  fontSizeLG:'14',
+                                  colorTextPlaceholder:'#B7B7B7',
+                                },
+                                Button: {
+                                  colorPrimary: '#bd0000',
+                                  colorPrimaryHover: '#dc3636',
+                                  colorPrimaryActive: '#b20a0a',
+                                  primaryShadow: '0 2px 0 #ffe6e6',
+                                },
+                              },
+                            }}
+                        >
                           <RangePicker
                               value={dates || value}
                               format="DD-MM-YYYY"
                               size="large"
+                              style={{ width: "100%", height:"100%" }}
                               disabledDate={disabledDate}
                               onCalendarChange={(val) => {
                                 setDates(val);

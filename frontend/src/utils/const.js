@@ -1,3 +1,7 @@
+export const DATE_PICKER = {
+  MAX_DAY_DISTANCE: 20,
+}
+
 export const SCROLLING = {
   NORMAL: "normal",
   SMOOTH : "smooth",
