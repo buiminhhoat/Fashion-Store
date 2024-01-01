@@ -38,7 +38,7 @@ const ProfileEditAddress = () => {
       })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             setAddress(data);
             setRecipientName(data.recipientName);
             setRecipientPhone(data.recipientPhone);
