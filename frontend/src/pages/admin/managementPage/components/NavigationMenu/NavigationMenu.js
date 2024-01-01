@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './style.scss'
 
-import { Menu } from 'antd';
+import {ConfigProvider, Menu} from 'antd';
 import {AiOutlineShop} from "react-icons/ai";
 import {TbShoppingBag} from "react-icons/tb";
 import {FaRegUser} from "react-icons/fa";
@@ -83,23 +83,38 @@ const NavigationMenu = () => {
   }
 
   return (
-      <Menu
-          onClick={(e) => onClick(e)}
-          onOpenChange={(e) => onOpenChange(e)}
-          style={{
-            width: 300,
-            marginTop:20,
-            marginBottom:15,
-            fontWeight:600,
+      <ConfigProvider
+          theme={{
+            components: {
+              Menu: {
+                horizontalItemSelectedColor: '#bd0000',
+                horizontalItemSelectedBg: '#bd0000',
+                itemSelectedColor: '#bd0000',
+                itemActiveBg: '#fbe9e9',
+                itemSelectedBg: '#ffdada',
+              },
+            },
           }}
-          selectedKeys={selectedKeys}
-          // defaultSelectedKeys={[pageName]}
-          // openKeys={[findParentKey(pageName)]}
-          // openKeys={openKeys}
-          openKeys={openKeys}
-          mode="inline"
-          items={items}
-      />
+      >
+        <Menu
+            onClick={(e) => onClick(e)}
+            onOpenChange={(e) => onOpenChange(e)}
+            style={{
+              width: 300,
+              marginTop:20,
+              marginBottom:15,
+              fontWeight:600,
+            }}
+            selectedKeys={selectedKeys}
+            // defaultSelectedKeys={[pageName]}
+            // openKeys={[findParentKey(pageName)]}
+            // openKeys={openKeys}
+            openKeys={openKeys}
+            mode="inline"
+            items={items}
+        />
+      </ConfigProvider>
+
   );
 }
 
