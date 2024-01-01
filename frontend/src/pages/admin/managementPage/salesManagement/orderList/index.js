@@ -92,7 +92,7 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
                                }}
                           >
                             {order.fullName}
-                            <div style={{marginLeft:"5px", border:"1px solid #D9D9D9", borderRadius:"100%"}}>
+                            <div style={{marginLeft:"10px", border:"1px solid #F5F5F5", borderRadius:"100%"}}>
                               <img
                                   className="img-avatar"
                                   src={order.avatarPath ? order.avatarPath :
