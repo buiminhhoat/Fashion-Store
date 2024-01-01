@@ -37,8 +37,6 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final UsersRepository usersRepository;
 
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
-
     private String LOGIN_FAILED;
 
     @Value("${response.token.access}")
@@ -50,9 +48,6 @@ public class AuthController {
     private final String LOGIN_SUCCESS;
 
     private final String RESPONSE_ERROR;
-
-    @Value("${endpoint.public.login}")
-    private String ENDPOINT_LOGIN;
 
     @Value("${endpoint.google.token-info}")
     private String ENDPOINT_GOOGLE_TOKEN_INFO;

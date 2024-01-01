@@ -45,11 +45,6 @@ public class OrdersController {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
 
-    private final String appRoot = System.getProperty("user.dir") + File.separator;
-
-    @Value("${upload_image.dir}")
-    String UPLOAD_DIR;
-
     private final String ORDER_STATUS_PENDING;
 
     private final String ORDER_STATUS_CANCELLED;
