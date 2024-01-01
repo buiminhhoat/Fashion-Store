@@ -128,7 +128,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       if (response.ok) {
         const data = await response.json();
         toast.success(data.message);
-        console.log('Upload successful:', data);
+        // console.log('Upload successful:', data);
 
         const newCategoriesImgID = categoriesImgID.map(imgID => {
           return (imgID.categoryID === categoryID ? { ...imgID, imageFile: imageFile, imageURL: URL.createObjectURL(imageFile) } : imgID);
@@ -160,7 +160,7 @@ const ListOfProductsAndCategoriesPage  = () => {
     const file = e.target.files[0];
     if (file) {
       changeImageCategory(file, categoryID).then(r => {});
-      console.log('Đã chọn file:', file);
+      // console.log('Đã chọn file:', file);
     }
   };
 

@@ -19,7 +19,7 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const getAddresses = () => {
     const formData = new FormData();
     formData.append('userID', userID);
-    console.log("userID = " + userID);
+    // console.log("userID = " + userID);
     try {
       fetch(API.PUBLIC.GET_ALL_ADDRESSES_ENDPOINT, {
         method: "POST",

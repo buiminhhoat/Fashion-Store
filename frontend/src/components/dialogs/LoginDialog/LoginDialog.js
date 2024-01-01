@@ -30,6 +30,9 @@ const LoginDialog = ({ onClose, onSwitch }) => {
     formData.append('email', email);
     formData.append('password', password);
 
+    // console.log(email);
+    // console.log(password);
+
     const loadingIcon = document.getElementById("loading-login");
     loadingIcon.style.display = "inline";
 
