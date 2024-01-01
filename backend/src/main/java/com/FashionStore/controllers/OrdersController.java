@@ -435,6 +435,9 @@ public class OrdersController {
     public Orders getOrderDetails(Long orderID) {
         Orders orders = ordersRepository.findOrdersByOrderID(orderID);
         orders.setOrderDetails(orderDetailsRepository.findOrderDetailsByOrderID(orderID));
+        for (OrderDetails orderDetails: orders.getOrderDetails()) {
+            orderDetails.setSizeName(productSizeRepository.findProductSizeBySizeID(orderDetails.getSizeID()).getSizeName());
+        }
         Users users = usersRepository.findUsersByUserID(orders.getUserID());
         orders.setFullName(users.getFullName());
         orders.setAvatarPath(users.getAvatarPath());
