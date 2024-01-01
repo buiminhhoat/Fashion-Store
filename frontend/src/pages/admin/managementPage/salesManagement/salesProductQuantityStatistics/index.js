@@ -13,6 +13,7 @@ const SalesProductQuantityStatisticsPage  = () => {
   const fetchProductDataBySearch = async (encodedSearchString) => {
     const decodedSearchString = decodeURIComponent(encodedSearchString);
     if (!decodedSearchString) {
+      setProductsData([]);
       return;
     }
 

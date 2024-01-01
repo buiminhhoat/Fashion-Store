@@ -196,10 +196,10 @@ const ListOfProductsAndCategoriesPage  = () => {
 
   const fetchProductDataBySearch = async (encodedSearchString) => {
     const decodedSearchString = decodeURIComponent(encodedSearchString);
-    // if (decodedSearchString === "") {
-    //   fetchRandom12Products().then(r => {});
-    //   return;
-    // }
+    if (decodedSearchString === "") {
+      setProductsData([]);
+      return;
+    }
     const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + decodedSearchString;
 
     try {
@@ -362,9 +362,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     fetchData().then(r => {});
   };
 
-  const handleBtnSearchClick = () => {
+  const handleSearchInputChange = () => {
     setSelectedCategoriesID([]);
-
     switch (selectedSearch) {
       case SEARCH.CATEGORY:
         fetchData().then(r => {
@@ -393,6 +392,10 @@ const ListOfProductsAndCategoriesPage  = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    handleSearchInputChange();
+  }, [searchInputValue]);
 
   const handleBtnAddCategoryClick = (e, parentCategoryID) => {
     e.stopPropagation();
@@ -795,11 +798,11 @@ const ListOfProductsAndCategoriesPage  = () => {
                           type="text"
                           value={searchInputValue}
                           placeholder="Nhập từ khóa"
-                          onChange={(e) => setSearchInputValue(e.target.value)}
+                          onChange={(e) => {
+                            setSearchInputValue(e.target.value);
+                          }}
                       />
-                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}
-                                onClick={handleBtnSearchClick}
-                                className="pointer-cursor"/>
+                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}/>
                     </div>
                   </div>
 
