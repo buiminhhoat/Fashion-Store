@@ -107,9 +107,9 @@ const AddProductPage = () => {
     })
     .then((data) => {
       toast.success(MESSAGE.ADD_PRODUCT_SUCCESS);
-      navigate(`/admin/management-page/categories-and-products`, {
-        state: { scrolling: SCROLLING.SMOOTH },
-      });
+      // navigate(`/admin/management-page/categories-and-products`, {
+      //   state: { scrolling: SCROLLING.SMOOTH },
+      // });
 
 
       // console.log('Upload successful:', data);

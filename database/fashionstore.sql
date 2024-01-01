@@ -10,7 +10,6 @@ DROP DATABASE fashionstore;
 CREATE DATABASE fashionstore;
 USE fashionstore;
 
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -288,7 +287,11 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescr
 (146, 'Quần lót nam Modal Air  dáng Trunk', 96000, 'Quần lót nam Modal Air được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
 (147, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk', 96000, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
 (148, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunk', 96000, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunkđược ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
-(149, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung', 329000, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung là item trẻ trung, mới mẻ mà các anh chắc chắn cần có trong tủ đồ của mùa hè. Kiểu dáng Slim fit vừa vặn, tôn dáng mà không quá ôm sát tạo cảm giác gò bó với người mặc. Cổ áo được dệt bo bền đẹp, giữ phom tốt. Điểm nhấn của thiết kế này nằm ở màu in loang chuyển màu độc đáo, hút mắt với bảng màu đa dạng. \r\n\r\nChất vải Cotton USA được biết đến là loại vải có cấu trúc sợi dai và dài vượt trội. Chất liệu này đã hoàn thiện được những ưu điểm có sẵn của cotton truyền thống. Độ thấm hút cao, chịu nhiệt tốt, giữ màu sắc bền đẹp; đồng thời khắc phục hầu hết nhược điểm cũ như: co rút, dễ nhăn, xù, bạc màu. Kết hợp với Spandex giúp sản phẩm có độ đàn hồi tốt, người mặc sẽ thoải mái vận động. Vải thành phẩm được xử lý qua công nghệ Wash giúp bề mặt mềm hơn, độ cầm màu tốt hơn & giảm độ co rút.');
+(149, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung', 329000, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung là item trẻ trung, mới mẻ mà các anh chắc chắn cần có trong tủ đồ của mùa hè. Kiểu dáng Slim fit vừa vặn, tôn dáng mà không quá ôm sát tạo cảm giác gò bó với người mặc. Cổ áo được dệt bo bền đẹp, giữ phom tốt. Điểm nhấn của thiết kế này nằm ở màu in loang chuyển màu độc đáo, hút mắt với bảng màu đa dạng. \r\n\r\nChất vải Cotton USA được biết đến là loại vải có cấu trúc sợi dai và dài vượt trội. Chất liệu này đã hoàn thiện được những ưu điểm có sẵn của cotton truyền thống. Độ thấm hút cao, chịu nhiệt tốt, giữ màu sắc bền đẹp; đồng thời khắc phục hầu hết nhược điểm cũ như: co rút, dễ nhăn, xù, bạc màu. Kết hợp với Spandex giúp sản phẩm có độ đàn hồi tốt, người mặc sẽ thoải mái vận động. Vải thành phẩm được xử lý qua công nghệ Wash giúp bề mặt mềm hơn, độ cầm màu tốt hơn & giảm độ co rút.'),
+(150, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát', 259000, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát là sản phẩm được ứng dụng công nghệ mới đột phá với chất liệu Thun Lạnh siêu nhẹ, mang đến trải nghiệm thoáng mát tối đa cho người mặc. Bền mặt vải mượt hơn, co giãn tốt hơn với hàng ngàn lỗ thoáng khí, thông hơi và thấm hút mồ hôi cực tốt khi mặc. Áo giúp chống bám bụi, chống nhăn hiêu quả giúp chàng trai tiết kiệm được tối đa thời gian là ủi.\r\n\r\nBảng màu áo thun chủ yếu hướng tối các tone màu trung tính, cơ bản, dễ mặc và dễ phối. Công nghệ làm mát đột phá giúp áo thun tăng độ thoáng khí, thoát nhiệt nhanh và giảm ngay từ 5 - 7 độ C khi mặc. Đây là một trong những item mang phong cách thể thao, khỏe khoắn của 5S Fashion không thể thiếu trong tủ đồ hằng ngày, đi chơi, đi tập hay picnic của các chàng trai. '),
+(151, 'Áo Thun Nam Ngắn Tay Cổ Tròn, In Chữ Ardent', 259000, 'Áo Thun Nam Cổ Tròn, In Chữ Ardent là thiết kế đơn giản, thoải mái với tính ứng dụng cao. Áo thun có form dáng Slim fit vừa vặn, tôn dáng nhưng không hề gây cảm giác khó chịu hay bó sát khi mặc. Điểm nhấn của mẫu áo thun này nằm ở logo chữ Ardent được in ép nhiệt silicon mỏng với công nghệ High tech sắc nét, đảm bảo không bong tróc, phai mờ trong quá trình sử dụng hay giặt là. \r\n\r\nChất liệu Viscose (hay sợi lụa nhân tạo) là loại sợi tổng hợp từ chất xơ của sợi cellulose làm từ bột gỗ như cây sồi, thông, bạch đàn, cây tre… sở hữu hầu hết những đặc tính vượt trội của các chất liệu khác như lụa, cotton hay vải linen,… Vải Viscose khá mềm mịn, bóng mượt, thoáng khí, khả năng thấm hút mồ hôi và kháng khuẩn tốt. Với đặc tính dễ dàng nhuộm màu nên mẫu áo Polo này có màu sắc đa dạng, bắt mắt để bạn nam có thể thỏa sức lựa chọn.\r\n\r\nĐặc biệt, việc bổ sung thêm thành phần chất liệu Cotton còn giúp tăng  khả năng thoáng khí và thâm hút mồ hôi tăng lên vượt trội, đồng thời cũng khắc phục được những hạn chế của sợi cotton truyền thống. Thành phầm Spandex giúp sản phẩm có độ đàn hồi tốt, giảm độ co rút và người mặc sẽ thoải mái vận động. \r\n\r\nÁo được thiết kế tỉ mỉ đến từng chi tiết: cổ tròn bọc dây dệt giữ phom, mác ép nhiệt cao cấp không gây vướng ngứa khi mặc... Đây là item dễ phối đồ mà mọi chàng trai đều nên sở hữu ít nhất một chiếc trong tủ đồ mùa hè của mình. '),
+(152, 'Áo Thun Nam Ngắn Tay, Thoáng Mát, Chống Nhăn', 259000, 'Áo Thun Nam Ngắn Tay, Thoáng Mát, Chống Nhăn là mẫu áo thun in hình thể thao mới nhất. Áo được thiết kế với form dáng Slim fit, ôm vừa vặn nhưng cũng không quá bó sát, tạo sự thoải mái cho người mặc. Đặc biệt, điểm nhấn của thiết kế này nằm ở họa tiết in chữ nằm vuông góc bên ngực trái của áo bằng công nghệ chuyển nhiệt Plastisol không bóng, bền đẹp, sắc nét, không lo bong tróc trong quá trình sử dụng hay giặt là.  \r\n\r\nVới bảng màu đa dạng, thiết kế trẻ trung, đây được xem là item hiện đại, mang sự năng động, dễ mặc và dễ dàng phối kết hợp cùng nhiều trang phục để phù hợp với nhiều hoàn cảnh khác nhau như mặc ở nhà, đi học, đi chơi, picnic, hẹn hò... '),
+(153, 'Áo Thun Nam Ngắn Tay, Hạ Nhiệt, Thoáng Khí', 279000, ' Áo Thun Nam, Hạ Nhiệt, Thoáng Khí là một trong những item cơ bản, dễ mặc không thể thiếu trong tủ đồ thời trang hằng ngày. Với thiết kế ngắn tay, cổ tròn kết hợp với form dáng Slim fit ôm vừa vặn, áo thun giúp tôn dáng mà vẫn tạo cảm giác thoải mái, không bó sát vào cơ thể khi mặc. Điểm đặc biệt của sản phẩm là phần họa tiết in chữ RUNNING bằng silicon ứng dụng công nghệ High-tech cao cấp, giúp tăng độ bền đẹp, không lo bong tróc trong quá trình sử dụng. ');
 
 -- --------------------------------------------------------
 
@@ -401,7 +404,11 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) V
 (146, 146, 13),
 (147, 147, 13),
 (148, 148, 13),
-(149, 149, 2);
+(149, 149, 2),
+(150, 150, 2),
+(151, 151, 2),
+(152, 152, 2),
+(153, 153, 2);
 
 -- --------------------------------------------------------
 
@@ -894,7 +901,25 @@ INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 (696, 149, 'https://iili.io/J5HWZ1S.jpg'),
 (697, 149, 'https://iili.io/J5HWtr7.jpg'),
 (698, 149, 'https://iili.io/J5HWb29.jpg'),
-(699, 149, 'https://iili.io/J5HWm7e.jpg');
+(699, 149, 'https://iili.io/J5HWm7e.jpg'),
+(700, 150, 'https://iili.io/J5nodtp.jpg'),
+(701, 150, 'https://iili.io/J5noKPt.jpg'),
+(702, 150, 'https://iili.io/J5noCSs.jpg'),
+(703, 150, 'https://iili.io/J5nozN4.jpg'),
+(704, 151, 'https://iili.io/J5nxUpj.jpg'),
+(705, 151, 'https://iili.io/J5nxrTx.jpg'),
+(706, 151, 'https://iili.io/J5nx4hQ.jpg'),
+(707, 151, 'https://iili.io/J5nx6QV.jpg'),
+(708, 151, 'https://iili.io/J5nxiCB.jpg'),
+(709, 152, 'https://iili.io/J5nzoZl.jpg'),
+(710, 152, 'https://iili.io/J5nzzn2.jpg'),
+(711, 152, 'https://iili.io/J5nzIGS.jpg'),
+(712, 152, 'https://iili.io/J5nzT67.jpg'),
+(713, 152, 'https://iili.io/J5nzAF9.jpg'),
+(714, 153, 'https://iili.io/J5nT27n.jpg'),
+(715, 153, 'https://iili.io/J5nTBLl.jpg'),
+(716, 153, 'https://iili.io/J5nTo1S.jpg'),
+(717, 153, 'https://iili.io/J5nTT7e.jpg');
 
 -- --------------------------------------------------------
 
@@ -1295,7 +1320,23 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (558, 149, 558, 29),
 (559, 149, 559, 94),
 (560, 149, 560, 45),
-(561, 149, 561, 43);
+(561, 149, 561, 43),
+(562, 150, 562, 94),
+(563, 150, 563, 49),
+(564, 150, 564, 43),
+(565, 150, 565, 39),
+(566, 151, 566, 94),
+(567, 151, 567, 49),
+(568, 151, 568, 43),
+(569, 151, 569, 39),
+(570, 152, 570, 43),
+(571, 152, 571, 50),
+(572, 152, 572, 30),
+(573, 152, 573, 59),
+(574, 153, 574, 54),
+(575, 153, 575, 94),
+(576, 153, 576, 51),
+(577, 153, 577, 43);
 
 -- --------------------------------------------------------
 
@@ -1695,7 +1736,23 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 (558, 149, 'S'),
 (559, 149, 'M'),
 (560, 149, 'L'),
-(561, 149, 'XL');
+(561, 149, 'XL'),
+(562, 150, 'S'),
+(563, 150, 'M'),
+(564, 150, 'L'),
+(565, 150, 'XL'),
+(566, 151, 'S'),
+(567, 151, 'M'),
+(568, 151, 'L'),
+(569, 151, 'XL'),
+(570, 152, 'S'),
+(571, 152, 'M'),
+(572, 152, 'L'),
+(573, 152, 'XL'),
+(574, 153, 'S'),
+(575, 153, 'M'),
+(576, 153, 'L'),
+(577, 153, 'XL');
 
 -- --------------------------------------------------------
 
@@ -1786,7 +1843,8 @@ ALTER TABLE `category`
 ALTER TABLE `orderdetails`
   ADD PRIMARY KEY (`OrderDetailID`),
   ADD KEY `OrderID` (`OrderID`),
-  ADD KEY `ProductID` (`ProductID`);
+  ADD KEY `ProductID` (`ProductID`),
+  ADD KEY `orderdetail_ibfk_3` (`SizeID`);
 
 --
 -- Indexes for table `orders`
@@ -1895,31 +1953,31 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `productimage`
 --
 ALTER TABLE `productimage`
-  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=700;
+  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=718;
 
 --
 -- AUTO_INCREMENT for table `productquantity`
 --
 ALTER TABLE `productquantity`
-  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=562;
+  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=578;
 
 --
 -- AUTO_INCREMENT for table `productsize`
 --
 ALTER TABLE `productsize`
-  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=562;
+  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=578;
 
 --
 -- AUTO_INCREMENT for table `storeinformation`
