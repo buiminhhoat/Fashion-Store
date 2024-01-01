@@ -4,7 +4,7 @@ import "./style.scss";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
-import {TimePicker} from "antd";
+import {ConfigProvider, TimePicker} from "antd";
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -209,15 +209,43 @@ const StoreInformationPage = () => {
                               </div>
 
                               <div className="input-add-account">
-                                <TimePicker.RangePicker
-                                    size="large"
-                                    value={[
-                                      storeInfo.openingHours && dayjs(storeInfo.openingHours, 'HH:mm:ss'),
-                                      storeInfo.closingHours && dayjs(storeInfo.closingHours, 'HH:mm:ss')
-                                    ]}
-                                    placeholder={["Bắt đầu", "Kết thúc"]}
-                                    onChange={onChange}
-                                />
+                                <ConfigProvider
+                                    theme={{
+                                      components: {
+                                        DatePicker: {
+                                          hoverBorderColor: '#B7B7B7',
+                                          activeBorderColor: '#d98c8c',
+                                          colorPrimary: '#c94a4a',
+                                          colorPrimaryBorder: '#d98c8c',
+                                          controlItemBgActive: '#ffe6e6',
+                                          activeShadow: 'none',
+                                          colorBorder: '#E5E5E5',
+                                          borderRadius:'3px',
+                                          fontSize:'14',
+                                          fontSizeLG:'14',
+                                          colorTextPlaceholder:'#B7B7B7',
+                                        },
+                                        Button: {
+                                          colorPrimary: '#bd0000',
+                                          colorPrimaryHover: '#dc3636',
+                                          colorPrimaryActive: '#b20a0a',
+                                          primaryShadow: '0 2px 0 #ffe6e6',
+                                        },
+                                      },
+                                    }}
+                                >
+                                  <TimePicker.RangePicker
+                                      style={{ width: "100%", height:"100%" }}
+                                      size="large"
+                                      value={[
+                                        storeInfo.openingHours && dayjs(storeInfo.openingHours, 'HH:mm:ss'),
+                                        storeInfo.closingHours && dayjs(storeInfo.closingHours, 'HH:mm:ss')
+                                      ]}
+                                      placeholder={["Bắt đầu", "Kết thúc"]}
+                                      onChange={onChange}
+                                  />
+                                </ConfigProvider>
+
                               </div>
                             </div>
 
