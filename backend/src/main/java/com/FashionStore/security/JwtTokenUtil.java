@@ -19,15 +19,8 @@ public class JwtTokenUtil {
     @Value("${jwt.access_token_validity_seconds}")
     private long accessTokenValiditySeconds;
 
-    @Value("${jwt.refresh_token_validity_seconds}")
-    private long refreshTokenValiditySeconds;
-
     public String generateAccessToken(String subject) {
         return generateToken(subject, accessTokenValiditySeconds);
-    }
-
-    public String generateRefreshToken(String subject) {
-        return generateToken(subject, refreshTokenValiditySeconds);
     }
 
     public String generateToken(String subject, long validityInSeconds) {

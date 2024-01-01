@@ -42,9 +42,6 @@ public class AuthController {
     @Value("${response.token.access}")
     private String TOKEN_ACCESS;
 
-    @Value("${response.token.refresh}")
-    private String TOKEN_REFRESH;
-
     private final String LOGIN_SUCCESS;
 
     private final String RESPONSE_ERROR;
@@ -139,31 +136,11 @@ public class AuthController {
         }
 
         String accessToken = jwtTokenUtil.generateAccessToken(email);
-        String refreshToken = jwtTokenUtil.generateRefreshToken(email);
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put(TOKEN_ACCESS, accessToken);
-        tokens.put(TOKEN_REFRESH, refreshToken);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), LOGIN_SUCCESS, tokens));
-    }
-
-    @PostMapping("${endpoint.public.refresh}")
-    public ResponseEntity<?> refresh(HttpServletRequest request) {
-        String refreshToken = request.getHeader(HEADER_AUTHORIZATION);
-        refreshToken = refreshToken.replace(AUTHORIZATION_BEARER, "");
-
-        if (jwtTokenUtil.isTokenExpired(refreshToken)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        String username = jwtTokenUtil.getSubjectFromToken(refreshToken);
-        String newAccessToken = jwtTokenUtil.generateAccessToken(username);
-
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put(TOKEN_ACCESS, newAccessToken);
-
-        return ResponseEntity.ok(tokens);
     }
 
     @PostMapping("${endpoint.public.register}")
@@ -228,11 +205,9 @@ public class AuthController {
                 }
 
                 String accessToken = jwtTokenUtil.generateAccessToken(email);
-                String refreshToken = jwtTokenUtil.generateRefreshToken(email);
 
                 Map<String, String> tokens = new HashMap<>();
                 tokens.put(TOKEN_ACCESS, accessToken);
-                tokens.put(TOKEN_REFRESH, refreshToken);
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.toString(), LOGIN_SUCCESS, tokens));
             } else {
                 return ResponseEntity.status(responseEntity.getStatusCode()).body(RESPONSE_ERROR + ": " + responseEntity.getStatusCodeValue());
