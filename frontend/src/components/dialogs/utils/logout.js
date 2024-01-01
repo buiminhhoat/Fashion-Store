@@ -9,8 +9,10 @@ export function useLogout() {
 
     const logout = async () => {
         // Xóa cookies
-        removeAccessTokenCookie('access_token');
-        removeRefreshTokenCookie('refresh_token');
+        await Promise.all([
+            removeAccessTokenCookie('access_token'),
+            removeRefreshTokenCookie('refresh_token')
+        ]);
 
         // Xóa cache
         await caches.keys().then(function(cacheNames) {
@@ -26,7 +28,6 @@ export function useLogout() {
         // Redirect về trang chính của bạn (localhost:3000)
         navigate('/');
     };
-
 
     return logout;
 }

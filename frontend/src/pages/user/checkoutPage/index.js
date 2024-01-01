@@ -81,8 +81,11 @@ const CheckoutPage = () => {
   }
 
   const handlePurchase = async () => {
-    if (selectedAddress.addressID === undefined) {
-      toast.warn("Vui lòng chọn địa chỉ nhận hàng");
+    if (accessToken === undefined) {
+      toast.warn(MESSAGE.PLEASE_LOGIN);
+      return;
+    } else if (selectedAddress.addressID === undefined) {
+      toast.warn(MESSAGE.MISSING_DELIVERY_ADDRESS);
       return;
     }
 
@@ -325,7 +328,7 @@ const CheckoutPage = () => {
                         </div>
                         <span onClick={handlePurchase}>
                                             <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
-                                                <span className="text-checkout">Thanh toán:  {formatter(product.productPrice * amount)} <span>COD</span></span>
+                                                <span className="text-checkout">Đặt hàng:  {formatter(product.productPrice * amount)} <span>COD</span></span>
                                             </button>
                             </span>
                       </div>

@@ -28,7 +28,8 @@ export const MESSAGE = {
   CATEGORY_NAME_INVALID: "Tên danh mục phải bắt đầu bằng một chữ cái",
   EDIT_PRODUCT_SUCCESS: "Chỉnh sửa thông tin sản phẩm thành công",
   INSUFFICIENT_QUANTITY: "Số lượng sẵn có không đủ!",
-  REVIEW_CART: "Bạn hãy xem lại số lượng sản phẩm trong giỏ hàng, vì có một số sản phẩm đã có người mua!"
+  REVIEW_CART: "Bạn hãy xem lại số lượng sản phẩm trong giỏ hàng, vì có một số sản phẩm đã có người mua!",
+  PLEASE_LOGIN: "Vui lòng đăng nhập",
 }
 
 export const API = {
