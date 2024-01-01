@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const AddProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -91,8 +91,7 @@ const AddProductPage = () => {
     formData.append('productQuantities', JSON.stringify(informationProduct.productQuantities));
     formData.append('productSizes', JSON.stringify(informationProduct.productSizes));
 
-    let apiAddProductUrl = "/api/admin/add-product";
-    fetch(apiAddProductUrl, {
+    fetch(API.ADMIN.ADD_PRODUCT_ENDPOINT, {
       method: 'POST',
       headers: {
         "Authorization": `Bearer ${accessToken}`,

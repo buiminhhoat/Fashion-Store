@@ -69,6 +69,17 @@ export const API = {
     UPDATE_STORE_INFORMATION_ENDPOINT: "/api/admin/update-store-information",
     GET_ALL_USERS_ENDPOINT: "/api/admin/get-all-users",
     ADD_CATEGORY_ENDPOINT: "/api/admin/add-category",
+    EDIT_CATEGORY_ENDPOINT: "/api/admin/edit-category",
+    DELETE_USER_ENDPOINT: "/api/admin/delete-user",
+    DELETE_CATEGORY_ENDPOINT: "/api/admin/delete-category",
+    DELETE_PRODUCT_ENDPOINT: "/api/admin/delete-product",
+    ADD_PRODUCT_ENDPOINT: "/api/admin/add-product",
+    EDIT_PRODUCT_ENDPOINT: "/api/admin/edit-product",
+    SET_ORDER_STATUS_ENDPOINT: "/api/admin/orders/set-order-status",
+    UPLOAD_CATEGORY_IMAGE_ENDPOINT: "/api/admin/upload-category-image",
+    SEARCH_ORDERS_BY_ORDER_ID_ENDPOINT: "/api/admin/orders/search-orders-by-order-id",
+    SEARCH_ORDERS_BY_RECIPIENT_PHONE_ENDPOINT: "/api/admin/orders/search-orders-by-recipient-phone",
+    SEARCH_ORDERS_BY_ORDER_DATE_ENDPOINT: "/api/admin/orders/search-orders-by-order-date"
   }
 
 }

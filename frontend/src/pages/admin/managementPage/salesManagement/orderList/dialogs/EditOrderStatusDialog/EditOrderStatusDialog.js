@@ -7,7 +7,7 @@ import {useCookies} from "react-cookie";
 import {MdOutlineEditNote} from "react-icons/md";
 import {SEARCH_USER} from "../../../../productManagement/utils/const";
 import {Select} from "antd";
-import {MESSAGE} from "../../../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../../../utils/const";
 
 const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);
@@ -29,9 +29,8 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
     formData.append('orderID', orderID);
     formData.append('orderStatus', selectedOrderStatus);
 
-    let apiSetOrderStatus = "/api/admin/orders/set-order-status";
     try {
-      const response = await fetch(apiSetOrderStatus, {
+      const response = await fetch(API.ADMIN.SET_ORDER_STATUS_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

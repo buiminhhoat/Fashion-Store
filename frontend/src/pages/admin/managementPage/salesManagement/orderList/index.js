@@ -24,7 +24,7 @@ import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import viLocale from 'dayjs/locale/vi';
-import {MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const { RangePicker } = DatePicker;
 
@@ -256,9 +256,8 @@ const OrderListPage = () => {
     const formData = new FormData();
     formData.append('orderID', orderIDValue);
 
-    const apiSearchOrdersByOrderId = "/api/admin/orders/search-orders-by-order-id";
     try {
-      const response = await fetch(apiSearchOrdersByOrderId, {
+      const response = await fetch(API.ADMIN.SEARCH_ORDERS_BY_ORDER_ID_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -288,9 +287,8 @@ const OrderListPage = () => {
     const formData = new FormData();
     formData.append('recipientPhone', phoneNumberValue);
 
-    const apiSearchOrdersByRecipientPhone = "/api/admin/orders/search-orders-by-recipient-phone";
     try {
-      const response = await fetch(apiSearchOrdersByRecipientPhone, {
+      const response = await fetch(API.ADMIN.SEARCH_ORDERS_BY_RECIPIENT_PHONE_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -332,9 +330,8 @@ const OrderListPage = () => {
     formData.append('startOrderDate', startOrderDate);
     formData.append('endOrderDate', endOrderDate);
 
-    const apiSearchOrdersByOrderDate = "/api/admin/orders/search-orders-by-order-date";
     try {
-      const response = await fetch(apiSearchOrdersByOrderDate, {
+      const response = await fetch(API.ADMIN.SEARCH_ORDERS_BY_ORDER_DATE_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

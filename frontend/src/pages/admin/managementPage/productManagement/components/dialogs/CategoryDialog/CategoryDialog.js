@@ -228,9 +228,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     const formData = new FormData();
     formData.append('categoryID', categoryID);
 
-    let apiDeleteCategoryUrl = "/api/admin/delete-category";
     try {
-      const response = await fetch(apiDeleteCategoryUrl, {
+      const response = await fetch(API.ADMIN.DELETE_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -240,7 +239,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
 
@@ -285,9 +283,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     formData.append('categoryID', categoryID);
     formData.append('categoryName', categoryName);
 
-    let apiEditCategoryUrl = "/api/admin/edit-category";
     try {
-      const response = await fetch(apiEditCategoryUrl, {
+      const response = await fetch(API.ADMIN.EDIT_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -297,7 +294,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiEditCategoryUrl);
         return;
       }
 

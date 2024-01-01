@@ -4,7 +4,7 @@ import {MdOutlineEditNote, MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {useCookies} from "react-cookie";
-import {MESSAGE} from "../../../../../../../utils/const";
+import {API, MESSAGE} from "../../../../../../../utils/const";
 
 const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);
@@ -26,9 +26,8 @@ const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
     formData.append('categoryID', categoryID);
     formData.append('categoryName', inputValue);
 
-    let apiEditCategoryUrl = "/api/admin/edit-category";
     try {
-      const response = await fetch(apiEditCategoryUrl, {
+      const response = await fetch(API.ADMIN.EDIT_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -38,7 +37,6 @@ const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiEditCategoryUrl);
         return;
       }
 

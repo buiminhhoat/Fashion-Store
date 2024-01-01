@@ -90,9 +90,8 @@ const AccountListPage = () => {
     const formData = new FormData();
     formData.append('userID', deletedUser.userID);
 
-    let apiDeleteUserUrl = "/api/admin/delete-user";
     try {
-      const response = await fetch(apiDeleteUserUrl, {
+      const response = await fetch(API.ADMIN.DELETE_USER_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -102,7 +101,6 @@ const AccountListPage = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiDeleteUserUrl);
         return;
       }
 

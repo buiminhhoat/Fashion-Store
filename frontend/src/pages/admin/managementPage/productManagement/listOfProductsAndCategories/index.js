@@ -111,9 +111,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     formData.append('categoryID', categoryID);
     formData.append('categoryImage', imageFile);
 
-    let apiUploadCategoryImageUrl = "/api/admin/upload-category-image";
     try {
-      const response = await fetch(apiUploadCategoryImageUrl, {
+      const response = await fetch(API.ADMIN.UPLOAD_CATEGORY_IMAGE_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -123,7 +122,6 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiUploadCategoryImageUrl);
         return;
       }
 
@@ -249,11 +247,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     const formData = new FormData();
     formData.append('categoryID', deletedCategory.categoryID);
 
-    console.log("deletedCategory.categoryID");
-    console.log(deletedCategory.categoryID);
-    let apiDeleteCategoryUrl = "/api/admin/delete-category";
     try {
-      const response = await fetch(apiDeleteCategoryUrl, {
+      const response = await fetch(API.ADMIN.DELETE_CATEGORY_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -263,7 +258,6 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiDeleteCategoryUrl);
         return;
       }
 
@@ -279,8 +273,6 @@ const ListOfProductsAndCategoriesPage  = () => {
             })).filter((category) => category.categoryID !== deletedCategory.categoryID)
         );
         setDeletedCategory(null);
-
-        // fetchData();
       } else {
         const data = await response.json();
         toast.error(data.message);
@@ -295,9 +287,8 @@ const ListOfProductsAndCategoriesPage  = () => {
     const formData = new FormData();
     formData.append('productID', deletedProduct.productID);
 
-    let apiDeleteProductUrl = "/api/admin/delete-product";
     try {
-      const response = await fetch(apiDeleteProductUrl, {
+      const response = await fetch(API.ADMIN.DELETE_PRODUCT_ENDPOINT, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${accessToken}`,
@@ -307,7 +298,6 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiDeleteProductUrl);
         return;
       }
 
