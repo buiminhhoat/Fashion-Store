@@ -62,6 +62,10 @@ const ProductDetailPage = () => {
   }
 
   const handleBuyNow = (newOrder) => {
+    if (accessToken === undefined) {
+      toast.warn(MESSAGE.PLEASE_LOGIN);
+      return;
+    }
     const orderDetails = {
       accessToken: accessToken,
       productID: informationProduct.productID,

@@ -29,7 +29,7 @@ export const MESSAGE = {
   EDIT_PRODUCT_SUCCESS: "Chỉnh sửa thông tin sản phẩm thành công",
   INSUFFICIENT_QUANTITY: "Số lượng sẵn có không đủ!",
   REVIEW_CART: "Bạn hãy xem lại số lượng sản phẩm trong giỏ hàng, vì có một số sản phẩm đã có người mua!",
-  PLEASE_LOGIN: "Vui lòng đăng nhập",
+  PLEASE_LOGIN: "Vui lòng đăng nhập lại!",
 }
 
 export const API = {
