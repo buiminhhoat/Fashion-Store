@@ -112,7 +112,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                   <span className="text-danger error-text password-register-error"></span>
                   <div className="btn-wrap"  style={{marginTop:"50px"}}>
                     <button type="submit" className="btn btn-primary btn-login">
-                      <i id="loading-register" className="fa-solid fa-spinner icon-loading"></i>Đăng Ký
+                      Đăng Ký
                     </button>
                   </div>
                 </form>

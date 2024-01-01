@@ -178,7 +178,6 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                   </div>
                   <div className="btn-wrap">
                     <button type="submit" className="btn btn-primary btn-login">
-                      <i id="loading-login" className="fa-solid fa-spinner icon-loading" style={{ display: 'none' }}></i>
                       Đăng nhập
                     </button>
                   </div>
