@@ -1848,7 +1848,7 @@ CREATE TABLE `storeinformation` (
 --
 
 INSERT INTO `storeinformation` (`StoreInformationID`, `Address`, `Hotline`, `Email`, `OpeningHours`, `ClosingHours`, `Facebook`) VALUES
-(1, '144 Xuân Thuỷ', '0987654321', 'fashionstore@gmail.com', '08:00:00', '23:00:00', 'https://www.facebook.com/');
+(1, '144 Xuân Thuỷ, Cầu Giấy, Hà Nội', '0987654321', 'fashionstore@gmail.com', '08:00:00', '23:00:00', 'https://www.facebook.com/');
 
 -- --------------------------------------------------------
 
