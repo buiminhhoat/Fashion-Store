@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import "./style.scss"
 import {DIALOGS} from "../utils/const";
 import forgot_password_img from "../images/forgot-password.jpg";
-import {ConfigProvider, Spin, TimePicker} from "antd";
+import {ConfigProvider, Spin} from "antd";
 import {API} from "../../../utils/const";
-import dayjs from "dayjs";
 
 const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   const [storeInfo, setStoreInfo] = useState({

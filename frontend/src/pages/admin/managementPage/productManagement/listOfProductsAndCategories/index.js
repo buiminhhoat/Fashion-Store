@@ -13,7 +13,7 @@ import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
-import {Select, Tooltip} from "antd";
+import {ConfigProvider, Select, Tooltip} from "antd";
 import {CATEGORY, SEARCH, SEARCH_USER} from "../utils/const";
 import {API, MESSAGE} from "../../../../../utils/const";
 
@@ -778,18 +778,29 @@ const ListOfProductsAndCategoriesPage  = () => {
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                     <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
                     <span>Tìm kiếm theo:</span>
-                    <Select
-                        defaultValue={SEARCH.CATEGORY}
-                        style={{ width: 170 }}
-                        bordered={false}
-                        size={"large"}
-                        options={[
-                          { value: SEARCH.CATEGORY, label: 'Danh mục lớn' },
-                          { value: SEARCH.SUB_CATEGORY, label: 'Danh mục con' },
-                          { value: SEARCH.PRODUCT, label: 'Sản phẩm' },
-                        ]}
-                        onChange={(value) => {handleSelectChange(value)}}
-                    />
+                    <ConfigProvider
+                        theme={{
+                          components: {
+                            Select: {
+                              controlItemBgActive: '#ffe6e6',
+                            },
+                          },
+                        }}
+                    >
+                      <Select
+                          defaultValue={SEARCH.CATEGORY}
+                          style={{ width: 170 }}
+                          bordered={false}
+                          size={"large"}
+                          options={[
+                            { value: SEARCH.CATEGORY, label: 'Danh mục lớn' },
+                            { value: SEARCH.SUB_CATEGORY, label: 'Danh mục con' },
+                            { value: SEARCH.PRODUCT, label: 'Sản phẩm' },
+                          ]}
+                          onChange={(value) => {handleSelectChange(value)}}
+                      />
+                    </ConfigProvider>
+
                   </div>
                   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>

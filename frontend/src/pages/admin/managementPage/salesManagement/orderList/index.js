@@ -417,19 +417,30 @@ const OrderListPage = () => {
                 <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                   <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
                   <span>Tìm kiếm theo:</span>
-                  <Select
-                      defaultValue={OPTION_SEARCH[0].value}
-                      style={{ width: 230 }}
-                      bordered={false}
-                      size={"large"}
-                      options={OPTION_SEARCH}
-                      onChange={(value) => {
-                        setSelectedSearch(value);
-                        setValue(null);
-                        setPhoneNumberValue("");
-                        setOrderIDValue("");
+                  <ConfigProvider
+                      theme={{
+                        components: {
+                          Select: {
+                            controlItemBgActive: '#ffe6e6',
+                          },
+                        },
                       }}
-                  />
+                  >
+                    <Select
+                        defaultValue={OPTION_SEARCH[0].value}
+                        style={{ width: 230 }}
+                        bordered={false}
+                        size={"large"}
+                        options={OPTION_SEARCH}
+                        onChange={(value) => {
+                          setSelectedSearch(value);
+                          setValue(null);
+                          setPhoneNumberValue("");
+                          setOrderIDValue("");
+                        }}
+                    />
+                  </ConfigProvider>
+
                 </div>
 
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
