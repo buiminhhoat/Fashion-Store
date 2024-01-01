@@ -100,7 +100,7 @@ const ImagesProductSection = ({informationProduct}) => {
     };
 
     useEffect(() => {
-      console.log(mainImageURL);
+      // console.log(mainImageURL);
       fetchAndProcessImage().then(r => {});
     }, [mainImageURL]);
 
@@ -143,7 +143,7 @@ const ImagesProductSection = ({informationProduct}) => {
   }
 
   const renderImagesProduct = () => {
-    console.log(informationProduct.productImages)
+    // console.log(informationProduct.productImages)
     if (informationProduct.productImages) {
       return informationProduct.productImages.map((image, index) => (
           <div className="owl-item active" key={index}
