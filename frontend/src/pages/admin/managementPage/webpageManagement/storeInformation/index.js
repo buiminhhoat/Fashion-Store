@@ -39,7 +39,7 @@ const StoreInformationPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("storeInfo")
+        // console.log("storeInfo")
         // console.log(data.data)
         setStoreInfo(data.data);
       } else {

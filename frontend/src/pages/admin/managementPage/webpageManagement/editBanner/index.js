@@ -108,7 +108,7 @@ const EditBannerPage = () => {
       });
     }
 
-    console.log(newBanners);
+    // console.log(newBanners);
     formData.append('banners', JSON.stringify(newBanners));
 
     try {
