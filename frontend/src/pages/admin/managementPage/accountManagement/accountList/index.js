@@ -122,7 +122,7 @@ const AccountListPage = () => {
     }
   };
 
-  const handleBtnSearchClick = () => {
+  const handleSearchInputChange = () => {
     if (!searchInputValue || searchInputValue === "") {
       setUsersData((newUsers) =>
           usersData.map((user) => { return { ...user, isShow: true }; })
@@ -163,6 +163,11 @@ const AccountListPage = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    handleSearchInputChange();
+  }, [searchInputValue]);
+
 
   const ListUserSection = () => {
     return (
@@ -294,9 +299,7 @@ const AccountListPage = () => {
                           placeholder="Nhập từ khóa"
                           onChange={(e) => setSearchInputValue(e.target.value)}
                       />
-                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}
-                                onClick={handleBtnSearchClick}
-                                className="pointer-cursor"/>
+                      <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}/>
                     </div>
                   </div>
 
