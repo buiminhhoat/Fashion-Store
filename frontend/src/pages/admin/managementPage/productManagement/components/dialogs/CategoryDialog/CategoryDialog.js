@@ -45,8 +45,8 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("apiGetCategory");
-        console.log(data);
+        // console.log("apiGetCategory");
+        // console.log(data);
 
         setCategories(data);
       } else {

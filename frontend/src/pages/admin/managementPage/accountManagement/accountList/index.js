@@ -46,7 +46,7 @@ const AccountListPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         const fetchImagePromises = data.map(item => {
           if (!item.avatarPath) {
