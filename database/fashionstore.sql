@@ -1770,6 +1770,13 @@ CREATE TABLE `storeinformation` (
   `Facebook` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+--
+-- Dumping data for table `storeinformation`
+--
+
+INSERT INTO `storeinformation` (`StoreInformationID`, `Address`, `Hotline`, `Email`, `OpeningHours`, `ClosingHours`, `Facebook`) VALUES
+(1, '144 Xuân Thuỷ', '0987654321', 'fashionstore@gmail.com', '08:00:00', '23:00:00', 'https://www.facebook.com/');
+
 -- --------------------------------------------------------
 
 --
@@ -1983,7 +1990,7 @@ ALTER TABLE `productsize`
 -- AUTO_INCREMENT for table `storeinformation`
 --
 ALTER TABLE `storeinformation`
-  MODIFY `StoreInformationID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `StoreInformationID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
