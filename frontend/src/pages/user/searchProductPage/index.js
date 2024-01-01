@@ -37,7 +37,7 @@ import {API, MESSAGE} from "../../../utils/const";
 //     "productLink": "https://5sfashion.vn/san-pham/ao-thun-dai-tay-nam-5s-fashion-mem-min-thoang-khi-ato23008"
 //   }
 // ]
-const NUMBER_PRODUCT = 6;
+const NUMBER_PRODUCT = 8;
 
 const SORT = {
   ASC: "1",
