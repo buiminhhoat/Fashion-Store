@@ -100,7 +100,7 @@ const NavigationMenu = () => {
             onClick={(e) => onClick(e)}
             onOpenChange={(e) => onOpenChange(e)}
             style={{
-              width: 300,
+              width: 325,
               marginTop:20,
               marginBottom:15,
               fontWeight:600,
