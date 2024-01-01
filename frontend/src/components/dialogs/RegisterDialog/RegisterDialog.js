@@ -4,7 +4,8 @@ import "./style.scss";
 import fb from "../images/fb.svg";
 import gg from "../images/gg.svg";
 import { DIALOGS } from "../utils/const";
-import {API} from "../../../utils/const";
+import {API, MESSAGE} from "../../../utils/const";
+import {toast} from "react-toastify";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {
   const [fullName, setFullName] = useState("");
@@ -32,18 +33,14 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
       });
 
       if (response.ok) {
-        // Đăng ký thành công, có thể điều hướng người dùng hoặc hiển thị thông báo thành công
         // console.log("Đăng ký thành công");
-
-        // Đóng dialog sau khi đăng ký thành công
-        onClose();
+        toast.success(MESSAGE.REGISTRATION_SUCCESS)
+        handleSwitchToOtherDialog(DIALOGS.LOGIN)
       } else {
         // Đăng ký thất bại, có thể hiển thị thông báo lỗi
         // console.error("Đăng ký thất bại");
         response.text().then(data => {
-          // `data` chứa nội dung từ body của phản hồi
           console.log(data);
-
           // Hiển thị thông báo lỗi hoặc xử lý lỗi ở đây
           const errorText = document.querySelector(".text-danger.error-text.password-register-error");
           errorText.innerHTML = data;

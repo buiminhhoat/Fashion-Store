@@ -33,9 +33,6 @@ const LoginDialog = ({ onClose, onSwitch }) => {
     // console.log(email);
     // console.log(password);
 
-    const loadingIcon = document.getElementById("loading-login");
-    loadingIcon.style.display = "inline";
-
     // Thực hiện đăng nhập (thay thế bằng xử lý thực tế của bạn)
     try {
       // Gửi yêu cầu đăng nhập đến máy chủ
@@ -89,7 +86,6 @@ const LoginDialog = ({ onClose, onSwitch }) => {
       errorText.innerHTML = "Lỗi kết nối tới máy chủ, vui lòng thử lại sau!";
     } finally {
       // Ẩn biểu tượng tải sau khi xử lý
-      loadingIcon.style.display = "none";
     }
   };
 
