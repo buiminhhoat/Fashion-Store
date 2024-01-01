@@ -45,7 +45,10 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `IsDefault`) VALUES
 (1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội', 1),
-(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', 0);
+(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', 0),
+(3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội', 1),
+(4, 3, 'Tiến Dũng', '0909090909', 'Quận 5, Hồ Chí Minh', 0),
+(5, 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội', 1);
 
 -- --------------------------------------------------------
 
@@ -88,7 +91,8 @@ CREATE TABLE `cart` (
 INSERT INTO `cart` (`CartID`, `UserID`) VALUES
 (1, 1),
 (3, 2),
-(2, 3);
+(2, 3),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -103,6 +107,14 @@ CREATE TABLE `cartitem` (
   `SizeID` bigint(20) DEFAULT NULL,
   `QuantityPurchase` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `cartitem`
+--
+
+INSERT INTO `cartitem` (`CartItemID`, `CartID`, `ProductID`, `SizeID`, `QuantityPurchase`) VALUES
+(12, 1, 95, 348, 11),
+(13, 1, 108, 401, 2);
 
 -- --------------------------------------------------------
 
@@ -132,7 +144,7 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `Image
 (9, 'Quần Dài Kaki', 5, 'https://iili.io/J5HXNyu.webp'),
 (10, 'Quần Short Kaki', 5, 'https://iili.io/J5HXUGV.webp'),
 (11, 'Quần Short Tây', 5, 'https://iili.io/J5HXLua.webp'),
-(12, 'Quần Lót Nam', NULL, 'https://iili.io/JR4gFGs.md.png'),
+(12, 'Quần Lót', NULL, 'https://iili.io/JR4gFGs.md.png'),
 (13, 'Quần Lót Boxer', 12, 'https://iili.io/J5HjR5X.webp'),
 (14, 'Quần Lót Brief', 12, 'https://iili.io/J5HjR5X.webp'),
 (15, 'Phụ Kiện', NULL, 'https://iili.io/JR4gFGs.md.png'),
@@ -156,6 +168,43 @@ CREATE TABLE `orderdetails` (
   `TotalPrice` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+--
+-- Dumping data for table `orderdetails`
+--
+
+INSERT INTO `orderdetails` (`OrderDetailID`, `OrderID`, `ProductID`, `ProductName`, `SizeID`, `ImagePath`, `ProductPrice`, `Quantity`, `TotalPrice`) VALUES
+(1, 1, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 218, 'https://iili.io/JR4LT5G.jpg', 249000, 4, 996000),
+(2, 2, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 238, 'https://iili.io/JR4tYsp.jpg', 239000, 4, 956000),
+(3, 3, 94, 'Quần Short Thể Thao Nam, Thoáng Khí, Kháng Khuẩn ', 344, 'https://iili.io/JRLtjlR.jpg', 429000, 4, 1716000),
+(4, 4, 95, 'Quần Short Thể Thao Nam, Thiết Kế Cạp Cúc Xẻ Gấu Thời Trang', 348, 'https://iili.io/JRLtQO7.jpg', 499000, 4, 1996000),
+(5, 5, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
+(6, 6, 70, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 248, 'https://iili.io/JR4Dqps.jpg', 249000, 8, 1992000),
+(7, 6, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
+(8, 6, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 5, 1395000),
+(9, 7, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 329, 'https://iili.io/JRLZkCb.jpg', 469000, 4, 1876000),
+(10, 7, 142, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả ', 533, 'https://iili.io/JRDGkb9.jpg', 96000, 5, 480000),
+(11, 8, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 5, 1095000),
+(12, 9, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 6, 2094000),
+(13, 10, 150, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát', 565, 'https://iili.io/J5nodtp.jpg', 259000, 6, 1554000),
+(14, 11, 109, 'Tất Nam, Kháng Khuẩn, Khử Mùi ', 402, 'https://iili.io/JRQ9dtS.jpg', 19000, 21, 399000),
+(15, 11, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 241, 'https://iili.io/JR4tYsp.jpg', 239000, 5, 1195000),
+(16, 12, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 6, 1674000),
+(17, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 350, 'https://iili.io/JRLD90x.jpg', 389000, 5, 1945000),
+(18, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 352, 'https://iili.io/JRLD90x.jpg', 389000, 3, 1167000),
+(19, 12, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 6, 1914000),
+(20, 13, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 332, 'https://iili.io/JRLZkCb.jpg', 469000, 5, 2345000),
+(21, 13, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 400, 'https://iili.io/JRLylZ7.jpg', 649000, 3, 1947000),
+(22, 13, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 5, 1595000),
+(23, 14, 92, 'Quần Short Thể Thao Nam, Cạp Chun, In Chữ Trẻ Trung', 336, 'https://iili.io/JRLZkCb.jpg', 429000, 4, 1716000),
+(24, 14, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
+(25, 15, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 3, 657000),
+(26, 15, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 401, 'https://iili.io/JRLylZ7.jpg', 649000, 2, 1298000),
+(27, 16, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 1, 319000),
+(28, 17, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
+(29, 17, 49, 'Áo Khoác Bomber Nam, Cản Gió, Thiết Kế Trẻ Trung', 162, 'https://iili.io/JR4yBl2.jpg', 939000, 3, 2817000),
+(30, 18, 71, 'Áo Polo Nam, Vải Viscose Mềm Mượt, Thoáng Khí', 252, 'https://iili.io/JR6foJf.jpg', 389000, 4, 1556000),
+(31, 18, 80, 'Áo Polo Nam, Cotton USA, Cao Cấp, Thấm Hút Mồ Hôi', 288, 'https://iili.io/JR6osDv.jpg', 419000, 4, 1676000);
+
 -- --------------------------------------------------------
 
 --
@@ -173,6 +222,30 @@ CREATE TABLE `orders` (
   `RecipientPhone` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
   `AddressDetails` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `OrderDate`, `TotalAmount`, `OrderStatus`, `UserID`, `AddressID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
+(1, '2024-01-01 21:52:55.000000', 996000, 'Đã xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(2, '2024-01-01 21:54:17.000000', 956000, 'Đang giao hàng', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(3, '2024-01-01 22:01:07.000000', 1716000, 'Hoàn thành', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(4, '2024-01-01 22:01:45.000000', 1996000, 'Chờ xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(5, '2024-01-01 22:01:55.000000', 1494000, 'Đã hủy', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(6, '2024-01-01 22:03:02.000000', 4881000, 'Hoàn thành', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(7, '2024-01-01 22:03:16.000000', 2356000, 'Đã xác nhận', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(8, '2024-01-01 22:03:21.000000', 1095000, 'Đã hủy', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(9, '2024-01-01 22:03:26.000000', 2094000, 'Chờ xác nhận', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(10, '2024-01-01 22:03:51.000000', 1554000, 'Chờ xác nhận', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(11, '2024-01-01 22:04:22.000000', 1594000, 'Đang giao hàng', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(12, '2024-01-01 22:06:28.000000', 6700000, 'Đã xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(13, '2024-01-01 22:06:59.000000', 5887000, 'Chờ xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(14, '2024-01-01 22:07:22.000000', 2065000, 'Đã hủy', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(15, '2024-01-01 22:13:31.000000', 1955000, 'Hoàn thành', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(16, '2024-01-01 22:13:39.000000', 319000, 'Chờ xác nhận', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(17, '2024-01-01 22:13:54.000000', 3166000, 'Đang giao hàng', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(18, '2024-01-01 22:14:20.000000', 3232000, 'Đã xác nhận', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội');
 
 -- --------------------------------------------------------
 
@@ -1022,8 +1095,8 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (215, 62, 215, 28),
 (216, 62, 216, 72),
 (217, 62, 217, 17),
-(218, 63, 218, 34),
-(219, 63, 219, 94),
+(218, 63, 218, 30),
+(219, 63, 219, 88),
 (220, 63, 220, 12),
 (221, 63, 221, 65),
 (222, 64, 222, 32),
@@ -1033,16 +1106,16 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (226, 65, 226, 39),
 (227, 65, 227, 59),
 (228, 65, 228, 10),
-(229, 65, 229, 40),
+(229, 65, 229, 35),
 (230, 66, 230, 49),
 (231, 66, 231, 85),
 (232, 66, 232, 28),
-(233, 66, 233, 10),
+(233, 66, 233, 4),
 (234, 67, 234, 3),
 (235, 67, 235, 5),
 (236, 67, 236, 32),
-(237, 67, 237, 35),
-(238, 68, 238, 34),
+(237, 67, 237, 34),
+(238, 68, 238, 30),
 (239, 68, 239, 39),
 (240, 68, 240, 100),
 (241, 68, 241, 300),
@@ -1134,11 +1207,11 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (341, 94, 341, 51),
 (342, 94, 342, 95),
 (343, 94, 343, 34),
-(344, 94, 344, 81),
+(344, 94, 344, 77),
 (345, 95, 345, 43),
 (346, 95, 346, 55),
 (347, 95, 347, 36),
-(348, 95, 348, 81),
+(348, 95, 348, 77),
 (349, 96, 349, 43),
 (350, 96, 350, 55),
 (351, 96, 351, 36),
@@ -1324,7 +1397,7 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (562, 150, 562, 94),
 (563, 150, 563, 49),
 (564, 150, 564, 43),
-(565, 150, 565, 39),
+(565, 150, 565, 33),
 (566, 151, 566, 94),
 (567, 151, 567, 49),
 (568, 151, 568, 43),
@@ -1802,7 +1875,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`UserID`, `FullName`, `Email`, `PhoneNumber`, `Gender`, `DateBirthday`, `AvatarPath`, `IsAdmin`, `hashedPassword`) VALUES
 (1, 'Bùi Minh Hoạt', 'official.buiminhhoat@gmail.com', '0945405238', 'Nam', '2003-09-06', 'https://iili.io/J5HNvHP.jpg', 1, '$2a$10$T8MIwYiIinEg1/UTV8Y2UeRrMgCKG7g7O0SS2uiYZHoGCb6UrUWAO'),
 (2, 'Nguyễn Châu Khanh', 'chaukhanh0605@gmail.com', '0944252960', NULL, NULL, 'https://iili.io/J5HMHIR.jpg', 1, '$2a$10$WlWXmICMXAKm8SJfAHs/W.k4q9GbL/yk1.zkgZhaY6lCGpBU6EwkO'),
-(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, 'https://iili.io/J5HNZJI.jpg', 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe');
+(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, 'https://iili.io/J5HNZJI.jpg', 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe'),
+(4, 'Nguyễn Văn Vinh', 'khachhang@gmail.com', '09090909', 'Nam', '1933-02-03', 'https://iili.io/J5nNDS1.jpg', 0, '$2a$10$DrBhcWa6Qi5GxaUikvKvJuWIaelA0RXBhwbxOdgf2LLgbI4ybLNIu');
 
 --
 -- Indexes for dumped tables
@@ -1918,7 +1992,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `AddressID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `AddressID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `banner`
@@ -1930,13 +2004,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `CartID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CartID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cartitem`
 --
 ALTER TABLE `cartitem`
-  MODIFY `CartItemID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `CartItemID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1948,13 +2022,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `OrderDetailID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderDetailID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -1996,7 +2070,7 @@ ALTER TABLE `storeinformation`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `UserID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

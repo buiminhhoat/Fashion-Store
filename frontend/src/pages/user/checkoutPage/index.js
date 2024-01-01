@@ -103,12 +103,12 @@ const CheckoutPage = () => {
 
   const checkQuantity = () => {
     let stockQuantity = new_product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity;
-    console.log("check");
+    // console.log("check");
     console.log(stockQuantity);
     if (stockQuantity < amount) {
       setAmount(stockQuantity);
       return true;
-      console.log("cuu");
+      // console.log("cuu");
     }
   }
   const makeOrder = () => {
@@ -129,7 +129,7 @@ const CheckoutPage = () => {
         .then((response) => {
           if (response.ok) {
             toast.success("Đặt hàng thành công!");
-            // navigateOrdersWithUserID().then(r => {});
+            navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
             throw new Error('Lỗi khi đặt hàng.');
@@ -154,8 +154,8 @@ const CheckoutPage = () => {
         console.log(data);
         setProduct(data);
         new_product = data;
-        console.log("fecth");
-        console.log(product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity);
+        // console.log("fecth");
+        // console.log(product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity);
       } else {
         const data = await response.json();
         toast.error(data.message);
