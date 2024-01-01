@@ -93,7 +93,7 @@ const SearchProductPage = () => {
   // });
 
   const filteredProductsData = productsData;
-  console.log(filteredProductsData)
+  // console.log(filteredProductsData)
   const hasResult = filteredProductsData.length > 0;
 
   const handleSelectChange = (event) => {
