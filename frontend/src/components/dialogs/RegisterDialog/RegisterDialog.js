@@ -33,13 +33,13 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
 
       if (response.ok) {
         // Đăng ký thành công, có thể điều hướng người dùng hoặc hiển thị thông báo thành công
-        console.log("Đăng ký thành công");
+        // console.log("Đăng ký thành công");
 
         // Đóng dialog sau khi đăng ký thành công
         onClose();
       } else {
         // Đăng ký thất bại, có thể hiển thị thông báo lỗi
-        console.error("Đăng ký thất bại");
+        // console.error("Đăng ký thất bại");
         response.text().then(data => {
           // `data` chứa nội dung từ body của phản hồi
           console.log(data);
