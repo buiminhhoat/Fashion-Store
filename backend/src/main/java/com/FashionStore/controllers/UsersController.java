@@ -304,7 +304,7 @@ public class UsersController {
             }
 
             Users usersByUserID = usersRepository.findUsersByUserID(userID);
-            usersByUserID.setAvatarPath(paths.get(0));
+            usersByUserID.setAvatarPath(paths.getFirst());
             usersRepository.save(usersByUserID);
 
             ResponseObject responseObject = new ResponseObject(RESPONSE_UPLOAD_IMAGE_SUCCESS);
