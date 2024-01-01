@@ -10,6 +10,7 @@ export const MESSAGE = {
   ADD_PRODUCT_SUCCESS: "Thêm sản phẩm thành công",
   REGISTRATION_FAILED: "Đăng ký không thành công",
   REGISTRATION_SUCCESS: "Đăng ký thành công! Vui lòng đăng nhập",
+  LOGOUT_SUCCESS: "Đăng xuất thành công",
   USER_ADDED: "Đã thêm người dùng",
   USER_DELETED: "Đã xóa người dùng",
   ORDER_PLACED_SUCCESS: "Đặt hàng thành công!",

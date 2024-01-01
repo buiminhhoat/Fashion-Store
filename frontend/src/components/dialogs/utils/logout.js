@@ -1,5 +1,7 @@
 import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import {MESSAGE} from "../../../utils/const";
 
 export function useLogout() {
     const navigate = useNavigate();
@@ -22,8 +24,8 @@ export function useLogout() {
                     })
                 );
             }
-
             // Redirect về trang chính của bạn (localhost:3000)
+            toast.success(MESSAGE.LOGOUT_SUCCESS);
             navigate('/');
         } catch (error) {
             console.error('Error during logout:', error);
