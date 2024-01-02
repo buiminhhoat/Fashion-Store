@@ -288,6 +288,13 @@ export const CATEGORY_DIALOG = {
   ACCEPT_BTN: "Xác nhận"
 }
 
+export const ADD_CATEGORY_DIALOG = {
+  ADD_CATEGORY: "Thêm danh mục",
+  ADD_BTN: "Thêm",
+  CANCEL_BTN: "Hủy",
+  CATEGORY_NAME_PLACEHOLDER: "Nhập tên danh mục"
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
