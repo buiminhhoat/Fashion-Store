@@ -10,86 +10,13 @@ import emptyProduct from '../images/empty-product.png'
 import {convertDateTimeFormat} from "../../../../utils";
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
-import {CATEGORY} from "../../../admin/managementPage/productManagement/components/dialogs/utils/const";
-import {HiOutlineTrash} from "react-icons/hi";
-import {API} from "../../../../utils/const";
-
-const orderListFake = [
-  {
-    "orderID": 1,
-    "orderDate": "2023-11-12T14:08:44.000+00:00",
-    "totalAmount": 1270000,
-    "orderStatus": "Đang chờ xác nhận",
-    "userID": 1,
-    "addressID": 2,
-    "recipientName": "Nguyễn Tiến Dũng",
-    "recipientPhone": "0896037569",
-    "addressDetails": "134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ",
-    "orderDetails": [
-      {
-        "orderDetailID": 1,
-        "orderID": 1,
-        "productID": 1,
-        "productName": "Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí ATO23008",
-        "imagePath": "2e5f2767-3c1b-40b8-a294-694b54e157b5.jpg",
-        "sizeName": "S",
-        "productPrice": 174000,
-        "quantity": 5,
-        "totalPrice": 870000
-      },
-      {
-        "orderDetailID": 1,
-        "orderID": 1,
-        "productID": 1,
-        "productName": "Polo Dài Tay Nam, Thiết Kế Basic APD23002",
-        "imagePath": "2e5f2767-3c1b-40b8-a294-694b54e157b5.jpg",
-        "sizeName": "XL",
-        "productPrice": 200000,
-        "quantity": 2,
-        "totalPrice": 400000
-      }
-    ]
-  },
-  {
-    "orderID": 2,
-    "orderDate": "2023-11-12T14:13:33.000+00:00",
-    "totalAmount": 870000,
-    "orderStatus": "Đang chờ xác nhận",
-    "userID": 1,
-    "addressID": 2,
-    "recipientName": "Bùi Minh Hoạt",
-    "recipientPhone": "0896037569",
-    "addressDetails": "134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ",
-    "orderDetails": [
-      {
-        "orderDetailID": 2,
-        "orderID": 2,
-        "productID": 1,
-        "productName": "Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí ATO23008",
-        "imagePath": "a05f617e-760e-4e32-a166-f4bab0f70062.jpg",
-        "sizeName": "S",
-        "productPrice": 174000,
-        "quantity": 5,
-        "totalPrice": 870000
-      }
-    ]
-  },
-];
+import {API, POPCONFIRM, PROFILE_PAGE, TAB_LIST_ITEMS, TAB_LIST_TEXT} from "../../../../utils/const";
 
 const TabList = ({openTab, setOpenTab}) => {
-  const tabItems = [
-    { id: "tab-all", text: "Tất cả"},
-    { id: "tab1", text: "Chờ xác nhận"},
-    { id: "tab5", text: "Đã xác nhận"},
-    { id: "tab2", text: "Đang giao hàng"},
-    { id: "tab3", text: "Hoàn thành"},
-    { id: "tab4", text: "Đã hủy"}
-  ];
-
   return (
       <div className="nav nav-tabs menu-tab" id="myTab" role="tablist">
         {
-          tabItems.map((tab, index) => (
+          TAB_LIST_ITEMS.map((tab, index) => (
               <button
                   key={tab.text}
                   className={`nav-link ${openTab === tab.text ? "active" : ""}`}
@@ -148,7 +75,6 @@ const TabContent = ({openTab, setOpenTab}) => {
   function handleCancelOrder(orderID) {
     const formData = new FormData();
     formData.append('orderID', orderID);
-    // formData.append('orderStatus', "Đã huỷ");
 
     fetch(API.PUBLIC.CANCEL_ORDER_ENDPOINT, {
       method: "POST",
@@ -159,7 +85,6 @@ const TabContent = ({openTab, setOpenTab}) => {
     })
         .then((response) => response.json())
         .then((data) => {
-          // console.log(data);
           getData();
         })
         .catch((error) => {
@@ -171,56 +96,50 @@ const TabContent = ({openTab, setOpenTab}) => {
   }
 
   return (
-      <>
-        { orderList && orderList.length ?
+      <div>
+        {orderList && orderList.length ? (
             <>
-              { orderList.map((order, index) => (
-                    <div key = {index} className="order-item-wrap show-detail">
-                      <div className="header-wrap">
-                        <div className="code-wrap">
-                          Mã đơn hàng <span className="code">{order.orderID}</span>
-                        </div>
-                        <div className="status-wrap">
-                          <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
-                          <div className="status status-un-paid">
-                            <span>{order.orderStatus}</span>
-                          </div>
+              {orderList.map((order, index) => (
+                  <div key={index} className="order-item-wrap show-detail">
+                    <div className="header-wrap">
+                      <div className="code-wrap">
+                        {PROFILE_PAGE.PROFILE_ORDERS_PAGE.ORDER_ID}{" "}
+                        <span className="code">{order.orderID}</span>
+                      </div>
+                      <div className="status-wrap">
+                        <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
+                        <div className="status status-un-paid">
+                          <span>{order.orderStatus}</span>
                         </div>
                       </div>
-                      <div className="content-wrap">
-                        { order.orderDetails &&
-                            order.orderDetails.map((orderDetail, index) => (
-                                <div key = {index} className="product-wrap">
-                                  <div className="img-wrap">
-                                    <img
-                                        src={orderDetail.imagePath}
-                                        alt={""}/>
+                    </div>
+                    <div className="content-wrap">
+                      {order.orderDetails &&
+                          order.orderDetails.map((orderDetail, index) => (
+                              <div key={index} className="product-wrap">
+                                <div className="img-wrap">
+                                  <img src={orderDetail.imagePath} alt={""} />
+                                </div>
+                                <div className="info-wrap">
+                                  <Link to={"/product?productID=" + orderDetail.productID}>
+                                    <div className="name">{orderDetail.productName}</div>
+                                  </Link>
+                                  <div className="property-wrap">
+                                    <span>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.QUANTITY} {orderDetail.quantity}</span>
                                   </div>
-                                  <div className="info-wrap">
-                                    <Link to={"/product?productID=" + orderDetail.productID}>
-                                      <div className="name">{orderDetail.productName}</div>
-                                    </Link>
-                                    <div className="property-wrap">
-                                      <span>Size {orderDetail.sizeName}</span>
-                                    </div>
-                                    <div className="property-wrap">
-                                      <span>Số lượng: {orderDetail.quantity}</span>
-                                    </div>
-                                    <div className="money-wrap">
-                                      <span>{formatter(orderDetail.totalPrice)}</span>
-                                    </div>
+                                  <div className="money-wrap">
+                                    <span>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.TOTAL_AMOUNT} {formatter(orderDetail.totalPrice)}</span>
                                   </div>
                                 </div>
-                            ))
-                        }
-
+                              </div>
+                          ))}
+                    </div>
+                    <div className="total-wrap">
+                      <div className="total-money">
+                        {PROFILE_PAGE.PROFILE_ORDERS_PAGE.TOTAL_AMOUNT}
+                        <span className="money">&nbsp; {formatter(order.totalAmount)}</span>
                       </div>
-                      <div className="total-wrap">
-                        <div className="total-money">
-                          Thành tiền:
-                          <span className="money">&nbsp; {formatter(order.totalAmount)}</span>
-                        </div>
-                        { order.orderStatus === "Chờ xác nhận" &&
+                      {order.orderStatus === TAB_LIST_TEXT.PENDING_CONFIRMATION && (
                           <ConfigProvider
                               button={{
                                 style: { width: 70, margin: 4 },
@@ -238,58 +157,56 @@ const TabContent = ({openTab, setOpenTab}) => {
                           >
                             <Popconfirm
                                 placement="top"
-                                title={'Chắc chắn hủy đơn?'}
-                                okText={<div>Có</div>}
-                                cancelText={<div>Không</div>}
+                                title={POPCONFIRM.CONFIRM_CANCEL_ORDER}
+                                okText={<div>{POPCONFIRM.YES}</div>}
+                                cancelText={<div>{POPCONFIRM.NO}</div>}
                                 onConfirm={() => handleCancelOrder(order.orderID)}
                             >
-                              <button className="cancel-order">Huỷ đơn hàng</button>
+                              <button className="cancel-order">{PROFILE_PAGE.PROFILE_ORDERS_PAGE.CANCEL_ORDER}</button>
                             </Popconfirm>
                           </ConfigProvider>
-                        }
-
-                      </div>
-                      <div className="detail-wrap show-detail">
-                        <div className="content-detail-wrap">
-                          <div className="info-order-wrap">
-                            <div className="row item-info">
-                              <div className="col-3 label-wrap">Hình thức thanh toán:</div>
-                              <div className="col-9 text-wrap">Thanh toán khi nhận hàng</div>
-                            </div>
-                            <div className="row item-info">
-                              <div className="col-3 label-wrap">Địa chỉ nhận hàng:</div>
-                              <div className="col-9 text-wrap">
-                                <div className="information">
-                                  <span className="name">{order.recipientName}</span>
-                                  <div className="break-item">|</div>
-                                  <span className="phone">{order.recipientPhone}</span>
-                                </div>
-                                <div>
-                                  <span>{order.addressDetails}</span>
-                                </div>
+                      )}
+                    </div>
+                    <div className="detail-wrap show-detail">
+                      <div className="content-detail-wrap">
+                        <div className="info-order-wrap">
+                          <div className="row item-info">
+                            <div className="col-3 label-wrap">{PROFILE_PAGE.PROFILE_ORDERS_PAGE.PAYMENT_METHOD}</div>
+                            <div className="col-9 text-wrap">{PROFILE_PAGE.PROFILE_ORDERS_PAGE.CASH_ON_DELIVERY}</div>
+                          </div>
+                          <div className="row item-info">
+                            <div className="col-3 label-wrap">{PROFILE_PAGE.PROFILE_ORDERS_PAGE.SHIPPING_ADDRESS}</div>
+                            <div className="col-9 text-wrap">
+                              <div className="information">
+                                <span className="name">{order.recipientName}</span>
+                                <div className="break-item">|</div>
+                                <span className="phone">{order.recipientPhone}</span>
+                              </div>
+                              <div>
+                                <span>{order.addressDetails}</span>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                ))
-              }
+                  </div>
+              ))}
             </>
-            :
+        ) : (
             <div className={`tab-pane show`} role="tabpanel">
               <div className="empty-content">
-                <img src={emptyProduct} alt="no data"/>
-                <p>Không có đơn hàng nào</p>
+                <img src={emptyProduct} alt="no data" />
+                <p>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.NO_ORDERS}</p>
               </div>
             </div>
-        }
-      </>
+        )}
+      </div>
   );
 }
 
 const ProfileOrdersPage = () => {
-  const [openTab, setOpenTab] = useState("Tất cả");
+  const [openTab, setOpenTab] = useState(TAB_LIST_TEXT.ALL);
 
   return (
       <div className="col-8 content-children item-row">

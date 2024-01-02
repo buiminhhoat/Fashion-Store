@@ -39,7 +39,10 @@ export const BANNER = {
 export const POPCONFIRM = {
   DELETE: "Xóa",
   CANCEL: "Hủy",
-  CONFIRM_DELETE_ADDRESS: "Chắc chắn xóa địa chỉ này?"
+  YES: "Có",
+  NO: "Không",
+  CONFIRM_DELETE_ADDRESS: "Chắc chắn xóa địa chỉ này?",
+  CONFIRM_CANCEL_ORDER: "Chắc chắn hủy đơn?"
 }
 
 export const CONFIRM_DIALOG = {
@@ -71,6 +74,24 @@ export const ADDRESS_MODAL = {
   CREATE_ADDRESS: 'CREATE_ADDRESS',
   UPDATE_ADDRESS: 'UPDATE_ADDRESS'
 }
+
+export const TAB_LIST_TEXT = {
+    ALL: "Tất cả",
+    PENDING_CONFIRMATION: "Chờ xác nhận",
+    CONFIRMED: "Đã xác nhận",
+    IN_TRANSIT: "Đang giao hàng",
+    COMPLETED: "Hoàn thành",
+    CANCELLED: "Đã hủy"
+}
+
+export const TAB_LIST_ITEMS = [
+  { id: "tab-all", text: TAB_LIST_TEXT.ALL},
+  { id: "tab1", text: TAB_LIST_TEXT.PENDING_CONFIRMATION},
+  { id: "tab5", text: TAB_LIST_TEXT.CONFIRMED},
+  { id: "tab2", text: TAB_LIST_TEXT.IN_TRANSIT},
+  { id: "tab3", text: TAB_LIST_TEXT.COMPLETED},
+  { id: "tab4", text: TAB_LIST_TEXT.CANCELLED}
+]
 
 export const FILTERS = {
   TITLE: "Bộ lọc",
@@ -301,4 +322,25 @@ export const PROFILE_PAGE = {
     SAVE_CHANGES: "Lưu lại",
     CANCEL: "Hủy bỏ"
   },
+  PROFILE_NEW_ADDRESS: {
+    ADD_NEW_ADDRESS: "Thêm địa chỉ mới",
+    FULL_NAME: "Họ tên",
+    FULL_NAME_PLACEHOLDER: "Nhập họ tên",
+    PHONE_NUMBER: "Số điện thoại",
+    PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
+    ADDRESS: "Địa chỉ",
+    ADDRESS_PLACEHOLDER: "Nhập địa chỉ",
+    SAVE_CHANGES: "Lưu lại",
+    CANCEL: "Hủy bỏ"
+  },
+  PROFILE_ORDERS_PAGE: {
+    ORDER_ID: "Mã đơn hàng",
+    QUANTITY: "Số lượng:",
+    TOTAL_AMOUNT: "Thành tiền:",
+    CANCEL_ORDER: "Huỷ đơn hàng",
+    PAYMENT_METHOD: "Hình thức thanh toán:",
+    CASH_ON_DELIVERY: "Thanh toán khi nhận hàng",
+    SHIPPING_ADDRESS: "Địa chỉ nhận hàng:",
+    NO_ORDERS: "Không có đơn hàng nào"
+  }
 }
