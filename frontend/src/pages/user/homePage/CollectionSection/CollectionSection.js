@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import './style.scss';
 import ProductItem from "../../components/ProductItem/ProductItem";
 import {Link} from "react-router-dom";
-import {NUMBER_PRODUCT_LIMIT} from "../../../../utils/const";
+import {HOME_PAGE, NUMBER_PRODUCT_LIMIT} from "../../../../utils/const";
 
 const CollectionSection = ({collectionData}) => {
   // State để theo dõi tab đang được chọn
@@ -61,7 +61,7 @@ const CollectionSection = ({collectionData}) => {
           <div className="load-more-wrap text-center">
             <Link to={"/category?categoryID=" + activeTab}>
               <button className="btn btn-vm view-more-product btn-product-winter" id="view-more-product">
-                Xem thêm <i className="fa-solid fa-spinner icon-loading"></i>
+                {HOME_PAGE.SEE_MORE} <i className="fa-solid fa-spinner icon-loading"></i>
               </button>
             </Link>
           </div>

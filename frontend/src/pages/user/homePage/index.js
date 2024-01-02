@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss"
 import SlideBanner from "./SlideBanner/SlideBanner";
-import SubBanner from "./SubBanner/SubBanner";
 import CategorySection from "./CategorySection/CategorySection";
 import CollectionSection from "./CollectionSection/CollectionSection";
 import {toast} from "react-toastify";
@@ -37,7 +36,6 @@ const HomePage = () => {
       <main id="main">
         <ScrollToTop />
         <SlideBanner />
-        {/*<SubBanner />*/}
         <section className="home-content" style={{marginTop:"50px"}}>
           <CategorySection />
           {

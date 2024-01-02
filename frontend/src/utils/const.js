@@ -231,3 +231,8 @@ export const ADDRESS_SECTION = {
   CREATE_SHIPPING_ADDRESS_HERE: "Tạo địa chỉ nhận hàng tại đây",
   CHANGE_ADDRESS: "Thay đổi địa chỉ",
 }
+
+export const HOME_PAGE = {
+  PRODUCT_CATEGORIES_TITLE: "DANH MỤC SẢN PHẨM",
+  SEE_MORE: "Xem thêm",
+}
