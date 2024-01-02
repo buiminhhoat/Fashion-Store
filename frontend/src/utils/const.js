@@ -279,6 +279,15 @@ export const LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE = {
   SEARCH_KEYWORD_PLACEHOLDER: "Nhập từ khóa",
 }
 
+export const CATEGORY_DIALOG = {
+  EDIT_CATEGORY: "Chỉnh sửa danh mục",
+  ADD_CATEGORY: "Thêm danh mục",
+  SELECTED: "Đã chọn:",
+  NOT_SELECTED_CATEGORY: "Chưa chọn danh mục",
+  CANCEL_BTN: "Hủy",
+  ACCEPT_BTN: "Xác nhận"
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
@@ -379,7 +388,10 @@ export const POPCONFIRM = {
   YES: "Có",
   NO: "Không",
   CONFIRM_DELETE_ADDRESS: "Chắc chắn xóa địa chỉ này?",
-  CONFIRM_CANCEL_ORDER: "Chắc chắn hủy đơn?"
+  CONFIRM_CANCEL_ORDER: "Chắc chắn hủy đơn?",
+  CONFIRM_DELETE_CATEGORY: "Bạn có chắc chắn xóa danh mục này không?",
+  DELETE_PARENT_CATEGORY_WARNING: <div>Thao tác này sẽ xóa tất cả danh mục con <br></br> cùng với sản phẩm thuộc danh mục này.</div>,
+  DELETE_SUB_CATEGORY_WARNING: <div>Thao tác này sẽ xóa tất cả sản phẩm  <br></br> thuộc danh mục này.</div>,
 }
 
 export const CONFIRM_DIALOG = {
