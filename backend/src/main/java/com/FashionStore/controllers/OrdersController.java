@@ -159,7 +159,7 @@ public class OrdersController {
         Long userID = users.getUserID();
 
         Address address = addressRepository.findAddressByAddressID(addressID);
-        Orders orders = new Orders(orderDate, totalAmount, ORDER_STATUS_PENDING, userID, addressID,
+        Orders orders = new Orders(orderDate, totalAmount, ORDER_STATUS_PENDING, userID,
                 address.getRecipientName(), address.getRecipientPhone(), address.getAddressDetails());
 
         ordersRepository.save(orders);
@@ -231,7 +231,7 @@ public class OrdersController {
         Long userID = users.getUserID();
 
         Address address = addressRepository.findAddressByAddressID(addressID);
-        Orders orders = new Orders(orderDate, totalAmount, ORDER_STATUS_PENDING, userID, addressID,
+        Orders orders = new Orders(orderDate, totalAmount, ORDER_STATUS_PENDING, userID,
                 address.getRecipientName(), address.getRecipientPhone(), address.getAddressDetails());
 
         ordersRepository.save(orders);
