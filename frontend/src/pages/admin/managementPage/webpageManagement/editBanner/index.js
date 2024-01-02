@@ -79,16 +79,15 @@ const EditBannerPage = () => {
     if (e.target.files.length === 0) return;
     const files = e.target.files;
     if (files) {
-      let newBanners = [];
-
+      let newBanners = [...banners];
       for (let i = 0; i < files.length; ++i) {
-        if (banners.length === BANNER.MAX_BANNER_IMAGES) {
+        if (newBanners.length === BANNER.MAX_BANNER_IMAGES) {
           toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT);
           break;
         }
         newBanners.push({imageFile: files[i], imageURL: URL.createObjectURL(files[i]), bannerLinkTo:""});
       }
-      setBanners([...banners, ...newBanners]);
+      setBanners(newBanners);
     }
     inputRef.current.value = null;
   };
