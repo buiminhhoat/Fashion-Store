@@ -203,12 +203,14 @@ export const NOT_FOUND_PAGE = {
 
 export const NUMBER_PRODUCT_LIMIT = 8
 
+export const ROOT_PARENT_CATEGORY_ID = 0
+
 export const MANAGEMENT_PAGE = {
   PRODUCT_MANAGEMENT: {
     KEY: "product-management",
     LABEL: "Quản lý sản phẩm",
     SUB: {
-      PRODUCT_CATEGORY: "Danh mục sản phẩm",
+      PRODUCT_CATEGORY: "Danh mục và sản phẩm",
       ADD_PRODUCT: "Thêm sản phẩm",
     },
   },
@@ -269,6 +271,14 @@ export const EDIT_PRODUCT_PAGE = {
   RESTORE_BTN: "Khôi phục"
 }
 
+export const LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE = {
+  NO_PRODUCTS: "Không có sản phẩm",
+  PRODUCT_CATEGORY: "DANH MỤC SẢN PHẨM",
+  ADD_PARENT_CATEGORY: "Thêm danh mục lớn",
+  SEARCH_BY: "Tìm kiếm theo:",
+  SEARCH_KEYWORD_PLACEHOLDER: "Nhập từ khóa",
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
@@ -280,6 +290,11 @@ export const DIALOGS = {
   LOGIN: "login",
   REGISTER: "register",
   FORGOT_PASSWORD: "forgot-password"
+}
+
+export const CATEGORY = {
+  SUB_CATEGORY: "SUB_CATEGORY",
+  PARENT_CATEGORY: "PARENT_CATEGORY",
 }
 
 export const DATE_PICKER = {
@@ -316,6 +331,18 @@ export const FOOTER = {
 }
 
 export const SEARCH = {
+  PRODUCT_CATEGORY: {
+    VALUE: {
+      CATEGORY: "category",
+      SUB_CATEGORY: "sub-category",
+      PRODUCT: "product",
+    },
+    LABEL: {
+      CATEGORY: "Danh mục lớn",
+      SUB_CATEGORY: "Danh mục con",
+      PRODUCT: "Sản phẩm",
+    }
+  },
   USER: {
     VALUE: {
       FULL_NAME: "full-name",
@@ -327,7 +354,6 @@ export const SEARCH = {
       PHONE_NUMBER: "Số điện thoại",
       EMAIL: "Địa chỉ email",
     }
-
   }
 }
 
@@ -338,7 +364,13 @@ export const BANNER = {
 export const TOOLTIP = {
   DELETE_USER: "Xóa người dùng",
   USER_DETAILS: "Chi tiết người dùng",
-  ADD_USER: "Thêm người dùng"
+  ADD_USER: "Thêm người dùng",
+  ADD_PRODUCT: "Thêm sản phẩm",
+  DELETE_PRODUCT: "Xóa sản phẩm",
+  EDIT_PRODUCT: "Chỉnh sửa sản phẩm",
+  ADD_SUBCATEGORY: "Thêm danh mục con",
+  DELETE_CATEGORY: "Xóa danh mục",
+  EDIT_CATEGORY: "Chỉnh sửa danh mục"
 }
 
 export const POPCONFIRM = {
@@ -359,7 +391,13 @@ export const CONFIRM_DIALOG = {
   CONFIRM_REFRESH_DATA: "Bạn có chắc chắn muốn làm mới dữ liệu? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.",
   CONFIRM_RESTORE_DATA: "Bạn có chắc chắn muốn khôi phục dữ liệu? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.",
   CONFIRM_DELETE_USER_SUBTITLE_1: "Bạn có chắc chắn xóa người dùng",
-  CONFIRM_DELETE_USER_SUBTITLE_2: "không?"
+  CONFIRM_DELETE_USER_SUBTITLE_2: "không?",
+  DELETE_PARENT_CATEGORY_WARNING: "Thao tác này sẽ xóa tất cả danh mục con cùng với sản phẩm thuộc danh mục này.",
+  DELETE_SUB_CATEGORY_WARNING: "Thao tác này sẽ xóa tất cả những sản phẩm thuộc danh mục này.",
+  CONFIRM_DELETE_CATEGORY_SUBTITLE_1: "Bạn có chắc chắn xóa danh mục",
+  CONFIRM_DELETE_CATEGORY_SUBTITLE_2: "không?",
+  CONFIRM_DELETE_PRODUCT_SUBTITLE_1: "Bạn có chắc chắn xóa sản phẩm",
+  CONFIRM_DELETE_PRODUCT_SUBTITLE_2: "không?",
 }
 
 export const BREADCRUMB = {

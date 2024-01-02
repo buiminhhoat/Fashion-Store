@@ -4,7 +4,7 @@ import "./style.scss"
 import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {HiOutlineTrash} from "react-icons/hi";
+import {HiOutlineTrash, HiPlus} from "react-icons/hi";
 import {BiSolidEdit} from "react-icons/bi";
 import {TbListSearch} from "react-icons/tb";
 import {IoAdd, IoSearch} from "react-icons/io5";
@@ -14,8 +14,13 @@ import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/Confi
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
 import {ConfigProvider, Select, Tooltip} from "antd";
-import {CATEGORY, SEARCH} from "../utils/const";
-import {API, MESSAGE} from "../../../../../utils/const";
+import {
+  API,
+  BREADCRUMB, CATEGORY, CONFIRM_DIALOG,
+  LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE,
+  MESSAGE, ROOT_PARENT_CATEGORY_ID, SEARCH,
+  TOOLTIP
+} from "../../../../../utils/const";
 
 const ListOfProductsAndCategoriesPage  = () => {
   const navigate = useNavigate();
@@ -34,7 +39,7 @@ const ListOfProductsAndCategoriesPage  = () => {
   const [productsData, setProductsData] = useState([]);
   const [categoriesImgID, setCategoriesImgID] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [selectedSearch, setSelectedSearch] = useState(SEARCH.CATEGORY);
+  const [selectedSearch, setSelectedSearch] = useState(SEARCH.PRODUCT_CATEGORY.VALUE.CATEGORY);
 
   const  fetchImageAsFile = async (imageUrl, imageName, categoryID) => {
     const response = await fetch(imageUrl);
@@ -89,7 +94,7 @@ const ListOfProductsAndCategoriesPage  = () => {
               setCategoriesImgID(files);
             })
             .catch(error => {
-              console.error("Error loading images:", error);
+              console.error(error);
             });
 
       } else {
@@ -141,7 +146,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   }
 
@@ -209,14 +214,11 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', apiProductBySearch);
         return;
       }
 
       if (response.ok) {
         const data = await response.json();
-        // console.log("apiProductBySearch");
-        // console.log(data);
         setProductsData(data);
 
       } else {
@@ -235,7 +237,6 @@ const ListOfProductsAndCategoriesPage  = () => {
       setSelectedCategoriesID(updatedCategoriesID);
     } else {
       const updatedCategoriesID = [...selectedCategoriesID, categoryID];
-      // const updatedCategoriesID = [categoryID];
       setSelectedCategoriesID(updatedCategoriesID);
     }
     if (type === CATEGORY.SUB_CATEGORY) {
@@ -279,7 +280,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   }
 
@@ -326,7 +327,7 @@ const ListOfProductsAndCategoriesPage  = () => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   }
 
@@ -338,12 +339,6 @@ const ListOfProductsAndCategoriesPage  = () => {
       categoryName: categoryName,
     })
   }
-
-  // const handleBtnEditProductClick = (e, productID) => {
-  //   e.stopPropagation();
-  //   // window.open(`/admin/management-page/edit-product?productID=${productID}`, '_blank');
-  //   navigate(`/admin/management-page/edit-product?productID=${productID}`);
-  // }
 
   const handleBtnDeleteProductClick = (e, productID, productName) => {
     e.stopPropagation();
@@ -358,14 +353,13 @@ const ListOfProductsAndCategoriesPage  = () => {
     setSearchInputValue("");
     setSelectedCategoriesID([]);
     setProductsData([]);
-    // fetchRandom12Products().then(r => {});
     fetchData().then(r => {});
   };
 
   const handleSearchInputChange = () => {
     setSelectedCategoriesID([]);
     switch (selectedSearch) {
-      case SEARCH.CATEGORY:
+      case SEARCH.PRODUCT_CATEGORY.VALUE.CATEGORY:
         fetchData().then(r => {
           setCategories((newCategories) =>
               newCategories.filter((category) =>
@@ -375,7 +369,7 @@ const ListOfProductsAndCategoriesPage  = () => {
         });
 
         break;
-      case SEARCH.SUB_CATEGORY:
+      case SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY:
         fetchData().then(r => {
           setCategories((newCategories) =>
             newCategories.map((category) => ({
@@ -387,7 +381,7 @@ const ListOfProductsAndCategoriesPage  = () => {
           );
         });
         break;
-      case SEARCH.PRODUCT:
+      case SEARCH.PRODUCT_CATEGORY.VALUE.PRODUCT:
         fetchProductDataBySearch(searchInputValue).then(r => {});
         break;
     }
@@ -433,7 +427,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                   {
                     categories.map((category, index) => (
                         <div key={index}>
-                          { selectedSearch !== SEARCH.SUB_CATEGORY &&
+                          { selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY &&
                               <div className={`pointer-cursor ${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-category-field" : "category-field"}`}
                                    style={{borderTop: `${index !== 0 ? "2px solid #E4E4E4" : "none"}`}}
                                    onClick={() => handleCategoryClick(category.categoryID, CATEGORY.PARENT_CATEGORY)}
@@ -459,7 +453,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                 </div>
                                 <div style={{display:"flex"}}>
 
-                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm danh mục con</div>} color={"#4A4444"}>
+                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.ADD_SUBCATEGORY}</div>} color={"#4A4444"}>
                                     <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
                                          style={{marginRight:"20px", fontSize:"25px"}}
                                          onClick={(e) => handleBtnAddCategoryClick(e, category.categoryID)}
@@ -468,7 +462,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                     </div>
                                   </Tooltip>
 
-                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa danh mục</div>} color={"#4A4444"}>
+                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_CATEGORY}</div>} color={"#4A4444"}>
                                     <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
                                          style={{marginRight:"20px"}}
                                          onClick={(e) => handleBtnDeleteCategoryClick(e, category.categoryID, category.categoryName, CATEGORY.PARENT_CATEGORY)}
@@ -477,7 +471,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                     </div>
                                   </Tooltip>
 
-                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chỉnh sửa danh mục</div>} color={"#4A4444"}>
+                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.EDIT_CATEGORY}</div>} color={"#4A4444"}>
                                     <div className={`${selectedCategoriesID.find((id) => id === category.categoryID) ? "selected-btn-category" : "btn-category"}`}
                                          style={{marginRight:"0"}}
                                          onClick={(e) => handleBtnEditCategoryClick(e, category.categoryID, category.categoryName)}
@@ -492,21 +486,21 @@ const ListOfProductsAndCategoriesPage  = () => {
 
                           <div>
                             {
-                                (selectedCategoriesID.find((id) => id === category.categoryID) || selectedSearch === SEARCH.SUB_CATEGORY) &&
+                                (selectedCategoriesID.find((id) => id === category.categoryID) || selectedSearch === SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY) &&
                                 category.subCategories &&
                                 category.subCategories.map((subCategory, subCategoryIndex) => (
                                     <div key={subCategoryIndex}>
-                                      <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "subCategory-field" : "search-subCategory-field"} pointer-cursor`}
+                                      <div className={`${selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY ? "subCategory-field" : "search-subCategory-field"} pointer-cursor`}
                                            onClick={() => handleCategoryClick(subCategory.categoryID, CATEGORY.SUB_CATEGORY)}
                                       >
                                         <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
 
                                           <div style={{alignSelf: "flex-start", width:"25px", minWidth:"25px",
                                             height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "calc(50% + 1.5px)"}`,
-                                            borderRight:`${selectedSearch !== SEARCH.SUB_CATEGORY ? "3px solid #a30000" : "3px"}`}}/>
+                                            borderRight:`${selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY ? "3px solid #a30000" : "3px"}`}}/>
 
                                           <div style={{width:"20px", minWidth:"20px", height:"2.5px", border:"none",
-                                            backgroundColor:`${selectedSearch !== SEARCH.SUB_CATEGORY ? "#a30000" : ""}`}}/>
+                                            backgroundColor:`${selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY ? "#a30000" : ""}`}}/>
 
                                           <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
                                             <div style={{zIndex:"1", borderRadius:"100%", border:"3px solid #a30000", padding:"2px", backgroundColor:"white"}}>
@@ -547,7 +541,7 @@ const ListOfProductsAndCategoriesPage  = () => {
 
                                         <div style={{display:"flex"}}>
 
-                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm sản phẩm</div>} color={"#4A4444"}>
+                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.ADD_PRODUCT}</div>} color={"#4A4444"}>
                                             <div className="btn-category"
                                                  style={{marginRight:"20px", fontSize:"25px"}}
                                                  onClick={() => {
@@ -559,7 +553,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                               <IoAdd/>
                                             </div>
                                           </Tooltip>
-                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa danh mục</div>} color={"#4A4444"}>
+                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_CATEGORY}</div>} color={"#4A4444"}>
                                             <div className="btn-category"
                                                  style={{marginRight:"20px"}}
                                                  onClick={(e) => handleBtnDeleteCategoryClick(e, subCategory.categoryID, subCategory.categoryName, CATEGORY.SUB_CATEGORY)}
@@ -568,7 +562,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                             </div>
                                           </Tooltip>
 
-                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chỉnh sửa danh mục</div>} color={"#4A4444"}>
+                                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.EDIT_CATEGORY}</div>} color={"#4A4444"}>
                                             <div className="btn-category"
                                                  style={{marginRight:"0"}}
                                                  onClick={(e) => handleBtnEditCategoryClick(e, subCategory.categoryID, subCategory.categoryName)}
@@ -588,11 +582,11 @@ const ListOfProductsAndCategoriesPage  = () => {
                                             (
                                               subCategory.products.map((product, productIndex) => (
                                                   <div key={productIndex}>
-                                                    <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
+                                                    <div className={`${selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
                                                       <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
 
                                                         <div style={{alignSelf: "flex-start", width:"25px", minWidth:"25px", height:"100%",
-                                                          borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
+                                                          borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
 
                                                         <div style={{alignSelf: "flex-start", width:"25px", minWidth:"25px",
                                                           height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "calc(50% + 1.5px)"}`, borderRight:"3px solid #a30000",
@@ -619,7 +613,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                       </div>
 
                                                       <div style={{display:"flex"}}>
-                                                        <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa sản phẩm</div>} color={"#4A4444"}>
+                                                        <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_PRODUCT}</div>} color={"#4A4444"}>
                                                           <div className="pointer-cursor btn-category"
                                                                style={{marginRight:"20px"}}
                                                                onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
@@ -628,7 +622,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                           </div>
                                                         </Tooltip>
 
-                                                        <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chỉnh sửa sản phẩm</div>} color={"#4A4444"}>
+                                                        <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.EDIT_PRODUCT}</div>} color={"#4A4444"}>
                                                           <a>
                                                             <div className="pointer-cursor btn-category"
                                                                  style={{marginRight:"0"}}
@@ -648,18 +642,18 @@ const ListOfProductsAndCategoriesPage  = () => {
                                             :
                                             (
                                                 <div>
-                                                  <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
+                                                  <div className={`${selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
                                                     <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
 
                                                       <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
-                                                        borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
+                                                        borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
 
                                                       <div style={{alignSelf: "flex-start", width:"25px",
                                                         height:"calc(50% + 1.5px)", borderRight:"3px solid #a30000", marginLeft:"25px"}}/>
 
                                                       <div style={{width:"30px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
                                                       <a style={{cursor: "default", marginLeft:"15px", fontSize:"15", fontWeight:"600", color:"#bd0000"}}>
-                                                        Không có sản phẩm
+                                                        {LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE.NO_PRODUCTS}
                                                       </a>
                                                     </div>
                                                   </div>
@@ -695,7 +689,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                 productsData &&
                 productsData.map((product, productIndex) => (
                     <div key={productIndex}>
-                      <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
+                      <div className={`${selectedSearch !== SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
                         <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
                           <div style={{alignSelf: "flex-start", width:"25px", height:"100%", borderRight:"3px"}}/>
 
@@ -718,22 +712,23 @@ const ListOfProductsAndCategoriesPage  = () => {
                         </div>
 
                         <div style={{display:"flex"}}>
-                          <div className="pointer-cursor btn-category"
-                               style={{marginRight:"20px"}}
-                               onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
-                          >
-                            <HiOutlineTrash />
-                          </div>
-                          <a
-                              // href={`/admin/management-page/edit-product?productID=${product.productID}`}
-                          >
+                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_PRODUCT}</div>} color={"#4A4444"}>
+                            <div className="pointer-cursor btn-category"
+                                 style={{marginRight:"20px"}}
+                                 onClick={(e) => handleBtnDeleteProductClick(e, product.productID, product.productName)}
+                            >
+                              <HiOutlineTrash />
+                            </div>
+                          </Tooltip>
+
+                          <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.EDIT_PRODUCT}</div>} color={"#4A4444"}>
                             <div className="pointer-cursor btn-category"
                                  style={{marginRight:"0"}}
                                  onClick={() => {navigate(`/admin/management-page/edit-product?productID=${product.productID}`)}}
                             >
                               <BiSolidEdit />
                             </div>
-                          </a>
+                          </Tooltip>
 
                         </div>
 
@@ -753,23 +748,23 @@ const ListOfProductsAndCategoriesPage  = () => {
         <main id="main">
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý sản phẩm</span>
-              &gt; <span>Danh mục và sản phẩm</span>
+              <a href="/">{BREADCRUMB.HOME_PAGE}</a>
+              &gt; <span>{BREADCRUMB.PRODUCT_MANAGEMENT}</span>
+              &gt; <span>{BREADCRUMB.PRODUCT_CATEGORY}</span>
             </div>
           </div>
 
           <div className="container pe-0 ps-0" style={{paddingBottom: "100px", minWidth:"800px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
-              <p className="category-title" style={{paddingTop: "30px"}}>
-                DANH MỤC SẢN PHẨM
+              <p className="category-title" style={{paddingTop: "30px", display:"flex", justifyContent:"space-between"}}>
+                {LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE.PRODUCT_CATEGORY}
 
-                <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm danh mục lớn</div>} color={"#4A4444"}>
-                  <MdLibraryAdd className="pointer-cursor"
-                                style={{margin:"0 0 8px 8px", fontSize:"27px"}}
-                                onClick={(e) => handleBtnAddCategoryClick(e, 0)}
-                  />
-                </Tooltip>
+                <button type="button" className="add-parent-category-btn"
+                        onClick={(e) => handleBtnAddCategoryClick(e, ROOT_PARENT_CATEGORY_ID)}
+                >
+                  <HiPlus style={{fontSize:"22px", padding:"0 0px 3px 0", marginRight:"4px"}}/>
+                  <span style={{marginRight:"5px"}}>{LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE.ADD_PARENT_CATEGORY}</span>
+                </button>
 
               </p>
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
@@ -777,7 +772,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                     <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
-                    <span>Tìm kiếm theo:</span>
+                    <span>{LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE.SEARCH_BY}</span>
                     <ConfigProvider
                         theme={{
                           components: {
@@ -788,14 +783,14 @@ const ListOfProductsAndCategoriesPage  = () => {
                         }}
                     >
                       <Select
-                          defaultValue={SEARCH.CATEGORY}
+                          defaultValue={SEARCH.PRODUCT_CATEGORY.VALUE.CATEGORY}
                           style={{ width: 170 }}
                           bordered={false}
                           size={"large"}
                           options={[
-                            { value: SEARCH.CATEGORY, label: 'Danh mục lớn' },
-                            { value: SEARCH.SUB_CATEGORY, label: 'Danh mục con' },
-                            { value: SEARCH.PRODUCT, label: 'Sản phẩm' },
+                            { value: SEARCH.PRODUCT_CATEGORY.VALUE.CATEGORY, label: SEARCH.PRODUCT_CATEGORY.LABEL.CATEGORY },
+                            { value: SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY, label: SEARCH.PRODUCT_CATEGORY.LABEL.SUB_CATEGORY },
+                            { value: SEARCH.PRODUCT_CATEGORY.VALUE.PRODUCT, label: SEARCH.PRODUCT_CATEGORY.LABEL.PRODUCT },
                           ]}
                           onChange={(value) => {handleSelectChange(value)}}
                       />
@@ -809,7 +804,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                           style={{fontSize:"15px", width:"250px",backgroundColor:"#FAFAFA", border:"none", margin:"0 5px 0 5px"}}
                           type="text"
                           value={searchInputValue}
-                          placeholder="Nhập từ khóa"
+                          placeholder={LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE.SEARCH_KEYWORD_PLACEHOLDER}
                           onChange={(e) => {
                             setSearchInputValue(e.target.value);
                           }}
@@ -822,12 +817,12 @@ const ListOfProductsAndCategoriesPage  = () => {
               </div>
 
               {
-                selectedSearch === SEARCH.PRODUCT ? <ListProductSection /> : <ListCategorySection />
+                selectedSearch === SEARCH.PRODUCT_CATEGORY.VALUE.PRODUCT ? <ListProductSection /> : <ListCategorySection />
               }
 
               {/*{*/}
-              {/*  selectedSearch === SEARCH.SUB_CATEGORY ? <SelectedSearchSubCategory /> :*/}
-              {/*  (selectedSearch === SEARCH.PRODUCT ? <SelectedSearchProduct /> : <SelectedSearchCategory />)*/}
+              {/*  selectedSearch === SEARCH.PRODUCT_CATEGORY.VALUE.SUB_CATEGORY ? <SelectedSearchSubCategory /> :*/}
+              {/*  (selectedSearch === SEARCH.PRODUCT_CATEGORY.VALUE.PRODUCT ? <SelectedSearchProduct /> : <SelectedSearchCategory />)*/}
               {/*}*/}
 
             </div>
@@ -837,24 +832,24 @@ const ListOfProductsAndCategoriesPage  = () => {
 
         {deletedCategory && (
             <div className="modal-overlay">
-              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={deletedCategory.type === CATEGORY.PARENT_CATEGORY ?
                                  (
                                      <>
-                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> không? <br />
-                                       Thao tác này sẽ xóa tất cả danh mục con cùng với sản phẩm thuộc danh mục này.
+                                       {CONFIRM_DIALOG.CONFIRM_DELETE_CATEGORY_SUBTITLE_1} <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> {CONFIRM_DIALOG.CONFIRM_DELETE_CATEGORY_SUBTITLE_2} <br />
+                                       {CONFIRM_DIALOG.DELETE_PARENT_CATEGORY_WARNING}
                                      </>
                                  )
                                  :
                                  (
                                      <>
-                                       Bạn có chắc chắn xóa danh mục <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> không? <br />
-                                       Thao tác này sẽ xóa tất cả những sản phẩm thuộc danh mục này.
+                                       {CONFIRM_DIALOG.CONFIRM_DELETE_CATEGORY_SUBTITLE_1} <span style={{color:"#bd0000"}}>{deletedCategory.categoryName}</span> {CONFIRM_DIALOG.CONFIRM_DELETE_CATEGORY_SUBTITLE_2} <br />
+                                       {CONFIRM_DIALOG.DELETE_SUB_CATEGORY_WARNING}
                                      </>
                                  )
                              }
-                             titleBtnAccept={"Xóa"}
-                             titleBtnCancel={"Hủy bỏ"}
+                             titleBtnAccept={CONFIRM_DIALOG.DELETE_TITLE_BTN_ACCEPT}
+                             titleBtnCancel={CONFIRM_DIALOG.CANCEL_TITLE_BTN_CANCEL}
                              onAccept={deleteCategory}
                              onCancel={() => {setDeletedCategory(null)}}/>
             </div>
@@ -862,13 +857,13 @@ const ListOfProductsAndCategoriesPage  = () => {
 
         {deletedProduct && (
             <div className="modal-overlay">
-              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={ <>
-                               Bạn có chắc chắn xóa sản phẩm <span style={{color:"#bd0000"}}>{deletedProduct.productName}</span> không? <br />
+                               {CONFIRM_DIALOG.CONFIRM_DELETE_PRODUCT_SUBTITLE_1} <span style={{color:"#bd0000"}}>{deletedProduct.productName}</span> {CONFIRM_DIALOG.CONFIRM_DELETE_PRODUCT_SUBTITLE_2} <br />
                              </>
                              }
-                             titleBtnAccept={"Xóa"}
-                             titleBtnCancel={"Hủy bỏ"}
+                             titleBtnAccept={CONFIRM_DIALOG.DELETE_TITLE_BTN_ACCEPT}
+                             titleBtnCancel={CONFIRM_DIALOG.CANCEL_TITLE_BTN_CANCEL}
                              onAccept={deleteProduct}
                              onCancel={() => {setDeletedProduct(null)}}/>
             </div>
