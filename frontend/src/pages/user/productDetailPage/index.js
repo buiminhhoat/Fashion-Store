@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react"
 import {useCookies} from "react-cookie";
-import {useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 import queryString from "query-string";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
-import {API, MESSAGE} from "../../../utils/const";
+import {API, BREADCRUMB, MESSAGE, PRODUCT_DETAIL_PAGE} from "../../../utils/const";
 
 const ProductDetailPage = () => {
   const cartContext = useContext(CartContext);
@@ -84,7 +84,7 @@ const ProductDetailPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          // console.log(data);
+          console.log(data);
           setInformationProduct(data);
         } else {
           const data = await response.json();
@@ -106,17 +106,26 @@ const ProductDetailPage = () => {
             <div className="col-12 pe-0 ps-0">
               <ul className="breadcrumb">
                 <li className="link">
-                  <a href="/"><span>Trang chủ</span></a>
+                  <Link to="/"><span>{BREADCRUMB.HOME_PAGE}</span></Link>
                   <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
                 </li>
-                <li className="link">
-                  <a href="/"><span>{(informationProduct.parentCategory ? informationProduct.parentCategory.categoryName : "Danh mục 1")}</span></a>
-                  <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
-                </li>
-                <li className="link">
-                  <a href="/"><span>{(informationProduct.category ? informationProduct.category.categoryName : "Danh mục 2")}</span></a>
-                  <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
-                </li>
+
+                { informationProduct.parentCategory &&
+                    <li className="link">
+                      <Link to={informationProduct.parentCategory.categoryID ? `/category?categoryID=${informationProduct.parentCategory.categoryID}` : ""}>
+                        <span>{(informationProduct.parentCategory.categoryName ? informationProduct.parentCategory.categoryName : PRODUCT_DETAIL_PAGE.CATEGORY_1)}</span>
+                      </Link>
+                      <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
+                    </li>
+                }
+                { informationProduct.category &&
+                    <li className="link">
+                      <Link to={informationProduct.category.categoryID ? `/category?categoryID=${informationProduct.category.categoryID}` : ""}>
+                        <span>{(informationProduct.category.categoryName ? informationProduct.category.categoryName : PRODUCT_DETAIL_PAGE.CATEGORY_2)}</span>
+                      </Link>
+                      <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
+                    </li>
+                }
                 <li className="link breadcrumb__name">{informationProduct.productName}</li>
               </ul>
             </div>

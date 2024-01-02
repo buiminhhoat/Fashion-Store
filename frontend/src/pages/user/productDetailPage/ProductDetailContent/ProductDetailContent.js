@@ -6,8 +6,8 @@ import './style.scss';
 import {IoMdPricetag} from "react-icons/io";
 import {formatter} from "../../../../utils/formatter";
 import {toast} from "react-toastify";
-import axios from "axios";
 import {TbShoppingBagCheck} from "react-icons/tb";
+import {MESSAGE, PRODUCT_DETAIL_PAGE} from "../../../../utils/const";
 
 const ImagesProductSection = ({informationProduct}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -221,7 +221,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
   const handleQuantityPurchaseChange = (e) => {
     if (selectedSizeID === null) {
-      toast.warn("Vui lòng chọn kích thước sản phẩm");
+      toast.warn(MESSAGE.PLEASE_SELECT_PRODUCT_SIZE);
       return;
     }
     const quantity = e.target.value;
@@ -232,7 +232,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
   const handleQuantityPurchaseAdd = () => {
     if (selectedSizeID === null) {
-      toast.warn("Vui lòng chọn kích thước sản phẩm");
+      toast.warn(MESSAGE.PLEASE_SELECT_PRODUCT_SIZE);
       return;
     }
 
@@ -247,7 +247,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
   const handleQuantityPurchaseDec = () => {
     if (selectedSizeID === null) {
-      toast.warn("Vui lòng chọn kích thước sản phẩm");
+      toast.warn(MESSAGE.PLEASE_SELECT_PRODUCT_SIZE);
       return;
     }
 
@@ -299,7 +299,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
       //       console.error("Lỗi khi thực hiện HTTP request:", error);
       //     });
     } else {
-      toast.warn("Vui lòng chọn kích thước sản phẩm");
+      toast.warn(MESSAGE.PLEASE_SELECT_PRODUCT_SIZE);
     }
   };
 
@@ -312,7 +312,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
       }
       handleBuyNow(newOrderDetails);
     } else {
-      toast.warn("Vui lòng chọn kích thước sản phẩm");
+      toast.warn(MESSAGE.PLEASE_SELECT_PRODUCT_SIZE);
     }
   }
 
@@ -332,7 +332,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
           </div>
 
           <span style={{margin:"8px 0 0 10px", color:"#888888", fontWeight:"600"}}>
-            Đã bán {informationProduct.quantitySold ? informationProduct.quantitySold : 0}
+            {PRODUCT_DETAIL_PAGE.SOLD_QUANTITY} {informationProduct.quantitySold ? informationProduct.quantitySold : 0}
           </span>
         </div>
 
@@ -340,7 +340,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
         <div className="order-action-box">
           <div style={{marginTop:"50px"}} className="wrap-product-detail row me-0 ms-0 mt-12">
             <div className="col-3 pe-0 ps-0">
-              <p className="wrap-product-detail-title">Kích thước</p>
+              <p className="wrap-product-detail-title">{PRODUCT_DETAIL_PAGE.SIZE}</p>
             </div>
             <div className="col-9 pe-0 ps-0">
               <div className="wrap-product-detail-properties d-flex ">
@@ -384,7 +384,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
 
           <div style={{marginTop: `${selectedSizeID ? "10px" : "25px"}` }} className="wrap-product-detail product-quantity d-flex">
             <div className="col-3 pe-0 ps-0">
-              <div className="wrap-product-detail-title">Số lượng</div>
+              <div className="wrap-product-detail-title">{PRODUCT_DETAIL_PAGE.QUANTITY}</div>
             </div>
 
             <div className="col-9 pe-0 ps-0">
@@ -429,7 +429,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
                   </defs>
                 </svg>
                 <div className="text-btn-action">
-                  <span> Thêm vào giỏ hàng </span>
+                  <span> {PRODUCT_DETAIL_PAGE.ADD_TO_CART} </span>
                 </div>
               </button>
               <button className="btn-buy-now " onClick={handleClickBuyNow}>
@@ -448,7 +448,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
                       </clipPath>
                     </defs>
                   </svg>
-                  <span>Mua ngay</span>
+                  <span>{PRODUCT_DETAIL_PAGE.BUY_NOW}</span>
               </button>
             </div>
           </div>
@@ -458,7 +458,7 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
             <div className="container pe-0 ps-0">
               <div className="product-description" style={{marginRight:"0", padding:"0"}}>
                 <div className="header-description">
-                  <button type="button" className=" btn active" style={{cursor:"default"}}>Mô tả sản phẩm</button>
+                  <button type="button" className=" btn active" style={{cursor:"default"}}>{PRODUCT_DETAIL_PAGE.PRODUCT_DESCRIPTION}</button>
 
                   <div id="content-description" className="mt-20" style={{paddingRight:"40px"}}>
                     {informationProduct.productDescription}

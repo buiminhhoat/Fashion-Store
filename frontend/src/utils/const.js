@@ -109,6 +109,7 @@ export const MESSAGE = {
   ADDED_TO_CART_SUCCESS: "Đã thêm vào giỏ hàng thành công",
   ENTER_DELIVERY_ADDRESS: "Vui lòng nhập địa chỉ giao hàng",
   ENTER_FULL_NAME: "Vui lòng nhập họ tên",
+  PLEASE_SELECT_PRODUCT_SIZE: "Vui lòng chọn kích thước sản phẩm",
   MAXIMUM_UPLOAD_LIMIT: "Chỉ được tải lên tối đa " + BANNER.MAX_BANNER_IMAGES + " ảnh.",
 }
 
@@ -235,4 +236,15 @@ export const ADDRESS_SECTION = {
 export const HOME_PAGE = {
   PRODUCT_CATEGORIES_TITLE: "DANH MỤC SẢN PHẨM",
   SEE_MORE: "Xem thêm",
+}
+
+export const PRODUCT_DETAIL_PAGE = {
+  SIZE: "Kích thước",
+  SOLD_QUANTITY: "Đã bán",
+  QUANTITY: "Số lượng",
+  ADD_TO_CART: "Thêm vào giỏ hàng",
+  BUY_NOW: "Mua ngay",
+  PRODUCT_DESCRIPTION: "Mô tả sản phẩm",
+  CATEGORY_1: "Danh mục 1",
+  CATEGORY_2: "Danh mục 2",
 }
