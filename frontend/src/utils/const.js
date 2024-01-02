@@ -241,7 +241,8 @@ export const MANAGEMENT_PAGE = {
 export const ACCOUNT_LIST_PAGE = {
   USER_LIST: "DANH SÁCH NGƯỜI DÙNG",
   SEARCH_BY: "Tìm kiếm theo:",
-  SEARCH_KEYWORD_PLACEHOLDER: "Nhập từ khóa"
+  SEARCH_KEYWORD_PLACEHOLDER: "Nhập từ khóa",
+  ADD_USER_BTN: "Thêm người dùng",
 }
 
 export const IMAGE_URL = {

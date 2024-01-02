@@ -8,14 +8,16 @@ import {toast} from "react-toastify";
 import {PiUserListBold} from "react-icons/pi";
 import {IoSearch} from "react-icons/io5";
 import {TbListSearch} from "react-icons/tb";
-import {MdLibraryAdd, MdOutlineEmail} from "react-icons/md";
-import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
+import {MdAdd, MdLibraryAdd, MdOutlineAdd, MdOutlineEmail} from "react-icons/md";
+import {HiOutlinePhone, HiOutlineTrash, HiPlus} from "react-icons/hi";
 
 import {ConfigProvider, Select, Tooltip} from "antd";
 
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {ACCOUNT_LIST_PAGE, API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE, SEARCH, TOOLTIP} from "../../../../../utils/const";
+import {IoMdAdd} from "react-icons/io";
+import {FaPlus} from "react-icons/fa";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -258,16 +260,14 @@ const AccountListPage = () => {
           <div className="container pe-0 ps-0" style={{paddingBottom: "100px", minWidth:"800px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
 
-              <p className="category-title" style={{paddingTop: "30px"}}>
+              <p className="category-title" style={{paddingTop: "30px", display:"flex", justifyContent:"space-between"}}>
                 {ACCOUNT_LIST_PAGE.USER_LIST}
-
-                <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.ADD_USER}</div>} color={"#4A4444"}>
-                  <MdLibraryAdd className="pointer-cursor"
-                                style={{margin:"0 0 8px 8px", fontSize:"27px"}}
-                                onClick={() => {navigate('/admin/management-page/add-account')}}
-                  />
-                </Tooltip>
-
+                <button type="button" className="add-account-btn"
+                        onClick={() => {navigate('/admin/management-page/add-account')}}
+                >
+                  <HiPlus style={{fontSize:"22px", padding:"0 0px 3px 0", marginRight:"4px"}}/>
+                  <span style={{marginRight:"5px"}}>{ACCOUNT_LIST_PAGE.ADD_USER_BTN}</span>
+                </button>
               </p>
 
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
