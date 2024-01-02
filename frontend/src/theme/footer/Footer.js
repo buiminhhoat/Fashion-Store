@@ -108,16 +108,16 @@ const Footer = () => {
                     <a href={storeInfo.facebook} className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">
                       <img src={facebook} alt="icon facebook" loading="lazy" />
                     </a>
-                    {/*<a href="https://zalo.me/1117511081997892333" className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">*/}
+                    {/*<a href="" className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">*/}
                     {/*  <img src={zalo} alt="icon zalo" loading="lazy" />*/}
                     {/*</a>*/}
-                    {/*<a href="https://shopee.vn/5s_official" className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">*/}
+                    {/*<a href="" className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">*/}
                     {/*  <img src={shopee} alt="icon shopee" loading="lazy" />*/}
                     {/*</a>*/}
                     {/*<a href="https://tiki.vn/cua-hang/5s-official" className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">*/}
                     {/*  <img src={tiki} alt="icon tiki" loading="lazy" />*/}
                     {/*</a>*/}
-                    {/*<a href="https://www.lazada.vn/shop/5s-fashion" className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">*/}
+                    {/*<a href="" className="social-button d-flex align-items-center justify-content-center" title="" target="_blank" rel="nofollow">*/}
                     {/*  <img src={lazada} alt="icon lazada" loading="lazy" />*/}
                     {/*</a>*/}
                   </div>

@@ -109,7 +109,7 @@ const ProfileEditAddress = () => {
             <span className="title">Cập nhật địa chỉ</span>
           </section>
 
-          <form id="add-new-address" action="https://5sfashion.vn/profile/store-address" method="POST">
+          <form id="add-new-address" action="https://vn/profile/store-address" method="POST">
             <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
             <section className="content__wrap">
               <article className="information__wrap" style={{marginLeft: "20px"}}>
