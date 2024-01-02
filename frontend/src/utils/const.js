@@ -2,6 +2,12 @@ export const IMAGE_URL = {
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
 }
 
+export const DIALOGS = {
+  LOGIN: "login",
+  REGISTER: "register",
+  FORGOT_PASSWORD: "forgot-password"
+}
+
 export const DATE_PICKER = {
   MAX_DAY_DISTANCE: 20,
 }

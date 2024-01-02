@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import "./style.scss";
-import { DIALOGS } from "../utils/const";
 import { Cookies } from 'react-cookie';
-import {API, ERROR, LOGIN} from "../../../utils/const";
+import {API, DIALOGS, ERROR, LOGIN} from "../../../utils/const";
 
 const LoginDialog = ({ onClose, onSwitch }) => {
   const apiLoginUrl = API.PUBLIC.LOGIN_ENDPOINT;

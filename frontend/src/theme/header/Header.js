@@ -6,7 +6,6 @@ import './style.scss';
 import {toast} from "react-toastify";
 
 import {CartContext} from "../masterLayout";
-import {DIALOGS} from "../../components/dialogs/utils/const";
 
 import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
 import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
@@ -15,7 +14,7 @@ import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
-import {API, HEADER, MESSAGE} from "../../utils/const";
+import {API, DIALOGS, HEADER, MESSAGE} from "../../utils/const";
 
 
 const Header = () => {
