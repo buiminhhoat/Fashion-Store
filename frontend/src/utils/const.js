@@ -1,6 +1,7 @@
 export const IMAGE_URL = {
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
   EMPTY_RESULT_IMG:"https://iili.io/J5aOmCl.png",
+  SECURITY_IMG:"https://iili.io/J5aSziv.png",
 }
 
 export const DIALOGS = {
@@ -411,4 +412,9 @@ export const REGISTER = {
   REGISTER_BUTTON: "Đăng ký",
   ALREADY_HAVE_ACCOUNT_QUESTION: "Đã có tài khoản?",
   LOGIN_HERE: "Đăng nhập tại đây"
+}
+
+export const DO_NOT_HAVE_PERMISSION_PAGE = {
+  NO_PERMISSION_ACCESS: "Bạn không có quyền truy cập trang web này",
+  PLEASE_LOGIN_ADMIN: "Vui lòng đăng nhập bằng tài khoản admin!"
 }
