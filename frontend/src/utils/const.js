@@ -110,7 +110,8 @@ export const ERROR = {
   CART_ITEM_REMOVAL_ERROR: "Lỗi khi xóa sản phẩm khỏi giỏ hàng.",
   ORDER_PLACEMENT_ERROR: "Lỗi khi đặt hàng.",
   NO_TOKEN_ERROR: "Không có token.",
-  SENDING_TOKEN_ERROR: "Lỗi khi gửi token."
+  SENDING_TOKEN_ERROR: "Lỗi khi gửi token.",
+  SERVER_CONNECTION_ERROR: "Lỗi kết nối tới máy chủ, vui lòng thử lại sau!"
 }
 
 export const MESSAGE = {
@@ -376,4 +377,16 @@ export const FORGOT_PASSWORD_DIALOG = {
   FOR_SUPPORT: " để được hỗ trợ.",
   BACK_TO_PAGE: "Trở lại trang",
   LOGIN: "Đăng nhập"
+}
+
+export const LOGIN = {
+  LOGIN: "Đăng nhập",
+  EMAIL_PHONE: "Email/Số điện thoại",
+  EMAIL_PHONE_PLACEHOLDER: "Nhập email hoặc số điện thoại",
+  PASSWORD: "Mật khẩu",
+  PASSWORD_PLACEHOLDER: "Nhập mật khẩu",
+  FORGOT_PASSWORD_QUESTION: "Quên mật khẩu?",
+  LOGIN_BUTTON: "Đăng nhập",
+  NO_ACCOUNT_QUESTION: "Chưa có tài khoản?",
+  REGISTER_HERE: "Đăng ký tại đây"
 }
