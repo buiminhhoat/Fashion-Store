@@ -36,6 +36,12 @@ export const BANNER = {
   MAX_BANNER_IMAGES: 8,
 }
 
+export const POPCONFIRM = {
+  DELETE: "Xóa",
+  CANCEL: "Hủy",
+  CONFIRM_DELETE_ADDRESS: "Chắc chắn xóa địa chỉ này?"
+}
+
 export const BREADCRUMB = {
   HOME_PAGE: "Trang chủ",
   SHOPPING_CART: "Giỏ hàng",
@@ -79,6 +85,7 @@ export const MESSAGE = {
   ADD_PRODUCT_SUCCESS: "Thêm sản phẩm thành công",
   REGISTRATION_FAILED: "Đăng ký không thành công",
   REGISTRATION_SUCCESS: "Đăng ký thành công! Vui lòng đăng nhập",
+  UPDATE_PROFILE_PICTURE_SUCCESS: "Cập nhật ảnh đại diện thành công",
   LOGOUT_SUCCESS: "Đăng xuất thành công",
   USER_ADDED: "Đã thêm người dùng",
   USER_DELETED: "Đã xóa người dùng",
@@ -247,4 +254,23 @@ export const PRODUCT_DETAIL_PAGE = {
   PRODUCT_DESCRIPTION: "Mô tả sản phẩm",
   CATEGORY_1: "Danh mục 1",
   CATEGORY_2: "Danh mục 2",
+}
+
+export const PROFILE_PAGE = {
+  HELLO_TITLE: "Xin chào,",
+  MENU_ITEMS: {
+    ORDERS: "Đơn hàng",
+    EDIT_PROFILE: "Chỉnh sửa thông tin cá nhân",
+    ADDRESS_BOOK: "Sổ địa chỉ",
+    CHANGE_PASSWORD: "Đổi mật khẩu",
+    LOGOUT: "Đăng xuất"
+  },
+  PROFILE_ADDRESS: {
+    DEFAULT: "Mặc định",
+    SET_DEFAULT: "Thiết lập mặc định",
+    DELETE: "Xóa",
+    ADDRESS_BOOK: "Sổ địa chỉ",
+    ADD_NEW_ADDRESS: "Thêm địa chỉ mới"
+
+  }
 }

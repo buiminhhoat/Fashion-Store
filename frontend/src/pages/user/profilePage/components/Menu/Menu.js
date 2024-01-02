@@ -5,7 +5,7 @@ import {useCookies} from "react-cookie";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import {ROUTERS} from "../../utils/router";
-import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, MESSAGE, PROFILE_PAGE, SCROLLING} from "../../../../../utils/const";
 
 import iconOrder from "../../images/order.svg";
 import iconEdit from "../../images/edit.svg";
@@ -32,27 +32,27 @@ const Menu = () => {
   const [menuItemsProfile, setMenuItemsProfile] = useState([
     {
       icon: iconOrder,
-      text: "Đơn hàng",
+      text: PROFILE_PAGE.MENU_ITEMS.ORDERS,
       link: "/profile" + ROUTERS.USER.ORDERS_PAGE + "?userID=" + userID,
     },
     {
       icon: iconEdit,
-      text: "Chỉnh sửa thông tin cá nhân",
+      text: PROFILE_PAGE.MENU_ITEMS.EDIT_PROFILE,
       link: "/profile" + ROUTERS.USER.PERSONAL_INFORMATION + "?userID=" + userID,
     },
     {
       icon: iconAddress,
-      text: "Sổ địa chỉ",
+      text: PROFILE_PAGE.MENU_ITEMS.ADDRESS_BOOK,
       link: "/profile" + ROUTERS.USER.ADDRESS + "?userID=" + userID,
     },
     {
       icon: iconUnlocked,
-      text: "Đổi mật khẩu",
+      text: PROFILE_PAGE.MENU_ITEMS.CHANGE_PASSWORD,
       link: "/profile" + ROUTERS.USER.CHANGE_PASSWORD + "?userID=" + userID,
     },
     {
       icon: iconLogout,
-      text: "Đăng xuất",
+      text: PROFILE_PAGE.MENU_ITEMS.LOGOUT,
       link: "/",
     },
   ]);
@@ -99,7 +99,7 @@ const Menu = () => {
             <div>
               <div className="text navigate-text pointer-cursor"
                    onClick = {() => {
-                       if (menuItem.text === "Đăng xuất") {
+                       if (menuItem.text === PROFILE_PAGE.MENU_ITEMS.LOGOUT) {
                           logout().then(r => {});
                           return;
                        }
@@ -135,19 +135,17 @@ const Menu = () => {
 
       if (response.status === 404) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        console.error('API endpoint not found:', response);
         return;
       }
 
       if (response.status === 200) {
-        toast.success("Cập nhật ảnh đại diện thành công");
+        toast.success(MESSAGE.UPDATE_PROFILE_PICTURE_SUCCESS);
         fetchUserData().then(r => {});
       } else {
         toast.error(MESSAGE.GENERIC_ERROR);
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };
 
@@ -156,8 +154,7 @@ const Menu = () => {
         <div className="header-wrap">
           <div className="image-wrap">
             <img style={{width:"64px", height:"64px"}}
-                src={(userData.avatarPath !== undefined && userData.avatarPath !== null) ?
-                    userData.avatarPath :
+                src={userData.avatarPath ? userData.avatarPath :
                     "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
                 alt={''}
                 id="action-upload"
@@ -173,7 +170,7 @@ const Menu = () => {
           </div>
 
           <div className="text-header" style={{margin:"0 0 0 10px"}}>
-            <p>Xin chào,</p>
+            <p>{PROFILE_PAGE.HELLO_TITLE}</p>
             <p className="name">{userData.fullName}</p>
           </div>
         </div>

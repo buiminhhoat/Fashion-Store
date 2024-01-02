@@ -4,7 +4,7 @@ import {Link, useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
-import {API, MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE, POPCONFIRM, PROFILE_PAGE} from "../../../../utils/const";
 
 function AddressList() {
   const [cookies] = useCookies(['access_token']);
@@ -105,14 +105,14 @@ function AddressList() {
                   <div className="break-item">|</div>
                   <span className="phone">{address.recipientPhone}</span>
                   { address.isDefault ?
-                    <div className="default-address">Mặc định</div>
+                    <div className="default-address">{PROFILE_PAGE.PROFILE_ADDRESS.DEFAULT}</div>
                     :
                     <button className="btn-set-default pointer"
                             data-address-id="652c63418a828b4b6e095526"
                             onClick={() => handleSetDefault(index)}
                     >
                       <span className="set-default">
-                        Thiết lập mặc định
+                        {PROFILE_PAGE.PROFILE_ADDRESS.SET_DEFAULT}
                       </span>
                     </button>
                   }
@@ -146,12 +146,12 @@ function AddressList() {
                         >
                           <Popconfirm
                               placement="top"
-                              title={<div>Chắc chắn xóa địa chỉ này?</div>}
-                              okText={<div>Xóa</div>}
-                              cancelText={<div>Hủy</div>}
+                              title={<div>{POPCONFIRM.CONFIRM_DELETE_ADDRESS}</div>}
+                              okText={<div>{POPCONFIRM.DELETE}</div>}
+                              cancelText={<div>{POPCONFIRM.CANCEL}</div>}
                               onConfirm={() => handleDelete(index)}
                           >
-                            <span className="delete delete-address"> Xóa </span>
+                            <span className="delete delete-address"> {PROFILE_PAGE.PROFILE_ADDRESS.DELETE} </span>
                           </Popconfirm>
                         </ConfigProvider>
                       </>

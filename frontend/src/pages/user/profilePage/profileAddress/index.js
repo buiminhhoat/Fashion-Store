@@ -7,6 +7,7 @@ import plus from '../images/plus.svg'
 
 import AddressList from './AddressList'
 import queryString from "query-string";
+import {PROFILE_PAGE} from "../../../../utils/const";
 
 const ProfileAddress = () => {
   const location = useLocation();
@@ -17,11 +18,11 @@ const ProfileAddress = () => {
       <div className="col-8 content-children item-row">
         <div className="address-wrap">
           <div className="header-wrap">
-            <span className="title">Sổ địa chỉ</span>
+            <span className="title">{PROFILE_PAGE.PROFILE_ADDRESS.ADDRESS_BOOK}</span>
           </div>
           <AddressList/>
           <Link to= {`/profile/new-address?userID=${userID}`} className="btn-wrap">
-            <span>Thêm địa chỉ mới</span>
+            <span>{PROFILE_PAGE.PROFILE_ADDRESS.ADD_NEW_ADDRESS}</span>
             <img src={plus} alt="icon add address" />
           </Link>
         </div>
