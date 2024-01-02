@@ -2,6 +2,11 @@ export const DATE_PICKER = {
   MAX_DAY_DISTANCE: 20,
 }
 
+export const HEADER = {
+  MENU_ITEM_LIMIT: 5,
+}
+
+
 export const SCROLLING = {
   NORMAL: "normal",
   SMOOTH : "smooth",

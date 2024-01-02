@@ -4,6 +4,8 @@ import {TiStarFullOutline} from "react-icons/ti";
 import {MdKeyboardArrowDown} from "react-icons/md";
 
 const MenuItem = ({ categoryID, categoryName, subCategories }) => {
+  const MIN_SUBCATEGORY_COUNT = 5;
+
   const [megaMenuVisible, setMegaMenuVisible] = useState(false);
 
   const handleMouseEnter = () => {
@@ -17,12 +19,13 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
   return (
       <div
           className="menu-header p-0 d-flex align-items-center position-relative h-100"
+          style={{marginRight:"40px"}}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
       >
         <Link to={"/category?categoryID=" + categoryID}
               className="menu-header-text d-flex align-items-center text-center position-relative"
-              style={{width:"60px", margin:"10px 0 10px 0", lineHeight:"1.5"}}
+              style={{width:"85px", margin:"10px 0 10px 0", lineHeight:"1.5", fontSize:"14px"}}
         >
           {categoryName && categoryName.toUpperCase()}
           {subCategories && subCategories.length > 0 && (
@@ -37,7 +40,7 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
                style={{minWidth:"auto", paddingBottom:"15px"}}
           >
             <div className="mega-menu-content d-flex">
-              { subCategories.length >= 5 ?
+              { subCategories.length >= MIN_SUBCATEGORY_COUNT ?
                   <>
                     <div className="menu-col" style={{ width: "110px" }}>
                       <ul className="menu-children ps-0">

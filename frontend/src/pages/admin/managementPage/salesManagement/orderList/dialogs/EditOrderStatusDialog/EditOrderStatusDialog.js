@@ -5,10 +5,8 @@ import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 
 import {MdOutlineEditNote} from "react-icons/md";
-import {SEARCH_USER} from "../../../../productManagement/utils/const";
-import {ConfigProvider, Select, TimePicker} from "antd";
+import {ConfigProvider, Select} from "antd";
 import {API, MESSAGE} from "../../../../../../../utils/const";
-import dayjs from "dayjs";
 
 const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);

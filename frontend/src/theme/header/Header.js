@@ -17,7 +17,7 @@ import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
-import {API, MESSAGE} from "../../utils/const";
+import {API, HEADER, MESSAGE} from "../../utils/const";
 
 
 const Header = () => {
@@ -86,7 +86,7 @@ const Header = () => {
                       <img className="logo" src={LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
-                  {menuItems.slice(0, 6).map((menuItem, index) => (
+                  {menuItems.slice(0, HEADER.MENU_ITEM_LIMIT).map((menuItem, index) => (
                       <MenuItem
                           key={index}
                           categoryID={menuItem.categoryID}
