@@ -41,7 +41,7 @@ const orderListFake = [
         "orderDetailID": 1,
         "orderID": 1,
         "productID": 1,
-        "productName": "Polo Dài Tay Nam 5S Fashion, Thiết Kế Basic APD23002",
+        "productName": "Polo Dài Tay Nam, Thiết Kế Basic APD23002",
         "imagePath": "2e5f2767-3c1b-40b8-a294-694b54e157b5.jpg",
         "sizeName": "XL",
         "productPrice": 200000,

@@ -25,9 +25,6 @@ public class Orders {
     @Column(name = "UserID")
     private Long userID;
 
-    @Column(name = "AddressID")
-    private Long addressID;
-
     @Column(name = "RecipientName")
     private String recipientName;
 
@@ -51,14 +48,13 @@ public class Orders {
     }
 
     public Orders(Date orderDate, Long totalAmount,
-                  String orderStatus, Long userID, Long addressID, 
+                  String orderStatus, Long userID,
                   String recipientName, String recipientPhone, 
                   String addressDetails) {
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
         this.userID = userID;
-        this.addressID = addressID;
         this.recipientName = recipientName;
         this.recipientPhone = recipientPhone;
         this.addressDetails = addressDetails;
@@ -102,14 +98,6 @@ public class Orders {
 
     public void setUserID(Long userID) {
         this.userID = userID;
-    }
-
-    public Long getAddressID() {
-        return addressID;
-    }
-
-    public void setAddressID(Long addressID) {
-        this.addressID = addressID;
     }
 
     public String getRecipientName() {
