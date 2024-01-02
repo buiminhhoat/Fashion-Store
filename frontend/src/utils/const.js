@@ -390,3 +390,18 @@ export const LOGIN = {
   NO_ACCOUNT_QUESTION: "Chưa có tài khoản?",
   REGISTER_HERE: "Đăng ký tại đây"
 }
+
+export const REGISTER = {
+  REGISTER: "Đăng ký",
+  FULL_NAME: "Họ và tên",
+  FULL_NAME_PLACEHOLDER: "Nhập họ và tên",
+  EMAIL: "Email",
+  EMAIL_PLACEHOLDER: "Nhập email",
+  PHONE_NUMBER: "Số điện thoại",
+  PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
+  PASSWORD: "Mật khẩu",
+  PASSWORD_PLACEHOLDER: "Nhập mật khẩu",
+  REGISTER_BUTTON: "Đăng ký",
+  ALREADY_HAVE_ACCOUNT_QUESTION: "Đã có tài khoản?",
+  LOGIN_HERE: "Đăng nhập tại đây"
+}
