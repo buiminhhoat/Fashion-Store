@@ -418,3 +418,8 @@ export const DO_NOT_HAVE_PERMISSION_PAGE = {
   NO_PERMISSION_ACCESS: "Bạn không có quyền truy cập trang web này",
   PLEASE_LOGIN_ADMIN: "Vui lòng đăng nhập bằng tài khoản admin!"
 }
+
+export const NOT_FOUND_PAGE = {
+  ERROR_OCCURRED: "Ôi, có lỗi xảy ra rồi....",
+  PLEASE_TRY_AGAIN: "Bạn vui lòng thử lại nhé!"
+}
