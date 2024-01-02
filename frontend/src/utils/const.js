@@ -238,6 +238,12 @@ export const MANAGEMENT_PAGE = {
   },
 };
 
+export const ACCOUNT_LIST_PAGE = {
+  USER_LIST: "DANH SÁCH NGƯỜI DÙNG",
+  SEARCH_BY: "Tìm kiếm theo:",
+  SEARCH_KEYWORD_PLACEHOLDER: "Nhập từ khóa"
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
@@ -284,6 +290,22 @@ export const FOOTER = {
   DEVELOPED_BY: "Developed by Group 14 - Web Application Development Course - INT3306 3",
 }
 
+export const SEARCH = {
+  USER: {
+    VALUE: {
+      FULL_NAME: "full-name",
+      PHONE_NUMBER: "phone-number",
+      EMAIL: "email",
+    },
+    LABEL: {
+      FULL_NAME: "Họ tên",
+      PHONE_NUMBER: "Số điện thoại",
+      EMAIL: "Địa chỉ email",
+    }
+
+  }
+}
+
 export const BANNER = {
   MAX_BANNER_IMAGES: 8,
 }
@@ -291,6 +313,7 @@ export const BANNER = {
 export const TOOLTIP = {
   DELETE_USER: "Xóa người dùng",
   USER_DETAILS: "Chi tiết người dùng",
+  ADD_USER: "Thêm người dùng"
 }
 
 export const POPCONFIRM = {
@@ -303,10 +326,14 @@ export const POPCONFIRM = {
 }
 
 export const CONFIRM_DIALOG = {
+  DELETE_TITLE_BTN_ACCEPT: "Xóa",
+  CANCEL_TITLE_BTN_CANCEL: "Hủy bỏ",
   TITLE_BTN_ACCEPT: "Có",
   TITLE_BTN_CANCEL: "Không",
   WARNING_TITLE: "Cảnh báo",
-  CONFIRM_CANCEL_SUBTITLE: "Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập."
+  CONFIRM_CANCEL_SUBTITLE: "Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.",
+  CONFIRM_DELETE_USER_SUBTITLE_1: "Bạn có chắc chắn xóa người dùng",
+  CONFIRM_DELETE_USER_SUBTITLE_2: "không?"
 }
 
 export const BREADCRUMB = {

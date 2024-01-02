@@ -14,7 +14,7 @@ import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/Confi
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
 import {ConfigProvider, Select, Tooltip} from "antd";
-import {CATEGORY, SEARCH, SEARCH_USER} from "../utils/const";
+import {CATEGORY, SEARCH} from "../utils/const";
 import {API, MESSAGE} from "../../../../../utils/const";
 
 const ListOfProductsAndCategoriesPage  = () => {

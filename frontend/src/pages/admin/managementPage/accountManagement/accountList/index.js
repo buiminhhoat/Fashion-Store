@@ -13,10 +13,9 @@ import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
 
 import {ConfigProvider, Select, Tooltip} from "antd";
 
-import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, BREADCRUMB, MESSAGE, TOOLTIP} from "../../../../../utils/const";
+import {ACCOUNT_LIST_PAGE, API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE, SEARCH, TOOLTIP} from "../../../../../utils/const";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ const AccountListPage = () => {
   const [deletedUser, setDeletedUser] = useState(null);
 
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [selectedSearch, setSelectedSearch] = useState(SEARCH_USER.FULL_NAME);
+  const [selectedSearch, setSelectedSearch] = useState(SEARCH.USER.VALUE.FULL_NAME);
 
   async function fetchImageAsFile(imageUrl, imageName) {
     const response = await fetch(imageUrl);
@@ -130,7 +129,7 @@ const AccountListPage = () => {
       return;
     }
     switch (selectedSearch) {
-      case SEARCH_USER.FULL_NAME:
+      case SEARCH.USER.VALUE.FULL_NAME:
         setUsersData((newUsers) =>
           usersData.map((user) => {
             if (isSubstringIgnoreCaseAndAccents(searchInputValue, user.fullName)) {
@@ -141,7 +140,7 @@ const AccountListPage = () => {
         );
 
         break;
-      case SEARCH_USER.PHONE_NUMBER:
+      case SEARCH.USER.VALUE.PHONE_NUMBER:
         setUsersData((newUsers) =>
             usersData.map((user) => {
               if (isSubstringIgnoreCaseAndAccents(searchInputValue, user.phoneNumber)) {
@@ -151,7 +150,7 @@ const AccountListPage = () => {
             })
         );
         break;
-      case SEARCH_USER.EMAIL:
+      case SEARCH.USER.VALUE.EMAIL:
         setUsersData((newUsers) =>
             usersData.map((user) => {
               if (isSubstringIgnoreCaseAndAccents(searchInputValue, user.email)) {
@@ -260,9 +259,9 @@ const AccountListPage = () => {
             <div style={{margin:"0 70px 0 40px"}}>
 
               <p className="category-title" style={{paddingTop: "30px"}}>
-                DANH SÁCH NGƯỜI DÙNG
+                {ACCOUNT_LIST_PAGE.USER_LIST}
 
-                <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Thêm người dùng</div>} color={"#4A4444"}>
+                <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.ADD_USER}</div>} color={"#4A4444"}>
                   <MdLibraryAdd className="pointer-cursor"
                                 style={{margin:"0 0 8px 8px", fontSize:"27px"}}
                                 onClick={() => {navigate('/admin/management-page/add-account')}}
@@ -276,7 +275,7 @@ const AccountListPage = () => {
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                     <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
-                    <span>Tìm kiếm theo:</span>
+                    <span>{ACCOUNT_LIST_PAGE.SEARCH_BY}</span>
                     <ConfigProvider
                         theme={{
                           components: {
@@ -287,14 +286,14 @@ const AccountListPage = () => {
                         }}
                     >
                       <Select
-                          defaultValue={SEARCH_USER.FULL_NAME}
+                          defaultValue={SEARCH.USER.VALUE.FULL_NAME}
                           style={{ width: 170 }}
                           bordered={false}
                           size={"large"}
                           options={[
-                            { value: SEARCH_USER.FULL_NAME, label: 'Họ tên' },
-                            { value: SEARCH_USER.PHONE_NUMBER, label: 'Số điện thoại' },
-                            { value: SEARCH_USER.EMAIL, label: 'Địa chỉ email' },
+                            { value: SEARCH.USER.VALUE.FULL_NAME, label: SEARCH.USER.LABEL.FULL_NAME },
+                            { value: SEARCH.USER.VALUE.PHONE_NUMBER, label: SEARCH.USER.LABEL.PHONE_NUMBER },
+                            { value: SEARCH.USER.VALUE.EMAIL, label: SEARCH.USER.LABEL.EMAIL },
                           ]}
                           onChange={(value) => {setSelectedSearch(value)}}
                       />
@@ -308,7 +307,7 @@ const AccountListPage = () => {
                           style={{fontSize:"15px", width:"250px",backgroundColor:"#FAFAFA", border:"none", margin:"0 5px 0 5px"}}
                           type="text"
                           value={searchInputValue}
-                          placeholder="Nhập từ khóa"
+                          placeholder={ACCOUNT_LIST_PAGE.SEARCH_KEYWORD_PLACEHOLDER}
                           onChange={(e) => setSearchInputValue(e.target.value)}
                       />
                       <IoSearch style={{color:"#ac0000", padding:"0px 0 0px", fontSize:"20px", marginRight:"10px"}}/>
@@ -325,13 +324,13 @@ const AccountListPage = () => {
         </main>
         {deletedUser && (
             <div className="modal-overlay">
-              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={ <>
-                               Bạn có chắc chắn xóa người dùng <span style={{color:"#bd0000"}}>{deletedUser.fullName}</span> không? <br />
+                               {CONFIRM_DIALOG.CONFIRM_DELETE_USER_SUBTITLE_1} <span style={{color:"#bd0000"}}>{deletedUser.fullName}</span> {CONFIRM_DIALOG.CONFIRM_DELETE_USER_SUBTITLE_2} <br />
                              </>
                              }
-                             titleBtnAccept={"Xóa"}
-                             titleBtnCancel={"Hủy bỏ"}
+                             titleBtnAccept={CONFIRM_DIALOG.DELETE_TITLE_BTN_ACCEPT}
+                             titleBtnCancel={CONFIRM_DIALOG.CANCEL_TITLE_BTN_CANCEL}
                              onAccept={deleteUser}
                              onCancel={() => {setDeletedUser(null)}}/>
             </div>
