@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useRef, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import './style.scss'
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
@@ -9,15 +9,13 @@ import {useCookies} from "react-cookie";
 import BackToTopButton from "../../components/buttons/BackToTopButton/BackToTopButton";
 import {API, MESSAGE} from "../../utils/const";
 
-export const CartContext = createContext(); // Exporting the context
+export const CartContext = createContext();
 
 const MasterLayout = ({children, ...props}) => {
     const [amountInCart, setAmountInCart] = useState(0);
-    // const amountInCart = useRef(0);
     const divStyle = {
         marginTop: "80px",
     };
-    const [loading, setLoading] = useState(true);
 
     const [cookies] = useCookies(['access_token']);
     const accessToken = cookies.access_token;
@@ -42,9 +40,6 @@ const MasterLayout = ({children, ...props}) => {
         } catch (error) {
             console.log(error);
             toast.error(MESSAGE.DB_CONNECTION_ERROR);
-        } finally {
-            // Bất kể thành công hay không, đặt trạng thái "loading" thành false để hiển thị component.
-            // setLoading(false);
         }
     };
 
@@ -52,9 +47,6 @@ const MasterLayout = ({children, ...props}) => {
         getAmountInCart();
     }, [])
 
-    // if (loading === true) {
-    //     return <div> </div>
-    // }
 
     return (
         <div {...props}>

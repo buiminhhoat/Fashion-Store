@@ -3,7 +3,33 @@ export const DATE_PICKER = {
 }
 
 export const HEADER = {
+  LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   MENU_ITEM_LIMIT: 5,
+  SEARCH_BAR: {
+    PLACEHOLDER: "Tìm kiếm sản phẩm ...",
+  },
+  SEARCH_DIALOG: {
+    VIEW_ALL: "Xem tất cả",
+  },
+  PROFILE_MENU: {
+    DASHBOARD: "Bảng điều khiển",
+    MY_ORDERS: "Đơn hàng của tôi",
+    PERSONAL_INFO: "Thông tin cá nhân",
+    ADDRESS_BOOK: "Sổ địa chỉ",
+    CHANGE_PASSWORD: "Đổi mật khẩu",
+    LOGOUT: "Đăng xuất",
+  },
+}
+
+export const FOOTER = {
+  TITLE_1: "Cửa hàng thời trang uy tín số 1",
+  TITLE_2: "Thông tin cửa hàng",
+  TITLE_3: "Dõi theo chúng tôi",
+  OPENING_HOURS_TXT: "Giờ mở cửa:",
+  EMAIL_TXT: "Email:",
+  HOTLINE_TXT: "Hotline:",
+  DESCRIPTION_CONTENT: <>Chào mừng bạn đến với <span style={{color:'#bd0000', fontWeight:"600"}}>Fashion Store</span> - nơi thể hiện bản thân qua những bộ trang phục đẳng cấp và sáng tạo. Chúng tôi cam kết mang lại trải nghiệm mua sắm độc đáo, nơi bạn có thể tìm thấy những sản phẩm thời trang hàng đầu và uy tín. Đội ngũ chuyên nghiệp luôn sẵn sàng hỗ trợ bạn. Hãy đồng hành cùng chúng tôi để khám phá phong cách của riêng bạn!</>,
+  DEVELOPED_BY: "Developed by Group 14 - Web Application Development Course - INT3306 3",
 }
 
 export const BANNER = {
@@ -102,5 +128,9 @@ export const API = {
     SEARCH_ORDERS_BY_RECIPIENT_PHONE_ENDPOINT: "/api/admin/orders/search-orders-by-recipient-phone",
     SEARCH_ORDERS_BY_ORDER_DATE_ENDPOINT: "/api/admin/orders/search-orders-by-order-date"
   }
+
+}
+
+export const URL = {
 
 }

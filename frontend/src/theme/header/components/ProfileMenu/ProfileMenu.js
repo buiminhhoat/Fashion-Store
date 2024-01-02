@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import {useLogout} from "../../../../components/dialogs/utils/logout";
 import {toast} from "react-toastify";
-import {API, MESSAGE} from "../../../../utils/const";
+import {API, HEADER, MESSAGE} from "../../../../utils/const";
 
 const ProfileMenu = ({openModal}) => {
   const [cookies] = useCookies(['access_token']);
@@ -114,23 +114,23 @@ const ProfileMenu = ({openModal}) => {
 
                   { isAdmin &&
                     <li>
-                      <a href="/admin/management-page/categories-and-products">Bảng điều khiển</a>
+                      <a href="/admin/management-page/categories-and-products">{ HEADER.PROFILE_MENU.DASHBOARD }</a>
                     </li>
                   }
                   <li>
-                    <a href={`/profile/orders?userID=${userID}`}>Đơn hàng của tôi</a>
+                    <a href={`/profile/orders?userID=${userID}`}>{ HEADER.PROFILE_MENU.MY_ORDERS }</a>
                   </li>
                   <li>
-                    <a href={`/profile/personal-information?userID=${userID}`}>Thông tin cá nhân</a>
+                    <a href={`/profile/personal-information?userID=${userID}`}>{ HEADER.PROFILE_MENU.PERSONAL_INFO }</a>
                   </li>
                   <li>
-                    <a href={`/profile/address?userID=${userID}`}> Sổ địa chỉ </a>
+                    <a href={`/profile/address?userID=${userID}`}>{ HEADER.PROFILE_MENU.ADDRESS_BOOK }</a>
                   </li>
                   <li>
-                    <a href={`/profile/change-password?userID=${userID}`}>Đổi mật khẩu</a>
+                    <a href={`/profile/change-password?userID=${userID}`}>{ HEADER.PROFILE_MENU.CHANGE_PASSWORD }</a>
                   </li>
                   <li className="logout">
-                    <a onClick={() => {logout().then(r => {})}}> Đăng xuất </a>
+                    <a onClick={() => {logout().then(r => {})}}>{ HEADER.PROFILE_MENU.LOGOUT }</a>
                   </li>
                 </ul>
               </div>

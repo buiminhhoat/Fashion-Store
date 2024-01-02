@@ -2,43 +2,39 @@ import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 import {formatter} from "../../../../utils/formatter";
-import {API, MESSAGE} from "../../../../utils/const";
+import {API, HEADER, MESSAGE} from "../../../../utils/const";
 
 const SearchDialog = ({keyword}) => {
   const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + keyword;
   const [searchItem, setSearchItem] = useState({});
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiProductBySearch, {
-          method: 'GET',
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          // console.log(data);
-          setSearchItem(data.slice(0, 5));
-        } else {
-          const data = await response.json();
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      }
-    }
-    fetchData().then(r => {});
-  }, [keyword]);
-
-  // const filteredSearchItem = searchItem.filter((product) => {
-  //   return product.productName.toLowerCase().includes(keyword.toString().toLowerCase());
-  // });
-
   const filteredSearchItem = searchItem;
 
   const [isDialogVisible, setIsDialogVisible] = useState(true);
   const hasResults = filteredSearchItem.length > 0;
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(apiProductBySearch, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSearchItem(data.slice(0, 5));
+      } else {
+        const data = await response.json();
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
+    }
+  }
+
+  useEffect(() => {
+    fetchData().then(r => {});
+  }, [keyword]);
 
   return (
       hasResults && (<div
@@ -64,7 +60,7 @@ const SearchDialog = ({keyword}) => {
         ))}
         <div className="view_all_search">
           <Link to={"/search/" + keyword} id = {keyword}>
-            <div title="Xem tất cả">Xem tất cả</div>
+            { HEADER.SEARCH_DIALOG.VIEW_ALL }
           </Link>
         </div>
       </div>)

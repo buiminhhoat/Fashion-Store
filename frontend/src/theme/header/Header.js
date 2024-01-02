@@ -5,8 +5,6 @@ import './style.scss';
 
 import {toast} from "react-toastify";
 
-import logo_fashion_store from "../images/logo_fashion_store.png";
-
 import {CartContext} from "../masterLayout";
 import {DIALOGS} from "../../components/dialogs/utils/const";
 
@@ -21,7 +19,6 @@ import {API, HEADER, MESSAGE} from "../../utils/const";
 
 
 const Header = () => {
-  const LOGO_FASHION_STORE = "https://iili.io/JRLCZQf.md.png";
   const [menuItems, setMenuItems] = useState([{}])
   const cartContext = useContext(CartContext);
 
@@ -50,9 +47,6 @@ const Header = () => {
     try {
       const response = await fetch(API.PUBLIC.GET_ALL_CATEGORIES_ENDPOINT, {
         method: 'GET',
-        // headers: {
-        //   'Authorization': `Bearer ${accessToken}`,
-        // },
       });
 
       if (response.ok) {
@@ -83,7 +77,7 @@ const Header = () => {
                 <div className="col-9 content-left d-flex align-items-center ps-0 pe-0">
                   <div className="logo-box">
                     <Link to="/">
-                      <img className="logo" src={LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo"/>
+                      <img className="logo" src={HEADER.LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
                   {menuItems.slice(0, HEADER.MENU_ITEM_LIMIT).map((menuItem, index) => (
