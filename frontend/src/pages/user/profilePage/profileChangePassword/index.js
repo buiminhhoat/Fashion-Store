@@ -175,7 +175,7 @@ const ProfileChangePassword = () => {
                     {PROFILE_PAGE.PROFILE_CHANGE_PASSWORD.SAVE_CHANGES}
                   </button>
                   <a className="btn__action btn btn-outline-danger" onClick={() => {setIsShowConfirmDialog(true)}}>
-                    {PROFILE_PAGE.PROFILE_CHANGE_PASSWORD.CANCEL}
+                    {PROFILE_PAGE.PROFILE_CHANGE_PASSWORD.REFRESH}
                   </a>
                 </section>
               </>
@@ -188,7 +188,7 @@ const ProfileChangePassword = () => {
               <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={
                                <>
-                                 {CONFIRM_DIALOG.CONFIRM_CANCEL_SUBTITLE}
+                                 {CONFIRM_DIALOG.CONFIRM_REFRESH_DATA}
                                </>
                              }
                              titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}

@@ -148,7 +148,7 @@ const AddProductPage = () => {
                     <button type="button" className="product-details-btn product-details-btn-danger"
                             onClick={() => {setIsShowConfirmDialog(true)}}
                     >
-                      {ADD_PRODUCT_PAGE.CANCEL_BTN}
+                      {ADD_PRODUCT_PAGE.REFRESH_BTN}
                     </button>
                   </div>
                 </section>
@@ -161,7 +161,7 @@ const AddProductPage = () => {
                 <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                                subTitle={
                                  <>
-                                   {CONFIRM_DIALOG.CONFIRM_CANCEL_SUBTITLE}
+                                   {CONFIRM_DIALOG.CONFIRM_REFRESH_DATA}
                                  </>
                                }
                                titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}

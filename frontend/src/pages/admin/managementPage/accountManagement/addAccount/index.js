@@ -198,12 +198,12 @@ const AddAccountPage = () => {
                           className="product-details-btn"
                           onClick={() => {btnSubmitRef.current.click()}}
                   >
-                    {ADD_ACCOUNT_PAGE.ADD}
+                    {ADD_ACCOUNT_PAGE.ADD_BTN}
                   </button>
                   <button type="button" className="product-details-btn product-details-btn-danger"
                           onClick={() => {setIsShowConfirmDialog(true)}}
                   >
-                    {ADD_ACCOUNT_PAGE.CANCEL}
+                    {ADD_ACCOUNT_PAGE.REFRESH_BTN}
                   </button>
                 </div>
               </section>
@@ -217,7 +217,7 @@ const AddAccountPage = () => {
               <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={
                                <>
-                                 {CONFIRM_DIALOG.CONFIRM_CANCEL_SUBTITLE}
+                                 {CONFIRM_DIALOG.CONFIRM_REFRESH_DATA}
                                </>
                              }
                              titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}

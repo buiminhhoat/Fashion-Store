@@ -101,7 +101,7 @@ export const PROFILE_PAGE = {
     CONFIRM_NEW_PASSWORD: "Nhập lại mật khẩu mới",
     CONFIRM_NEW_PASSWORD_PLACEHOLDER: "Nhập lại mật khẩu mới",
     SAVE_CHANGES: "Lưu lại",
-    CANCEL: "Hủy bỏ",
+    REFRESH: "Làm mới"
   },
   PROFILE_EDIT_ADDRESS: {
     UPDATE_ADDRESS: "Cập nhật địa chỉ",
@@ -255,13 +255,18 @@ export const ADD_ACCOUNT_PAGE = {
   PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
   PASSWORD: "Mật khẩu",
   PASSWORD_PLACEHOLDER: "Nhập mật khẩu",
-  ADD: "Thêm",
-  CANCEL: "Hủy Bỏ"
+  ADD_BTN: "Thêm",
+  REFRESH_BTN: "Làm mới"
 }
 
 export const ADD_PRODUCT_PAGE = {
   SAVE_BTN: "Lưu lại",
-  CANCEL_BTN: "Hủy Bỏ"
+  REFRESH_BTN: "Làm mới"
+}
+
+export const EDIT_PRODUCT_PAGE = {
+  SAVE_BTN: "Lưu",
+  RESTORE_BTN: "Khôi phục"
 }
 
 export const IMAGE_URL = {
@@ -351,7 +356,8 @@ export const CONFIRM_DIALOG = {
   TITLE_BTN_ACCEPT: "Có",
   TITLE_BTN_CANCEL: "Không",
   WARNING_TITLE: "Cảnh báo",
-  CONFIRM_CANCEL_SUBTITLE: "Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.",
+  CONFIRM_REFRESH_DATA: "Bạn có chắc chắn muốn làm mới dữ liệu? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.",
+  CONFIRM_RESTORE_DATA: "Bạn có chắc chắn muốn khôi phục dữ liệu? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.",
   CONFIRM_DELETE_USER_SUBTITLE_1: "Bạn có chắc chắn xóa người dùng",
   CONFIRM_DELETE_USER_SUBTITLE_2: "không?"
 }
@@ -360,6 +366,7 @@ export const BREADCRUMB = {
   HOME_PAGE: "Trang chủ",
   SHOPPING_CART: "Giỏ hàng",
   PAYMENT: "Thanh toán",
+  EDIT_PRODUCT: "Chỉnh sửa thông tin sản phẩm",
 
   PRODUCT_MANAGEMENT: MANAGEMENT_PAGE.PRODUCT_MANAGEMENT.LABEL,
   PRODUCT_CATEGORY: MANAGEMENT_PAGE.PRODUCT_MANAGEMENT.SUB.PRODUCT_CATEGORY,
