@@ -114,20 +114,20 @@ const ProfileMenu = ({openModal}) => {
 
                   { isAdmin &&
                     <li>
-                      <a href="/admin/management-page/categories-and-products">{ HEADER.PROFILE_MENU.DASHBOARD }</a>
+                      <Link to="/admin/management-page/categories-and-products">{ HEADER.PROFILE_MENU.DASHBOARD }</Link>
                     </li>
                   }
                   <li>
-                    <a href={`/profile/orders?userID=${userID}`}>{ HEADER.PROFILE_MENU.MY_ORDERS }</a>
+                    <Link to={`/profile/orders?userID=${userID}`}>{ HEADER.PROFILE_MENU.MY_ORDERS }</Link>
                   </li>
                   <li>
-                    <a href={`/profile/personal-information?userID=${userID}`}>{ HEADER.PROFILE_MENU.PERSONAL_INFO }</a>
+                    <Link to={`/profile/personal-information?userID=${userID}`}>{ HEADER.PROFILE_MENU.PERSONAL_INFO }</Link>
                   </li>
                   <li>
-                    <a href={`/profile/address?userID=${userID}`}>{ HEADER.PROFILE_MENU.ADDRESS_BOOK }</a>
+                    <Link to={`/profile/address?userID=${userID}`}>{ HEADER.PROFILE_MENU.ADDRESS_BOOK }</Link>
                   </li>
                   <li>
-                    <a href={`/profile/change-password?userID=${userID}`}>{ HEADER.PROFILE_MENU.CHANGE_PASSWORD }</a>
+                    <Link to={`/profile/change-password?userID=${userID}`}>{ HEADER.PROFILE_MENU.CHANGE_PASSWORD }</Link>
                   </li>
                   <li className="logout">
                     <a onClick={() => {logout().then(r => {})}}>{ HEADER.PROFILE_MENU.LOGOUT }</a>
