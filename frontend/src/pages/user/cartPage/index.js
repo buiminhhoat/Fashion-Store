@@ -13,7 +13,7 @@ import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
-import {API, MESSAGE} from "../../../utils/const";
+import {API, BREADCRUMB, CART_PAGE, ERROR, MESSAGE} from "../../../utils/const";
 
 const productListFake = [
   {
@@ -80,7 +80,7 @@ function CartPage() {
             if (response.ok) {
               // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
             } else {
-              throw new Error('Lỗi khi cập nhật giỏ hàng.');
+              throw new Error(ERROR.CART_UPDATE_ERROR);
             }
           })
           .catch((error) => {
@@ -122,7 +122,7 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
           } else {
-            throw new Error('Lỗi khi cập nhật giỏ hàng.');
+            throw new Error(ERROR.CART_UPDATE_ERROR);
           }
         })
         .catch((error) => {
@@ -144,7 +144,7 @@ function CartPage() {
             setNumberProduct(numberProduct-1);
             cartContext.getAmountInCart().then(r => r);
           } else {
-            throw new Error('Lỗi khi xóa sản phẩm khỏi giỏ hàng.');
+            throw new Error(ERROR.CART_ITEM_REMOVAL_ERROR);
           }
         })
         .catch((error) => {
@@ -184,7 +184,7 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
           } else {
-            throw new Error('Lỗi khi cập nhật giỏ hàng.');
+            throw new Error(ERROR.CART_UPDATE_ERROR);
           }
         })
         .catch((error) => {
@@ -335,9 +335,9 @@ function CartPage() {
         <section className="cart__wrapper container">
           <nav style={{"--bs-breadcrumb-divider": "none"}} aria-label="breadcrumb">
             <ol className="breadcrumb">
-              <li className="breadcrumb-item"><Link to ="/"> Trang chủ </Link></li>
+              <li className="breadcrumb-item"><Link to ="/"> {BREADCRUMB.HOME_PAGE} </Link></li>
               <li className="breadcrumb-item"> &gt;</li>
-              <li className="breadcrumb-item active" aria-current="page">Giỏ hàng ({numberProduct})</li>
+              <li className="breadcrumb-item active" aria-current="page">{BREADCRUMB.SHOPPING_CART} ({numberProduct})</li>
             </ol>
           </nav>
 
@@ -345,11 +345,11 @@ function CartPage() {
               <div className="cart-empty" style={{minHeight:"450px", margin:"0"}}>
                 <div className="cart-empty__img">
                   <img src={emptyIcon} alt="no data"/>
-                  <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+                  <p>{CART_PAGE.EMPTY_CART_MESSAGE}</p>
                 </div>
                 <div className="cart-empty__action">
                   <a href="/" type="button" className="btn btn-danger cart__bill__total">
-                    <span>Mua ngay</span>
+                    <span>{CART_PAGE.BUY_NOW}</span>
                   </a>
                 </div>
               </div>
@@ -365,7 +365,6 @@ function CartPage() {
                             handleIncreaseAmount={() => handleIncreaseAmount(index)}
                             handleChooseSize={(sizeID) => handleChooseSize(sizeID, index)}
                             handleCloseButton={() => handleCloseButton(index)}
-                            // setReview={() => setReview()}
                         />
                     ))}
 
@@ -377,44 +376,42 @@ function CartPage() {
                       <div className="cart__address__title d-flex align-items-center justify-content-between">
                         <div className="cart__address__title__left mb-20px">
                           <img src={cardIcon} alt="icon payment method" />
-                          <h5 className="mb-0">Phương thức thanh toán</h5>
+                          <h5 className="mb-0">{CART_PAGE.PAYMENT_METHOD}</h5>
                         </div>
                       </div>
                       <div className="list-payment-method">
                         <div className="item-method d-flex justify-content-start align-items-center" style={{cursor:"default"}}>
-                          {/*<input type="radio" name="payment" value="1" checked onChange={() => 1}/>*/}
                           <div className="image-method" style={{marginLeft:"20px"}}>
                             <img src={cod} width="24" height="22" alt="icon payment method cod" />
                           </div>
                           <div className="cart__address__description pdr-76px">
-                            <div className="fw-bold">COD</div>
-                            <div className="font-12 "> Thanh toán khi nhận hàng </div>
+                            <div className="fw-bold">{CART_PAGE.COD}</div>
+                            <div className="font-12 ">{CART_PAGE.CASH_ON_DELIVERY}</div>
                           </div>
                         </div>
                       </div>
                       <div className="cart__bill position-relative">
                         <div className="row me-0 ms-0">
                           <div className="col-6 cart__bill--mb">
-                            <div className="cart__bill__ml cart__bill__title"> Tạm tính </div>
+                            <div className="cart__bill__ml cart__bill__title">{CART_PAGE.SUBTOTAL}</div>
                           </div>
                           <div className="col-6 cart__bill--mb">
                             <div className="cart__bill__value">
                               <div className="cart__bill__title text-end">{formatter(calcTotalPrice())}</div>
-                              {/*<div className="bill__price__save text-end">(tiết kiệm 269k)</div>*/}
                             </div>
                           </div>
                           <div className="col-6 cart__bill--mb">
-                            <div className="cart__bill__ml cart__bill__title">Phí giao hàng</div>
+                            <div className="cart__bill__ml cart__bill__title">{CART_PAGE.SHIPPING_FEE}</div>
                           </div>
                           <div className="col-6 cart__bill--mb">
                             <div className="cart__bill__value">
                               <div className="cart__bill__title text-end">
-                                <span>Miễn phí</span>
+                                <span>{CART_PAGE.FREE}</span>
                               </div>
                             </div>
                           </div>
                           <div className="col-6 cart__bill--mb row-sum">
-                            <div className="cart__bill__ml cart__bill__title"> TỔNG </div>
+                            <div className="cart__bill__ml cart__bill__title"> {CART_PAGE.TOTAL_AMOUNT} </div>
                           </div>
                           <div className="col-6 cart__bill--mb  row-sum">
                             <div className="cart__bill__value">
@@ -424,7 +421,7 @@ function CartPage() {
                         </div>
                         <span onClick={handlePurchase}>
                               <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
-                                  <span className="text-checkout">Thanh toán:  {formatter(calcTotalPrice())} <span>COD</span></span>
+                                  <span className="text-checkout">{CART_PAGE.PAYMENT_TOTAL}  {formatter(calcTotalPrice())} <span>{CART_PAGE.COD}</span></span>
                               </button>
                             </span>
                       </div>

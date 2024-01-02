@@ -36,10 +36,33 @@ export const BANNER = {
   MAX_BANNER_IMAGES: 8,
 }
 
+export const BREADCRUMB = {
+  HOME_PAGE: "Trang chủ",
+  SHOPPING_CART: "Giỏ hàng",
+}
+
 export const SCROLLING = {
   NORMAL: "normal",
   SMOOTH : "smooth",
   NO_SCROLLING: "no-scrolling",
+}
+
+export const SORT = {
+  ASC: "1",
+  DECS: "2",
+}
+
+export const FILTERS = {
+  TITLE: "Bộ lọc",
+  SORT_BY: "Sắp xếp theo:",
+  SELECT_FILTER_CONDITION: "Chọn điều kiện lọc",
+  PRICE_LOW_TO_HIGH: "Sản phẩm giá thấp",
+  PRICE_HIGH_TO_LOW: "Sản phẩm giá cao",
+}
+
+export const ERROR = {
+  CART_UPDATE_ERROR: "Lỗi khi cập nhật giỏ hàng.",
+  CART_ITEM_REMOVAL_ERROR: "Lỗi khi xóa sản phẩm khỏi giỏ hàng.",
 }
 
 export const MESSAGE = {
@@ -133,4 +156,33 @@ export const API = {
 
 export const URL = {
 
+}
+
+export const NUMBER_PRODUCT_LIMIT = 8
+
+export const CART_PAGE = {
+  EMPTY_CART_MESSAGE: "Bạn chưa có sản phẩm nào trong giỏ hàng",
+  BUY_NOW: "Mua ngay",
+  PAYMENT_METHOD: "Phương thức thanh toán",
+  COD:"COD",
+  CASH_ON_DELIVERY: "Thanh toán khi nhận hàng",
+  SUBTOTAL: "Tạm tính",
+  SHIPPING_FEE: "Phí giao hàng",
+  FREE: "Miễn phí",
+  TOTAL_AMOUNT: "TỔNG",
+  PAYMENT_TOTAL: "Thanh toán:",
+}
+
+export const CATEGORY_PAGE = {
+  SEE_MORE: "Xem thêm",
+  NO_RESULTS_FOUND: "Không có kết quả nào cho từ khóa trên",
+  PLEASE_TRY_AGAIN_WITH_DIFFERENT_KEYWORD: "Xin vui lòng thử lại với từ khóa khác.",
+  EXAMPLE_KEYWORDS: " VD: Áo khoác, Quần dài...",
+}
+
+export const SEARCH_PRODUCT_PAGE = {
+  SEE_MORE: "Xem thêm",
+  NO_RESULTS_FOUND: "Không có kết quả nào cho từ khóa trên",
+  PLEASE_TRY_AGAIN_WITH_DIFFERENT_KEYWORD: "Xin vui lòng thử lại với từ khóa khác.",
+  EXAMPLE_KEYWORDS: " VD: Áo khoác, Quần dài...",
 }
