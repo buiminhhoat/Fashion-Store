@@ -14,7 +14,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(API.PUBLIC.GET_RANDOM_12_PRODUCTS_ENDPOINT, {
+        const response = await fetch(API.PUBLIC.GET_RANDOM_8_PRODUCTS_ENDPOINT, {
           method: 'GET',
         });
 
