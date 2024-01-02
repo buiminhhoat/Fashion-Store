@@ -30,7 +30,7 @@ const SubBanner = () => {
                 <div
                     className="banner-wrap position-relative"
                     // onClick={() => {
-                    //   window.location.href = 'https://5sfashion.vn/danh-muc/bo-suu-tap-xuan-he';
+                    //   window.location.href = '';
                     // }}
                 >
                   <div className="title position-absolute">
@@ -49,7 +49,7 @@ const SubBanner = () => {
                 <div
                     className="banner-wrap position-relative"
                     // onClick={() => {
-                    //   window.location.href = 'https://5sfashion.vn/pages/chinh-sach-doi-tra-bao-hanh';
+                    //   window.location.href = '';
                     // }}
                 >
                   <div className="title position-absolute">

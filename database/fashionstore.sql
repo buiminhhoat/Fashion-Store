@@ -10,7 +10,6 @@ DROP DATABASE fashionstore;
 CREATE DATABASE fashionstore;
 USE fashionstore;
 
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -46,7 +45,10 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`AddressID`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`, `IsDefault`) VALUES
 (1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội', 1),
-(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', 0);
+(2, 1, 'Bùi Minh Hoạt', '0896037569', '134 Hai Bà Trưng, Thọ Sơn, Việt Trì, Phú Thọ', 0),
+(3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội', 1),
+(4, 3, 'Tiến Dũng', '0909090909', 'Quận 5, Hồ Chí Minh', 0),
+(5, 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội', 1);
 
 -- --------------------------------------------------------
 
@@ -89,7 +91,8 @@ CREATE TABLE `cart` (
 INSERT INTO `cart` (`CartID`, `UserID`) VALUES
 (1, 1),
 (3, 2),
-(2, 3);
+(2, 3),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -104,6 +107,14 @@ CREATE TABLE `cartitem` (
   `SizeID` bigint(20) DEFAULT NULL,
   `QuantityPurchase` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `cartitem`
+--
+
+INSERT INTO `cartitem` (`CartItemID`, `CartID`, `ProductID`, `SizeID`, `QuantityPurchase`) VALUES
+(12, 1, 95, 348, 11),
+(13, 1, 108, 401, 2);
 
 -- --------------------------------------------------------
 
@@ -133,7 +144,7 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `ParentCategoryID`, `Image
 (9, 'Quần Dài Kaki', 5, 'https://iili.io/J5HXNyu.webp'),
 (10, 'Quần Short Kaki', 5, 'https://iili.io/J5HXUGV.webp'),
 (11, 'Quần Short Tây', 5, 'https://iili.io/J5HXLua.webp'),
-(12, 'Quần Lót Nam', NULL, 'https://iili.io/JR4gFGs.md.png'),
+(12, 'Quần Lót', NULL, 'https://iili.io/JR4gFGs.md.png'),
 (13, 'Quần Lót Boxer', 12, 'https://iili.io/J5HjR5X.webp'),
 (14, 'Quần Lót Brief', 12, 'https://iili.io/J5HjR5X.webp'),
 (15, 'Phụ Kiện', NULL, 'https://iili.io/JR4gFGs.md.png'),
@@ -157,6 +168,43 @@ CREATE TABLE `orderdetails` (
   `TotalPrice` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+--
+-- Dumping data for table `orderdetails`
+--
+
+INSERT INTO `orderdetails` (`OrderDetailID`, `OrderID`, `ProductID`, `ProductName`, `SizeID`, `ImagePath`, `ProductPrice`, `Quantity`, `TotalPrice`) VALUES
+(1, 1, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 218, 'https://iili.io/JR4LT5G.jpg', 249000, 4, 996000),
+(2, 2, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 238, 'https://iili.io/JR4tYsp.jpg', 239000, 4, 956000),
+(3, 3, 94, 'Quần Short Thể Thao Nam, Thoáng Khí, Kháng Khuẩn ', 344, 'https://iili.io/JRLtjlR.jpg', 429000, 4, 1716000),
+(4, 4, 95, 'Quần Short Thể Thao Nam, Thiết Kế Cạp Cúc Xẻ Gấu Thời Trang', 348, 'https://iili.io/JRLtQO7.jpg', 499000, 4, 1996000),
+(5, 5, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
+(6, 6, 70, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 248, 'https://iili.io/JR4Dqps.jpg', 249000, 8, 1992000),
+(7, 6, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
+(8, 6, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 5, 1395000),
+(9, 7, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 329, 'https://iili.io/JRLZkCb.jpg', 469000, 4, 1876000),
+(10, 7, 142, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả ', 533, 'https://iili.io/JRDGkb9.jpg', 96000, 5, 480000),
+(11, 8, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 5, 1095000),
+(12, 9, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 6, 2094000),
+(13, 10, 150, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát', 565, 'https://iili.io/J5nodtp.jpg', 259000, 6, 1554000),
+(14, 11, 109, 'Tất Nam, Kháng Khuẩn, Khử Mùi ', 402, 'https://iili.io/JRQ9dtS.jpg', 19000, 21, 399000),
+(15, 11, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 241, 'https://iili.io/JR4tYsp.jpg', 239000, 5, 1195000),
+(16, 12, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 6, 1674000),
+(17, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 350, 'https://iili.io/JRLD90x.jpg', 389000, 5, 1945000),
+(18, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 352, 'https://iili.io/JRLD90x.jpg', 389000, 3, 1167000),
+(19, 12, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 6, 1914000),
+(20, 13, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 332, 'https://iili.io/JRLZkCb.jpg', 469000, 5, 2345000),
+(21, 13, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 400, 'https://iili.io/JRLylZ7.jpg', 649000, 3, 1947000),
+(22, 13, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 5, 1595000),
+(23, 14, 92, 'Quần Short Thể Thao Nam, Cạp Chun, In Chữ Trẻ Trung', 336, 'https://iili.io/JRLZkCb.jpg', 429000, 4, 1716000),
+(24, 14, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
+(25, 15, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 3, 657000),
+(26, 15, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 401, 'https://iili.io/JRLylZ7.jpg', 649000, 2, 1298000),
+(27, 16, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 1, 319000),
+(28, 17, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
+(29, 17, 49, 'Áo Khoác Bomber Nam, Cản Gió, Thiết Kế Trẻ Trung', 162, 'https://iili.io/JR4yBl2.jpg', 939000, 3, 2817000),
+(30, 18, 71, 'Áo Polo Nam, Vải Viscose Mềm Mượt, Thoáng Khí', 252, 'https://iili.io/JR6foJf.jpg', 389000, 4, 1556000),
+(31, 18, 80, 'Áo Polo Nam, Cotton USA, Cao Cấp, Thấm Hút Mồ Hôi', 288, 'https://iili.io/JR6osDv.jpg', 419000, 4, 1676000);
+
 -- --------------------------------------------------------
 
 --
@@ -174,6 +222,30 @@ CREATE TABLE `orders` (
   `RecipientPhone` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
   `AddressDetails` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `OrderDate`, `TotalAmount`, `OrderStatus`, `UserID`, `AddressID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
+(1, '2024-01-01 21:52:55.000000', 996000, 'Đã xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(2, '2024-01-01 21:54:17.000000', 956000, 'Đang giao hàng', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(3, '2024-01-01 22:01:07.000000', 1716000, 'Hoàn thành', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(4, '2024-01-01 22:01:45.000000', 1996000, 'Chờ xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(5, '2024-01-01 22:01:55.000000', 1494000, 'Đã hủy', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(6, '2024-01-01 22:03:02.000000', 4881000, 'Hoàn thành', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(7, '2024-01-01 22:03:16.000000', 2356000, 'Đã xác nhận', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(8, '2024-01-01 22:03:21.000000', 1095000, 'Đã hủy', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(9, '2024-01-01 22:03:26.000000', 2094000, 'Chờ xác nhận', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(10, '2024-01-01 22:03:51.000000', 1554000, 'Chờ xác nhận', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(11, '2024-01-01 22:04:22.000000', 1594000, 'Đang giao hàng', 1, 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+(12, '2024-01-01 22:06:28.000000', 6700000, 'Đã xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(13, '2024-01-01 22:06:59.000000', 5887000, 'Chờ xác nhận', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(14, '2024-01-01 22:07:22.000000', 2065000, 'Đã hủy', 3, 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(15, '2024-01-01 22:13:31.000000', 1955000, 'Hoàn thành', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(16, '2024-01-01 22:13:39.000000', 319000, 'Chờ xác nhận', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(17, '2024-01-01 22:13:54.000000', 3166000, 'Đang giao hàng', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+(18, '2024-01-01 22:14:20.000000', 3232000, 'Đã xác nhận', 4, 5, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội');
 
 -- --------------------------------------------------------
 
@@ -288,7 +360,11 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `productPrice`, `ProductDescr
 (146, 'Quần lót nam Modal Air  dáng Trunk', 96000, 'Quần lót nam Modal Air được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
 (147, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk', 96000, 'Quấn lót nam MICROFIBER STRUCTURE EASY FIT dáng Trunk được ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
 (148, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunk', 96000, 'Quần lót nam VISCOSE EXTRA SOFT dáng Trunkđược ra mắt trong BST đồ lót Micro Modal Air lần đầu tiên và duy nhất có tại Việt Nam.\r\n\r\nVới sự kết hợp giữa 92% Micro modal air + 8% spandex tạo nên dòng sản phẩm ưu việt.\r\n\r\nChất liệu Modal vốn là chất liệu có nguồn gốc từ gỗ sồi, nhưng qua nghiên cứu và dệt sợi trên quy trình hiện đại đã tạo nên những thước vải mang tính ưu việt: thân thiện với làn da, không gây kích ứng, có đặc tính kháng khuẩn tự nhiên, thông hơi, thoáng khí, thoải mái suốt ngày dài'),
-(149, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung', 329000, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung là item trẻ trung, mới mẻ mà các anh chắc chắn cần có trong tủ đồ của mùa hè. Kiểu dáng Slim fit vừa vặn, tôn dáng mà không quá ôm sát tạo cảm giác gò bó với người mặc. Cổ áo được dệt bo bền đẹp, giữ phom tốt. Điểm nhấn của thiết kế này nằm ở màu in loang chuyển màu độc đáo, hút mắt với bảng màu đa dạng. \r\n\r\nChất vải Cotton USA được biết đến là loại vải có cấu trúc sợi dai và dài vượt trội. Chất liệu này đã hoàn thiện được những ưu điểm có sẵn của cotton truyền thống. Độ thấm hút cao, chịu nhiệt tốt, giữ màu sắc bền đẹp; đồng thời khắc phục hầu hết nhược điểm cũ như: co rút, dễ nhăn, xù, bạc màu. Kết hợp với Spandex giúp sản phẩm có độ đàn hồi tốt, người mặc sẽ thoải mái vận động. Vải thành phẩm được xử lý qua công nghệ Wash giúp bề mặt mềm hơn, độ cầm màu tốt hơn & giảm độ co rút.');
+(149, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung', 329000, 'Áo Thun Nam Ngắn Tay, Thiết Kế In Chuyển Màu Trẻ Trung là item trẻ trung, mới mẻ mà các anh chắc chắn cần có trong tủ đồ của mùa hè. Kiểu dáng Slim fit vừa vặn, tôn dáng mà không quá ôm sát tạo cảm giác gò bó với người mặc. Cổ áo được dệt bo bền đẹp, giữ phom tốt. Điểm nhấn của thiết kế này nằm ở màu in loang chuyển màu độc đáo, hút mắt với bảng màu đa dạng. \r\n\r\nChất vải Cotton USA được biết đến là loại vải có cấu trúc sợi dai và dài vượt trội. Chất liệu này đã hoàn thiện được những ưu điểm có sẵn của cotton truyền thống. Độ thấm hút cao, chịu nhiệt tốt, giữ màu sắc bền đẹp; đồng thời khắc phục hầu hết nhược điểm cũ như: co rút, dễ nhăn, xù, bạc màu. Kết hợp với Spandex giúp sản phẩm có độ đàn hồi tốt, người mặc sẽ thoải mái vận động. Vải thành phẩm được xử lý qua công nghệ Wash giúp bề mặt mềm hơn, độ cầm màu tốt hơn & giảm độ co rút.'),
+(150, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát', 259000, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát là sản phẩm được ứng dụng công nghệ mới đột phá với chất liệu Thun Lạnh siêu nhẹ, mang đến trải nghiệm thoáng mát tối đa cho người mặc. Bền mặt vải mượt hơn, co giãn tốt hơn với hàng ngàn lỗ thoáng khí, thông hơi và thấm hút mồ hôi cực tốt khi mặc. Áo giúp chống bám bụi, chống nhăn hiêu quả giúp chàng trai tiết kiệm được tối đa thời gian là ủi.\r\n\r\nBảng màu áo thun chủ yếu hướng tối các tone màu trung tính, cơ bản, dễ mặc và dễ phối. Công nghệ làm mát đột phá giúp áo thun tăng độ thoáng khí, thoát nhiệt nhanh và giảm ngay từ 5 - 7 độ C khi mặc. Đây là một trong những item mang phong cách thể thao, khỏe khoắn của 5S Fashion không thể thiếu trong tủ đồ hằng ngày, đi chơi, đi tập hay picnic của các chàng trai. '),
+(151, 'Áo Thun Nam Ngắn Tay Cổ Tròn, In Chữ Ardent', 259000, 'Áo Thun Nam Cổ Tròn, In Chữ Ardent là thiết kế đơn giản, thoải mái với tính ứng dụng cao. Áo thun có form dáng Slim fit vừa vặn, tôn dáng nhưng không hề gây cảm giác khó chịu hay bó sát khi mặc. Điểm nhấn của mẫu áo thun này nằm ở logo chữ Ardent được in ép nhiệt silicon mỏng với công nghệ High tech sắc nét, đảm bảo không bong tróc, phai mờ trong quá trình sử dụng hay giặt là. \r\n\r\nChất liệu Viscose (hay sợi lụa nhân tạo) là loại sợi tổng hợp từ chất xơ của sợi cellulose làm từ bột gỗ như cây sồi, thông, bạch đàn, cây tre… sở hữu hầu hết những đặc tính vượt trội của các chất liệu khác như lụa, cotton hay vải linen,… Vải Viscose khá mềm mịn, bóng mượt, thoáng khí, khả năng thấm hút mồ hôi và kháng khuẩn tốt. Với đặc tính dễ dàng nhuộm màu nên mẫu áo Polo này có màu sắc đa dạng, bắt mắt để bạn nam có thể thỏa sức lựa chọn.\r\n\r\nĐặc biệt, việc bổ sung thêm thành phần chất liệu Cotton còn giúp tăng  khả năng thoáng khí và thâm hút mồ hôi tăng lên vượt trội, đồng thời cũng khắc phục được những hạn chế của sợi cotton truyền thống. Thành phầm Spandex giúp sản phẩm có độ đàn hồi tốt, giảm độ co rút và người mặc sẽ thoải mái vận động. \r\n\r\nÁo được thiết kế tỉ mỉ đến từng chi tiết: cổ tròn bọc dây dệt giữ phom, mác ép nhiệt cao cấp không gây vướng ngứa khi mặc... Đây là item dễ phối đồ mà mọi chàng trai đều nên sở hữu ít nhất một chiếc trong tủ đồ mùa hè của mình. '),
+(152, 'Áo Thun Nam Ngắn Tay, Thoáng Mát, Chống Nhăn', 259000, 'Áo Thun Nam Ngắn Tay, Thoáng Mát, Chống Nhăn là mẫu áo thun in hình thể thao mới nhất. Áo được thiết kế với form dáng Slim fit, ôm vừa vặn nhưng cũng không quá bó sát, tạo sự thoải mái cho người mặc. Đặc biệt, điểm nhấn của thiết kế này nằm ở họa tiết in chữ nằm vuông góc bên ngực trái của áo bằng công nghệ chuyển nhiệt Plastisol không bóng, bền đẹp, sắc nét, không lo bong tróc trong quá trình sử dụng hay giặt là.  \r\n\r\nVới bảng màu đa dạng, thiết kế trẻ trung, đây được xem là item hiện đại, mang sự năng động, dễ mặc và dễ dàng phối kết hợp cùng nhiều trang phục để phù hợp với nhiều hoàn cảnh khác nhau như mặc ở nhà, đi học, đi chơi, picnic, hẹn hò... '),
+(153, 'Áo Thun Nam Ngắn Tay, Hạ Nhiệt, Thoáng Khí', 279000, ' Áo Thun Nam, Hạ Nhiệt, Thoáng Khí là một trong những item cơ bản, dễ mặc không thể thiếu trong tủ đồ thời trang hằng ngày. Với thiết kế ngắn tay, cổ tròn kết hợp với form dáng Slim fit ôm vừa vặn, áo thun giúp tôn dáng mà vẫn tạo cảm giác thoải mái, không bó sát vào cơ thể khi mặc. Điểm đặc biệt của sản phẩm là phần họa tiết in chữ RUNNING bằng silicon ứng dụng công nghệ High-tech cao cấp, giúp tăng độ bền đẹp, không lo bong tróc trong quá trình sử dụng. ');
 
 -- --------------------------------------------------------
 
@@ -401,7 +477,11 @@ INSERT INTO `productcategory` (`ProductCategoryID`, `ProductID`, `CategoryID`) V
 (146, 146, 13),
 (147, 147, 13),
 (148, 148, 13),
-(149, 149, 2);
+(149, 149, 2),
+(150, 150, 2),
+(151, 151, 2),
+(152, 152, 2),
+(153, 153, 2);
 
 -- --------------------------------------------------------
 
@@ -894,7 +974,25 @@ INSERT INTO `productimage` (`ImageID`, `ProductID`, `ImagePath`) VALUES
 (696, 149, 'https://iili.io/J5HWZ1S.jpg'),
 (697, 149, 'https://iili.io/J5HWtr7.jpg'),
 (698, 149, 'https://iili.io/J5HWb29.jpg'),
-(699, 149, 'https://iili.io/J5HWm7e.jpg');
+(699, 149, 'https://iili.io/J5HWm7e.jpg'),
+(700, 150, 'https://iili.io/J5nodtp.jpg'),
+(701, 150, 'https://iili.io/J5noKPt.jpg'),
+(702, 150, 'https://iili.io/J5noCSs.jpg'),
+(703, 150, 'https://iili.io/J5nozN4.jpg'),
+(704, 151, 'https://iili.io/J5nxUpj.jpg'),
+(705, 151, 'https://iili.io/J5nxrTx.jpg'),
+(706, 151, 'https://iili.io/J5nx4hQ.jpg'),
+(707, 151, 'https://iili.io/J5nx6QV.jpg'),
+(708, 151, 'https://iili.io/J5nxiCB.jpg'),
+(709, 152, 'https://iili.io/J5nzoZl.jpg'),
+(710, 152, 'https://iili.io/J5nzzn2.jpg'),
+(711, 152, 'https://iili.io/J5nzIGS.jpg'),
+(712, 152, 'https://iili.io/J5nzT67.jpg'),
+(713, 152, 'https://iili.io/J5nzAF9.jpg'),
+(714, 153, 'https://iili.io/J5nT27n.jpg'),
+(715, 153, 'https://iili.io/J5nTBLl.jpg'),
+(716, 153, 'https://iili.io/J5nTo1S.jpg'),
+(717, 153, 'https://iili.io/J5nTT7e.jpg');
 
 -- --------------------------------------------------------
 
@@ -997,8 +1095,8 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (215, 62, 215, 28),
 (216, 62, 216, 72),
 (217, 62, 217, 17),
-(218, 63, 218, 34),
-(219, 63, 219, 94),
+(218, 63, 218, 30),
+(219, 63, 219, 88),
 (220, 63, 220, 12),
 (221, 63, 221, 65),
 (222, 64, 222, 32),
@@ -1008,16 +1106,16 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (226, 65, 226, 39),
 (227, 65, 227, 59),
 (228, 65, 228, 10),
-(229, 65, 229, 40),
+(229, 65, 229, 35),
 (230, 66, 230, 49),
 (231, 66, 231, 85),
 (232, 66, 232, 28),
-(233, 66, 233, 10),
+(233, 66, 233, 4),
 (234, 67, 234, 3),
 (235, 67, 235, 5),
 (236, 67, 236, 32),
-(237, 67, 237, 35),
-(238, 68, 238, 34),
+(237, 67, 237, 34),
+(238, 68, 238, 30),
 (239, 68, 239, 39),
 (240, 68, 240, 100),
 (241, 68, 241, 300),
@@ -1109,11 +1207,11 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (341, 94, 341, 51),
 (342, 94, 342, 95),
 (343, 94, 343, 34),
-(344, 94, 344, 81),
+(344, 94, 344, 77),
 (345, 95, 345, 43),
 (346, 95, 346, 55),
 (347, 95, 347, 36),
-(348, 95, 348, 81),
+(348, 95, 348, 77),
 (349, 96, 349, 43),
 (350, 96, 350, 55),
 (351, 96, 351, 36),
@@ -1295,7 +1393,23 @@ INSERT INTO `productquantity` (`QuantityID`, `ProductID`, `SizeID`, `Quantity`) 
 (558, 149, 558, 29),
 (559, 149, 559, 94),
 (560, 149, 560, 45),
-(561, 149, 561, 43);
+(561, 149, 561, 43),
+(562, 150, 562, 94),
+(563, 150, 563, 49),
+(564, 150, 564, 43),
+(565, 150, 565, 33),
+(566, 151, 566, 94),
+(567, 151, 567, 49),
+(568, 151, 568, 43),
+(569, 151, 569, 39),
+(570, 152, 570, 43),
+(571, 152, 571, 50),
+(572, 152, 572, 30),
+(573, 152, 573, 59),
+(574, 153, 574, 54),
+(575, 153, 575, 94),
+(576, 153, 576, 51),
+(577, 153, 577, 43);
 
 -- --------------------------------------------------------
 
@@ -1695,7 +1809,23 @@ INSERT INTO `productsize` (`SizeID`, `ProductID`, `SizeName`) VALUES
 (558, 149, 'S'),
 (559, 149, 'M'),
 (560, 149, 'L'),
-(561, 149, 'XL');
+(561, 149, 'XL'),
+(562, 150, 'S'),
+(563, 150, 'M'),
+(564, 150, 'L'),
+(565, 150, 'XL'),
+(566, 151, 'S'),
+(567, 151, 'M'),
+(568, 151, 'L'),
+(569, 151, 'XL'),
+(570, 152, 'S'),
+(571, 152, 'M'),
+(572, 152, 'L'),
+(573, 152, 'XL'),
+(574, 153, 'S'),
+(575, 153, 'M'),
+(576, 153, 'L'),
+(577, 153, 'XL');
 
 -- --------------------------------------------------------
 
@@ -1712,6 +1842,13 @@ CREATE TABLE `storeinformation` (
   `ClosingHours` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `Facebook` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `storeinformation`
+--
+
+INSERT INTO `storeinformation` (`StoreInformationID`, `Address`, `Hotline`, `Email`, `OpeningHours`, `ClosingHours`, `Facebook`) VALUES
+(1, '144 Xuân Thuỷ, Cầu Giấy, Hà Nội', '0987654321', 'fashionstore@gmail.com', '08:00:00', '23:00:00', 'https://www.facebook.com/');
 
 -- --------------------------------------------------------
 
@@ -1738,7 +1875,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`UserID`, `FullName`, `Email`, `PhoneNumber`, `Gender`, `DateBirthday`, `AvatarPath`, `IsAdmin`, `hashedPassword`) VALUES
 (1, 'Bùi Minh Hoạt', 'official.buiminhhoat@gmail.com', '0945405238', 'Nam', '2003-09-06', 'https://iili.io/J5HNvHP.jpg', 1, '$2a$10$T8MIwYiIinEg1/UTV8Y2UeRrMgCKG7g7O0SS2uiYZHoGCb6UrUWAO'),
 (2, 'Nguyễn Châu Khanh', 'chaukhanh0605@gmail.com', '0944252960', NULL, NULL, 'https://iili.io/J5HMHIR.jpg', 1, '$2a$10$WlWXmICMXAKm8SJfAHs/W.k4q9GbL/yk1.zkgZhaY6lCGpBU6EwkO'),
-(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, 'https://iili.io/J5HNZJI.jpg', 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe');
+(3, 'Nguyễn Tiến Dũng', '21020057@vnu.edu.vn', '0903481758', NULL, NULL, 'https://iili.io/J5HNZJI.jpg', 1, '$2a$10$LgAHCTgWj.gphTydaGKs3uXDdLMRWzxdQ5BLzFr4ljl2DvrPm7HPe'),
+(4, 'Nguyễn Văn Vinh', 'khachhang@gmail.com', '09090909', 'Nam', '1933-02-03', 'https://iili.io/J5nNDS1.jpg', 0, '$2a$10$DrBhcWa6Qi5GxaUikvKvJuWIaelA0RXBhwbxOdgf2LLgbI4ybLNIu');
 
 --
 -- Indexes for dumped tables
@@ -1786,7 +1924,8 @@ ALTER TABLE `category`
 ALTER TABLE `orderdetails`
   ADD PRIMARY KEY (`OrderDetailID`),
   ADD KEY `OrderID` (`OrderID`),
-  ADD KEY `ProductID` (`ProductID`);
+  ADD KEY `ProductID` (`ProductID`),
+  ADD KEY `orderdetail_ibfk_3` (`SizeID`);
 
 --
 -- Indexes for table `orders`
@@ -1853,7 +1992,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `AddressID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `AddressID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `banner`
@@ -1865,13 +2004,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `CartID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CartID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cartitem`
 --
 ALTER TABLE `cartitem`
-  MODIFY `CartItemID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `CartItemID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1883,55 +2022,55 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `OrderDetailID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderDetailID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `ProductID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `ProductCategoryID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `productimage`
 --
 ALTER TABLE `productimage`
-  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=700;
+  MODIFY `ImageID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=718;
 
 --
 -- AUTO_INCREMENT for table `productquantity`
 --
 ALTER TABLE `productquantity`
-  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=562;
+  MODIFY `QuantityID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=578;
 
 --
 -- AUTO_INCREMENT for table `productsize`
 --
 ALTER TABLE `productsize`
-  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=562;
+  MODIFY `SizeID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=578;
 
 --
 -- AUTO_INCREMENT for table `storeinformation`
 --
 ALTER TABLE `storeinformation`
-  MODIFY `StoreInformationID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `StoreInformationID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `UserID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -1975,8 +2114,8 @@ ALTER TABLE `orderdetails`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE;
+  -- ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `productcategory`
@@ -2004,6 +2143,8 @@ ALTER TABLE `productquantity`
 ALTER TABLE `productsize`
   ADD CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE CASCADE;
 COMMIT;
+
+ALTER TABLE `orders` DROP COLUMN AddressID;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
