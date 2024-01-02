@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b95e58f7.css",
-    "main.js": "/static/js/main.2de6c267.js",
+    "main.js": "/static/js/main.4d287700.js",
     "static/js/787.44c26954.chunk.js": "/static/js/787.44c26954.chunk.js",
     "static/media/forgot-password.jpg": "/static/media/forgot-password.767a2d19a846baf55738.jpg",
     "static/media/zalo.svg": "/static/media/zalo.c63e607f5f4180498ce1557d495f0aae.svg",
@@ -37,11 +37,11 @@
     "static/media/unlocked.svg": "/static/media/unlocked.446d7940bb94b6e3a7a962997ef85ba7.svg",
     "static/media/plus.svg": "/static/media/plus.f2715396a53c70b447cc8e205d4241d2.svg",
     "main.b95e58f7.css.map": "/static/css/main.b95e58f7.css.map",
-    "main.2de6c267.js.map": "/static/js/main.2de6c267.js.map",
+    "main.4d287700.js.map": "/static/js/main.4d287700.js.map",
     "787.44c26954.chunk.js.map": "/static/js/787.44c26954.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b95e58f7.css",
-    "static/js/main.2de6c267.js"
+    "static/js/main.4d287700.js"
   ]
 }

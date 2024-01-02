@@ -87,6 +87,10 @@ public class CategoryController {
     @Value("${param.categoryImageDefault}")
     private String PARAM_CATEGORY_IMAGE_CATEGORY_DEFAULT;
 
+    @Value("${param.maxProductDisplay}")
+    private Long MAX_PRODUCT_DISPLAY;
+
+
     @Autowired
     public CategoryController(MessageSource messageSource) {
         this.RESPONSE_CATEGORY_NEW_EXISTS = messageSource.getMessage("response.category.new.exists", null, LocaleContextHolder.getLocale());
@@ -220,7 +224,7 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
-    @GetMapping("${endpoint.public.get-random-12-products}")
+    @GetMapping("${endpoint.public.get-random-8-products}")
     public ResponseEntity<?> getAllCategoriesRandom12() {
         List<Category> categoryList = categoryRepository.findCategoriesByParentCategoryID(null);
 
@@ -237,6 +241,9 @@ public class CategoryController {
                 List<Product> products = new ArrayList<>();
                 for (ProductCategory productCategory: productCategoryList) {
                     products.add(getProductDetails(productCategory.getProductID()));
+                    if (products.size() == MAX_PRODUCT_DISPLAY) {
+                        break;
+                    }
                 }
                 subCategory.setProducts(products);
             }

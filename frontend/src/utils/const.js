@@ -139,7 +139,7 @@ export const API = {
     EDIT_PROFILE_ENDPOINT: "/api/public/edit-profile",
     DELETE_ADDRESS_ENDPOINT: "/api/public/delete-address",
     GET_ALL_ORDERS_BY_ORDER_STATUS_ENDPOINT: "/api/public/orders/get-all-orders-by-order-status",
-    GET_RANDOM_12_PRODUCTS_ENDPOINT: "/api/public/all-categories/get-random-12-products",
+    GET_RANDOM_8_PRODUCTS_ENDPOINT: "/api/public/all-categories/get-random-8-products",
     CATEGORY_ENDPOINT: "/api/public/category/",
     PRODUCT_ENDPOINT: "/api/public/product/",
     SEARCH_ENDPOINT: "/api/public/search/"
@@ -227,5 +227,7 @@ export const ADDRESS_SECTION = {
   PHONE_NUMBER: "Số điện thoại",
   PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
   ADDRESS: "Địa chỉ",
-  ADDRESS_PLACEHOLDER: "Nhập địa chỉ"
+  ADDRESS_PLACEHOLDER: "Nhập địa chỉ",
+  CREATE_SHIPPING_ADDRESS_HERE: "Tạo địa chỉ nhận hàng tại đây",
+  CHANGE_ADDRESS: "Thay đổi địa chỉ",
 }

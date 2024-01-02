@@ -4,7 +4,7 @@ import arrowRight from "../../checkoutPage/images/angle-right.svg";
 import {useCookies} from "react-cookie";
 import AddressModal from "./AddressModal";
 import {toast} from "react-toastify";
-import {API, MESSAGE} from "../../../../utils/const"; // Assuming you have an arrow-right image
+import {ADDRESS_SECTION, API, MESSAGE} from "../../../../utils/const"; // Assuming you have an arrow-right image
 
 function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const [cookies] = useCookies(['access_token']);
@@ -97,11 +97,11 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
               <div className="cart__address__title d-flex align-items-center justify-content-between">
                 <div className="cart__address__title__left mb-6px">
                   <img src={locationDot} alt="icon address" />
-                  <h5 className="mb-0">Địa chỉ nhận hàng</h5>
+                  <h5 className="mb-0">{ADDRESS_SECTION.SHIPPING_ADDRESS}</h5>
                 </div>
               </div>
               <div className="cart__address__description">
-                <div>Tạo địa chỉ nhận hàng tại đây</div>
+                <div>{ADDRESS_SECTION.CREATE_SHIPPING_ADDRESS_HERE}</div>
               </div>
             </>
             :
@@ -109,10 +109,10 @@ function AddressSection({ selectedAddress,  setSelectedAddress }) {
               <div className="cart__address__title d-flex align-items-center justify-content-between">
                 <div className="cart__address__title__left mb-6px">
                   <img src={locationDot} alt="icon address" />
-                  <h5 className="mb-0">Địa chỉ nhận hàng</h5>
+                  <h5 className="mb-0">{ADDRESS_SECTION.SHIPPING_ADDRESS}</h5>
                 </div>
                 <div className="d-flex align-items-center" onClick={openModalListAddress}>
-                  <span className="change-address">Thay đổi địa chỉ</span>
+                  <span className="change-address">{ADDRESS_SECTION.CHANGE_ADDRESS}</span>
                   <img src={arrowRight} alt="icon arrow next" />
                 </div>
               </div>
