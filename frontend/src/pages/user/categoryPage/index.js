@@ -5,12 +5,11 @@ import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 import ProductsSection from "./ProductsSection/ProductsSection";
 
-import empty_result_img from "./images/empty-result.png";
 import fillterIcon from "./images/bars-filter.svg";
 import queryString from "query-string";
 
 import {ScrollToTop} from "../../../utils";
-import {API, CATEGORY_PAGE, FILTERS, MESSAGE, NUMBER_PRODUCT_LIMIT, SORT} from "../../../utils/const";
+import {API, CATEGORY_PAGE, FILTERS, IMAGE_URL, MESSAGE, NUMBER_PRODUCT_LIMIT, SORT} from "../../../utils/const";
 import {ConfigProvider, Select} from "antd";
 
 const CategoryPage = ({keyword}) => {
@@ -144,7 +143,7 @@ const CategoryPage = ({keyword}) => {
               ) : (
                   <div className="empty-data text-center"  style={{paddingBottom:"70px"}}>
                     <div className="result-empty" style={{marginTop:"50px"}}>
-                      <img src={empty_result_img} alt="no data" style={{maxWidth:"200px", marginBottom:"30px"}}/>
+                      <img src={IMAGE_URL.EMPTY_RESULT_IMG} alt="no data" style={{maxWidth:"200px", marginBottom:"30px"}}/>
                       <p>{CATEGORY_PAGE.NO_RESULTS_FOUND}</p>
                       <span>{CATEGORY_PAGE.PLEASE_TRY_AGAIN_WITH_DIFFERENT_KEYWORD}</span>
                       <span>{CATEGORY_PAGE.EXAMPLE_KEYWORDS}</span>

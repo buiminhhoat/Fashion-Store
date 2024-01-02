@@ -1,5 +1,6 @@
 export const IMAGE_URL = {
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
+  EMPTY_RESULT_IMG:"https://iili.io/J5aOmCl.png",
 }
 
 export const DIALOGS = {

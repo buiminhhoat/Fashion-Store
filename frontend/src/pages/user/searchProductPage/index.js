@@ -6,16 +6,13 @@ import ProductsSection from "./ProductsSection/ProductsSection";
 import {useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 
-import empty_result_img from "./images/empty-result.png";
 import fillterIcon from "../categoryPage/images/bars-filter.svg";
 
 import {ScrollToTop} from "../../../utils";
-import {API, FILTERS, MESSAGE, NUMBER_PRODUCT_LIMIT, SEARCH_PRODUCT_PAGE, SORT} from "../../../utils/const";
+import {API, FILTERS, IMAGE_URL, MESSAGE, NUMBER_PRODUCT_LIMIT, SEARCH_PRODUCT_PAGE, SORT} from "../../../utils/const";
 import {ConfigProvider, Select} from "antd";
-import {SEARCH_USER} from "../../admin/managementPage/productManagement/utils/const";
 
 const SearchProductPage = () => {
-  // Sử dụng useLocation để lấy đường dẫn URL hiện tại
   const location = useLocation().pathname;
   const encodedSearchString = location.substring("/search/".length);
   const decodedSearchString = decodeURIComponent(encodedSearchString);
@@ -133,7 +130,7 @@ const SearchProductPage = () => {
               ) : (
                   <div className="empty-data text-center"  style={{paddingBottom:"70px"}}>
                     <div className="result-empty" style={{marginTop:"50px"}}>
-                      <img src={empty_result_img} alt="no data" style={{maxWidth:"200px", marginBottom:"30px"}}/>
+                      <img src={IMAGE_URL.EMPTY_RESULT_IMG} alt="no data" style={{maxWidth:"200px", marginBottom:"30px"}}/>
                         <p>{SEARCH_PRODUCT_PAGE.NO_RESULTS_FOUND}</p>
                         <span>{SEARCH_PRODUCT_PAGE.PLEASE_TRY_AGAIN_WITH_DIFFERENT_KEYWORD}</span>
                         <span>{SEARCH_PRODUCT_PAGE.EXAMPLE_KEYWORDS}</span>
