@@ -1,3 +1,7 @@
+export const IMAGE_URL = {
+  FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
+}
+
 export const DATE_PICKER = {
   MAX_DAY_DISTANCE: 20,
 }
@@ -363,4 +367,13 @@ export const PROFILE_PAGE = {
     YEAR: "Năm",
     SAVE_INFORMATION: "Lưu thông tin"
   },
+}
+
+export const FORGOT_PASSWORD_DIALOG = {
+  FORGOT_PASSWORD: "Quên mật khẩu",
+  PLEASE_VISIT_STORE: "Quý khách vui lòng đến trực tiếp cửa hàng",
+  OR_CONTACT_HOTLINE: "hoặc liên hệ qua hotline ",
+  FOR_SUPPORT: " để được hỗ trợ.",
+  BACK_TO_PAGE: "Trở lại trang",
+  LOGIN: "Đăng nhập"
 }
