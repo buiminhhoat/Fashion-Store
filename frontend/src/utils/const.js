@@ -39,6 +39,7 @@ export const BANNER = {
 export const BREADCRUMB = {
   HOME_PAGE: "Trang chủ",
   SHOPPING_CART: "Giỏ hàng",
+  PAYMENT: "Thanh toán",
 }
 
 export const SCROLLING = {
@@ -52,6 +53,12 @@ export const SORT = {
   DECS: "2",
 }
 
+export const ADDRESS_MODAL = {
+  LIST_ADDRESS: 'LIST_ADDRESS',
+  CREATE_ADDRESS: 'CREATE_ADDRESS',
+  UPDATE_ADDRESS: 'UPDATE_ADDRESS'
+}
+
 export const FILTERS = {
   TITLE: "Bộ lọc",
   SORT_BY: "Sắp xếp theo:",
@@ -63,6 +70,7 @@ export const FILTERS = {
 export const ERROR = {
   CART_UPDATE_ERROR: "Lỗi khi cập nhật giỏ hàng.",
   CART_ITEM_REMOVAL_ERROR: "Lỗi khi xóa sản phẩm khỏi giỏ hàng.",
+  ORDER_PLACEMENT_ERROR: "Lỗi khi đặt hàng.",
 }
 
 export const MESSAGE = {
@@ -95,10 +103,12 @@ export const MESSAGE = {
   PLEASE_LOGIN: "Vui lòng đăng nhập lại!",
   SUCCESS_STATUS_CHANGE: "Thay đổi trạng thái đơn hàng thành công",
   MISSING_ORDER_CODE: "Vui lòng nhập mã đơn hàng",
-  MISSING_PHONE_NUMBER: "Vui lòng nhập số điện thoại đặt hàng",
+  MISSING_PHONE_NUMBER: "Vui lòng nhập số điện thoại",
   MISSING_ORDER_DATE: "Vui lòng chọn ngày đặt hàng",
   ADDRESS_DELETION_SUCCESS: "Xóa địa chỉ thành công",
   ADDED_TO_CART_SUCCESS: "Đã thêm vào giỏ hàng thành công",
+  ENTER_DELIVERY_ADDRESS: "Vui lòng nhập địa chỉ giao hàng",
+  ENTER_FULL_NAME: "Vui lòng nhập họ tên",
   MAXIMUM_UPLOAD_LIMIT: "Chỉ được tải lên tối đa " + BANNER.MAX_BANNER_IMAGES + " ảnh.",
 }
 
@@ -170,7 +180,7 @@ export const CART_PAGE = {
   SHIPPING_FEE: "Phí giao hàng",
   FREE: "Miễn phí",
   TOTAL_AMOUNT: "TỔNG",
-  PAYMENT_TOTAL: "Thanh toán:",
+  PAYMENT_TOTAL: "Đặt hàng:",
 }
 
 export const CATEGORY_PAGE = {
@@ -185,4 +195,37 @@ export const SEARCH_PRODUCT_PAGE = {
   NO_RESULTS_FOUND: "Không có kết quả nào cho từ khóa trên",
   PLEASE_TRY_AGAIN_WITH_DIFFERENT_KEYWORD: "Xin vui lòng thử lại với từ khóa khác.",
   EXAMPLE_KEYWORDS: " VD: Áo khoác, Quần dài...",
+}
+
+export const CHECKOUT_PAGE = {
+  EMPTY_CART_MESSAGE: "Bạn chưa có sản phẩm nào trong giỏ hàng",
+  BUY_NOW: "Mua ngay",
+  PAYMENT_METHOD: "Phương thức thanh toán",
+  COD:"COD",
+  CASH_ON_DELIVERY: "Thanh toán khi nhận hàng",
+  SUBTOTAL: "Tạm tính",
+  SHIPPING_FEE: "Phí giao hàng",
+  FREE: "Miễn phí",
+  TOTAL_AMOUNT: "TỔNG",
+  PAYMENT_TOTAL: "Đặt hàng:",
+}
+
+export const ADDRESS_SECTION = {
+  SHIPPING_ADDRESS_TITLE: "Địa chỉ nhận hàng",
+  DEFAULT: "Mặc định",
+  SET_DEFAULT: "Thiết lập mặc định",
+  EDIT: "Sửa",
+  ADD_NEW_ADDRESS: "Thêm địa chỉ mới",
+  CANCEL: "Hủy bỏ",
+  CONFIRM: "Xác nhận",
+  UPDATE: "Cập nhật",
+  SHIPPING_ADDRESS: "Địa chỉ nhận hàng",
+  ADD_ADDRESS: "Thêm địa chỉ",
+  EDIT_ADDRESS: "Chỉnh sửa địa chỉ",
+  FULL_NAME: "Họ tên",
+  FULL_NAME_PLACEHOLDER: "Nhập họ tên",
+  PHONE_NUMBER: "Số điện thoại",
+  PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
+  ADDRESS: "Địa chỉ",
+  ADDRESS_PLACEHOLDER: "Nhập địa chỉ"
 }
