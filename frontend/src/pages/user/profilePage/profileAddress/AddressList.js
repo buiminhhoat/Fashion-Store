@@ -83,7 +83,7 @@ function AddressList() {
 
       if (response.ok) {
         fetchData().then(r => {
-          toast.success("Xóa địa chỉ thành công");
+          toast.success(MESSAGE.ADDRESS_DELETION_SUCCESS);
         });
       } else {
         toast.error(MESSAGE.GENERIC_ERROR);

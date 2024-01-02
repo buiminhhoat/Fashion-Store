@@ -55,7 +55,7 @@ const CheckoutPage = () => {
     if (amount < productQuantities) {
       setAmount(amount + 1);
     } else {
-      toast.warn('Số lượng sẵn có không đủ!');
+      toast.warn(MESSAGE.INSUFFICIENT_QUANTITY);
     }
   }
 
@@ -131,7 +131,7 @@ const CheckoutPage = () => {
     })
         .then((response) => {
           if (response.ok) {
-            toast.success("Đặt hàng thành công!");
+            toast.success(MESSAGE.ORDER_PLACED_SUCCESS);
             navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {

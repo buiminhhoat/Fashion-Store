@@ -6,6 +6,9 @@ export const HEADER = {
   MENU_ITEM_LIMIT: 5,
 }
 
+export const BANNER = {
+  MAX_BANNER_IMAGES: 8,
+}
 
 export const SCROLLING = {
   NORMAL: "normal",
@@ -41,6 +44,13 @@ export const MESSAGE = {
   INSUFFICIENT_QUANTITY: "Số lượng sẵn có không đủ!",
   REVIEW_CART: "Bạn hãy xem lại số lượng sản phẩm trong giỏ hàng, vì có một số sản phẩm đã có người mua!",
   PLEASE_LOGIN: "Vui lòng đăng nhập lại!",
+  SUCCESS_STATUS_CHANGE: "Thay đổi trạng thái đơn hàng thành công",
+  MISSING_ORDER_CODE: "Vui lòng nhập mã đơn hàng",
+  MISSING_PHONE_NUMBER: "Vui lòng nhập số điện thoại đặt hàng",
+  MISSING_ORDER_DATE: "Vui lòng chọn ngày đặt hàng",
+  ADDRESS_DELETION_SUCCESS: "Xóa địa chỉ thành công",
+  ADDED_TO_CART_SUCCESS: "Đã thêm vào giỏ hàng thành công",
+  MAXIMUM_UPLOAD_LIMIT: "Chỉ được tải lên tối đa " + BANNER.MAX_BANNER_IMAGES + " ảnh.",
 }
 
 export const API = {

@@ -8,7 +8,7 @@ import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, MESSAGE} from "../../../../../utils/const";
+import {API, BANNER, MESSAGE} from "../../../../../utils/const";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -17,8 +17,6 @@ const defaultBannerImages = [
 ];
 
 const EditBannerPage = () => {
-  const MAX_BANNER_IMAGES = 8;
-
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
 
@@ -84,8 +82,8 @@ const EditBannerPage = () => {
       let newBanners = [];
 
       for (let i = 0; i < files.length; ++i) {
-        if (banners.length === MAX_BANNER_IMAGES) {
-          toast.warn("Chỉ được tải lên tối đa " + MAX_BANNER_IMAGES + " ảnh.");
+        if (banners.length === BANNER.MAX_BANNER_IMAGES) {
+          toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT);
           break;
         }
         newBanners.push({imageFile: files[i], imageURL: URL.createObjectURL(files[i]), bannerLinkTo:""});
@@ -213,7 +211,7 @@ const EditBannerPage = () => {
                             <path fillRule="evenodd" d="M8.48176704,1.5 C8.75790942,1.5 8.98176704,1.72385763 8.98176704,2 L8.981,7.997 L15 7.99797574 C15.2761424,7.99797574 15.5,8.22183336 15.5,8.49797574 C15.5,8.77411811 15.2761424,8.99797574 15,8.99797574 L8.981,8.997 L8.98176704,15 C8.98176704,15.2761424 8.75790942,15.5 8.48176704,15.5 C8.20562467,15.5 7.98176704,15.2761424 7.98176704,15 L7.981,8.997 L2 8.99797574 C1.72385763,8.99797574 1.5,8.77411811 1.5,8.49797574 C1.5,8.22183336 1.72385763,7.99797574 2,7.99797574 L7.981,7.997 L7.98176704,2 C7.98176704,1.72385763 8.20562467,1.5 8.48176704,1.5 Z"></path>
                           </svg>
                         </i>
-                        <span> Tải lên hình ảnh ({banners.length}/{MAX_BANNER_IMAGES})</span>
+                        <span> Tải lên hình ảnh ({banners.length}/{BANNER.MAX_BANNER_IMAGES})</span>
                       </button>
                       <input
                           type="file"

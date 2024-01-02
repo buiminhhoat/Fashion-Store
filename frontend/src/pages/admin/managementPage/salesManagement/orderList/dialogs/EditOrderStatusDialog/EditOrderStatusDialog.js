@@ -39,7 +39,7 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
 
       if (response.status === 200) {
         const data = await response.json();
-        toast.success("Thay đổi trạng thái đơn hàng thành công");
+        toast.success(MESSAGE.SUCCESS_STATUS_CHANGE);
         onAccept();
       } else {
         const data = await response.json();

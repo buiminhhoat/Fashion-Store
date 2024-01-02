@@ -249,7 +249,7 @@ const OrderListPage = () => {
 
   const fetchOrdersByOrderId = async () => {
     if (!orderIDValue) {
-      toast.warn("Vui lòng nhập mã đơn hàng");
+      toast.warn(MESSAGE.MISSING_ORDER_CODE);
       return;
     }
 
@@ -280,7 +280,7 @@ const OrderListPage = () => {
 
   const fetchOrdersByRecipientPhone = async () => {
     if (!phoneNumberValue) {
-      toast.warn("Vui lòng nhập số điện thoại đặt hàng");
+      toast.warn(MESSAGE.MISSING_PHONE_NUMBER);
       return;
     }
 
@@ -310,7 +310,7 @@ const OrderListPage = () => {
 
   const fetchOrdersByOrderDate = async () => {
     if (!value) {
-      toast.warn("Vui lòng chọn ngày đặt hàng");
+      toast.warn(MESSAGE.MISSING_ORDER_DATE);
       return;
     }
     if (value.length < 2) {
