@@ -46,9 +46,9 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
                       <ul className="menu-children ps-0">
                         {subCategories.slice(0, Math.ceil(subCategories.length / 2)).map((subCategory, subSubMenuIndex) => (
                             <div style={{ display: "flex" }} key={subSubMenuIndex}>
-                              <div style={{ display: "flex", width: "16px", height: "16px", marginRight: "5px", color: "#afafaf" }}>
-                                <TiStarFullOutline />
-                              </div>
+                              {/*<div style={{ display: "flex", width: "16px", height: "16px", marginRight: "5px", color: "#afafaf" }}>*/}
+                              {/*  <TiStarFullOutline />*/}
+                              {/*</div>*/}
                               <li className="d-flex align-items-center" style={{ marginBottom: "15px", cursor: "default" }}>
                                 <Link to={"/category?categoryID=" + subCategory.categoryID} style={{ fontSize: "15px" }}>{subCategory.categoryName}</Link>
                               </li>
@@ -61,9 +61,9 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
                       <ul className="menu-children ps-0">
                         {subCategories.slice(Math.ceil(subCategories.length / 2)).map((subCategory, subSubMenuIndex) => (
                             <div style={{ display: "flex" }} key={subSubMenuIndex}>
-                              <div style={{ display: "flex", width: "16px", height: "16px", marginRight: "5px", color: "#afafaf" }}>
-                                <TiStarFullOutline />
-                              </div>
+                              {/*<div style={{ display: "flex", width: "16px", height: "16px", marginRight: "5px", color: "#afafaf" }}>*/}
+                              {/*  <TiStarFullOutline />*/}
+                              {/*</div>*/}
                               <li className="d-flex align-items-center" style={{ marginBottom: "15px", cursor: "default" }}>
                                 <Link to={"/category?categoryID=" + subCategory.categoryID} style={{ fontSize: "15px" }}>{subCategory.categoryName}</Link>
                               </li>
@@ -78,9 +78,9 @@ const MenuItem = ({ categoryID, categoryName, subCategories }) => {
                       <ul className="menu-children ps-0">
                         {subCategories.map((subCategory, subSubMenuIndex) => (
                             <div style={{display:"flex"}} key={subSubMenuIndex}>
-                              <div style={{display:"flex", width:"16px", height:"16px", marginRight:"5px", color:"#afafaf"}}>
-                                <TiStarFullOutline/>
-                              </div>
+                              {/*<div style={{display:"flex", width:"16px", height:"16px", marginRight:"5px", color:"#afafaf"}}>*/}
+                              {/*  <TiStarFullOutline/>*/}
+                              {/*</div>*/}
                               <li key={subSubMenuIndex} className="d-flex align-items-center" style={{marginBottom:"15px", cursor:"default"}}>
                                 <Link to={"/category?categoryID=" + subCategory.categoryID} style={{fontSize:"15px"}}>{subCategory.categoryName}</Link>
                               </li>
