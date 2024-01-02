@@ -142,7 +142,7 @@ const EditProductPage = () => {
               setProductImages(files);
             })
             .catch(error => {
-              console.error("Error loading images:", error);
+              console.error(error);
             });
 
       } else {

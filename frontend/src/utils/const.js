@@ -259,6 +259,11 @@ export const ADD_ACCOUNT_PAGE = {
   CANCEL: "Hủy Bỏ"
 }
 
+export const ADD_PRODUCT_PAGE = {
+  SAVE_BTN: "Lưu lại",
+  CANCEL_BTN: "Hủy Bỏ"
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
