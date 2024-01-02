@@ -279,9 +279,6 @@ public class ProductController {
             }
             if (count > productNameList.length / 2) {
                 pairs.add(new Pair<>(product.getProductID(), count));
-                if (pairs.size() == MAX_PRODUCT_DISPLAY) {
-                    break;
-                }
             }
         }
 
