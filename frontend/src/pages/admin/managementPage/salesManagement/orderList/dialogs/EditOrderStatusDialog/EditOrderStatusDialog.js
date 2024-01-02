@@ -5,8 +5,7 @@ import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 
 import {MdOutlineEditNote} from "react-icons/md";
-import {SEARCH_USER} from "../../../../productManagement/utils/const";
-import {Select} from "antd";
+import {ConfigProvider, Select} from "antd";
 import {API, MESSAGE} from "../../../../../../../utils/const";
 
 const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
@@ -40,7 +39,7 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
 
       if (response.status === 200) {
         const data = await response.json();
-        toast.success("Thay đổi trạng thái đơn hàng thành công");
+        toast.success(MESSAGE.SUCCESS_STATUS_CHANGE);
         onAccept();
       } else {
         const data = await response.json();
@@ -63,20 +62,30 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
             </div>
 
             <div data-v-38ab3376="" className="text-overflow select-order-status">
-              <Select
-                  defaultValue={orderStatus}
-                  style={{ width:"100%"}}
-                  bordered={false}
-                  size={"large"}
-                  options = {[
-                  { value: ORDER_STATUS.PENDING_CONFIRMATION, label: ORDER_STATUS.PENDING_CONFIRMATION },
-                  { value: ORDER_STATUS.CONFIRMED, label: ORDER_STATUS.CONFIRMED },
-                  { value: ORDER_STATUS.IN_TRANSIT, label: ORDER_STATUS.IN_TRANSIT },
-                  { value: ORDER_STATUS.COMPLETED, label: ORDER_STATUS.COMPLETED },
-                  { value: ORDER_STATUS.CANCELED, label: ORDER_STATUS.CANCELED }
-                ]}
-                  onChange={(value) => {setSelectedOrderStatus(value)}}
-              />
+              <ConfigProvider
+                  theme={{
+                    components: {
+                      Select: {
+                        controlItemBgActive: '#ffe6e6',
+                      },
+                    },
+                  }}
+              >
+                <Select
+                    defaultValue={orderStatus}
+                    style={{ width:"100%"}}
+                    bordered={false}
+                    size={"large"}
+                    options = {[
+                      { value: ORDER_STATUS.PENDING_CONFIRMATION, label: ORDER_STATUS.PENDING_CONFIRMATION },
+                      { value: ORDER_STATUS.CONFIRMED, label: ORDER_STATUS.CONFIRMED },
+                      { value: ORDER_STATUS.IN_TRANSIT, label: ORDER_STATUS.IN_TRANSIT },
+                      { value: ORDER_STATUS.COMPLETED, label: ORDER_STATUS.COMPLETED },
+                      { value: ORDER_STATUS.CANCELED, label: ORDER_STATUS.CANCELED }
+                    ]}
+                    onChange={(value) => {setSelectedOrderStatus(value)}}
+                />
+              </ConfigProvider>
              </div>
 
             <div className="button-container" style={{marginTop:"40px"}}>

@@ -39,7 +39,7 @@ const ProductDetailPage = () => {
       if (response.ok) {
         const data = await response.json();
         cartContext.getAmountInCart();
-        toast.success("Đã thêm vào giỏ hàng thành công");
+        toast.success(MESSAGE.ADDED_TO_CART_SUCCESS);
       } else if (response.status === 401) {
         const data = await response.json();
         toast.warn(data.message);

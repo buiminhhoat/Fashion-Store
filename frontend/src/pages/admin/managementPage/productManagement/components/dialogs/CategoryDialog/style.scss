@@ -29,18 +29,18 @@
     color: #bd0000 !important;
 }
 
-:where(.css-dev-only-do-not-override-2i2tap).ant-btn-primary {
-    color: #fff;
-    background-color: #bd0000;
-    box-shadow: 0 2px 0 rgba(255, 5, 5, 0.1);
-}
-
-:where(.css-dev-only-do-not-override-2i2tap).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
-    color: #fff;
-    background-color: #e13b3b;
-}
-
-:where(.css-dev-only-do-not-override-2i2tap).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    color: #bd0000;
-    border-color: #bd0000;
-}
+//:where(.css-dev-only-do-not-override-2i2tap).ant-btn-primary {
+//    color: #fff;
+//    background-color: #bd0000;
+//    box-shadow: 0 2px 0 rgba(255, 5, 5, 0.1);
+//}
+//
+//:where(.css-dev-only-do-not-override-2i2tap).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+//    color: #fff;
+//    background-color: #e13b3b;
+//}
+//
+//:where(.css-dev-only-do-not-override-2i2tap).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+//    color: #bd0000;
+//    border-color: #bd0000;
+//}

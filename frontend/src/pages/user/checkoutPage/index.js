@@ -17,7 +17,7 @@ import {formatter} from "../../../utils/formatter.js"
 
 import AddressSection from "../components/AddressSection/AddressSection";
 import {ScrollToTop} from "../../../utils";
-import {API, MESSAGE} from "../../../utils/const";
+import {API, BREADCRUMB, CHECKOUT_PAGE, ERROR, MESSAGE} from "../../../utils/const";
 
 const CheckoutPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -55,7 +55,7 @@ const CheckoutPage = () => {
     if (amount < productQuantities) {
       setAmount(amount + 1);
     } else {
-      toast.warn('Số lượng sẵn có không đủ!');
+      toast.warn(MESSAGE.INSUFFICIENT_QUANTITY);
     }
   }
 
@@ -131,11 +131,11 @@ const CheckoutPage = () => {
     })
         .then((response) => {
           if (response.ok) {
-            toast.success("Đặt hàng thành công!");
+            toast.success(MESSAGE.ORDER_PLACED_SUCCESS);
             navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
-            throw new Error('Lỗi khi đặt hàng.');
+            throw new Error(ERROR.ORDER_PLACEMENT_ERROR);
           }
         })
         .then((data) => {
@@ -202,9 +202,9 @@ const CheckoutPage = () => {
         <section className="cart__wrapper container">
           <nav style={{"--bs-breadcrumb-divider": "none"}} aria-label="breadcrumb">
             <ol className="breadcrumb">
-              <li className="breadcrumb-item"><Link to ="/"> Trang chủ </Link></li>
+              <li className="breadcrumb-item"><Link to ="/">{BREADCRUMB.HOME_PAGE}</Link></li>
               <li className="breadcrumb-item"> &gt;</li>
-              <li className="breadcrumb-item active" aria-current="page">Thanh toán</li>
+              <li className="breadcrumb-item active" aria-current="page">{BREADCRUMB.PAYMENT}</li>
             </ol>
           </nav>
 
@@ -212,11 +212,11 @@ const CheckoutPage = () => {
               <div className="cart-empty" style={{minHeight:"450px", margin:"0"}}>
                 <div className="cart-empty__img">
                   <img src={emptyIcon} alt="no data"/>
-                  <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+                  <p>{CHECKOUT_PAGE.EMPTY_CART_MESSAGE}</p>
                 </div>
                 <div className="cart-empty__action">
                   <a href="/" type="button" className="btn btn-danger cart__bill__total">
-                    <span>Mua ngay</span>
+                    <span>{CHECKOUT_PAGE.BUY_NOW}</span>
                   </a>
                 </div>
               </div>
@@ -281,7 +281,7 @@ const CheckoutPage = () => {
                       <div className="cart__address__title d-flex align-items-center justify-content-between">
                         <div className="cart__address__title__left mb-20px">
                           <img src={cardIcon} alt="icon payment method" />
-                          <h5 className="mb-0">Phương thức thanh toán</h5>
+                          <h5 className="mb-0">{CHECKOUT_PAGE.PAYMENT_METHOD}</h5>
                         </div>
                       </div>
                       <div className="list-payment-method">
@@ -291,15 +291,15 @@ const CheckoutPage = () => {
                             <img src={cod} width="24" height="22" alt="icon payment method cod" />
                           </div>
                           <div className="cart__address__description pdr-76px">
-                            <div className="fw-bold">COD</div>
-                            <div className="font-12 ">Thanh toán khi nhận hàng</div>
+                            <div className="fw-bold">{CHECKOUT_PAGE.COD}</div>
+                            <div className="font-12 ">{CHECKOUT_PAGE.CASH_ON_DELIVERY}</div>
                           </div>
                         </div>
                       </div>
                       <div className="cart__bill position-relative">
                         <div className="row me-0 ms-0">
                           <div className="col-6 cart__bill--mb">
-                            <div className="cart__bill__ml cart__bill__title">Tạm tính</div>
+                            <div className="cart__bill__ml cart__bill__title">{CHECKOUT_PAGE.SUBTOTAL}</div>
                           </div>
                           <div className="col-6 cart__bill--mb">
                             <div className="cart__bill__value">
@@ -308,17 +308,17 @@ const CheckoutPage = () => {
                             </div>
                           </div>
                           <div className="col-6 cart__bill--mb">
-                            <div className="cart__bill__ml cart__bill__title">Phí giao hàng</div>
+                            <div className="cart__bill__ml cart__bill__title">{CHECKOUT_PAGE.SHIPPING_FEE}</div>
                           </div>
                           <div className="col-6 cart__bill--mb">
                             <div className="cart__bill__value">
                               <div className="cart__bill__title text-end">
-                                <span>Miễn phí</span>
+                                <span>{CHECKOUT_PAGE.FREE}</span>
                               </div>
                             </div>
                           </div>
                           <div className="col-6 cart__bill--mb row-sum">
-                            <div className="cart__bill__ml cart__bill__title">TỔNG</div>
+                            <div className="cart__bill__ml cart__bill__title">{CHECKOUT_PAGE.TOTAL_AMOUNT}</div>
                           </div>
                           <div className="col-6 cart__bill--mb  row-sum">
                             <div className="cart__bill__value">
@@ -328,7 +328,7 @@ const CheckoutPage = () => {
                         </div>
                         <span onClick={handlePurchase}>
                                             <button data-address="[]" id="btn-checkout" type="button" className="btn btn-danger cart__bill__total">
-                                                <span className="text-checkout">Đặt hàng:  {formatter(product.productPrice * amount)} <span>COD</span></span>
+                                                <span className="text-checkout">{CHECKOUT_PAGE.PAYMENT_TOTAL}  {formatter(product.productPrice * amount)} <span>{CHECKOUT_PAGE.COD}</span></span>
                                             </button>
                             </span>
                       </div>

@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import search from "../../../images/search.svg";
 import SearchDialog from "./SearchDialog";
+import {HEADER} from "../../../../utils/const";
 
 const SearchBar = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const SearchBar = () => {
     };
 
     document.addEventListener('click', handleClick);
-    // document.addEventListener('k')
+
     return () => {
       document.removeEventListener('click', handleClick);
     };
@@ -55,11 +56,9 @@ const SearchBar = () => {
               autoComplete="off"
               type="text"
               className="input-search form-control w-100 h-100 d-flex align-items-center"
-              placeholder="Tìm kiếm sản phẩm ..."
+              placeholder={HEADER.SEARCH_BAR.PLACEHOLDER}
               value={searchQuery}
               onChange={handleInputChange}
-              // onFocus={handleInputFocus}
-              // onBlur={handleInputBlur}
               onKeyDown={handleInputKeyDown}
               ref={searchBarRef}
           />

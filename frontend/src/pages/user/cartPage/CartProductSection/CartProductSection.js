@@ -57,17 +57,6 @@ function CartProduct({ product, handleDecreaseAmount, handleIncreaseAmount, hand
                             <></>
                         )}
                     </div>
-                    {/*{*/}
-                    {/*    product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID) && (*/}
-                    {/*        <div style={{ marginTop: '10px' }}>*/}
-                    {/*            <span style={{ fontSize: 'smaller' }}>*/}
-                    {/*                Số lượng sản phẩm hiện có: {product.informationProduct.productQuantities.find((quantity) => quantity.sizeID === product.sizeID).quantity}*/}
-                    {/*            </span>*/}
-                    {/*        </div>*/}
-
-
-                    {/*    )*/}
-                    {/*}*/}
                 </div>
                 <div className="product__price d-flex align-items-center">
                     <div className="product__price__sale">{formatter(product.informationProduct.productPrice * product.quantityPurchase)}</div>

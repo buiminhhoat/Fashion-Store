@@ -83,7 +83,7 @@ function AddressList() {
 
       if (response.ok) {
         fetchData().then(r => {
-          toast.success("Xóa địa chỉ thành công");
+          toast.success(MESSAGE.ADDRESS_DELETION_SUCCESS);
         });
       } else {
         toast.error(MESSAGE.GENERIC_ERROR);
@@ -132,6 +132,16 @@ function AddressList() {
                         <ConfigProvider
                             button={{
                               style: { width: 70, margin: 4 },
+                            }}
+                            theme={{
+                              components: {
+                                Button: {
+                                  colorPrimary: '#bd0000',
+                                  colorPrimaryHover: '#dc3636',
+                                  colorPrimaryActive: '#b20a0a',
+                                  primaryShadow: '0 2px 0 #ffe6e6',
+                                },
+                              },
                             }}
                         >
                           <Popconfirm

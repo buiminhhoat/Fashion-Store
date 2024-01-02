@@ -11,7 +11,7 @@ import {TbListSearch} from "react-icons/tb";
 import {MdLibraryAdd, MdOutlineEmail} from "react-icons/md";
 import {HiOutlinePhone, HiOutlineTrash} from "react-icons/hi";
 
-import {Select, Tooltip} from "antd";
+import {ConfigProvider, Select, Tooltip} from "antd";
 
 import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
@@ -255,7 +255,7 @@ const AccountListPage = () => {
             </div>
           </div>
 
-          <div className="container pe-0 ps-0" style={{paddingBottom: "100px"}}>
+          <div className="container pe-0 ps-0" style={{paddingBottom: "100px", minWidth:"800px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
 
               <p className="category-title" style={{paddingTop: "30px"}}>
@@ -276,18 +276,29 @@ const AccountListPage = () => {
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                     <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
                     <span>Tìm kiếm theo:</span>
-                    <Select
-                        defaultValue={SEARCH_USER.FULL_NAME}
-                        style={{ width: 170 }}
-                        bordered={false}
-                        size={"large"}
-                        options={[
-                          { value: SEARCH_USER.FULL_NAME, label: 'Họ tên' },
-                          { value: SEARCH_USER.PHONE_NUMBER, label: 'Số điện thoại' },
-                          { value: SEARCH_USER.EMAIL, label: 'Địa chỉ email' },
-                        ]}
-                        onChange={(value) => {setSelectedSearch(value)}}
-                    />
+                    <ConfigProvider
+                        theme={{
+                          components: {
+                            Select: {
+                              controlItemBgActive: '#ffe6e6',
+                            },
+                          },
+                        }}
+                    >
+                      <Select
+                          defaultValue={SEARCH_USER.FULL_NAME}
+                          style={{ width: 170 }}
+                          bordered={false}
+                          size={"large"}
+                          options={[
+                            { value: SEARCH_USER.FULL_NAME, label: 'Họ tên' },
+                            { value: SEARCH_USER.PHONE_NUMBER, label: 'Số điện thoại' },
+                            { value: SEARCH_USER.EMAIL, label: 'Địa chỉ email' },
+                          ]}
+                          onChange={(value) => {setSelectedSearch(value)}}
+                      />
+                    </ConfigProvider>
+
                   </div>
                   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>

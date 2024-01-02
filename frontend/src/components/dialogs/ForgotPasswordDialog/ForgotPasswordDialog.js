@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./style.scss"
 import {DIALOGS} from "../utils/const";
 import forgot_password_img from "../images/forgot-password.jpg";
-import {Spin} from "antd";
+import {ConfigProvider, Spin} from "antd";
 import {API} from "../../../utils/const";
 
 const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
@@ -106,7 +106,18 @@ const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
             </div>
           </div>
           :
-          <Spin size="large"/>
+          <ConfigProvider
+              theme={{
+                components: {
+                  Spin: {
+                    colorPrimary: '#ffffff',
+                  },
+                },
+              }}
+          >
+            <Spin size="large"/>
+          </ConfigProvider>
+
         }
       </>
   );

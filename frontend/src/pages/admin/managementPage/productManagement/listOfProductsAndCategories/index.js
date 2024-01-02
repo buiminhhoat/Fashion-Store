@@ -13,7 +13,7 @@ import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
-import {Select, Tooltip} from "antd";
+import {ConfigProvider, Select, Tooltip} from "antd";
 import {CATEGORY, SEARCH, SEARCH_USER} from "../utils/const";
 import {API, MESSAGE} from "../../../../../utils/const";
 
@@ -501,11 +501,11 @@ const ListOfProductsAndCategoriesPage  = () => {
                                       >
                                         <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
 
-                                          <div style={{alignSelf: "flex-start", width:"25px",
-                                            height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "51%"}`,
+                                          <div style={{alignSelf: "flex-start", width:"25px", minWidth:"25px",
+                                            height:`${subCategoryIndex !== category.subCategories.length - 1 ? "100%" : "calc(50% + 1.5px)"}`,
                                             borderRight:`${selectedSearch !== SEARCH.SUB_CATEGORY ? "3px solid #a30000" : "3px"}`}}/>
 
-                                          <div style={{width:"20px", height:"2.5px", border:"none",
+                                          <div style={{width:"20px", minWidth:"20px", height:"2.5px", border:"none",
                                             backgroundColor:`${selectedSearch !== SEARCH.SUB_CATEGORY ? "#a30000" : ""}`}}/>
 
                                           <div style={{height:"100%", position: "relative", display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
@@ -532,7 +532,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                 // subCategory.products &&
                                                 // subCategory.products.length > 0 &&
                                                 <div style={{position:"absolute", zIndex:"0", alignSelf: "flex-end", width:"5px",
-                                                  height:"51%", borderRight:"3px solid #a30000",
+                                                  height:"calc(50% + 1.5px)", borderRight:"3px solid #a30000",
                                                   marginLeft:"25px"}}/>
                                             }
                                           </div>
@@ -590,14 +590,15 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                   <div key={productIndex}>
                                                     <div className={`${selectedSearch !== SEARCH.SUB_CATEGORY ? "product-field" : "search-product-field"}`}>
                                                       <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%", height:"100%"}}>
-                                                        <div style={{alignSelf: "flex-start", width:"25px", height:"100%",
+
+                                                        <div style={{alignSelf: "flex-start", width:"25px", minWidth:"25px", height:"100%",
                                                           borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
 
-                                                        <div style={{alignSelf: "flex-start", width:"25px",
-                                                          height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "51%"}`, borderRight:"3px solid #a30000",
+                                                        <div style={{alignSelf: "flex-start", width:"25px", minWidth:"25px",
+                                                          height:`${productIndex !== subCategory.products.length - 1 ? "100%" : "calc(50% + 1.5px)"}`, borderRight:"3px solid #a30000",
                                                           marginLeft:"25px"}}/>
 
-                                                        <div style={{width:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
+                                                        <div style={{width:"20px", minWidth:"20px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
 
                                                         <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
                                                           <img
@@ -654,7 +655,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                                                         borderRight:`${subCategoryIndex !== category.subCategories.length - 1 && selectedSearch !== SEARCH.SUB_CATEGORY  ? "3px solid #a30000":"3px"}`}}/>
 
                                                       <div style={{alignSelf: "flex-start", width:"25px",
-                                                        height:"51%", borderRight:"3px solid #a30000", marginLeft:"25px"}}/>
+                                                        height:"calc(50% + 1.5px)", borderRight:"3px solid #a30000", marginLeft:"25px"}}/>
 
                                                       <div style={{width:"30px", height:"2.5px", backgroundColor:"#a30000", border:"none"}}/>
                                                       <a style={{cursor: "default", marginLeft:"15px", fontSize:"15", fontWeight:"600", color:"#bd0000"}}>
@@ -758,7 +759,7 @@ const ListOfProductsAndCategoriesPage  = () => {
             </div>
           </div>
 
-          <div className="container pe-0 ps-0" style={{paddingBottom: "100px"}}>
+          <div className="container pe-0 ps-0" style={{paddingBottom: "100px", minWidth:"800px"}}>
             <div style={{margin:"0 70px 0 40px"}}>
               <p className="category-title" style={{paddingTop: "30px"}}>
                 DANH MỤC SẢN PHẨM
@@ -777,18 +778,29 @@ const ListOfProductsAndCategoriesPage  = () => {
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                     <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>
                     <span>Tìm kiếm theo:</span>
-                    <Select
-                        defaultValue={SEARCH.CATEGORY}
-                        style={{ width: 170 }}
-                        bordered={false}
-                        size={"large"}
-                        options={[
-                          { value: SEARCH.CATEGORY, label: 'Danh mục lớn' },
-                          { value: SEARCH.SUB_CATEGORY, label: 'Danh mục con' },
-                          { value: SEARCH.PRODUCT, label: 'Sản phẩm' },
-                        ]}
-                        onChange={(value) => {handleSelectChange(value)}}
-                    />
+                    <ConfigProvider
+                        theme={{
+                          components: {
+                            Select: {
+                              controlItemBgActive: '#ffe6e6',
+                            },
+                          },
+                        }}
+                    >
+                      <Select
+                          defaultValue={SEARCH.CATEGORY}
+                          style={{ width: 170 }}
+                          bordered={false}
+                          size={"large"}
+                          options={[
+                            { value: SEARCH.CATEGORY, label: 'Danh mục lớn' },
+                            { value: SEARCH.SUB_CATEGORY, label: 'Danh mục con' },
+                            { value: SEARCH.PRODUCT, label: 'Sản phẩm' },
+                          ]}
+                          onChange={(value) => {handleSelectChange(value)}}
+                      />
+                    </ConfigProvider>
+
                   </div>
                   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginRight:"35px"}}>
                     <div style={{display:"flex", alignItems:"center", height:"35px", borderBottom:"2px solid #ac0000"}}>
