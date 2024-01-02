@@ -11,6 +11,7 @@ import queryString from "query-string";
 
 import {ScrollToTop} from "../../../utils";
 import {API, CATEGORY_PAGE, FILTERS, MESSAGE, NUMBER_PRODUCT_LIMIT, SORT} from "../../../utils/const";
+import {ConfigProvider, Select} from "antd";
 
 const CategoryPage = ({keyword}) => {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ const CategoryPage = ({keyword}) => {
       <main id="main">
         <ScrollToTop />
         <section className="category-wrapper">
-          <section className="container container-category">
+          <section className="container container-category" style={{padding:"0"}}>
             <section className="box-filter">
               <div id="KfIh1dAIDGfFwK40Btv4">
                 <div className="filter-wrapper">
@@ -84,17 +85,30 @@ const CategoryPage = ({keyword}) => {
                     <div className="other-item d-flex align-items-center">
                       <div className="sort-box d-flex align-items-center">
                         <span className="title-child">{FILTERS.SORT_BY}</span>
-                        <select className="form-select sort-item" onChange={handleSelectChange}>
-                          <option value="">
-                            {FILTERS.SELECT_FILTER_CONDITION}
-                          </option>
-                          <option value={SORT.ASC}>
-                            {FILTERS.PRICE_LOW_TO_HIGH}
-                          </option>
-                          <option value={SORT.DECS} >
-                            {FILTERS.PRICE_HIGH_TO_LOW}
-                          </option>
-                        </select>
+
+                        <ConfigProvider
+                            theme={{
+                              components: {
+                                Select: {
+                                  controlItemBgActive: '#ffe6e6',
+                                },
+                              },
+                            }}
+                        >
+                          <Select
+                              defaultValue={""}
+                              style={{ width: 170 }}
+                              bordered={false}
+                              size={"small"}
+                              options={[
+                                { value: "", label: FILTERS.SELECT_FILTER_CONDITION },
+                                { value: SORT.ASC, label: FILTERS.PRICE_LOW_TO_HIGH },
+                                { value: SORT.DECS, label: FILTERS.PRICE_HIGH_TO_LOW },
+                              ]}
+                              onChange={(value) => setSelectedSort(value)}
+                          />
+                        </ConfigProvider>
+
                       </div>
                     </div>
                   </div>
