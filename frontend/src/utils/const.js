@@ -42,6 +42,13 @@ export const POPCONFIRM = {
   CONFIRM_DELETE_ADDRESS: "Chắc chắn xóa địa chỉ này?"
 }
 
+export const CONFIRM_DIALOG = {
+  TITLE_BTN_ACCEPT: "Có",
+  TITLE_BTN_CANCEL: "Không",
+  WARNING_TITLE: "Cảnh báo",
+  CONFIRM_CANCEL_SUBTITLE: "Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập."
+}
+
 export const BREADCRUMB = {
   HOME_PAGE: "Trang chủ",
   SHOPPING_CART: "Giỏ hàng",
@@ -271,6 +278,27 @@ export const PROFILE_PAGE = {
     DELETE: "Xóa",
     ADDRESS_BOOK: "Sổ địa chỉ",
     ADD_NEW_ADDRESS: "Thêm địa chỉ mới"
-
-  }
+  },
+  PROFILE_CHANGE_PASSWORD: {
+    CHANGE_PASSWORD: "Đổi mật khẩu",
+    CURRENT_PASSWORD: "Mật khẩu cũ",
+    CURRENT_PASSWORD_PLACEHOLDER: "Nhập mật khẩu cũ",
+    NEW_PASSWORD: "Mật khẩu mới",
+    NEW_PASSWORD_PLACEHOLDER: "Nhập mật khẩu mới",
+    CONFIRM_NEW_PASSWORD: "Nhập lại mật khẩu mới",
+    CONFIRM_NEW_PASSWORD_PLACEHOLDER: "Nhập lại mật khẩu mới",
+    SAVE_CHANGES: "Lưu lại",
+    CANCEL: "Hủy bỏ",
+  },
+  PROFILE_EDIT_ADDRESS: {
+    UPDATE_ADDRESS: "Cập nhật địa chỉ",
+    FULL_NAME: "Họ tên",
+    FULL_NAME_PLACEHOLDER: "Nhập họ tên",
+    PHONE_NUMBER: "Số điện thoại",
+    PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
+    ADDRESS: "Địa chỉ",
+    ADDRESS_PLACEHOLDER: "Nhập địa chỉ",
+    SAVE_CHANGES: "Lưu lại",
+    CANCEL: "Hủy bỏ"
+  },
 }
