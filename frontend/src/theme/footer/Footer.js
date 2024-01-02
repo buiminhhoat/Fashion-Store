@@ -12,7 +12,7 @@ import store from '../images/store.svg'
 import logoSaleNoti from '../images/logoSaleNoti.png'
 import {IoIosTime, IoMdTime} from "react-icons/io";
 import {RiTimerFill} from "react-icons/ri";
-import {API, FOOTER, HEADER} from "../../utils/const";
+import {API, FOOTER, IMAGE_URL} from "../../utils/const";
 
 const Footer = () => {
   const [storeInfo, setStoreInfo] = useState({
@@ -50,7 +50,7 @@ const Footer = () => {
                 <div className="col-4 pl-20" style={{width:"45%"}}>
                   <div className="d-flex align-items-center logo">
                     <a href="/">
-                      <img src={HEADER.LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo" loading="lazy" />
+                      <img src={IMAGE_URL.LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo" loading="lazy" />
                     </a>
                   </div>
 

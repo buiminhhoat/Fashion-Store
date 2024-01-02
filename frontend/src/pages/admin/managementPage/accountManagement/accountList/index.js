@@ -16,7 +16,7 @@ import {ConfigProvider, Select, Tooltip} from "antd";
 import {SEARCH_USER} from "../../productManagement/utils/const";
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, MESSAGE} from "../../../../../utils/const";
+import {API, BREADCRUMB, MESSAGE, TOOLTIP} from "../../../../../utils/const";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ const AccountListPage = () => {
               setUsersData(newUsers);
             })
             .catch(error => {
-              console.error("Error loading images:", error);
+              console.error(error);
             });
 
       } else {
@@ -118,7 +118,7 @@ const AccountListPage = () => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   };
 
@@ -187,7 +187,8 @@ const AccountListPage = () => {
                             <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
                               <img
                                   className="img-subCategory"
-                                  src={user.imageURL?user.imageURL:"https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
+                                  src={user.imageURL?user.imageURL:
+                                      "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
                                   alt=""
                               />
                             </div>
@@ -208,7 +209,7 @@ const AccountListPage = () => {
 
                           <div style={{display:"flex"}}>
 
-                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Xóa người dùng</div>} color={"#4A4444"}>
+                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_USER}</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-category"
                                    style={{marginRight:"20px"}}
                                    onClick={() => {
@@ -222,7 +223,7 @@ const AccountListPage = () => {
                               </div>
                             </Tooltip>
 
-                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>Chi tiết người dùng</div>} color={"#4A4444"}>
+                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.USER_DETAILS}</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-category"
                                    style={{marginRight:"0", fontSize:"22px"}}
                                    onClick={() => {navigate(`/profile/orders?userID=${user.userID}`)}}
@@ -249,9 +250,9 @@ const AccountListPage = () => {
         <main id="main">
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý người dùng</span>
-              &gt; <span>Danh sách người dùng</span>
+              <a href="/">{BREADCRUMB.HOME_PAGE}</a>
+              &gt; <span>{BREADCRUMB.ACCOUNT_MANAGEMENT}</span>
+              &gt; <span>{BREADCRUMB.ACCOUNT_LIST}</span>
             </div>
           </div>
 
