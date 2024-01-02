@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.Normalizer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @CrossOrigin(origins = "*")
@@ -75,6 +73,9 @@ public class ProductController {
 
     @Value("${param.productQuantities}")
     private String PARAM_PRODUCT_QUANTITIES;
+
+    @Value("${param.maxProductDisplay}")
+    private Long MAX_PRODUCT_DISPLAY;
 
     private final String MESSAGE_SUCCESS_ADD_PRODUCT;
 
@@ -274,8 +275,12 @@ public class ProductController {
                     ++count;
                 }
             }
-            if (count > productNameList.length / 2)
+            if (count > productNameList.length / 2) {
                 pairs.add(new Pair<>(product.getProductID(), count));
+                if (pairs.size() == MAX_PRODUCT_DISPLAY) {
+                    break;
+                }
+            }
         }
 
         Collections.sort(pairs, new Comparator<Pair<Long, Integer>>() {
