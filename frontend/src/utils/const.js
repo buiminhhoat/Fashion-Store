@@ -245,6 +245,20 @@ export const ACCOUNT_LIST_PAGE = {
   ADD_USER_BTN: "Thêm người dùng",
 }
 
+export const ADD_ACCOUNT_PAGE = {
+  ADD_USER: "Thêm người dùng",
+  FULL_NAME: "Họ và tên",
+  FULL_NAME_PLACEHOLDER: "Nhập họ và tên",
+  EMAIL: "Email",
+  EMAIL_PLACEHOLDER: "Nhập email",
+  PHONE_NUMBER: "Số điện thoại",
+  PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
+  PASSWORD: "Mật khẩu",
+  PASSWORD_PLACEHOLDER: "Nhập mật khẩu",
+  ADD: "Thêm",
+  CANCEL: "Hủy Bỏ"
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
