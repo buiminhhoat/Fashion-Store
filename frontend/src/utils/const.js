@@ -105,6 +105,8 @@ export const ERROR = {
   CART_UPDATE_ERROR: "Lỗi khi cập nhật giỏ hàng.",
   CART_ITEM_REMOVAL_ERROR: "Lỗi khi xóa sản phẩm khỏi giỏ hàng.",
   ORDER_PLACEMENT_ERROR: "Lỗi khi đặt hàng.",
+  NO_TOKEN_ERROR: "Không có token.",
+  SENDING_TOKEN_ERROR: "Lỗi khi gửi token."
 }
 
 export const MESSAGE = {
@@ -342,5 +344,23 @@ export const PROFILE_PAGE = {
     CASH_ON_DELIVERY: "Thanh toán khi nhận hàng",
     SHIPPING_ADDRESS: "Địa chỉ nhận hàng:",
     NO_ORDERS: "Không có đơn hàng nào"
-  }
+  },
+  PROFILE_PERSONAL_INFORMATION_PAGE: {
+    EDIT_PERSONAL_INFORMATION: "Chỉnh sửa thông tin cá nhân",
+    FULL_NAME: "Họ và tên",
+    FULL_NAME_PLACEHOLDER: "Nhập họ và tên",
+    EMAIL: "Email",
+    EMAIL_PLACEHOLDER: "Nhập email",
+    PHONE_NUMBER: "Số điện thoại",
+    PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
+    GENDER: "Giới tính",
+    MALE: "Nam",
+    FEMALE: "Nữ",
+    OTHER: "Khác",
+    BIRTH_DATE: "Ngày sinh",
+    DAY: "Ngày",
+    MONTH: "Tháng",
+    YEAR: "Năm",
+    SAVE_INFORMATION: "Lưu thông tin"
+  },
 }
