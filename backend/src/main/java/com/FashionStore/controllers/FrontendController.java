@@ -15,7 +15,8 @@ public class FrontendController {
             "${frontend.product-url}",
             "${frontend.profile-url}",
             "${frontend.cart-url}",
-            "${frontend.checkout-url}"
+            "${frontend.checkout-url}",
+            "${frontend.search-url}"
     })
     public String frontend() {
         return indexPage;
