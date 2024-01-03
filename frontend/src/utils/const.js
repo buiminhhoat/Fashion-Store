@@ -216,6 +216,19 @@ export const SALES_PRODUCT_QUANTITY_STATISTICS_PAGE = {
   SOLD: "Đã bán"
 }
 
+export const EDIT_BANNER_PAGE = {
+  BANNER_TITLE: "Banner quay vòng",
+  EDIT: "Chỉnh sửa",
+  ENTER_IMAGE_URL_PLACEHOLDER: "Nhập đường dẫn khi bấm vào hình ảnh",
+  UPLOAD_IMAGE: "Tải hình ảnh",
+  IMAGE_SIZE: "Kích thước: 2580 x 1100",
+  MAX_IMAGE_SIZE: "Tối đa 5.0 MB mỗi hình",
+  IMAGE_FORMAT: "Định dạng hình ảnh: JPG, JPEG, PNG",
+  UPLOAD_IMAGE_LABEL: "Tải lên hình ảnh",
+  SAVE_BTN: "Lưu lại",
+  RESTORE_BTN: "Khôi phục"
+}
+
 export const DO_NOT_HAVE_PERMISSION_PAGE = {
   NO_PERMISSION_ACCESS: "Bạn không có quyền truy cập trang web này",
   PLEASE_LOGIN_ADMIN: "Vui lòng đăng nhập bằng tài khoản admin!"

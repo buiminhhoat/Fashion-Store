@@ -1,4 +1,5 @@
 import React from "react";
+import {EDIT_BANNER_PAGE} from "../../../../../../utils/const";
 
 const BannerImageField = ({index, banners, setBanners}) => {
   const handleBannerLinkToChange = (e) => {
@@ -57,7 +58,7 @@ const BannerImageField = ({index, banners, setBanners}) => {
                       <path d="m12.77 3.535-2.121-2.12-2.122 2.12 2.122 2.122 2.12-2.122ZM9.94 6.364l-2.12-2.121-6.109 6.108-.212 2.333 2.333-.212 6.108-6.108ZM11.356.707l2.12 2.121a1 1 0 0 1 0 1.415l-8.935 8.936a1 1 0 0 1-.617.289l-2.333.212a1 1 0 0 1-1.087-1.086l.212-2.334a1 1 0 0 1 .289-.617L9.941.707a1 1 0 0 1 1.415 0Z"></path>
                     </svg>
                   </i>
-                  <span style={{fontWeight:"400", margin:"0 0 0 5px", color:"white"}}>Chỉnh sửa</span>
+                  <span style={{fontWeight:"400", margin:"0 0 0 5px", color:"white"}}>{EDIT_BANNER_PAGE.EDIT}</span>
                  </span>
               </div>
               <input
@@ -79,7 +80,7 @@ const BannerImageField = ({index, banners, setBanners}) => {
                     <input
                         onChange = {handleBannerLinkToChange}
                         value={banners[index].bannerLinkTo}
-                        type="text" placeholder="Nhập đường dẫn khi bấm vào hình ảnh" resize="none"
+                        type="text" placeholder={EDIT_BANNER_PAGE.ENTER_IMAGE_URL_PLACEHOLDER} resize="none"
                         rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                         max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
                   </div>
