@@ -23,7 +23,7 @@ const ProductDetailPage = () => {
   const accessToken = cookies.access_token;
   const productID = queryParams.productID;
 
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(null);
 
   async function addToCart(orderDetails) {
     const formData = new FormData();
@@ -89,6 +89,7 @@ const ProductDetailPage = () => {
           const data = await response.json();
           console.log(data);
           setInformationProduct(data);
+          setIsError(false);
         } else {
           const data = await response.json();
           console.log(data.message);
@@ -141,7 +142,8 @@ const ProductDetailPage = () => {
 
   return (
       <>
-        { isError ? <NotFoundPage />:
+        { isError === true && <NotFoundPage /> }
+        { isError === false &&
             <div id="app" style={{paddingBottom:"30px"}}>
               <ScrollToTop />
               <main id="main" >

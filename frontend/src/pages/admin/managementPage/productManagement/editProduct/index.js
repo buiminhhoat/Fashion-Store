@@ -19,7 +19,7 @@ const EditProductPage = () => {
   const productID = queryParams.productID;
 
   const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(null);
 
   const [productImages, setProductImages] = useState([]);
   const [informationProduct, setInformationProduct] = useState({
@@ -147,6 +147,7 @@ const EditProductPage = () => {
               console.error(error);
             });
 
+        setIsError(false);
       } else {
         const data = await response.json();
         console.log(data.message);
@@ -165,7 +166,8 @@ const EditProductPage = () => {
 
   return (
       <>
-        { isError ? <NotFoundPage />:
+        { isError === true && <NotFoundPage /> }
+        { isError === false &&
             <div id="app">
               <main id="main">
                 <div className="container profile-wrap">
