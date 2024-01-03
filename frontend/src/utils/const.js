@@ -315,6 +315,7 @@ export const LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE = {
   ADD_PARENT_CATEGORY: "Thêm danh mục lớn",
   SEARCH_BY: "Tìm kiếm theo:",
   SEARCH_KEYWORD_PLACEHOLDER: "Nhập từ khóa",
+  DISPLAY_QUANTITY: "Số lượng hiển thị:"
 }
 
 export const CATEGORY_DIALOG = {
@@ -420,6 +421,35 @@ export const FOOTER = {
   HOTLINE_TXT: "Hotline:",
   DESCRIPTION_CONTENT: <>Chào mừng bạn đến với <span style={{color:'#bd0000', fontWeight:"600"}}>Fashion Store</span> - nơi thể hiện bản thân qua những bộ trang phục đẳng cấp và sáng tạo. Chúng tôi cam kết mang lại trải nghiệm mua sắm độc đáo, nơi bạn có thể tìm thấy những sản phẩm thời trang hàng đầu và uy tín. Đội ngũ chuyên nghiệp luôn sẵn sàng hỗ trợ bạn. Hãy đồng hành cùng chúng tôi để khám phá phong cách của riêng bạn!</>,
   DEVELOPED_BY: "Developed by Group 14 - Web Application Development Course - INT3306 3",
+}
+
+export const SELECT = {
+  DISPLAY_QUANTITY: {
+    // VALUE: {
+    //   FIVE: "five",
+    //   TEN: "ten",
+    //   FIFTY: "fifty",
+    //   HUNDRED: "hundred",
+    //   ONE_HUNDRED_FIFTY: "one-hundred-fifty",
+    //   TWO_HUNDRED: "two-hundred"
+    // },
+    VALUE: {
+      FIVE: 5,
+      TEN: 10,
+      FIFTY: 50,
+      HUNDRED: 100,
+      ONE_HUNDRED_FIFTY: 150,
+      TWO_HUNDRED: 200
+    },
+    LABEL: {
+      FIVE: 5,
+      TEN: 10,
+      FIFTY: 50,
+      HUNDRED: 100,
+      ONE_HUNDRED_FIFTY: 150,
+      TWO_HUNDRED: 200
+    }
+  },
 }
 
 export const SEARCH = {
@@ -669,7 +699,8 @@ export const API = {
     GET_RANDOM_8_PRODUCTS_ENDPOINT: "/api/public/all-categories/get-random-8-products",
     CATEGORY_ENDPOINT: "/api/public/category/",
     PRODUCT_ENDPOINT: "/api/public/product/",
-    SEARCH_ENDPOINT: "/api/public/search/"
+    SEARCH_ENDPOINT: "/api/public/search/",
+    GET_ALL_PRODUCTS: "/api/public/get-all-products",
   },
   ADMIN: {
     EDIT_BANNER_ENDPOINT: "/api/admin/edit-banner",
