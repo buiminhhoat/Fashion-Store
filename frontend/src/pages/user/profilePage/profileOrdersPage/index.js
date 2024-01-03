@@ -107,9 +107,33 @@ const TabContent = ({openTab, setOpenTab}) => {
                       </div>
                       <div className="status-wrap">
                         <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
-                        <div className="status status-un-paid">
-                          <span>{order.orderStatus}</span>
-                        </div>
+
+                        { order.orderStatus === TAB_LIST_TEXT.PENDING_CONFIRMATION &&
+                            <div className="status status-un-paid"
+                                 style={{backgroundColor:"#ffe39d"}}
+                            >{order.orderStatus}</div>
+                        }
+                        { order.orderStatus === TAB_LIST_TEXT.CONFIRMED &&
+                            <div className="status status-un-paid"
+                                 style={{backgroundColor:"#b5efa3"}}
+                            >{order.orderStatus}</div>
+                        }
+                        { order.orderStatus === TAB_LIST_TEXT.IN_TRANSIT &&
+                            <div className="status status-un-paid"
+                                 style={{backgroundColor:"#baf6f8"}}
+                            >{order.orderStatus}</div>
+                        }
+                        { order.orderStatus === TAB_LIST_TEXT.COMPLETED &&
+                            <div className="status status-un-paid"
+                                 style={{backgroundColor:"#2fad0c"}}
+                            ><span style={{color:"white"}}>{order.orderStatus}</span></div>
+                        }
+                        { order.orderStatus === TAB_LIST_TEXT.CANCELLED &&
+                            <div className="status status-un-paid"
+                                 style={{backgroundColor:"#bd0000"}}
+                            ><span style={{color:"white"}}>{order.orderStatus}</span></div>
+                        }
+
                       </div>
                     </div>
                     <div className="content-wrap">

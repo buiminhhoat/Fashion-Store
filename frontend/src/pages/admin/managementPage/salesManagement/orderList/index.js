@@ -85,11 +85,8 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
                           </div>
                           <div className="avatar-hover pointer-cursor"
                                style={{display:"flex", alignItems:"center"}}
-                               onClick={() => {
-                                 navigate(`/profile/orders?userID=${order.userID}`)
-                               }}
                           >
-                            {order.fullName}
+                            <Link to={`/profile/orders?userID=${order.userID}`}>{order.fullName}</Link>
                             <div style={{marginLeft:"10px", border:"1px solid #F5F5F5", borderRadius:"100%"}}>
                               <img
                                   className="img-avatar"
@@ -97,6 +94,9 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
                                       "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"
                                   }
                                   alt=""
+                                  onClick={() => {
+                                    navigate(`/profile/orders?userID=${order.userID}`)
+                                  }}
                               />
                             </div>
                           </div>
@@ -141,10 +141,34 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
                               <p className="date">{convertDateTimeFormat(order.orderDate)}</p>
 
                               <div style={{display:"flex", alignItems:"center"}}>
-                                <div className="status status-un-paid">
-                                  <span>{order.orderStatus}</span>
 
-                                </div>
+                                { order.orderStatus === TAB_LIST_TEXT.PENDING_CONFIRMATION &&
+                                    <div className="status status-un-paid"
+                                         style={{backgroundColor:"#ffe39d"}}
+                                    >{order.orderStatus}</div>
+                                }
+                                { order.orderStatus === TAB_LIST_TEXT.CONFIRMED &&
+                                    <div className="status status-un-paid"
+                                         style={{backgroundColor:"#b5efa3"}}
+                                    >{order.orderStatus}</div>
+                                }
+                                { order.orderStatus === TAB_LIST_TEXT.IN_TRANSIT &&
+                                    <div className="status status-un-paid"
+                                         style={{backgroundColor:"#baf6f8"}}
+                                    >{order.orderStatus}</div>
+                                }
+                                { order.orderStatus === TAB_LIST_TEXT.COMPLETED &&
+                                    <div className="status status-un-paid"
+                                         style={{backgroundColor:"#2fad0c"}}
+                                    ><span style={{color:"white"}}>{order.orderStatus}</span></div>
+                                }
+                                { order.orderStatus === TAB_LIST_TEXT.CANCELLED &&
+                                    <div className="status status-un-paid"
+                                         style={{backgroundColor:"#bd0000"}}
+                                    ><span style={{color:"white"}}>{order.orderStatus}</span></div>
+                                }
+
+
                                 <BiSolidEdit style={{fontSize:"21px", color:"#7B7D85", marginLeft:"7px", cursor:"pointer"}}
                                              onClick={() => {
                                                setEditingOrderStatus({
