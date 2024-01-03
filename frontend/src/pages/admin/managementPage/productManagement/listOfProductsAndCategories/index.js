@@ -864,7 +864,6 @@ const ListOfProductsAndCategoriesPage  = () => {
                                 }}
                             >
                               <Select
-                                  // defaultValue={SELECT.DISPLAY_QUANTITY.VALUE.FIVE}
                                   value={productDisplayQuantity}
                                   style={{ width: 68 }}
                                   bordered={false}
