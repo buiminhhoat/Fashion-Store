@@ -296,6 +296,12 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("${endpoint.public.get-all-products}")
+    public ResponseEntity<?> getTop12Products(HttpServletRequest request) {
+        List<Product> allProducts = productRepository.findAll();
+        return ResponseEntity.ok(allProducts);
+    }
+    
     @GetMapping("${endpoint.public.get-product}")
     public ResponseEntity<?> getProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
         Product product = productRepository.findProductByProductID(productID);
