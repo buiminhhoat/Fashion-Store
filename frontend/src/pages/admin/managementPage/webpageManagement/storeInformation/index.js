@@ -9,7 +9,7 @@ import {ConfigProvider, TimePicker} from "antd";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import viLocale from 'dayjs/locale/vi';
-import {API, MESSAGE} from "../../../../../utils/const";
+import {API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE, STORE_INFORMATION_PAGE} from "../../../../../utils/const";
 
 const StoreInformationPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -82,7 +82,6 @@ const StoreInformationPage = () => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error("Lỗi kết nối máy chủ: " + error.message);
     }
   };
 
@@ -95,9 +94,9 @@ const StoreInformationPage = () => {
         <main id="main">
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý trang</span>
-              &gt; <span>Thông tin cửa hàng</span>
+              <a href="/">{BREADCRUMB.HOME_PAGE}</a>
+              &gt; <span>{BREADCRUMB.SHOP_MANAGEMENT}</span>
+              &gt; <span>{BREADCRUMB.STORE_INFORMATION}</span>
             </div>
           </div>
 
@@ -111,7 +110,7 @@ const StoreInformationPage = () => {
                     <div style={{color: "#bd0000", fontSize: "23px", fontWeight: "700", lineHeight: "25px", margin: "10px 0 40px 0"}}>
                       <div data-v-2250a4e1="" className="header__wrap">
                         <div data-v-54a51dd8="" data-v-2250a4e1="" className="title">
-                          Thông tin cửa hàng
+                          {STORE_INFORMATION_PAGE.STORE_INFORMATION_TITLE}
                         </div>
                       </div>
                     </div>
@@ -124,12 +123,12 @@ const StoreInformationPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Địa chỉ</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{STORE_INFORMATION_PAGE.ADDRESS}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
                                   <input
-                                      type="text" placeholder="Nhập địa chỉ cửa hàng"
+                                      type="text" placeholder={STORE_INFORMATION_PAGE.ADDRESS_PLACEHOLDER}
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
                                       value={storeInfo.address ? storeInfo.address : ""}
@@ -144,12 +143,12 @@ const StoreInformationPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Hotline</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{STORE_INFORMATION_PAGE.HOTLINE}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
                                   <input
-                                      type="text" placeholder="Nhập số điện thoại liên hệ"
+                                      type="text" placeholder={STORE_INFORMATION_PAGE.HOTLINE_PLACEHOLDER}
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
                                       maxLength={20}
@@ -165,12 +164,12 @@ const StoreInformationPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>E-mail</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{STORE_INFORMATION_PAGE.EMAIL}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
                                   <input
-                                      type="email" placeholder="Nhập địa chỉ e-mail"
+                                      type="email" placeholder={STORE_INFORMATION_PAGE.EMAIL_PLACEHOLDER}
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
                                       value={storeInfo.email ? storeInfo.email : ""}
@@ -185,12 +184,12 @@ const StoreInformationPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Facebook</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{STORE_INFORMATION_PAGE.FACEBOOK}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
                                   <input
-                                      type="text" placeholder="Nhập đường dẫn tới trang chủ facebook"
+                                      type="text" placeholder={STORE_INFORMATION_PAGE.FACEBOOK_PLACEHOLDER}
                                       style={{ padding: "0 12px 0 12px", borderRadius: "3px", height: "100%" }}
                                       className="fashion-store-input__input"
                                       value={storeInfo.facebook ? storeInfo.facebook : ""}
@@ -205,7 +204,7 @@ const StoreInformationPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 {/*<div className="mandatory"><span className="mandatory-icon">*</span></div>*/}
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Giờ mở cửa</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{STORE_INFORMATION_PAGE.OPENING_HOURS}</span>
                               </div>
 
                               <div className="input-add-account">
@@ -241,7 +240,7 @@ const StoreInformationPage = () => {
                                         storeInfo.openingHours && dayjs(storeInfo.openingHours, 'HH:mm:ss'),
                                         storeInfo.closingHours && dayjs(storeInfo.closingHours, 'HH:mm:ss')
                                       ]}
-                                      placeholder={["Bắt đầu", "Kết thúc"]}
+                                      placeholder={[STORE_INFORMATION_PAGE.START_TIME_PLACEHOLDER, STORE_INFORMATION_PAGE.END_TIME_PLACEHOLDER]}
                                       onChange={onChange}
                                   />
                                 </ConfigProvider>
@@ -269,12 +268,12 @@ const StoreInformationPage = () => {
                           className="product-details-btn"
                           onClick={() => {btnSubmitRef.current.click()}}
                   >
-                    Cập nhật
+                    {STORE_INFORMATION_PAGE.UPDATE_BTN}
                   </button>
                   <button type="button" className="product-details-btn product-details-btn-danger"
                           onClick={() => {setIsShowConfirmDialog(true)}}
                   >
-                    Hủy Bỏ
+                    {STORE_INFORMATION_PAGE.RESTORE_BTN}
                   </button>
                 </div>
               </section>
@@ -285,14 +284,14 @@ const StoreInformationPage = () => {
 
         {isShowConfirmDialog && (
             <div className="modal-overlay">
-              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={
                                <>
-                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.
+                                 {CONFIRM_DIALOG.CONFIRM_RESTORE_DATA}
                                </>
                              }
-                             titleBtnAccept={"Có"}
-                             titleBtnCancel={"Không"}
+                             titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}
+                             titleBtnCancel={CONFIRM_DIALOG.TITLE_BTN_CANCEL}
                              onAccept={() => {
                                fetchData().then(r => {setIsShowConfirmDialog(false)})
                              }}

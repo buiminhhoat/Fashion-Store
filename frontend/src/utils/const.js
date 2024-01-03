@@ -503,6 +503,23 @@ export const CONFIRM_DIALOG = {
   CONFIRM_DELETE_PRODUCT_SUBTITLE_2: "không?",
 }
 
+export const STORE_INFORMATION_PAGE = {
+  STORE_INFORMATION_TITLE: "Thông tin cửa hàng",
+  ADDRESS: "Địa chỉ",
+  ADDRESS_PLACEHOLDER: "Nhập địa chỉ cửa hàng",
+  HOTLINE: "Hotline",
+  HOTLINE_PLACEHOLDER: "Nhập số điện thoại liên hệ",
+  EMAIL: "E-mail",
+  EMAIL_PLACEHOLDER: "Nhập địa chỉ e-mail",
+  FACEBOOK: "Facebook",
+  FACEBOOK_PLACEHOLDER: "Nhập đường dẫn tới trang chủ facebook",
+  OPENING_HOURS: "Giờ mở cửa",
+  START_TIME_PLACEHOLDER: "Bắt đầu",
+  END_TIME_PLACEHOLDER: "Kết thúc",
+  UPDATE_BTN: "Cập nhật",
+  RESTORE_BTN: "Khôi phục"
+}
+
 export const BREADCRUMB = {
   HOME_PAGE: "Trang chủ",
   SHOPPING_CART: "Giỏ hàng",
