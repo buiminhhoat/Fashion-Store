@@ -9,6 +9,7 @@ import queryString from "query-string";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
 import {API, BREADCRUMB, MESSAGE, PRODUCT_DETAIL_PAGE} from "../../../utils/const";
+import NotFoundPage from "../../error/notFoundPage";
 
 const ProductDetailPage = () => {
   const cartContext = useContext(CartContext);
@@ -21,6 +22,8 @@ const ProductDetailPage = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
   const productID = queryParams.productID;
+
+  const [isError, setIsError] = useState(false);
 
   async function addToCart(orderDetails) {
     const formData = new FormData();
@@ -89,7 +92,8 @@ const ProductDetailPage = () => {
         } else {
           const data = await response.json();
           console.log(data.message);
-          navigate(`/error`);
+          setIsError(true);
+          // navigate(`/error`);
         }
       } catch (error) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
@@ -136,24 +140,28 @@ const ProductDetailPage = () => {
   }
 
   return (
-      <div id="app" style={{paddingBottom:"30px"}}>
-        <ScrollToTop />
-        <main id="main" >
-          <div className="product-detail-section" id="product--content" data-id="64a37a5143b0542a360991d2">
-            <BreadcrumbProduct />
+      <>
+        { isError ? <NotFoundPage />:
+            <div id="app" style={{paddingBottom:"30px"}}>
+              <ScrollToTop />
+              <main id="main" >
+                <div className="product-detail-section" id="product--content" data-id="64a37a5143b0542a360991d2">
+                  <BreadcrumbProduct />
 
-            <section className="detail-product">
-              <div className="container pe-0 ps-0">
-                <ProductDetailContent informationProduct={informationProduct}
-                                      handleAddToCart={handleAddToCart}
-                                      handleBuyNow={handleBuyNow}
-                />
-              </div>
-            </section>
+                  <section className="detail-product">
+                    <div className="container pe-0 ps-0">
+                      <ProductDetailContent informationProduct={informationProduct}
+                                            handleAddToCart={handleAddToCart}
+                                            handleBuyNow={handleBuyNow}
+                      />
+                    </div>
+                  </section>
 
-          </div>
-        </main>
-      </div>
+                </div>
+              </main>
+            </div>
+        }
+      </>
   );
 }
 
