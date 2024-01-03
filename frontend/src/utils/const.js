@@ -334,9 +334,10 @@ export const BANNER = {
 
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
-  FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
-  EMPTY_RESULT_IMG:"https://iili.io/J5aOmCl.png",
-  SECURITY_IMG:"https://iili.io/J5aSziv.png",
+  FORGOT_PASSWORD_IMG: "https://iili.io/J5YsSYx.jpg",
+  EMPTY_RESULT_IMG: "https://iili.io/J5aOmCl.png",
+  SECURITY_IMG: "https://iili.io/J5aSziv.png",
+  EMPTY_PRODUCT_IMG: "https://iili.io/J51bEOX.png",
 }
 
 export const DIALOGS = {

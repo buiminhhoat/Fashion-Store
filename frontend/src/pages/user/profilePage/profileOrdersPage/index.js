@@ -6,11 +6,10 @@ import {Link, useLocation} from "react-router-dom";
 
 import {formatter} from "../../../../utils/formatter";
 
-import emptyProduct from '../images/empty-product.png'
 import {convertDateTimeFormat} from "../../../../utils";
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
-import {API, POPCONFIRM, PROFILE_PAGE, TAB_LIST_ITEMS, TAB_LIST_TEXT} from "../../../../utils/const";
+import {API, IMAGE_URL, POPCONFIRM, PROFILE_PAGE, TAB_LIST_ITEMS, TAB_LIST_TEXT} from "../../../../utils/const";
 
 const TabList = ({openTab, setOpenTab}) => {
   return (
@@ -196,7 +195,7 @@ const TabContent = ({openTab, setOpenTab}) => {
         ) : (
             <div className={`tab-pane show`} role="tabpanel">
               <div className="empty-content">
-                <img src={emptyProduct} alt="no data" />
+                <img src={IMAGE_URL.EMPTY_PRODUCT_IMG} alt="no data" />
                 <p>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.NO_ORDERS}</p>
               </div>
             </div>

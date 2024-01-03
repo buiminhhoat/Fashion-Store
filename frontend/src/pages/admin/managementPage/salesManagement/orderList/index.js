@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss";
 import {useCookies} from "react-cookie";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 
 
@@ -11,7 +11,6 @@ import {formatter} from "../../../../../utils/formatter";
 
 import {TbListSearch} from "react-icons/tb";
 import {BiSolidEdit} from "react-icons/bi";
-import empty_product_img from "../../../../user/profilePage/images/empty-product.png";
 
 import { DatePicker } from 'antd';
 import {ConfigProvider, Select} from "antd";
@@ -24,7 +23,7 @@ import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import viLocale from 'dayjs/locale/vi';
-import {API, DATE_PICKER, MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, DATE_PICKER, IMAGE_URL, MESSAGE, SCROLLING} from "../../../../../utils/const";
 
 const { RangePicker } = DatePicker;
 
@@ -200,7 +199,7 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
             :
             <div className={`tab-pane show`} role="tabpanel" style={{boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.102)", borderRadius:"3px"}}>
               <div className="empty-content">
-                <img src={empty_product_img} alt="no data"/>
+                <img src={IMAGE_URL.EMPTY_PRODUCT_IMG} alt="no data"/>
                 <p>Không có đơn hàng nào</p>
               </div>
             </div>
