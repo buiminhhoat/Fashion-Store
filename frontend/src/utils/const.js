@@ -191,6 +191,21 @@ export const REGISTER = {
   LOGIN_HERE: "Đăng nhập tại đây"
 }
 
+export const ORDER_LIST_PAGE = {
+  ORDER_ID: "Mã đơn hàng",
+  SIZE: "Size",
+  QUANTITY: "Số lượng:",
+  TOTAL_AMOUNT: "Thành tiền:",
+  PAYMENT_METHOD_LABEL: "Hình thức thanh toán:",
+  PAYMENT_METHOD: "Thanh toán khi nhận hàng",
+  SHIPPING_ADDRESS_LABEL: "Địa chỉ nhận hàng:",
+  NO_ORDERS: "Không có đơn hàng nào",
+  SEARCH_BY: "Tìm kiếm theo:",
+  PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
+  ORDER_ID_PLACEHOLDER: "Nhập mã đơn hàng",
+  SEARCH_BTN: "Tìm kiếm",
+}
+
 export const DO_NOT_HAVE_PERMISSION_PAGE = {
   NO_PERMISSION_ACCESS: "Bạn không có quyền truy cập trang web này",
   PLEASE_LOGIN_ADMIN: "Vui lòng đăng nhập bằng tài khoản admin!"
@@ -408,7 +423,19 @@ export const SEARCH = {
       PHONE_NUMBER: "Số điện thoại",
       EMAIL: "Địa chỉ email",
     }
-  }
+  },
+  ORDER: {
+    VALUE: {
+      ORDER_DATE: "order-date",
+      PHONE_NUMBER: "phone-number",
+      ORDER_ID: "order-id",
+    },
+    LABEL: {
+      ORDER_DATE: "Ngày đặt hàng",
+      PHONE_NUMBER: "Số điện thoại đặt hàng",
+      ORDER_ID: "Mã đơn hàng",
+    }
+  },
 }
 
 export const TOOLTIP = {
