@@ -82,7 +82,7 @@ const EditBannerPage = () => {
       let newBanners = [...banners];
       for (let i = 0; i < files.length; ++i) {
         if (newBanners.length === BANNER.MAX_BANNER_IMAGES) {
-          toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT);
+          toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT_BANNER);
           break;
         }
         newBanners.push({imageFile: files[i], imageURL: URL.createObjectURL(files[i]), bannerLinkTo:""});

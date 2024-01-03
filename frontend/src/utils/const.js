@@ -302,6 +302,29 @@ export const EDIT_CATEGORY_DIALOG = {
   CATEGORY_NAME_PLACEHOLDER: "Nhập tên danh mục"
 }
 
+export const PRODUCT_DETAILS = {
+  MAX_PRODUCT_IMAGES: 8,
+  MAX_SIZE_FIELDS: 8,
+  MAX_LENGTH_PRODUCT_NAME: 100,
+  MAX_LENGTH_PRODUCT_DESCRIPTION: 2000,
+  PRODUCT_INFORMATION: "Thông tin sản phẩm",
+  PRODUCT_IMAGE: "Hình ảnh sản phẩm",
+  SQUARE_IMAGE: "Hình ảnh tỷ lệ 1:1",
+  ADD_IMAGE: "Thêm hình ảnh",
+  PRODUCT_NAME: "Tên sản phẩm",
+  ENTER_PLACEHOLDER: "Nhập vào",
+  PRICE: "Giá",
+  SIZE: "Kích cỡ",
+  ADD_SIZE: "Thêm kích cỡ sản phẩm",
+  CATEGORY: "Danh mục",
+  SELECT_CATEGORY: "Chọn danh mục sản phẩm",
+  PRODUCT_DESCRIPTION: "Mô tả sản phẩm",
+}
+
+export const BANNER = {
+  MAX_BANNER_IMAGES: 8,
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",
@@ -378,10 +401,6 @@ export const SEARCH = {
       EMAIL: "Địa chỉ email",
     }
   }
-}
-
-export const BANNER = {
-  MAX_BANNER_IMAGES: 8,
 }
 
 export const TOOLTIP = {
@@ -539,7 +558,9 @@ export const MESSAGE = {
   ENTER_DELIVERY_ADDRESS: "Vui lòng nhập địa chỉ giao hàng",
   ENTER_FULL_NAME: "Vui lòng nhập họ tên",
   PLEASE_SELECT_PRODUCT_SIZE: "Vui lòng chọn kích thước sản phẩm",
-  MAXIMUM_UPLOAD_LIMIT: "Chỉ được tải lên tối đa " + BANNER.MAX_BANNER_IMAGES + " ảnh.",
+  MAXIMUM_UPLOAD_LIMIT_BANNER: "Chỉ được tải lên tối đa " + BANNER.MAX_BANNER_IMAGES + " ảnh.",
+  MAXIMUM_UPLOAD_LIMIT_PRODUCT: "Chỉ được tải lên tối đa " + PRODUCT_DETAILS.MAX_PRODUCT_IMAGES + " ảnh.",
+  MAXIMUM_UPLOAD_LIMIT_SIZE_FIELD: "Chỉ được thêm tối đa " + PRODUCT_DETAILS.MAX_SIZE_FIELDS + " kích cỡ.",
 }
 
 export const API = {
