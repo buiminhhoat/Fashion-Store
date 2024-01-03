@@ -204,6 +204,9 @@ export const ORDER_LIST_PAGE = {
   PHONE_NUMBER_PLACEHOLDER: "Nhập số điện thoại",
   ORDER_ID_PLACEHOLDER: "Nhập mã đơn hàng",
   SEARCH_BTN: "Tìm kiếm",
+  EDIT_ORDER_STATUS: "Chỉnh sửa trạng thái đơn hàng",
+  SAVE_BTN: "Lưu",
+  CANCEL_BTN: "Hủy",
 }
 
 export const DO_NOT_HAVE_PERMISSION_PAGE = {

@@ -6,20 +6,11 @@ import {useCookies} from "react-cookie";
 
 import {MdOutlineEditNote} from "react-icons/md";
 import {ConfigProvider, Select} from "antd";
-import {API, MESSAGE} from "../../../../../../../utils/const";
+import {API, MESSAGE, ORDER_LIST_PAGE, TAB_LIST_TEXT} from "../../../../../../../utils/const";
 
 const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
-
-  const ORDER_STATUS = {
-    ALL: "Tất cả",
-    PENDING_CONFIRMATION: "Chờ xác nhận",
-    CONFIRMED: "Đã xác nhận",
-    IN_TRANSIT: "Đang giao hàng",
-    COMPLETED: "Hoàn thành",
-    CANCELED: "Đã hủy"
-  };
 
   const [selectedOrderStatus, setSelectedOrderStatus] = useState(orderStatus);
 
@@ -47,7 +38,7 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   }
 
@@ -58,7 +49,7 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
           <div className="modal-content" style={{color:"#333333", padding:"30px", width:"550px"}}>
             <div style={{marginBottom:"13px"}}>
               <MdOutlineEditNote style={{fontSize:"30px", margin:"0 7px 5px 0"}} />
-              <span style={{fontSize:"20px", fontWeight:"900"}}>Chỉnh sửa trạng thái đơn hàng</span>
+              <span style={{fontSize:"20px", fontWeight:"900"}}>{ORDER_LIST_PAGE.EDIT_ORDER_STATUS}</span>
             </div>
 
             <div data-v-38ab3376="" className="text-overflow select-order-status">
@@ -77,11 +68,11 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
                     bordered={false}
                     size={"large"}
                     options = {[
-                      { value: ORDER_STATUS.PENDING_CONFIRMATION, label: ORDER_STATUS.PENDING_CONFIRMATION },
-                      { value: ORDER_STATUS.CONFIRMED, label: ORDER_STATUS.CONFIRMED },
-                      { value: ORDER_STATUS.IN_TRANSIT, label: ORDER_STATUS.IN_TRANSIT },
-                      { value: ORDER_STATUS.COMPLETED, label: ORDER_STATUS.COMPLETED },
-                      { value: ORDER_STATUS.CANCELED, label: ORDER_STATUS.CANCELED }
+                      { value: TAB_LIST_TEXT.PENDING_CONFIRMATION, label: TAB_LIST_TEXT.PENDING_CONFIRMATION },
+                      { value: TAB_LIST_TEXT.CONFIRMED, label: TAB_LIST_TEXT.CONFIRMED },
+                      { value: TAB_LIST_TEXT.IN_TRANSIT, label: TAB_LIST_TEXT.IN_TRANSIT },
+                      { value: TAB_LIST_TEXT.COMPLETED, label: TAB_LIST_TEXT.COMPLETED },
+                      { value: TAB_LIST_TEXT.CANCELLED, label: TAB_LIST_TEXT.CANCELLED }
                     ]}
                     onChange={(value) => {setSelectedOrderStatus(value)}}
                 />
@@ -89,8 +80,8 @@ const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
              </div>
 
             <div className="button-container" style={{marginTop:"40px"}}>
-              <button type="button" className="add-category-dialog-btn" onClick={handleEditOrderStatus}>Lưu</button>
-              <button type="button" className="add-category-dialog-btn add-category-dialog-btn-cancel" onClick={onClose}>Hủy</button>
+              <button type="button" className="add-category-dialog-btn" onClick={handleEditOrderStatus}>{ORDER_LIST_PAGE.SAVE_BTN}</button>
+              <button type="button" className="add-category-dialog-btn add-category-dialog-btn-cancel" onClick={onClose}>{ORDER_LIST_PAGE.CANCEL_BTN}</button>
             </div>
           </div>
         </div>
