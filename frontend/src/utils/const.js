@@ -295,6 +295,13 @@ export const ADD_CATEGORY_DIALOG = {
   CATEGORY_NAME_PLACEHOLDER: "Nhập tên danh mục"
 }
 
+export const EDIT_CATEGORY_DIALOG = {
+  EDIT_CATEGORY: "Chỉnh sửa danh mục",
+  SAVE_BTN: "Lưu",
+  CANCEL_BTN: "Hủy",
+  CATEGORY_NAME_PLACEHOLDER: "Nhập tên danh mục"
+}
+
 export const IMAGE_URL = {
   LOGO_FASHION_STORE: "https://iili.io/JRLCZQf.md.png",
   FORGOT_PASSWORD_IMG:"https://iili.io/J5YsSYx.jpg",

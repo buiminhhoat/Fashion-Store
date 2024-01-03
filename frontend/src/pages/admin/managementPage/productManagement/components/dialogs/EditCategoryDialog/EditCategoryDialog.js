@@ -4,7 +4,7 @@ import {MdOutlineEditNote, MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
 import {isStartWithLetter} from "../../../../../../../utils";
 import {useCookies} from "react-cookie";
-import {API, MESSAGE} from "../../../../../../../utils/const";
+import {API, EDIT_CATEGORY_DIALOG, MESSAGE} from "../../../../../../../utils/const";
 
 const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);
@@ -50,7 +50,7 @@ const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   }
 
@@ -62,20 +62,20 @@ const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
           <div className="modal-content" style={{color:"#333333", padding:"30px", width:"550px"}}>
             <div style={{marginBottom:"13px"}}>
               <MdOutlineEditNote style={{fontSize:"30px", margin:"0 7px 5px 0"}} />
-              <span style={{fontSize:"20px", fontWeight:"900"}}>Chỉnh sửa danh mục</span>
+              <span style={{fontSize:"20px", fontWeight:"900"}}>{EDIT_CATEGORY_DIALOG.EDIT_CATEGORY}</span>
             </div>
 
             <div data-v-38ab3376="" className="text-overflow">
               <input className="input-add-category"
                      type="text"
                      value={inputValue}
-                     placeholder={"Nhập tên danh mục"}
+                     placeholder={EDIT_CATEGORY_DIALOG.CATEGORY_NAME_PLACEHOLDER}
                      onChange={(e) => setInputValue(e.target.value)}/>
             </div>
 
             <div className="button-container" style={{marginTop:"40px"}}>
-              <button type="button" className="add-category-dialog-btn" onClick={handleEditCategory}>Lưu</button>
-              <button type="button" className="add-category-dialog-btn add-category-dialog-btn-cancel" onClick={onClose}>Hủy</button>
+              <button type="button" className="add-category-dialog-btn" onClick={handleEditCategory}>{EDIT_CATEGORY_DIALOG.SAVE_BTN}</button>
+              <button type="button" className="add-category-dialog-btn add-category-dialog-btn-cancel" onClick={onClose}>{EDIT_CATEGORY_DIALOG.CANCEL_BTN}</button>
             </div>
           </div>
         </div>
