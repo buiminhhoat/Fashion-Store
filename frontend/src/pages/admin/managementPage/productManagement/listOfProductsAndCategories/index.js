@@ -219,8 +219,9 @@ const ListOfProductsAndCategoriesPage  = () => {
   }
 
   const fetchProductDataBySearch = async (encodedSearchString) => {
-    const decodedSearchString = decodeURIComponent(encodedSearchString);
-    if (!decodedSearchString) {
+    const decodedSearchString = decodeURIComponent(encodedSearchString).replace(/[^\w\s]/g, "").replace(/\s+/g, " ").trim();
+
+    if (!decodedSearchString || decodedSearchString == "   ") {
       fetchAllProduct().then(r => {});
       return;
     }
@@ -238,7 +239,7 @@ const ListOfProductsAndCategoriesPage  = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setProductsData(data);
       } else {
         const data = await response.json();

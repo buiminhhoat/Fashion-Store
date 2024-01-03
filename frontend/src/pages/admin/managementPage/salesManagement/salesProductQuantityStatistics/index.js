@@ -39,7 +39,7 @@ const SalesProductQuantityStatisticsPage  = () => {
   }
 
   const fetchProductDataBySearch = async (encodedSearchString) => {
-    const decodedSearchString = decodeURIComponent(encodedSearchString);
+    const decodedSearchString = decodeURIComponent(encodedSearchString).replace(/[^\w\s]/g, "").replace(/\s+/g, " ").trim();
     if (!decodedSearchString) {
       fetchAllProduct().then(r => {});
       return;
