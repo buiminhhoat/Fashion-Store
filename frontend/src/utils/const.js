@@ -321,6 +321,13 @@ export const PRODUCT_DETAILS = {
   PRODUCT_DESCRIPTION: "Mô tả sản phẩm",
 }
 
+export const SIZE_FIELD = {
+  SIZE_NAME: "Tên kích cỡ",
+  SIZE_NAME_PLACEHOLDER: "ví dụ: S, M, L, XL, v.v..",
+  QUANTITY: "Số lượng",
+  QUANTITY_PLACEHOLDER: "Nhập số lượng"
+}
+
 export const BANNER = {
   MAX_BANNER_IMAGES: 8,
 }
