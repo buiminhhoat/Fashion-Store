@@ -209,6 +209,13 @@ export const ORDER_LIST_PAGE = {
   CANCEL_BTN: "Hủy",
 }
 
+export const SALES_PRODUCT_QUANTITY_STATISTICS_PAGE = {
+  PRODUCT_LIST: "DANH SÁCH SẢN PHẨM",
+  SEARCH_BY_PRODUCT_NAME: "Tìm kiếm theo tên sản phẩm:",
+  ENTER_KEYWORDS_PLACEHOLDER: "Nhập từ khóa",
+  SOLD: "Đã bán"
+}
+
 export const DO_NOT_HAVE_PERMISSION_PAGE = {
   NO_PERMISSION_ACCESS: "Bạn không có quyền truy cập trang web này",
   PLEASE_LOGIN_ADMIN: "Vui lòng đăng nhập bằng tài khoản admin!"
