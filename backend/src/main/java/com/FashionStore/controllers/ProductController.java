@@ -295,6 +295,9 @@ public class ProductController {
     @GetMapping("${endpoint.public.get-all-products}")
     public ResponseEntity<?> getAllProducts(HttpServletRequest request) {
         List<Product> allProducts = productRepository.findAll();
+        for (Product product: allProducts) {
+            product = getProductDetails(product.getProductID());
+        }
         return ResponseEntity.ok(allProducts);
     }
     
