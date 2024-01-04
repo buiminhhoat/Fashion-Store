@@ -810,6 +810,7 @@ const ListOfProductsAndCategoriesPage  = () => {
                           components: {
                             Select: {
                               controlItemBgActive: '#ffe6e6',
+                              colorTextDescription: '#bd0000',
                             },
                           },
                         }}

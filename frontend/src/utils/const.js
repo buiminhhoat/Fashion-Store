@@ -425,14 +425,6 @@ export const FOOTER = {
 
 export const SELECT = {
   DISPLAY_QUANTITY: {
-    // VALUE: {
-    //   FIVE: "five",
-    //   TEN: "ten",
-    //   FIFTY: "fifty",
-    //   HUNDRED: "hundred",
-    //   ONE_HUNDRED_FIFTY: "one-hundred-fifty",
-    //   TWO_HUNDRED: "two-hundred"
-    // },
     VALUE: {
       FIVE: 5,
       TEN: 10,
@@ -448,6 +440,16 @@ export const SELECT = {
       HUNDRED: 100,
       ONE_HUNDRED_FIFTY: 150,
       TWO_HUNDRED: 200
+    }
+  },
+  PERMISSION: {
+    VALUE: {
+      USER: false,
+      ADMIN: true,
+    },
+    LABEL: {
+      USER: <div style={{fontWeight:"600"}}>Người dùng</div>,
+      ADMIN: <div style={{fontWeight:"600"}}>Quản trị viên</div>,
     }
   },
 }
@@ -500,7 +502,8 @@ export const TOOLTIP = {
   EDIT_PRODUCT: "Chỉnh sửa sản phẩm",
   ADD_SUBCATEGORY: "Thêm danh mục con",
   DELETE_CATEGORY: "Xóa danh mục",
-  EDIT_CATEGORY: "Chỉnh sửa danh mục"
+  EDIT_CATEGORY: "Chỉnh sửa danh mục",
+  EDIT_ACCESS_PERMISSION: "Chỉnh sửa quyền truy cập"
 }
 
 export const POPCONFIRM = {
@@ -629,6 +632,7 @@ export const ERROR = {
 export const MESSAGE = {
   DB_CONNECTION_ERROR: "Không thể kết nối với cơ sở dữ liệu",
   GENERIC_ERROR: "Có lỗi xảy ra! Vui lòng thử lại",
+  CHANGE_ACCESS_PERMISSION_SUCCESS: "Thay đổi quyền truy cập thành công",
   ADD_PRODUCT_SUCCESS: "Thêm sản phẩm thành công",
   REGISTRATION_FAILED: "Đăng ký không thành công",
   REGISTRATION_SUCCESS: "Đăng ký thành công! Vui lòng đăng nhập",
@@ -703,6 +707,8 @@ export const API = {
     GET_ALL_PRODUCTS: "/api/public/get-all-products",
   },
   ADMIN: {
+    EDIT_USER: "/api/admin/edit-user",
+    EDIT_PERMISSION: "/api/admin/edit-permission",
     EDIT_BANNER_ENDPOINT: "/api/admin/edit-banner",
     UPDATE_STORE_INFORMATION_ENDPOINT: "/api/admin/update-store-information",
     GET_ALL_USERS_ENDPOINT: "/api/admin/get-all-users",

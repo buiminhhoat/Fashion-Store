@@ -8,14 +8,23 @@ import {toast} from "react-toastify";
 import {PiUserListBold} from "react-icons/pi";
 import {IoSearch} from "react-icons/io5";
 import {TbListSearch} from "react-icons/tb";
-import {MdAdd, MdLibraryAdd, MdOutlineAdd, MdOutlineEmail} from "react-icons/md";
+import {MdAdd, MdLibraryAdd, MdOutlineAdd, MdOutlineAdminPanelSettings, MdOutlineEmail} from "react-icons/md";
 import {HiOutlinePhone, HiOutlineTrash, HiPlus} from "react-icons/hi";
 
 import {ConfigProvider, Select, Tooltip} from "antd";
 
 import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {ACCOUNT_LIST_PAGE, API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE, SEARCH, TOOLTIP} from "../../../../../utils/const";
+import {
+  ACCOUNT_LIST_PAGE,
+  API,
+  BREADCRUMB,
+  CONFIRM_DIALOG,
+  MESSAGE,
+  SEARCH,
+  SELECT, TAB_LIST_TEXT,
+  TOOLTIP
+} from "../../../../../utils/const";
 import {IoMdAdd} from "react-icons/io";
 import {FaPlus} from "react-icons/fa";
 
@@ -165,22 +174,47 @@ const AccountListPage = () => {
     }
   };
 
+  const fetchEditUserPermission = async (user, value) => {
+    const formData = new FormData();
+    formData.append('userID', user.userID);
+    formData.append('isAdmin', value);
+
+    try {
+      const response = await fetch(API.ADMIN.EDIT_PERMISSION, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      if (response.status === 200) {
+        toast.success(MESSAGE.CHANGE_ACCESS_PERMISSION_SUCCESS);
+      } else {
+        const data = await response.json();
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
+    }
+  }
+
+
   useEffect(() => {
     handleSearchInputChange();
   }, [searchInputValue]);
-
 
   const ListUserSection = () => {
     return (
         <section>
           <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden",
-            borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA"}}>
+            borderRadius:"3px", border:"1px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA"}}>
 
             <div>
               {
                   usersData && usersData.map((user, index) => (
                       user.isShow &&
-                      <div key={index}>
+                      <div key={index} style={{borderBottom:"1px solid #E4E4E4"}}>
                         <div className={`user-field`}>
 
                           <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center", width: "100%",height:"100%"}}>
@@ -193,25 +227,58 @@ const AccountListPage = () => {
                                   alt=""
                               />
                             </div>
-                            <span style={{flex:"1", marginLeft:"15px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", cursor:"default"}}>
+                            <span style={{flex:"0.9", marginLeft:"14px", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", cursor:"default"}}>
                               {user.fullName}
                             </span>
 
                             <MdOutlineEmail style={{fontSize:"18px", margin:"0 7px 0 15px", color:"#9D9D9D"}}/>
-                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word", cursor:"default"}}>
+                            <span  style={{flex:"1", fontSize:"14px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word", cursor:"default", marginRight:"12px"}}>
                               {user.email}
                             </span>
+
                             <HiOutlinePhone style={{fontSize:"18px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
-                            <span  style={{flex:"1", fontSize:"15px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word", cursor:"default"}}>
+                            <span  style={{flex:"0.6", fontSize:"14px", fontWeight:"600", color:"#9D9D9D", wordBreak: "break-word", cursor:"default"}}>
                               {user.phoneNumber}
                             </span>
                           </div>
 
 
-                          <div style={{display:"flex"}}>
+                          <div style={{display:"flex", alignItems:"center"}}>
+                            <div style={{marginRight:"30px"}}>
+                              <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.EDIT_ACCESS_PERMISSION}</div>} color={"#4A4444"}>
+                                <div style={{display:"flex", alignItems:"center", marginRight:"8px"}}>
+                                  <MdOutlineAdminPanelSettings style={{fontSize:"22px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
+                                  <ConfigProvider
+                                      theme={{
+                                        components: {
+                                          Select: {
+                                            controlItemBgActive: '#ffe6e6',
+                                            paddingSM: 0,
+                                            colorText: '#9D9D9D',
+                                            fontSize: 13,
+                                            fontSizeLG: 14,
+                                          },
+                                        },
+                                      }}
+                                  >
+                                    <Select
+                                        defaultValue={user.isAdmin ? SELECT.PERMISSION.VALUE.ADMIN : SELECT.PERMISSION.VALUE.USER}
+                                        style={{ width: 110 }}
+                                        bordered={false}
+                                        size={"large"}
+                                        options={[
+                                          { value: SELECT.PERMISSION.VALUE.USER, label: SELECT.PERMISSION.LABEL.USER },
+                                          { value: SELECT.PERMISSION.VALUE.ADMIN, label: SELECT.PERMISSION.LABEL.ADMIN },
+                                        ]}
+                                        onChange={(value) => {fetchEditUserPermission(user, value)}}
+                                    />
+                                  </ConfigProvider>
+                                </div>
+                              </Tooltip>
+                            </div>
 
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_USER}</div>} color={"#4A4444"}>
-                              <div className="pointer-cursor btn-category"
+                              <div className="pointer-cursor btn-user"
                                    style={{marginRight:"20px"}}
                                    onClick={() => {
                                      setDeletedUser({
@@ -225,8 +292,8 @@ const AccountListPage = () => {
                             </Tooltip>
 
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.USER_DETAILS}</div>} color={"#4A4444"}>
-                              <div className="pointer-cursor btn-category"
-                                   style={{marginRight:"0", fontSize:"22px"}}
+                              <div className="pointer-cursor btn-user"
+                                   style={{marginRight:"0", fontSize:"21px"}}
                                    onClick={() => {navigate(`/profile/orders?userID=${user.userID}`)}}
                               >
                                 <PiUserListBold  style={{marginLeft:"4px"}}/>
@@ -271,7 +338,7 @@ const AccountListPage = () => {
               </p>
 
               <div style={{boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.102)", overflow: "hidden", marginBottom:"10px",
-                borderRadius:"4px", border:"2px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA", height:"75px"}}>
+                borderRadius:"3px", border:"1px solid #E4E4E4", padding:"0", backgroundColor:"#FAFAFA", height:"75px"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", height:"100%", paddingLeft:"35px"}}>
                   <div style={{display:"flex", color:"#333333", fontSize:"18px", fontWeight:"800", marginTop:"7px", alignItems:"center"}}>
                     <TbListSearch style={{padding:"0 0 2px", fontSize:"28px", marginRight:"10px"}}/>

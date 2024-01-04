@@ -208,6 +208,19 @@ public class UsersController {
         }
     }
 
+    @PostMapping("${endpoint.admin.edit-permission}")
+    public ResponseEntity<?> editPermission(HttpServletRequest request) {
+        Long userID = Long.valueOf(request.getParameter(PARAM_USER_ID));
+        boolean isAdmin = Boolean.parseBoolean(request.getParameter(PARAM_IS_ADMIN));
+
+        Users user = usersRepository.findUsersByUserID(userID);
+
+        user.setIsAdmin(isAdmin);
+        usersRepository.save(user);
+        return ResponseEntity.ok(user);
+    }
+
+
     @PostMapping("${endpoint.admin.edit-user}")
     public ResponseEntity<?> editUser(HttpServletRequest request) {
         Long userID = Long.valueOf(request.getParameter(PARAM_USER_ID));
@@ -304,7 +317,7 @@ public class UsersController {
             }
 
             Users usersByUserID = usersRepository.findUsersByUserID(userID);
-            usersByUserID.setAvatarPath(paths.getFirst());
+            usersByUserID.setAvatarPath(paths.get(0));
             usersRepository.save(usersByUserID);
 
             ResponseObject responseObject = new ResponseObject(RESPONSE_UPLOAD_IMAGE_SUCCESS);
