@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 import {PiUserListBold} from "react-icons/pi";
 import {IoSearch} from "react-icons/io5";
 import {TbListSearch} from "react-icons/tb";
-import {MdAdd, MdLibraryAdd, MdOutlineAdd, MdOutlineAdminPanelSettings, MdOutlineEmail} from "react-icons/md";
+import {MdOutlineAdminPanelSettings, MdOutlineEmail} from "react-icons/md";
 import {HiOutlinePhone, HiOutlineTrash, HiPlus} from "react-icons/hi";
 
 import {ConfigProvider, Select, Tooltip} from "antd";
@@ -25,8 +25,6 @@ import {
   SELECT, TAB_LIST_TEXT,
   TOOLTIP
 } from "../../../../../utils/const";
-import {IoMdAdd} from "react-icons/io";
-import {FaPlus} from "react-icons/fa";
 
 const AccountListPage = () => {
   const navigate = useNavigate();
@@ -38,6 +36,8 @@ const AccountListPage = () => {
 
   const [searchInputValue, setSearchInputValue] = useState("");
   const [selectedSearch, setSelectedSearch] = useState(SEARCH.USER.VALUE.FULL_NAME);
+
+  const [userID, setUserID] = useState(null);
 
   async function fetchImageAsFile(imageUrl, imageName) {
     const response = await fetch(imageUrl);
@@ -92,7 +92,29 @@ const AccountListPage = () => {
     }
   }
 
+  const fetchUserID = async () => {
+    try {
+      const response = await fetch(API.PUBLIC.GET_USER_ID_ENDPOINT, {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserID(data);
+      }
+
+    } catch (error) {
+      toast.error(MESSAGE.DB_CONNECTION_ERROR);
+    }
+  }
+
+
+
   useEffect(() => {
+    fetchUserID().then(r => {});
     fetchData().then(r => {});
   }, []);
 
@@ -142,12 +164,12 @@ const AccountListPage = () => {
     switch (selectedSearch) {
       case SEARCH.USER.VALUE.FULL_NAME:
         setUsersData((newUsers) =>
-          usersData.map((user) => {
-            if (isSubstringIgnoreCaseAndAccents(searchInputValue, user.fullName)) {
-              return { ...user, isShow: true };
-            }
-            return { ...user, isShow: false };
-          })
+            usersData.map((user) => {
+              if (isSubstringIgnoreCaseAndAccents(searchInputValue, user.fullName)) {
+                return { ...user, isShow: true };
+              }
+              return { ...user, isShow: false };
+            })
         );
 
         break;
@@ -244,38 +266,48 @@ const AccountListPage = () => {
 
 
                           <div style={{display:"flex", alignItems:"center"}}>
-                            <div style={{marginRight:"30px"}}>
-                              <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.EDIT_ACCESS_PERMISSION}</div>} color={"#4A4444"}>
-                                <div style={{display:"flex", alignItems:"center", marginRight:"8px"}}>
-                                  <MdOutlineAdminPanelSettings style={{fontSize:"22px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
-                                  <ConfigProvider
-                                      theme={{
-                                        components: {
-                                          Select: {
-                                            controlItemBgActive: '#ffe6e6',
-                                            paddingSM: 0,
-                                            colorText: '#9D9D9D',
-                                            fontSize: 13,
-                                            fontSizeLG: 14,
-                                          },
-                                        },
-                                      }}
-                                  >
-                                    <Select
-                                        defaultValue={user.isAdmin ? SELECT.PERMISSION.VALUE.ADMIN : SELECT.PERMISSION.VALUE.USER}
-                                        style={{ width: 110 }}
-                                        bordered={false}
-                                        size={"large"}
-                                        options={[
-                                          { value: SELECT.PERMISSION.VALUE.USER, label: SELECT.PERMISSION.LABEL.USER },
-                                          { value: SELECT.PERMISSION.VALUE.ADMIN, label: SELECT.PERMISSION.LABEL.ADMIN },
-                                        ]}
-                                        onChange={(value) => {fetchEditUserPermission(user, value)}}
-                                    />
-                                  </ConfigProvider>
-                                </div>
-                              </Tooltip>
-                            </div>
+                            {
+                              userID === user.userID ?
+                                  <div style={{display:"flex", alignItems:"center", marginRight:"38px"}}>
+                                    <MdOutlineAdminPanelSettings style={{fontSize:"22px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
+                                    <span  style={{fontSize:"14px", fontWeight:"600", color:"#9D9D9D", minWidth:"110px", width:"110px", cursor:"not-allowed"}}>
+                                      {SELECT.PERMISSION.LABEL.ADMIN}
+                                    </span>
+                                  </div>
+                                  :
+                                  <div style={{display:"flex", alignItems:"center", marginRight:"30px"}}>
+                                    <MdOutlineAdminPanelSettings style={{fontSize:"22px", margin:"0 7px 2px 15px", color:"#9D9D9D"}}/>
+                                    <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.EDIT_ACCESS_PERMISSION}</div>} color={"#4A4444"}>
+                                      <div style={{marginRight:"8px"}}>
+                                        <ConfigProvider
+                                            theme={{
+                                              components: {
+                                                Select: {
+                                                  controlItemBgActive: '#ffe6e6',
+                                                  paddingSM: 0,
+                                                  colorText: '#9D9D9D',
+                                                  fontSize: 13,
+                                                  fontSizeLG: 14,
+                                                },
+                                              },
+                                            }}
+                                        >
+                                          <Select
+                                              defaultValue={user.isAdmin ? SELECT.PERMISSION.VALUE.ADMIN : SELECT.PERMISSION.VALUE.USER}
+                                              style={{ width: 110 }}
+                                              bordered={false}
+                                              size={"large"}
+                                              options={[
+                                                { value: SELECT.PERMISSION.VALUE.USER, label: SELECT.PERMISSION.LABEL.USER },
+                                                { value: SELECT.PERMISSION.VALUE.ADMIN, label: SELECT.PERMISSION.LABEL.ADMIN },
+                                              ]}
+                                              onChange={(value) => {fetchEditUserPermission(user, value)}}
+                                          />
+                                        </ConfigProvider>
+                                      </div>
+                                    </Tooltip>
+                                  </div>
+                            }
 
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_USER}</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-user"
