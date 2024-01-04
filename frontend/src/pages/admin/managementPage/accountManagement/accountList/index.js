@@ -309,19 +309,26 @@ const AccountListPage = () => {
                                   </div>
                             }
 
-                            <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_USER}</div>} color={"#4A4444"}>
-                              <div className="pointer-cursor btn-user"
-                                   style={{marginRight:"20px"}}
-                                   onClick={() => {
-                                     setDeletedUser({
-                                       userID: user.userID,
-                                       fullName: user.fullName,
-                                     })
-                                   }}
-                              >
-                                <HiOutlineTrash />
-                              </div>
-                            </Tooltip>
+                            {
+                              userID === user.userID ?
+                                  <div style={{width: "65px", marginRight:"20px"}}/>
+                                  :
+                                  <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.DELETE_USER}</div>} color={"#4A4444"}>
+                                    <div className="pointer-cursor btn-user"
+                                         style={{marginRight:"20px"}}
+                                         onClick={() => {
+                                           setDeletedUser({
+                                             userID: user.userID,
+                                             fullName: user.fullName,
+                                           })
+                                         }}
+                                    >
+                                      <HiOutlineTrash />
+                                    </div>
+                                  </Tooltip>
+                            }
+
+
 
                             <Tooltip title={<div style={{margin:"5px ", fontWeight:"500"}}>{TOOLTIP.USER_DETAILS}</div>} color={"#4A4444"}>
                               <div className="pointer-cursor btn-user"
