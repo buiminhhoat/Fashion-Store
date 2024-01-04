@@ -8,7 +8,7 @@ import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, BANNER, MESSAGE} from "../../../../../utils/const";
+import {API, BANNER, BREADCRUMB, CONFIRM_DIALOG, EDIT_BANNER_PAGE, MESSAGE} from "../../../../../utils/const";
 
 const defaultBannerImages = [
   { defaultImage: defaultBanner },
@@ -59,7 +59,7 @@ const EditBannerPage = () => {
               setBanners(newBanners);
             })
             .catch(error => {
-              console.error("Error loading images:", error);
+              console.error(error);
             });
 
       } else {
@@ -82,7 +82,7 @@ const EditBannerPage = () => {
       let newBanners = [...banners];
       for (let i = 0; i < files.length; ++i) {
         if (newBanners.length === BANNER.MAX_BANNER_IMAGES) {
-          toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT);
+          toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT_BANNER);
           break;
         }
         newBanners.push({imageFile: files[i], imageURL: URL.createObjectURL(files[i]), bannerLinkTo:""});
@@ -135,9 +135,9 @@ const EditBannerPage = () => {
         <main id="main">
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý trang</span>
-              &gt; <span>Chỉnh sửa banner</span>
+              <a href="/">{BREADCRUMB.HOME_PAGE}</a>
+              &gt; <span>{BREADCRUMB.SHOP_MANAGEMENT}</span>
+              &gt; <span>{BREADCRUMB.EDIT_BANNER}</span>
             </div>
           </div>
 
@@ -151,7 +151,7 @@ const EditBannerPage = () => {
                     <div style={{color: "#bd0000", fontSize: "23px", fontWeight: "700", lineHeight: "25px", margin: "10px 0 40px 0"}}>
                       <div data-v-2250a4e1="" className="header__wrap">
                         <div data-v-54a51dd8="" data-v-2250a4e1="" className="title">
-                          Banner quay vòng
+                          {EDIT_BANNER_PAGE.BANNER_TITLE}
                         </div>
                       </div>
                     </div>
@@ -193,10 +193,10 @@ const EditBannerPage = () => {
                     </div>
 
                     <div style={{margin:"50px 0 30px"}}>
-                      <span style={{fontSize: "17px", fontWeight: "500", lineHeight: "22px"}}>Tải hình ảnh</span>
-                      <li>Kích thước: 2580 x 1100</li>
-                      <li>Tối đa 2.0 MB mỗi hình</li>
-                      <li>Định dạng hình ảnh: JPG, JPEG, PNG</li>
+                      <span style={{fontSize: "17px", fontWeight: "500", lineHeight: "22px"}}>{EDIT_BANNER_PAGE.UPLOAD_IMAGE}</span>
+                      <li>{EDIT_BANNER_PAGE.IMAGE_SIZE}</li>
+                      <li>{EDIT_BANNER_PAGE.MAX_IMAGE_SIZE}</li>
+                      <li>{EDIT_BANNER_PAGE.IMAGE_FORMAT}</li>
                     </div>
 
                     <div style={{margin:"0 0 25px"}} className="popover-wrap">
@@ -210,7 +210,7 @@ const EditBannerPage = () => {
                             <path fillRule="evenodd" d="M8.48176704,1.5 C8.75790942,1.5 8.98176704,1.72385763 8.98176704,2 L8.981,7.997 L15 7.99797574 C15.2761424,7.99797574 15.5,8.22183336 15.5,8.49797574 C15.5,8.77411811 15.2761424,8.99797574 15,8.99797574 L8.981,8.997 L8.98176704,15 C8.98176704,15.2761424 8.75790942,15.5 8.48176704,15.5 C8.20562467,15.5 7.98176704,15.2761424 7.98176704,15 L7.981,8.997 L2 8.99797574 C1.72385763,8.99797574 1.5,8.77411811 1.5,8.49797574 C1.5,8.22183336 1.72385763,7.99797574 2,7.99797574 L7.981,7.997 L7.98176704,2 C7.98176704,1.72385763 8.20562467,1.5 8.48176704,1.5 Z"></path>
                           </svg>
                         </i>
-                        <span> Tải lên hình ảnh ({banners.length}/{BANNER.MAX_BANNER_IMAGES})</span>
+                        <span> {EDIT_BANNER_PAGE.UPLOAD_IMAGE_LABEL} ({banners.length}/{BANNER.MAX_BANNER_IMAGES})</span>
                       </button>
                       <input
                           type="file"
@@ -266,12 +266,12 @@ const EditBannerPage = () => {
                 <section style={{ marginBottom:"50px" }}>
                   <div className="button-container">
                     <button type="button" className="product-details-btn" onClick={handleBtnSaveBannerClick}>
-                      Lưu lại
+                      {EDIT_BANNER_PAGE.SAVE_BTN}
                     </button>
                     <button type="button" className="product-details-btn product-details-btn-danger"
                             onClick={() => {setIsShowConfirmDialog(true)}}
                     >
-                      Hủy thay đổi
+                      {EDIT_BANNER_PAGE.RESTORE_BTN}
                     </button>
                   </div>
                 </section>
@@ -283,14 +283,14 @@ const EditBannerPage = () => {
 
         {isShowConfirmDialog && (
             <div className="modal-overlay">
-              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={
                                <>
-                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.
+                                 {CONFIRM_DIALOG.CONFIRM_RESTORE_DATA}
                                </>
                              }
-                             titleBtnAccept={"Có"}
-                             titleBtnCancel={"Không"}
+                             titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}
+                             titleBtnCancel={CONFIRM_DIALOG.TITLE_BTN_CANCEL}
                              onAccept={() => {
                                fetchData().then(r => {setIsShowConfirmDialog(false)})
                              }}

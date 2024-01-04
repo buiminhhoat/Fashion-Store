@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.scss";
+import {SIZE_FIELD} from "../../../../../../../utils/const";
 
 const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuantityChange }) => {
     const handleSizeNameChange = (e) => {
@@ -24,7 +25,7 @@ const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuanti
           <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
             <span data-v-36db20dc="" className="mandatory-icon">*</span>
           </div>
-          Tên kích cỡ
+          {SIZE_FIELD.SIZE_NAME}
         </div>
         <div data-v-389929d8="" className="variation-edit-right">
           <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
@@ -34,8 +35,8 @@ const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuanti
               <div className="fashion-store-input__inner fashion-store-input__inner--normal">
                 <input onChange = {handleSizeNameChange}
                        value={informationProduct.productSizes.find((size) => size.sizeID === id).sizeName}
-                       type="text" placeholder="ví dụ: S, M, L, XL, v.v.." resize="none"
-                       rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
+                       type="text" placeholder={SIZE_FIELD.SIZE_NAME_PLACEHOLDER}
+                       resize="none" rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
               </div>
             </div>
@@ -49,7 +50,7 @@ const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuanti
           <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
             <span data-v-36db20dc="" className="mandatory-icon">*</span>
           </div>
-          Số lượng
+          {SIZE_FIELD.QUANTITY}
         </div>
         <div data-v-389929d8="" className="variation-edit-right">
           <div data-v-1190c12e="" data-v-389929d8="" className="popover-wrap variation-input-item">
@@ -59,8 +60,8 @@ const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuanti
               <div className="fashion-store-input__inner fashion-store-input__inner--normal">
                 <input onChange = {handleQuantityChange}
                        value={informationProduct.productQuantities.find((quantity) => quantity.quantityID === id).quantity}
-                       type="text" placeholder="Nhập số lượng" resize="none"
-                       rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
+                       type="text" placeholder={SIZE_FIELD.QUANTITY_PLACEHOLDER}
+                       resize="none" rows="2" minrows="2" maxLength="Infinity" restrictiontype="input"
                        max="Infinity" min="-Infinity" className="fashion-store-input__input"/>
               </div>
             </div>

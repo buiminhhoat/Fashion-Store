@@ -12,12 +12,11 @@ import queryString from 'query-string';
 import closeButton from "./images/close.svg";
 import cardIcon from "./images/card.svg"
 import cod from "./images/cod.svg"
-import emptyIcon from "./images/empty-product.png"
 import {formatter} from "../../../utils/formatter.js"
 
 import AddressSection from "../components/AddressSection/AddressSection";
 import {ScrollToTop} from "../../../utils";
-import {API, BREADCRUMB, CHECKOUT_PAGE, ERROR, MESSAGE} from "../../../utils/const";
+import {API, BREADCRUMB, CHECKOUT_PAGE, ERROR, IMAGE_URL, MESSAGE} from "../../../utils/const";
 
 const CheckoutPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -211,7 +210,7 @@ const CheckoutPage = () => {
           { !amount ?
               <div className="cart-empty" style={{minHeight:"450px", margin:"0"}}>
                 <div className="cart-empty__img">
-                  <img src={emptyIcon} alt="no data"/>
+                  <img src={IMAGE_URL.EMPTY_PRODUCT_IMG} alt="no data"/>
                   <p>{CHECKOUT_PAGE.EMPTY_CART_MESSAGE}</p>
                 </div>
                 <div className="cart-empty__action">

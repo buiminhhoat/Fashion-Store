@@ -5,7 +5,6 @@ import {Route, Routes} from "react-router-dom";
 import MasterLayout from "./theme/masterLayout";
 import HomePage from "./pages/user/homePage";
 import ProfilePage from "./pages/user/profilePage";
-import LoginPage from "./pages/user/loginPage";
 import SearchProductPage from "./pages/user/searchProductPage";
 import ProductDetailPage from "./pages/user/productDetailPage";
 import NotFoundPage from "./pages/error/notFoundPage";
@@ -26,10 +25,6 @@ const userRouters =  [
     {
         path: ROUTERS.USER.PROFILE,
         component: <ProfilePage />
-    },
-    {
-        path: ROUTERS.USER.LOGIN,
-        component: <LoginPage />
     },
     {
         path: ROUTERS.USER.SEARCH,

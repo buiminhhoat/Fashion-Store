@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react"
 import {useCookies} from "react-cookie";
-import {useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
@@ -8,7 +8,8 @@ import {toast} from "react-toastify";
 import queryString from "query-string";
 import {CartContext} from "../../../theme/masterLayout";
 import {ScrollToTop} from "../../../utils";
-import {API, MESSAGE} from "../../../utils/const";
+import {API, BREADCRUMB, MESSAGE, PRODUCT_DETAIL_PAGE} from "../../../utils/const";
+import NotFoundPage from "../../error/notFoundPage";
 
 const ProductDetailPage = () => {
   const cartContext = useContext(CartContext);
@@ -21,6 +22,8 @@ const ProductDetailPage = () => {
   const [cookies] = useCookies(['access_token']);
   const accessToken = cookies.access_token;
   const productID = queryParams.productID;
+
+  const [isError, setIsError] = useState(null);
 
   async function addToCart(orderDetails) {
     const formData = new FormData();
@@ -84,12 +87,14 @@ const ProductDetailPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          // console.log(data);
+          console.log(data);
           setInformationProduct(data);
+          setIsError(false);
         } else {
           const data = await response.json();
           console.log(data.message);
-          navigate(`/error`);
+          setIsError(true);
+          // navigate(`/error`);
         }
       } catch (error) {
         toast.error(MESSAGE.DB_CONNECTION_ERROR);
@@ -106,17 +111,26 @@ const ProductDetailPage = () => {
             <div className="col-12 pe-0 ps-0">
               <ul className="breadcrumb">
                 <li className="link">
-                  <a href="/"><span>Trang chủ</span></a>
+                  <Link to="/"><span>{BREADCRUMB.HOME_PAGE}</span></Link>
                   <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
                 </li>
-                <li className="link">
-                  <a href="/"><span>{(informationProduct.parentCategory ? informationProduct.parentCategory.categoryName : "Danh mục 1")}</span></a>
-                  <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
-                </li>
-                <li className="link">
-                  <a href="/"><span>{(informationProduct.category ? informationProduct.category.categoryName : "Danh mục 2")}</span></a>
-                  <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
-                </li>
+
+                { informationProduct.parentCategory &&
+                    <li className="link">
+                      <Link to={informationProduct.parentCategory.categoryID ? `/category?categoryID=${informationProduct.parentCategory.categoryID}` : ""}>
+                        <span>{(informationProduct.parentCategory.categoryName ? informationProduct.parentCategory.categoryName : PRODUCT_DETAIL_PAGE.CATEGORY_1)}</span>
+                      </Link>
+                      <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
+                    </li>
+                }
+                { informationProduct.category &&
+                    <li className="link">
+                      <Link to={informationProduct.category.categoryID ? `/category?categoryID=${informationProduct.category.categoryID}` : ""}>
+                        <span>{(informationProduct.category.categoryName ? informationProduct.category.categoryName : PRODUCT_DETAIL_PAGE.CATEGORY_2)}</span>
+                      </Link>
+                      <span className="mr_lr">&nbsp;&gt;&nbsp;</span>
+                    </li>
+                }
                 <li className="link breadcrumb__name">{informationProduct.productName}</li>
               </ul>
             </div>
@@ -127,24 +141,29 @@ const ProductDetailPage = () => {
   }
 
   return (
-      <div id="app" style={{paddingBottom:"30px"}}>
-        <ScrollToTop />
-        <main id="main" >
-          <div className="product-detail-section" id="product--content" data-id="64a37a5143b0542a360991d2">
-            <BreadcrumbProduct />
+      <>
+        { isError === true && <NotFoundPage /> }
+        { isError === false &&
+            <div id="app" style={{paddingBottom:"30px"}}>
+              <ScrollToTop />
+              <main id="main" >
+                <div className="product-detail-section" id="product--content" data-id="64a37a5143b0542a360991d2">
+                  <BreadcrumbProduct />
 
-            <section className="detail-product">
-              <div className="container pe-0 ps-0">
-                <ProductDetailContent informationProduct={informationProduct}
-                                      handleAddToCart={handleAddToCart}
-                                      handleBuyNow={handleBuyNow}
-                />
-              </div>
-            </section>
+                  <section className="detail-product">
+                    <div className="container pe-0 ps-0">
+                      <ProductDetailContent informationProduct={informationProduct}
+                                            handleAddToCart={handleAddToCart}
+                                            handleBuyNow={handleBuyNow}
+                      />
+                    </div>
+                  </section>
 
-          </div>
-        </main>
-      </div>
+                </div>
+              </main>
+            </div>
+        }
+      </>
   );
 }
 

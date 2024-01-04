@@ -7,7 +7,7 @@ import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import arrowLeft1 from '../images/arrow_left_1.svg'
 import queryString from "query-string";
-import {API, MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE, PROFILE_PAGE} from "../../../../utils/const";
 
 const ProfileEditAddress = () => {
   const navigate = useNavigate();
@@ -56,6 +56,7 @@ const ProfileEditAddress = () => {
   useEffect(() => {
     getData();
   }, []);
+
   const handleSave = async () => {
     const formData = new FormData();
 
@@ -92,11 +93,6 @@ const ProfileEditAddress = () => {
     navigate(`/profile/address?userID=${userID}`);
   }
 
-  // if (loading) {
-  //     // Trong quá trình fetching, hiển thị một thông báo loading hoặc spinner.
-  //     return <div></div>;
-  //
-  // }
   return (
       <div className="col-8 content-children item-row">
         <section className="new__address__wrap" style={{minHeight: "438px"}}>
@@ -106,35 +102,35 @@ const ProfileEditAddress = () => {
                 <img src={arrowLeft1} alt="icon arrow left" />
               </Link>
             </button>
-            <span className="title">Cập nhật địa chỉ</span>
+            <span className="title">{PROFILE_PAGE.PROFILE_EDIT_ADDRESS.UPDATE_ADDRESS}</span>
           </section>
 
-          <form id="add-new-address" action="https://vn/profile/store-address" method="POST">
+          <form id="add-new-address" action="" method="POST">
             <input type="hidden" name="_token" value="3b5uU0DbQ1xoXiDiljwxaFX7Pa9usSichthgGiHt" />
             <section className="content__wrap">
               <article className="information__wrap" style={{marginLeft: "20px"}}>
                 <div className="info__item">
-                  <label className="form-label">Họ tên</label>
+                  <label className="form-label">{PROFILE_PAGE.PROFILE_EDIT_ADDRESS.FULL_NAME}</label>
                   <input type="text" className="form-control"
-                         id="name" placeholder="Nhập họ tên" name="name"
+                         id="name" placeholder={PROFILE_PAGE.PROFILE_EDIT_ADDRESS.FULL_NAME_PLACEHOLDER} name="name"
                          onChange={(e) => setRecipientName(e.target.value)}
                          defaultValue={address.recipientName}
                   />
                   <span className="error" id="errorName" />
                 </div>
                 <div className="info__item">
-                  <label className="form-label">Số điện thoại</label>
+                  <label className="form-label">{PROFILE_PAGE.PROFILE_EDIT_ADDRESS.PHONE_NUMBER}</label>
                   <input type="text" className="form-control" id="phone"
-                         placeholder="Nhập số điện thoại" name="phone"
+                         placeholder={PROFILE_PAGE.PROFILE_EDIT_ADDRESS.PHONE_NUMBER_PLACEHOLDER} name="phone"
                          onChange={(e) => setRecipientPhone(e.target.value)}
                          defaultValue={address.recipientPhone}
                   />
                   <span className="error" id="errorPhone" />
                 </div>
                 <div className="info__item">
-                  <label className="form-label">Địa chỉ</label>
+                  <label className="form-label">{PROFILE_PAGE.PROFILE_EDIT_ADDRESS.ADDRESS}</label>
                   <input type="text" className="form-control" id="address"
-                         placeholder="Nhập địa chỉ" name="address"
+                         placeholder={PROFILE_PAGE.PROFILE_EDIT_ADDRESS.ADDRESS_PLACEHOLDER} name="address"
                          onChange={(e) => setAddressDetails(e.target.value)}
                          defaultValue={address.addressDetails}
                   />
@@ -145,8 +141,12 @@ const ProfileEditAddress = () => {
             </section>
 
             <section className="footer__wrap" style={{marginLeft: "30px"}}>
-              <button type="button" className="btn btn-danger" id="save" onClick={handleSave}>Hoàn thành</button>
-              <button type="button" className="btn btn-outline-danger" id="cancel" onClick={handleCancel}>Hủy bỏ</button>
+              <button type="button" className="btn btn-danger" id="save" onClick={handleSave}>
+                {PROFILE_PAGE.PROFILE_EDIT_ADDRESS.SAVE_CHANGES}
+              </button>
+              <button type="button" className="btn btn-outline-danger" id="cancel" onClick={handleCancel}>
+                {PROFILE_PAGE.PROFILE_EDIT_ADDRESS.CANCEL}
+              </button>
             </section>
           </form>
         </section>
