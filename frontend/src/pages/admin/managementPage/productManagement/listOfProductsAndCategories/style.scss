@@ -1,3 +1,26 @@
+.add-parent-category-btn {
+    cursor: pointer;
+    background: #bd0000;
+    font-size: 15px !important;
+    font-weight: 700;
+    width: 200px;
+    height: 40px;
+    border-radius: 6px;
+    border: 0;
+    margin-left: 10px;
+    color: white;
+    -webkit-appearance: button;
+    font-family: Manrope !important;
+}
+
+.add-parent-category-btn:hover {
+    background: #cc1111;
+}
+
+.add-parent-category-btn:active {
+    background: #bd0000;
+}
+
 .category-title {
     color: #bd0000;
     font-size: 23px;

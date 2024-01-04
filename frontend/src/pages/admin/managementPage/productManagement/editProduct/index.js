@@ -6,7 +6,8 @@ import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, BREADCRUMB, CONFIRM_DIALOG, EDIT_PRODUCT_PAGE, MESSAGE, SCROLLING} from "../../../../../utils/const";
+import NotFoundPage from "../../../../error/notFoundPage";
 
 const EditProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -18,6 +19,7 @@ const EditProductPage = () => {
   const productID = queryParams.productID;
 
   const [isShowConfirmDialog, setIsShowConfirmDialog] = useState(false);
+  const [isError, setIsError] = useState(null);
 
   const [productImages, setProductImages] = useState([]);
   const [informationProduct, setInformationProduct] = useState({
@@ -142,13 +144,15 @@ const EditProductPage = () => {
               setProductImages(files);
             })
             .catch(error => {
-              console.error("Error loading images:", error);
+              console.error(error);
             });
 
+        setIsError(false);
       } else {
         const data = await response.json();
         console.log(data.message);
-        navigate(`/error`);
+        setIsError(true);
+        // navigate(`/error`);
       }
     } catch (error) {
       console.log(error);
@@ -161,60 +165,65 @@ const EditProductPage = () => {
   }, []);
 
   return (
-      <div id="app">
-        <main id="main">
-          <div className="container profile-wrap">
-            <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý sản phẩm</span>
-              &gt; <span>Chỉnh sửa thông tin sản phẩm</span>
-            </div>
-          </div>
-
-          <div className="container pe-0 ps-0" style={{marginTop: "10px"}}>
-            <ProductDetails informationProduct={informationProduct}
-                            setInformationProduct={setInformationProduct}
-                            productImages={productImages}
-                            setProductImages={setProductImages}
-            />
-
-            <div data-v-03749d40="" className="product-edit__container">
-              <div data-v-03749d40="" className="product-edit">
-                <section style={{ marginBottom:"50px" }}>
-                  <div className="button-container">
-                    <button type="button" className="product-details-btn" onClick={editProduct}>
-                      Lưu lại
-                    </button>
-                    <button type="button" className="product-details-btn product-details-btn-danger"
-                            onClick={() => {setIsShowConfirmDialog(true)}}
-                    >
-                      Hủy thay đổi
-                    </button>
+      <>
+        { isError === true && <NotFoundPage /> }
+        { isError === false &&
+            <div id="app">
+              <main id="main">
+                <div className="container profile-wrap">
+                  <div className="breadcrumb-wrap">
+                    <a href="/">{BREADCRUMB.HOME_PAGE}</a>
+                    &gt; <span>{BREADCRUMB.PRODUCT_MANAGEMENT}</span>
+                    &gt; <span>{BREADCRUMB.EDIT_PRODUCT}</span>
                   </div>
-                </section>
-              </div>
-            </div>
-          </div>
+                </div>
 
-        </main>
+                <div className="container pe-0 ps-0" style={{marginTop: "10px"}}>
+                  <ProductDetails informationProduct={informationProduct}
+                                  setInformationProduct={setInformationProduct}
+                                  productImages={productImages}
+                                  setProductImages={setProductImages}
+                  />
 
-        {isShowConfirmDialog && (
-            <div className="modal-overlay">
-              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
-                             subTitle={
-                               <>
-                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ đưa dữ liệu về trạng thái cuối cùng được lưu lại.
-                               </>
-                             }
-                             titleBtnAccept={"Có"}
-                             titleBtnCancel={"Không"}
-                             onAccept={() => {
-                               fetchData().then(r => {setIsShowConfirmDialog(false)});
-                             }}
-                             onCancel={() => {setIsShowConfirmDialog(false)}}/>
+                  <div data-v-03749d40="" className="product-edit__container">
+                    <div data-v-03749d40="" className="product-edit">
+                      <section style={{ marginBottom:"50px" }}>
+                        <div className="button-container">
+                          <button type="button" className="product-details-btn" onClick={editProduct}>
+                            {EDIT_PRODUCT_PAGE.SAVE_BTN}
+                          </button>
+                          <button type="button" className="product-details-btn product-details-btn-danger"
+                                  onClick={() => {setIsShowConfirmDialog(true)}}
+                          >
+                            {EDIT_PRODUCT_PAGE.RESTORE_BTN}
+                          </button>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+
+              </main>
+
+              {isShowConfirmDialog && (
+                  <div className="modal-overlay">
+                    <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
+                                   subTitle={
+                                     <>
+                                       {CONFIRM_DIALOG.CONFIRM_RESTORE_DATA}
+                                     </>
+                                   }
+                                   titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}
+                                   titleBtnCancel={CONFIRM_DIALOG.TITLE_BTN_CANCEL}
+                                   onAccept={() => {
+                                     fetchData().then(r => {setIsShowConfirmDialog(false)});
+                                   }}
+                                   onCancel={() => {setIsShowConfirmDialog(false)}}/>
+                  </div>
+              )}
             </div>
-        )}
-      </div>
+        }
+      </>
   );
 }
 

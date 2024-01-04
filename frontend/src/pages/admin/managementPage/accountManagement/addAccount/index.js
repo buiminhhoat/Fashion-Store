@@ -4,7 +4,7 @@ import "./style.scss";
 import {toast} from "react-toastify";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, MESSAGE} from "../../../../../utils/const";
+import {ADD_ACCOUNT_PAGE, API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE} from "../../../../../utils/const";
 
 const AddAccountPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -63,9 +63,9 @@ const AddAccountPage = () => {
         <main id="main">
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý người dùng</span>
-              &gt; <span>Thêm người dùng</span>
+              <a href="/">{BREADCRUMB.HOME_PAGE}</a>
+              &gt; <span>{BREADCRUMB.ACCOUNT_MANAGEMENT}</span>
+              &gt; <span>{BREADCRUMB.ADD_ACCOUNT}</span>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ const AddAccountPage = () => {
                     <div style={{color: "#bd0000", fontSize: "23px", fontWeight: "700", lineHeight: "25px", margin: "10px 0 40px 0"}}>
                       <div data-v-2250a4e1="" className="header__wrap">
                         <div data-v-54a51dd8="" data-v-2250a4e1="" className="title">
-                          Thêm người dùng
+                          {ADD_ACCOUNT_PAGE.ADD_USER}
                         </div>
                       </div>
                     </div>
@@ -92,11 +92,11 @@ const AddAccountPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 <div className="mandatory"><span className="mandatory-icon">*</span></div>
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Họ và tên</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{ADD_ACCOUNT_PAGE.FULL_NAME}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
-                                  <input type="text" placeholder="Nhập họ và tên"
+                                  <input type="text" placeholder={ADD_ACCOUNT_PAGE.FULL_NAME_PLACEHOLDER}
                                          style={{padding:" 0 12px 0 12px", borderRadius:"3px", height:"100%"}}
                                          className="fashion-store-input__input"
                                          maxLength={50}
@@ -112,11 +112,11 @@ const AddAccountPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 <div className="mandatory"><span className="mandatory-icon">*</span></div>
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Email</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{ADD_ACCOUNT_PAGE.EMAIL}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
-                                  <input type="email" placeholder="Nhập email"
+                                  <input type="email" placeholder={ADD_ACCOUNT_PAGE.EMAIL_PLACEHOLDER}
                                          style={{padding:" 0 12px 0 12px", borderRadius:"3px", height:"100%"}}
                                          className="fashion-store-input__input"
                                          name="email"
@@ -131,11 +131,11 @@ const AddAccountPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 <div className="mandatory"><span className="mandatory-icon">*</span></div>
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Số điện thoại</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{ADD_ACCOUNT_PAGE.PHONE_NUMBER}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
-                                  <input type="text" placeholder="Nhập số điện thoại"
+                                  <input type="text" placeholder={ADD_ACCOUNT_PAGE.PHONE_NUMBER_PLACEHOLDER}
                                          style={{padding:" 0 12px 0 12px", borderRadius:"3px", height:"100%"}}
                                          className="fashion-store-input__input"
                                          maxLength={20}
@@ -154,11 +154,11 @@ const AddAccountPage = () => {
                             <div className="edit-row">
                               <div className="edit-label label-add-account">
                                 <div className="mandatory"><span className="mandatory-icon">*</span></div>
-                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Mật khẩu</span>
+                                <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{ADD_ACCOUNT_PAGE.PASSWORD}</span>
                               </div>
                               <div className="input-add-account">
                                 <div style={{padding:"0"}} className="fashion-store-input__inner fashion-store-input__inner--large">
-                                  <input type={isShowPassword ? 'text' : 'password'} placeholder="Nhập mật khẩu"
+                                  <input type={isShowPassword ? 'text' : 'password'} placeholder={ADD_ACCOUNT_PAGE.PASSWORD_PLACEHOLDER}
                                          style={{padding:" 0 12px 0 12px", borderRadius:"3px", height:"100%"}}
                                          className="fashion-store-input__input"
                                          minLength={6}
@@ -198,12 +198,12 @@ const AddAccountPage = () => {
                           className="product-details-btn"
                           onClick={() => {btnSubmitRef.current.click()}}
                   >
-                    Thêm
+                    {ADD_ACCOUNT_PAGE.ADD_BTN}
                   </button>
                   <button type="button" className="product-details-btn product-details-btn-danger"
                           onClick={() => {setIsShowConfirmDialog(true)}}
                   >
-                    Hủy Bỏ
+                    {ADD_ACCOUNT_PAGE.REFRESH_BTN}
                   </button>
                 </div>
               </section>
@@ -214,14 +214,14 @@ const AddAccountPage = () => {
 
         {isShowConfirmDialog && (
             <div className="modal-overlay">
-              <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+              <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                              subTitle={
                                <>
-                                 Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.
+                                 {CONFIRM_DIALOG.CONFIRM_REFRESH_DATA}
                                </>
                              }
-                             titleBtnAccept={"Có"}
-                             titleBtnCancel={"Không"}
+                             titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}
+                             titleBtnCancel={CONFIRM_DIALOG.TITLE_BTN_CANCEL}
                              onAccept={() => {
                                setFullName("");
                                setEmail("");

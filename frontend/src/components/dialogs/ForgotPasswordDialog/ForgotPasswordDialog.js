@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss"
-import {DIALOGS} from "../utils/const";
-import forgot_password_img from "../images/forgot-password.jpg";
 import {ConfigProvider, Spin} from "antd";
-import {API} from "../../../utils/const";
+import {API, DIALOGS, FORGOT_PASSWORD_DIALOG, IMAGE_URL} from "../../../utils/const";
 
 const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   const [storeInfo, setStoreInfo] = useState({
@@ -54,70 +52,55 @@ const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
 
   return (
       <>
-        { !isLoading ?
-          <div className="modal fade show"
-               id="modal-forgot-password"
-               tabIndex="-1" aria-labelledby="exampleModalLabel"
-               aria-modal="true" role="dialog"
-               style={{ display: 'block', paddingLeft: '0px' }}
-          >
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <div className="modal-body">
-                  <div className="title-header-wrap" style={{marginTop:"5px"}}>
-                    <span className="title">Quên mật khẩu</span>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
-                  </div>
-                  <div className="description-wrap" style={{fontSize: "18px"}}>
-                    <p>Quý khách vui lòng đến trực tiếp cửa hàng </p>
-                    <p>
-                      hoặc liên hệ qua hotline{' '}
-                      <span style={{color: "#BD0000", fontWeight: "600"}}>{storeInfo.hotline}</span> để được hỗ trợ.
-                    </p>
+        {!isLoading ?
+            <div className="modal fade show"
+                 id="modal-forgot-password"
+                 tabIndex="-1" aria-labelledby="exampleModalLabel"
+                 aria-modal="true" role="dialog"
+                 style={{ display: 'block', paddingLeft: '0px' }}
+            >
+              <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                  <div className="modal-body">
+                    <div className="title-header-wrap" style={{ marginTop: "5px" }}>
+                      <span className="title">{FORGOT_PASSWORD_DIALOG.FORGOT_PASSWORD}</span>
+                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleButtonCloseClick}></button>
+                    </div>
+                    <div className="description-wrap" style={{ fontSize: "18px" }}>
+                      <p>{FORGOT_PASSWORD_DIALOG.PLEASE_VISIT_STORE}</p>
+                      <p>
+                        {FORGOT_PASSWORD_DIALOG.OR_CONTACT_HOTLINE}
+                        <span style={{ color: "#BD0000", fontWeight: "600" }}>{storeInfo.hotline}</span>
+                        {FORGOT_PASSWORD_DIALOG.FOR_SUPPORT}
+                      </p>
 
-                    <img style={{width:"400px", margin:"10px 0 0 25px"}}
-                         src={forgot_password_img}
-                         alt=""
-                    />
-                  </div>
-
-                  {/*<div className="form-wrap">*/}
-                  {/*  <form onSubmit={handleSubmit} className="form" id="forgot-password">*/}
-                  {/*    <div className="input-wrap">*/}
-                  {/*      <label className="title">Nhập Email đăng nhập</label>*/}
-                  {/*      <input id="email-forgot" name="email" type="email" placeholder="Nhập email" required />*/}
-                  {/*      <span className="text-danger error-text forgot-error"></span>*/}
-                  {/*    </div>*/}
-                  {/*    <div className="btn-wrap">*/}
-                  {/*      <button type="submit" className="btn btn-primary btn-login">*/}
-                  {/*        <i id="loading-send" className="fa-solid fa-spinner icon-loading"></i>Gửi*/}
-                  {/*      </button>*/}
-                  {/*    </div>*/}
-                  {/*  </form>*/}
-                  {/*</div>*/}
-                  <div className="register-wrap" style={{margin:"0 0 20px 0"}}>
-                <span className="title">
-                  Trở lại trang
-                  <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> Đăng nhập</span>
-                </span>
+                      <img style={{ width: "400px", margin: "10px 0 0 25px" }}
+                           src={IMAGE_URL.FORGOT_PASSWORD_IMG}
+                           alt=""
+                      />
+                    </div>
+                    <div className="register-wrap" style={{ margin: "0 0 20px 0" }}>
+                      <span className="title">
+                        {FORGOT_PASSWORD_DIALOG.BACK_TO_PAGE}
+                        <span className="btn-open-modal-login" onClick={() => handleSwitchToOtherDialog(DIALOGS.LOGIN)}> {FORGOT_PASSWORD_DIALOG.LOGIN}</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          :
-          <ConfigProvider
-              theme={{
-                components: {
-                  Spin: {
-                    colorPrimary: '#ffffff',
+            :
+            <ConfigProvider
+                theme={{
+                  components: {
+                    Spin: {
+                      colorPrimary: '#ffffff',
+                    },
                   },
-                },
-              }}
-          >
-            <Spin size="large"/>
-          </ConfigProvider>
-
+                }}
+            >
+              <Spin size="large" />
+            </ConfigProvider>
         }
       </>
   );

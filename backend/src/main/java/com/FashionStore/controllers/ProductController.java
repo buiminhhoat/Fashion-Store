@@ -19,11 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -296,6 +292,15 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("${endpoint.public.get-all-products}")
+    public ResponseEntity<?> getAllProducts(HttpServletRequest request) {
+        List<Product> allProducts = productRepository.findAll();
+        for (Product product: allProducts) {
+            product = getProductDetails(product.getProductID());
+        }
+        return ResponseEntity.ok(allProducts);
+    }
+    
     @GetMapping("${endpoint.public.get-product}")
     public ResponseEntity<?> getProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
         Product product = productRepository.findProductByProductID(productID);

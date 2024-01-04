@@ -3,7 +3,7 @@ import './style.scss';
 import {useCookies} from "react-cookie";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
-import {API, MESSAGE} from "../../../../utils/const";
+import {API, HOME_PAGE, MESSAGE} from "../../../../utils/const";
 
 // Hàm render danh mục sản phẩm
 const renderProductCategories = (productCategories) => {
@@ -112,7 +112,7 @@ const CategorySection = () => {
       <section className="category">
         <div className="category-wrap">
           <div className="title">
-            <p className="text-center mb-0">DANH MỤC SẢN PHẨM</p>
+            <p className="text-center mb-0">{HOME_PAGE.PRODUCT_CATEGORIES_TITLE}</p>
           </div>
           <div className="content owl-carousel owl-theme owl-loaded owl-drag" id="content-category">
             <div className="owl-stage-outer">

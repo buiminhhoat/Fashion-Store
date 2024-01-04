@@ -8,8 +8,7 @@ import {useCookies} from "react-cookie";
 import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
 import {isStartWithLetter} from "../../../../../../../utils";
-import {CATEGORY} from "../utils/const";
-import {API, MESSAGE} from "../../../../../../../utils/const";
+import {API, CATEGORY, CATEGORY_DIALOG, MESSAGE, POPCONFIRM} from "../../../../../../../utils/const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);
@@ -261,7 +260,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   }
 
@@ -307,7 +306,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
       }
     } catch (error) {
       toast.error(MESSAGE.DB_CONNECTION_ERROR);
-      console.error('Failed:', error);
+      console.error(error);
     }
   }
 
@@ -334,20 +333,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
     setEditingCategoryID(null);
   };
 
-  // const addSubCategory = (newSubCategory) => {
-  //   const newCategories = [...categories];
-  //   const parentCategory = newCategories.find(category => category.categoryID === selectedCategory.ID);
-  //
-  //   if (parentCategory) {
-  //     if (!parentCategory.subCategories) {
-  //       parentCategory.subCategories = [];
-  //     }
-  //     parentCategory.subCategories.push(newSubCategory);
-  //
-  //     setCategories(newCategories);
-  //   }
-  // };
-
   return (
     <div className="modal" id="modal-auth" style={{ display: 'flex', alignItems:"center", justifyContent:"center" }}>
       <div className="fashion-store-modal__content fashion-store-modal__content--normal" style={{width:"700px"}}>
@@ -359,7 +344,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
           />
 
           <div className="fashion-store-modal__header-inner fashion-store-modal__header-inner__has-close">
-            <div className="fashion-store-modal__title">Chỉnh sửa danh mục</div>
+            <div className="fashion-store-modal__title">{CATEGORY_DIALOG.EDIT_CATEGORY}</div>
           </div>
         </div>
 
@@ -389,7 +374,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                           :
                           <li data-v-38ab3376="" className="category-item" onClick={handleAddCategoryClick}>
                             <div data-v-38ab3376="" className="text-overflow">
-                              <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"3px", marginRight:"5px"}}/> Thêm danh mục
+                              <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"3px", marginRight:"5px"}}/> {CATEGORY_DIALOG.ADD_CATEGORY}
                             </div>
                           </li>
                       }
@@ -441,10 +426,10 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                                     >
                                       <Popconfirm
                                           placement="top"
-                                          title={'Bạn có chắc chắn xóa danh mục này không? '}
-                                          description={<div>Thao tác này sẽ xóa tất cả danh mục con <br></br>  cùng với sản phẩm thuộc danh mục này.</div>}
-                                          okText={<div>Xóa</div>}
-                                          cancelText={<div>Hủy</div>}
+                                          title={POPCONFIRM.CONFIRM_DELETE_CATEGORY}
+                                          description={POPCONFIRM.DELETE_PARENT_CATEGORY_WARNING}
+                                          okText={POPCONFIRM.DELETE}
+                                          cancelText={POPCONFIRM.CANCEL}
                                           onConfirm={() => handleDeleteCategoryClick(category.categoryID, CATEGORY.PARENT_CATEGORY)}
                                       >
                                         <HiOutlineTrash className="selected-category btn-delete pointer-cursor"/>
@@ -488,7 +473,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                                 :
                                 <li data-v-38ab3376="" className="category-item" onClick={handleAddSubCategoryClick}>
                                   <div data-v-38ab3376="" className="text-overflow">
-                                    <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"3px", marginRight:"5px"}}/> Thêm danh mục
+                                    <HiPlus className="btn-add pointer-cursor" style={{marginBottom:"3px", marginRight:"5px"}}/> {CATEGORY_DIALOG.ADD_CATEGORY}
                                   </div>
                                 </li>
                             }
@@ -540,10 +525,10 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                                       >
                                         <Popconfirm
                                             placement="top"
-                                            title={'Bạn có chắc chắn xóa danh mục này không? '}
-                                            description={<div>Thao tác này sẽ xóa tất cả những sản phẩm<br></br> thuộc danh mục này.</div>}
-                                            okText={<div>Xóa</div>}
-                                            cancelText={<div>Hủy</div>}
+                                            title={POPCONFIRM.CONFIRM_DELETE_CATEGORY}
+                                            description={POPCONFIRM.DELETE_SUB_CATEGORY_WARNING}
+                                            okText={POPCONFIRM.DELETE}
+                                            cancelText={POPCONFIRM.CANCEL}
                                             onConfirm={() => handleDeleteCategoryClick(subCategory.categoryID, CATEGORY.SUB_CATEGORY)}
                                         >
                                           <HiOutlineTrash className="selected-category btn-delete pointer-cursor"/>
@@ -567,7 +552,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
         </div>
         <div className="fashion-store-modal__footer with-assist">
           <div data-v-59dc2242="" className="category-selected" style={{display:"flex"}}>
-            <span data-v-59dc2242="" className="label" style={{fontSize:"14px", marginRight: "5px"}}>Đã chọn: </span>
+            <span data-v-59dc2242="" className="label" style={{fontSize:"14px", marginRight: "5px"}}>{CATEGORY_DIALOG.SELECTED}</span>
 
             {selectedParentCategory ?
               <span style={{fontSize:"14px", marginRight: "5px"}} >
@@ -575,7 +560,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                 {selectedCategory && (" > " + selectedCategory.categoryName) }
               </span>
               :
-              <span style={{fontSize:"14px", marginRight: "5px"}} >Chưa chọn ngành hàng</span>
+              <span style={{fontSize:"14px", marginRight: "5px"}} >{CATEGORY_DIALOG.NOT_SELECTED_CATEGORY}</span>
             }
 
           </div>
@@ -584,19 +569,19 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
             <button type="button"
                     className="fashion-store-button fashion-store-button--normal"
                     onClick={handleButtonCloseClick}>
-              <span>Hủy</span>
+              <span>{CATEGORY_DIALOG.CANCEL_BTN}</span>
             </button>
 
             {selectedCategory && selectedParentCategory ?
                 <button type="button"
                         onClick={handleSubmitCategoryDialog}
                         className="fashion-store-button fashion-store-button--primary fashion-store-button--normal">
-                  <span>Xác nhận</span>
+                  <span>{CATEGORY_DIALOG.ACCEPT_BTN}</span>
                 </button>
                 :
                 <button type="button" disabled="disabled"
                         className="fashion-store-button fashion-store-button--primary fashion-store-button--normal disabled">
-                  <span>Xác nhận</span>
+                  <span>{CATEGORY_DIALOG.ACCEPT_BTN}</span>
                 </button>
             }
 

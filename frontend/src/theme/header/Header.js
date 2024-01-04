@@ -6,7 +6,6 @@ import './style.scss';
 import {toast} from "react-toastify";
 
 import {CartContext} from "../masterLayout";
-import {DIALOGS} from "../../components/dialogs/utils/const";
 
 import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
 import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
@@ -15,7 +14,7 @@ import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
-import {API, HEADER, MESSAGE} from "../../utils/const";
+import {API, DIALOGS, HEADER, IMAGE_URL, MESSAGE} from "../../utils/const";
 
 
 const Header = () => {
@@ -77,7 +76,7 @@ const Header = () => {
                 <div className="col-9 content-left d-flex align-items-center ps-0 pe-0">
                   <div className="logo-box">
                     <Link to="/">
-                      <img className="logo" src={HEADER.LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo"/>
+                      <img className="logo" src={IMAGE_URL.LOGO_FASHION_STORE} style={{height:"35px"}} alt="Logo"/>
                     </Link>
                   </div>
                   {menuItems.slice(0, HEADER.MENU_ITEM_LIMIT).map((menuItem, index) => (

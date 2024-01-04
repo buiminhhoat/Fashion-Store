@@ -7,7 +7,7 @@ import {TbShoppingBag} from "react-icons/tb";
 import {FaRegUser} from "react-icons/fa";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ROUTERS} from "../../utils/router";
-import {SCROLLING} from "../../../../../utils/const";
+import {MANAGEMENT_PAGE, SCROLLING} from "../../../../../utils/const";
 import {RiShoppingCart2Line} from "react-icons/ri";
 
 function getItem(label, key, icon, children, type) {
@@ -21,28 +21,29 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem('Quản lý sản phẩm', 'product-management', <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Danh mục sản phẩm</span>, ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Thêm sản phẩm</span>, ROUTERS.ADMIN.ADD_PRODUCT),
+  getItem(MANAGEMENT_PAGE.PRODUCT_MANAGEMENT.LABEL, MANAGEMENT_PAGE.PRODUCT_MANAGEMENT.KEY, <TbShoppingBag style={{fontSize:"20px", marginBottom:"1px"}}/>, [
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.PRODUCT_MANAGEMENT.SUB.PRODUCT_CATEGORY}</span>, ROUTERS.ADMIN.LIST_OF_PRODUCTS_AND_CATEGORIES),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.PRODUCT_MANAGEMENT.SUB.ADD_PRODUCT}</span>, ROUTERS.ADMIN.ADD_PRODUCT),
   ]),
-  getItem('Quản lý trang', 'shop-management', <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Thông tin cửa hàng</span>,  ROUTERS.ADMIN.STORE_INFORMATION),
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Chỉnh sửa banner</span>,  ROUTERS.ADMIN.EDIT_BANNER),
+  getItem(MANAGEMENT_PAGE.SHOP_MANAGEMENT.LABEL, MANAGEMENT_PAGE.SHOP_MANAGEMENT.KEY, <AiOutlineShop style={{fontSize:"20px", marginBottom:"1px"}}/>, [
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.SHOP_MANAGEMENT.SUB.STORE_INFORMATION}</span>,  ROUTERS.ADMIN.STORE_INFORMATION),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.SHOP_MANAGEMENT.SUB.EDIT_BANNER}</span>,  ROUTERS.ADMIN.EDIT_BANNER),
   ]),
-  getItem('Quản lý bán hàng', 'sales-management', <RiShoppingCart2Line style={{fontSize:"20px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Danh sách đơn hàng</span>,  ROUTERS.ADMIN.ORDER_LIST),
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Thống kê sản phẩm đã bán</span>,  ROUTERS.ADMIN.SALES_PRODUCT_QUANTITY_STATISTICS),
+  getItem(MANAGEMENT_PAGE.SALES_MANAGEMENT.LABEL, MANAGEMENT_PAGE.SALES_MANAGEMENT.KEY, <RiShoppingCart2Line style={{fontSize:"20px", marginBottom:"1px"}}/>, [
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.SALES_MANAGEMENT.SUB.ORDER_LIST}</span>,  ROUTERS.ADMIN.ORDER_LIST),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.SALES_MANAGEMENT.SUB.SALES_PRODUCT_QUANTITY_STATISTICS}</span>,  ROUTERS.ADMIN.SALES_PRODUCT_QUANTITY_STATISTICS),
   ]),
-
-  getItem('Quản lý người dùng', 'account-management', <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Danh sách người dùng</span>,  ROUTERS.ADMIN.ACCOUNT_LIST),
-    getItem(<span style={{margin: "0 7px 0 7px"}}>Thêm người dùng</span>,  ROUTERS.ADMIN.ADD_ACCOUNT)
+  getItem(MANAGEMENT_PAGE.ACCOUNT_MANAGEMENT.LABEL, MANAGEMENT_PAGE.ACCOUNT_MANAGEMENT.KEY, <FaRegUser style={{fontSize:"18px", marginBottom:"1px"}}/>, [
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.ACCOUNT_MANAGEMENT.SUB.ACCOUNT_LIST}</span>,  ROUTERS.ADMIN.ACCOUNT_LIST),
+    getItem(<span style={{margin: "0 7px 0 7px"}}>{MANAGEMENT_PAGE.ACCOUNT_MANAGEMENT.SUB.ADD_ACCOUNT}</span>,  ROUTERS.ADMIN.ADD_ACCOUNT),
   ]),
 ];
 
 const NavigationMenu = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const COMPONENT_COUNT = 4;
 
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [openKeys, setOpenKeys] = useState([]);
@@ -56,7 +57,7 @@ const NavigationMenu = () => {
 
   useEffect(() => {
     const parts = location.pathname.split('/');
-    const pageName = parts.length === 4 ? parts[parts.length - 1] : "";
+    const pageName = parts.length === COMPONENT_COUNT ? parts[parts.length - 1] : "";
 
     if (findParentKey(pageName) === null) {
       setSelectedKeys([]);
@@ -106,9 +107,6 @@ const NavigationMenu = () => {
               fontWeight:600,
             }}
             selectedKeys={selectedKeys}
-            // defaultSelectedKeys={[pageName]}
-            // openKeys={[findParentKey(pageName)]}
-            // openKeys={openKeys}
             openKeys={openKeys}
             mode="inline"
             items={items}

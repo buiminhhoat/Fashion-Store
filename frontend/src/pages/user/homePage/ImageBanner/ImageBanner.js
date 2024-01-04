@@ -15,7 +15,7 @@ const ImageBanner = ({image}) => {
               loading="lazy"
               className="img-responsive center-block banner-lazyload"
               src={image.url}
-              alt={"Lỗi ảnh"}
+              alt={""}
           />
         </div>
       </section>

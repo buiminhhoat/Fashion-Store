@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {ADD_PRODUCT_PAGE, API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE} from "../../../../../utils/const";
 
 const AddProductPage = () => {
   const [cookies] = useCookies(['access_token']);
@@ -125,9 +125,9 @@ const AddProductPage = () => {
         <main id="main">
           <div className="container profile-wrap">
             <div className="breadcrumb-wrap">
-              <a href="/">Trang chủ</a>
-              &gt; <span>Quản lý sản phẩm</span>
-              &gt; <span>Thêm sản phẩm</span>
+              <a href="/">{BREADCRUMB.HOME_PAGE}</a>
+              &gt; <span>{BREADCRUMB.PRODUCT_MANAGEMENT}</span>
+              &gt; <span>{BREADCRUMB.ADD_PRODUCT}</span>
             </div>
           </div>
 
@@ -143,12 +143,12 @@ const AddProductPage = () => {
                 <section style={{ marginBottom:"50px" }}>
                   <div className="button-container">
                     <button type="button" className="product-details-btn" onClick={addProduct}>
-                      Lưu lại
+                      {ADD_PRODUCT_PAGE.SAVE_BTN}
                     </button>
                     <button type="button" className="product-details-btn product-details-btn-danger"
                             onClick={() => {setIsShowConfirmDialog(true)}}
                     >
-                      Hủy Bỏ
+                      {ADD_PRODUCT_PAGE.REFRESH_BTN}
                     </button>
                   </div>
                 </section>
@@ -158,14 +158,14 @@ const AddProductPage = () => {
 
           {isShowConfirmDialog && (
               <div className="modal-overlay">
-                <ConfirmDialog title={<span style={{color:"#bd0000"}}>Cảnh báo</span>}
+                <ConfirmDialog title={<span style={{color:"#bd0000"}}>{CONFIRM_DIALOG.WARNING_TITLE}</span>}
                                subTitle={
                                  <>
-                                   Bạn có chắc chắn muốn hủy? Thao tác này sẽ làm mới tất cả dữ liệu đã nhập.
+                                   {CONFIRM_DIALOG.CONFIRM_REFRESH_DATA}
                                  </>
                                }
-                               titleBtnAccept={"Có"}
-                               titleBtnCancel={"Không"}
+                               titleBtnAccept={CONFIRM_DIALOG.TITLE_BTN_ACCEPT}
+                               titleBtnCancel={CONFIRM_DIALOG.TITLE_BTN_CANCEL}
                                onAccept={() => {
                                  setInformationProduct({
                                      productID: productID,

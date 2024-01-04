@@ -1,16 +1,12 @@
 import React, { useEffect, useRef, useState} from "react";
 import "./style.scss"
 import CategoryDialog from "../dialogs/CategoryDialog/CategoryDialog";
-import {useCookies} from "react-cookie";
 import SizeField from "./SizeField/SizeField";
 import {toast} from "react-toastify";
 import {generateUniqueId} from "../../../../../../utils";
+import {MESSAGE, PRODUCT_DETAILS} from "../../../../../../utils/const";
 
 const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages}) => {
-  const MAX_IMAGES = 8;
-  const MAX_SIZE_FIELDS = 8;
-  const MAX_LENGTH_PRODUCT_NAME= 100;
-  const MAX_LENGTH_PRODUCT_DESCRIPTION = 2000;
   const [openDialog, setOpenDialog] = useState(null);
 
   const inputRef = useRef(null);
@@ -25,9 +21,9 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
     const newFiles = Array.from(e.target.files);
     let totalFiles = [...productImages, ...newFiles];
 
-    if (totalFiles.length > MAX_IMAGES) {
-      totalFiles = totalFiles.slice(0, MAX_IMAGES);
-      toast.warn("Chỉ được tải lên tối đa " + MAX_IMAGES + " ảnh.");
+    if (totalFiles.length > PRODUCT_DETAILS.MAX_PRODUCT_IMAGES) {
+      totalFiles = totalFiles.slice(0, PRODUCT_DETAILS.MAX_PRODUCT_IMAGES);
+      toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT_PRODUCT);
     }
     setProductImages(totalFiles);
     inputRef.current.value = null;
@@ -96,8 +92,8 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
   };
 
   const handleAddSizeField = () => {
-    if (informationProduct.productQuantities.length === MAX_SIZE_FIELDS) {
-      toast.warn("Chỉ được thêm tối đa " + MAX_SIZE_FIELDS + " kích cỡ.");
+    if (informationProduct.productQuantities.length === PRODUCT_DETAILS.MAX_SIZE_FIELDS) {
+      toast.warn(MESSAGE.MAXIMUM_UPLOAD_LIMIT_SIZE_FIELD);
       return;
     }
     const id = generateUniqueId();
@@ -128,7 +124,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
 
   const handleInputProductName = (e) => {
     let value = e.target.value;
-    value = value.substring(0, MAX_LENGTH_PRODUCT_NAME);
+    value = value.substring(0, PRODUCT_DETAILS.MAX_LENGTH_PRODUCT_NAME);
 
     const newInformationProduct = {
       ...informationProduct,
@@ -152,7 +148,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
 
   const handleInputProductDescription = (e) => {
     let value = e.target.value;
-    value = value.substring(0, MAX_LENGTH_PRODUCT_DESCRIPTION);
+    value = value.substring(0, PRODUCT_DETAILS.MAX_LENGTH_PRODUCT_DESCRIPTION);
 
     const newInformationProduct = {
       ...informationProduct,
@@ -180,7 +176,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
               <div style={{color: "#bd0000", fontSize: "23px", fontWeight: "700", lineHeight: "25px", margin: "10px 0 35px 0"}}>
                 <div data-v-2250a4e1="" className="header__wrap">
                   <div data-v-54a51dd8="" data-v-2250a4e1="" className="title">
-                    Thông tin sản phẩm
+                    {PRODUCT_DETAILS.PRODUCT_INFORMATION}
                   </div>
                 </div>
               </div>
@@ -192,13 +188,13 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                     <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-row">
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-label edit-title"
                            data-education-trigger-key="images">
-                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Hình ảnh sản phẩm</span>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{PRODUCT_DETAILS.PRODUCT_IMAGE}</span>
                       </div>
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-main image-offset">
                         <div data-v-54a51dd8="" data-v-2250a4e1="" style={{lineHeight: "40px"}}>
                           <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1=""><span
                               data-v-36db20dc="" className="mandatory-icon">*</span></div>
-                          <span data-v-54a51dd8="" data-v-2250a4e1="">Hình ảnh tỷ lệ 1:1</span>
+                          <span data-v-54a51dd8="" data-v-2250a4e1="">{PRODUCT_DETAILS.SQUARE_IMAGE}</span>
                         </div>
                         <div data-v-05032044="" data-v-54a51dd8="" className="edit-main fashion-store-image-manager"
                              data-education-trigger-key="images" data-v-2250a4e1=""
@@ -261,7 +257,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                                             </i>
                                           </div>
                                           <div data-v-05032044="" className="fashion-store-image-manager__upload__content__text">
-                                            Thêm hình ảnh ({productImages.length}/{MAX_IMAGES})
+                                            {PRODUCT_DETAILS.ADD_IMAGE} ({productImages.length}/{PRODUCT_DETAILS.MAX_PRODUCT_IMAGES})
                                           </div>
                                         </div>
                                       </div>
@@ -281,7 +277,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                            data-education-trigger-key="name">
                         <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1=""><span
                             data-v-36db20dc="" className="mandatory-icon">*</span></div>
-                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Tên sản phẩm</span>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{PRODUCT_DETAILS.PRODUCT_NAME}</span>
                       </div>
                       <div data-v-54a51dd8="" data-v-2250a4e1="" className="edit-main">
                         <div data-v-1190c12e="" data-v-54a51dd8="" className="popover-wrap" data-v-2250a4e1="">
@@ -292,7 +288,8 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                             <div data-v-f872a002="" className="product-edit-form-item-content">
                               <div data-v-1c124603="" className="fashion-store-input" data-v-f872a002="">
                                 <div className="fashion-store-input__inner fashion-store-input__inner--large">
-                                  <input type="text" placeholder="Nhập vào" size="large" resize="none" rows="2"
+                                  <input type="text" placeholder={PRODUCT_DETAILS.ENTER_PLACEHOLDER}
+                                         size="large" resize="none" rows="2"
                                          minrows="2" maxLength="Infinity" restrictiontype="input" max="Infinity"
                                          min="-Infinity" className="fashion-store-input__input"
                                          value={informationProduct.productName}
@@ -300,7 +297,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                                   />
                                   <div className="fashion-store-input__suffix">
                                     <span className="fashion-store-input__suffix-split"></span>
-                                    {informationProduct.productName.length + '/' + MAX_LENGTH_PRODUCT_NAME}
+                                    {informationProduct.productName.length + '/' + PRODUCT_DETAILS.MAX_LENGTH_PRODUCT_NAME}
                                   </div>
                                 </div>
 
@@ -316,7 +313,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                     <div className="edit-row">
                       <div className="edit-row-left edit-label" data-education-trigger-key="price">
                         <div className="mandatory"><span className="mandatory-icon">*</span></div>
-                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Giá</span>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{PRODUCT_DETAILS.PRICE}</span>
                       </div>
                       <div className="degrade-wrap edit-row-right-full">
                         <div className="basic-price" data-product-edit-field-unique-id="price">
@@ -328,8 +325,8 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                                     <div className="fashion-store-input__prefix">
                                       ₫<span className="fashion-store-input__prefix-split"></span>
                                     </div>
-                                    <input type="text" placeholder="Nhập vào"  size="large"
-                                           resize="vertical"  rows="2"
+                                    <input type="text" placeholder={PRODUCT_DETAILS.ENTER_PLACEHOLDER}
+                                           size="large" resize="vertical"  rows="2"
                                            minrows="2" restrictiontype="value"
                                            max="Infinity" min="-Infinity" isround="true"
                                            className="fashion-store-input__input"
@@ -350,7 +347,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                         <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
                           <span data-v-36db20dc="" className="mandatory-icon">*</span>
                         </div>
-                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Kích cỡ</span>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{PRODUCT_DETAILS.SIZE}</span>
                       </div>
                       <div>
 
@@ -365,7 +362,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                                 <path fillRule="evenodd" d="M8.48176704,1.5 C8.75790942,1.5 8.98176704,1.72385763 8.98176704,2 L8.981,7.997 L15 7.99797574 C15.2761424,7.99797574 15.5,8.22183336 15.5,8.49797574 C15.5,8.77411811 15.2761424,8.99797574 15,8.99797574 L8.981,8.997 L8.98176704,15 C8.98176704,15.2761424 8.75790942,15.5 8.48176704,15.5 C8.20562467,15.5 7.98176704,15.2761424 7.98176704,15 L7.981,8.997 L2 8.99797574 C1.72385763,8.99797574 1.5,8.77411811 1.5,8.49797574 C1.5,8.22183336 1.72385763,7.99797574 2,7.99797574 L7.981,7.997 L7.98176704,2 C7.98176704,1.72385763 8.20562467,1.5 8.48176704,1.5 Z"></path>
                               </svg>
                             </i>
-                            <span> Thêm kích cỡ sản phẩm </span>
+                            <span> {PRODUCT_DETAILS.ADD_SIZE} </span>
                           </button>
                         </div>
 
@@ -389,7 +386,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                            data-education-trigger-key="category">
                         <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1=""><span
                             data-v-36db20dc="" className="mandatory-icon">*</span></div>
-                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Danh mục</span>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{PRODUCT_DETAILS.CATEGORY}</span>
                       </div>
 
                       <div data-v-34a64d88="" data-v-54a51dd8=""
@@ -409,7 +406,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                                           <span style={{fontSize:"14px", marginRight: "5px"}} >
                                             {informationProduct.parentCategory.categoryName + " > " + informationProduct.category.categoryName}
                                           </span>
-                                        : <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> Chọn danh mục sản phẩm </span>
+                                        : <span data-v-55f54b9f="" data-v-1190c12e="" className="product-category-placeholder"> {PRODUCT_DETAILS.SELECT_CATEGORY} </span>
                                       }
 
                                     </div>
@@ -436,7 +433,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                         <div data-v-36db20dc="" data-v-54a51dd8="" className="mandatory" data-v-2250a4e1="">
                           <span data-v-36db20dc="" className="mandatory-icon">*</span>
                         </div>
-                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>Mô tả sản phẩm</span>
+                        <span style={{fontSize: "16px", fontWeight: "500", lineHeight: "22px"}}>{PRODUCT_DETAILS.PRODUCT_DESCRIPTION}</span>
                       </div>
                       <div className="edit-main">
                         <div className="product-description">
@@ -455,7 +452,7 @@ const ProductDetails = ({ informationProduct, setInformationProduct, productImag
                             </div>
                             <div className="text-area-label" style={{fontSize: "14px", color:"#999999"}}>
                               <span className="text-area-label-pre">{informationProduct.productDescription.length}</span>
-                              <span>{'/' + MAX_LENGTH_PRODUCT_DESCRIPTION}</span>
+                              <span>{'/' + PRODUCT_DETAILS.MAX_LENGTH_PRODUCT_DESCRIPTION}</span>
                             </div>
                           </div>
 
