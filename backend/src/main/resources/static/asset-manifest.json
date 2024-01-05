@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b995e5ab.css",
-    "main.js": "/static/js/main.8bb22192.js",
+    "main.js": "/static/js/main.7550819e.js",
     "static/js/787.44c26954.chunk.js": "/static/js/787.44c26954.chunk.js",
     "static/media/zalo.svg": "/static/media/zalo.c63e607f5f4180498ce1557d495f0aae.svg",
     "static/media/logoSaleNoti.png": "/static/media/logoSaleNoti.cb85045e8b81c0a8dd5f.png",
@@ -31,11 +31,11 @@
     "static/media/unlocked.svg": "/static/media/unlocked.446d7940bb94b6e3a7a962997ef85ba7.svg",
     "static/media/plus.svg": "/static/media/plus.f2715396a53c70b447cc8e205d4241d2.svg",
     "main.b995e5ab.css.map": "/static/css/main.b995e5ab.css.map",
-    "main.8bb22192.js.map": "/static/js/main.8bb22192.js.map",
+    "main.7550819e.js.map": "/static/js/main.7550819e.js.map",
     "787.44c26954.chunk.js.map": "/static/js/787.44c26954.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b995e5ab.css",
-    "static/js/main.8bb22192.js"
+    "static/js/main.7550819e.js"
   ]
 }

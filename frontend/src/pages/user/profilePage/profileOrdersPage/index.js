@@ -151,7 +151,7 @@ const TabContent = ({openTab, setOpenTab}) => {
                                     <span>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.QUANTITY} {orderDetail.quantity}</span>
                                   </div>
                                   <div className="money-wrap">
-                                    <span>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.TOTAL_AMOUNT} {formatter(orderDetail.totalPrice)}</span>
+                                    <span>{formatter(orderDetail.totalPrice)}</span>
                                   </div>
                                 </div>
                               </div>
