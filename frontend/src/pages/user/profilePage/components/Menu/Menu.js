@@ -5,7 +5,7 @@ import {useCookies} from "react-cookie";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import {ROUTERS} from "../../utils/router";
-import {API, MESSAGE, PROFILE_PAGE, SCROLLING} from "@Const";
+import {API, MESSAGE, PROFILE_PAGE, SCROLLING, IMAGE_URL} from "@Const";
 
 import iconOrder from "../../images/order.svg";
 import iconEdit from "../../images/edit.svg";
@@ -154,8 +154,7 @@ const Menu = () => {
         <div className="header-wrap">
           <div className="image-wrap">
             <img style={{width:"64px", height:"64px"}}
-                src={userData.avatarPath ? userData.avatarPath :
-                    "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
+                src={userData.avatarPath ? userData.avatarPath : IMAGE_URL.DEFAULT_AVATAR_IMG}
                 alt={''}
                 id="action-upload"
                 onClick={() => document.getElementById('upload-file').click()}
