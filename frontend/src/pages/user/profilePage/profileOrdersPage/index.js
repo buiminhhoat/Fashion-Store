@@ -148,6 +148,9 @@ const TabContent = ({openTab, setOpenTab}) => {
                                     <div className="name">{orderDetail.productName}</div>
                                   </Link>
                                   <div className="property-wrap">
+                                    <span>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.SIZE} {orderDetail.sizeName}</span>
+                                  </div>
+                                  <div className="property-wrap">
                                     <span>{PROFILE_PAGE.PROFILE_ORDERS_PAGE.QUANTITY} {orderDetail.quantity}</span>
                                   </div>
                                   <div className="money-wrap">
