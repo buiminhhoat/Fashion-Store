@@ -95,7 +95,7 @@ const RegisterDialog = ({ onClose, onSwitch }) => {
                   <span className="text-danger error-text phone-register-error"></span>
                   <div className="input-wrap input-password-wrap">
                     <label className="title">{REGISTER.PASSWORD}</label>
-                    <input id="password-register" name="password" className="input-password" type="password"
+                    <input id="password-register" name="password" className="input-password" type="password" minLength={6}
                            placeholder={REGISTER.PASSWORD_PLACEHOLDER} aria-autocomplete="list" required
                            onChange={(e) => setHashedPassword(e.target.value)}
                     />
