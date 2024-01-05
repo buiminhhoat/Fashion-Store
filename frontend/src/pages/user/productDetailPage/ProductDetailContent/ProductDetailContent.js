@@ -369,17 +369,15 @@ const InformationBox = ({informationProduct, handleAddToCart, handleBuyNow}) => 
           </div>
 
 
-          { selectedSizeID ?
-              <div style={{marginTop:"20px"}} className="wrap-product-detail row me-0 ms-0">
-                <div className="col-3 pe-0 ps-0"></div>
-                  <div className="col-9 pe-0 ps-0">
-                    <span style={{color:"#bd0000", fontWeight:"500", fontSize:"15px"}}>
-                      Còn {informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID).quantity} sản phẩm
-                    </span>
-                  </div>
-              </div>
-              :
-              <></>
+          { selectedSizeID && informationProduct && informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID) &&
+            <div style={{marginTop:"20px"}} className="wrap-product-detail row me-0 ms-0">
+              <div className="col-3 pe-0 ps-0"></div>
+                <div className="col-9 pe-0 ps-0">
+                  <span style={{color:"#bd0000", fontWeight:"500", fontSize:"15px"}}>
+                    Còn {informationProduct && informationProduct.productQuantities.find((quantity) => quantity.quantityID === selectedSizeID).quantity} sản phẩm
+                  </span>
+                </div>
+            </div>
           }
 
           <div style={{marginTop: `${selectedSizeID ? "10px" : "25px"}` }} className="wrap-product-detail product-quantity d-flex">
