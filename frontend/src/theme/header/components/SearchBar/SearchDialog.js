@@ -5,7 +5,6 @@ import {formatter} from "@Utils/formatter";
 import {API, HEADER, MESSAGE} from "@Const";
 
 const SearchDialog = ({keyword}) => {
-  const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + keyword;
   const [searchItem, setSearchItem] = useState({});
 
   const filteredSearchItem = searchItem;
@@ -14,9 +13,17 @@ const SearchDialog = ({keyword}) => {
   const hasResults = filteredSearchItem.length > 0;
 
   const fetchData = async () => {
+    const formData = new FormData();
+    formData.append('productName', keyword);
+
+    const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT;
     try {
       const response = await fetch(apiProductBySearch, {
-        method: 'GET',
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: formData,
       });
 
       if (response.ok) {

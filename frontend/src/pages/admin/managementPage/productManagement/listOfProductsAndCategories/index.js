@@ -218,8 +218,7 @@ const ListOfProductsAndCategoriesPage  = () => {
     }
   }
 
-  const fetchProductDataBySearch = async (encodedSearchString) => {
-    const productName = decodeURIComponent(encodedSearchString);
+  const fetchProductDataBySearch = async (productName) => {
 
     if (!productName) {
       fetchAllProduct().then(r => {});
