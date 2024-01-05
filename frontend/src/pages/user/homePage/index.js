@@ -4,8 +4,8 @@ import SlideBanner from "./SlideBanner/SlideBanner";
 import CategorySection from "./CategorySection/CategorySection";
 import CollectionSection from "./CollectionSection/CollectionSection";
 import {toast} from "react-toastify";
-import {ScrollToTop} from "../../../utils";
-import {API, MESSAGE} from "../../../utils/const";
+import {ScrollToTop} from '@Utils';
+import {API, MESSAGE} from "@Const";
 
 const HomePage = () => {
   const [collections, setCollections] = useState([]);

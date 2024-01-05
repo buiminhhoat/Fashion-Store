@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import {SIZE_FIELD} from "../../../../../../../utils/const";
+import {SIZE_FIELD} from "@Const";
 
 const SizeField = ({ id, informationProduct, onClose, onSizeNameChange, onQuantityChange }) => {
     const handleSizeNameChange = (e) => {

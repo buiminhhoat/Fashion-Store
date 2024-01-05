@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import search from "../../../images/search.svg";
 import SearchDialog from "./SearchDialog";
-import {HEADER} from "../../../../utils/const";
+import {HEADER} from "@Const";
 
 const SearchBar = () => {
   const navigate = useNavigate();

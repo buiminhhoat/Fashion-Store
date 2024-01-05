@@ -3,8 +3,8 @@ import "./style.scss"
 import CategoryDialog from "../dialogs/CategoryDialog/CategoryDialog";
 import SizeField from "./SizeField/SizeField";
 import {toast} from "react-toastify";
-import {generateUniqueId} from "../../../../../../utils";
-import {MESSAGE, PRODUCT_DETAILS} from "../../../../../../utils/const";
+import {generateUniqueId} from '@Utils';
+import {MESSAGE, PRODUCT_DETAILS} from "@Const";
 
 const ProductDetails = ({ informationProduct, setInformationProduct, productImages, setProductImages}) => {
   const [openDialog, setOpenDialog] = useState(null);

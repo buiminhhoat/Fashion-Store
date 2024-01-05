@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 import {formatter} from "../../../../utils/formatter";
-import {API, HEADER, MESSAGE} from "../../../../utils/const";
+import {API, HEADER, MESSAGE} from "@Const";
 
 const SearchDialog = ({keyword}) => {
   const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + keyword;

@@ -3,7 +3,7 @@ import './style.scss';
 import {useCookies} from "react-cookie";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
-import {API, HOME_PAGE, MESSAGE} from "../../../../utils/const";
+import {API, HOME_PAGE, MESSAGE} from "@Const";
 
 // Hàm render danh mục sản phẩm
 const renderProductCategories = (productCategories) => {

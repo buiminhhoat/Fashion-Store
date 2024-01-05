@@ -9,7 +9,7 @@ import {BiSolidEdit} from "react-icons/bi";
 import {TbListSearch} from "react-icons/tb";
 import {IoAdd, IoSearch} from "react-icons/io5";
 import {MdArrowDropDown, MdArrowRight, MdLibraryAdd} from "react-icons/md";
-import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
+import {isSubstringIgnoreCaseAndAccents} from '@Utils';
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
@@ -20,7 +20,7 @@ import {
   LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE,
   MESSAGE, ROOT_PARENT_CATEGORY_ID, SEARCH, SELECT,
   TOOLTIP
-} from "../../../../../utils/const";
+} from "@Const";
 
 const ListOfProductsAndCategoriesPage  = () => {
   const navigate = useNavigate();

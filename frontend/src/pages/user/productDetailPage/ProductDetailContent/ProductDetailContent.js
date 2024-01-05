@@ -7,7 +7,7 @@ import {IoMdPricetag} from "react-icons/io";
 import {formatter} from "../../../../utils/formatter";
 import {toast} from "react-toastify";
 import {TbShoppingBagCheck} from "react-icons/tb";
-import {MESSAGE, PRODUCT_DETAIL_PAGE} from "../../../../utils/const";
+import {MESSAGE, PRODUCT_DETAIL_PAGE} from "@Const";
 
 const ImagesProductSection = ({informationProduct}) => {
   const [currentSlide, setCurrentSlide] = useState(0);

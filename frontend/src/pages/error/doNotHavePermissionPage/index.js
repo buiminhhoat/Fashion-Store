@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss'
-import {DO_NOT_HAVE_PERMISSION_PAGE, IMAGE_URL} from "../../../utils/const";
+import {DO_NOT_HAVE_PERMISSION_PAGE, IMAGE_URL} from "@Const";
 
 const DoNotHavePermissionPage = () => {
   return (

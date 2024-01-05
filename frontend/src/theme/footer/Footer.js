@@ -12,7 +12,7 @@ import store from '../images/store.svg'
 import logoSaleNoti from '../images/logoSaleNoti.png'
 import {IoIosTime, IoMdTime} from "react-icons/io";
 import {RiTimerFill} from "react-icons/ri";
-import {API, FOOTER, IMAGE_URL} from "../../utils/const";
+import {API, FOOTER, IMAGE_URL} from "@Const";
 
 const Footer = () => {
   const [storeInfo, setStoreInfo] = useState({

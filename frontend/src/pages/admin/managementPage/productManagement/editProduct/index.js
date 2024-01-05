@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
-import {API, BREADCRUMB, CONFIRM_DIALOG, EDIT_PRODUCT_PAGE, MESSAGE, SCROLLING} from "../../../../../utils/const";
+import {API, BREADCRUMB, CONFIRM_DIALOG, EDIT_PRODUCT_PAGE, MESSAGE, SCROLLING} from "@Const";
 import NotFoundPage from "../../../../error/notFoundPage";
 
 const EditProductPage = () => {

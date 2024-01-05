@@ -13,7 +13,7 @@ import {HiOutlinePhone, HiOutlineTrash, HiPlus} from "react-icons/hi";
 
 import {ConfigProvider, Select, Tooltip} from "antd";
 
-import {isSubstringIgnoreCaseAndAccents} from "../../../../../utils";
+import {isSubstringIgnoreCaseAndAccents} from '@Utils';
 import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
 import {
   ACCOUNT_LIST_PAGE,
@@ -24,7 +24,7 @@ import {
   SEARCH,
   SELECT, TAB_LIST_TEXT,
   TOOLTIP
-} from "../../../../../utils/const";
+} from "@Const";
 
 const AccountListPage = () => {
   const navigate = useNavigate();

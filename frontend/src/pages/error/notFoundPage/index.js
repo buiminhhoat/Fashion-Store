@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss'
 import img_404 from "../images/404.svg";
-import {NOT_FOUND_PAGE} from "../../../utils/const";
+import {NOT_FOUND_PAGE} from "@Const";
 
 const NotFoundPage = () => {
   return (

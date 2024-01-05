@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import "./style.scss"
 import {MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
-import {isStartWithLetter} from "../../../../../../../utils";
+import {isStartWithLetter} from '@Utils';
 import {useCookies} from "react-cookie";
-import {ADD_CATEGORY_DIALOG, API, MESSAGE} from "../../../../../../../utils/const";
+import {ADD_CATEGORY_DIALOG, API, MESSAGE} from "@Const";
 
 const AddCategoryDialog = ({parentCategoryID, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);

@@ -5,7 +5,7 @@ import {useCookies} from "react-cookie";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import {ROUTERS} from "../../utils/router";
-import {API, MESSAGE, PROFILE_PAGE, SCROLLING} from "../../../../../utils/const";
+import {API, MESSAGE, PROFILE_PAGE, SCROLLING} from "@Const";
 
 import iconOrder from "../../images/order.svg";
 import iconEdit from "../../images/edit.svg";

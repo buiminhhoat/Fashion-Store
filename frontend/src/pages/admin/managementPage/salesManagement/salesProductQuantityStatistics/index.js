@@ -10,7 +10,7 @@ import {
   LIST_OF_PRODUCTS_AND_CATEGORIES_PAGE,
   MESSAGE,
   SALES_PRODUCT_QUANTITY_STATISTICS_PAGE, SELECT
-} from "../../../../../utils/const";
+} from "@Const";
 import {ConfigProvider, Select} from "antd";
 
 const SalesProductQuantityStatisticsPage  = () => {

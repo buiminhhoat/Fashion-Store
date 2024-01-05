@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import {useLogout} from "../../../../components/dialogs/utils/logout";
 import {toast} from "react-toastify";
-import {API, HEADER, MESSAGE} from "../../../../utils/const";
+import {API, HEADER, MESSAGE} from "@Const";
 
 const ProfileMenu = ({openModal}) => {
   const [cookies] = useCookies(['access_token']);

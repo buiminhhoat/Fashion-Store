@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 
 
 import EditOrderStatusDialog from "./dialogs/EditOrderStatusDialog/EditOrderStatusDialog";
-import {convertDateTimeFormat} from "../../../../../utils";
+import {convertDateTimeFormat} from '@Utils';
 import {formatter} from "../../../../../utils/formatter";
 
 import {TbListSearch} from "react-icons/tb";
@@ -31,7 +31,7 @@ import {
   ORDER_LIST_PAGE, SEARCH,
   TAB_LIST_ITEMS,
   TAB_LIST_TEXT
-} from "../../../../../utils/const";
+} from "@Const";
 
 const { RangePicker } = DatePicker;
 

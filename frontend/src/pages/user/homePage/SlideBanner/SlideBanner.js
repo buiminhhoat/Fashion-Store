@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 import {Carousel} from "react-responsive-carousel";
 
 import defaultBanner from "./images/default-banner.png";
-import {API, MESSAGE} from "../../../../utils/const";
+import {API, MESSAGE} from "@Const";
 
 const SlideBanner = () => {
   const navigate = useNavigate();

@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import "./style.scss"
 import {MdOutlineEditNote, MdOutlinePlaylistAdd} from "react-icons/md";
 import {toast} from "react-toastify";
-import {isStartWithLetter} from "../../../../../../../utils";
+import {isStartWithLetter} from '@Utils';
 import {useCookies} from "react-cookie";
-import {API, EDIT_CATEGORY_DIALOG, MESSAGE} from "../../../../../../../utils/const";
+import {API, EDIT_CATEGORY_DIALOG, MESSAGE} from "@Const";
 
 const EditCategoryDialog = ({categoryID, categoryName, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);
