@@ -263,7 +263,7 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @GetMapping("${endpoint.public.search-product}")
+    @PostMapping("${endpoint.public.search-product}")
     public ResponseEntity<?> searchProductByProductName(HttpServletRequest request) {
         String productName = request.getParameter(PARAM_PRODUCT_NAME);
         List<Product> allProducts = productRepository.findAll();
