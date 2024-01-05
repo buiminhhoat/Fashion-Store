@@ -135,6 +135,8 @@ const CheckoutPage = () => {
             navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
+            toast.warn(MESSAGE.PRODUCT_WAS_DELETED);
+            navigate('/');
             throw new Error(ERROR.ORDER_PLACEMENT_ERROR);
           }
         })
