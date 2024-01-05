@@ -219,17 +219,25 @@ const ListOfProductsAndCategoriesPage  = () => {
   }
 
   const fetchProductDataBySearch = async (encodedSearchString) => {
-    const decodedSearchString = decodeURIComponent(encodedSearchString).replace(/[^\w\s]/g, "").replace(/\s+/g, " ").trim();
+    const productName = decodeURIComponent(encodedSearchString);
 
-    if (!decodedSearchString || decodedSearchString == "   ") {
+    if (!productName) {
       fetchAllProduct().then(r => {});
       return;
     }
-    const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + decodedSearchString;
+
+    const formData = new FormData();
+    formData.append('productName', productName);
+
+    const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT;
 
     try {
       const response = await fetch(apiProductBySearch, {
-        method: 'GET',
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: formData,
       });
 
       if (response.status === 404) {
