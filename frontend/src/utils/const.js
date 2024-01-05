@@ -673,6 +673,7 @@ export const MESSAGE = {
   MAXIMUM_UPLOAD_LIMIT_BANNER: "Chỉ được tải lên tối đa " + BANNER.MAX_BANNER_IMAGES + " ảnh.",
   MAXIMUM_UPLOAD_LIMIT_PRODUCT: "Chỉ được tải lên tối đa " + PRODUCT_DETAILS.MAX_PRODUCT_IMAGES + " ảnh.",
   MAXIMUM_UPLOAD_LIMIT_SIZE_FIELD: "Chỉ được thêm tối đa " + PRODUCT_DETAILS.MAX_SIZE_FIELDS + " kích cỡ.",
+  PRODUCT_WAS_DELETED: "Sản phẩm đã bị xoá khỏi hệ thống, bạn hãy mua sản phẩm khác",
 }
 
 export const API = {
