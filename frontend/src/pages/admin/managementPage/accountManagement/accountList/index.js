@@ -14,7 +14,7 @@ import {HiOutlinePhone, HiOutlineTrash, HiPlus} from "react-icons/hi";
 import {ConfigProvider, Select, Tooltip} from "antd";
 
 import {isSubstringIgnoreCaseAndAccents} from '@Utils';
-import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import ConfirmDialog from "@Components/dialogs/ConfirmDialog/ConfirmDialog";
 import {
   ACCOUNT_LIST_PAGE,
   API,
@@ -22,7 +22,9 @@ import {
   CONFIRM_DIALOG,
   MESSAGE,
   SEARCH,
-  SELECT, TAB_LIST_TEXT,
+  SELECT,
+  IMAGE_URL,
+  TAB_LIST_TEXT,
   TOOLTIP
 } from "@Const";
 
@@ -244,8 +246,7 @@ const AccountListPage = () => {
                             <div style={{borderRadius:"100%", border:"3px solid #a30000", padding:"2px"}}>
                               <img
                                   className="img-subCategory"
-                                  src={user.imageURL?user.imageURL:
-                                      "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"}
+                                  src={user.imageURL?user.imageURL:IMAGE_URL.DEFAULT_AVATAR_IMG}
                                   alt=""
                               />
                             </div>

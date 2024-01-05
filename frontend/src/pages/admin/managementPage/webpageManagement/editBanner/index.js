@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 import BannerImageField from "./BannerImageField/BannerImageField";
 import {useCookies} from "react-cookie";
 import {TbArrowBigDownFilled, TbArrowBigUpFilled} from "react-icons/tb";
-import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import ConfirmDialog from "@Components/dialogs/ConfirmDialog/ConfirmDialog";
 import {API, BANNER, BREADCRUMB, CONFIRM_DIALOG, EDIT_BANNER_PAGE, MESSAGE} from "@Const";
 
 const defaultBannerImages = [

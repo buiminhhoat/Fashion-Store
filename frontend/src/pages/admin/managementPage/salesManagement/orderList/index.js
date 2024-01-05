@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 
 import EditOrderStatusDialog from "./dialogs/EditOrderStatusDialog/EditOrderStatusDialog";
 import {convertDateTimeFormat} from '@Utils';
-import {formatter} from "../../../../../utils/formatter";
+import {formatter} from "@Utils/formatter";
 
 import {TbListSearch} from "react-icons/tb";
 import {BiSolidEdit} from "react-icons/bi";
@@ -90,9 +90,7 @@ const TabContent = ({openTab, setOpenTab, orderList, reloadOrderListPage}) => {
                             <div style={{marginLeft:"10px", border:"1px solid #F5F5F5", borderRadius:"100%"}}>
                               <img
                                   className="img-avatar"
-                                  src={order.avatarPath ? order.avatarPath :
-                                      "https://t4.ftcdn.net/jpg/05/49/98/39/240_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"
-                                  }
+                                  src={order.avatarPath ? order.avatarPath : IMAGE_URL.DEFAULT_AVATAR_IMG}
                                   alt=""
                                   onClick={() => {
                                     navigate(`/profile/orders?userID=${order.userID}`)

@@ -7,10 +7,10 @@ import "./css/cart.css";
 import {Link, useNavigate} from "react-router-dom";
 import cardIcon from "./images/card.svg"
 import cod from "./images/cod.svg"
-import {formatter} from "../../../utils/formatter.js"
+import {formatter} from "@Utils/formatter.js"
 import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
-import {CartContext} from "../../../theme/masterLayout";
+import {CartContext} from "@Theme/masterLayout";
 import {ScrollToTop} from '@Utils';
 import {API, BREADCRUMB, CART_PAGE, ERROR, IMAGE_URL, MESSAGE} from "@Const";
 

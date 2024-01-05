@@ -10,7 +10,7 @@ import {TbListSearch} from "react-icons/tb";
 import {IoAdd, IoSearch} from "react-icons/io5";
 import {MdArrowDropDown, MdArrowRight, MdLibraryAdd} from "react-icons/md";
 import {isSubstringIgnoreCaseAndAccents} from '@Utils';
-import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import ConfirmDialog from "@Components/dialogs/ConfirmDialog/ConfirmDialog";
 import AddCategoryDialog from "../components/dialogs/AddCategoryDialog/AddCategoryDialog";
 import EditCategoryDialog from "../components/dialogs/EditCategoryDialog/EditCategoryDialog";
 import {ConfigProvider, Select, Tooltip} from "antd";
