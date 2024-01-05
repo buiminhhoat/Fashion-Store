@@ -7,8 +7,8 @@ import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {FiEdit3} from "react-icons/fi";
 import {ConfigProvider, Popconfirm} from "antd";
-import {isStartWithLetter} from "../../../../../../../utils";
-import {API, CATEGORY, CATEGORY_DIALOG, MESSAGE, POPCONFIRM} from "../../../../../../../utils/const";
+import {isStartWithLetter} from '@Utils';
+import {API, CATEGORY, CATEGORY_DIALOG, MESSAGE, POPCONFIRM} from "@Const";
 
 const CategoryDialog = ({ onClose, onConfirm }) => {
   const [cookies] = useCookies(['access_token']);

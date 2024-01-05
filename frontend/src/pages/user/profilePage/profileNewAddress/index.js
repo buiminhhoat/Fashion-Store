@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 
 import arrowLeft1 from '../images/arrow_left_1.svg'
 import queryString from "query-string";
-import {API, MESSAGE, PROFILE_PAGE} from "../../../../utils/const";
+import {API, MESSAGE, PROFILE_PAGE} from "@Const";
 
 const ProfileNewAddress = () => {
   const navigate = useNavigate();

@@ -11,8 +11,8 @@ import {formatter} from "../../../utils/formatter.js"
 import CartProduct from "./CartProductSection/CartProductSection"
 import AddressSection from "../components/AddressSection/AddressSection";
 import {CartContext} from "../../../theme/masterLayout";
-import {ScrollToTop} from "../../../utils";
-import {API, BREADCRUMB, CART_PAGE, ERROR, IMAGE_URL, MESSAGE} from "../../../utils/const";
+import {ScrollToTop} from '@Utils';
+import {API, BREADCRUMB, CART_PAGE, ERROR, IMAGE_URL, MESSAGE} from "@Const";
 
 const productListFake = [
   {

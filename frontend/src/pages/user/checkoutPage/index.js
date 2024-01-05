@@ -15,8 +15,8 @@ import cod from "./images/cod.svg"
 import {formatter} from "../../../utils/formatter.js"
 
 import AddressSection from "../components/AddressSection/AddressSection";
-import {ScrollToTop} from "../../../utils";
-import {API, BREADCRUMB, CHECKOUT_PAGE, ERROR, IMAGE_URL, MESSAGE} from "../../../utils/const";
+import {ScrollToTop} from '@Utils';
+import {API, BREADCRUMB, CHECKOUT_PAGE, ERROR, IMAGE_URL, MESSAGE} from "@Const";
 
 const CheckoutPage = () => {
   const [cookies] = useCookies(['access_token']);

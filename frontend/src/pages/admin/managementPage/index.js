@@ -2,9 +2,9 @@ import React from "react";
 import "./style.scss"
 import RouterCustom from "./router";
 import NavigationMenu from "./components/NavigationMenu/NavigationMenu";
-import {ScrollToTop, ScrollToTopSmooth} from "../../../utils";
+import {ScrollToTop, ScrollToTopSmooth} from '@Utils';
 import {useLocation} from "react-router-dom";
-import {SCROLLING} from "../../../utils/const";
+import {SCROLLING} from "@Const";
 
 const ManagementPage = () => {
   const location = useLocation();

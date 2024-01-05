@@ -6,7 +6,7 @@ import {useCookies} from 'react-cookie';
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
-import {API, ERROR, MESSAGE, PROFILE_PAGE} from "../../../../utils/const";
+import {API, ERROR, MESSAGE, PROFILE_PAGE} from "@Const";
 
 const ProfilePersonalInformationPage = () => {
   const [cookies] = useCookies(['access_token']);

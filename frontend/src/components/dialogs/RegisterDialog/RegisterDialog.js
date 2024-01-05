@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./style.scss";
 
-import {API, DIALOGS, MESSAGE, REGISTER} from "../../../utils/const";
+import {API, DIALOGS, MESSAGE, REGISTER} from "@Const";
 import {toast} from "react-toastify";
 
 const RegisterDialog = ({ onClose, onSwitch }) => {

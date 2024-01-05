@@ -3,10 +3,10 @@ import React, {useEffect, useState} from 'react';
 import RouterCustom from "./router";
 
 import "./style.scss"
-import {ScrollToTop, ScrollToTopSmooth} from "../../../utils";
+import {ScrollToTop, ScrollToTopSmooth} from '@Utils';
 import Menu from "./components/Menu/Menu";
 import {useLocation} from "react-router-dom";
-import {API, BREADCRUMB, SCROLLING} from "../../../utils/const";
+import {API, BREADCRUMB, SCROLLING} from "@Const";
 import {useCookies} from "react-cookie";
 import NotFoundPage from "../../error/notFoundPage";
 import queryString from "query-string";

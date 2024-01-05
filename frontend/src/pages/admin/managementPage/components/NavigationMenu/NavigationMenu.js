@@ -7,7 +7,7 @@ import {TbShoppingBag} from "react-icons/tb";
 import {FaRegUser} from "react-icons/fa";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ROUTERS} from "../../utils/router";
-import {MANAGEMENT_PAGE, SCROLLING} from "../../../../../utils/const";
+import {MANAGEMENT_PAGE, SCROLLING} from "@Const";
 import {RiShoppingCart2Line} from "react-icons/ri";
 
 function getItem(label, key, icon, children, type) {

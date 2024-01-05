@@ -8,8 +8,8 @@ import ProductsSection from "./ProductsSection/ProductsSection";
 import fillterIcon from "./images/bars-filter.svg";
 import queryString from "query-string";
 
-import {ScrollToTop} from "../../../utils";
-import {API, CATEGORY_PAGE, FILTERS, IMAGE_URL, MESSAGE, NUMBER_PRODUCT_LIMIT, SORT} from "../../../utils/const";
+import {ScrollToTop} from '@Utils';
+import {API, CATEGORY_PAGE, FILTERS, IMAGE_URL, MESSAGE, NUMBER_PRODUCT_LIMIT, SORT} from "@Const";
 import {ConfigProvider, Select} from "antd";
 import NotFoundPage from "../../error/notFoundPage";
 

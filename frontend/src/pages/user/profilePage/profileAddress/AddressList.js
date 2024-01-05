@@ -4,7 +4,7 @@ import {Link, useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
-import {API, MESSAGE, POPCONFIRM, PROFILE_PAGE} from "../../../../utils/const";
+import {API, MESSAGE, POPCONFIRM, PROFILE_PAGE} from "@Const";
 
 function AddressList() {
   const [cookies] = useCookies(['access_token']);

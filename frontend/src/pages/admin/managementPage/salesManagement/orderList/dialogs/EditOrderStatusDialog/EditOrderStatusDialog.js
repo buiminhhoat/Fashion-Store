@@ -6,7 +6,7 @@ import {useCookies} from "react-cookie";
 
 import {MdOutlineEditNote} from "react-icons/md";
 import {ConfigProvider, Select} from "antd";
-import {API, MESSAGE, ORDER_LIST_PAGE, TAB_LIST_TEXT} from "../../../../../../../utils/const";
+import {API, MESSAGE, ORDER_LIST_PAGE, TAB_LIST_TEXT} from "@Const";
 
 const EditOrderStatusDialog = ({orderID, orderStatus, onAccept, onClose}) => {
   const [cookies] = useCookies(['access_token']);

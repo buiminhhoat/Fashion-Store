@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss"
 import {ConfigProvider, Spin} from "antd";
-import {API, DIALOGS, FORGOT_PASSWORD_DIALOG, IMAGE_URL} from "../../../utils/const";
+import {API, DIALOGS, FORGOT_PASSWORD_DIALOG, IMAGE_URL} from "@Const";
 
 const ForgotPasswordDialog = ({ onClose, onSwitch }) => {
   const [storeInfo, setStoreInfo] = useState({

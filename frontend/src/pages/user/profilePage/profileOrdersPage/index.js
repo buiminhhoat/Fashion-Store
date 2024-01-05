@@ -6,10 +6,10 @@ import {Link, useLocation} from "react-router-dom";
 
 import {formatter} from "../../../../utils/formatter";
 
-import {convertDateTimeFormat} from "../../../../utils";
+import {convertDateTimeFormat} from '@Utils';
 import queryString from "query-string";
 import {ConfigProvider, Popconfirm} from "antd";
-import {API, IMAGE_URL, POPCONFIRM, PROFILE_PAGE, TAB_LIST_ITEMS, TAB_LIST_TEXT} from "../../../../utils/const";
+import {API, IMAGE_URL, POPCONFIRM, PROFILE_PAGE, TAB_LIST_ITEMS, TAB_LIST_TEXT} from "@Const";
 
 const TabList = ({openTab, setOpenTab}) => {
   return (

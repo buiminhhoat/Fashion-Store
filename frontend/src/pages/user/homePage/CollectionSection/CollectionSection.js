@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import './style.scss';
 import ProductItem from "../../components/ProductItem/ProductItem";
 import {Link} from "react-router-dom";
-import {HOME_PAGE, NUMBER_PRODUCT_LIMIT} from "../../../../utils/const";
+import {HOME_PAGE, NUMBER_PRODUCT_LIMIT} from "@Const";
 
 const CollectionSection = ({collectionData}) => {
   // State để theo dõi tab đang được chọn

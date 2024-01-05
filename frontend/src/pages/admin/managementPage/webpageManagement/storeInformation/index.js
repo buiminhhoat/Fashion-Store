@@ -9,7 +9,7 @@ import {ConfigProvider, TimePicker} from "antd";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import viLocale from 'dayjs/locale/vi';
-import {API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE, STORE_INFORMATION_PAGE} from "../../../../../utils/const";
+import {API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE, STORE_INFORMATION_PAGE} from "@Const";
 
 const StoreInformationPage = () => {
   const [cookies] = useCookies(['access_token']);

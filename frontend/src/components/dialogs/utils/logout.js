@@ -1,7 +1,7 @@
 import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {MESSAGE} from "../../../utils/const";
+import {MESSAGE} from "@Const";
 
 export function useLogout() {
     const navigate = useNavigate();

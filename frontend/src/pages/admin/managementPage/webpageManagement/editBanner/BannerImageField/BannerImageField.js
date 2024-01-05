@@ -1,5 +1,5 @@
 import React from "react";
-import {EDIT_BANNER_PAGE} from "../../../../../../utils/const";
+import {EDIT_BANNER_PAGE} from "@Const";
 
 const BannerImageField = ({index, banners, setBanners}) => {
   const handleBannerLinkToChange = (e) => {

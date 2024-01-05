@@ -14,8 +14,7 @@ import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
-import {API, DIALOGS, HEADER, IMAGE_URL, MESSAGE} from "../../utils/const";
-
+import {API, DIALOGS, HEADER, IMAGE_URL, MESSAGE} from "@Const";
 
 const Header = () => {
   const [menuItems, setMenuItems] = useState([{}])

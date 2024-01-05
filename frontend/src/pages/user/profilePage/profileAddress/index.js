@@ -7,7 +7,7 @@ import plus from '../images/plus.svg'
 
 import AddressList from './AddressList'
 import queryString from "query-string";
-import {PROFILE_PAGE} from "../../../../utils/const";
+import {PROFILE_PAGE} from "@Const";
 
 const ProfileAddress = () => {
   const location = useLocation();

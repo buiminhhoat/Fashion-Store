@@ -4,7 +4,7 @@ import arrowRight from "../../checkoutPage/images/angle-right.svg";
 import {useCookies} from "react-cookie";
 import AddressModal from "./AddressModal";
 import {toast} from "react-toastify";
-import {ADDRESS_SECTION, API, MESSAGE} from "../../../../utils/const"; // Assuming you have an arrow-right image
+import {ADDRESS_SECTION, API, MESSAGE} from "@Const"; // Assuming you have an arrow-right image
 
 function AddressSection({ selectedAddress,  setSelectedAddress }) {
   const [cookies] = useCookies(['access_token']);

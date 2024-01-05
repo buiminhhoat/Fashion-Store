@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {useCookies} from "react-cookie";
 import BackToTopButton from "../../components/buttons/BackToTopButton/BackToTopButton";
-import {API, MESSAGE} from "../../utils/const";
+import {API, MESSAGE} from "@Const";
 
 export const CartContext = createContext();
 

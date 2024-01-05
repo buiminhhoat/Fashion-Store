@@ -4,7 +4,7 @@ import plus from '../../profilePage/images/plus.svg'
 import "../../checkoutPage/style.scss"
 import {useCookies} from "react-cookie";
 import {toast} from "react-toastify";
-import {ADDRESS_MODAL, ADDRESS_SECTION, API, MESSAGE} from "../../../../utils/const";
+import {ADDRESS_MODAL, ADDRESS_SECTION, API, MESSAGE} from "@Const";
 
 function AddressModal({ userID, selectedAddress, closeModalListAddress, confirmAddress }) {
   const [cookies] = useCookies(['access_token']);

@@ -8,8 +8,8 @@ import {toast} from "react-toastify";
 
 import fillterIcon from "../categoryPage/images/bars-filter.svg";
 
-import {ScrollToTop} from "../../../utils";
-import {API, FILTERS, IMAGE_URL, MESSAGE, NUMBER_PRODUCT_LIMIT, SEARCH_PRODUCT_PAGE, SORT} from "../../../utils/const";
+import {ScrollToTop} from '@Utils';
+import {API, FILTERS, IMAGE_URL, MESSAGE, NUMBER_PRODUCT_LIMIT, SEARCH_PRODUCT_PAGE, SORT} from "@Const";
 import {ConfigProvider, Select} from "antd";
 
 const SearchProductPage = () => {
