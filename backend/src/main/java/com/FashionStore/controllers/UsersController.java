@@ -220,7 +220,6 @@ public class UsersController {
         return ResponseEntity.ok(user);
     }
 
-
     @PostMapping("${endpoint.admin.edit-user}")
     public ResponseEntity<?> editUser(HttpServletRequest request) {
         Long userID = Long.valueOf(request.getParameter(PARAM_USER_ID));
