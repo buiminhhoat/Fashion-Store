@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 
 import EditOrderStatusDialog from "./dialogs/EditOrderStatusDialog/EditOrderStatusDialog";
 import {convertDateTimeFormat} from '@Utils';
-import {formatter} from "../../../../../utils/formatter";
+import {formatter} from "@Utils/formatter";
 
 import {TbListSearch} from "react-icons/tb";
 import {BiSolidEdit} from "react-icons/bi";

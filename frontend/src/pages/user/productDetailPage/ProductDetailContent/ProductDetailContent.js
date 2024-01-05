@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 import './style.scss';
 
 import {IoMdPricetag} from "react-icons/io";
-import {formatter} from "../../../../utils/formatter";
+import {formatter} from "@Utils/formatter";
 import {toast} from "react-toastify";
 import {TbShoppingBagCheck} from "react-icons/tb";
 import {MESSAGE, PRODUCT_DETAIL_PAGE} from "@Const";

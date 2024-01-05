@@ -6,7 +6,7 @@ import {useLocation} from "react-router-dom";
 
 import {toast} from "react-toastify";
 import queryString from "query-string";
-import ConfirmDialog from "../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import ConfirmDialog from "@Components/dialogs/ConfirmDialog/ConfirmDialog";
 import {VscEye, VscEyeClosed} from "react-icons/vsc";
 import {API, CONFIRM_DIALOG, MESSAGE, PROFILE_PAGE} from "@Const";
 

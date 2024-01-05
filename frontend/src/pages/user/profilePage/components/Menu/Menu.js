@@ -13,7 +13,7 @@ import iconAddress from "../../images/address.svg";
 import iconUnlocked from "../../images/unlocked.svg";
 import iconLogout from "../../images/logout.svg";
 
-import {useLogout} from "../../../../../components/dialogs/utils/logout";
+import {useLogout} from "@Components/dialogs/utils/logout";
 import queryString from "query-string";
 import {toast} from "react-toastify";
 

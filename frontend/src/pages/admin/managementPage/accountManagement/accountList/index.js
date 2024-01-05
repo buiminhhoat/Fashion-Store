@@ -14,7 +14,7 @@ import {HiOutlinePhone, HiOutlineTrash, HiPlus} from "react-icons/hi";
 import {ConfigProvider, Select, Tooltip} from "antd";
 
 import {isSubstringIgnoreCaseAndAccents} from '@Utils';
-import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import ConfirmDialog from "@Components/dialogs/ConfirmDialog/ConfirmDialog";
 import {
   ACCOUNT_LIST_PAGE,
   API,

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useCookies} from "react-cookie";
-import {useLogout} from "../../../../components/dialogs/utils/logout";
+import {useLogout} from "@Components/dialogs/utils/logout";
 import {toast} from "react-toastify";
 import {API, HEADER, MESSAGE} from "@Const";
 

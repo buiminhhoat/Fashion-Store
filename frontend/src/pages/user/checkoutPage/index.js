@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import closeButton from "./images/close.svg";
 import cardIcon from "./images/card.svg"
 import cod from "./images/cod.svg"
-import {formatter} from "../../../utils/formatter.js"
+import {formatter} from "@Utils/formatter.js"
 
 import AddressSection from "../components/AddressSection/AddressSection";
 import {ScrollToTop} from '@Utils';

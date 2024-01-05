@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./style.scss";
 
-import ConfirmDialog from "../../../../../components/dialogs/ConfirmDialog/ConfirmDialog";
+import ConfirmDialog from "@Components/dialogs/ConfirmDialog/ConfirmDialog";
 import {toast} from "react-toastify";
 import {useCookies} from "react-cookie";
 import {ConfigProvider, TimePicker} from "antd";

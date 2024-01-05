@@ -4,7 +4,7 @@ import './style.scss';
 import {useCookies} from "react-cookie";
 import {Link, useLocation} from "react-router-dom";
 
-import {formatter} from "../../../../utils/formatter";
+import {formatter} from "@Utils/formatter";
 
 import {convertDateTimeFormat} from '@Utils';
 import queryString from "query-string";

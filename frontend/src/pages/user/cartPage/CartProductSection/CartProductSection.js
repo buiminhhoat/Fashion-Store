@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import closeButton from "../images/close.svg";
-import {formatter} from "../../../../utils/formatter.js"
+import {formatter} from "@Utils/formatter.js"
 
 function CartProduct({ product, handleDecreaseAmount, handleIncreaseAmount, handleChooseSize, handleCloseButton }) {
 

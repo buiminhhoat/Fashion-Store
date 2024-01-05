@@ -6,7 +6,7 @@ import "./style.scss"
 import ProductDetailContent from "./ProductDetailContent/ProductDetailContent";
 import {toast} from "react-toastify";
 import queryString from "query-string";
-import {CartContext} from "../../../theme/masterLayout";
+import {CartContext} from "@Theme/masterLayout";
 import {ScrollToTop} from '@Utils';
 import {API, BREADCRUMB, MESSAGE, PRODUCT_DETAIL_PAGE} from "@Const";
 import NotFoundPage from "../../error/notFoundPage";

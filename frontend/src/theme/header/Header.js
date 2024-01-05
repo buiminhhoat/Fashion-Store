@@ -7,9 +7,9 @@ import {toast} from "react-toastify";
 
 import {CartContext} from "../masterLayout";
 
-import LoginDialog from "../../components/dialogs/LoginDialog/LoginDialog";
-import RegisterDialog from "../../components/dialogs/RegisterDialog/RegisterDialog";
-import ForgotPasswordDialog from "../../components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
+import LoginDialog from "@Components/dialogs/LoginDialog/LoginDialog";
+import RegisterDialog from "@Components/dialogs/RegisterDialog/RegisterDialog";
+import ForgotPasswordDialog from "@Components/dialogs/ForgotPasswordDialog/ForgotPasswordDialog";
 
 import MenuItem from "./components/MenuItem/MenuItem";
 import SearchBar from "./components/SearchBar/SearchBar";

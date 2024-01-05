@@ -2,7 +2,7 @@ import React from "react";
 import './style.scss';
 
 import {LuShoppingCart} from "react-icons/lu";
-import {formatter} from "../../../../utils/formatter";
+import {formatter} from "@Utils/formatter";
 import {IoMdPricetag} from "react-icons/io";
 import {Link} from "react-router-dom";
 
