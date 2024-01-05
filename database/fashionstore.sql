@@ -6,6 +6,9 @@
 -- Thời gian đã tạo: Th1 02, 2024 lúc 03:56 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
+-- DROP DATABASE fashionstore;
+-- CREATE DATABASE fashionstore;
+-- use fashionstore;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -158,7 +161,7 @@ CREATE TABLE `orderdetails` (
   `OrderID` bigint(20) DEFAULT NULL,
   `ProductID` bigint(20) DEFAULT NULL,
   `ProductName` varchar(255) NOT NULL,
-  `SizeID` bigint(20) NOT NULL,
+  `SizeName` bigint(20) NOT NULL,
   `ImagePath` varchar(255) DEFAULT NULL,
   `ProductPrice` bigint(20) NOT NULL,
   `Quantity` bigint(20) NOT NULL,
@@ -169,38 +172,38 @@ CREATE TABLE `orderdetails` (
 -- Đang đổ dữ liệu cho bảng `orderdetails`
 --
 
-INSERT INTO `orderdetails` (`OrderDetailID`, `OrderID`, `ProductID`, `ProductName`, `SizeID`, `ImagePath`, `ProductPrice`, `Quantity`, `TotalPrice`) VALUES
-(1, 1, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 218, 'https://iili.io/JR4LT5G.jpg', 249000, 4, 996000),
-(2, 2, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 238, 'https://iili.io/JR4tYsp.jpg', 239000, 4, 956000),
-(3, 3, 94, 'Quần Short Thể Thao Nam, Thoáng Khí, Kháng Khuẩn ', 344, 'https://iili.io/JRLtjlR.jpg', 429000, 4, 1716000),
-(4, 4, 95, 'Quần Short Thể Thao Nam, Thiết Kế Cạp Cúc Xẻ Gấu Thời Trang', 348, 'https://iili.io/JRLtQO7.jpg', 499000, 4, 1996000),
-(5, 5, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
-(6, 6, 70, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 248, 'https://iili.io/JR4Dqps.jpg', 249000, 8, 1992000),
-(7, 6, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
-(8, 6, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 5, 1395000),
-(9, 7, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 329, 'https://iili.io/JRLZkCb.jpg', 469000, 4, 1876000),
-(10, 7, 142, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả ', 533, 'https://iili.io/JRDGkb9.jpg', 96000, 5, 480000),
-(11, 8, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 5, 1095000),
-(12, 9, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 6, 2094000),
-(13, 10, 150, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát', 565, 'https://iili.io/J5nodtp.jpg', 259000, 6, 1554000),
-(14, 11, 109, 'Tất Nam, Kháng Khuẩn, Khử Mùi ', 402, 'https://iili.io/JRQ9dtS.jpg', 19000, 21, 399000),
-(15, 11, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 241, 'https://iili.io/JR4tYsp.jpg', 239000, 5, 1195000),
-(16, 12, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 6, 1674000),
-(17, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 350, 'https://iili.io/JRLD90x.jpg', 389000, 5, 1945000),
-(18, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 352, 'https://iili.io/JRLD90x.jpg', 389000, 3, 1167000),
-(19, 12, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 6, 1914000),
-(20, 13, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 332, 'https://iili.io/JRLZkCb.jpg', 469000, 5, 2345000),
-(21, 13, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 400, 'https://iili.io/JRLylZ7.jpg', 649000, 3, 1947000),
-(22, 13, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 5, 1595000),
-(23, 14, 92, 'Quần Short Thể Thao Nam, Cạp Chun, In Chữ Trẻ Trung', 336, 'https://iili.io/JRLZkCb.jpg', 429000, 4, 1716000),
-(24, 14, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
-(25, 15, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 3, 657000),
-(26, 15, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 401, 'https://iili.io/JRLylZ7.jpg', 649000, 2, 1298000),
-(27, 16, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 1, 319000),
-(28, 17, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
-(29, 17, 49, 'Áo Khoác Bomber Nam, Cản Gió, Thiết Kế Trẻ Trung', 162, 'https://iili.io/JR4yBl2.jpg', 939000, 3, 2817000),
-(30, 18, 71, 'Áo Polo Nam, Vải Viscose Mềm Mượt, Thoáng Khí', 252, 'https://iili.io/JR6foJf.jpg', 389000, 4, 1556000),
-(31, 18, 80, 'Áo Polo Nam, Cotton USA, Cao Cấp, Thấm Hút Mồ Hôi', 288, 'https://iili.io/JR6osDv.jpg', 419000, 4, 1676000);
+-- INSERT INTO `orderdetails` (`OrderDetailID`, `OrderID`, `ProductID`, `ProductName`, `SizeID`, `ImagePath`, `ProductPrice`, `Quantity`, `TotalPrice`) VALUES
+-- (1, 1, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 218, 'https://iili.io/JR4LT5G.jpg', 249000, 4, 996000),
+-- (2, 2, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 238, 'https://iili.io/JR4tYsp.jpg', 239000, 4, 956000),
+-- (3, 3, 94, 'Quần Short Thể Thao Nam, Thoáng Khí, Kháng Khuẩn ', 344, 'https://iili.io/JRLtjlR.jpg', 429000, 4, 1716000),
+-- (4, 4, 95, 'Quần Short Thể Thao Nam, Thiết Kế Cạp Cúc Xẻ Gấu Thời Trang', 348, 'https://iili.io/JRLtQO7.jpg', 499000, 4, 1996000),
+-- (5, 5, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
+-- (6, 6, 70, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 248, 'https://iili.io/JR4Dqps.jpg', 249000, 8, 1992000),
+-- (7, 6, 63, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thoáng Khí', 219, 'https://iili.io/JR4LT5G.jpg', 249000, 6, 1494000),
+-- (8, 6, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 5, 1395000),
+-- (9, 7, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 329, 'https://iili.io/JRLZkCb.jpg', 469000, 4, 1876000),
+-- (10, 7, 142, 'Quần Lót Nam, Kháng Khuẩn Hiệu Quả ', 533, 'https://iili.io/JRDGkb9.jpg', 96000, 5, 480000),
+-- (11, 8, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 5, 1095000),
+-- (12, 9, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 6, 2094000),
+-- (13, 10, 150, 'Áo Thun Nam, Chất Vải Freezing Nylon Thoáng Mát', 565, 'https://iili.io/J5nodtp.jpg', 259000, 6, 1554000),
+-- (14, 11, 109, 'Tất Nam, Kháng Khuẩn, Khử Mùi ', 402, 'https://iili.io/JRQ9dtS.jpg', 19000, 21, 399000),
+-- (15, 11, 68, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút', 241, 'https://iili.io/JR4tYsp.jpg', 239000, 5, 1195000),
+-- (16, 12, 64, 'Áo Thun Dài Tay Nam, Thiết Kế Basic', 223, 'https://iili.io/JR4Qfkb.jpg', 279000, 6, 1674000),
+-- (17, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 350, 'https://iili.io/JRLD90x.jpg', 389000, 5, 1945000),
+-- (18, 12, 96, 'Quần Short Thể Thao Nam, Thoáng Khí, Thấm Hút Mồ Hôi', 352, 'https://iili.io/JRLD90x.jpg', 389000, 3, 1167000),
+-- (19, 12, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 6, 1914000),
+-- (20, 13, 91, 'Quần Short Thể Thao Nam, Cạp Cúc, In Sườn', 332, 'https://iili.io/JRLZkCb.jpg', 469000, 5, 2345000),
+-- (21, 13, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 400, 'https://iili.io/JRLylZ7.jpg', 649000, 3, 1947000),
+-- (22, 13, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 5, 1595000),
+-- (23, 14, 92, 'Quần Short Thể Thao Nam, Cạp Chun, In Chữ Trẻ Trung', 336, 'https://iili.io/JRLZkCb.jpg', 429000, 4, 1716000),
+-- (24, 14, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
+-- (25, 15, 65, 'Áo Thun Dài Tay Nam, Mềm Mịn, Bền Bỉ', 229, 'https://iili.io/JR4Q1CN.jpg', 219000, 3, 657000),
+-- (26, 15, 108, 'Quần Kaki Dài Nam, Đứng Phom, Tôn Dáng', 401, 'https://iili.io/JRLylZ7.jpg', 649000, 2, 1298000),
+-- (27, 16, 67, 'Áo Thun Dài Tay Nam, In Chữ Combination', 237, 'https://iili.io/JR4ZRPS.jpg', 319000, 1, 319000),
+-- (28, 17, 66, 'Áo Thun Dài Tay Nam, Mềm Mịn, Thấm Hút Hiệu Quả', 233, 'https://iili.io/JR4ZHAJ.jpg', 349000, 1, 349000),
+-- (29, 17, 49, 'Áo Khoác Bomber Nam, Cản Gió, Thiết Kế Trẻ Trung', 162, 'https://iili.io/JR4yBl2.jpg', 939000, 3, 2817000),
+-- (30, 18, 71, 'Áo Polo Nam, Vải Viscose Mềm Mượt, Thoáng Khí', 252, 'https://iili.io/JR6foJf.jpg', 389000, 4, 1556000),
+-- (31, 18, 80, 'Áo Polo Nam, Cotton USA, Cao Cấp, Thấm Hút Mồ Hôi', 288, 'https://iili.io/JR6osDv.jpg', 419000, 4, 1676000);
 
 -- --------------------------------------------------------
 
@@ -223,25 +226,25 @@ CREATE TABLE `orders` (
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`OrderID`, `OrderDate`, `TotalAmount`, `OrderStatus`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
-(1, '2024-01-01 21:52:55.000000', 996000, 'Đã xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(2, '2024-01-01 21:54:17.000000', 956000, 'Đang giao hàng', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(3, '2024-01-01 22:01:07.000000', 1716000, 'Hoàn thành', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(4, '2024-01-01 22:01:45.000000', 1996000, 'Chờ xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(5, '2024-01-01 22:01:55.000000', 1494000, 'Đã hủy', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(6, '2024-01-01 22:03:02.000000', 4881000, 'Hoàn thành', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(7, '2024-01-01 22:03:16.000000', 2356000, 'Đã xác nhận', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(8, '2024-01-01 22:03:21.000000', 1095000, 'Đã hủy', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(9, '2024-01-01 22:03:26.000000', 2094000, 'Chờ xác nhận', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(10, '2024-01-01 22:03:51.000000', 1554000, 'Chờ xác nhận', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(11, '2024-01-01 22:04:22.000000', 1594000, 'Đang giao hàng', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
-(12, '2024-01-01 22:06:28.000000', 6700000, 'Đã xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(13, '2024-01-01 22:06:59.000000', 5887000, 'Chờ xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(14, '2024-01-01 22:07:22.000000', 2065000, 'Đã hủy', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(15, '2024-01-01 22:13:31.000000', 1955000, 'Hoàn thành', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(16, '2024-01-01 22:13:39.000000', 319000, 'Chờ xác nhận', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(17, '2024-01-01 22:13:54.000000', 3166000, 'Đang giao hàng', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
-(18, '2024-01-01 22:14:20.000000', 3232000, 'Đã xác nhận', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội');
+-- INSERT INTO `orders` (`OrderID`, `OrderDate`, `TotalAmount`, `OrderStatus`, `UserID`, `RecipientName`, `RecipientPhone`, `AddressDetails`) VALUES
+-- (1, '2024-01-01 21:52:55.000000', 996000, 'Đã xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (2, '2024-01-01 21:54:17.000000', 956000, 'Đang giao hàng', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (3, '2024-01-01 22:01:07.000000', 1716000, 'Hoàn thành', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (4, '2024-01-01 22:01:45.000000', 1996000, 'Chờ xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (5, '2024-01-01 22:01:55.000000', 1494000, 'Đã hủy', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (6, '2024-01-01 22:03:02.000000', 4881000, 'Hoàn thành', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+-- (7, '2024-01-01 22:03:16.000000', 2356000, 'Đã xác nhận', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+-- (8, '2024-01-01 22:03:21.000000', 1095000, 'Đã hủy', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+-- (9, '2024-01-01 22:03:26.000000', 2094000, 'Chờ xác nhận', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+-- (10, '2024-01-01 22:03:51.000000', 1554000, 'Chờ xác nhận', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+-- (11, '2024-01-01 22:04:22.000000', 1594000, 'Đang giao hàng', 1, 'Bùi Minh Hoạt', '0945405238', '144 Xuân Thủy, Cầu Giấy, Hà Nội'),
+-- (12, '2024-01-01 22:06:28.000000', 6700000, 'Đã xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (13, '2024-01-01 22:06:59.000000', 5887000, 'Chờ xác nhận', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (14, '2024-01-01 22:07:22.000000', 2065000, 'Đã hủy', 3, 'Nguyễn Tiến Dũng', '0909090909', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (15, '2024-01-01 22:13:31.000000', 1955000, 'Hoàn thành', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (16, '2024-01-01 22:13:39.000000', 319000, 'Chờ xác nhận', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (17, '2024-01-01 22:13:54.000000', 3166000, 'Đang giao hàng', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội'),
+-- (18, '2024-01-01 22:14:20.000000', 3232000, 'Đã xác nhận', 4, 'Nguyễn Văn Vinh', '090909090', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội');
 
 -- --------------------------------------------------------
 
@@ -1919,9 +1922,9 @@ ALTER TABLE `category`
 --
 ALTER TABLE `orderdetails`
   ADD PRIMARY KEY (`OrderDetailID`),
-  ADD KEY `OrderID` (`OrderID`),
-  ADD KEY `ProductID` (`ProductID`),
-  ADD KEY `orderdetail_ibfk_3` (`SizeID`);
+  ADD KEY `OrderID` (`OrderID`);
+  ##ADD KEY `ProductID` (`ProductID`);
+  ##ADD KEY `orderdetail_ibfk_3` (`SizeID`);
 
 --
 -- Chỉ mục cho bảng `orders`
@@ -2101,9 +2104,9 @@ ALTER TABLE `category`
 -- Các ràng buộc cho bảng `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
-  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE SET NULL,
-  ADD CONSTRAINT `orderdetail_ibfk_3` FOREIGN KEY (`SizeID`) REFERENCES `productsize` (`SizeID`);
+  ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`);
+  -- ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE SET NULL;
+  -- ADD CONSTRAINT `orderdetail_ibfk_3` FOREIGN KEY (`SizeID`) REFERENCES `productsize` (`SizeID`);
 
 --
 -- Các ràng buộc cho bảng `orders`

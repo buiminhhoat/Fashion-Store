@@ -216,6 +216,8 @@ public class ProductController {
             paths.add(url);
         }
 
+        Long oldProductID = productID;
+
         productRepository.save(product);
         Long productId = product.getProductID();
 
@@ -239,6 +241,10 @@ public class ProductController {
             productQuantityRepository.save(productQuantity);
         }
 
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(oldProductID);
+        for (OrderDetails od: orderDetails) {
+            od.setProductID(product.getProductID());
+        }
         ResponseObject responseObject = new ResponseObject(MESSAGE_SUCCESS_EDIT_PRODUCT);
         return ResponseEntity.ok(responseObject);
     }
@@ -258,7 +264,8 @@ public class ProductController {
     }
 
     @GetMapping("${endpoint.public.search-product}")
-    public ResponseEntity<?> searchProductByProductName(HttpServletRequest request, @PathVariable String productName) {
+    public ResponseEntity<?> searchProductByProductName(HttpServletRequest request) {
+        String productName = request.getParameter(PARAM_PRODUCT_NAME);
         List<Product> allProducts = productRepository.findAll();
         List<Product> products = new ArrayList<>();
 
