@@ -81,6 +81,12 @@
     - **Link sheet thiết kế:** [Fashion Store Design](https://docs.google.com/spreadsheets/d/1YYDeeYVKbVKDa_3j6xCkp_9q5I_ThpmrQT8ZQVZ_lDg/edit?usp=sharing)
 
     - **Repository source code:** https://github.com/buiminhhoat/Fashion-Store 
+- **Lưu trữ ảnh**
+
+    - Bởi vì, khi sử dụng giao thức HTTP trên server, với những ảnh có độ phân giải cao tốc độ gửi ảnh bị chậm.
+    - Do đó, dữ liệu hình ảnh được lưu trữ trực tiếp tại Cloud Server: https://freeimage.host/
+ 
+
 
 - **Database**
 
