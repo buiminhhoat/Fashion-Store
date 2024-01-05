@@ -186,7 +186,7 @@ public class OrdersController {
             String imagePath = productImageRepository.findProductImageByProductID(product.getProductID()).getFirst().getImagePath();
 
             OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(), product.getProductName(),
-                    imagePath, cartItem.getSizeID(), productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
+                    imagePath, productSize.getSizeName(), product.getProductPrice(), cartItem.getQuantityPurchase(),
                     product.getProductPrice() * cartItem.getQuantityPurchase());
             orderDetailsList.add(orderDetails);
             orderDetailsRepository.save(orderDetails);
@@ -244,7 +244,7 @@ public class OrdersController {
 
         OrderDetails orderDetails = new OrderDetails(orders.getOrderID(), product.getProductID(),
                 product.getProductName(),
-                imagePath, sizeID, productSize.getSizeName(), product.getProductPrice(), quantityPurchase,
+                imagePath, productSize.getSizeName(), product.getProductPrice(), quantityPurchase,
                 product.getProductPrice() * quantityPurchase);
         orderDetailsList.add(orderDetails);
         orderDetailsRepository.save(orderDetails);
@@ -330,15 +330,6 @@ public class OrdersController {
         Orders orders = getOrderDetails(orderID);
         orders.setOrderStatus(orderStatus);
         ordersRepository.save(orders);
-
-
-        if (Objects.equals(orderStatus, ORDER_STATUS_CANCELLED)) {
-            List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByOrderID(orderID);
-            for (OrderDetails od: orderDetails) {
-                ProductQuantity productQuantity = productQuantityRepository.findProductQuantitiesByProductIDAndSizeID(od.getProductID(), od.getSizeID());
-                productQuantity.setQuantity(productQuantity.getQuantity() + od.getQuantity());
-            }
-        }
         return ResponseEntity.ok(orders);
     }
 
@@ -430,9 +421,6 @@ public class OrdersController {
     public Orders getOrderDetails(Long orderID) {
         Orders orders = ordersRepository.findOrdersByOrderID(orderID);
         orders.setOrderDetails(orderDetailsRepository.findOrderDetailsByOrderID(orderID));
-        for (OrderDetails orderDetails: orders.getOrderDetails()) {
-            orderDetails.setSizeName(productSizeRepository.findProductSizeBySizeID(orderDetails.getSizeID()).getSizeName());
-        }
         Users users = usersRepository.findUsersByUserID(orders.getUserID());
         orders.setFullName(users.getFullName());
         orders.setAvatarPath(users.getAvatarPath());

@@ -202,6 +202,8 @@ public class ProductController {
             throw new RuntimeException(e);
         }
 
+        Long oldProductID = productID;
+
         try {
             cleanProduct(productID);
         } catch (IOException e) {
@@ -215,6 +217,7 @@ public class ProductController {
             String url = freeImageService.uploadImageToFreeImage(image.getBytes());
             paths.add(url);
         }
+
 
         productRepository.save(product);
         Long productId = product.getProductID();
@@ -239,6 +242,11 @@ public class ProductController {
             productQuantityRepository.save(productQuantity);
         }
 
+        List<OrderDetails> orderDetails = orderDetailsRepository.findOrderDetailsByProductID(oldProductID);
+        for (OrderDetails od: orderDetails) {
+            od.setProductID(product.getProductID());
+            orderDetailsRepository.save(od);
+        }
         ResponseObject responseObject = new ResponseObject(MESSAGE_SUCCESS_EDIT_PRODUCT);
         return ResponseEntity.ok(responseObject);
     }
@@ -257,8 +265,9 @@ public class ProductController {
         return ResponseEntity.ok(responseObject);
     }
 
-    @GetMapping("${endpoint.public.search-product}")
-    public ResponseEntity<?> searchProductByProductName(HttpServletRequest request, @PathVariable String productName) {
+    @PostMapping("${endpoint.public.search-product}")
+    public ResponseEntity<?> searchProductByProductName(HttpServletRequest request) {
+        String productName = request.getParameter(PARAM_PRODUCT_NAME);
         List<Product> allProducts = productRepository.findAll();
         List<Product> products = new ArrayList<>();
 
@@ -303,9 +312,15 @@ public class ProductController {
     
     @GetMapping("${endpoint.public.get-product}")
     public ResponseEntity<?> getProductByProductID(HttpServletRequest request, @PathVariable Long productID) {
-        Product product = productRepository.findProductByProductID(productID);
-        product = getProductDetails(product.getProductID());
-        return ResponseEntity.ok(product);
+        try {
+            Product product = productRepository.findProductByProductID(productID);
+            product = getProductDetails(product.getProductID());
+            return ResponseEntity.ok(product);
+        }
+        catch (Exception e) {
+            Product product = null;
+            return ResponseEntity.ok(product);
+        }
     }
 
     public Product getProductDetails(Long productID) {

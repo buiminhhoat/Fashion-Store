@@ -127,6 +127,7 @@ export const PROFILE_PAGE = {
   },
   PROFILE_ORDERS_PAGE: {
     ORDER_ID: "Mã đơn hàng",
+    SIZE: "Size",
     QUANTITY: "Số lượng:",
     TOTAL_AMOUNT: "Thành tiền:",
     CANCEL_ORDER: "Huỷ đơn hàng",

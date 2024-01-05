@@ -97,7 +97,8 @@ const ProductDetailPage = () => {
           // navigate(`/error`);
         }
       } catch (error) {
-        toast.error(MESSAGE.DB_CONNECTION_ERROR);
+        setIsError(true);
+        // toast.error(MESSAGE.DB_CONNECTION_ERROR);
       }
     }
     fetchData().then(r => {});

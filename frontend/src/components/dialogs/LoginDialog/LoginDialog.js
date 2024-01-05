@@ -114,10 +114,10 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                   </div>
                   <span className="text-danger error-text password-error"></span>
                   <div className="tool-wrap">
-              <span className="title btn-open-fotgot-password"
-                    style={{fontSize:"13px", color:"#bd0000"}}
-                    onClick={() => handleSwitchToOtherDialog(DIALOGS.FORGOT_PASSWORD)}
-              >{LOGIN.FORGOT_PASSWORD_QUESTION}</span>
+                    <span className="title btn-open-fotgot-password"
+                          style={{fontSize:"13px", color:"#bd0000"}}
+                          onClick={() => handleSwitchToOtherDialog(DIALOGS.FORGOT_PASSWORD)}
+                    >{LOGIN.FORGOT_PASSWORD_QUESTION}</span>
                   </div>
                   <div className="btn-wrap">
                     <button type="submit" className="btn btn-primary btn-login">
@@ -127,10 +127,10 @@ const LoginDialog = ({ onClose, onSwitch }) => {
                 </form>
               </div>
               <div className="register-wrap" style={{margin:"50px 0 20px 0"}}>
-        <span className="title">
-          {LOGIN.NO_ACCOUNT_QUESTION}
-          <span className="btn-register" onClick={() => handleSwitchToOtherDialog(DIALOGS.REGISTER)}> {LOGIN.REGISTER_HERE}</span>
-        </span>
+                <span className="title">
+                  {LOGIN.NO_ACCOUNT_QUESTION}
+                  <span className="btn-register" onClick={() => handleSwitchToOtherDialog(DIALOGS.REGISTER)}> {LOGIN.REGISTER_HERE}</span>
+                </span>
               </div>
             </div>
           </div>

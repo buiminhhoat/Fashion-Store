@@ -16,16 +16,24 @@ const SearchProductPage = () => {
   const location = useLocation().pathname;
   const encodedSearchString = location.substring("/search/".length);
   const decodedSearchString = decodeURIComponent(encodedSearchString);
-  const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT + decodedSearchString;
 
   const [productsData, setProductsData] = useState({});
   const [numberProduct, setNumberProduct] = useState(NUMBER_PRODUCT_LIMIT);
   const [selectedSort, setSelectedSort] = useState(null);
 
   const fetchData = async () => {
+
+    const formData = new FormData();
+    formData.append('productName', decodedSearchString);
+
+    const apiProductBySearch = API.PUBLIC.SEARCH_ENDPOINT;
     try {
       const response = await fetch(apiProductBySearch, {
-        method: 'GET',
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: formData,
       });
 
       if (response.ok) {

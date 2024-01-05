@@ -24,6 +24,7 @@ const SearchBar = () => {
   // Hàm xử lý khi người dùng bấm phím trong trường tìm kiếm
   const handleInputKeyDown = (e) => {
     if (e.key === 'Enter') {
+      if (searchQuery) navigate("/search/" + searchQuery);
       setShowSearchDialog(false);
     }
   };
