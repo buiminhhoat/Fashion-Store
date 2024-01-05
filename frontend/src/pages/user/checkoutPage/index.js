@@ -164,8 +164,10 @@ const CheckoutPage = () => {
         // console.log("fecth");
         // console.log(product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity);
       } else {
+        toast.warn(MESSAGE.PRODUCT_WAS_DELETED);
+        navigate('/');
         const data = await response.json();
-        toast.error(data.message);
+        // toast.error(data.message);
         console.log(data.message);
       }
     } catch (error) {
