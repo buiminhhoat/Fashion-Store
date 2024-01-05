@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import ConfirmDialog from "@Components/dialogs/ConfirmDialog/ConfirmDialog";
-import {ADD_PRODUCT_PAGE, API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE} from "@Const";
+import {ADD_PRODUCT_PAGE, API, BREADCRUMB, CONFIRM_DIALOG, MESSAGE, SCROLLING} from "@Const";
 
 const AddProductPage = () => {
   const [cookies] = useCookies(['access_token']);
