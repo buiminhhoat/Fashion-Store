@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import "./style.scss";
 import "./css/cart.css";
 
@@ -40,7 +40,8 @@ const CheckoutPage = () => {
   const [userID, setUserID] = useState(null);
 
   const [loading, setLoading] = useState(true);
-  let new_product;
+  const newProduct = useRef(null);
+  // let newProduct;
 
 
   const handleIncreaseAmount = () => {
@@ -104,7 +105,7 @@ const CheckoutPage = () => {
 
 
   const checkQuantity = () => {
-    let stockQuantity = new_product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity;
+    let stockQuantity = newProduct.current.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity;
     // console.log("check");
     // console.log(stockQuantity);
     if (stockQuantity < amount) {
@@ -155,7 +156,9 @@ const CheckoutPage = () => {
         const data = await response.json();
         // console.log(data);
         setProduct(data);
-        new_product = data;
+        newProduct.current = data;
+        // console.log(newProduct.current);
+        // newProduct = data;
         // console.log("fecth");
         // console.log(product.productQuantities.find((quantity) => quantity.sizeID === selectedSizeID).quantity);
       } else {
