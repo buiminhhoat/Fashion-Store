@@ -46,6 +46,7 @@ function CartPage() {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
 
+
   const handleIncreaseAmount = (id) => {
     // Lấy số lượng sản phẩm hiện tại trong giỏ hàng
     let productQuantities = 1;
@@ -79,6 +80,8 @@ function CartPage() {
             if (response.ok) {
               // Yêu cầu đã được xử lý thành công, bạn có thể thực hiện các thao tác khác (hoặc không cần làm gì)
             } else {
+              toast.warn(MESSAGE.PRODUCT_WAS_DELETED);
+              navigate('/');
               throw new Error(ERROR.CART_UPDATE_ERROR);
             }
           })
@@ -121,6 +124,8 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
           } else {
+            toast.warn(MESSAGE.PRODUCT_WAS_DELETED);
+            navigate('/');
             throw new Error(ERROR.CART_UPDATE_ERROR);
           }
         })
@@ -143,6 +148,8 @@ function CartPage() {
             setNumberProduct(numberProduct-1);
             cartContext.getAmountInCart().then(r => r);
           } else {
+            toast.warn(MESSAGE.PRODUCT_WAS_DELETED);
+            navigate('/');
             throw new Error(ERROR.CART_ITEM_REMOVAL_ERROR);
           }
         })
@@ -183,6 +190,8 @@ function CartPage() {
         .then((response) => {
           if (response.ok) {
           } else {
+            toast.warn(MESSAGE.PRODUCT_WAS_DELETED);
+            navigate('/');
             throw new Error(ERROR.CART_UPDATE_ERROR);
           }
         })
@@ -249,6 +258,8 @@ function CartPage() {
             navigateOrdersWithUserID().then(r => {});
             return response.json();
           } else {
+            toast.warn(MESSAGE.PRODUCT_WAS_DELETED);
+            navigate('/');
             throw new Error(MESSAGE.ORDER_PLACEMENT_ERROR);
           }
         })

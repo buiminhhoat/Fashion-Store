@@ -94,7 +94,7 @@ const ProfileMenu = ({openModal}) => {
       >
         { accessToken ?
             <>
-              <Link to = {userID ? `/profile/orders?userID=${userID}` : ''}>
+              <a href = {userID ? `/profile/orders?userID=${userID}` : ''}>
                 <div className="pointer-cursor">
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -103,7 +103,7 @@ const ProfileMenu = ({openModal}) => {
                     ></path>
                   </svg>
                 </div>
-              </Link>
+              </a>
               <div className={`account_header position-absolute ${profileMenuVisible ? "show" : ""}`} style={{textDecoration: "none"}}>
                 <ul className="p-0 m-0">
                   <li>

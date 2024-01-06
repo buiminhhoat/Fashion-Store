@@ -116,13 +116,17 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleAddCategoryClick = () => {
     setSelectedCategory(null);
+    setEditingCategoryID(null);
     setSelectedParentCategory(null);
+    setInputValue("");
     handleCancelSubCategoryClick();
     setIsAddingCategory(true);
   };
 
   const handleAddSubCategoryClick = () => {
     setSelectedCategory(null);
+    setEditingCategoryID(null);
+    setInputValue("");
     setIsAddingSubCategory(true);
   };
 
@@ -316,6 +320,7 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
 
   const handleEditCategoryClick = (e, categoryID, categoryName) => {
     e.stopPropagation();
+    setIsAddingSubCategory(false);
     setInputValue(categoryName);
     setEditingCategoryID(categoryID);
   }
@@ -450,9 +455,6 @@ const CategoryDialog = ({ onClose, onConfirm }) => {
                         </div>
                       ))}
                     </ul>
-
-
-
 
                     <ul data-v-38ab3376="" className="scroll-item" style={{paddingLeft:"6px"}}>
                       { selectedParentCategory &&
