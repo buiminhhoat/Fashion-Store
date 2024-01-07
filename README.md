@@ -16,6 +16,33 @@
 
 ![Alt text](./demo/demo-3.png)
 
+## Deploy on localhost
+
+**Step 1:** Initialize the database
+```
+CREATE DATABASE fashionstore
+```
+
+**Step 2:** Import file `Fashion-Store\database\fashionstore.sql` to database
+
+**Step 3:** Changing directory to `Fashion-Store/frontend/`.
+
+**Step 4:** Builds the app for production to the `build` folder.
+```
+npm run build
+```
+
+**Step 5:** Copy `build` folder to `Fashion-Store/backend/src/main/resources/static` and `Fashion-Store/backend/src/main/resources/templates`
+
+**Step 6:** Changing directory to `Fashion-Store/backend/`
+
+**Step 7:** Run backend 
+```
+mvn clean install exec:java
+```
+
+**Step 8:**  Open [http://localhost:9999](http://localhost:9999) to view it in your browser
+
 ## Thông tin tổng quan về dự án
 
 **Link slide:** [Fashion Store](https://www.canva.com/design/DAF4eI_ogm8/osSkT7BrSJuBkJ0XgiNgmQ/view?utm_content=DAF4eI_ogm8&utm_campaign=designshare&utm_medium=link&utm_source=editor)
