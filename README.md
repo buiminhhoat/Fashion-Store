@@ -47,6 +47,8 @@ mvn clean install exec:java
 
 **Link slide:** [Fashion Store](https://www.canva.com/design/DAF4eI_ogm8/osSkT7BrSJuBkJ0XgiNgmQ/view?utm_content=DAF4eI_ogm8&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 
+**Link video demo:** [[WebDev] Fashion Store - Reactjs - Java Spring Boot](https://youtu.be/Dm1sbjRoExs)
+
 **Thông tin cơ bản**
 
 - **Tên nhóm:** Nhóm 14 - INT3306 3 - Fashion Store - Cửa hàng quần áo
