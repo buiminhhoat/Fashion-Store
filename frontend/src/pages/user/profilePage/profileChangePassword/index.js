@@ -54,6 +54,9 @@ const ProfileChangePassword = () => {
       if (!response.ok) {
         response.text().then(data => {
           toast.error(data);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         });
       }
       else {

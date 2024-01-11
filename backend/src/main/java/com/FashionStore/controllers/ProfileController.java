@@ -145,7 +145,7 @@ public class ProfileController {
         if (Objects.equals(usersByEmail.getUserID(), userID) || isAdmin) {
             Users usersByUserID = usersRepository.findUsersByUserID(userID);
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            if (!passwordEncoder.matches(oldPassword, usersByUserID.getHashedPassword())) {
+            if (!isAdmin && !passwordEncoder.matches(oldPassword, usersByUserID.getHashedPassword())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(RESPONSE_PASSWORD_INCORRECT);
             }
             usersByUserID.setHashedPassword(passwordEncoder.encode(newPassword));
